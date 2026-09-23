@@ -121,11 +121,112 @@
   </section>
 
   <section class="doc-block">
-    <p class="sec-no">03 — Охват</p>
-    <h2>Шесть контуров управления на одной модели данных</h2>
+    <p class="sec-no">03 — Класс системы</p>
+    <h2>Два класса систем, объединённых на одном ядре товара</h2>
+    <p class="doc-lead-in">Отрасль обслуживают три разных класса продуктов. Каждый закрывает
+      свою часть цикла и передаёт остальное выгрузкой. Syntha соединяет продуктовый
+      и коммерческий классы на едином версионном ядре товара и доводит цепочку
+      до фактической себестоимости и маржи.</p>
 
     <figure class="exhibit">
-      <figcaption>Схема 1. Контуры системы и закрываемые ими решения</figcaption>
+      <figcaption>Схема 1. Покрытие функциональных областей по классам систем.
+        Колонка Syntha отражает проектный охват; текущая готовность по контурам —
+        в разделе 07</figcaption>
+      <div class="grid-table cols-5 coverage">
+        <div class="gt-head" role="presentation">
+          <span>Функциональная область</span>
+          <span>PLM-системы</span>
+          <span>Платформы оптовых продаж</span>
+          <span>Учётные системы</span>
+          <span>Syntha</span>
+        </div>
+
+        <div class="gt-row">
+          <div class="gt-cell" data-label="Область"><b>Продуктовое ядро и версии модели</b></div>
+          <div class="gt-cell" data-label="PLM"><i class="mark yes">есть</i></div>
+          <div class="gt-cell" data-label="Оптовые платформы"><i class="mark no">нет</i></div>
+          <div class="gt-cell" data-label="Учётные системы"><i class="mark no">нет</i></div>
+          <div class="gt-cell own" data-label="Syntha"><i class="mark yes">есть</i></div>
+        </div>
+
+        <div class="gt-row">
+          <div class="gt-cell" data-label="Область"><b>Материалы, спецификация, плановая себестоимость</b></div>
+          <div class="gt-cell" data-label="PLM"><i class="mark yes">есть</i></div>
+          <div class="gt-cell" data-label="Оптовые платформы"><i class="mark no">нет</i></div>
+          <div class="gt-cell" data-label="Учётные системы"><i class="mark part">частично</i></div>
+          <div class="gt-cell own" data-label="Syntha"><i class="mark yes">есть</i></div>
+        </div>
+
+        <div class="gt-row">
+          <div class="gt-cell" data-label="Область"><b>Образцы, техпаки, размерные таблицы, качество</b></div>
+          <div class="gt-cell" data-label="PLM"><i class="mark yes">есть</i></div>
+          <div class="gt-cell" data-label="Оптовые платформы"><i class="mark no">нет</i></div>
+          <div class="gt-cell" data-label="Учётные системы"><i class="mark no">нет</i></div>
+          <div class="gt-cell own" data-label="Syntha"><i class="mark yes">есть</i></div>
+        </div>
+
+        <div class="gt-row">
+          <div class="gt-cell" data-label="Область"><b>Закупка материалов и производство</b></div>
+          <div class="gt-cell" data-label="PLM"><i class="mark part">частично</i></div>
+          <div class="gt-cell" data-label="Оптовые платформы"><i class="mark no">нет</i></div>
+          <div class="gt-cell" data-label="Учётные системы"><i class="mark part">частично</i></div>
+          <div class="gt-cell own" data-label="Syntha"><i class="mark yes">есть</i></div>
+        </div>
+
+        <div class="gt-row">
+          <div class="gt-cell" data-label="Область"><b>Шоурум, листы коллекций, прайс-листы, ассортименты</b></div>
+          <div class="gt-cell" data-label="PLM"><i class="mark no">нет</i></div>
+          <div class="gt-cell" data-label="Оптовые платформы"><i class="mark yes">есть</i></div>
+          <div class="gt-cell" data-label="Учётные системы"><i class="mark no">нет</i></div>
+          <div class="gt-cell own" data-label="Syntha"><i class="mark yes">есть</i></div>
+        </div>
+
+        <div class="gt-row">
+          <div class="gt-cell" data-label="Область"><b>Заказ, подтверждение, резерв</b></div>
+          <div class="gt-cell" data-label="PLM"><i class="mark no">нет</i></div>
+          <div class="gt-cell" data-label="Оптовые платформы"><i class="mark yes">есть</i></div>
+          <div class="gt-cell" data-label="Учётные системы"><i class="mark part">частично</i></div>
+          <div class="gt-cell own" data-label="Syntha"><i class="mark yes">есть</i></div>
+        </div>
+
+        <div class="gt-row">
+          <div class="gt-cell" data-label="Область"><b>Фактическая себестоимость поставки и закрытие маржи</b></div>
+          <div class="gt-cell" data-label="PLM"><i class="mark no">нет</i></div>
+          <div class="gt-cell" data-label="Оптовые платформы"><i class="mark no">нет</i></div>
+          <div class="gt-cell" data-label="Учётные системы"><i class="mark part">частично</i></div>
+          <div class="gt-cell own" data-label="Syntha"><i class="mark yes">есть</i></div>
+        </div>
+      </div>
+    </figure>
+
+    <p class="doc-note">К платформам оптовых продаж относятся JOOR, NuORDER, Brandboom, Faire
+      и аналогичные решения: они закрывают показ коллекции и приём заказа. Продуктовый контур
+      и экономика фактической поставки находятся за их границей — бренд ведёт их отдельно
+      и сводит вручную. Детальное сравнение по функциям предоставляется по запросу.</p>
+  </section>
+
+  <section class="doc-block">
+    <p class="sec-no">04 — Охват</p>
+    <h2>Шесть контуров управления на одной модели данных</h2>
+    <p class="doc-lead-in">Контуры соединены в одну непрерывную цепочку. Каждый шаг
+      опирается на зафиксированный результат предыдущего: данные не вводятся заново
+      и не переносятся выгрузкой.</p>
+
+    <ol class="flow" aria-label="Сквозной цикл">
+      <li>Модель и версия</li>
+      <li>Спецификация и плановая себестоимость</li>
+      <li>Образец и техпак</li>
+      <li>Производственный заказ</li>
+      <li>Публикация в шоурум и прайс-лист</li>
+      <li>Заказ и подтверждение</li>
+      <li>Поставка</li>
+      <li>Фактическая себестоимость</li>
+      <li>Маржа и закрытие периода</li>
+    </ol>
+
+
+    <figure class="exhibit">
+      <figcaption>Схема 2. Контуры системы и закрываемые ими решения</figcaption>
       <div class="grid-table cols-3">
         <div class="gt-head" role="presentation">
           <span>Контур</span><span>Управленческое решение</span><span>Эффект</span>
@@ -206,11 +307,11 @@
   </section>
 
   <section class="doc-block">
-    <p class="sec-no">04 — Эффект</p>
+    <p class="sec-no">05 — Эффект</p>
     <h2>Что меняется в ежедневной работе</h2>
 
     <figure class="exhibit">
-      <figcaption>Схема 2. Текущее состояние и состояние в системе</figcaption>
+      <figcaption>Схема 3. Текущее состояние и состояние в системе</figcaption>
       <div class="grid-table cols-3 compare">
         <div class="gt-head" role="presentation">
           <span>Процесс</span><span>Сегодня</span><span>В системе</span>
@@ -272,13 +373,44 @@
   </section>
 
   <section class="doc-block">
-    <p class="sec-no">05 — Стадия</p>
+    <p class="sec-no">06 — Локальный контекст</p>
+    <h2>Система проектируется под российский рынок, а не адаптируется под него</h2>
+    <p class="doc-lead-in">Профиль рынка заложен в ядро: российские бренды, работающие
+      с российскими и зарубежными фабриками, поставщиками материалов и готовых изделий.</p>
+
+    <ol class="findings">
+      <li>
+        <h3>Мультивалютный расчёт</h3>
+        <p>Закупка у зарубежной фабрики и продажа в рублях — норма, а не исключение.
+          Курс применяется с точностью, необходимой для построчного расчёта себестоимости;
+          округление на уровне денежной суммы систематически смещает результат.</p>
+      </li>
+      <li>
+        <h3>Импортная готовность</h3>
+        <p>Документы и признаки, необходимые для ввоза, ведутся вместе с продуктовыми
+          данными, а не собираются к моменту поставки.</p>
+      </li>
+      <li>
+        <h3>Отраслевой справочник</h3>
+        <p>Категории, типы продукции и размерные системы российской фэшн-розницы заданы
+          в системе как управляемый справочник, а не настраиваются каждым брендом заново.</p>
+      </li>
+      <li>
+        <h3>Интеграция с учётным контуром</h3>
+        <p>Подключение выполняется к тем учётным системам, которые реально используются
+          российскими брендами, отдельным проектом.</p>
+      </li>
+    </ol>
+  </section>
+
+  <section class="doc-block">
+    <p class="sec-no">07 — Стадия</p>
     <h2>Коммерческий контур закрыт, продуктовый в разработке</h2>
     <div class="status-grid" id="doc-status"></div>
   </section>
 
   <section class="doc-block">
-    <p class="sec-no">06 — Участие</p>
+    <p class="sec-no">08 — Участие</p>
     <h2>Четыре формата участия в проекте</h2>
 
     <div class="grid-table cols-2 parts">
@@ -314,7 +446,7 @@
   </section>
 
   <section class="doc-block">
-    <p class="sec-no">07 — Вопросы</p>
+    <p class="sec-no">09 — Вопросы</p>
     <h2>Вопросы, возникающие чаще других</h2>
     <dl class="faq">
       <div>

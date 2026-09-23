@@ -851,3 +851,40 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
   .findings,.principles{display:grid; gap:0}
   .faq{grid-template-columns:repeat(2,minmax(0,1fr)); gap:26px 32px}
 }
+
+/* Матрица покрытия: пять колонок, своя выделена. */
+.coverage .gt-cell b{font-weight:500}
+.mark{
+  font-style:normal; font-size:12px; letter-spacing:.06em; text-transform:uppercase;
+}
+.mark.yes{color:var(--accent)}
+.mark.no{color:var(--line)}
+.mark.part{color:var(--muted)}
+.coverage .own{background:color-mix(in srgb, var(--accent) 6%, transparent)}
+
+/* Сквозная цепочка шагов. */
+.flow{
+  list-style:none; margin:0 0 30px; padding:0; counter-reset:fl;
+  display:flex; flex-wrap:wrap; gap:8px;
+}
+.flow li{
+  counter-increment:fl; position:relative; padding:9px 14px 9px 34px;
+  border:1px solid var(--line); border-radius:999px;
+  font-size:14px; color:var(--ink); background:var(--panel);
+}
+.flow li::before{
+  content:counter(fl); position:absolute; left:14px; top:50%; transform:translateY(-50%);
+  font-size:11px; color:var(--accent);
+}
+
+@media (min-width:760px){
+  .cols-5 .gt-head,.cols-5 .gt-row{grid-template-columns:1.7fr repeat(4,minmax(0,.62fr))}
+  .coverage .gt-cell:not(:first-child){text-align:center}
+  .coverage .own{border-radius:2px}
+}
+@media (max-width:759px){
+  /* В матрице покрытия подпись и значение читаются в строку. */
+  .coverage .gt-cell:not(:first-child){display:flex; justify-content:space-between; gap:12px}
+  .coverage .gt-cell:not(:first-child)::before{margin-bottom:0}
+  .coverage .own{padding:2px 6px; margin:2px -6px}
+}
