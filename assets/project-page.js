@@ -1,22 +1,27 @@
-/* Страница проекта Syntha.
-   Тексты лежат прямо в syntha.html: это документ, а не приложение, и такой
-   странице полезно иметь содержимое в разметке — её читают поисковики.
-   Отсюда берётся только то, что не должно расходиться с главной страницей:
-   логотип, стадия проекта и год в подвале. */
+/* Разбор проекта: syntha.html и chatx.html.
+   Тексты лежат прямо в разметке — это документ, а не приложение, и такой
+   странице полезно иметь содержимое в HTML, её читают поисковики. Отсюда
+   берётся только то, что не должно расходиться с главной страницей:
+   логотип, стадия проекта и год в подвале.
+
+   Какой это проект, страница сообщает атрибутом data-project на своём
+   теге script: иначе пришлось бы держать две почти одинаковые копии. */
 import { PROJECTS, T } from './content.js';
 import { LOGOS } from './logos.js';
 import { createViewer } from './viewer.js';
 import { syncSnaps } from './snap.js';
 
 const $ = (sel) => document.querySelector(sel);
+const id = document.currentScript?.dataset.project
+  ?? document.querySelector('script[data-project]')?.dataset.project;
 
-$('#doc-logo').innerHTML = LOGOS.syntha;
+const проект = PROJECTS.find((p) => p.id === id);
+if (проект) $('#doc-logo').innerHTML = LOGOS[проект.id];
 
 /* Стадия читается из общих данных: иначе после правки в карточке проекта
    страница начнёт показывать устаревшее. */
-const syntha = PROJECTS.find((p) => p.id === 'syntha');
 const s = T.ru.projects.status;
-const st = syntha?.ru.status;
+const st = проект?.ru.status;
 if (st) {
   $('#doc-status').innerHTML = [['done', st.done], ['now', st.now], ['next', st.next]]
     .map(([k, list]) => `
@@ -85,7 +90,7 @@ document.querySelectorAll('.doc-block > h2').forEach((h) => {
 });
 
 /* ---------- на телефоне блоки листаются вбок ----------
-   Разбор занимает два десятка экранов. Всё, что состоит из равноправных
+   Разбор занимает полтора десятка экранов. Всё, что состоит из равноправных
    блоков — строки схем, перечни, экраны, вопросы, — на узком экране
    превращается в карусель: читается по одному, не растит прокрутку. */
 for (const sel of ['.grid-table', '.findings', '.principles', '.audiences', '.shot-row', '.faq', '.flow']) {

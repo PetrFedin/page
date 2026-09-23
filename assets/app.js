@@ -87,6 +87,10 @@ function render() {
   $('#hero-name').textContent = t.hero.name;
   $('#hero-lead').textContent = t.hero.lead;
   $('#hero-bio').textContent = t.hero.bio;
+  /* Роль и масштаб — на поверхности: без них консалтинг покупают вслепую. */
+  $('#hero-role').textContent = t.hero.role;
+  $('#hero-creds').innerHTML = t.hero.creds
+    .map((c) => `<li><b>${c.n}</b><span>${c.l}</span></li>`).join('');
   $('#hero-photo').alt = t.hero.photoAlt;
   $('#photo-big').alt = t.hero.photoAlt;
   $('#hero-avatar').alt = t.hero.photoAlt;
@@ -298,8 +302,13 @@ function openProject(id, anchor) {
     <p class="collab-note">${t.projects.collabNote}</p>`;
 
   /* Разбор проекта есть пока только у Syntha и только по-русски. */
+  /* Разбор проекта есть пока у Syntha и ChatX и только по-русски. */
   const more = $('#modal-more');
-  if (more) more.hidden = !(id === 'syntha' && lang === 'ru');
+  if (more) {
+    const есть = ['syntha', 'chatx'].includes(id) && lang === 'ru';
+    more.hidden = !есть;
+    if (есть) more.href = `/${id}.html`;
+  }
 
   $('#modal-cta').textContent = t.projects.discuss;
   gallery.scrollLeft = 0;

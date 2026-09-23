@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ChatX — корпоративный мессенджер, закрывающий работу целиком</title>
+<meta name="description" content="Переписка, задачи, встречи и оргструктура в одной модели: решение доходит до принятого результата. Диагноз, контуры, стадия проекта и форматы участия.">
+<meta name="color-scheme" content="light dark">
+<meta property="og:title" content="ChatX — корпоративный мессенджер, закрывающий работу целиком">
+<meta property="og:description" content="Переписка, задачи, встречи и оргструктура в одной модели: решение доходит до принятого результата.">
+<meta property="og:type" content="article">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="canonical" href="https://syntha.pro/chatx">
+<meta property="og:image" content="/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="Пётр Федин">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body class="doc-page">
+
+<header class="topbar">
+  <nav class="nav" id="nav">
+    <a href="/#consulting">Консалтинг</a>
+    <a href="/#projects">Проекты</a>
+    <a href="/#news">Лента</a>
+    <a href="/#contact">Связаться</a>
+  </nav>
+  <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="nav" aria-label="Меню">
+    <span></span><span></span>
+  </button>
+  <div class="switches">
+    <button class="theme" id="theme-toggle" type="button" aria-label="Тема">
+      <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" fill="currentColor"/></svg>
+    </button>
+  </div>
+</header>
+
+<main class="doc">
+
+  <p class="doc-back"><a href="/#projects">← Все проекты</a>
+    <time class="doc-date" id="doc-date" datetime=""></time></p>
+
+  <header class="doc-head">
+    <span class="doc-logo" id="doc-logo"></span>
+    <h1>Мессенджер, который закрывает работу целиком</h1>
+    <p class="doc-lead">Переписка, задачи, встречи, файлы и оргструктура в одной модели:
+      решение доходит до принятого результата и остаётся прослеживаемым.</p>
+    <p class="doc-stage"><span class="stage">Рабочий прототип</span></p>
+    <p class="doc-state">Работают каналы и переписка, задачи, календарь и файлы, звонки
+      с записью по согласию, расшифровка и итоги встречи с привязкой к таймкодам.
+      Оргструктура и интеграции — в разработке. Состав работ: <a href="#s07">раздел 07</a>.</p>
+  </header>
+
+  <section class="summary" aria-label="Резюме">
+    <p class="summary-label">Резюме</p>
+    <ol class="summary-list">
+      <li>Рабочий контур компании разложен по нескольким сервисам: обсудили в чате,
+        задачу завели в трекере, согласовали почтой.</li>
+      <li>Через месяц никто не покажет, где решение было принято и чем оно закончилось;
+        восстановить цепочку можно только перепиской.</li>
+      <li>ChatX держит разговор, встречу, решение, задачу и результат в одном графе —
+        и каждый шаг ссылается на предыдущий.</li>
+    </ol>
+    <p class="doc-cta">
+      <a class="btn btn-primary" href="/#contact">Обсудить участие</a>
+      <a class="btn" href="/#contact">Запросить демонстрацию</a>
+    </p>
+  </section>
+
+  <nav class="doc-toc" aria-label="Содержание">
+    <p class="summary-label">Содержание</p>
+    <ol>
+      <li><a href="#s01">Диагноз</a></li>
+      <li><a href="#s02">Принцип решения</a></li>
+      <li><a href="#s03">Класс системы</a></li>
+      <li><a href="#s04">Охват</a></li>
+      <li><a href="#s05">Оргструктура</a></li>
+      <li><a href="#s06">Интерфейс</a></li>
+      <li><a href="#s07">Стадия</a></li>
+      <li><a href="#s08">Участие</a></li>
+      <li><a href="#s09">Вопросы</a></li>
+    </ol>
+  </nav>
+
+  <section class="doc-block" id="s01">
+    <p class="sec-no">01 — Диагноз</p>
+    <h2><span>Решение живёт в переписке, а отвечает за него задача</span></h2>
+    <p class="doc-lead-in">Работа компании идёт в трёх-четырёх независимых сервисах.
+      Каждый по-своему хорош, и ни один не хранит связь между ними.</p>
+
+    <ol class="findings">
+      <li>
+        <h3>Разрыв между разговором и задачей</h3>
+        <p>Решение принимается в обсуждении, а фиксируется в трекере отдельной записью.
+          Связь между ними держится в голове того, кто её завёл.</p>
+      </li>
+      <li>
+        <h3>Встреча не оставляет следа</h3>
+        <p>Договорённости существуют в памяти участников. Через месяц спор о том,
+          что именно решили, разрешить нечем.</p>
+      </li>
+      <li>
+        <h3>Права живут в интерфейсе</h3>
+        <p>Кто что видит, определяется тем, в какой чат человека добавили. При изменении
+          структуры доступ остаётся прежним.</p>
+      </li>
+    </ol>
+
+    <aside class="case">
+      <p class="case-label">Характерный случай</p>
+      <p>Решение о переносе срока приняли в переписке в пятницу. В понедельник задачу
+        в трекере обновил другой человек, поставив другую дату. Исполнитель работал
+        по трекеру, заказчик ждал по переписке.</p>
+      <p class="case-out">Расхождение обнаружилось в день сдачи. Виновного не было:
+        обе системы показывали то, что в них записали.</p>
+    </aside>
+
+    <p class="doc-out">Совокупный эффект — компания не может восстановить, как было
+      принято решение, и повторяет ошибку в следующем цикле.</p>
+  </section>
+
+  <section class="doc-block" id="s02">
+    <p class="sec-no">02 — Принцип решения</p>
+    <h2><span>Один граф вместо четырёх независимых сервисов</span></h2>
+
+    <ol class="principles">
+      <li>
+        <h3>Связь, а не копия</h3>
+        <p>Задача создаётся из сообщения и хранит ссылку на него. Итог встречи ведёт
+          к конкретной секунде записи. Ничего не переносится пересказом.</p>
+      </li>
+      <li>
+        <h3>Права проверяет сервер</h3>
+        <p>Доступ определяется ролью в структуре компании, а не составом участников чата.
+          Интерфейс не решает, что человеку показать.</p>
+      </li>
+      <li>
+        <h3>Согласие и подтверждение человеком</h3>
+        <p>Встреча пишется только с согласия участников. Ни одна задача не создаётся
+          автоматически: система предлагает, решение принимает человек.</p>
+      </li>
+    </ol>
+  </section>
+
+  <section class="doc-block" id="s03">
+    <p class="sec-no">03 — Класс системы</p>
+    <h2><span>Место между мессенджером и трекером задач</span></h2>
+    <p class="doc-lead-in">Рабочий контур компании сегодня собирают из трёх классов
+      продуктов. Каждый закрывает свою часть и не хранит связи с соседней.</p>
+
+    <figure class="exhibit">
+      <figcaption>Схема 1. Покрытие функциональных областей по классам систем</figcaption>
+      <div class="grid-table cols-5 coverage">
+        <div class="gt-head" role="presentation">
+          <span>Функциональная область</span>
+          <span>Мессенджеры</span>
+          <span>Трекеры задач</span>
+          <span>Сервисы встреч</span>
+          <span>ChatX</span>
+        </div>
+        <div class="gt-row">
+          <div class="gt-cell" data-label="Область"><b>Переписка, каналы, поиск</b></div>
+          <div class="gt-cell" data-label="Мессенджеры"><i class="mark yes">есть</i></div>
+          <div class="gt-cell" data-label="Трекеры"><i class="mark no">нет</i></div>
+          <div class="gt-cell" data-label="Встречи"><i class="mark no">нет</i></div>
+          <div class="gt-cell own" data-label="ChatX"><i class="mark yes">есть</i></div>
+        </div>
+        <div class="gt-row">
+          <div class="gt-cell" data-label="Область"><b>Задачи, проекты, обязательства</b></div>
+          <div class="gt-cell" data-label="Мессенджеры"><i class="mark no">нет</i></div>
+          <div class="gt-cell" data-label="Трекеры"><i class="mark yes">есть</i></div>
+          <div class="gt-cell" data-label="Встречи"><i class="mark no">нет</i></div>
+          <div class="gt-cell own" data-label="ChatX"><i class="mark yes">есть</i></div>
+        </div>
+        <div class="gt-row">
+          <div class="gt-cell" data-label="Область"><b>Звонки, запись, расшифровка</b></div>
+          <div class="gt-cell" data-label="Мессенджеры"><i class="mark part">частично</i></div>
+          <div class="gt-cell" data-label="Трекеры"><i class="mark no">нет</i></div>
+          <div class="gt-cell" data-label="Встречи"><i class="mark yes">есть</i></div>
+          <div class="gt-cell own" data-label="ChatX"><i class="mark yes">есть</i></div>
+        </div>
+        <div class="gt-row">
+          <div class="gt-cell" data-label="Область"><b>Связь решения с задачей и записью</b></div>
+          <div class="gt-cell" data-label="Мессенджеры"><i class="mark no">нет</i></div>
+          <div class="gt-cell" data-label="Трекеры"><i class="mark no">нет</i></div>
+          <div class="gt-cell" data-label="Встречи"><i class="mark no">нет</i></div>
+          <div class="gt-cell own" data-label="ChatX"><i class="mark yes">есть</i></div>
+        </div>
+        <div class="gt-row">
+          <div class="gt-cell" data-label="Область"><b>Оргструктура и права по ролям</b></div>
+          <div class="gt-cell" data-label="Мессенджеры"><i class="mark no">нет</i></div>
+          <div class="gt-cell" data-label="Трекеры"><i class="mark part">частично</i></div>
+          <div class="gt-cell" data-label="Встречи"><i class="mark no">нет</i></div>
+          <div class="gt-cell own" data-label="ChatX"><i class="mark yes">есть</i></div>
+        </div>
+      </div>
+    </figure>
+
+    <p class="doc-note">Колонка ChatX отражает проектный охват; текущая готовность —
+      в <a href="#s07">разделе 07</a>. Связь решения с задачей и записью — та область,
+      ради которой продукт и делается: её не закрывает ни один из трёх классов.</p>
+  </section>
+
+  <section class="doc-block" id="s04">
+    <p class="sec-no">04 — Охват</p>
+    <h2><span>Путь решения до принятого результата</span></h2>
+    <p class="doc-lead-in">Каждый шаг ссылается на предыдущий, поэтому цепочку можно
+      пройти в обе стороны: от результата к разговору, где он начался.</p>
+
+    <ol class="flow" aria-label="Путь решения">
+      <li>Разговор</li>
+      <li>Встреча и запись</li>
+      <li>Решение</li>
+      <li>Задача</li>
+      <li>Исполнение</li>
+      <li>Подтверждение</li>
+      <li>Приёмка результата</li>
+    </ol>
+
+    <figure class="exhibit">
+      <figcaption>Схема 2. Контуры системы и закрываемые ими решения</figcaption>
+      <div class="grid-table cols-3">
+        <div class="gt-head" role="presentation">
+          <span>Контур</span><span>Управленческое решение</span><span>Эффект</span>
+        </div>
+        <div class="gt-row">
+          <div class="gt-cell" data-label="Контур"><b>Общение</b>
+            <small>Каналы, группы и личная переписка, треды, реакции, упоминания, поиск
+              по сообщениям и файлам</small></div>
+          <div class="gt-cell" data-label="Управленческое решение">Где обсуждается вопрос
+            и кто к нему допущен</div>
+          <div class="gt-cell" data-label="Эффект">Обсуждение остаётся внутри контура
+            компании, а не в публичном мессенджере</div>
+        </div>
+        <div class="gt-row">
+          <div class="gt-cell" data-label="Контур"><b>Работа</b>
+            <small>Задачи, проекты, обязательства, сроки и ответственные</small></div>
+          <div class="gt-cell" data-label="Управленческое решение">Что из сказанного стало
+            обязательством и за кем оно закреплено</div>
+          <div class="gt-cell" data-label="Эффект">Задача хранит ссылку на сообщение,
+            из которого возникла</div>
+        </div>
+        <div class="gt-row">
+          <div class="gt-cell" data-label="Контур"><b>Встречи</b>
+            <small>Календарь, аудио- и видеозвонки, запись по согласию, расшифровка,
+              итоги и решения</small></div>
+          <div class="gt-cell" data-label="Управленческое решение">Что решено на встрече
+            и на каком основании</div>
+          <div class="gt-cell" data-label="Эффект">Итог ведёт к конкретной секунде записи,
+            спор о формулировке решается за минуту</div>
+        </div>
+        <div class="gt-row">
+          <div class="gt-cell" data-label="Контур"><b>Структура и доступ</b>
+            <small>Компания как дерево, роли, права, делегирование управления</small></div>
+          <div class="gt-cell" data-label="Управленческое решение">Кто за что отвечает
+            и кто что может менять</div>
+          <div class="gt-cell" data-label="Эффект">Доступ следует за структурой,
+            а не за составом чатов</div>
+        </div>
+        <div class="gt-row">
+          <div class="gt-cell" data-label="Контур"><b>Связь с внешними системами</b>
+            <small>Уведомления, исходящие вебхуки, интеграции</small></div>
+          <div class="gt-cell" data-label="Управленческое решение">Что попадает внутрь
+            контура и что уходит наружу</div>
+          <div class="gt-cell" data-label="Эффект">События работы доходят до смежных
+            систем без ручного переноса</div>
+        </div>
+      </div>
+    </figure>
+  </section>
+
+  <section class="doc-block" id="s05">
+    <p class="sec-no">05 — Оргструктура</p>
+    <h2><span>Компания — дерево, а не список сотрудников</span></h2>
+    <p class="doc-lead-in">В большинстве рабочих сервисов должность и отдел — это текстовые
+      поля в профиле. Они ничего не определяют и ни на что не влияют.</p>
+
+    <ol class="findings">
+      <li>
+        <h3>Подразделения как объекты</h3>
+        <p>Компания, департамент, дивизион и команда — узлы дерева глубиной до шести
+          уровней, а не подпись под именем сотрудника.</p>
+      </li>
+      <li>
+        <h3>Ответственность закреплена</h3>
+        <p>У каждого узла есть тот, кто за него отвечает, и тот, кто может менять его
+          состав. Делегирование управления — отдельное право.</p>
+      </li>
+      <li>
+        <h3>Доступ следует за структурой</h3>
+        <p>Перевод сотрудника между подразделениями меняет то, что он видит, без ручной
+          переборки чатов и проектов.</p>
+      </li>
+    </ol>
+  </section>
+
+  <section class="doc-block" id="s06">
+    <p class="sec-no">06 — Интерфейс</p>
+    <h2><span>Как это выглядит</span></h2>
+    <p class="doc-lead-in">Экраны сняты с работающей сборки. Продукт делается телефоном
+      вперёд: на компьютере тот же сценарий показывается плотнее, а не иначе.</p>
+
+    <figure class="exhibit shots">
+      <video controls playsinline preload="none" poster="/assets/shots/chatx-1.webp"
+             aria-label="Проход по разделам ChatX">
+        <source src="/assets/video/chatx.mp4" type="video/mp4">
+        <source src="/assets/video/chatx.webm" type="video/webm">
+      </video>
+      <div class="shot-row">
+        <img src="/assets/shots/chatx-1.webp" alt="ChatX — переписка" loading="lazy"
+             width="1500" height="3252">
+        <img src="/assets/shots/chatx-2.webp" alt="ChatX — задачи" loading="lazy"
+             width="1500" height="3252">
+        <img src="/assets/shots/chatx-3.webp" alt="ChatX — встречи" loading="lazy"
+             width="1500" height="3252">
+      </div>
+      <p class="doc-note shot-hint">Нажмите на снимок, чтобы открыть его во весь экран
+        и пролистать остальные.</p>
+    </figure>
+  </section>
+
+  <section class="doc-block" id="s07">
+    <p class="sec-no">07 — Стадия</p>
+    <h2><span>Рабочий прототип, который готовится к рынку</span></h2>
+    <div class="status-grid" id="doc-status"></div>
+  </section>
+
+  <section class="doc-block" id="s08">
+    <p class="sec-no">08 — Участие</p>
+    <h2><span>Три формата участия в проекте</span></h2>
+
+    <div class="grid-table cols-2 parts">
+      <div class="gt-row">
+        <div class="gt-cell" data-label="Формат"><b>Ранний доступ</b></div>
+        <div class="gt-cell" data-label="Условия">
+          <p><span class="tag-in">Предоставляем</span> работу компании в системе, перенос
+            структуры и данных, приоритет в очереди разработки.</p>
+          <p><span class="tag-in">Ожидаем</span> готовность перевести в неё часть реальной
+            работы и обратную связь по ходу, а не по итогам.</p>
+        </div>
+      </div>
+      <div class="gt-row">
+        <div class="gt-cell" data-label="Формат"><b>Внедрение</b></div>
+        <div class="gt-cell" data-label="Условия">Партнёрство с участником, который ставит
+          продукт в компаниях и сопровождает переход.</div>
+      </div>
+      <div class="gt-row">
+        <div class="gt-cell" data-label="Формат"><b>Инвестиции</b></div>
+        <div class="gt-cell" data-label="Условия">Обсуждение участия на стадии подготовки
+          к выходу на рынок.</div>
+      </div>
+    </div>
+
+    <p class="doc-note">Устройство системы и план развития раскрываются предметно —
+      при личном обсуждении и под соглашение о неразглашении.</p>
+  </section>
+
+  <section class="doc-block" id="s09">
+    <p class="sec-no">09 — Вопросы</p>
+    <h2><span>Вопросы, возникающие чаще других</span></h2>
+    <dl class="faq">
+      <div>
+        <dt>Чем это отличается от связки мессенджера и трекера?</dt>
+        <dd>Связью. Задача помнит сообщение, из которого возникла, а итог встречи ведёт
+          к секунде записи. В связке из двух сервисов эта связь существует только
+          в голове сотрудника.</dd>
+      </div>
+      <div>
+        <dt>Запись встреч — это законно и этично?</dt>
+        <dd>Запись начинается только с согласия участников. Итоги и решения формируются
+          из расшифровки, но ни одна задача не создаётся без подтверждения человеком.</dd>
+      </div>
+      <div>
+        <dt>Нужно ли переносить всю работу сразу?</dt>
+        <dd>Нет. Начинают с одного подразделения или одного проекта; остальная работа
+          продолжается там, где идёт сейчас.</dd>
+      </div>
+      <div>
+        <dt>Что с интеграциями?</dt>
+        <dd>Уведомления и исходящие вебхуки в разработке. Состав и порядок подключения
+          определяются под конкретный контур заказчика.</dd>
+      </div>
+      <div>
+        <dt>Как связан с Syntha?</dt>
+        <dd>ChatX вырос из работы над Syntha: календарь и уведомления были вынесены
+          из неё и развились в самостоятельный продукт. Системы независимы.</dd>
+      </div>
+      <div>
+        <dt>Возможна ли демонстрация?</dt>
+        <dd>Да, на действующей сборке.</dd>
+      </div>
+    </dl>
+  </section>
+
+  <section class="doc-block doc-end">
+    <h2><span>Контакт</span></h2>
+    <p>Укажите интересующий формат — ранний доступ, внедрение или инвестиции.
+      Отвечаю лично.</p>
+    <p class="doc-cta doc-cta-end">
+      <a class="btn btn-primary" href="/#contact">Написать</a>
+      <a class="btn" href="/#projects">Другие проекты</a>
+    </p>
+  </section>
+
+</main>
+
+<dialog class="photo-modal" id="photo-modal">
+  <button class="modal-close" id="photo-close" type="button" aria-label="Закрыть">
+    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>
+  </button>
+  <img id="photo-big" src="" alt="">
+  <button class="photo-nav prev" id="photo-prev" type="button" hidden>
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <button class="photo-nav next" id="photo-next" type="button" hidden>
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <div class="photo-bar" id="photo-bar" hidden>
+    <span class="photo-count" id="photo-count"></span>
+    <button class="btn btn-sm" id="photo-zoom" type="button"></button>
+  </div>
+</dialog>
+
+<footer class="footer">
+  <p><a href="/privacy.html">Политика конфиденциальности</a></p>
+  <p class="year">© <span id="year"></span></p>
+</footer>
+
+<script type="module" src="/assets/project-page.js" data-project="chatx"></script>
+</body>
+</html>

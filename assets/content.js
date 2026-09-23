@@ -13,6 +13,12 @@ export const T = {
       ctaFeed: 'Лента',
       ctaContact: 'Связаться',
       bio: 'Работаю на стыке стратегии, коммерции, продукта, данных и капитала — от рынка и коллекции до запаса и денег.',
+      role: 'С 2017 года руковожу аналитикой закупок в крупнейшем luxury-ритейлере России. До этого — прикладная аналитика и закупочная логистика в федеральной кооперативной системе.',
+      creds: [
+        { n: '500+', l: 'брендов в портфеле' },
+        { n: '30 000+', l: 'SKU за сезон' },
+        { n: '12', l: 'аналитиков в команде' }
+      ],
       factsTitle: 'Релевантный опыт',
       facts: [
         {
@@ -169,7 +175,7 @@ export const T = {
     },
     projects: {
       title: 'Наши проекты',
-      subtitle: 'Три наших продукта на разных стадиях. В каждый можно войти пользователем, партнёром или инвестором.',
+      subtitle: 'Syntha — основной: операционная система фэшн-бренда. ChatX вырос из работы над ней как рабочий контур команды и стал самостоятельным продуктом, который мы готовим к рынку. Renova — экспериментальный: проверяем подход там, где решения принимают вообще без цифр. Общее у всех одно — человек решает о деньгах, не видя полной картины. В каждый можно войти пользователем, партнёром или инвестором.',
       open: 'Подробнее',
       statusBtn: 'Стадия',
       newsBtn: 'Новости',
@@ -415,6 +421,12 @@ export const T = {
       ctaFeed: 'Feed',
       ctaContact: 'Contact',
       bio: 'I work where strategy, commerce, product, data and capital meet — from market and collection through to inventory and cash.',
+      role: 'Head of buying analytics at the largest luxury retailer in Russia since 2017. Before that — applied analytics and procurement logistics in the federal cooperative system.',
+      creds: [
+        { n: '500+', l: 'brands in the portfolio' },
+        { n: '30,000+', l: 'SKUs per season' },
+        { n: '12', l: 'analysts in the team' }
+      ],
       factsTitle: 'Relevant experience',
       facts: [
         { id: 'buying', n: 'Buying and assortment',
@@ -481,7 +493,7 @@ export const T = {
     },
     projects: {
       title: 'Our projects',
-      subtitle: 'Three products of ours at different stages. Each one is open to users, partners and investors.',
+      subtitle: 'Syntha is the main one: the operating platform for a fashion brand. ChatX grew out of building it, as the team\u2019s own working loop, and became a product we are preparing for market. Renova is the experiment: testing the approach where decisions are made with no numbers at all. One thing is common to all three — someone decides about money without seeing the whole picture. Each one is open to users, partners and investors.',
       open: 'Details',
       statusBtn: 'Stage',
       newsBtn: 'News',

@@ -182,6 +182,13 @@ launchctl load   ~/Library/LaunchAgents/pro.syntha.channel.plist   # запус�
 `_headers` задаёт кэш и заголовки безопасности, `_routes.json` пускает через
 Functions только `/api/*` — остальное отдаётся статикой.
 
+## Разборы проектов
+
+`syntha.html` и `chatx.html` — отдельные страницы с текстами прямо в разметке.
+Обе работают на `assets/project-page.js`; какой это проект, страница сообщает
+атрибутом `data-project` на своём теге `script`. Стадия подтягивается
+из `content.js`, чтобы не расходиться с карточкой на главной.
+
 ## Английская версия
 
 `en/index.html` собирается из `index.html` скриптом `scripts/build-en.mjs`.
