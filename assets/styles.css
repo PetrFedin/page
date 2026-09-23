@@ -924,3 +924,24 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
   .shot-row{grid-template-columns:repeat(2,minmax(0,1fr))}
   .cols-3.phases .gt-head,.cols-3.phases .gt-row{grid-template-columns:.8fr .8fr 1.6fr}
 }
+
+/* Выгода по сторонам: четыре блока, у каждого свой перечень. */
+.audiences{display:grid; gap:0}
+.audiences article{padding:22px 0; border-top:1px solid var(--line)}
+.audiences article:last-child{border-bottom:1px solid var(--line)}
+.audiences h3{font-size:19px; margin:0 0 6px}
+.aud-lead{margin:0 0 12px !important; color:var(--ink) !important; font-weight:500}
+.audiences ul{margin:0; padding:0; list-style:none; display:grid; gap:9px}
+.audiences li{
+  position:relative; padding-left:18px; font-size:15px; line-height:1.55; color:var(--muted);
+}
+.audiences li::before{
+  content:''; position:absolute; left:0; top:9px;
+  width:5px; height:5px; border-radius:50%; background:var(--accent);
+}
+@media (min-width:760px){
+  .audiences{grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 40px}
+  .audiences article{padding:24px 0}
+  .audiences article:nth-child(2){border-top:1px solid var(--line)}
+  .audiences article:nth-last-child(2){border-bottom:1px solid var(--line)}
+}
