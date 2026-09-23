@@ -1042,3 +1042,17 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
   /* Экраны листаются в исходной пропорции, без обрезки. */
   .shot-row.snap img{height:auto}
 }
+
+@media (max-width:759px){
+  /* Цепочка листается лентой: шаги сохраняют свою ширину, и видно,
+     что это последовательность, а не набор отдельных карточек. */
+  .flow.snap{
+    display:flex; flex-wrap:nowrap; overflow-x:auto; scroll-snap-type:x mandatory;
+    margin-bottom:0;
+  }
+  .flow.snap li{flex:0 0 auto; scroll-snap-align:start}
+  /* Точки ленты не должны прилипать к подписи следующей схемы. */
+  .flow.snap + .snap-dots{margin-bottom:26px}
+  /* В карточке контура подпись следующего поля отделяется от текста. */
+  .grid-table.snap .gt-cell + .gt-cell{margin-top:12px}
+}

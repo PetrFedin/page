@@ -88,7 +88,7 @@ document.querySelectorAll('.doc-block > h2').forEach((h) => {
    Разбор занимает два десятка экранов. Всё, что состоит из равноправных
    блоков — строки схем, перечни, экраны, вопросы, — на узком экране
    превращается в карусель: читается по одному, не растит прокрутку. */
-for (const sel of ['.grid-table', '.findings', '.principles', '.audiences', '.shot-row', '.faq']) {
+for (const sel of ['.grid-table', '.findings', '.principles', '.audiences', '.shot-row', '.faq', '.flow']) {
   document.querySelectorAll(sel).forEach((el) => el.classList.add('snap'));
 }
 syncSnaps();
