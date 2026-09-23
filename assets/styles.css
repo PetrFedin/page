@@ -749,7 +749,8 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 .doc-logo svg{height:26px; width:auto}
 .doc-head h1{font-size:clamp(28px,5vw,42px); line-height:1.15; margin:16px 0 0}
 .doc-lead{margin-top:14px; font-size:18px; color:var(--muted); max-width:620px}
-.doc-head .stage{margin-top:18px}
+.doc-head .doc-lead{margin-bottom:20px}
+.doc-head .stage{margin-top:0}
 .doc-cta{display:flex; flex-wrap:wrap; gap:10px; margin-top:22px}
 
 .doc-block{padding-top:34px; margin-top:34px; border-top:1px solid var(--line)}
@@ -803,3 +804,18 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
   .faq{grid-template-columns:repeat(2,minmax(0,1fr)); gap:22px 28px}
 }
 .collab-more{margin-top:16px}
+
+/* нумерованные выводы в разборе задачи */
+.findings{list-style:none; margin:20px 0; padding:0; display:grid; gap:16px; counter-reset:f}
+.findings li{counter-increment:f; padding-left:42px; position:relative}
+.findings li::before{
+  content:counter(f, decimal-leading-zero); position:absolute; left:0; top:1px;
+  font-size:13px; letter-spacing:.06em; color:var(--accent);
+}
+.findings h3{font-size:17px; margin:0 0 5px}
+.findings p{margin:0; font-size:15px}
+/* В три колонки текст рвётся на обрывки — выводы читаются столбиком. */
+.findings li{padding-left:46px}
+@media (min-width:760px){
+  .findings{gap:20px}
+}
