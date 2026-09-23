@@ -12,7 +12,10 @@ function buildDots(track) {
     dots.className = 'snap-dots';
     track.after(dots);
   }
-  if (!isPhone()) { dots.hidden = true; return; }
+  /* Точки показываем не по ширине экрана, а по факту: если дорожку
+     есть куда листать. Лента цепочки не помещается и на десктопе. */
+  const листается = track.scrollWidth > track.clientWidth + 4;
+  if (!isPhone() && !листается) { dots.hidden = true; return; }
   dots.hidden = false;
   /* Невидимые дети — например, шапка таблицы, скрытая на телефоне, —
      слайдами не считаются: иначе появляется лишняя пустая точка. */
