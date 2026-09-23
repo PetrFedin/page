@@ -971,3 +971,15 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
   .doc-page .doc-block > h2{margin-left:-24px; margin-right:-24px; padding:14px 24px}
   .shot-row{grid-template-columns:repeat(3,minmax(0,1fr))}
 }
+
+/* Разбор случая: врезка внутри раздела, не отдельный раздел. */
+.case{
+  margin:26px 0; padding:20px 0 20px 20px;
+  border-left:2px solid var(--accent);
+}
+.case-label{
+  font-size:11px !important; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--accent); margin-bottom:10px !important;
+}
+.case p{font-size:15px !important; max-width:62ch; margin-bottom:12px}
+.case-out{color:var(--ink) !important; font-weight:500; margin-bottom:0 !important}
