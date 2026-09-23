@@ -395,6 +395,15 @@ function openProject(id, anchor) {
     </div>
     ${st.seeking ? `<p class="seeking"><b>${s.seeking}</b>${st.seeking}</p>` : ''}`;
 
+  /* Форматы участия: человеку должно быть понятно, чем он может быть полезен
+     и что получит взамен, — без этого «обсудить участие» повисает в воздухе. */
+  $('#collab').innerHTML = !c.collab ? '' : `
+    <h3>${t.projects.collabTitle}</h3>
+    <ul class="collab-list">
+      ${c.collab.map((i) => `<li><b>${i.k}</b><span>${i.v}</span></li>`).join('')}
+    </ul>
+    <p class="collab-note">${t.projects.collabNote}</p>`;
+
   $('#modal-cta').textContent = t.projects.discuss;
   gallery.scrollLeft = 0;
   /* видео меняет ширину дорожки после загрузки метаданных — возвращаем в начало */
@@ -485,10 +494,17 @@ function renderNews() {
 
   $('#feed').className = 'feed snap';
   $('#feed').innerHTML = SITE_NEWS.slice(0, newsShown).map((p) => `
-    <li class="post">
+    <li class="post" id="post-${p.date}">
       <div class="post-meta">
         <time datetime="${p.date}">${fmt.format(new Date(p.date))}</time>
         <span class="post-tag">${t.tags[p.tag] ?? p.tag}</span>
+        <button class="post-share" type="button" data-share="${p.date}" aria-label="${t.share}">
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+            <path d="M12 3v12M12 3L8 7m4-4l4 4M5 13v6a1 1 0 001 1h12a1 1 0 001-1v-6"
+                  stroke="currentColor" stroke-width="1.7" fill="none"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
       </div>
       <h3>${p[lang].title}</h3>
       <p>${p[lang].body}</p>
@@ -502,6 +518,87 @@ function renderNews() {
 $('#news-more').addEventListener('click', () => {
   newsShown = SITE_NEWS.length;
   renderNews();
+});
+
+/* ---------- поделиться постом ----------
+   У каждого поста свой адрес вида /#post-2026-09-23: по нему страница
+   откроется и подсветит именно его, а подпись в тексте ведёт к автору. */
+const postLink = (date) => `${location.origin}/#post-${date}`;
+
+function sharePost(date) {
+  const post = SITE_NEWS.find((p) => p.date === date);
+  if (!post) return;
+  const t = T[lang].news;
+  const url = postLink(date);
+  const title = post[lang].title;
+  const text = `${title}\n\n${t.shareSign}`;
+
+  /* На телефоне отдаём системному меню: оттуда пост уходит в любой канал. */
+  if (navigator.share) {
+    navigator.share({ title, text, url }).catch(() => {});
+    return;
+  }
+  openShareMenu(date, url, title);
+}
+
+function openShareMenu(date, url, title) {
+  document.querySelector('.share-menu')?.remove();
+  const t = T[lang].news;
+  const box = document.createElement('div');
+  box.className = 'share-menu';
+  const quoted = encodeURIComponent(`${title}\n\n${t.shareSign}`);
+  box.innerHTML = `
+    <a href="https://t.me/share/url?url=${encodeURIComponent(url)}&text=${quoted}"
+       target="_blank" rel="noopener">${t.shareIn.tg}</a>
+    <a href="https://wa.me/?text=${encodeURIComponent(url + '\n\n')}${quoted}"
+       target="_blank" rel="noopener">${t.shareIn.wa}</a>
+    <button type="button" data-copy="${url}">${t.shareIn.copy}</button>`;
+  const anchor = document.querySelector(`[data-share="${date}"]`);
+  anchor.after(box);
+  box.querySelector('[data-copy]').addEventListener('click', async () => {
+    const ok = await copyText(url);
+    box.remove();
+    /* Сообщаем об успехе только если он был: на http и в приватном режиме
+       буфер недоступен, и тогда честнее показать саму ссылку. */
+    toast(ok ? T[lang].news.copied : url);
+  });
+  setTimeout(() => document.addEventListener('click', function away(e) {
+    if (!box.contains(e.target)) { box.remove(); document.removeEventListener('click', away); }
+  }), 0);
+}
+
+/* navigator.clipboard живёт только на https, поэтому есть запасной путь. */
+async function copyText(text) {
+  try {
+    if (navigator.clipboard?.writeText) { await navigator.clipboard.writeText(text); return true; }
+  } catch { /* заблокировано настройками — пробуем по-старому */ }
+  try {
+    const area = document.createElement('textarea');
+    area.value = text;
+    area.setAttribute('readonly', '');
+    area.style.position = 'fixed';
+    area.style.opacity = '0';
+    document.body.append(area);
+    area.select();
+    const ok = document.execCommand('copy');
+    area.remove();
+    return ok;
+  } catch { return false; }
+}
+
+function toast(text) {
+  document.querySelector('.toast')?.remove();
+  const el = document.createElement('div');
+  el.className = 'toast';
+  el.setAttribute('role', 'status');
+  el.textContent = text;
+  document.body.append(el);
+  setTimeout(() => el.remove(), 2600);
+}
+
+$('#feed').addEventListener('click', (e) => {
+  const btn = e.target.closest('[data-share]');
+  if (btn) sharePost(btn.dataset.share);
 });
 
 /* ---------- новости проекта ---------- */
@@ -619,6 +716,17 @@ function applyHash() {
   const h = decodeURIComponent(location.hash.slice(1));
   if (!h) return closeModals();
   if (h === 'deck') return openDeck();
+  /* Ссылка на отдельный пост: разворачиваем ленту, если он ещё не показан. */
+  if (h.startsWith('post-')) {
+    closeModals();
+    const date = h.slice('post-'.length);
+    const at = SITE_NEWS.findIndex((p) => p.date === date);
+    if (at >= 0) {
+      if (at >= newsShown) { newsShown = SITE_NEWS.length; renderNews(); }
+      requestAnimationFrame(() => $(`#post-${date}`)?.scrollIntoView({ block: 'center' }));
+    }
+    return;
+  }
   if (h.startsWith('area-') || h.startsWith('format-')) { if (showInfo(h)) return; }
   if (h.endsWith('-news')) {
     const nid = h.slice(0, -'-news'.length);

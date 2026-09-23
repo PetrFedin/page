@@ -178,7 +178,9 @@ export const T = {
       discuss: 'Обсудить участие',
       labels: { what: 'Что это', who: 'Для кого', why: 'Зачем', how: 'Как устроено' },
       viewer: { zoomIn: 'Увеличить', zoomOut: 'Уместить', prev: 'Предыдущий экран', next: 'Следующий экран' },
-      status: { title: 'Текущая стадия проекта', done: 'Сделано', now: 'В работе', next: 'Дальше', seeking: 'Что ищем' }
+      status: { title: 'Текущая стадия проекта', done: 'Сделано', now: 'В работе', next: 'Дальше', seeking: 'Что ищем' },
+      collabTitle: 'Как можно участвовать',
+      collabNote: 'Детали архитектуры и дорожную карту показываем предметно — при знакомстве и под соглашение о неразглашении.'
     },
     area: {
       doesLabel: 'Что входит в работу',
@@ -367,6 +369,11 @@ export const T = {
       subtitle: 'Коротко о том, зачем мы это делаем, кому это нужно и что меняется в проектах.',
       more: 'Показать ещё',
       channel: 'Все посты в Telegram →',
+      share: 'Поделиться',
+      shareIn: { tg: 'В Telegram', wa: 'В WhatsApp', copy: 'Скопировать ссылку' },
+      copied: 'Ссылка скопирована',
+      /* Подпись уходит вместе со ссылкой: репост должен вести к автору. */
+      shareSign: 'Пётр Федин · syntha.pro',
       tags: { analysis: 'Разбор', market: 'Рынок', product: 'Продукт', syntha: 'Syntha', renova: 'Renova', chatx: 'ChatX', mission: 'Позиция', investors: 'Инвесторам', pilots: 'Пилоты' }
     },
     contact: {
@@ -483,7 +490,9 @@ export const T = {
       discuss: 'Discuss involvement',
       labels: { what: 'What it is', who: 'Who it is for', why: 'Why', how: 'How it works' },
       viewer: { zoomIn: 'Zoom in', zoomOut: 'Fit to screen', prev: 'Previous screen', next: 'Next screen' },
-      status: { title: 'Current stage', done: 'Done', now: 'In progress', next: 'Next', seeking: 'What we are looking for' }
+      status: { title: 'Current stage', done: 'Done', now: 'In progress', next: 'Next', seeking: 'What we are looking for' },
+      collabTitle: 'Ways to take part',
+      collabNote: 'Architecture details and the roadmap we show in person and under an NDA.'
     },
     area: {
       doesLabel: 'What the work includes',
@@ -579,6 +588,10 @@ export const T = {
       subtitle: 'Short notes on why we build this, who it is for, and what changes in the projects.',
       more: 'Show more',
       channel: 'All posts on Telegram →',
+      share: 'Share',
+      shareIn: { tg: 'To Telegram', wa: 'To WhatsApp', copy: 'Copy link' },
+      copied: 'Link copied',
+      shareSign: 'Petr Fedin · syntha.pro',
       tags: { analysis: 'Analysis', market: 'Market', product: 'Product', syntha: 'Syntha', renova: 'Renova', chatx: 'ChatX', mission: 'Position', investors: 'For investors', pilots: 'Pilots' }
     },
     contact: {
@@ -618,6 +631,7 @@ export const PROJECTS = [
     video: '/assets/video/syntha.webm',
     shots: ['/assets/shots/syntha-1.webp', '/assets/shots/syntha-2.webp', '/assets/shots/syntha-3.webp'],
     ru: {
+      collab: [{ k: 'Пилот', v: 'Бренд или магазин работает в системе на реальном сезоне и влияет на порядок разработки.' }, { k: 'Выход на рынок', v: 'Партнёр, который знает канал и берёт на себя продажи и внедрение.' }, { k: 'Инвестиции', v: 'Обсуждаем участие в проекте — на стадии, когда продуктовый контур уже работает.' }, { k: 'Интеграция', v: 'Подключение к учётной системе бренда как отдельная проектная работа.' }, { k: 'По запросу', v: 'Демонстрация на ваших данных и сравнение по функционалу с мировыми платформами.' }],
       status: {
         done: ['Роли организации, партнёрский доступ и права', 'Цифровые шоурумы и серверные цены каталога', 'Атомарные резервы склада, контроль MOQ и доступности', 'Двустороннее подтверждение заказа и пространство сделки'],
         now: ['Производственный контур: планирование, спецификации, образцы, техпаки', 'Единый дизайн-контур для всех рабочих пространств'],
@@ -633,6 +647,7 @@ export const PROJECTS = [
       how: 'Мы взяли лучшее из того, чем отрасль пользуется сегодня, и достроили то, чего в этих системах нет: продуктовый контур и коммерцию в одной модели данных, цену и доступность считает сервер, подтверждение заказа двустороннее. Детали реализации — предмет разговора при знакомстве.'
     },
     en: {
+      collab: [{ k: 'Pilot', v: 'A brand or retailer runs a real season in the system and shapes what we build next.' }, { k: 'Go to market', v: 'A partner who knows the channel and takes on sales and rollout.' }, { k: 'Investment', v: 'We discuss participation now that the product loop is working.' }, { k: 'Integration', v: 'Connecting the system to a brand ERP as a separate project.' }, { k: 'On request', v: 'A demo on your own data and a functional comparison with global platforms.' }],
       status: {
         done: ['Organisation roles, partner access and permissions', 'Digital showrooms and server-authoritative catalog pricing', 'Atomic inventory reservations, MOQ and availability controls', 'Bilateral order confirmation and DealSpace'],
         now: ['Production loop: planning, BOM, samples, tech packs', 'One design contract across every workspace'],
@@ -655,6 +670,7 @@ export const PROJECTS = [
     video: '/assets/video/chatx.webm',
     shots: ['/assets/shots/chatx-1.webp', '/assets/shots/chatx-2.webp', '/assets/shots/chatx-3.webp'],
     ru: {
+      collab: [{ k: 'Ранний доступ', v: 'Компания переводит в мессенджер часть работы и получает влияние на функции.' }, { k: 'Внедрение', v: 'Партнёр, который ставит продукт в компаниях и сопровождает переход.' }, { k: 'Инвестиции', v: 'Проект готовим к выходу на рынок — обсуждаем участие на этой стадии.' }, { k: 'По запросу', v: 'Демонстрация и разбор устройства системы под соглашение о неразглашении.' }],
       status: {
         done: ['Каналы, личные сообщения, задачи, календарь и файлы', 'Аудио- и видеозвонки, запись встречи по согласию', 'Расшифровка, итоги и решения с привязкой к таймкодам'],
         now: ['Оргструктура и делегирование управления', 'Исходящие вебхуки и интеграции'],
@@ -670,6 +686,7 @@ export const PROJECTS = [
       how: 'Один сквозной граф: разговор → встреча → решение → задача → результат. Права проверяются на сервере, а не в интерфейсе. Встреча пишется только с согласия участников, итоги ведут к конкретной секунде записи, и ни одна задача не создаётся без подтверждения человеком.'
     },
     en: {
+      collab: [{ k: 'Early access', v: 'A company moves part of its work into the messenger and shapes the feature set.' }, { k: 'Rollout', v: 'A partner who deploys the product in companies and supports the switch.' }, { k: 'Investment', v: 'We are preparing the launch and discuss participation at this stage.' }, { k: 'On request', v: 'A demo and an architecture walkthrough under an NDA.' }],
       status: {
         done: ['Channels, direct messages, tasks, calendar and files', 'Audio and video calls, consent-based recording', 'Transcript, summary and decisions anchored to timecodes'],
         now: ['Org structure and delegated management', 'Outbound webhooks and integrations'],
@@ -692,6 +709,7 @@ export const PROJECTS = [
     video: '/assets/video/renova.webm',
     shots: ['/assets/shots/renova-1.webp', '/assets/shots/renova-2.webp', '/assets/shots/renova-3.webp'],
     ru: {
+      collab: [{ k: 'Заказчик', v: 'Ведёте в приложении свой ремонт и говорите, чего в нём не хватает.' }, { k: 'Мастер или бригада', v: 'Работаете на реальном объекте: сметы, сроки, приёмка.' }, { k: 'Ремонтная компания', v: 'Проверяем подход на потоке объектов, а не на одном.' }, { k: 'По запросу', v: 'Демонстрация и выводы, которые мы получили на этом проекте.' }],
       status: {
         done: ['Смета по нормам, версии и сравнение плана с фактом', 'Этапы работ, приёмка и фотофиксация', 'Платежи по этапам, проверка чеков и статуса самозанятого через ФНС'],
         now: ['Участники проекта и передача лида в работу', 'Устойчивость операций при потере связи'],
@@ -707,6 +725,7 @@ export const PROJECTS = [
       how: 'Каждое действие пересчитывает цифры, оплата привязана к принятому этапу, чеки и статус исполнителя проверяются в официальных источниках. Заказчик в любой момент видит, сколько потрачено, что идёт сейчас и что будет дальше.'
     },
     en: {
+      collab: [{ k: 'Client', v: 'Run your own renovation in the app and tell us what is missing.' }, { k: 'Contractor or crew', v: 'Work a real site: estimates, schedule, handover.' }, { k: 'Renovation company', v: 'We test the approach across a flow of sites rather than one.' }, { k: 'On request', v: 'A demo and the conclusions this project has produced.' }],
       status: {
         done: ['Norm-based estimates, versions and plan vs actual', 'Work stages, acceptance and photo evidence', 'Stage payments, receipt and self-employed status checks via the tax service'],
         now: ['Project participants and lead-to-work conversion', 'Operation resilience on connection loss'],

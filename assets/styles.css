@@ -692,3 +692,46 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 .photo-count:empty{display:none}
 #photo-zoom{background:var(--panel)}
 #photo-zoom[hidden]{display:none}
+
+/* ---------- поделиться постом ---------- */
+.post-meta{position:relative}
+.post-share{
+  margin-left:auto; display:grid; place-items:center; width:28px; height:28px;
+  padding:0; border:1px solid var(--line); border-radius:50%;
+  background:transparent; color:var(--muted); cursor:pointer;
+}
+.post-share:hover{color:var(--ink); border-color:var(--ink)}
+.share-menu{
+  position:absolute; top:34px; right:0; z-index:9; display:grid; min-width:190px;
+  background:var(--panel); border:1px solid var(--line); border-radius:12px;
+  box-shadow:var(--shadow); overflow:hidden;
+}
+.share-menu a,.share-menu button{
+  padding:11px 14px; font:inherit; font-size:14px; text-align:left; text-decoration:none;
+  color:var(--ink); background:none; border:none; border-bottom:1px solid var(--line);
+  cursor:pointer;
+}
+.share-menu > :last-child{border-bottom:none}
+.share-menu a:hover,.share-menu button:hover{background:var(--bg)}
+.toast{
+  position:fixed; left:50%; bottom:26px; transform:translateX(-50%); z-index:60;
+  padding:10px 16px; border-radius:999px; font-size:14px;
+  background:var(--ink); color:var(--bg); box-shadow:var(--shadow);
+}
+/* пост, открытый по ссылке, подсвечивается */
+.post:target{outline:2px solid var(--accent); outline-offset:6px; border-radius:10px}
+
+/* ---------- форматы участия в проекте ---------- */
+.collab{margin-top:26px; padding-top:22px; border-top:1px solid var(--line)}
+.collab h3{font-size:17px; margin-bottom:14px}
+.collab-list{list-style:none; margin:0; padding:0; display:grid; gap:12px}
+.collab-list li{
+  display:grid; gap:3px; padding:13px 15px;
+  background:var(--bg); border:1px solid var(--line); border-radius:12px;
+}
+.collab-list b{font-size:13px; letter-spacing:.06em; text-transform:uppercase; color:var(--accent); font-weight:500}
+.collab-list span{font-size:15px; color:var(--muted)}
+.collab-note{margin-top:14px; font-size:13px; color:var(--muted)}
+@media (min-width:760px){
+  .collab-list{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
