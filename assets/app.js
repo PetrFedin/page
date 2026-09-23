@@ -64,7 +64,7 @@ const openPhoto = (list, i = 0) => {
   showPhoto(i);
   if (!photoModal.open) photoModal.showModal();
 };
-const openPortrait = () => openPhoto([{ src: '/assets/photo/petr-portrait.jpg', alt: $('#hero-photo').alt }]);
+const openPortrait = () => openPhoto([{ src: '/assets/photo/petr-portrait.webp', alt: $('#hero-photo').alt }]);
 $('#portrait-btn').addEventListener('click', openPortrait);
 $('#avatar-btn').addEventListener('click', openPortrait);
 $('#photo-close').addEventListener('click', () => photoModal.close());
