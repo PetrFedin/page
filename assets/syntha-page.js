@@ -5,6 +5,7 @@
    логотип, стадия проекта и год в подвале. */
 import { PROJECTS, T } from './content.js';
 import { LOGOS } from './logos.js';
+import { createViewer } from './viewer.js';
 
 const $ = (sel) => document.querySelector(sel);
 
@@ -52,3 +53,25 @@ const setMenu = (open) => {
 burger.addEventListener('click', () => setMenu(!nav.classList.contains('open')));
 nav.addEventListener('mouseleave', () => setMenu(false));
 nav.addEventListener('click', () => setMenu(false));
+
+/* ---------- снимки открываются во весь экран и листаются ---------- */
+const viewer = createViewer({ labels: () => T.ru.projects.viewer });
+const shots = [...document.querySelectorAll('.shot-row img')]
+  .map((img) => ({ src: img.currentSrc || img.src, alt: img.alt }));
+document.querySelectorAll('.shot-row img').forEach((img, i) => {
+  img.addEventListener('click', () => viewer.open(shots, i));
+});
+
+/* ---------- заголовок раздела держится сверху, стрелка возвращает к началу ---------- */
+const up = T.ru.nav.toTop;
+document.querySelectorAll('.doc-block > h2').forEach((h) => {
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'to-top';
+  btn.setAttribute('aria-label', up);
+  btn.innerHTML = '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">'
+    + '<path d="M12 19V6M6 12l6-6 6 6" stroke="currentColor" stroke-width="1.8" fill="none"'
+    + ' stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  btn.addEventListener('click', () => scrollTo({ top: 0, behavior: 'smooth' }));
+  h.append(btn);
+});

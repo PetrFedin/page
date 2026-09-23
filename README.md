@@ -182,6 +182,12 @@ launchctl load   ~/Library/LaunchAgents/pro.syntha.channel.plist   # запус�
 `_headers` задаёт кэш и заголовки безопасности, `_routes.json` пускает через
 Functions только `/api/*` — остальное отдаётся статикой.
 
+## Английская версия
+
+`en/index.html` собирается из `index.html` скриптом `scripts/build-en.mjs`.
+Руками не править: разметка разъезжалась, и скрипт падал на элементе,
+которого нет в английской копии.
+
 ## Видео
 
 `assets/video/*.webm` снимаются Playwright, рядом лежат `*.mp4` — их делает

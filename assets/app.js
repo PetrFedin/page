@@ -1,6 +1,7 @@
 import { T, PROJECTS, CONTACTS } from './content.js';
 import { DECK } from './deck.js';
 import { LOGOS } from './logos.js';
+import { createViewer } from './viewer.js';
 import { NEWS } from './news.js';
 
 /* Сайт — витрина: показываем отобранные материалы. Канал получает весь поток. */
@@ -12,88 +13,12 @@ const store = {
   set(k, v) { try { localStorage.setItem(k, v); } catch { /* приватный режим */ } }
 };
 
-/* ---------- картинка крупнее по нажатию ----------
-   Один просмотрщик на портрет и на экраны проектов: вложенный <dialog>
-   кладётся поверх открытого окна проекта, а закрытие возвращает к нему. */
-const photoModal = $('#photo-modal');
-/* Снимки открытого проекта: по ним листают, не закрывая просмотрщик. */
-let photoList = [];
-let photoAt = 0;
-
-function showPhoto(i) {
-  if (!photoList.length) return;
-  photoAt = (i + photoList.length) % photoList.length;
-  const cur = photoList[photoAt];
-  const big = $('#photo-big');
-  big.src = cur.src;
-  big.alt = cur.alt ?? '';
-  /* увеличение относится к конкретному снимку — на соседнем начинаем сначала */
-  photoModal.classList.remove('zoomed');
-  photoModal.scrollTo({ top: 0, left: 0 });
-
-  const many = photoList.length > 1;
-  $('#photo-prev').hidden = !many;
-  $('#photo-next').hidden = !many;
-  $('#photo-count').textContent = many ? `${photoAt + 1} / ${photoList.length}` : '';
-  syncZoomLabel();
-  if (big.complete) syncZoom(); else big.addEventListener('load', syncZoom, { once: true });
-}
-
-/* Кнопка увеличения нужна только там, где уложенный снимок не занимает
-   всю высоту: у вертикальных экранов она бы ничего не меняла. */
-function syncZoom() {
-  const big = $('#photo-big');
-  if (!big.naturalWidth || photoModal.classList.contains('zoomed')) return;
-  const cs = getComputedStyle(photoModal);
-  const w = photoModal.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
-  const h = photoModal.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
-  $('#photo-zoom').hidden = big.naturalWidth / big.naturalHeight <= w / h;
-}
-
-function syncZoomLabel() {
-  const v = T[lang].projects.viewer;
-  const zoomed = photoModal.classList.contains('zoomed');
-  $('#photo-zoom').textContent = zoomed ? v.zoomOut : v.zoomIn;
-  $('#photo-prev').setAttribute('aria-label', v.prev);
-  $('#photo-next').setAttribute('aria-label', v.next);
-}
-
-const openPhoto = (list, i = 0) => {
-  photoList = list;
-  $('#photo-bar').hidden = false;
-  showPhoto(i);
-  if (!photoModal.open) photoModal.showModal();
-};
+/* ---------- просмотрщик снимков ---------- */
+const viewer = createViewer({ labels: () => T[lang].projects.viewer });
+const openPhoto = (list, i = 0) => viewer.open(list, i);
 const openPortrait = () => openPhoto([{ src: '/assets/photo/petr-portrait.webp', alt: $('#hero-photo').alt }]);
 $('#portrait-btn').addEventListener('click', openPortrait);
 $('#avatar-btn').addEventListener('click', openPortrait);
-$('#photo-close').addEventListener('click', () => photoModal.close());
-$('#photo-prev').addEventListener('click', () => showPhoto(photoAt - 1));
-$('#photo-next').addEventListener('click', () => showPhoto(photoAt + 1));
-$('#photo-zoom').addEventListener('click', () => {
-  photoModal.classList.toggle('zoomed');
-  photoModal.scrollTo({ top: 0, left: 0 });
-  syncZoomLabel();
-});
-photoModal.addEventListener('click', (e) => { if (e.target === photoModal) photoModal.close(); });
-addEventListener('resize', () => { if (photoModal.open) syncZoom(); });
-photoModal.addEventListener('keydown', (e) => {
-  if (e.key === 'ArrowLeft') { e.preventDefault(); showPhoto(photoAt - 1); }
-  if (e.key === 'ArrowRight') { e.preventDefault(); showPhoto(photoAt + 1); }
-});
-
-/* Свайп работает, только когда снимок уместился: у увеличенного
-   горизонтальное движение — это прокрутка самой картинки. */
-let swipeFrom = null;
-$('#photo-big').addEventListener('pointerdown', (e) => {
-  swipeFrom = photoModal.classList.contains('zoomed') ? null : e.clientX;
-});
-$('#photo-big').addEventListener('pointerup', (e) => {
-  if (swipeFrom === null) return;
-  const dx = e.clientX - swipeFrom;
-  swipeFrom = null;
-  if (Math.abs(dx) > 40) showPhoto(photoAt + (dx < 0 ? 1 : -1));
-});
 
 /* ---------- кнопка «наверх» в прилипшем заголовке ----------
    Заголовки разделов заполняются через textContent, поэтому кнопку
@@ -348,7 +273,7 @@ function openProject(id, anchor) {
   const c = p[lang];
 
   /* просмотрщик относится к прежнему проекту — закрываем его вместе со сменой */
-  if (photoModal.open) photoModal.close();
+  viewer.close();
   modal.dataset.project = id;
   $('#modal-logo').innerHTML = LOGOS[p.id];
   $('#modal-tagline').textContent = c.tagline;
@@ -402,10 +327,11 @@ function openProject(id, anchor) {
     <ul class="collab-list">
       ${c.collab.map((i) => `<li><b>${i.k}</b><span>${i.v}</span></li>`).join('')}
     </ul>
-    <p class="collab-note">${t.projects.collabNote}</p>
-    ${id === 'syntha' && lang === 'ru'
-      ? '<p class="collab-more"><a class="btn" href="/syntha.html">Подробно о проекте</a></p>'
-      : ''}`;
+    <p class="collab-note">${t.projects.collabNote}</p>`;
+
+  /* Разбор проекта есть пока только у Syntha и только по-русски. */
+  const more = $('#modal-more');
+  if (more) more.hidden = !(id === 'syntha' && lang === 'ru');
 
   $('#modal-cta').textContent = t.projects.discuss;
   gallery.scrollLeft = 0;

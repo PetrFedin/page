@@ -212,6 +212,14 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 .facts{margin:0 0 26px; display:grid; gap:16px}
 .facts dt{font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin-bottom:4px}
 .facts dd{margin:0; font-size:15px}
+/* «Обсудить участие» и «Подробно о проекте» стоят в одну линию. */
+.modal-actions{display:flex; flex-wrap:wrap; gap:10px; margin-top:22px}
+.modal-actions .btn{flex:1 1 0; min-width:0; justify-content:center; text-align:center}
+@media (max-width:759px){
+  /* Узкая панель: подпись переносится внутри кнопки, но кнопки остаются в строке. */
+  .modal-actions .btn{white-space:normal; line-height:1.25; padding:11px 12px; font-size:14px}
+}
+.modal-actions [hidden]{display:none}
 .modal-cta{width:100%}
 
 /* до планшета навигация раскрывается панелью под шапкой */
@@ -944,4 +952,22 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
   .audiences article{padding:24px 0}
   .audiences article:nth-child(2){border-top:1px solid var(--line)}
   .audiences article:nth-last-child(2){border-bottom:1px solid var(--line)}
+}
+
+/* Разбор проекта: заголовок раздела держится сверху при прокрутке. */
+.doc-page .doc-block > h2{
+  position:sticky; top:56px; z-index:6;
+  display:flex; align-items:center; justify-content:space-between; gap:16px;
+  /* Полоса идёт во всю ширину колонки: иначе текст проходит рядом с ней. */
+  max-width:none; margin:0 -16px 18px; padding:12px 16px;
+  background:var(--bg); border-bottom:1px solid var(--line);
+}
+.doc-page .doc-block > h2 > span{max-width:24ch}
+.doc-page .doc-block > h2 .to-top{display:grid; flex:0 0 32px}
+.shot-row img{cursor:zoom-in}
+.shot-hint{margin-top:12px !important}
+.doc-cta-end{margin-top:26px}
+@media (min-width:760px){
+  .doc-page .doc-block > h2{margin-left:-24px; margin-right:-24px; padding:14px 24px}
+  .shot-row{grid-template-columns:repeat(3,minmax(0,1fr))}
 }
