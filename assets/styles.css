@@ -232,7 +232,11 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
   .section{padding-top:80px; padding-bottom:80px}
   .services{grid-template-columns:repeat(2,minmax(0,1fr))}
   .services li:first-child{grid-column:1 / -1}
-  .cards{grid-template-columns:repeat(3,minmax(0,1fr)); grid-template-rows:repeat(5,auto)}
+  /* Syntha — основной проект, поэтому занимает всю первую строку,
+     а ChatX и Renova встают под ним в две колонки. Пять строк на карточку
+     нужны subgrid, чтобы у нижней пары совпали заголовки и кнопки. */
+  .cards{grid-template-columns:repeat(2,minmax(0,1fr)); grid-template-rows:repeat(10,auto)}
+  .cards > .card:first-child{grid-column:1 / -1}
   .card-foot{align-self:end}
   .card{grid-row:span 5; grid-template-rows:subgrid; align-content:stretch; row-gap:12px}
   .card .card-body{align-self:start}
