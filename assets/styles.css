@@ -1,0 +1,694 @@
+:root{
+  --bg:#faf9f7; --panel:#fffefc; --ink:#17171a; --muted:#6c6a66;
+  --line:#e4e0da; --accent:#a8492b; --accent-soft:#f3e7e1;
+  --shadow:0 1px 2px rgba(23,23,26,.05), 0 12px 32px rgba(23,23,26,.06);
+  --radius:14px; --maxw:1040px;
+  --serif:ui-serif,"Iowan Old Style",Georgia,"Times New Roman",serif;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+:root:not([data-theme="light"]){ }
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0e0e10; --panel:#161618; --ink:#f0eee9; --muted:#9b9791;
+    --line:#2a2a2e; --accent:#e0805f; --accent-soft:#2a1e19;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 16px 40px rgba(0,0,0,.45);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0e0e10; --panel:#161618; --ink:#f0eee9; --muted:#9b9791;
+  --line:#2a2a2e; --accent:#e0805f; --accent-soft:#2a1e19;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 16px 40px rgba(0,0,0,.45);
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:var(--sans); font-size:16px; line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3{font-family:var(--serif); font-weight:500; letter-spacing:-.015em; line-height:1.15; margin:0}
+p{margin:0}
+img{max-width:100%; display:block}
+
+/* ---------- topbar ---------- */
+.topbar{
+  position:sticky; top:0; z-index:20;
+  display:flex; align-items:center; gap:16px;
+  padding:12px 16px; padding-top:max(12px,env(safe-area-inset-top));
+  background:color-mix(in srgb, var(--bg) 86%, transparent);
+  backdrop-filter:saturate(180%) blur(12px);
+  border-bottom:1px solid var(--line);
+}
+.mark{
+  font-family:var(--serif); font-size:17px; letter-spacing:.06em;
+  text-decoration:none; color:var(--ink);
+}
+.nav{display:none; gap:24px; margin-right:auto}
+.burger{
+  width:40px; height:36px; border:1px solid var(--line); border-radius:10px;
+  background:var(--panel); cursor:pointer; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; gap:5px; margin-right:auto; padding:0;
+}
+.burger span{display:block; width:17px; height:1.6px; background:var(--ink); border-radius:2px; transition:transform .2s ease, opacity .2s ease}
+.burger[aria-expanded="true"] span:first-child{transform:translateY(3.3px) rotate(45deg)}
+.burger[aria-expanded="true"] span:last-child{transform:translateY(-3.3px) rotate(-45deg)}
+.nav a{color:var(--muted); text-decoration:none; font-size:14px}
+.nav a:hover{color:var(--ink)}
+.switches{display:flex; gap:8px; margin-left:auto}
+.lang,.theme{
+  border:1px solid var(--line); background:var(--panel); color:var(--ink);
+  border-radius:999px; height:32px; cursor:pointer; font-size:12px; letter-spacing:.08em;
+  display:inline-flex; align-items:center; justify-content:center;
+}
+.lang{width:48px} .theme{width:32px}
+.lang:hover,.theme:hover{border-color:var(--ink)}
+
+/* ---------- layout ---------- */
+.hero,.section{max-width:var(--maxw); margin:0 auto; padding:0 16px; scroll-margin-top:64px}
+.hero{padding-top:56px; padding-bottom:48px; display:grid; gap:36px}
+.section{padding-top:56px; padding-bottom:56px; border-top:1px solid var(--line); margin-top:8px}
+.section-head{max-width:640px; margin-bottom:36px}
+.sub{color:var(--muted); margin-top:10px}
+
+.eyebrow{
+  font-size:12px; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--accent); margin-bottom:20px;
+}
+h1{font-size:clamp(38px,9vw,68px)}
+h2{font-size:clamp(26px,5vw,36px)}
+.lead{margin-top:22px; max-width:620px; font-size:clamp(17px,2.4vw,20px); color:var(--muted)}
+.hero-cta{display:flex; flex-wrap:wrap; gap:10px; margin-top:34px}
+
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  padding:12px 22px; border-radius:999px; border:1px solid var(--line);
+  background:var(--panel); color:var(--ink); text-decoration:none;
+  font-size:15px; cursor:pointer; transition:transform .12s ease, border-color .12s ease;
+}
+.btn:hover{border-color:var(--ink)}
+.btn:active{transform:translateY(1px)}
+.btn-primary{background:var(--ink); color:var(--bg); border-color:var(--ink)}
+.btn-primary:hover{opacity:.88}
+.deck-actions{display:flex; flex-wrap:wrap; gap:10px; margin-top:32px}
+@media (max-width:759px){
+  .deck-actions{flex-wrap:nowrap}
+  .deck-actions .btn{flex:1 1 0; padding:12px 10px; font-size:14px; white-space:nowrap}
+}
+
+/* ---------- services ---------- */
+.services{list-style:none; margin:0; padding:0; display:grid; gap:1px; background:var(--line); border:1px solid var(--line); border-radius:var(--radius); overflow:hidden}
+.services li{background:var(--panel); display:flex}
+.svc{
+  appearance:none; border:none; background:none; color:inherit; font:inherit; text-align:left;
+  width:100%; padding:22px 20px; display:grid; gap:8px; cursor:pointer;
+  transition:background .15s ease;
+}
+.svc:hover{background:color-mix(in srgb, var(--accent-soft) 45%, var(--panel))}
+.svc-more{font-size:14px; color:var(--muted); margin-top:4px}
+.svc:hover .svc-more{color:var(--accent)}
+.svc-n{font-size:12px; letter-spacing:.1em; color:var(--muted)}
+.svc-t{font-family:var(--serif); font-size:20px}
+.svc-b{color:var(--muted); font-size:15px}
+.svc-d{font-size:15px; padding-top:10px; border-top:1px dashed var(--line)}
+.svc-d b{color:var(--accent); font-weight:500; font-size:12px; letter-spacing:.1em; text-transform:uppercase; display:block; margin-bottom:3px}
+
+/* ---------- project cards ---------- */
+.cards{display:grid; gap:14px; align-items:stretch}
+.card{
+  background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+  padding:24px 20px; text-align:left; cursor:pointer; color:inherit;
+  display:grid; gap:12px; align-content:start;
+  transition:border-color .15s ease, transform .15s ease, box-shadow .15s ease;
+}
+.card:hover{border-color:var(--ink); transform:translateY(-2px); box-shadow:var(--shadow)}
+.card-logo{color:var(--ink); display:block}
+.card-logo svg{height:26px; width:auto; display:block}
+.card-tag{font-family:var(--serif); font-size:19px; font-weight:500; margin:0}
+.card-body{color:var(--muted); font-size:15px; margin:0}
+.card .stage{justify-self:start}
+.card-foot{display:flex; flex-wrap:wrap; gap:6px; margin-top:6px; align-items:center}
+.btn-sm{padding:9px 13px; font-size:13.5px; white-space:nowrap; flex:0 1 auto}
+.stage{
+  font-size:11px; letter-spacing:.09em; text-transform:uppercase;
+  color:var(--accent); background:var(--accent-soft);
+  border-radius:999px; padding:5px 11px; white-space:nowrap;
+}
+
+
+/* ---------- contact ---------- */
+.contact-grid{display:grid; gap:32px}
+.form{display:grid; gap:16px; max-width:520px}
+.field{display:grid; gap:7px}
+.field span{font-size:13px; color:var(--muted)}
+input,select,textarea{
+  font:inherit; font-size:16px; color:var(--ink); background:var(--panel);
+  border:1px solid var(--line); border-radius:10px; padding:11px 13px; width:100%;
+}
+textarea{resize:vertical}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline-offset:1px; border-color:transparent}
+.trap{position:absolute; left:-9999px; width:1px; height:1px; opacity:0}
+.form-note{font-size:14px; min-height:20px; color:var(--muted)}
+.form-note.ok{color:var(--accent)}
+.direct h3{font-size:19px; margin-bottom:14px}
+.direct ul{list-style:none; margin:0; padding:0; display:grid; gap:10px}
+.direct a{color:var(--ink); text-decoration:none; border-bottom:1px solid var(--line)}
+.direct a:hover{border-color:var(--ink)}
+.direct .lbl{display:block; font-size:12px; letter-spacing:.09em; text-transform:uppercase; color:var(--muted); margin-bottom:2px}
+
+.footer{
+  max-width:var(--maxw); margin:0 auto; padding:32px 16px;
+  padding-bottom:max(32px,env(safe-area-inset-bottom));
+  border-top:1px solid var(--line); margin-top:40px;
+  display:flex; flex-wrap:wrap; gap:10px; justify-content:space-between;
+  color:var(--muted); font-size:13px;
+}
+
+/* ---------- modal ---------- */
+/* Диалог — прозрачный слой на весь экран, а видимая панель внутри:
+   так окно не зависит от того, как браузер считает центр для top-layer. */
+.modal:not([open]),.photo-modal:not([open]){display:none}
+.modal[open]{
+  position:fixed; inset:0; width:100%; height:100%; max-width:none; max-height:none;
+  margin:0; padding:16px; border:none; background:transparent; color:var(--ink);
+  display:grid; grid-template-columns:minmax(0,1fr); grid-template-rows:minmax(0,1fr);
+  place-items:center; overflow:hidden;
+}
+.modal::backdrop{background:rgba(10,10,12,.55); backdrop-filter:blur(3px)}
+.modal-body{
+  position:relative; width:min(680px,100%); max-width:100%; min-width:0;
+  max-height:100%; overflow-y:auto;
+  background:var(--panel); border-radius:18px; box-shadow:var(--shadow);
+  padding:26px 18px 30px;
+}
+@media (min-width:700px){ .modal-body{padding:34px 34px 38px} }
+.modal-close{
+  position:sticky; top:8px; z-index:8; float:none; margin:0 4px -34px auto;
+  width:34px; height:34px; border-radius:999px; cursor:pointer;
+  border:1px solid var(--line); background:var(--panel); color:var(--ink);
+  display:flex; align-items:center; justify-content:center;
+}
+.modal-head{display:grid; gap:12px; justify-items:start; margin-bottom:24px; padding-right:40px}
+.modal-logo{color:var(--ink); display:block}
+.modal-logo svg{height:28px; width:auto; display:block}
+.modal-tagline{font-family:var(--serif); font-size:clamp(21px,4.5vw,27px); line-height:1.25}
+
+/* device gallery */
+.gallery{
+  display:flex; gap:16px; overflow-x:auto; scroll-snap-type:x mandatory;
+  padding:6px 0 14px; scrollbar-width:none; outline:none;
+}
+.gallery::-webkit-scrollbar{display:none}
+.frame{flex:0 0 auto; scroll-snap-align:center; position:relative; background:#0b0b0d; box-shadow:var(--shadow)}
+.frame.iphone{width:232px; border-radius:22px; padding:1.5px}
+.frame.ipad{width:min(420px,78vw); border-radius:10px; padding:1.5px}
+.frame img,.frame video{width:100%; height:auto; object-fit:cover; object-position:top center; background:#fff; display:block}
+.frame.iphone img,.frame.iphone video{border-radius:20.5px; aspect-ratio:500/1084}
+.frame.ipad img,.frame.ipad video{border-radius:8.5px; object-position:left top; aspect-ratio:1194/834}
+.dots{display:flex; gap:7px; justify-content:center; margin-bottom:26px}
+.dot{width:6px; height:6px; border-radius:999px; background:var(--line); border:none; padding:0; cursor:pointer}
+.dot[aria-current="true"]{background:var(--accent); width:18px}
+
+.facts{margin:0 0 26px; display:grid; gap:16px}
+.facts dt{font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin-bottom:4px}
+.facts dd{margin:0; font-size:15px}
+.modal-cta{width:100%}
+
+/* до планшета навигация раскрывается панелью под шапкой */
+@media (max-width:759px){
+  .nav.open{
+    display:flex; flex-direction:column; gap:0; position:absolute;
+    left:0; right:0; top:100%; background:var(--panel);
+    border-bottom:1px solid var(--line); box-shadow:var(--shadow); padding:6px 0;
+  }
+  .nav.open a{padding:13px 16px; font-size:16px; color:var(--ink); border-bottom:1px solid var(--line)}
+  .nav.open a:last-child{border-bottom:none}
+}
+
+@media (min-width:760px){
+  .nav{display:flex}
+  .burger{display:none}
+  .hero{padding-top:104px; padding-bottom:88px}
+  .section{padding-top:80px; padding-bottom:80px}
+  .services{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .services li:first-child{grid-column:1 / -1}
+  .cards{grid-template-columns:repeat(3,minmax(0,1fr)); grid-template-rows:repeat(5,auto)}
+  .card-foot{align-self:end}
+  .card{grid-row:span 5; grid-template-rows:subgrid; align-content:stretch; row-gap:12px}
+  .card .card-body{align-self:start}
+  .contact-grid{grid-template-columns:1.4fr .6fr; gap:48px}
+  .facts{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition:none !important}
+}
+
+
+/* ---------- окно презентации ---------- */
+.modal-wide .modal-body{width:min(880px,100%)}
+.deck-head{margin-bottom:34px; padding-right:44px}
+.deck-head h2{margin-top:6px}
+.deck-head .sub{margin-top:14px; max-width:640px}
+.deck-tagline{margin-top:14px; font-size:13px; letter-spacing:.08em; text-transform:uppercase; color:var(--accent)}
+
+.chain{margin-bottom:40px}
+.chain h3{font-size:15px; font-family:var(--sans); font-weight:500; color:var(--muted); margin-bottom:12px}
+.chain-list{list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:6px; counter-reset:c}
+.chain-list li{
+  font-size:13px; padding:6px 12px; border-radius:999px;
+  border:1px solid var(--line); color:var(--muted); background:var(--panel);
+}
+.chain-list li:last-child{border-color:var(--accent); color:var(--accent)}
+
+.deck-block{padding-top:34px; margin-top:34px; border-top:1px solid var(--line)}
+.deck-block h3{font-size:clamp(21px,3.4vw,26px)}
+.deck-block .sub{margin-top:10px; margin-bottom:24px; max-width:640px}
+.deck-grid{display:grid; gap:14px}
+.deck-item{
+  background:var(--bg); border:1px solid var(--line); border-radius:12px; padding:18px 16px;
+  scroll-margin-top:16px;
+}
+.deck-item h4{font-family:var(--serif); font-weight:500; font-size:18px; margin:0 0 8px; line-height:1.25}
+.deck-item p{font-size:15px; color:var(--muted)}
+.deck-eyebrow{
+  display:block; font-size:11px; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--accent); margin-bottom:7px;
+}
+.deck-item ul{margin:0; padding-left:18px; color:var(--muted); font-size:15px; display:grid; gap:6px}
+.deck-decision{margin-top:12px; padding-top:10px; border-top:1px dashed var(--line); color:var(--ink) !important}
+.deck-decision b{
+  display:block; font-size:11px; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--accent); font-weight:500; margin-bottom:3px;
+}
+.deck-after{margin-top:20px; font-size:15px; color:var(--muted); max-width:700px}
+.deck-foot{margin:36px 0 22px; font-size:13px; color:var(--muted)}
+
+@media (min-width:760px){
+  .deck-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .deck-grid-requests,.deck-grid-digital{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .deck-grid-outcome{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .deck-grid-directions > :first-child{grid-column:1 / -1}
+}
+
+
+/* ---------- статус проекта ---------- */
+.status{margin:0 0 26px; padding-top:24px; border-top:1px solid var(--line); scroll-margin-top:16px}
+.status h3{font-size:19px; margin-bottom:16px}
+.status-grid{display:grid; gap:16px}
+.status-col h4{
+  font-size:11px; letter-spacing:.1em; text-transform:uppercase; font-family:var(--sans);
+  font-weight:500; color:var(--muted); margin:0 0 9px; padding-bottom:7px; border-bottom:1px solid var(--line);
+}
+.status-col ul{margin:0; padding-left:17px; display:grid; gap:6px; font-size:15px; color:var(--muted)}
+.status-done h4{color:var(--accent); border-color:var(--accent)}
+.status-done ul{color:var(--ink)}
+.seeking{
+  margin-top:18px; font-size:15px; background:var(--accent-soft);
+  border-radius:10px; padding:14px 16px;
+}
+.seeking b{
+  display:block; font-size:11px; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--accent); font-weight:500; margin-bottom:4px;
+}
+@media (min-width:600px){ .status-grid{grid-template-columns:repeat(3,minmax(0,1fr))} }
+
+
+/* ---------- портрет и факты ---------- */
+.bio{margin-top:18px; max-width:560px; font-size:15px; color:var(--muted)}
+.portrait{margin:0; position:relative}
+.portrait img{
+  width:100%; height:auto; border-radius:var(--radius);
+  aspect-ratio:3/4; object-fit:cover; object-position:50% 18%;
+  background:var(--panel); box-shadow:var(--shadow);
+}
+
+.facts-band{border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:var(--panel)}
+.facts-bar{
+  list-style:none; margin:0 auto; padding:26px 16px; max-width:var(--maxw);
+  display:grid; grid-template-columns:1fr; gap:20px 24px;
+}
+.facts-bar li{display:grid}
+.fact{
+  appearance:none; border:none; background:none; color:inherit; font:inherit; text-align:left;
+  display:grid; gap:6px; align-content:start; cursor:pointer; padding:0;
+}
+.fact-more{font-size:13px; color:var(--muted); margin-top:2px}
+.fact:hover b{color:var(--ink)}
+.fact:hover .fact-more{color:var(--accent)}
+.facts-bar b{font-size:11px; letter-spacing:.09em; text-transform:uppercase; color:var(--accent); font-weight:500}
+.facts-bar span{font-size:14px; color:var(--muted); line-height:1.45;
+  display:-webkit-box; -webkit-line-clamp:4; -webkit-box-orient:vertical; overflow:hidden}
+
+/* ---------- лента новостей ---------- */
+.feed{list-style:none; margin:0; padding:0; display:grid; gap:14px; align-content:start}
+.post{background:var(--panel); border:1px solid var(--line); border-radius:12px;
+  padding:22px 20px; display:grid; gap:9px; align-content:start}
+.post-meta{display:flex; align-items:center; gap:10px; flex-wrap:wrap}
+.post-meta time{font-size:12px; color:var(--muted)}
+.post-tag{
+  font-size:11px; letter-spacing:.09em; text-transform:uppercase;
+  color:var(--accent); background:var(--accent-soft); border-radius:999px; padding:4px 10px;
+}
+.post h3{font-size:19px; line-height:1.25}
+.post p{color:var(--muted); font-size:15px}
+#news-more{margin-top:20px}
+
+@media (min-width:760px){
+  .hero{grid-template-columns:1.25fr .75fr; align-items:center; gap:56px; padding-top:76px; padding-bottom:64px}
+  .facts-bar{
+    grid-template-columns:repeat(2,minmax(0,1fr)); grid-template-rows:repeat(3,auto);
+    padding:34px 16px; gap:24px 32px;
+  }
+  .facts-bar li{grid-row:span 3; display:grid; grid-template-rows:subgrid; row-gap:6px}
+  .fact{grid-row:span 3; grid-template-rows:subgrid; row-gap:6px}
+  .fact-more{align-self:end}
+  .feed{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+
+.channel-link{
+  display:inline-block; margin-top:14px; font-size:14px;
+  color:var(--accent); text-decoration:none; border-bottom:1px solid transparent;
+}
+.channel-link:hover{border-color:var(--accent)}
+
+/* лента внутри окна проекта */
+#project-news .feed{margin-bottom:24px}
+#project-news .post h3{font-size:18px}
+
+.facts-title{
+  max-width:var(--maxw); margin:0 auto; padding:26px 16px 0;
+  font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted);
+}
+.facts-title + .facts-bar{padding-top:16px}
+
+@media (min-width:1020px){ .facts-bar{grid-template-columns:repeat(4,minmax(0,1fr)); gap:24px 24px} }
+
+/* сокращения из сноски презентации */
+.glossary{padding-top:28px; margin-top:28px; border-top:1px solid var(--line)}
+.glossary h3{font-size:15px; font-family:var(--sans); font-weight:500; color:var(--muted); margin-bottom:14px}
+.gloss{margin:0; display:grid; gap:10px 24px}
+.gloss div{display:flex; gap:10px; align-items:baseline}
+.gloss dt{font-size:13px; letter-spacing:.06em; color:var(--accent); min-width:44px}
+.gloss dd{margin:0; font-size:14px; color:var(--muted)}
+@media (min-width:640px){ .gloss{grid-template-columns:repeat(2,minmax(0,1fr))} }
+
+/* вложение к заявке */
+.file-drop{
+  display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+  border:1px dashed var(--line); border-radius:10px; padding:10px 12px; cursor:pointer;
+  background:var(--panel);
+}
+.file-drop:hover{border-color:var(--accent)}
+.file-drop input[type="file"]{position:absolute; width:1px; height:1px; opacity:0; pointer-events:none}
+.file-btn{
+  font-size:13px; padding:6px 12px; border-radius:999px;
+  border:1px solid var(--line); background:var(--bg); white-space:nowrap;
+}
+.file-name{font-size:14px; color:var(--muted); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:60%}
+.file-clear{
+  margin-left:auto; border:none; background:none; color:var(--accent);
+  font:inherit; font-size:13px; cursor:pointer; padding:0;
+}
+.file-hint{font-size:12px; color:var(--muted)}
+
+/* ---------- запуск видео ---------- */
+.frame.has-video{position:relative}
+.play{
+  position:absolute; inset:0; margin:auto; width:52px; height:52px; border-radius:999px;
+  border:none; cursor:pointer; display:flex; align-items:center; justify-content:center;
+  background:rgba(12,12,14,.62); color:#fff; backdrop-filter:blur(4px);
+  transition:transform .15s ease, background .15s ease;
+}
+.play:hover{transform:scale(1.06); background:rgba(12,12,14,.78)}
+.frame.playing .play{display:none}
+
+/* ---------- цифры за опытом ---------- */
+.cv-block{padding:22px 0; border-top:1px solid var(--line)}
+.cv-block h3{font-size:19px; margin-bottom:8px}
+.cv-block p{color:var(--muted); font-size:15px; max-width:640px}
+.cv-results{list-style:none; margin:14px 0 0; padding:0; display:grid; gap:8px}
+.cv-results li{
+  font-size:15px; padding-left:18px; position:relative;
+}
+.cv-results li::before{
+  content:""; position:absolute; left:0; top:8px; width:7px; height:7px;
+  border-radius:2px; background:var(--accent);
+}
+@media (min-width:700px){ .cv-results{grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px 24px} }
+
+/* ---------- форматы работы ---------- */
+.formats{margin-top:40px; padding-top:32px; border-top:1px solid var(--line)}
+.formats-head{max-width:640px; margin-bottom:24px}
+.formats-head h3{font-size:clamp(21px,3.4vw,26px)}
+.formats-head .sub{margin-top:8px}
+.formats-grid{display:grid; gap:14px}
+.format{cursor:pointer;
+  background:var(--panel); border:1px solid var(--line); border-radius:12px;
+  padding:20px 18px; display:grid; gap:8px; align-content:start;
+}
+.format h4{font-family:var(--serif); font-weight:500; font-size:19px; margin:0}
+.format-term{
+  font-size:11px; letter-spacing:.09em; text-transform:uppercase; color:var(--accent);
+  background:var(--accent-soft); border-radius:999px; padding:4px 10px;
+  justify-self:center; text-align:center;
+}
+.format p{font-size:15px; color:var(--muted); margin:0}
+.format-out{padding-top:10px; border-top:1px dashed var(--line); color:var(--ink) !important}
+@media (min-width:760px){
+  .formats-grid{grid-template-columns:repeat(2,minmax(0,1fr)); grid-template-rows:repeat(5,auto)}
+  .format{grid-row:span 5; grid-template-rows:subgrid; row-gap:8px}
+  .format p{align-self:start}
+  .format-more{align-self:end}
+}
+@media (min-width:1020px){ .formats-grid{grid-template-columns:repeat(4,minmax(0,1fr))} }
+
+/* ---------- пресса ---------- */
+.press-grid{display:grid; gap:24px}
+.press-item{margin-bottom:20px}
+.press-item h4, .press-side h4{
+  font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted);
+  font-family:var(--sans); font-weight:500; margin:0 0 8px;
+}
+.press-item p{font-size:15px; margin-bottom:10px}
+.press-side ul{margin:0 0 24px; padding-left:18px; display:grid; gap:8px; color:var(--muted); font-size:15px}
+@media (min-width:760px){ .press-grid{grid-template-columns:1.25fr .75fr; gap:48px} }
+
+/* ---------- согласие и визитка ---------- */
+.consent{display:flex; gap:10px; align-items:flex-start; font-size:13px; color:var(--muted)}
+.consent input{width:auto; margin-top:2px; accent-color:var(--accent)}
+.consent a{color:var(--accent)}
+.vcard{margin-top:18px; display:inline-flex}
+
+.format-more{font-size:13px; color:var(--muted); margin-top:4px}
+.format:hover{border-color:var(--ink)}
+.format:hover .format-more{color:var(--accent)}
+
+/* содержимое окна направления и формата */
+.info-term{
+  display:inline-block; font-size:11px; letter-spacing:.09em; text-transform:uppercase;
+  color:var(--accent); background:var(--accent-soft); border-radius:999px; padding:5px 11px; margin-bottom:8px;
+}
+.info-list{padding-top:22px; margin-top:22px; border-top:1px solid var(--line)}
+.info-list h3{
+  font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted);
+  font-family:var(--sans); font-weight:500; margin-bottom:12px;
+}
+.info-list ul{margin:0; padding-left:18px; display:grid; gap:9px; font-size:15px}
+.info-list ul.cv-results{padding-left:0}
+.info-fit{margin-top:22px; background:var(--accent-soft); border-radius:10px; padding:14px 16px; font-size:15px}
+.info-fit b{
+  display:block; font-size:11px; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--accent); font-weight:500; margin-bottom:4px;
+}
+.btn:disabled{opacity:.42; cursor:not-allowed}
+.btn:disabled:hover{border-color:var(--line); opacity:.42}
+
+/* ---------- публикации ---------- */
+.media-list{display:grid; gap:16px}
+.media-item{
+  background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+  padding:24px 22px; display:grid; gap:12px; align-content:start; max-width:760px;
+}
+.media-meta{display:flex; align-items:center; gap:12px; flex-wrap:wrap}
+.media-outlet{
+  font-size:11px; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--accent); background:var(--accent-soft); border-radius:999px; padding:5px 11px;
+}
+.media-meta time{font-size:12px; color:var(--muted)}
+.media-item h3{font-size:20px; line-height:1.3}
+.media-item blockquote{
+  margin:0; padding-left:16px; border-left:2px solid var(--accent);
+  font-family:var(--serif); font-size:18px; line-height:1.45;
+}
+.media-note{font-size:14px; color:var(--muted); margin:0}
+.media-item .btn{justify-self:start}
+
+/* ---------- листание блоков на телефоне ---------- */
+@media (max-width:759px){
+  .snap{
+    display:flex; flex-wrap:nowrap; overflow-x:auto; scroll-snap-type:x mandatory;
+    padding:2px 0 8px; margin:0;
+    scrollbar-width:none; -webkit-overflow-scrolling:touch;
+  }
+  .snap::-webkit-scrollbar{display:none}
+  /* один блок на экран: следующий не выглядывает, а приходит по свайпу */
+  .snap{gap:16px}
+  .snap > *{flex:0 0 100%; scroll-snap-align:start; margin:0}
+  /* у полосы опыта и списка услуг свои фоны — выравниваем под карточку */
+  .services.snap{background:none; border:none; border-radius:0}
+  .services.snap li{border:1px solid var(--line); border-radius:12px; overflow:hidden}
+  .facts-bar.snap > li{
+    background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px 16px;
+  }
+  .snap-dots{display:flex; gap:7px; justify-content:center; margin-top:14px}
+  .snap-dots button{
+    width:6px; height:6px; border-radius:999px; border:none; padding:0;
+    background:var(--line); cursor:pointer; transition:width .18s ease, background .18s ease;
+  }
+  .snap-dots button[aria-current="true"]{width:18px; background:var(--accent)}
+  /* навигация живёт в шапке — дублирующие кнопки в первом экране убираем */
+  .hero-cta{display:none}
+  .hero{padding-top:28px; padding-bottom:30px; gap:20px; grid-template-columns:auto 1fr; align-items:start}
+  .hero-text{grid-column:1 / -1}
+  .portrait{grid-row:1; grid-column:1; width:104px; margin-bottom:2px}
+  .hero .eyebrow{margin-bottom:14px}
+}
+.snap-dots{display:none}
+@media (max-width:759px){ .snap-dots{display:flex} }
+
+/* портрет: нажатие открывает полную версию */
+.portrait-btn{
+  display:block; width:100%; padding:0; border:none; background:none; cursor:zoom-in;
+  border-radius:var(--radius); overflow:hidden;
+}
+.photo-modal[open]{
+  position:fixed; inset:0; width:100%; height:100%; max-width:none; max-height:none;
+  margin:0; padding:40px 32px; border:none; background:transparent;
+  display:grid; grid-template-columns:minmax(0,1fr); grid-template-rows:minmax(0,1fr);
+  place-items:center; overflow:hidden;
+}
+.photo-modal::backdrop{background:rgba(10,10,12,.72); backdrop-filter:blur(3px)}
+.photo-modal img{width:min(520px,100%); max-width:100%; height:auto; max-height:100%; object-fit:contain; border-radius:14px; display:block}
+.photo-modal.zoomed img{width:auto; max-width:none; height:calc(100vh - 80px); max-height:none}
+.photo-modal.zoomed[open]{overflow:auto; align-items:start; justify-items:start;
+  justify-content:safe center; align-content:safe center}
+.photo-modal .modal-close{position:fixed; top:24px; right:24px; float:none; margin:0; z-index:2}
+@media (max-width:759px){
+  .portrait-btn{border-radius:14px}
+  .portrait img{aspect-ratio:1; object-position:50% 16%; border-radius:14px}
+}
+
+/* ---------- первый экран на телефоне ---------- */
+.hero-id{display:contents}
+.avatar{display:none}
+@media (max-width:759px){
+  .hero{display:block; padding-top:24px; padding-bottom:28px}
+  .portrait{display:none}
+  .hero-id{
+    display:flex; align-items:center; gap:14px; margin-bottom:16px;
+  }
+  .avatar{
+    display:block; flex:0 0 78px; width:78px; height:96px; padding:0; border:none;
+    border-radius:12px; overflow:hidden; background:var(--panel); cursor:zoom-in;
+  }
+  /* кадр от самого верха снимка: так макушка не срезается ни при какой высоте */
+  .avatar img{width:100%; height:100%; object-fit:cover; object-position:50% 0; display:block}
+  .hero-id h1{font-size:clamp(30px,8vw,40px); margin:0}
+  .hero .lead{margin-top:0}
+}
+
+/* пройденные разделы сворачиваются до заголовка */
+@media (max-width:759px){
+  /* заголовок должен липнуть в пределах всего раздела, а не своей обёртки */
+  .section-head{display:contents}
+  .section > .section-head > h2{
+    position:sticky; top:56px; z-index:6; margin:0 -16px; padding:10px 16px;
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+    /* полностью непрозрачный: иначе сквозь него видно уезжающий текст */
+    background:var(--bg);
+    border-bottom:1px solid var(--line);
+  }
+  .section-head .sub{margin-top:10px; margin-bottom:22px}
+  .section-head .channel-link{margin-bottom:18px}
+}
+
+@media (min-width:1020px){ .card-foot{flex-wrap:nowrap} }
+
+/* кнопка «наверх» видна только в прилипшем заголовке раздела */
+.to-top{display:none}
+@media (max-width:759px){
+  .to-top{
+    display:grid; place-items:center; flex:0 0 32px; width:32px; height:32px;
+    padding:0; border:1px solid var(--line); border-radius:50%;
+    background:var(--panel); color:var(--muted); cursor:pointer;
+  }
+  .to-top:hover{color:var(--ink)}
+  /* экраны проекта раскрываются на весь экран */
+  .frame img{cursor:zoom-in}
+}
+
+/* на телефоне снимок разворачивается во весь экран: по высоте, с прокруткой вбок */
+@media (max-width:759px){
+  .photo-modal[open]{padding:26px 14px 74px; overflow:hidden}
+  /* снимок целиком, с полем по краям: видно, что он открыт поверх страницы */
+  .photo-modal img{
+    width:auto; height:auto; max-width:100%; max-height:calc(100dvh - 100px);
+    object-fit:contain; border-radius:10px;
+  }
+  /* увеличенный — во всю высоту экрана, лишнее уходит за край и прокручивается */
+  .photo-modal.zoomed[open]{overflow:auto}
+  .photo-modal.zoomed img{
+    height:calc(100dvh - 100px); max-height:none; width:auto; max-width:none;
+  }
+}
+
+/* сквозная логика: шаги листаются как карточки */
+@media (max-width:759px){
+  .chain-list.snap li{
+    display:grid; place-content:center; text-align:center; min-height:72px;
+    border-radius:12px; padding:16px 14px; font-size:15px;
+  }
+  /* контакт и подпись — в одну строку */
+  .direct ul{gap:12px}
+  .direct li{display:flex; align-items:baseline; justify-content:space-between; gap:14px}
+  .direct .lbl{margin-bottom:0; flex:0 0 auto}
+  .direct li a{text-align:right}
+}
+
+/* презентация: заголовок блока держится сверху при прокрутке окна */
+@media (max-width:759px){
+  .deck-block{padding-top:0}
+  .deck-block > h3{
+    position:sticky; top:0; z-index:5; margin:0 -18px 0; padding:12px 60px 12px 18px;
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+    background:var(--panel);
+    border-bottom:1px solid var(--line);
+  }
+  .deck-block > h3 + .sub{margin-top:14px}
+  .deck-block > h3 + .deck-grid{margin-top:16px}
+}
+
+/* просмотрщик: листание снимков и переключение масштаба */
+.photo-nav{
+  position:fixed; top:50%; transform:translateY(-50%); z-index:3;
+  width:42px; height:42px; border-radius:50%; padding:0; cursor:pointer;
+  border:1px solid var(--line); background:var(--panel); color:var(--ink);
+  display:flex; align-items:center; justify-content:center;
+}
+.photo-nav[hidden]{display:none}
+.photo-nav.prev{left:10px}
+.photo-nav.next{right:10px}
+.photo-bar{
+  position:fixed; left:0; right:0; bottom:16px; z-index:3;
+  display:flex; align-items:center; justify-content:center; gap:12px;
+}
+.photo-bar[hidden]{display:none}
+.photo-count{
+  font-size:13px; color:var(--ink); background:var(--panel);
+  border:1px solid var(--line); border-radius:999px; padding:5px 12px;
+}
+.photo-count:empty{display:none}
+#photo-zoom{background:var(--panel)}
+#photo-zoom[hidden]{display:none}

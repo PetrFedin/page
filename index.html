@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Пётр Федин — фэшн-консалтинг и проекты</title>
+<meta name="description" content="Стратегия, экономика и трансформация фэшн-бизнеса. Проекты Syntha, Renova и ChatX.">
+<meta name="color-scheme" content="light dark">
+<meta property="og:title" content="Пётр Федин — фэшн-консалтинг и проекты">
+<meta property="og:description" content="Стратегия, экономика и трансформация фэшн-бизнеса. Проекты Syntha, Renova и ChatX.">
+<meta property="og:type" content="website">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/og.png">
+<meta property="og:image" content="/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="Пётр Федин">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<header class="topbar">
+  <nav class="nav" id="nav">
+    <a href="#consulting" data-nav="consulting"></a>
+    <a href="#projects" data-nav="projects"></a>
+    <a href="#news" data-nav="news"></a>
+    <a href="#media" data-nav="media"></a>
+    <a href="#contact" data-nav="contact"></a>
+  </nav>
+  <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="nav" aria-label="Меню">
+    <span></span><span></span>
+  </button>
+  <div class="switches">
+    <button class="lang" id="lang-toggle" type="button" aria-label="Language"></button>
+    <button class="theme" id="theme-toggle" type="button" aria-label="Theme">
+      <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" fill="currentColor"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="hero-text">
+      <p class="eyebrow" id="hero-eyebrow"></p>
+      <div class="hero-id">
+        <button class="avatar" id="avatar-btn" type="button">
+          <img id="hero-avatar" src="assets/photo/petr-portrait.jpg" alt="" width="200" height="200">
+        </button>
+        <h1 id="hero-name"></h1>
+      </div>
+      <p class="lead" id="hero-lead"></p>
+      <p class="bio" id="hero-bio"></p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#consulting" id="cta-consulting"></a>
+        <a class="btn" href="#projects" id="cta-projects"></a>
+        <a class="btn" href="#news" id="cta-feed"></a>
+        <a class="btn" href="#contact" id="cta-contact"></a>
+      </div>
+    </div>
+    <figure class="portrait">
+      <button class="portrait-btn" id="portrait-btn" type="button">
+      <img id="hero-photo" src="assets/photo/petr-portrait.jpg" alt="" width="900" height="1200" fetchpriority="high">
+      </button>
+    </figure>
+  </section>
+
+  <section class="facts-band">
+    <p class="facts-title" id="facts-title"></p>
+    <ul class="facts-bar" id="facts-bar"></ul>
+  </section>
+
+  <section class="section" id="consulting">
+    <div class="section-head">
+      <h2 id="consulting-title"></h2>
+      <p class="sub" id="consulting-sub"></p>
+    </div>
+    <ol class="services" id="services"></ol>
+    <div class="formats" id="formats"></div>
+
+    <div class="deck-actions">
+      <button class="btn btn-primary" id="deck-open" type="button"></button>
+      <a class="btn" id="deck-pdf" href="assets/fashion-advisory.pdf" download target="_blank" rel="noopener"></a>
+    </div>
+  </section>
+
+  <section class="section" id="projects">
+    <div class="section-head">
+      <h2 id="projects-title"></h2>
+      <p class="sub" id="projects-sub"></p>
+    </div>
+    <div class="cards" id="cards"></div>
+  </section>
+
+  <section class="section" id="news">
+    <div class="section-head">
+      <h2 id="news-title"></h2>
+      <p class="sub" id="news-sub"></p>
+      <a class="channel-link" id="news-channel" href="https://t.me/syntha_pro" target="_blank" rel="noopener"></a>
+    </div>
+    <ol class="feed" id="feed"></ol>
+    <button class="btn" id="news-more" type="button" hidden></button>
+  </section>
+
+  <section class="section" id="contact">
+    <div class="section-head">
+      <h2 id="contact-title"></h2>
+      <p class="sub" id="contact-sub"></p>
+    </div>
+
+    <div class="contact-grid">
+      <form class="form" id="form" novalidate>
+        <label class="field">
+          <span data-f="name"></span>
+          <input name="name" type="text" autocomplete="name" required>
+        </label>
+        <label class="field">
+          <span data-f="contact"></span>
+          <input name="contact" type="text" autocomplete="email" required>
+        </label>
+        <label class="field">
+          <span data-f="topic"></span>
+          <select name="topic" id="topic"></select>
+        </label>
+        <label class="field">
+          <span data-f="message"></span>
+          <textarea name="message" rows="4" required></textarea>
+        </label>
+        <div class="field">
+          <span data-f="file"></span>
+          <label class="file-drop" for="attach">
+            <input type="file" id="attach" name="file"
+                   accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.csv,.txt,.png,.jpg,.jpeg,.zip">
+            <span class="file-btn" id="file-btn"></span>
+            <span class="file-name" id="file-name"></span>
+            <button class="file-clear" id="file-clear" type="button" hidden></button>
+          </label>
+          <span class="file-hint" id="file-hint"></span>
+        </div>
+        <input type="text" name="company" tabindex="-1" autocomplete="off" class="trap" aria-hidden="true">
+        <label class="consent">
+          <input type="checkbox" id="consent" name="consent">
+          <span><span id="consent-text"></span> · <a href="privacy.html" target="_blank" rel="noopener" id="consent-link"></a></span>
+        </label>
+        <button class="btn btn-primary" type="submit" id="submit"></button>
+        <p class="form-note" id="form-note" role="status" aria-live="polite"></p>
+      </form>
+
+      <aside class="direct">
+        <h3 id="direct-title"></h3>
+        <ul id="contacts"></ul>
+        <a class="btn btn-sm vcard" id="vcard" href="assets/petr-fedin.vcf" download></a>
+      </aside>
+    </div>
+  </section>
+  <section class="section" id="media">
+    <div class="section-head">
+      <h2 id="media-title"></h2>
+      <p class="sub" id="media-sub"></p>
+    </div>
+    <div class="media-list" id="media-list"></div>
+  </section>
+
+  <section class="section" id="press">
+    <div class="section-head">
+      <h2 id="press-title"></h2>
+      <p class="sub" id="press-sub"></p>
+    </div>
+    <div class="press-grid" id="press-body"></div>
+  </section>
+</main>
+
+<footer class="footer">
+  <p id="privacy"></p>
+  <p class="year">© <span id="year"></span></p>
+</footer>
+
+<dialog class="modal" id="modal">
+  <button class="modal-close" id="modal-close" type="button" aria-label="Close">
+    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>
+  </button>
+  <div class="modal-body">
+    <header class="modal-head">
+      <span class="modal-logo" id="modal-logo"></span>
+      <p class="modal-tagline" id="modal-tagline"></p>
+      <span class="stage" id="modal-stage"></span>
+    </header>
+
+    <div class="gallery" id="gallery" tabindex="0" aria-label="Screens"></div>
+    <div class="dots" id="dots"></div>
+
+    <dl class="facts" id="facts"></dl>
+
+    <section class="status" id="status"></section>
+
+    <button class="btn btn-primary modal-cta" id="modal-cta" type="button"></button>
+  </div>
+</dialog>
+
+
+<dialog class="modal modal-wide" id="deck-modal">
+  <button class="modal-close" id="deck-close" type="button" aria-label="Close">
+    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>
+  </button>
+  <div class="modal-body">
+    <header class="deck-head">
+      <p class="eyebrow" id="deck-kicker"></p>
+      <h2 id="deck-title"></h2>
+      <p class="sub" id="deck-lead"></p>
+      <p class="deck-tagline" id="deck-tagline"></p>
+    </header>
+
+    <section class="chain">
+      <h3 id="chain-title"></h3>
+      <ol class="chain-list" id="chain-list"></ol>
+    </section>
+
+    <div id="deck-blocks"></div>
+
+    <section class="glossary" id="deck-glossary"></section>
+    <p class="deck-foot" id="deck-footnote"></p>
+    <a class="btn btn-primary modal-cta" id="deck-pdf-2" href="assets/fashion-advisory.pdf" download target="_blank" rel="noopener"></a>
+  </div>
+</dialog>
+
+
+<dialog class="photo-modal" id="photo-modal">
+  <button class="modal-close" id="photo-close" type="button" aria-label="Close">
+    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>
+  </button>
+  <img id="photo-big" src="assets/photo/petr-portrait.jpg" alt="">
+  <button class="photo-nav prev" id="photo-prev" type="button" hidden>
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <button class="photo-nav next" id="photo-next" type="button" hidden>
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <div class="photo-bar" id="photo-bar" hidden>
+    <span class="photo-count" id="photo-count"></span>
+    <button class="btn btn-sm" id="photo-zoom" type="button"></button>
+  </div>
+</dialog>
+
+<dialog class="modal modal-wide" id="cv-modal">
+  <button class="modal-close" id="cv-close" type="button" aria-label="Close">
+    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>
+  </button>
+  <div class="modal-body">
+    <header class="deck-head">
+      <h2 id="cv-title"></h2>
+      <p class="sub" id="cv-note"></p>
+    </header>
+    <div id="cv-body"></div>
+  </div>
+</dialog>
+
+<dialog class="modal" id="project-news">
+  <button class="modal-close" id="pn-close" type="button" aria-label="Close">
+    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>
+  </button>
+  <div class="modal-body">
+    <header class="deck-head">
+      <span class="modal-logo" id="pn-logo"></span>
+      <h2 id="pn-title"></h2>
+    </header>
+    <ol class="feed" id="pn-feed"></ol>
+    <a class="btn modal-cta" id="pn-channel" href="https://t.me/syntha_pro" target="_blank" rel="noopener"></a>
+  </div>
+</dialog>
+
+<script type="module" src="assets/app.js"></script>
+</body>
+</html>

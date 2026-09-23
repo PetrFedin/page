@@ -1,0 +1,9 @@
+.DS_Store
+node_modules/
+*.log
+
+# Секреты живут в ~/.config/syntha-pro/, в репозиторий не попадают.
+# Здесь — страховка на случай, если файл случайно скопируют внутрь.
+*.env
+telegram.env
+published.json
