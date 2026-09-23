@@ -402,7 +402,10 @@ function openProject(id, anchor) {
     <ul class="collab-list">
       ${c.collab.map((i) => `<li><b>${i.k}</b><span>${i.v}</span></li>`).join('')}
     </ul>
-    <p class="collab-note">${t.projects.collabNote}</p>`;
+    <p class="collab-note">${t.projects.collabNote}</p>
+    ${id === 'syntha' && lang === 'ru'
+      ? '<p class="collab-more"><a class="btn" href="/syntha.html">Подробно о проекте</a></p>'
+      : ''}`;
 
   $('#modal-cta').textContent = t.projects.discuss;
   gallery.scrollLeft = 0;

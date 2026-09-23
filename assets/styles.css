@@ -739,3 +739,67 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 @media (min-width:760px){
   .collab-list{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
+
+/* ---------- страница проекта ---------- */
+.doc{max-width:760px; margin:0 auto; padding:26px 16px 64px}
+.doc-back{margin-bottom:24px; font-size:14px}
+.doc-back a{color:var(--muted); text-decoration:none}
+.doc-back a:hover{color:var(--ink)}
+.doc-head{padding-bottom:34px; border-bottom:1px solid var(--line); margin-bottom:10px}
+.doc-logo svg{height:26px; width:auto}
+.doc-head h1{font-size:clamp(28px,5vw,42px); line-height:1.15; margin:16px 0 0}
+.doc-lead{margin-top:14px; font-size:18px; color:var(--muted); max-width:620px}
+.doc-head .stage{margin-top:18px}
+.doc-cta{display:flex; flex-wrap:wrap; gap:10px; margin-top:22px}
+
+.doc-block{padding-top:34px; margin-top:34px; border-top:1px solid var(--line)}
+.doc-block:first-of-type{border-top:none}
+.doc-block h2{font-size:clamp(22px,3.6vw,28px); margin-bottom:16px}
+.doc-block p{font-size:16px; color:var(--muted); margin-bottom:12px}
+.doc-accent{color:var(--ink) !important; font-weight:500}
+.doc-note{font-size:14px !important; margin-top:16px}
+
+.loops{list-style:none; margin:20px 0 0; padding:0; display:grid; gap:16px}
+.loop{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:20px 18px}
+.loop h3{font-size:19px; margin:0 0 10px}
+.loop-in{font-size:15px !important; margin-bottom:14px !important}
+.loop dl{margin:0; display:grid; gap:10px}
+.loop dt{
+  font-size:11px; letter-spacing:.09em; text-transform:uppercase;
+  color:var(--accent); margin-bottom:3px;
+}
+.loop dd{margin:0; font-size:15px; color:var(--ink)}
+.loop-more{
+  margin:14px 0 0 !important; padding-top:12px; border-top:1px dashed var(--line);
+  font-size:14px !important;
+}
+
+.diffs{display:grid; gap:14px}
+.diffs h3{font-size:17px; margin:0 0 6px}
+.diffs p{margin:0; font-size:15px}
+
+.take-part{display:grid; gap:16px}
+.part-main{background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:20px 18px}
+.part-main h3{font-size:19px; margin:0 0 12px}
+.part-main dl{margin:0; display:grid; gap:12px}
+.part-main dt{
+  font-size:11px; letter-spacing:.09em; text-transform:uppercase;
+  color:var(--accent); margin-bottom:3px;
+}
+.part-main dd{margin:0; font-size:15px; color:var(--ink)}
+
+.faq{margin:0; display:grid; gap:16px}
+.faq dt{font-weight:500; margin-bottom:5px}
+.faq dd{margin:0; font-size:15px; color:var(--muted)}
+
+.doc-end{text-align:left}
+.doc-page .footer{max-width:760px; margin:0 auto}
+
+@media (min-width:760px){
+  .doc{padding-top:38px}
+  .diffs{grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px}
+  .loop dl{grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px}
+  .part-main dl{grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px}
+  .faq{grid-template-columns:repeat(2,minmax(0,1fr)); gap:22px 28px}
+}
+.collab-more{margin-top:16px}
