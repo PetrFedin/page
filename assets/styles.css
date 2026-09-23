@@ -983,3 +983,15 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 }
 .case p{font-size:15px !important; max-width:62ch; margin-bottom:12px}
 .case-out{color:var(--ink) !important; font-weight:500; margin-bottom:0 !important}
+
+.doc-date{float:right; color:var(--muted); font-size:13px}
+.doc-state{
+  margin-top:16px; max-width:62ch; font-size:15px !important;
+  padding-top:14px; border-top:1px solid var(--line);
+}
+.doc-state a{color:var(--ink)}
+.aud-note{
+  margin-top:14px !important; padding-top:12px; border-top:1px dashed var(--line);
+  font-size:14px !important;
+}
+.aud-note b{color:var(--ink); font-weight:500}

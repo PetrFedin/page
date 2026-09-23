@@ -28,6 +28,13 @@ if (st) {
 
 $('#year').textContent = new Date().getFullYear();
 
+/* Дата документа: без неё разбор проекта у читателя теряет в доверии.
+   Берём день последнего изменения файла, чтобы не править её руками. */
+const изменён = new Date(document.lastModified);
+$('#doc-date').dateTime = изменён.toISOString().slice(0, 10);
+$('#doc-date').textContent = 'Обновлено '
+  + изменён.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
+
 /* ---------- тема и бургер: то же поведение, что на главной ---------- */
 const store = {
   get(k, d) { try { return localStorage.getItem(k) ?? d; } catch { return d; } },
