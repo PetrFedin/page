@@ -995,3 +995,10 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
   font-size:14px !important;
 }
 .aud-note b{color:var(--ink); font-weight:500}
+
+/* Карта корпоративной проверки. */
+.audit-map .gt-cell a{color:var(--ink)}
+.faq-title{font-size:19px; margin:34px 0 18px}
+@media (min-width:760px){
+  .cols-2.audit-map .gt-head,.cols-2.audit-map .gt-row{grid-template-columns:.55fr 1fr}
+}
