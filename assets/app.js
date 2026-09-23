@@ -2,6 +2,7 @@ import { T, PROJECTS, CONTACTS } from './content.js';
 import { DECK } from './deck.js';
 import { LOGOS } from './logos.js';
 import { createViewer } from './viewer.js';
+import { syncSnaps } from './snap.js';
 import { NEWS } from './news.js';
 
 /* Сайт — витрина: показываем отобранные материалы. Канал получает весь поток. */
@@ -42,39 +43,6 @@ function addTopButtons(label) {
   });
 }
 
-/* ---------- листание блоков на телефоне ---------- */
-const isPhone = () => matchMedia('(max-width: 759px)').matches;
-
-function buildDots(track) {
-  let dots = track.nextElementSibling;
-  if (!dots?.classList.contains('snap-dots')) {
-    dots = document.createElement('div');
-    dots.className = 'snap-dots';
-    track.after(dots);
-  }
-  if (!isPhone()) { dots.hidden = true; return; }
-  dots.hidden = false;
-  const n = track.children.length;
-  dots.innerHTML = Array.from({ length: n }, (_, i) =>
-    `<button type="button" data-i="${i}" aria-label="${i + 1}"${i ? '' : ' aria-current="true"'}></button>`).join('');
-
-  const active = () => {
-    const c = track.scrollLeft + track.clientWidth / 2;
-    let a = 0;
-    [...track.children].forEach((el, i) => { if (el.offsetLeft < c) a = i; });
-    [...dots.children].forEach((d, i) => d.setAttribute('aria-current', String(i === a)));
-  };
-  track.addEventListener('scroll', active, { passive: true });
-  dots.addEventListener('click', (e) => {
-    const b = e.target.closest('[data-i]');
-    if (b) track.scrollTo({ left: track.children[+b.dataset.i].offsetLeft, behavior: 'smooth' });
-  });
-  active();
-}
-
-function syncSnaps() {
-  document.querySelectorAll('.snap').forEach(buildDots);
-}
 addEventListener('resize', syncSnaps);
 
 /* ---------- меню на телефоне ---------- */

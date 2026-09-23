@@ -1002,3 +1002,43 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 @media (min-width:760px){
   .cols-2.audit-map .gt-head,.cols-2.audit-map .gt-row{grid-template-columns:.55fr 1fr}
 }
+
+/* ---------- листание разбора проекта на телефоне ---------- */
+@media (max-width:759px){
+  /* У этих блоков свой display:grid объявлен ниже общего правила карусели,
+     поэтому переключение на дорожку задаётся здесь явно. */
+  .grid-table.snap,.audiences.snap,.faq.snap,.shot-row.snap{
+    display:flex; flex-wrap:nowrap; overflow-x:auto; scroll-snap-type:x mandatory;
+  }
+  /* Карточки разбора не растягиваются по самой высокой: на карточках
+     проектов равная высота нужна, здесь она оставляет пустую рамку. */
+  .doc-page .snap{align-items:flex-start}
+  .grid-table.snap > *,.audiences.snap > *,.faq.snap > *,.shot-row.snap > *{
+    flex:0 0 100%; scroll-snap-align:start; margin:0;
+  }
+  /* Строка схемы становится карточкой: у неё появляется рамка вместо линейки. */
+  .grid-table.snap{gap:12px}
+  .grid-table.snap .gt-row{
+    border:1px solid var(--line); border-radius:12px; padding:16px 14px;
+    background:var(--panel); align-content:start;
+  }
+  .findings.snap,.principles.snap{gap:12px}
+  .findings.snap li,.principles.snap li{
+    border:1px solid var(--line); border-top:1px solid var(--line); border-radius:12px;
+    padding:16px 14px 16px 46px; background:var(--panel);
+  }
+  .findings.snap li::before,.principles.snap li::before{left:14px; top:18px}
+  .audiences.snap{gap:12px}
+  .audiences.snap article{
+    border:1px solid var(--line); border-top:1px solid var(--line); border-radius:12px;
+    padding:18px 14px; background:var(--panel);
+  }
+  .faq.snap{gap:12px}
+  .faq.snap > div{
+    border:1px solid var(--line); border-radius:12px; padding:16px 14px;
+    background:var(--panel);
+  }
+  .shot-row.snap{gap:12px}
+  /* Экраны листаются в исходной пропорции, без обрезки. */
+  .shot-row.snap img{height:auto}
+}

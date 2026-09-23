@@ -6,6 +6,7 @@
 import { PROJECTS, T } from './content.js';
 import { LOGOS } from './logos.js';
 import { createViewer } from './viewer.js';
+import { syncSnaps } from './snap.js';
 
 const $ = (sel) => document.querySelector(sel);
 
@@ -82,3 +83,13 @@ document.querySelectorAll('.doc-block > h2').forEach((h) => {
   btn.addEventListener('click', () => scrollTo({ top: 0, behavior: 'smooth' }));
   h.append(btn);
 });
+
+/* ---------- на телефоне блоки листаются вбок ----------
+   Разбор занимает два десятка экранов. Всё, что состоит из равноправных
+   блоков — строки схем, перечни, экраны, вопросы, — на узком экране
+   превращается в карусель: читается по одному, не растит прокрутку. */
+for (const sel of ['.grid-table', '.findings', '.principles', '.audiences', '.shot-row', '.faq']) {
+  document.querySelectorAll(sel).forEach((el) => el.classList.add('snap'));
+}
+syncSnaps();
+addEventListener('resize', syncSnaps);
