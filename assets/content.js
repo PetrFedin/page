@@ -138,7 +138,7 @@ export const T = {
       decisionLabel: 'Решение',
       deckOpen: 'Смотреть презентацию',
       deckPdf: 'Скачать PDF',
-      deckFile: 'assets/fashion-advisory.pdf',
+      deckFile: '/assets/fashion-advisory.pdf',
       items: [
         {
           title: 'Стратегический выбор',
@@ -443,7 +443,7 @@ export const T = {
       decisionLabel: 'Decision',
       deckOpen: 'View the deck',
       deckPdf: 'Download PDF',
-      deckFile: 'assets/fashion-advisory-en.pdf',
+      deckFile: '/assets/fashion-advisory-en.pdf',
       items: [
         {
           title: 'Strategic choice',
@@ -615,8 +615,8 @@ export const PROJECTS = [
     id: 'syntha',
     name: 'Syntha',
     device: 'ipad',
-    video: 'assets/video/syntha.webm',
-    shots: ['assets/shots/syntha-1.png', 'assets/shots/syntha-2.png', 'assets/shots/syntha-3.png'],
+    video: '/assets/video/syntha.webm',
+    shots: ['/assets/shots/syntha-1.webp', '/assets/shots/syntha-2.webp', '/assets/shots/syntha-3.webp'],
     ru: {
       status: {
         done: ['Роли организации, партнёрский доступ и права', 'Цифровые шоурумы и серверные цены каталога', 'Атомарные резервы склада, контроль MOQ и доступности', 'Двустороннее подтверждение заказа и пространство сделки'],
@@ -652,8 +652,8 @@ export const PROJECTS = [
     id: 'chatx',
     name: 'ChatX',
     device: 'iphone',
-    video: 'assets/video/chatx.webm',
-    shots: ['assets/shots/chatx-1.png', 'assets/shots/chatx-2.png', 'assets/shots/chatx-3.png'],
+    video: '/assets/video/chatx.webm',
+    shots: ['/assets/shots/chatx-1.webp', '/assets/shots/chatx-2.webp', '/assets/shots/chatx-3.webp'],
     ru: {
       status: {
         done: ['Каналы, личные сообщения, задачи, календарь и файлы', 'Аудио- и видеозвонки, запись встречи по согласию', 'Расшифровка, итоги и решения с привязкой к таймкодам'],
@@ -689,8 +689,8 @@ export const PROJECTS = [
     id: 'renova',
     name: 'Renova',
     device: 'iphone',
-    video: 'assets/video/renova.webm',
-    shots: ['assets/shots/renova-1.png', 'assets/shots/renova-2.png', 'assets/shots/renova-3.png'],
+    video: '/assets/video/renova.webm',
+    shots: ['/assets/shots/renova-1.webp', '/assets/shots/renova-2.webp', '/assets/shots/renova-3.webp'],
     ru: {
       status: {
         done: ['Смета по нормам, версии и сравнение плана с фактом', 'Этапы работ, приёмка и фотофиксация', 'Платежи по этапам, проверка чеков и статуса самозанятого через ФНС'],

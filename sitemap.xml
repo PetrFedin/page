@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://syntha.pro/</loc>
+    <lastmod>2026-09-23</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://syntha.pro/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://syntha.pro/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://syntha.pro/"/>
+  </url>
+  <url>
+    <loc>https://syntha.pro/en/</loc>
+    <lastmod>2026-09-23</lastmod>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://syntha.pro/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://syntha.pro/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://syntha.pro/"/>
+  </url>
+  <url>
+    <loc>https://syntha.pro/privacy.html</loc>
+    <lastmod>2026-09-23</lastmod>
+  </url>
+</urlset>

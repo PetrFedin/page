@@ -64,7 +64,7 @@ const openPhoto = (list, i = 0) => {
   showPhoto(i);
   if (!photoModal.open) photoModal.showModal();
 };
-const openPortrait = () => openPhoto([{ src: 'assets/photo/petr-portrait.jpg', alt: $('#hero-photo').alt }]);
+const openPortrait = () => openPhoto([{ src: '/assets/photo/petr-portrait.jpg', alt: $('#hero-photo').alt }]);
 $('#portrait-btn').addEventListener('click', openPortrait);
 $('#avatar-btn').addEventListener('click', openPortrait);
 $('#photo-close').addEventListener('click', () => photoModal.close());
@@ -175,7 +175,12 @@ addEventListener('keydown', (e) => { if (e.key === 'Escape') closeNav(); });
 
 /* ---------- язык ---------- */
 const browserRu = (navigator.language || '').toLowerCase().startsWith('ru');
-let lang = store.get('lang') || (browserRu ? 'ru' : 'en');
+/* Язык задаёт адрес: /en/ — это отдельная страница для поиска, и она
+   должна открываться по-английски независимо от прошлого выбора. */
+const urlLang = location.pathname.startsWith('/en') ? 'en'
+  : new URLSearchParams(location.search).get('lang');
+let lang = (urlLang === 'ru' || urlLang === 'en') ? urlLang
+  : store.get('lang') || (browserRu ? 'ru' : 'en');
 if (!T[lang]) lang = 'ru';
 
 function render() {
@@ -246,7 +251,7 @@ function render() {
       <h4>${t.press.topicsLabel}</h4>
       <ul>${t.press.topics.map((x) => `<li>${x}</li>`).join('')}</ul>
       <h4>${t.press.photoLabel}</h4>
-      <a class="btn btn-sm" href="assets/photo/petr-formal.jpg" download>${t.press.photoBtn}</a>
+      <a class="btn btn-sm" href="/assets/photo/petr-formal.jpg" download>${t.press.photoBtn}</a>
     </div>`;
 
   $('#consent-text').textContent = t.contact.consent;
@@ -442,7 +447,19 @@ gallery.addEventListener('click', (e) => {
   if (!btn) return;
   const frame = btn.closest('.frame');
   const v = frame.querySelector('video');
-  if (!v.src) v.src = v.dataset.src;
+  if (!v.currentSrc && !v.children.length) {
+    /* Первым идёт MP4: iOS декодирует его аппаратно, WebM — программно.
+       Браузер сам возьмёт из списка первый формат, который умеет. */
+    const webm = v.dataset.src;
+    const mp4 = webm.replace(/\.webm$/, '.mp4');
+    for (const [src, type] of [[mp4, 'video/mp4'], [webm, 'video/webm']]) {
+      const source = document.createElement('source');
+      source.src = src;
+      source.type = type;
+      v.append(source);
+    }
+    v.load();
+  }
   v.play().then(() => frame.classList.add('playing')).catch(() => {});
 });
 

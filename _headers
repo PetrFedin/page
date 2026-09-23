@@ -1,0 +1,20 @@
+# Имена файлов без хэшей, поэтому код и тексты кэшировать надолго нельзя:
+# посты в ленте меняются часто, и страница должна их подхватывать сразу.
+/assets/*.js
+  Cache-Control: public, max-age=0, must-revalidate
+/assets/*.css
+  Cache-Control: public, max-age=0, must-revalidate
+
+# Картинки и видео переснимаются редко, а при замене меняют имя.
+/assets/shots/*
+  Cache-Control: public, max-age=2592000
+/assets/video/*
+  Cache-Control: public, max-age=2592000
+/assets/photo/*
+  Cache-Control: public, max-age=2592000
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: DENY
+  Permissions-Policy: geolocation=(), microphone=(), camera=(), interest-cohort=()

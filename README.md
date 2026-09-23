@@ -31,7 +31,7 @@ python3 -m http.server 4321
 | `assets/fashion-advisory-en.pdf` | Презентация EN — подставляется при переключении языка |
 | `assets/logos.js` | Логотипы инлайном (`currentColor` — подхватывают тему) |
 | `assets/logos/` | Те же логотипы файлами, для печати и внешнего использования |
-| `assets/shots/` | Скриншоты для галереи |
+| `assets/shots/` | Скриншоты для галереи (WebP) |
 | `assets/video/` | Проходы по разделам, WebM/VP8, первый кадр галереи |
 | `functions/api/contact.js` | Приём формы → Telegram |
 | `privacy.html` | Политика обработки персональных данных |
@@ -166,3 +166,25 @@ launchctl load   ~/Library/LaunchAgents/pro.syntha.channel.plist   # запус�
 - [ ] Кнопка «Сохранить контакт» (.vcf) для сценария с визиткой
 - [ ] Решение по домену: визитка на корне `syntha.pro` или на поддомене
 - [ ] Генерация QR-кода под финальный URL
+
+
+## Деплой на Cloudflare Pages
+
+Сборки нет — публикуется содержимое папки как есть.
+
+1. Pages → Create project → подключить репозиторий.
+2. Build command оставить пустым, output directory — корень (`/`).
+3. Переменные окружения: `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID` — их читает
+   `functions/api/contact.js`.
+4. Custom domains: `syntha.pro` и `www.syntha.pro`.
+5. Web Analytics включается в панели Cloudflare, менять страницу не нужно.
+
+`_headers` задаёт кэш и заголовки безопасности, `_routes.json` пускает через
+Functions только `/api/*` — остальное отдаётся статикой.
+
+## Видео
+
+`assets/video/*.webm` снимаются Playwright, рядом лежат `*.mp4` — их делает
+`scripts/make-mp4.sh` (ffmpeg от Playwright распаковывает кадры, свой
+инструмент на AVFoundation собирает H.264). В плеере MP4 идёт первым: iOS
+декодирует его аппаратно, WebM — программно.
