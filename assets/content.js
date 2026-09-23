@@ -13,12 +13,6 @@ export const T = {
       ctaFeed: 'Лента',
       ctaContact: 'Связаться',
       bio: 'Работаю на стыке стратегии, коммерции, продукта, данных и капитала — от рынка и коллекции до запаса и денег.',
-      role: 'С 2017 года руковожу аналитикой закупок в крупнейшем luxury-ритейлере России. До этого — прикладная аналитика и закупочная логистика в федеральной кооперативной системе.',
-      creds: [
-        { n: '500+', l: 'брендов в портфеле' },
-        { n: '30 000+', l: 'SKU за сезон' },
-        { n: '12', l: 'аналитиков в команде' }
-      ],
       factsTitle: 'Релевантный опыт',
       facts: [
         {
@@ -421,12 +415,6 @@ export const T = {
       ctaFeed: 'Feed',
       ctaContact: 'Contact',
       bio: 'I work where strategy, commerce, product, data and capital meet — from market and collection through to inventory and cash.',
-      role: 'Head of buying analytics at the largest luxury retailer in Russia since 2017. Before that — applied analytics and procurement logistics in the federal cooperative system.',
-      creds: [
-        { n: '500+', l: 'brands in the portfolio' },
-        { n: '30,000+', l: 'SKUs per season' },
-        { n: '12', l: 'analysts in the team' }
-      ],
       factsTitle: 'Relevant experience',
       facts: [
         { id: 'buying', n: 'Buying and assortment',

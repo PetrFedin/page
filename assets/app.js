@@ -87,10 +87,6 @@ function render() {
   $('#hero-name').textContent = t.hero.name;
   $('#hero-lead').textContent = t.hero.lead;
   $('#hero-bio').textContent = t.hero.bio;
-  /* Роль и масштаб — на поверхности: без них консалтинг покупают вслепую. */
-  $('#hero-role').textContent = t.hero.role;
-  $('#hero-creds').innerHTML = t.hero.creds
-    .map((c) => `<li><b>${c.n}</b><span>${c.l}</span></li>`).join('');
   $('#hero-photo').alt = t.hero.photoAlt;
   $('#photo-big').alt = t.hero.photoAlt;
   $('#hero-avatar').alt = t.hero.photoAlt;
