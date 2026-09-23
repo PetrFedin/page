@@ -888,3 +888,39 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
   .coverage .gt-cell:not(:first-child)::before{margin-bottom:0}
   .coverage .own{padding:2px 6px; margin:2px -6px}
 }
+
+/* Оглавление: длинный документ должен быть проходим за один взгляд. */
+.doc-toc{padding:22px 0 26px; border-bottom:1px solid var(--line)}
+.doc-toc ol{
+  list-style:none; margin:0; padding:0; counter-reset:t;
+  display:grid; gap:8px 28px;
+}
+.doc-toc li{counter-increment:t; position:relative; padding-left:30px; font-size:15px}
+.doc-toc li::before{
+  content:counter(t, decimal-leading-zero); position:absolute; left:0;
+  font-size:11px; color:var(--accent); top:3px;
+}
+.doc-toc a{color:var(--ink); text-decoration:none; border-bottom:1px solid transparent}
+.doc-toc a:hover{border-color:var(--ink)}
+
+/* Экраны продукта. */
+.shots video{
+  display:block; width:100%; height:auto; border:1px solid var(--line); border-radius:4px;
+  background:var(--panel);
+}
+.shot-row{display:grid; gap:12px; margin-top:12px}
+.shot-row img{
+  display:block; width:100%; height:auto;
+  border:1px solid var(--line); border-radius:4px;
+}
+.exhibit figcaption.under{
+  border-bottom:none; border-top:1px solid var(--line);
+  padding:10px 0 0; margin-top:14px;
+}
+.phases .gt-cell small{color:var(--muted)}
+
+@media (min-width:760px){
+  .doc-toc ol{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .shot-row{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .cols-3.phases .gt-head,.cols-3.phases .gt-row{grid-template-columns:.8fr .8fr 1.6fr}
+}
