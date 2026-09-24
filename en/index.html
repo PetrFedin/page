@@ -104,7 +104,6 @@
   <section class="section" id="projects">
     <div class="section-head">
       <h2 id="projects-title"></h2>
-      <p class="sub" id="projects-sub"></p>
     </div>
     <div class="cards" id="cards"></div>
   </section>
@@ -286,6 +285,21 @@
       <p class="sub" id="diag-subtitle"></p>
     </header>
     <div class="diag-body" id="diag-body"></div>
+  </div>
+</dialog>
+
+<dialog class="modal" id="post-modal">
+  <button class="modal-close" id="post-close" type="button" aria-label="Close">
+    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>
+  </button>
+  <div class="modal-body">
+    <div class="post-modal-meta">
+      <time id="post-modal-date"></time>
+      <span class="post-tag" id="post-modal-tag"></span>
+    </div>
+    <h2 id="post-modal-title"></h2>
+    <div class="post-modal-body" id="post-modal-body"></div>
+    <a class="btn" id="post-modal-source" target="_blank" rel="noopener" hidden></a>
   </div>
 </dialog>
 

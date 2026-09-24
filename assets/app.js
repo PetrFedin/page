@@ -183,7 +183,6 @@ function render() {
     </li>`).join('');
 
   $('#projects-title').textContent = t.projects.title;
-  $('#projects-sub').textContent = t.projects.subtitle;
   $('#cards').className = "cards snap";
   $('#cards').innerHTML = PROJECTS.map((p) => `
     <article class="card" data-project="${p.id}">
@@ -561,15 +560,17 @@ $('#diag-body').addEventListener('click', (e) => {
   }
 });
 
-/* ---------- диагностика: модалка с тестом ---------- */
+/* ---------- диагностика: модалка с тестом ----------
+   openDiagnosticModal() ничего не сбрасывает: к ней возвращается и клик
+   по кнопке входа, и «назад» из карточки формата, открытой изнутри
+   результата, — во втором случае результат должен остаться на месте. */
 const diagModal = $('#diag-modal');
 function openDiagnosticModal() {
-  diagAnswers = [];
   renderDiagnostic();
   if (!diagModal.open) diagModal.showModal();
   diagModal.querySelector('.modal-body').scrollTop = 0;
 }
-$('#diag-open').addEventListener('click', () => go('diagnostic'));
+$('#diag-open').addEventListener('click', () => { diagAnswers = []; go('diagnostic'); });
 $('#diag-close').addEventListener('click', () => leave());
 diagModal.addEventListener('click', (e) => { if (e.target === diagModal) leave(); });
 
@@ -599,9 +600,9 @@ function renderNews() {
 
   $('#feed').className = 'feed snap';
   $('#feed').innerHTML = SITE_NEWS.slice(0, newsShown).map((p) => {
-    const { text, href } = splitBodyLink(p[lang].body);
+    const { text } = splitBodyLink(p[lang].body);
     return `
-    <li class="post" id="post-${p.date}">
+    <li class="post" id="post-${p.date}" data-post="${p.date}">
       <div class="post-meta">
         <time datetime="${p.date}">${fmt.format(new Date(p.date))}</time>
         <span class="post-tag">${t.tags[p.tag] ?? p.tag}</span>
@@ -615,7 +616,7 @@ function renderNews() {
       </div>
       <h3>${p[lang].title}</h3>
       <p>${text}</p>
-      ${href ? `<a class="post-source" href="${href}" target="_blank" rel="noopener">${t.source}</a>` : ''}
+      <span class="post-read">${t.read}</span>
     </li>`;
   }).join('');
 
@@ -628,6 +629,43 @@ $('#news-more').addEventListener('click', () => {
   newsShown = SITE_NEWS.length;
   renderNews();
 });
+
+/* ---------- чтение поста целиком ----------
+   Абзацы вида «Метка: текст» (О чём материал, Разбор, Мнение аналитика,
+   Выводы) рисуются структурными блоками — так разбор читается по частям,
+   а не одним сплошным полотном текста. */
+function renderPostBody(text) {
+  return text.split('\n\n').map((block) => {
+    const m = block.match(/^([^:\n]{2,40}):\s*([\s\S]*)$/);
+    return m
+      ? `<div class="post-section"><b>${m[1].trim()}</b><p>${m[2].trim()}</p></div>`
+      : `<p>${block.trim()}</p>`;
+  }).join('');
+}
+
+const postModal = $('#post-modal');
+function openPostModal(date) {
+  const p = SITE_NEWS.find((x) => x.date === date);
+  if (!p) return false;
+  const t = T[lang].news;
+  const { text, href } = splitBodyLink(p[lang].body);
+  const fmt = new Intl.DateTimeFormat(lang === 'ru' ? 'ru-RU' : 'en-GB',
+    { day: 'numeric', month: 'long', year: 'numeric' });
+  const dateEl = $('#post-modal-date');
+  dateEl.textContent = fmt.format(new Date(p.date));
+  dateEl.dateTime = p.date;
+  $('#post-modal-tag').textContent = t.tags[p.tag] ?? p.tag;
+  $('#post-modal-title').textContent = p[lang].title;
+  $('#post-modal-body').innerHTML = renderPostBody(text);
+  const src = $('#post-modal-source');
+  if (href) { src.href = href; src.hidden = false; src.textContent = t.source; }
+  else src.hidden = true;
+  if (!postModal.open) postModal.showModal();
+  postModal.querySelector('.modal-body').scrollTop = 0;
+  return true;
+}
+$('#post-close').addEventListener('click', () => leave());
+postModal.addEventListener('click', (e) => { if (e.target === postModal) leave(); });
 
 /* ---------- поделиться постом ----------
    У каждого поста свой адрес вида /#post-2026-09-23: по нему страница
@@ -707,7 +745,9 @@ function toast(text) {
 
 $('#feed').addEventListener('click', (e) => {
   const btn = e.target.closest('[data-share]');
-  if (btn) sharePost(btn.dataset.share);
+  if (btn) return sharePost(btn.dataset.share);
+  const post = e.target.closest('[data-post]');
+  if (post) go(`post-${post.dataset.post}`);
 });
 
 /* ---------- новости проекта ---------- */
@@ -818,6 +858,7 @@ function closeModals() {
   if (modal.open) modal.close(true);
   if (deckModal.open) deckModal.close(true);
   if (diagModal.open) diagModal.close(true);
+  if (postModal.open) postModal.close(true);
   if (pnModal.open) pnModal.close(true);
   if (infoModal.open) infoModal.close(true);
 }
@@ -827,16 +868,16 @@ function applyHash() {
   if (!h) return closeModals();
   if (h === 'deck') return openDeck();
   if (h === 'diagnostic') return openDiagnosticModal();
-  /* Ссылка на отдельный пост: разворачиваем ленту, если он ещё не показан. */
+  /* Ссылка на отдельный пост открывает его целиком, подгружая ленту,
+     если пост ещё не показан среди первых newsShown карточек. */
   if (h.startsWith('post-')) {
-    closeModals();
     const date = h.slice('post-'.length);
-    const at = SITE_NEWS.findIndex((p) => p.date === date);
-    if (at >= 0) {
-      if (at >= newsShown) { newsShown = SITE_NEWS.length; renderNews(); }
-      requestAnimationFrame(() => $(`#post-${date}`)?.scrollIntoView({ block: 'center' }));
+    if (SITE_NEWS.findIndex((p) => p.date === date) >= newsShown) {
+      newsShown = SITE_NEWS.length;
+      renderNews();
     }
-    return;
+    if (openPostModal(date)) return;
+    return closeModals();
   }
   if (h.startsWith('area-') || h.startsWith('format-')) { if (showInfo(h)) return; }
   if (h.endsWith('-news')) {
@@ -1021,7 +1062,7 @@ $('#services').addEventListener('click', (e) => {
 });
 
 /* Esc закрывает окно — адрес возвращаем тем же путём, что и кнопка. */
-[modal, deckModal, diagModal, pnModal, infoModal].forEach((d) => d.addEventListener('cancel', (e) => { e.preventDefault(); leave(); }));
+[modal, deckModal, diagModal, postModal, pnModal, infoModal].forEach((d) => d.addEventListener('cancel', (e) => { e.preventDefault(); leave(); }));
 
 render();
 syncSnaps();

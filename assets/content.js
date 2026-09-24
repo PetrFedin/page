@@ -173,7 +173,6 @@ export const T = {
     },
     projects: {
       title: 'Наши проекты',
-      subtitle: 'Syntha — основной: операционная система фэшн-бренда. ChatX вырос из работы над ней как рабочий контур команды и стал самостоятельным продуктом, который мы готовим к рынку. Renova — экспериментальный: проверяем подход там, где решения принимают вообще без цифр. Общее у всех одно — человек решает о деньгах, не видя полной картины. В каждый можно войти пользователем, партнёром или инвестором.',
       open: 'Подробнее',
       statusBtn: 'Стадия',
       newsBtn: 'Новости',
@@ -376,7 +375,8 @@ export const T = {
       title: 'Лента',
       subtitle: 'Коротко о том, зачем мы это делаем, кому это нужно и что меняется в проектах.',
       more: 'Показать ещё',
-      source: 'Источник →',
+      read: 'Читать целиком →',
+      source: 'Источник',
       channel: 'Все посты в Telegram →',
       share: 'Поделиться',
       shareIn: { tg: 'В Telegram', wa: 'В WhatsApp', copy: 'Скопировать ссылку' },
@@ -416,7 +416,7 @@ export const T = {
       readMore: 'Читать →'
     },
     diagnostic: {
-      label: 'Диагностика',
+      label: 'Пройти тест',
       title: 'Какой формат вам подходит',
       subtitle: 'Пять вопросов — тридцать секунд. В конце — конкретный формат работы, а не общий совет.',
       progress: 'Вопрос {i} из {n}',
@@ -572,7 +572,6 @@ export const T = {
     },
     projects: {
       title: 'Our projects',
-      subtitle: 'Syntha is the main one: the operating platform for a fashion brand. ChatX grew out of building it, as the team\u2019s own working loop, and became a product we are preparing for market. Renova is the experiment: testing the approach where decisions are made with no numbers at all. One thing is common to all three — someone decides about money without seeing the whole picture. Each one is open to users, partners and investors.',
       open: 'Details',
       statusBtn: 'Stage',
       newsBtn: 'News',
@@ -678,7 +677,8 @@ export const T = {
       title: 'Feed',
       subtitle: 'Short notes on why we build this, who it is for, and what changes in the projects.',
       more: 'Show more',
-      source: 'Source →',
+      read: 'Read in full →',
+      source: 'Source',
       channel: 'All posts on Telegram →',
       share: 'Share',
       shareIn: { tg: 'To Telegram', wa: 'To WhatsApp', copy: 'Copy link' },
@@ -717,7 +717,7 @@ export const T = {
       readMore: 'Read →'
     },
     diagnostic: {
-      label: 'Diagnostic',
+      label: 'Take the test',
       title: 'Which format fits',
       subtitle: 'Five questions, thirty seconds. At the end — a specific format, not generic advice.',
       progress: 'Question {i} of {n}',

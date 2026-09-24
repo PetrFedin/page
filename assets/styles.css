@@ -91,8 +91,7 @@ h2{font-size:clamp(26px,5vw,36px)}
 .btn-primary:hover{opacity:.88}
 .deck-actions{display:flex; flex-wrap:wrap; gap:10px; margin-top:32px}
 @media (max-width:759px){
-  .deck-actions{flex-wrap:nowrap}
-  .deck-actions .btn{flex:1 1 0; padding:12px 10px; font-size:14px; white-space:nowrap}
+  .deck-actions .btn{flex:1 1 auto; padding:12px 10px; font-size:14px}
 }
 
 /* ---------- services ---------- */
@@ -181,6 +180,14 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
   padding:26px 18px 30px;
 }
 @media (min-width:700px){ .modal-body{padding:34px 34px 38px} }
+/* У презентации свои заголовки-разделители внутри, липнущие к верху при
+   прокрутке (top:0 относительно modal-body). Верхний padding modal-body
+   оставлял над ними незакрытую полосу, через которую на прокрутке
+   проглядывал хвост предыдущего раздела — переносим отступ на первый
+   блок содержимого, чтобы у заголовков не было слепой зоны сверху. */
+#deck-modal .modal-body{padding-top:0}
+#deck-modal .deck-head{margin-top:26px}
+@media (min-width:700px){ #deck-modal .deck-head{margin-top:34px} }
 .modal-close{
   position:sticky; top:8px; z-index:8; float:none; margin:0 4px -34px auto;
   width:34px; height:34px; border-radius:999px; cursor:pointer;
@@ -356,8 +363,13 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 
 /* ---------- лента новостей ---------- */
 .feed{list-style:none; margin:0; padding:0; display:grid; gap:14px; align-content:start}
-.post{background:var(--panel); border:1px solid var(--line); border-radius:12px;
-  padding:22px 20px; display:grid; grid-template-rows:auto auto 1fr; gap:9px; min-height:300px}
+.post{
+  background:var(--panel); border:1px solid var(--line); border-radius:12px; cursor:pointer;
+  padding:22px 20px; display:grid; grid-template-rows:auto auto 1fr auto; gap:9px; min-height:300px;
+  transition:border-color .15s ease;
+}
+.post:hover{border-color:var(--ink)}
+.post:hover .post-read{text-decoration:underline}
 .post-meta{display:flex; align-items:center; gap:10px; flex-wrap:wrap}
 .post-meta time{font-size:12px; color:var(--muted)}
 .post-tag{
@@ -372,9 +384,21 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
   color:var(--muted); font-size:15px; white-space:pre-line;
   display:-webkit-box; -webkit-line-clamp:6; -webkit-box-orient:vertical; overflow:hidden;
 }
-.post-source{align-self:end; font-size:13px; color:var(--accent); text-decoration:none}
-.post-source:hover{text-decoration:underline}
+.post-read{align-self:end; font-size:13px; color:var(--accent)}
 #news-more{margin-top:20px}
+
+/* ---------- пост целиком: модалка ---------- */
+.post-modal-meta{display:flex; align-items:center; gap:10px; margin-bottom:14px}
+.post-modal-meta time{font-size:13px; color:var(--muted)}
+#post-modal-title{margin-bottom:18px}
+.post-modal-body{display:grid; gap:18px}
+.post-modal-body > p{color:var(--muted); font-size:15.5px; white-space:pre-line}
+.post-section{display:grid; gap:6px}
+.post-section b{
+  font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:500;
+}
+.post-section p{color:var(--ink); font-size:15.5px; line-height:1.6}
+#post-modal-source{margin-top:22px}
 
 @media (min-width:760px){
   .hero{grid-template-columns:1.25fr .75fr; align-items:center; gap:56px; padding-top:76px; padding-bottom:64px}
@@ -1108,8 +1132,9 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 .doc-cta-end{margin-top:26px}
 @media (min-width:760px){
   .doc-page .doc-block > h2{margin-left:-24px; margin-right:-24px; padding:14px 24px}
-  .shot-row{grid-template-columns:repeat(3,minmax(0,1fr))}
 }
+/* Все экраны/видео проекта — в один ряд, без переноса. */
+@media (min-width:1020px){ .shot-row{grid-template-columns:repeat(4,minmax(0,1fr))} }
 
 /* Разбор случая: врезка внутри раздела, не отдельный раздел. */
 .case{
