@@ -55,7 +55,12 @@ img{max-width:100%; display:block}
 .burger[aria-expanded="true"] span:last-child{transform:translateY(-3.3px) rotate(-45deg)}
 .nav a{color:var(--muted); text-decoration:none; font-size:14px}
 .nav a:hover{color:var(--ink)}
-.switches{display:flex; gap:8px; margin-left:auto}
+.switches{display:flex; align-items:center; gap:8px; margin-left:auto}
+.clock{
+  display:none; font-size:12px; letter-spacing:.02em; color:var(--muted);
+  white-space:nowrap;
+}
+@media (min-width:760px){ .clock{display:inline-block}}
 .lang,.theme{
   border:1px solid var(--line); background:var(--panel); color:var(--ink);
   border-radius:999px; height:32px; cursor:pointer; font-size:12px; letter-spacing:.08em;

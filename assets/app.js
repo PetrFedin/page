@@ -6,8 +6,9 @@ import { syncSnaps } from './snap.js';
 import { NEWS } from './news.js';
 
 /* Сайт — витрина: показываем отобранные материалы. Канал получает весь поток.
-   Порядок в ленте — это порядок записей в news.js, задан там вручную. */
-const SITE_NEWS = NEWS.filter((p) => p.site !== false);
+   Лента идёт от свежего к старому по дате публикации — «Показать ещё» раскрывает
+   более старые записи; порядок записей в news.js на отображение не влияет. */
+const SITE_NEWS = NEWS.filter((p) => p.site !== false).sort((a, b) => b.date.localeCompare(a.date));
 /* Разборы статей пишутся только по-русски (редполитика канала).
    На английской версии их не показываем в ленте — вместо смешения
    языков внутри карточки; postText() всё равно берёт русский текст
@@ -88,6 +89,7 @@ function render() {
   document.documentElement.lang = lang;
 
   $('#lang-toggle').textContent = lang === 'ru' ? 'EN' : 'RU';
+  renderClock();
   document.querySelectorAll('[data-nav]').forEach((a) => { a.textContent = t.nav[a.dataset.nav]; });
 
   $('#hero-eyebrow').textContent = t.hero.eyebrow;
@@ -192,7 +194,7 @@ function render() {
         <button class="btn btn-sm btn-primary" type="button" data-open="${p.id}">${t.projects.open}</button>
         <button class="btn btn-sm" type="button" data-status="${p.id}">${t.projects.statusBtn}</button>
         <button class="btn btn-sm" type="button" data-news="${p.id}">${t.projects.newsBtn}</button>
-        ${p.id === 'syntha' ? `<button class="btn btn-sm flow-toggle" type="button" data-flow-toggle aria-expanded="false">${t.flow.title}</button>` : ''}
+        ${p.id === 'syntha' ? `<button class="btn btn-sm flow-toggle" type="button" data-flow-toggle aria-expanded="false">${t.flow.eyebrow}</button>` : ''}
       </div>
       ${p.id === 'syntha' ? '<div class="flow-embed" id="flow-embed" hidden></div>' : ''}
     </article>`).join('');
@@ -235,6 +237,18 @@ $('#lang-toggle').addEventListener('click', () => {
   store.set('lang', lang);
   render();
 });
+
+/* ---------- часы в шапке: день недели, дата и время ---------- */
+function renderClock() {
+  const el = $('#clock');
+  if (!el) return;
+  const fmt = new Intl.DateTimeFormat(lang === 'ru' ? 'ru-RU' : 'en-GB', {
+    weekday: 'short', day: 'numeric', month: 'long', year: 'numeric',
+    hour: '2-digit', minute: '2-digit'
+  });
+  el.textContent = fmt.format(new Date());
+}
+setInterval(renderClock, 30000);
 
 /* ---------- тема ---------- */
 const savedTheme = store.get('theme');

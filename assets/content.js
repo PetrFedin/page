@@ -474,17 +474,17 @@ export const T = {
     },
     flow: {
       eyebrow: 'Консалтинг × Syntha',
-      title: 'Где утекают деньги сезона',
-      subtitle: 'Один и тот же сезон глазами консалтинга и глазами системы: что теряется на каждом шаге и что это закрывает.',
+      title: 'Один сезон — глазами консалтинга и глазами Syntha',
+      subtitle: 'От плана до закрытия сезона: какое решение принимается на каждом шаге, что мешает принять его вовремя — деньги, данные, сроки или согласование между людьми — и как это закрывает система.',
       consultingLabel: 'Консалтинг',
       synthaLabel: 'Syntha',
-      leakLabel: 'Где теряются деньги',
+      leakLabel: 'Что решается на этом шаге',
       steps: [
-        { n: '01', title: 'План сезона', leak: 'Бюджет закупки принимается на глаз, без расчёта и обоснования по категориям.', area: 'buying', contour: 'Продукт и коллекция' },
-        { n: '02', title: 'Закупка', leak: 'Заказ размещается раньше, чем известна реальная себестоимость изделия.', area: 'product', contour: 'Себестоимость и экономика' },
-        { n: '03', title: 'Открытие продаж', leak: 'Ассортимент и остаток на площадках расходятся с тем, что реально покупают.', area: 'buying', contour: 'Коммерция и сделка' },
-        { n: '04', title: 'Уценка', leak: 'Решение об уценке принимается по ощущению, а не по факту продаж и остатка.', area: 'buying', contour: 'Данные и показатели' },
-        { n: '05', title: 'Остаток и деньги', leak: 'Капитал, замороженный в остатке, не виден до самого закрытия периода.', area: 'turnaround', contour: 'Данные и показатели' }
+        { n: '01', title: 'План сезона', leak: 'Бюджет закупки принимается на глаз, без расчёта по категориям — и у консалтинга, и у системы на этом шаге нет общей картины спроса и остатков.', area: 'buying', contour: 'Продукт и коллекция' },
+        { n: '02', title: 'Закупка', leak: 'Заказ размещается раньше, чем известны реальная себестоимость изделия и сроки поставщика, — решение принимается без данных, которые появятся только позже.', area: 'product', contour: 'Себестоимость и экономика' },
+        { n: '03', title: 'Открытие продаж', leak: 'Ассортимент и остаток на площадках расходятся с тем, что реально покупают, а правки согласуются в переписке, где теряется ответственность за решение.', area: 'buying', contour: 'Коммерция и сделка' },
+        { n: '04', title: 'Уценка', leak: 'Решение об уценке принимается по ощущению, а не по факту продаж и остатка, — и не сверено с тем, что в этот момент видит коммерция.', area: 'buying', contour: 'Данные и показатели' },
+        { n: '05', title: 'Остаток и деньги', leak: 'Капитал, замороженный в остатке, не виден до самого закрытия периода, а решение о выводе позиции и повторном заказе принимается порознь, а не как одно целое.', area: 'turnaround', contour: 'Данные и показатели' }
       ]
     }
   },
@@ -770,17 +770,17 @@ export const T = {
     },
     flow: {
       eyebrow: 'Advisory × Syntha',
-      title: 'Where a season leaks money',
-      subtitle: 'The same season seen from advisory and from the system: what is lost at each step and what closes it.',
+      title: 'One season — through advisory and through Syntha',
+      subtitle: 'From the plan to the close of the season: what decision gets made at each step, what stands in the way — money, data, timing or a handoff between people — and how the system closes it.',
       consultingLabel: 'Advisory',
       synthaLabel: 'Syntha',
-      leakLabel: 'Where the money leaks',
+      leakLabel: 'What gets decided at this step',
       steps: [
-        { n: '01', title: 'Season plan', leak: 'The buying budget is set by feel, with no calculation or justification by category.', area: 'buying', contour: 'Product and collection' },
-        { n: '02', title: 'Buying', leak: 'An order is placed before the true item cost is known.', area: 'product', contour: 'Cost and economics' },
-        { n: '03', title: 'Launch to sale', leak: 'Assortment and stock across channels drift from what is actually selling.', area: 'buying', contour: 'Commerce and the deal' },
-        { n: '04', title: 'Markdown', leak: 'The markdown call is made by feel, not by actual sales and stock.', area: 'buying', contour: 'Data and metrics' },
-        { n: '05', title: 'Stock and cash', leak: 'Capital locked in stock stays invisible until the period closes.', area: 'turnaround', contour: 'Data and metrics' }
+        { n: '01', title: 'Season plan', leak: 'The buying budget is set by feel, with no calculation by category — at this step neither advisory nor the system has a shared picture of demand and stock.', area: 'buying', contour: 'Product and collection' },
+        { n: '02', title: 'Buying', leak: 'An order is placed before the true item cost and supplier lead time are known — the call is made without data that only arrives later.', area: 'product', contour: 'Cost and economics' },
+        { n: '03', title: 'Launch to sale', leak: 'Assortment and stock across channels drift from what is actually selling, and changes get agreed over email, where ownership of the decision gets lost.', area: 'buying', contour: 'Commerce and the deal' },
+        { n: '04', title: 'Markdown', leak: 'The markdown call is made by feel, not by actual sales and stock, and is never checked against what commerce is seeing at that moment.', area: 'buying', contour: 'Data and metrics' },
+        { n: '05', title: 'Stock and cash', leak: 'Capital locked in stock stays invisible until the period closes, and the exit-or-reorder call is made separately instead of as one decision.', area: 'turnaround', contour: 'Data and metrics' }
       ]
     }
   }
