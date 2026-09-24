@@ -21,6 +21,12 @@ function interleaveNews(base, extra, ratio = 2) {
 const isReview = (p) => p.tags?.includes('разбор');
 const siteVisible = NEWS.filter((p) => p.site !== false);
 const SITE_NEWS = interleaveNews(siteVisible.filter((p) => !isReview(p)), siteVisible.filter(isReview));
+/* Разборы статей пишутся только по-русски (редполитика канала).
+   На английской версии их не показываем в ленте — вместо смешения
+   языков внутри карточки; postText() всё равно берёт русский текст
+   как запасной вариант для прямых ссылок на такой пост на EN-версии. */
+const hasLang = (p) => Boolean(p[lang]);
+const postText = (p) => p[lang] ?? p.ru;
 
 const $ = (s) => document.querySelector(s);
 const store = {
@@ -438,7 +444,7 @@ function renderNow() {
     post.dataset.date = latest.date;
     const fmt = new Intl.DateTimeFormat(lang === 'ru' ? 'ru-RU' : 'en-GB', { day: 'numeric', month: 'long' });
     post.innerHTML = `<span class="now-post-label">${t.now.latest}</span>
-      <span class="now-post-title">${latest[lang].title}</span>
+      <span class="now-post-title">${postText(latest).title}</span>
       <span class="now-post-date">${fmt.format(new Date(latest.date))} · ${t.now.readMore}</span>`;
   }
 }
@@ -598,11 +604,14 @@ function splitBodyLink(body) {
    строится из фактически встречающихся тегов, а не задаётся руками:
    так кнопка сама не появится для категории без единого поста. */
 let newsFilter = null;
-const filteredNews = () => newsFilter ? SITE_NEWS.filter((p) => p.tag === newsFilter) : SITE_NEWS;
+const filteredNews = () => {
+  const pool = SITE_NEWS.filter(hasLang);
+  return newsFilter ? pool.filter((p) => p.tag === newsFilter) : pool;
+};
 
 function renderNewsFilters() {
   const t = T[lang].news;
-  const present = [...new Set(SITE_NEWS.map((p) => p.tag))];
+  const present = [...new Set(SITE_NEWS.filter(hasLang).map((p) => p.tag))];
   const order = ['analysis', 'market', 'product', 'syntha', 'chatx', 'renova', 'mission', 'investors', 'pilots', 'press'];
   const cats = order.filter((k) => present.includes(k));
   $('#news-filters').innerHTML = `
@@ -630,7 +639,7 @@ function renderNews() {
   const list = filteredNews();
   $('#feed').className = 'feed snap';
   $('#feed').innerHTML = list.slice(0, newsShown).map((p) => {
-    const { text } = splitBodyLink(p[lang].body);
+    const { text } = splitBodyLink(postText(p).body);
     return `
     <li class="post" id="post-${p.date}" data-post="${p.date}">
       <div class="post-meta">
@@ -644,7 +653,7 @@ function renderNews() {
           </svg>
         </button>
       </div>
-      <h3>${p[lang].title}</h3>
+      <h3>${postText(p).title}</h3>
       ${p.source?.outlet ? `<p class="post-outlet">${p.source.outlet}</p>` : ''}
       <p>${text}</p>
       ${p.tags?.length ? `<div class="post-chips">${p.tags.map((tg) => `<span class="post-chip">${tg}</span>`).join('')}</div>` : ''}
@@ -684,14 +693,14 @@ function openPostModal(date) {
   const p = SITE_NEWS.find((x) => x.date === date);
   if (!p) return false;
   const t = T[lang].news;
-  const { text, href } = splitBodyLink(p[lang].body);
+  const { text, href } = splitBodyLink(postText(p).body);
   const fmt = new Intl.DateTimeFormat(lang === 'ru' ? 'ru-RU' : 'en-GB',
     { day: 'numeric', month: 'long', year: 'numeric' });
   const dateEl = $('#post-modal-date');
   dateEl.textContent = fmt.format(new Date(p.date));
   dateEl.dateTime = p.date;
   $('#post-modal-tag').textContent = t.tags[p.tag] ?? p.tag;
-  $('#post-modal-title').textContent = p[lang].title;
+  $('#post-modal-title').textContent = postText(p).title;
 
   /* Источник, автор и оригинальное название — под заголовком, у своих
      постов о проектах их нет. */
@@ -737,7 +746,7 @@ function sharePost(date) {
   if (!post) return;
   const t = T[lang].news;
   const url = postLink(date);
-  const title = post[lang].title;
+  const title = postText(post).title;
   const text = `${title}\n\n${t.shareSign}`;
 
   /* На телефоне отдаём системному меню: оттуда пост уходит в любой канал. */
@@ -817,7 +826,7 @@ function openProjectNews(id) {
   const p = PROJECTS.find((x) => x.id === id);
   if (!p) return;
   const t = T[lang];
-  const posts = SITE_NEWS.filter((n) => n.tag === id);
+  const posts = SITE_NEWS.filter((n) => n.tag === id && hasLang(n));
   const fmt = new Intl.DateTimeFormat(lang === 'ru' ? 'ru-RU' : 'en-GB',
     { day: 'numeric', month: 'long', year: 'numeric' });
 
