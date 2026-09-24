@@ -219,7 +219,18 @@ function render() {
 
   $('#contacts').innerHTML = CONTACTS.map((c) => `
     <li><span class="lbl">${c.label[lang] ?? c.label}</span>
-      <a href="${c.href}" target="_blank" rel="noopener">${c.value}</a></li>`).join('');
+      <a href="${c.href}" target="_blank" rel="noopener">${c.value}</a>
+      ${c.qr ? `<button class="qr-trigger" type="button" data-qr="${c.qr}" aria-label="${t.contact.qrAlt}">
+        <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true">
+          <rect x="3" y="3" width="7" height="7" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <rect x="14" y="3" width="7" height="7" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <rect x="3" y="14" width="7" height="7" fill="none" stroke="currentColor" stroke-width="1.6"/>
+          <rect x="14.5" y="14.5" width="2.3" height="2.3" fill="currentColor"/>
+          <rect x="18.7" y="14.5" width="2.3" height="2.3" fill="currentColor"/>
+          <rect x="14.5" y="18.7" width="2.3" height="2.3" fill="currentColor"/>
+          <rect x="18.7" y="18.7" width="2.3" height="2.3" fill="currentColor"/>
+        </svg>
+      </button>` : ''}</li>`).join('');
 
   $('#year').textContent = new Date().getFullYear();
   renderNow();
@@ -423,6 +434,19 @@ gallery.addEventListener('click', (e) => {
   v.play().then(() => frame.classList.add('playing')).catch(() => {});
 });
 
+/* «Сейчас»: клик по проекту в статус-строке ведёт к его карточке и подсвечивает её */
+$('#now-projects').addEventListener('click', (e) => {
+  const b = e.target.closest('[data-goto-project]');
+  if (!b) return;
+  const card = document.querySelector(`.card[data-project="${b.dataset.gotoProject}"]`);
+  if (!card) return;
+  card.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
+  card.classList.remove('card-highlight');
+  void card.offsetWidth;
+  card.classList.add('card-highlight');
+  card.addEventListener('animationend', () => card.classList.remove('card-highlight'), { once: true });
+});
+
 /* «Обсудить участие» — переносит проект в форму */
 $('#modal-cta').addEventListener('click', () => {
   $('#topic').value = modal.dataset.project;
@@ -436,7 +460,9 @@ function renderNow() {
   const t = T[lang];
   $('#now-label').textContent = t.now.label;
   $('#now-projects').innerHTML = PROJECTS.map((p) => `
-    <li><span class="now-dot" aria-hidden="true"></span><b>${p.name}</b><span>${p[lang].stage}</span></li>`).join('');
+    <li><button type="button" class="now-project" data-goto-project="${p.id}">
+      <span class="now-dot" aria-hidden="true"></span><b>${p.name}</b><span>${p[lang].stage}</span>
+    </button></li>`).join('');
 
   const latest = SITE_NEWS.filter(hasLang)[0];
   const post = $('#now-post');
@@ -668,13 +694,17 @@ function renderNews() {
   }).join('');
 
   const more = $('#news-more');
-  more.hidden = newsShown >= list.length;
-  more.textContent = t.more;
+  const expanded = newsShown >= list.length;
+  more.hidden = list.length <= 2;
+  more.textContent = expanded ? t.collapse : t.more;
+  more.dataset.expanded = String(expanded);
 }
 
 $('#news-more').addEventListener('click', () => {
-  newsShown = filteredNews().length;
+  const list = filteredNews();
+  newsShown = newsShown >= list.length ? 2 : list.length;
   renderNews();
+  if (newsShown === 2) $('#news').scrollIntoView({ block: 'start' });
 });
 
 /* ---------- чтение поста целиком ----------
@@ -732,6 +762,16 @@ function openPostModal(date) {
     .map((tg) => `<span class="post-chip">${tg}</span>`).join('');
 
   $('#post-modal-body').innerHTML = renderPostBody(text);
+
+  /* Пост про один из проектов — обязательно даём ссылку на его карточку. */
+  const projectEl = $('#post-modal-project');
+  const project = PROJECTS.find((x) => x.id === p.tag);
+  if (project) {
+    projectEl.textContent = `${t.openProject} ${project.name} →`;
+    projectEl.dataset.project = project.id;
+    projectEl.hidden = false;
+  } else projectEl.hidden = true;
+
   const src = $('#post-modal-source');
   if (href) { src.href = href; src.hidden = false; src.textContent = t.source; }
   else src.hidden = true;
@@ -741,6 +781,11 @@ function openPostModal(date) {
 }
 $('#post-close').addEventListener('click', () => leave());
 postModal.addEventListener('click', (e) => { if (e.target === postModal) leave(); });
+$('#post-modal-project').addEventListener('click', (e) => {
+  const id = e.currentTarget.dataset.project;
+  postModal.close(true);
+  go(id);
+});
 
 /* ---------- поделиться постом ----------
    У каждого поста свой адрес вида /#post-2026-09-23: по нему страница
@@ -914,6 +959,19 @@ $('#formats').addEventListener('click', (e) => {
 });
 $('#cv-close').addEventListener('click', () => leave());
 infoModal.addEventListener('click', (e) => { if (e.target === infoModal) leave(); });
+
+/* ---------- QR-код канала: маленькая кнопка рядом с контактом разворачивает код ---------- */
+const qrModal = $('#qr-modal');
+$('#contacts').addEventListener('click', (e) => {
+  const b = e.target.closest('.qr-trigger');
+  if (!b) return;
+  $('#qr-image').src = b.dataset.qr;
+  $('#qr-image').alt = T[lang].contact.qrTitle;
+  $('#qr-title').textContent = T[lang].contact.qrTitle;
+  qrModal.showModal();
+});
+$('#qr-close').addEventListener('click', () => qrModal.close());
+qrModal.addEventListener('click', (e) => { if (e.target === qrModal) qrModal.close(); });
 
 /* копирование био для прессы */
 $('#press-body').addEventListener('click', async (e) => {

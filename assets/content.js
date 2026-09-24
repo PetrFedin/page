@@ -367,11 +367,13 @@ export const T = {
       title: 'Лента',
       subtitle: 'Коротко о том, зачем мы это делаем, кому это нужно и что меняется в проектах.',
       more: 'Показать ещё',
+      collapse: 'Свернуть',
       read: 'Читать целиком →',
       source: 'Источник',
       subjectLabel: 'О ком материал',
       original: 'Оригинал',
       filterAll: 'Всё',
+      openProject: 'Открыть проект',
       channel: 'Все посты в Telegram →',
       share: 'Поделиться',
       shareIn: { tg: 'В Telegram', wa: 'В WhatsApp', copy: 'Скопировать ссылку' },
@@ -403,6 +405,8 @@ export const T = {
       fail: 'Не отправилось. Напишите в Telegram или WhatsApp — отвечу быстрее.',
       required: 'Заполните имя, контакт и сообщение.',
       directTitle: 'Контакты',
+      qrAlt: 'Показать QR-код',
+      qrTitle: 'Отсканируйте, чтобы открыть канал в Telegram',
       vcard: 'Сохранить контакт',
       privacy: 'Конфиденциальность клиентских данных — базовый стандарт работы.'
     },
@@ -483,9 +487,8 @@ export const T = {
       steps: [
         { n: '01', title: 'План сезона', leak: 'Бюджет закупки задаётся на глаз, без расчёта по категориям, — консалтинг и система на этом шаге видят разные версии одного и того же спроса.', area: 'buying', contour: 'Продукт и коллекция' },
         { n: '02', title: 'Закупка', leak: 'Заказ размещается раньше, чем известны реальная себестоимость изделия и сроки поставщика, — цифры, которые должны были определить решение, приходят уже после него.', area: 'product', contour: 'Себестоимость и экономика' },
-        { n: '03', title: 'Открытие продаж', leak: 'Ассортимент и остаток на площадках расходятся с тем, что реально покупают: правки согласуются в переписке, и решение теряет автора.', area: 'buying', contour: 'Коммерция и сделка' },
-        { n: '04', title: 'Уценка', leak: 'Когда продажи расходятся с планом, уценку назначают по ощущению, а не по марже и остатку, — решение, которое напрямую бьёт по деньгам, принимается без денежного расчёта.', area: 'capital', contour: 'Деньги и маржа' },
-        { n: '05', title: 'Остаток и деньги', leak: 'Капитал, замороженный в остатке, становится виден только при закрытии периода — тогда же, когда уже поздно менять, что с ним делать: выводить позицию или дозаказывать.', area: 'turnaround', contour: 'Приоритеты и капитал' }
+        { n: '03', title: 'Открытие продаж', leak: 'Ассортимент и остаток на площадках расходятся с тем, что реально покупают: правки согласуются в переписке и теряют автора, а решение о цене или уценке — снизить сейчас или подождать — принимается по ощущению, а не по факту продаж и марже.', area: 'buying', contour: 'Коммерция, цена и сделка' },
+        { n: '04', title: 'Остаток и деньги', leak: 'Капитал, замороженный в остатке, становится виден только при закрытии периода — тогда же, когда уже поздно менять, что с ним делать: выводить позицию или дозаказывать.', area: 'turnaround', contour: 'Приоритеты и капитал' }
       ]
     }
   },
@@ -665,11 +668,13 @@ export const T = {
       title: 'Feed',
       subtitle: 'Short notes on why we build this, who it is for, and what changes in the projects.',
       more: 'Show more',
+      collapse: 'Collapse',
       read: 'Read in full →',
       source: 'Source',
       subjectLabel: 'Who this is about',
       original: 'Original',
       filterAll: 'All',
+      openProject: 'Open project',
       channel: 'All posts on Telegram →',
       share: 'Share',
       shareIn: { tg: 'To Telegram', wa: 'To WhatsApp', copy: 'Copy link' },
@@ -700,6 +705,8 @@ export const T = {
       fail: 'Could not send. Message me on Telegram or WhatsApp — that is faster.',
       required: 'Please fill in name, contact and message.',
       directTitle: 'Contacts',
+      qrAlt: 'Show QR code',
+      qrTitle: 'Scan to open the channel on Telegram',
       vcard: 'Save contact',
       privacy: 'Client confidentiality is a baseline standard of the work.'
     },
@@ -780,9 +787,8 @@ export const T = {
       steps: [
         { n: '01', title: 'Season plan', leak: 'The buying budget is set by feel, with no calculation by category — at this step advisory and the system are looking at two different versions of the same demand.', area: 'buying', contour: 'Product and collection' },
         { n: '02', title: 'Buying', leak: 'An order is placed before the true item cost and supplier lead time are known — the numbers that should have shaped the decision arrive only after it is made.', area: 'product', contour: 'Cost and economics' },
-        { n: '03', title: 'Launch to sale', leak: 'Assortment and stock across channels drift from what is actually selling, and changes get agreed over email, where the decision loses its owner.', area: 'buying', contour: 'Commerce and the deal' },
-        { n: '04', title: 'Markdown', leak: 'When sales drift from plan, the markdown call is made by feel, not by margin and stock — a decision that hits cash directly is made with no financial math behind it.', area: 'capital', contour: 'Money and margin' },
-        { n: '05', title: 'Stock and cash', leak: 'Capital locked in stock only becomes visible when the period closes — exactly when it is too late to decide whether to exit the item or reorder it.', area: 'turnaround', contour: 'Priorities and capital' }
+        { n: '03', title: 'Launch to sale', leak: 'Assortment and stock across channels drift from what is actually selling: changes get agreed over email and lose their owner, and the pricing call — markdown now or wait — is made by feel, not by actual sales and margin.', area: 'buying', contour: 'Commerce, price and the deal' },
+        { n: '04', title: 'Stock and cash', leak: 'Capital locked in stock only becomes visible when the period closes — exactly when it is too late to decide whether to exit the item or reorder it.', area: 'turnaround', contour: 'Priorities and capital' }
       ]
     }
   }
@@ -913,5 +919,5 @@ export const PROJECTS = [
 export const CONTACTS = [
   { label: { ru: 'WhatsApp', en: 'WhatsApp' }, value: '+7 977 578 16 85', href: 'https://wa.me/79775781685' },
   { label: { ru: 'Telegram', en: 'Telegram' }, value: '@sheqel', href: 'https://t.me/sheqel' },
-  { label: { ru: 'Канал проектов', en: 'Project channel' }, value: '@syntha_pro', href: 'https://t.me/syntha_pro' }
+  { label: { ru: 'Канал проектов', en: 'Project channel' }, value: '@syntha_pro', href: 'https://t.me/syntha_pro', qr: '/assets/qr-syntha-pro.svg' }
 ];
