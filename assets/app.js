@@ -130,6 +130,11 @@ function render() {
         <span class="format-more">${t.formats.more}</span>
       </article>`).join('')}</div>`;
 
+  /* Раздел «Публикации» имеет смысл только когда их больше одной —
+     иначе множественное число в заголовке расходится с содержимым. */
+  const hasMedia = t.media.items.length > 0;
+  $('#media').hidden = !hasMedia;
+  document.querySelector('[data-nav="media"]').hidden = !hasMedia;
   $('#media-title').textContent = t.media.title;
   $('#media-sub').textContent = t.media.subtitle;
   $('#media-list').innerHTML = t.media.items.map((m) => {
@@ -589,17 +594,42 @@ function splitBodyLink(body) {
   return { text: body, href: null };
 }
 
+/* Фильтр ленты по категории — null значит «всё». Список категорий
+   строится из фактически встречающихся тегов, а не задаётся руками:
+   так кнопка сама не появится для категории без единого поста. */
+let newsFilter = null;
+const filteredNews = () => newsFilter ? SITE_NEWS.filter((p) => p.tag === newsFilter) : SITE_NEWS;
+
+function renderNewsFilters() {
+  const t = T[lang].news;
+  const present = [...new Set(SITE_NEWS.map((p) => p.tag))];
+  const order = ['analysis', 'market', 'product', 'syntha', 'chatx', 'renova', 'mission', 'investors', 'pilots', 'press'];
+  const cats = order.filter((k) => present.includes(k));
+  $('#news-filters').innerHTML = `
+    <button type="button" class="news-filter" data-filter="" aria-pressed="${!newsFilter}">${t.filterAll}</button>
+    ${cats.map((k) => `<button type="button" class="news-filter" data-filter="${k}" aria-pressed="${newsFilter === k}">${t.tags[k] ?? k}</button>`).join('')}`;
+}
+$('#news-filters').addEventListener('click', (e) => {
+  const btn = e.target.closest('[data-filter]');
+  if (!btn) return;
+  newsFilter = btn.dataset.filter || null;
+  newsShown = 4;
+  renderNews();
+});
+
 function renderNews() {
   const t = T[lang].news;
   $('#news-title').textContent = t.title;
   $('#news-sub').textContent = t.subtitle;
   $('#news-channel').textContent = t.channel;
+  renderNewsFilters();
 
   const fmt = new Intl.DateTimeFormat(lang === 'ru' ? 'ru-RU' : 'en-GB',
     { day: 'numeric', month: 'long', year: 'numeric' });
 
+  const list = filteredNews();
   $('#feed').className = 'feed snap';
-  $('#feed').innerHTML = SITE_NEWS.slice(0, newsShown).map((p) => {
+  $('#feed').innerHTML = list.slice(0, newsShown).map((p) => {
     const { text } = splitBodyLink(p[lang].body);
     return `
     <li class="post" id="post-${p.date}" data-post="${p.date}">
@@ -615,18 +645,20 @@ function renderNews() {
         </button>
       </div>
       <h3>${p[lang].title}</h3>
+      ${p.source?.outlet ? `<p class="post-outlet">${p.source.outlet}</p>` : ''}
       <p>${text}</p>
+      ${p.tags?.length ? `<div class="post-chips">${p.tags.map((tg) => `<span class="post-chip">${tg}</span>`).join('')}</div>` : ''}
       <span class="post-read">${t.read}</span>
     </li>`;
   }).join('');
 
   const more = $('#news-more');
-  more.hidden = newsShown >= SITE_NEWS.length;
+  more.hidden = newsShown >= list.length;
   more.textContent = t.more;
 }
 
 $('#news-more').addEventListener('click', () => {
-  newsShown = SITE_NEWS.length;
+  newsShown = filteredNews().length;
   renderNews();
 });
 
@@ -634,11 +666,15 @@ $('#news-more').addEventListener('click', () => {
    Абзацы вида «Метка: текст» (О чём материал, Разбор, Мнение аналитика,
    Выводы) рисуются структурными блоками — так разбор читается по частям,
    а не одним сплошным полотном текста. */
+/* Только эти метки рисуются структурным блоком — иначе обычное
+   предложение с двоеточием («В магазине продажи видно каждый день:
+   что уходит...») ошибочно превращалось в заголовок. */
+const POST_LABELS = ['О чём материал', 'Разбор', 'Мнение аналитика', 'Выводы'];
 function renderPostBody(text) {
   return text.split('\n\n').map((block) => {
-    const m = block.match(/^([^:\n]{2,40}):\s*([\s\S]*)$/);
-    return m
-      ? `<div class="post-section"><b>${m[1].trim()}</b><p>${m[2].trim()}</p></div>`
+    const label = POST_LABELS.find((l) => block.startsWith(`${l}:`));
+    return label
+      ? `<div class="post-section"><b>${label}</b><p>${block.slice(label.length + 1).trim()}</p></div>`
       : `<p>${block.trim()}</p>`;
   }).join('');
 }
@@ -656,6 +692,30 @@ function openPostModal(date) {
   dateEl.dateTime = p.date;
   $('#post-modal-tag').textContent = t.tags[p.tag] ?? p.tag;
   $('#post-modal-title').textContent = p[lang].title;
+
+  /* Источник, автор и оригинальное название — под заголовком, у своих
+     постов о проектах их нет. */
+  const outletEl = $('#post-modal-outlet');
+  if (p.source?.outlet) {
+    const bits = [p.source.outlet];
+    if (p.source.author) bits.push(p.source.author);
+    outletEl.textContent = bits.join(' · ');
+    if (p.source.original) {
+      outletEl.textContent += ` — ${t.original}: «${p.source.original}»`;
+    }
+    outletEl.hidden = false;
+  } else outletEl.hidden = true;
+
+  /* Справка: о каком бренде/компании материал — не подменяет «О чём материал». */
+  const subjectEl = $('#post-modal-subject');
+  if (p.subject) {
+    subjectEl.innerHTML = `<b>${t.subjectLabel}</b><p>${p.subject}</p>`;
+    subjectEl.hidden = false;
+  } else subjectEl.hidden = true;
+
+  $('#post-modal-tags').innerHTML = (p.tags ?? [])
+    .map((tg) => `<span class="post-chip">${tg}</span>`).join('');
+
   $('#post-modal-body').innerHTML = renderPostBody(text);
   const src = $('#post-modal-source');
   if (href) { src.href = href; src.hidden = false; src.textContent = t.source; }

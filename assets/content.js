@@ -335,15 +335,7 @@ export const T = {
     media: {
       title: 'Публикации и выступления',
       subtitle: 'Где меня цитируют и о чём спрашивают.',
-      items: [
-        {
-          outlet: 'Grazia', date: '2025-10-09',
-          title: 'Как будет выглядеть фэшн-индустрия через 5 лет: блиц с экспертами моды',
-          note: 'Комментарий по итогам BRICS+ Fashion Summit — первым среди приглашённых экспертов.',
-          quote: 'Индустрия моды всё ещё опирается на интуицию и визуальное чутьё, но будущее — за данными. Побеждать будут бренды, которые соединяют креатив с точным расчётом.',
-          href: 'https://www.grazia.ru/fashion/kak-budet-vyglyadet-feshn-industriya-cherez-5-let-blic-s-ekspertami-mody/'
-        }
-      ],
+      items: [],
       read: 'Читать материал →'
     },
     press: {
@@ -377,13 +369,16 @@ export const T = {
       more: 'Показать ещё',
       read: 'Читать целиком →',
       source: 'Источник',
+      subjectLabel: 'О ком материал',
+      original: 'Оригинал',
+      filterAll: 'Всё',
       channel: 'Все посты в Telegram →',
       share: 'Поделиться',
       shareIn: { tg: 'В Telegram', wa: 'В WhatsApp', copy: 'Скопировать ссылку' },
       copied: 'Ссылка скопирована',
       /* Подпись уходит вместе со ссылкой: репост должен вести к автору. */
       shareSign: 'Пётр Федин · syntha.pro',
-      tags: { analysis: 'Разбор', market: 'Рынок', product: 'Продукт', syntha: 'Syntha', renova: 'Renova', chatx: 'ChatX', mission: 'Позиция', investors: 'Инвесторам', pilots: 'Пилоты' }
+      tags: { analysis: 'Разбор', market: 'Рынок', product: 'Продукт', syntha: 'Syntha', renova: 'Renova', chatx: 'ChatX', mission: 'Позиция', investors: 'Инвесторам', pilots: 'Пилоты', press: 'Пресса' }
     },
     contact: {
       title: 'Связаться',
@@ -653,15 +648,7 @@ export const T = {
     media: {
       title: 'Press and speaking',
       subtitle: 'Where I am quoted and what I am asked about.',
-      items: [
-        {
-          outlet: 'Grazia', date: '2025-10-09',
-          title: 'What the fashion industry will look like in five years: a blitz with fashion experts',
-          note: 'Commentary after the BRICS+ Fashion Summit — quoted first among the invited experts.',
-          quote: 'Fashion still leans on intuition and visual instinct, but the future belongs to data. The winners will be brands that combine creativity with precise calculation.',
-          href: 'https://www.grazia.ru/fashion/kak-budet-vyglyadet-feshn-industriya-cherez-5-let-blic-s-ekspertami-mody/'
-        }
-      ],
+      items: [],
       read: 'Read the piece →'
     },
     press: {
@@ -679,6 +666,9 @@ export const T = {
       more: 'Show more',
       read: 'Read in full →',
       source: 'Source',
+      subjectLabel: 'Who this is about',
+      original: 'Original',
+      filterAll: 'All',
       channel: 'All posts on Telegram →',
       share: 'Share',
       shareIn: { tg: 'To Telegram', wa: 'To WhatsApp', copy: 'Copy link' },
@@ -890,7 +880,7 @@ export const PROJECTS = [
         next: ['Сборка в TestFlight и закрытый тест', 'OAuth «Мой налог»'],
         seeking: 'Мастеров и бригады, а также заказчиков — готовых проработать приложение и вести на нём реальный объект.'
       },
-      tagline: 'Ремонт под контролем заказчика',
+      tagline: 'Ремонт под контролем',
       stage: 'MVP, подготовка к запуску',
       card: 'Заказчик ведёт весь ход работ, видит деньги и сроки и решает все вопросы с мастерами в одном месте.',
       what: 'Приложение, в котором заказчик ведёт объект целиком: смета и её изменения, этапы работ с приёмкой, деньги и платежи, расходники и документы. Вся переписка с исполнителями идёт здесь же и привязана к конкретному этапу, а не теряется в мессенджере.',

@@ -362,10 +362,18 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
   display:-webkit-box; -webkit-line-clamp:4; -webkit-box-orient:vertical; overflow:hidden}
 
 /* ---------- лента новостей ---------- */
+.news-filters{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px}
+.news-filter{
+  appearance:none; border:1px solid var(--line); background:var(--bg); color:var(--muted);
+  border-radius:999px; padding:7px 14px; font-size:13px; cursor:pointer; font:inherit;
+}
+.news-filter:hover{border-color:var(--ink); color:var(--ink)}
+.news-filter[aria-pressed="true"]{background:var(--ink); border-color:var(--ink); color:var(--bg)}
+
 .feed{list-style:none; margin:0; padding:0; display:grid; gap:14px; align-content:start}
 .post{
   background:var(--panel); border:1px solid var(--line); border-radius:12px; cursor:pointer;
-  padding:22px 20px; display:grid; grid-template-rows:auto auto 1fr auto; gap:9px; min-height:300px;
+  padding:22px 20px; display:flex; flex-direction:column; gap:9px; min-height:300px;
   transition:border-color .15s ease;
 }
 .post:hover{border-color:var(--ink)}
@@ -380,17 +388,34 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
   font-size:19px; line-height:1.25;
   display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
 }
+.post-outlet{font-size:12.5px; color:var(--accent); font-weight:500}
 .post p{
   color:var(--muted); font-size:15px; white-space:pre-line;
   display:-webkit-box; -webkit-line-clamp:6; -webkit-box-orient:vertical; overflow:hidden;
 }
-.post-read{align-self:end; font-size:13px; color:var(--accent)}
+.post-chips{display:flex; flex-wrap:wrap; gap:6px}
+.post-chip{
+  font-size:11px; color:var(--muted); background:var(--bg); border:1px solid var(--line);
+  border-radius:999px; padding:3px 9px;
+}
+.post-read{align-self:start; font-size:13px; color:var(--accent); margin-top:auto; padding-top:4px}
 #news-more{margin-top:20px}
 
 /* ---------- пост целиком: модалка ---------- */
 .post-modal-meta{display:flex; align-items:center; gap:10px; margin-bottom:14px}
 .post-modal-meta time{font-size:13px; color:var(--muted)}
-#post-modal-title{margin-bottom:18px}
+#post-modal-title{margin-bottom:10px}
+.post-modal-outlet{color:var(--accent); font-size:13.5px; font-weight:500; margin-bottom:18px}
+.post-modal-subject{
+  background:var(--panel); border:1px solid var(--line); border-radius:10px;
+  padding:14px 16px; margin-bottom:18px; display:grid; gap:5px;
+}
+.post-modal-subject b{
+  font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:500;
+}
+.post-modal-subject p{color:var(--ink); font-size:14.5px; line-height:1.55}
+.post-modal-tags{display:flex; flex-wrap:wrap; gap:6px; margin-bottom:18px}
+.post-modal-tags .post-chip{font-size:12px}
 .post-modal-body{display:grid; gap:18px}
 .post-modal-body > p{color:var(--muted); font-size:15.5px; white-space:pre-line}
 .post-section{display:grid; gap:6px}
@@ -1079,10 +1104,13 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 .doc-toc a{color:var(--ink); text-decoration:none; border-bottom:1px solid transparent}
 .doc-toc a:hover{border-color:var(--ink)}
 
-/* Экраны продукта: видео — первый элемент в том же ряду, того же размера. */
-.shot-row{display:grid; gap:12px; margin-top:12px}
+/* Экраны продукта: горизонтальная лента фиксированной высоты, видео —
+   первым элементом, того же размера, что и снимки. Сетка с колонками
+   здесь не подходит: портретные скрины (1500×3252) в широкой колонке
+   растягиваются на весь рост экрана. */
+.shot-row{display:flex; gap:12px; margin-top:12px; overflow-x:auto}
 .shot-row img, .shot-row video{
-  display:block; width:100%; height:auto;
+  display:block; height:460px; width:auto; flex:0 0 auto;
   border:1px solid var(--line); border-radius:4px; background:var(--panel);
 }
 .exhibit figcaption.under{
@@ -1092,7 +1120,6 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 .phases .gt-cell small{color:var(--muted)}
 
 @media (min-width:760px){
-  .shot-row{grid-template-columns:repeat(2,minmax(0,1fr))}
   .cols-3.phases .gt-head,.cols-3.phases .gt-row{grid-template-columns:.8fr .8fr 1.6fr}
 }
 
@@ -1133,8 +1160,6 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 @media (min-width:760px){
   .doc-page .doc-block > h2{margin-left:-24px; margin-right:-24px; padding:14px 24px}
 }
-/* Все экраны/видео проекта — в один ряд, без переноса. */
-@media (min-width:1020px){ .shot-row{grid-template-columns:repeat(4,minmax(0,1fr))} }
 
 /* Разбор случая: врезка внутри раздела, не отдельный раздел. */
 .case{
@@ -1204,7 +1229,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
   }
   .shot-row.snap{gap:12px}
   /* Экраны листаются в исходной пропорции, без обрезки. */
-  .shot-row.snap img{height:auto}
+  .shot-row.snap img,.shot-row.snap video{height:auto; width:100%}
 }
 
 @media (max-width:759px){
