@@ -184,8 +184,6 @@ export const T = {
       status: { title: 'Текущая стадия проекта', done: 'Сделано', now: 'В работе', next: 'Дальше', seeking: 'Что ищем' },
       collabTitle: 'Как можно участвовать',
       collabNote: 'Детали архитектуры и дорожную карту показываем предметно — при знакомстве и под соглашение о неразглашении.',
-      teamLabel: 'Команда',
-      teamNote: 'Сейчас веду проект один — от продукта и данных до кода. Техническую архитектуру и состав команды показываю предметно: по запросу и под NDA.',
       investorLabel: 'Инвесторам и партнёрам',
       compareBtn: 'Сравнение',
       compareTitle: 'Сравнение с альтернативами',
@@ -195,40 +193,7 @@ export const T = {
     area: {
       doesLabel: 'Что входит в работу',
       givesLabel: 'Что остаётся у вас',
-      resultsLabel: 'Достижения и результаты',
-      note: 'Результаты моей управленческой практики. Названия компаний и клиентов не раскрываются.',
-      blocks: [
-        {
-          title: 'Аналитический контур закупки',
-          body: 'Построил BI-контур от бюджета и лимита закупки до анализа отдельной позиции: продаваемость, валовая рентабельность запаса, маржа, оборачиваемость, остатки.',
-          results: ['90% отчётности автоматизировано', 'Согласование заказов втрое быстрее', 'Доля прибыльных позиций +20%']
-        },
-        {
-          title: 'Адаптивное планирование закупки',
-          body: 'Перевёл бюджет закупки и прогноз спроса на пересчёт по фактическим продажам, остаткам и динамике каналов — в разрезе брендов и категорий.',
-          results: ['Продаваемость сезонных групп +8 п.п.', 'Избыточные остатки −10%', 'Валовая рентабельность запаса +5%']
-        },
-        {
-          title: 'Структура закупки и стандарт обоснования',
-          body: 'Перераспределил лимит закупки в пользу оборачиваемых и маржинальных категорий, ввёл обязательное обоснование каждой позиции и единый цикл до, во время и после закупки.',
-          results: ['Валовая рентабельность запаса +23%', 'Оборачиваемость позиции в днях −34%', 'Из сезона исключается 1000–1200 неэффективных позиций', 'Закупочная маржа +3 п.п.', 'Повторяемость ошибок −66%']
-        },
-        {
-          title: 'Логистика и единые данные',
-          body: 'Спроектировал архитектуру логистических данных и единое хранилище по всей внешней логистике: статусы поставок, объёмы, сроки.',
-          results: ['Ошибки в логистических данных −70%', 'Срок получения отчёта — с 2–3 дней до 10 минут']
-        },
-        {
-          title: 'Инструменты и автоматизация',
-          body: 'Разработал инструмент гибкой отчётности, охватывающий бюджет, динамику продаж, прогноз спроса и оценку позиций.',
-          results: ['−150 часов ручного труда в месяц', 'Ошибки в отчётности −90%', 'Объём оперативных задач на аналитика ×3']
-        },
-        {
-          title: 'Команда',
-          body: 'Собрал и вёл аналитическую команду: карьерные треки, наставничество, адаптация новых сотрудников.',
-          results: ['12+ аналитиков', 'Удержание 80%+', '4 аналитика выросли до уровня Senior', 'Первичная адаптация — с 3 месяцев до 1']
-        }
-      ]
+      resultsLabel: 'Достижения и результаты'
     },
     formats: {
       title: 'Форматы работы',
@@ -408,12 +373,6 @@ export const T = {
         { id: 'client', label: 'Клиент', topic: 'consulting' },
         { id: 'press', label: 'Пресса', topic: 'press' }
       ],
-      booking: {
-        title: 'Быстрее всего — звонок',
-        note: '15–20 минут, выбираете время сами в календаре — без переписки.',
-        cta: 'Запланировать звонок',
-        ctaFallback: 'Написать, чтобы согласовать звонок'
-      },
       message: 'Сообщение',
       file: 'Файл',
       fileHint: 'Можно приложить бриф, презентацию или таблицу — до 20 МБ',
@@ -502,7 +461,7 @@ export const T = {
       ]
     },
     leakQuiz: {
-      label: 'Найти утечку',
+      label: 'Проверить сезон',
       title: 'Где утекает ваш сезон',
       subtitle: 'Четыре вопроса. Результат — не формат работы, а конкретная точка, с которой стоит начать.',
       progress: 'Вопрос {i} из {n}',
@@ -680,8 +639,6 @@ export const T = {
       status: { title: 'Current stage', done: 'Done', now: 'In progress', next: 'Next', seeking: 'What we are looking for' },
       collabTitle: 'Ways to take part',
       collabNote: 'Architecture details and the roadmap we show in person and under an NDA.',
-      teamLabel: 'Team',
-      teamNote: 'Right now I run this alone — product, data and code. Technical architecture and team composition are shared in detail on request, under an NDA.',
       investorLabel: 'For investors and partners',
       compareBtn: 'Compare',
       compareTitle: 'Comparison with alternatives',
@@ -690,22 +647,7 @@ export const T = {
     area: {
       doesLabel: 'What the work includes',
       givesLabel: 'What stays with you',
-      resultsLabel: 'Achievements and results',
-      note: 'Results from my own management practice. Company and client names are not disclosed.',
-      blocks: [
-        { title: 'Buying analytics', body: 'Built a BI loop from open-to-buy down to single-item analysis: sell-through, GMROI, margin, stock turn, inventory.',
-          results: ['90% of reporting automated', 'Order approval three times faster', 'Share of profitable items +20%'] },
-        { title: 'Adaptive buying planning', body: 'Moved open-to-buy and demand forecasting onto continuous recalculation from actual sales, stock and channel dynamics.',
-          results: ['Seasonal sell-through +8pp', 'Excess stock −10%', 'GMROI +5%'] },
-        { title: 'Buy structure and justification standard', body: 'Shifted open-to-buy toward high-turnover and high-margin categories, introduced mandatory justification and one pre-buy, buy and post-buy cycle.',
-          results: ['GMROI +23%', 'Item stock-turn days −34%', '1,000–1,200 underperforming items excluded per season', 'Buying margin +3pp', 'Recurring errors −66%', 'Management reporting errors −90%', 'Data accuracy for reporting +70%', 'Management report from 2–3 days to 10 minutes', '−150 hours of manual work a month', 'Ad-hoc task output per analyst ×3'] },
-        { title: 'Logistics and single data', body: 'Designed the logistics data architecture and a single warehouse covering all external supply flows.',
-          results: ['Logistics data errors −70%', 'Report delivery from 2–3 days to 10 minutes'] },
-        { title: 'Tools and automation', body: 'Built a flexible reporting tool covering budget, sales dynamics, demand forecast and item evaluation.',
-          results: ['−150 hours of manual work a month', 'Reporting errors −90%', 'Ad-hoc task output per analyst ×3'] },
-        { title: 'Team', body: 'Built and led an analytics team: career tracks, mentoring, onboarding.',
-          results: ['12+ analysts', 'Retention 80%+', '4 analysts grew to senior level', 'Onboarding from 3 months to 1'] }
-      ]
+      resultsLabel: 'Achievements and results'
     },
     formats: {
       title: 'Ways to work together',
@@ -790,7 +732,7 @@ export const T = {
       shareIn: { tg: 'To Telegram', wa: 'To WhatsApp', copy: 'Copy link' },
       copied: 'Link copied',
       shareSign: 'Petr Fedin · syntha.pro',
-      tags: { analysis: 'Analysis', market: 'Market', product: 'Product', syntha: 'Syntha', renova: 'Renova', chatx: 'ChatX', mission: 'Position', investors: 'For investors', pilots: 'Pilots' }
+      tags: { analysis: 'Analysis', market: 'Market', product: 'Product', syntha: 'Syntha', renova: 'Renova', chatx: 'ChatX', mission: 'Position', investors: 'For investors', pilots: 'Pilots', press: 'Press' }
     },
     contact: {
       title: 'Get in touch',
@@ -806,12 +748,6 @@ export const T = {
         { id: 'client', label: 'Client', topic: 'consulting' },
         { id: 'press', label: 'Press', topic: 'press' }
       ],
-      booking: {
-        title: 'Fastest way — a call',
-        note: '15–20 minutes, pick a time yourself — no back-and-forth.',
-        cta: 'Schedule a call',
-        ctaFallback: 'Write to arrange a call'
-      },
       message: 'Message',
       file: 'File',
       fileHint: 'Attach a brief, a deck or a spreadsheet — up to 20 MB',
@@ -900,7 +836,7 @@ export const T = {
       ]
     },
     leakQuiz: {
-      label: 'Find the leak',
+      label: 'Check your season',
       title: 'Where does your season leak',
       subtitle: 'Four questions. The result is not a work format — it is the one point worth starting with.',
       progress: 'Question {i} of {n}',
@@ -999,7 +935,7 @@ export const PROJECTS = [
     video: '/assets/video/syntha.webm',
     shots: ['/assets/shots/syntha-1.webp', '/assets/shots/syntha-2.webp', '/assets/shots/syntha-3.webp'],
     ru: {
-      collab: [{ k: 'Пилот', v: 'Бренд или магазин работает в системе на реальном сезоне и влияет на порядок разработки.' }, { k: 'Выход на рынок', v: 'Партнёр, который знает канал и берёт на себя продажи и внедрение.' }, { k: 'Инвестиции', v: 'Обсуждаем участие в проекте — на стадии, когда продуктовый контур уже работает.' }, { k: 'Интеграция', v: 'Подключение к учётной системе бренда как отдельная проектная работа.' }, { k: 'По запросу', v: 'Демонстрация на ваших данных и сравнение по функционалу с мировыми платформами.' }],
+      collab: [{ k: 'Пилот', v: 'Бренд или магазин работает в системе на реальном сезоне и влияет на порядок разработки.' }, { k: 'Выход на рынок', v: 'Партнёр, который знает канал и берёт на себя продажи и внедрение.' }, { k: 'Интеграция', v: 'Подключение к учётной системе бренда как отдельная проектная работа.' }, { k: 'По запросу', v: 'Демонстрация на ваших данных и сравнение по функционалу с мировыми платформами.' }],
       status: {
         done: ['Роли организации, партнёрский доступ и права', 'Цифровые шоурумы и серверные цены каталога', 'Атомарные резервы склада, контроль MOQ и доступности', 'Двустороннее подтверждение заказа и пространство сделки'],
         now: ['Производственный контур: планирование, спецификации, образцы, техпаки', 'Единый дизайн-контур для всех рабочих пространств'],
@@ -1017,7 +953,7 @@ export const PROJECTS = [
       how: 'Мы взяли лучшее из того, чем отрасль пользуется сегодня, и достроили то, чего в этих системах нет: продуктовый контур и коммерцию в одной модели данных, цену и доступность считает сервер, подтверждение заказа двустороннее. Детали реализации — предмет разговора при знакомстве.'
     },
     en: {
-      collab: [{ k: 'Pilot', v: 'A brand or retailer runs a real season in the system and shapes what we build next.' }, { k: 'Go to market', v: 'A partner who knows the channel and takes on sales and rollout.' }, { k: 'Investment', v: 'We discuss participation now that the product loop is working.' }, { k: 'Integration', v: 'Connecting the system to a brand ERP as a separate project.' }, { k: 'On request', v: 'A demo on your own data and a functional comparison with global platforms.' }],
+      collab: [{ k: 'Pilot', v: 'A brand or retailer runs a real season in the system and shapes what we build next.' }, { k: 'Go to market', v: 'A partner who knows the channel and takes on sales and rollout.' }, { k: 'Integration', v: 'Connecting the system to a brand ERP as a separate project.' }, { k: 'On request', v: 'A demo on your own data and a functional comparison with global platforms.' }],
       status: {
         done: ['Organisation roles, partner access and permissions', 'Digital showrooms and server-authoritative catalog pricing', 'Atomic inventory reservations, MOQ and availability controls', 'Bilateral order confirmation and DealSpace'],
         now: ['Production loop: planning, BOM, samples, tech packs', 'One design contract across every workspace'],
@@ -1042,7 +978,7 @@ export const PROJECTS = [
     video: '/assets/video/chatx.webm',
     shots: ['/assets/shots/chatx-1.webp', '/assets/shots/chatx-2.webp', '/assets/shots/chatx-3.webp'],
     ru: {
-      collab: [{ k: 'Ранний доступ', v: 'Компания переводит в мессенджер часть работы и получает влияние на функции.' }, { k: 'Внедрение', v: 'Партнёр, который ставит продукт в компаниях и сопровождает переход.' }, { k: 'Инвестиции', v: 'Проект готовим к выходу на рынок — обсуждаем участие на этой стадии.' }, { k: 'По запросу', v: 'Демонстрация и разбор устройства системы под соглашение о неразглашении.' }],
+      collab: [{ k: 'Ранний доступ', v: 'Компания переводит в мессенджер часть работы и получает влияние на функции.' }, { k: 'Внедрение', v: 'Партнёр, который ставит продукт в компаниях и сопровождает переход.' }, { k: 'По запросу', v: 'Демонстрация и разбор устройства системы под соглашение о неразглашении.' }],
       status: {
         done: ['Каналы, личные сообщения, задачи, календарь и файлы', 'Аудио- и видеозвонки, запись встречи по согласию', 'Расшифровка, итоги и решения с привязкой к таймкодам'],
         now: ['Оргструктура и делегирование управления', 'Исходящие вебхуки и интеграции'],
@@ -1060,7 +996,7 @@ export const PROJECTS = [
       how: 'Один сквозной граф: разговор → встреча → решение → задача → результат. Права проверяются на сервере, а не в интерфейсе. Встреча пишется только с согласия участников, итоги ведут к конкретной секунде записи, и ни одна задача не создаётся без подтверждения человеком.'
     },
     en: {
-      collab: [{ k: 'Early access', v: 'A company moves part of its work into the messenger and shapes the feature set.' }, { k: 'Rollout', v: 'A partner who deploys the product in companies and supports the switch.' }, { k: 'Investment', v: 'We are preparing the launch and discuss participation at this stage.' }, { k: 'On request', v: 'A demo and an architecture walkthrough under an NDA.' }],
+      collab: [{ k: 'Early access', v: 'A company moves part of its work into the messenger and shapes the feature set.' }, { k: 'Rollout', v: 'A partner who deploys the product in companies and supports the switch.' }, { k: 'On request', v: 'A demo and an architecture walkthrough under an NDA.' }],
       status: {
         done: ['Channels, direct messages, tasks, calendar and files', 'Audio and video calls, consent-based recording', 'Transcript, summary and decisions anchored to timecodes'],
         now: ['Org structure and delegated management', 'Outbound webhooks and integrations'],
@@ -1139,7 +1075,7 @@ export const COMPARE = {
       { area: 'Заказ, подтверждение, резерв', marks: ['no', 'yes', 'part', 'yes'] },
       { area: 'Фактическая себестоимость поставки и закрытие маржи', marks: ['no', 'no', 'part', 'yes'] }
     ],
-    note: 'К платформам оптовых продаж относятся JOOR, NuORDER, Brandboom и Faire: они закрывают показ коллекции и приём заказа. К отраслевым PLM — Centric, WFX, Wave PLM и российские решения этого класса: они закрывают разработку продукта. Ни один из двух классов не доводит цепочку до фактической себестоимости поставки, и бренд сводит её вручную. Детальное сравнение по функциям, срокам и рискам ведём постоянно и предоставляем по запросу.'
+    note: 'К платформам оптовых продаж относятся JOOR, NuORDER, Brandboom, Faire, Ordre и RepZio — они закрывают показ коллекции, работу шоурума и приём заказа, но не видят себестоимость и производство. К отраслевым PLM — Centric PLM, Bamboo Rose, Backbone, WFX, Wave PLM и российские решения этого класса — они закрывают разработку продукта, но не доходят до сделки с покупателем. К учётным системам — 1С, SAP и NetSuite — они получают уже готовые цифры по заказу, а не участвуют в его формировании. Ни один из трёх классов не доводит цепочку от спецификации до фактической себестоимости поставки и маржи — бренд сводит это вручную. Syntha — единственное решение на этом пересечении: продукт и коммерция в одной модели данных, а себестоимость и маржа считаются по факту, а не сверяются постфактум в отдельной таблице. Детальное сравнение по функциям, срокам и рискам ведём постоянно и предоставляем по запросу.'
   },
   chatx: {
     columns: ['Мессенджеры', 'Трекеры задач', 'Сервисы встреч', 'ChatX'],
@@ -1150,7 +1086,7 @@ export const COMPARE = {
       { area: 'Связь решения с задачей и записью', marks: ['no', 'no', 'no', 'yes'] },
       { area: 'Оргструктура и права по ролям', marks: ['no', 'part', 'no', 'yes'] }
     ],
-    note: 'К мессенджерам относятся Slack и Telegram, к трекерам задач — Jira, Asana и Linear, к сервисам встреч — Otter, Fireflies и Zoom AI Companion. Связь решения с задачей и записью — та область, ради которой продукт и делается: её не закрывает ни один из трёх классов.'
+    note: 'К мессенджерам относятся Slack, Telegram, Microsoft Teams и Discord — они закрывают переписку, но не видят задачи и решения. К трекерам задач — Jira, Asana, Linear, Trello и Monday — они закрывают исполнение, но не хранят разговор, из которого родилась задача. К сервисам встреч — Otter, Fireflies, Zoom AI Companion, Fathom и tl;dv — они делают расшифровку и саммари, но не связывают его ни с задачей, ни с решением. Ни один из трёх классов не хранит цепочку разговор → решение → задача → результат как единое целое. ChatX — единственная система на этом пересечении: предложенная ИИ задача становится настоящей только после подтверждения человеком, а итог всегда можно проследить назад — до конкретной секунды записи или сообщения. Детальное сравнение по функциям, срокам и рискам ведём постоянно и предоставляем по запросу.'
   },
   renova: {
     columns: ['Таблица и чеки', 'Групповой чат', 'Учёт подрядчика', 'Renova'],
@@ -1161,13 +1097,9 @@ export const COMPARE = {
       { area: 'Проверка чека и статуса исполнителя', marks: ['no', 'no', 'no', 'yes'] },
       { area: 'Видимость для заказчика', marks: ['part', 'part', 'no', 'yes'] }
     ],
-    note: 'Учёт подрядчика — это 1С и специализированный софт прораба, закрытый от заказчика. Проверка чека и статуса исполнителя — область, которую не закрывает ни один из трёх привычных способов ведения ремонта.'
+    note: 'Таблица и чеки — это Excel или Google Таблицы вместе с бумажными или переснятыми на телефон чеками: смету видно, но версии и историю изменений никто не ведёт. Групповой чат — это WhatsApp или Telegram: в нём согласуют этапы и оплаты, но решение тонет в переписке и нигде не фиксируется как факт. Учёт подрядчика — это 1С и нишевый софт для прорабов и бригад: он организует работу исполнителя, но закрыт от заказчика, который платит. Ни один из трёх способов не даёт заказчику одновременно видеть смету, ход работ и деньги — и ни один не проверяет исполнителя через официальные источники. Renova — единственное решение на этом пересечении: смета версионируется, оплата привязана к принятому этапу, а чек и статус исполнителя сверяются с ФНС, а не принимаются на слово. Детальное сравнение по функциям, срокам и рискам ведём постоянно и предоставляем по запросу.'
   }
 };
-
-/* Ссылка на календарь для звонка (Calendly/Cal.com) — пока не задана.
-   Пока пусто, кнопка ведёт к форме — как только появится ссылка, подставь её сюда. */
-export const BOOKING_URL = '';
 
 export const CONTACTS = [
   { label: { ru: 'WhatsApp', en: 'WhatsApp' }, value: '+7 977 578 16 85', href: 'https://wa.me/79775781685' },

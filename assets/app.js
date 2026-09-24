@@ -1,4 +1,4 @@
-import { T, PROJECTS, CONTACTS, BOOKING_URL, COMPARE } from './content.js';
+import { T, PROJECTS, CONTACTS, COMPARE } from './content.js';
 import { DECK } from './deck.js';
 import { LOGOS } from './logos.js';
 import { createViewer } from './viewer.js';
@@ -213,20 +213,6 @@ function render() {
   $('#persona-picker').innerHTML = `<span class="persona-label">${t.contact.personaLabel}</span>
     ${t.contact.personas.map((p) => `<button type="button" class="persona-chip" data-persona-topic="${p.topic}">${p.label}</button>`).join('')}`;
 
-  $('#booking-title').textContent = t.contact.booking.title;
-  $('#booking-note').textContent = t.contact.booking.note;
-  const bookingCta = $('#booking-cta');
-  if (BOOKING_URL) {
-    bookingCta.href = BOOKING_URL;
-    bookingCta.target = '_blank';
-    bookingCta.rel = 'noopener';
-    bookingCta.textContent = t.contact.booking.cta;
-  } else {
-    bookingCta.href = '#form';
-    bookingCta.removeAttribute('target');
-    bookingCta.removeAttribute('rel');
-    bookingCta.textContent = t.contact.booking.ctaFallback;
-  }
   document.querySelectorAll('[data-f]').forEach((s) => { s.textContent = t.contact[s.dataset.f]; });
   $('#submit').textContent = t.contact.send;
   $('#file-btn').textContent = t.contact.fileChoose;
@@ -348,16 +334,26 @@ function openProject(id, anchor) {
 
   const st = c.status;
   const s = t.projects.status;
-  $('#status').innerHTML = !st ? '' : `
-    <h3>${s.title}</h3>
-    <div class="status-grid">
-      ${[['done', st.done], ['now', st.now], ['next', st.next]].map(([k, list]) => `
-        <div class="status-col status-${k}">
-          <h4>${s[k]}</h4>
-          <ul>${list.map((i) => `<li>${i}</li>`).join('')}</ul>
-        </div>`).join('')}
-    </div>
-    ${st.seeking ? `<p class="seeking"><b>${s.seeking}</b>${st.seeking}</p>` : ''}`;
+  if (!st) {
+    $('#status').innerHTML = '';
+  } else {
+    const total = st.done.length + st.now.length + st.next.length;
+    const pct = (n) => (total ? Math.round((n / total) * 100) : 0);
+    $('#status').innerHTML = `
+      <h3>${s.title}</h3>
+      <div class="status-bar" role="img" aria-label="${s.title}: ${pct(st.done.length)}%">
+        <span class="sb-done" style="width:${pct(st.done.length)}%"></span>
+        <span class="sb-now" style="width:${pct(st.now.length)}%"></span>
+      </div>
+      <div class="status-grid">
+        ${[['done', st.done], ['now', st.now], ['next', st.next]].map(([k, list]) => `
+          <div class="status-col status-${k}">
+            <h4>${s[k]}</h4>
+            <ul>${list.map((i) => `<li>${i}</li>`).join('')}</ul>
+          </div>`).join('')}
+      </div>
+      ${st.seeking ? `<p class="seeking"><b>${s.seeking}</b>${st.seeking}</p>` : ''}`;
+  }
 
   /* Форматы участия: человеку должно быть понятно, чем он может быть полезен
      и что получит взамен, — без этого «обсудить участие» повисает в воздухе. */
@@ -368,7 +364,7 @@ function openProject(id, anchor) {
     </ul>
     <p class="collab-note">${t.projects.collabNote}</p>
     ${c.investor ? `<p class="investor-note"><b>${t.projects.investorLabel}</b>${c.investor.note}</p>` : ''}
-    <p class="team-note"><b>${t.projects.teamLabel}</b>${t.projects.teamNote}</p>`;
+    `;
 
   /* Подробный разбор проекта есть у Syntha, ChatX и Renova, и только по-русски. */
   const more = $('#modal-more');
@@ -1252,16 +1248,6 @@ syncTopicOther();
 
 /* Персона-чипы у формы: подставляют тему и переводят фокус на имя,
    чтобы заявка сразу приходила размеченной. */
-/* Пока нет реальной ссылки на календарь, кнопка не может просто вести на «#contact» —
-   если человек уже видит форму, обычный якорный переход выглядит так, будто ничего
-   не произошло. Вместо этого — явный скролл к форме и фокус на первое поле. */
-$('#booking-cta').addEventListener('click', (e) => {
-  if (BOOKING_URL) return;
-  e.preventDefault();
-  $('#contact').scrollIntoView({ behavior: 'smooth', block: 'start' });
-  setTimeout(() => $('#form [name="name"]').focus(), 450);
-});
-
 $('#persona-picker').addEventListener('click', (e) => {
   const b = e.target.closest('[data-persona-topic]');
   if (!b) return;
