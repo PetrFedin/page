@@ -6,21 +6,8 @@ import { syncSnaps } from './snap.js';
 import { NEWS } from './news.js';
 
 /* Сайт — витрина: показываем отобранные материалы. Канал получает весь поток.
-   В ленте разборы статей перемежаются с новостями о проектах — по одному
-   разбору на каждые два поста о проектах, пока разборы не закончатся. */
-function interleaveNews(base, extra, ratio = 2) {
-  const out = [];
-  let ei = 0;
-  base.forEach((post, i) => {
-    out.push(post);
-    if (ei < extra.length && (i + 1) % ratio === 0) out.push(extra[ei++]);
-  });
-  while (ei < extra.length) out.push(extra[ei++]);
-  return out;
-}
-const isReview = (p) => p.tags?.includes('разбор');
-const siteVisible = NEWS.filter((p) => p.site !== false);
-const SITE_NEWS = interleaveNews(siteVisible.filter((p) => !isReview(p)), siteVisible.filter(isReview));
+   Порядок в ленте — это порядок записей в news.js, задан там вручную. */
+const SITE_NEWS = NEWS.filter((p) => p.site !== false);
 /* Разборы статей пишутся только по-русски (редполитика канала).
    На английской версии их не показываем в ленте — вместо смешения
    языков внутри карточки; postText() всё равно берёт русский текст
@@ -205,7 +192,7 @@ function render() {
         <button class="btn btn-sm btn-primary" type="button" data-open="${p.id}">${t.projects.open}</button>
         <button class="btn btn-sm" type="button" data-status="${p.id}">${t.projects.statusBtn}</button>
         <button class="btn btn-sm" type="button" data-news="${p.id}">${t.projects.newsBtn}</button>
-        ${p.id === 'syntha' ? `<button class="btn btn-sm flow-toggle" type="button" data-flow-toggle aria-expanded="false">${t.flow.eyebrow}</button>` : ''}
+        ${p.id === 'syntha' ? `<button class="btn btn-sm flow-toggle" type="button" data-flow-toggle aria-expanded="false">${t.flow.title}</button>` : ''}
       </div>
       ${p.id === 'syntha' ? '<div class="flow-embed" id="flow-embed" hidden></div>' : ''}
     </article>`).join('');
@@ -436,7 +423,7 @@ function renderNow() {
   $('#now-projects').innerHTML = PROJECTS.map((p) => `
     <li><span class="now-dot" aria-hidden="true"></span><b>${p.name}</b><span>${p[lang].stage}</span></li>`).join('');
 
-  const latest = SITE_NEWS[0];
+  const latest = SITE_NEWS.filter(hasLang)[0];
   const post = $('#now-post');
   if (!latest) { post.hidden = true; }
   else {
@@ -468,7 +455,11 @@ function renderSeasonFlow() {
   const factsById = Object.fromEntries(T[lang].hero.facts.map((f) => [f.id, f.n]));
 
   embed.innerHTML = `
-    <div class="flow-embed-head"><h4>${t.title}</h4><p class="sub">${t.subtitle}</p></div>
+    <div class="flow-embed-head">
+      <p class="flow-embed-eyebrow">${t.eyebrow}</p>
+      <h4>${t.title}</h4>
+      <p class="sub">${t.subtitle}</p>
+    </div>
     <div class="season-track">
       <div class="season-rail" aria-hidden="true">
         <span class="season-rail-line"></span>

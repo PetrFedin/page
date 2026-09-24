@@ -411,7 +411,7 @@ export const T = {
       readMore: 'Читать →'
     },
     diagnostic: {
-      label: 'Пройти тест',
+      label: 'Подобрать формат',
       title: 'Какой формат вам подходит',
       subtitle: 'Пять вопросов — тридцать секунд. В конце — конкретный формат работы, а не общий совет.',
       progress: 'Вопрос {i} из {n}',
@@ -707,7 +707,7 @@ export const T = {
       readMore: 'Read →'
     },
     diagnostic: {
-      label: 'Take the test',
+      label: 'Find your format',
       title: 'Which format fits',
       subtitle: 'Five questions, thirty seconds. At the end — a specific format, not generic advice.',
       progress: 'Question {i} of {n}',

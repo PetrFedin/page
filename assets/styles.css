@@ -631,6 +631,9 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 }
 .flow-embed[hidden]{display:none}
 .flow-embed-head{margin-bottom:16px}
+.flow-embed-eyebrow{
+  font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); margin-bottom:6px;
+}
 .flow-embed-head h4{font-size:18px; margin-bottom:6px}
 .flow-embed-head .sub{font-size:14px}
 /* внутри карточки визуализация всегда в одну колонку, без прилипающего рельса —
@@ -968,6 +971,11 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 .summary .doc-cta{margin-top:24px}
 
 .doc-cta{display:flex; flex-wrap:wrap; gap:10px}
+@media (max-width:759px){
+  /* Текст двух кнопок вместе шире экрана — вместо переноса второй
+     кнопки на отдельную строку каждая делит ряд поровну. */
+  .doc-cta .btn{flex:1 1 0; min-width:0; white-space:normal; line-height:1.25; padding:11px 12px; font-size:14px; text-align:center}
+}
 
 .doc-block{padding-top:52px; margin-top:52px; border-top:1px solid var(--line)}
 .summary + .doc-block{border-top:none; margin-top:0; padding-top:46px}
@@ -1094,7 +1102,10 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
   list-style:none; margin:0; padding:0; counter-reset:t;
   display:grid; gap:8px 24px;
   grid-template-columns:repeat(2,minmax(0,1fr));
-  grid-template-rows:repeat(7,auto); grid-auto-flow:column;
+  /* Число строк задаёт разбивку по колонкам (условно 14 пунктов у
+     Syntha — 7+7, у остальных страниц — своё значение через
+     --toc-rows инлайн-стилем на самом <nav>). */
+  grid-template-rows:repeat(var(--toc-rows, 7), auto); grid-auto-flow:column;
 }
 .doc-toc li{counter-increment:t; position:relative; padding-left:30px; font-size:15px}
 .doc-toc li::before{
