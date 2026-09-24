@@ -24,20 +24,6 @@ export const NEWS = [
     ru: { title: 'Маркетплейс — это не канал, а другой бизнес', body: 'Своя розница и маркетплейс выглядят как две витрины одного бренда. Экономика у них разная.\n\nКомиссия, возвраты, платное продвижение, штрафы за срыв поставки, другой ритм пополнения — всё это меняет не выручку, а маржу конкретного SKU.\n\nБренд, который ведёт оба канала одной таблицей, узнаёт о разнице в конце сезона. Обычно из остатка.' }
   },
   {
-    date: '2026-09-27',
-    tags: ['ремонт', 'Renova'],
-    tag: 'market',
-    site: false,
-    ru: { title: 'Рынок ремонта живёт без цифр', body: 'Стройка научилась считать: сметы, акты, КС-2. Частный ремонт — нет.\n\nЗдесь по-прежнему договариваются на словах, платят наличными и спорят в переписке. Оборот огромный, прозрачности ноль.\n\nЭто и есть причина, по которой мы взялись за Renova: рынок большой, а инструмента у заказчика нет.' }
-  },
-  {
-    date: '2026-09-28',
-    tags: ['ремонт', 'Renova'],
-    tag: 'product',
-    site: false,
-    ru: { title: 'Почему заказчик важнее подрядчика', body: 'Весь софт для ремонта написан для бригады: наряды, выезды, материалы. Логично — платит компания.\n\nНо решение о деньгах принимает заказчик. И именно он остаётся без инструмента.\n\nМы перевернули точку входа: система начинается с того, кто платит.' }
-  },
-  {
     date: '2026-09-29',
     tags: ['мессенджер', 'ChatX'],
     tag: 'market',
@@ -78,13 +64,6 @@ export const NEWS = [
     tag: 'product',
     site: false,
     ru: { title: 'Почему задача не должна появляться сама', body: 'Машина уже умеет расслышать в разговоре поручение и оформить его. Технически это решено.\n\nПроблема в другом: человек не выполняет задачу, которую не ставил.\n\nПоэтому у нас предложение ИИ остаётся предложением, пока живой участник не подтвердит.' }
-  },
-  {
-    date: '2026-10-05',
-    tags: ['ремонт', 'рынокРоссии'],
-    tag: 'market',
-    site: false,
-    ru: { title: 'Экономика самозанятых изменила ремонт', body: 'Легальный статус исполнителя перестал быть формальностью: чек можно проверить, налог виден, репутация привязана к человеку.\n\nЭто впервые делает возможным то, чего на рынке не было, — сравнивать мастеров по чему-то кроме отзывов.\n\nМы строим Renova ровно на этой возможности.' }
   },
   {
     date: '2026-10-06',
@@ -192,13 +171,6 @@ export const NEWS = [
     ru: { title: 'Сначала бизнес-логика, потом система', body: 'Классическая последовательность: выбрали систему, а потом подгоняли под неё процессы. И получили чужой порядок работы.\n\nМы делаем наоборот: сначала описываем, кто и что решает, и только потом это программируем.\n\nТот же принцип я применяю в консалтинге.' }
   },
   {
-    date: '2026-10-21',
-    tags: ['ремонт', 'Renova'],
-    tag: 'market',
-    site: false,
-    ru: { title: 'Ремонт — это управление подрядчиком, а не покупка услуги', body: 'Заказчик думает, что покупает результат. По факту он весь проект управляет исполнителем: сроками, качеством, деньгами.\n\nИ делает это без инструментов, впервые в жизни и на свои деньги.\n\nОтсюда конфликты, которые кажутся человеческими, а на деле системные.' }
-  },
-  {
     date: '2026-10-22',
     tags: ['закупка', 'аналитика', 'запасы'],
     tag: 'analysis',
@@ -249,10 +221,10 @@ export const NEWS = [
   },
   {
     date: '2026-10-29',
-    tags: ['Syntha', 'ChatX', 'Renova'],
+    tags: ['Syntha', 'ChatX', 'ИТвмоде'],
     tag: 'product',
     site: false,
-    ru: { title: 'Три проекта и роль каждого', body: 'Syntha — основной. Это операционная система фэшн-бренда, она встраивается в бизнес целиком: планирование, ассортимент, продажи, производство.\n\nChatX — корпоративный мессенджер. Мы делаем его как самостоятельный продукт и готовим к выходу на рынок.\n\nRenova — экспериментальный. На нём мы проверяем, как управлять проблемами там, где их никто не считает: в ремонте и строительном контроле.\n\nОбщее у всех одно: человек принимает решение о деньгах, не видя полной картины.' }
+    ru: { title: 'Два продукта, один принцип', body: 'Syntha — основной. Операционная система фэшн-бренда, она встраивается в бизнес целиком: планирование, ассортимент, продажи, производство.\n\nChatX — рабочий контур компании: разговор, задача, решение, результат в одной линии. Мы делаем его как самостоятельный продукт и готовим к выходу на рынок.\n\nОбщее у обоих одно: человек принимает решение, не видя полной картины. Мы строим системы, которые эту картину собирают.' }
   },
   {
     date: '2026-10-30',
@@ -311,221 +283,115 @@ export const NEWS = [
     ru: { title: 'ChatX мы делаем как продукт, а не как внутренний инструмент', body: 'Корпоративный мессенджер начинался с рабочей необходимости: решения терялись между чатом и таск-трекером.\n\nСейчас это самостоятельный проект, который мы готовим к выходу на рынок — с ролями, правами и связью переписки с задачей.\n\nВнутренние инструменты прощают многое. Продукту такого не прощают, поэтому и требования к нему другие.' }
   },
   {
-    date: '2026-11-07',
-    tags: ['Renova', 'ремонт'],
-    tag: 'product',
-    site: false,
-    ru: { title: 'Renova — наш экспериментальный проект', body: 'Мы взяли область, где решения принимают вообще без цифр: частный ремонт и строительный контроль.\n\nЗадача была проверить подход на чужом поле — можно ли сделать управляемым процесс, в котором заказчик платит, но не видит ни бюджета, ни сроков.\n\nЭто эксперимент по управлению проблемами. Выводы из него переносим в основные продукты.' }
-  },
-  {
     date: '2026-09-23',
     tags: ['Syntha', 'ИТвмоде', 'фэшнритейл'],
     tag: 'market',
-    ru: {
-      title: 'Сравнение с мировыми платформами — по запросу',
-      body: 'Мы ведём подробное функциональное сравнение Syntha с мировыми системами для фэшн-бизнеса — JOOR, NuORDER, Brandboom, Faire и другими: что закрыто у них, что закрыто у нас и что заложено дальше. Это рабочий документ, а не маркетинговый материал, поэтому в открытый доступ он не идёт. Отдаём по запросу тем, с кем предметно обсуждаем пилот или партнёрство.'
-    },
-    en: {
-      title: 'Comparison with global platforms — on request',
-      body: 'We maintain a detailed functional comparison of Syntha against the global systems for fashion — JOOR, NuORDER, Brandboom, Faire and others: what they cover, what we cover and what is planned next. It is a working document rather than a marketing piece, so it is not published. We share it on request with those discussing a pilot or a partnership with us.'
-    },
-    tg: {
-      ru: {
-        title: 'Сравнение с мировыми платформами — по запросу',
-        body: 'Нас регулярно спрашивают, чем Syntha отличается от мировых систем для фэшн-бизнеса.\n\nУ нас есть ответ в виде документа: подробное сравнение по всему функционалу — JOOR, NuORDER, Brandboom, Faire и другие. Что закрыто у них, что закрыто у нас, что заложено дальше.\n\nПубликовать его мы не будем: это рабочий материал, а не презентация. Отдаём по запросу тем, с кем предметно обсуждаем пилот или партнёрство.'
-      }
-    }
-  },
-  {
-    date: '2026-09-21',
-    tags: ['ремонт', 'Renova', 'ИТвмоде'],
-    tag: 'market',
-    ru: {
-      title: 'Софт для ремонта написан для подрядчика, а не для заказчика',
-      body: 'Gectaro, Планадо, Reparo, B2Field — все эти системы решают задачу строительной компании: распределить бригады, проконтролировать выезды, свести материалы. Заказчик в них не участник, а объект учёта. При этом деньги в ремонте — его, и вопрос «сколько уже потрачено и что дальше» задаёт именно он.'
-    },
-    en: {
-      title: 'Renovation software is written for the contractor, not the client',
-      body: 'The systems on the market solve a construction company\u2019s problem: dispatch crews, track site visits, reconcile materials. The client is not a participant there but a record. Yet the money in a renovation is theirs, and it is the client who asks how much has been spent and what comes next.'
-    },
-    tg: {
-      ru: {
-        title: 'Софт для ремонта написан для подрядчика, а не для заказчика',
-        body: 'Gectaro, Планадо, Reparo, B2Field — сильные системы. Все решают задачу строительной компании: распределить бригады, проконтролировать выезды, свести материалы.\n\nЗаказчик в них не участник, а запись в базе.\n\nНо деньги в ремонте — его. И вопрос «сколько уже потрачено и что дальше» задаёт именно он — а спросить некого, кроме прораба в переписке.'
-      }
-    }
+    ru: { title: 'Сравнение с мировыми платформами — по запросу', body: 'Нас регулярно спрашивают, чем Syntha отличается от мировых систем для фэшн-бизнеса.\n\nУ нас есть ответ в виде документа: подробное сравнение по всему функционалу — JOOR, NuORDER, Brandboom, Faire и другие. Что закрыто у них, что закрыто у нас, что заложено дальше.\n\nПубликовать его мы не будем: это рабочий материал, а не презентация. Отдаём по запросу тем, с кем предметно обсуждаем пилот или партнёрство.' },
+    en: { title: 'Comparison with global platforms — on request', body: 'We maintain a detailed functional comparison of Syntha against the global systems for fashion — JOOR, NuORDER, Brandboom, Faire and others: what they cover, what we cover and what is planned next. It is a working document rather than a marketing piece, so it is not published. We share it on request with those discussing a pilot or a partnership with us.' }
   },
   {
     date: '2026-09-19',
     tags: ['мессенджер', 'ChatX', 'ИИ'],
     tag: 'market',
-    ru: {
-      title: 'Почему от ИИ-протоколов встреч отказываются',
-      body: 'Расшифровать разговор и собрать summary сегодня умеют все. Отказываются не из-за качества текста, а из-за доверия: человек не станет выполнять задачу, которую предложила машина, если не может проверить, откуда она взялась. Поэтому итог должен вести к конкретной секунде разговора, а задача — появляться только после подтверждения человеком.'
-    },
-    en: {
-      title: 'Why teams abandon AI meeting notes',
-      body: 'Transcribing a conversation and producing a summary is a solved problem. Teams drop these tools not over text quality but over trust: nobody acts on a task proposed by a machine if they cannot check where it came from. So a summary has to lead back to the exact second of the conversation, and a task should appear only after a human confirms it.'
-    },
-    tg: {
-      ru: {
-        title: 'Почему от ИИ-протоколов встреч отказываются',
-        body: 'Расшифровать разговор и собрать summary сегодня умеют все. Это перестало быть преимуществом.\n\nОтказываются не из-за качества текста, а из-за доверия: человек не станет выполнять задачу, которую предложила машина, если не может проверить, откуда она взялась.\n\nОтсюда два правила, на которых мы стоим: каждый итог ведёт к конкретной секунде разговора, и ни одна задача не создаётся без подтверждения человеком.\n\nМашина предлагает. Решает человек.'
-      }
-    }
+    ru: { title: 'Почему от ИИ-протоколов встреч отказываются', body: 'Расшифровать разговор и собрать summary сегодня умеют все. Это перестало быть преимуществом.\n\nОтказываются не из-за качества текста, а из-за доверия: человек не станет выполнять задачу, которую предложила машина, если не может проверить, откуда она взялась.\n\nОтсюда два правила, на которых мы стоим: каждый итог ведёт к конкретной секунде разговора, и ни одна задача не создаётся без подтверждения человеком.\n\nМашина предлагает. Решает человек.' },
+    en: { title: 'Why teams abandon AI meeting notes', body: 'Transcribing a conversation and producing a summary is a solved problem. Teams drop these tools not over text quality but over trust: nobody acts on a task proposed by a machine if they cannot check where it came from. So a summary has to lead back to the exact second of the conversation, and a task should appear only after a human confirms it.' }
   },
   {
     date: '2026-09-22',
     tags: ['аналитика', 'показатели', 'запасы'],
     tag: 'analysis',
-    ru: {
-      title: 'Оборот растёт, а денег нет',
-      body: 'Самый частый разговор с собственником начинается этой фразой. Продажи выросли, а на счёте пусто — и кажется, что виноваты расходы. Обычно виноват запас: деньги не потеряны, они лежат на складе в виде вещей, которые купили с опозданием на сезон. Прибыль считается по отгрузке, а касса — по остатку. Пока эти две цифры смотрят в разные стороны, рост выручки только увеличивает разрыв.'
-    },
-    en: {
-      title: 'Revenue is growing, cash is gone',
-      body: 'The most common conversation with an owner starts with that line. Sales are up, the account is empty, and it looks like costs are to blame. Usually it is inventory: the money is not lost, it is sitting in the warehouse as goods bought a season too late. Profit is counted on shipment, cash on what is left. While those two numbers point in opposite directions, revenue growth only widens the gap.'
-    },
-    tg: {
-      ru: {
-        title: 'Оборот растёт, а денег нет',
-        body: 'Самый частый разговор с собственником начинается этой фразой.\n\nПродажи выросли, а на счёте пусто — и кажется, что виноваты расходы.\n\nОбычно виноват запас. Деньги не потеряны: они лежат на складе в виде вещей, купленных с опозданием на сезон. Прибыль считается по отгрузке, касса — по остатку.\n\nПока эти две цифры смотрят в разные стороны, рост выручки только увеличивает разрыв.'
-      },
-      en: {
-        title: 'Revenue is growing, cash is gone',
-        body: 'The most common conversation with an owner starts with that line.\n\nSales are up, the account is empty, and costs look like the culprit.\n\nUsually it is inventory. The money is not lost: it sits in the warehouse as goods bought a season too late. Profit is counted on shipment, cash on what is left.\n\nWhile those two numbers point in opposite directions, revenue growth only widens the gap.'
-      }
-    }
+    ru: { title: 'Оборот растёт, а денег нет', body: 'Самый частый разговор с собственником начинается этой фразой.\n\nПродажи выросли, а на счёте пусто — и кажется, что виноваты расходы.\n\nОбычно виноват запас. Деньги не потеряны: они лежат на складе в виде вещей, купленных с опозданием на сезон. Прибыль считается по отгрузке, касса — по остатку.\n\nПока эти две цифры смотрят в разные стороны, рост выручки только увеличивает разрыв.' },
+    en: { title: 'Revenue is growing, cash is gone', body: 'The most common conversation with an owner starts with that line. Sales are up, the account is empty, and it looks like costs are to blame. Usually it is inventory: the money is not lost, it is sitting in the warehouse as goods bought a season too late. Profit is counted on shipment, cash on what is left. While those two numbers point in opposite directions, revenue growth only widens the gap.' }
   },
   {
     date: '2026-09-20',
     tags: ['ассортимент', 'показатели', 'аналитика'],
     tag: 'analysis',
-    ru: {
-      title: 'Ассортимент растёт, продаваемость падает',
-      body: 'Каждый новый SKU кажется бесплатным: место на полке есть, поставщик готов. Платёж наступает позже — витрина размывается, выбор покупателя усложняется, а капитал распределяется тонким слоем по позициям, половина которых не отобьёт даже своё место. Вопрос не в том, сколько позиций завести, а в том, какие из них вы готовы защитить цифрами до закупки.'
-    },
-    en: {
-      title: 'The assortment grows, sell-through falls',
-      body: 'Every new SKU feels free: there is shelf space, the supplier is willing. The bill comes later — the offer blurs, the customer\u2019s choice gets harder, and capital spreads thinly across lines, half of which will not earn back even their shelf. The question is not how many lines to carry, but which of them you are ready to defend with numbers before the buy.'
-    },
-    tg: {
-      ru: {
-        title: 'Ассортимент растёт, продаваемость падает',
-        body: 'Каждый новый SKU кажется бесплатным: место на полке есть, поставщик готов.\n\nПлатёж наступает позже. Витрина размывается, выбор покупателя усложняется, а капитал растекается тонким слоем по позициям — половина из них не отобьёт даже своё место.\n\nВопрос не в том, сколько позиций завести. Вопрос в том, какие из них вы готовы защитить цифрами до закупки.'
-      },
-      en: {
-        title: 'The assortment grows, sell-through falls',
-        body: 'Every new SKU feels free: there is shelf space, the supplier is willing.\n\nThe bill comes later. The offer blurs, the customer\u2019s choice gets harder, and capital spreads thinly across lines — half will not earn back even their shelf.\n\nThe question is not how many lines to carry. It is which of them you are ready to defend with numbers before the buy.'
-      }
-    }
+    ru: { title: 'Ассортимент растёт, продаваемость падает', body: 'Каждый новый SKU кажется бесплатным: место на полке есть, поставщик готов.\n\nПлатёж наступает позже. Витрина размывается, выбор покупателя усложняется, а капитал растекается тонким слоем по позициям — половина из них не отобьёт даже своё место.\n\nВопрос не в том, сколько позиций завести. Вопрос в том, какие из них вы готовы защитить цифрами до закупки.' },
+    en: { title: 'The assortment grows, sell-through falls', body: 'Every new SKU feels free: there is shelf space, the supplier is willing. The bill comes later — the offer blurs, the customer’s choice gets harder, and capital spreads thinly across lines, half of which will not earn back even their shelf. The question is not how many lines to carry, but which of them you are ready to defend with numbers before the buy.' }
   },
   {
     date: '2026-09-18',
     tags: ['Syntha', 'фэшнритейл', 'данные'],
     tag: 'syntha',
-    ru: {
-      title: 'Магазин считает днями, бренд — сезонами',
-      body: 'Розница видит продажи каждый день и правит решения по факту. Бренд узнаёт, как продался сезон, когда менять уже нечего: данные о продукте, продажах и остатке лежат в разных местах и сводятся вручную. Syntha собирает их в один контур — от плана коллекции до подтверждённой сделки и отгрузки.'
-    },
-    en: {
-      title: 'Stores count in days, brands in seasons',
-      body: 'Retail sees sales daily and corrects decisions as it goes. A brand learns how the season sold when nothing can be changed: product, sales and stock data sit in different places and are reconciled by hand. Syntha brings them into one loop — from the collection plan to a confirmed deal and shipment.'
-    },
-    tg: {
-      ru: {
-        title: 'Магазин считает днями, бренд — сезонами',
-        body: 'В магазине продажи видно каждый день: что уходит, что стоит, где пора двигать цену.\n\nУ бренда тот же вопрос решается раз в сезон. Продуктовые данные в одном месте, продажи в другом, остаток в третьем — и всё это сводится руками, когда сезон уже закончился.\n\nРешение опаздывает не потому, что его некому принять. Потому что картина собирается позже, чем нужна.\n\nSyntha держит эту картину собранной: план коллекции, ассортимент, заказ, подтверждение, отгрузка — один контур.'
-      }
-    }
-},
-  {
-    date: '2026-09-04',
-    tags: ['Renova', 'ремонт', 'бюджетирование'],
-    tag: 'renova',
-    ru: {
-      title: 'Ремонт — это проект с бюджетом, а не переписка',
-      body: 'Смета живёт отдельно от факта, чеки лежат в кармане, а перерасход всплывает в конце. Renova возвращает ремонту свойства проекта: этапы с приёмкой, оплата после принятой работы и цифры, которые пересчитываются после каждого действия.'
-    },
-    en: {
-      title: 'A renovation is a project with a budget, not a chat thread',
-      body: 'The estimate lives apart from actuals, receipts sit in a pocket, and overspend surfaces at the end. Renova gives renovation the properties of a project: stages with acceptance, payment after accepted work, and numbers that recalculate after every action.'
-    },
-    tg: {
-      ru: {
-        title: 'Смета — это обещание, которое почти никто не выполняет',
-        body: 'Ремонт начинается с цифры, в которую верят обе стороны. Заканчивается разговором «ну вы же понимаете, материалы подорожали».\n\nПроблема не в жадности. Проблема в том, что смета живёт в одном файле, чеки — в кармане, а сроки — в голове.\n\nСверить их можно только в конце, когда деньги уже потрачены.\n\nRenova держит эти три вещи вместе: каждое действие пересчитывает цифры, оплата привязана к принятому этапу.'
-      }
-    }
-},
+    ru: { title: 'Магазин считает днями, бренд — сезонами', body: 'В магазине продажи видно каждый день: что уходит, что стоит, где пора двигать цену.\n\nУ бренда тот же вопрос решается раз в сезон. Продуктовые данные в одном месте, продажи в другом, остаток в третьем — и всё это сводится руками, когда сезон уже закончился.\n\nРешение опаздывает не потому, что его некому принять. Потому что картина собирается позже, чем нужна.\n\nSyntha держит эту картину собранной: план коллекции, ассортимент, заказ, подтверждение, отгрузка — один контур.' },
+    en: { title: 'Stores count in days, brands in seasons', body: 'Retail sees sales daily and corrects decisions as it goes. A brand learns how the season sold when nothing can be changed: product, sales and stock data sit in different places and are reconciled by hand. Syntha brings them into one loop — from the collection plan to a confirmed deal and shipment.' }
+  },
   {
     date: '2026-08-21',
     tags: ['ChatX', 'мессенджер'],
     tag: 'chatx',
-    ru: {
-      title: 'Решение не должно теряться между чатом и таск-трекером',
-      body: 'Через месяц никто не может показать, где решение было принято и чем закончилось. ChatX ведёт линию от разговора до результата — и принципиально не создаёт задачу без подтверждения человеком: машина предлагает, решает человек.'
-    },
-    en: {
-      title: 'A decision should not get lost between chat and the task tracker',
-      body: 'A month later nobody can show where a decision was made or how it ended. ChatX keeps the line from conversation to outcome — and deliberately never creates a task without a human confirming it: the machine proposes, the person decides.'
-    },
-    tg: {
-      ru: {
-        title: 'Через месяц никто не вспомнит, где было принято решение',
-        body: 'Обсудили в чате. Поставили задачу в трекере. Согласовали по почте.\n\nЧерез месяц вопрос «почему мы так сделали» остаётся без ответа: три системы, и ни в одной нет целой линии.\n\nChatX ведёт разговор до результата в одном месте. И принципиально не создаёт задачу без подтверждения человеком: машина предлагает, решает человек.'
-      }
-    }
-},
+    ru: { title: 'Через месяц никто не вспомнит, где было принято решение', body: 'Обсудили в чате. Поставили задачу в трекере. Согласовали по почте.\n\nЧерез месяц вопрос «почему мы так сделали» остаётся без ответа: три системы, и ни в одной нет целой линии.\n\nChatX ведёт разговор до результата в одном месте. И принципиально не создаёт задачу без подтверждения человеком: машина предлагает, решает человек.' },
+    en: { title: 'A decision should not get lost between chat and the task tracker', body: 'A month later nobody can show where a decision was made or how it ended. ChatX keeps the line from conversation to outcome — and deliberately never creates a task without a human confirming it: the machine proposes, the person decides.' }
+  },
   {
     date: '2026-08-07',
-    tags: ['Syntha', 'ChatX', 'Renova'],
+    tags: ['Syntha', 'ChatX'],
     tag: 'mission',
-    ru: {
-      title: 'Почему мы строим продукты, а не только советуем',
-      body: 'Консалтинг заканчивается там, где начинается ежедневная работа. Мы берёмся за продукт только в тех задачах, которые прожили изнутри: закупка, запас, ассортимент, исполнение решений. Это фильтр, а не амбиция — предметных областей, где у нас есть такое право, немного.'
-    },
-    en: {
-      title: 'Why we build products, not only advise',
-      body: 'Advisory ends where daily work begins. We take on a product only in areas we have lived from the inside: buying, inventory, assortment, execution of decisions. That is a filter rather than an ambition — there are few domains where we have earned the right.'
-    }
+    ru: { title: 'Почему мы строим продукты, а не только советуем', body: 'Консалтинг заканчивается там, где начинается ежедневная работа. Мы берёмся за продукт только в тех задачах, которые прожили изнутри: закупка, запас, ассортимент, исполнение решений. Это фильтр, а не амбиция — предметных областей, где у нас есть такое право, немного.' },
+    en: { title: 'Why we build products, not only advise', body: 'Advisory ends where daily work begins. We take on a product only in areas we have lived from the inside: buying, inventory, assortment, execution of decisions. That is a filter rather than an ambition — there are few domains where we have earned the right.' }
   },
   {
     date: '2026-07-24',
     tags: ['Syntha', 'ИТвмоде'],
     tag: 'investors',
-    ru: {
-      title: 'Как мы выбираем, что строить',
-      body: 'Мы начинаем с вопроса, какое управленческое решение продукт делает возможным и что оно стоит владельцу бизнеса. Если ответ не переводится в деньги или во время, продукта не будет. Поэтому каждый проект начинается с экономики, а не с технологии.'
-    },
-    en: {
-      title: 'How we choose what to build',
-      body: 'We start from the question of which management decision the product makes possible and what that decision is worth to the owner. If the answer does not translate into money or time, there is no product. Every project therefore starts with economics, not technology.'
-    },
-    tg: {
-      ru: {
-        title: 'Как мы решаем, что строить',
-        body: 'Первый вопрос к любой продуктовой идее: какое решение собственника она делает возможным?\n\nВторой: сколько это решение стоит — в деньгах или во времени?\n\nЕсли на второй вопрос нет ответа, продукта не будет. Технология здесь не аргумент.\n\nПоэтому каждый наш проект начинается с экономики, а не с выбора стека.'
-      }
-    }
-},
+    ru: { title: 'Как мы решаем, что строить', body: 'Первый вопрос к любой продуктовой идее: какое решение собственника она делает возможным?\n\nВторой: сколько это решение стоит — в деньгах или во времени?\n\nЕсли на второй вопрос нет ответа, продукта не будет. Технология здесь не аргумент.\n\nПоэтому каждый наш проект начинается с экономики, а не с выбора стека.' },
+    en: { title: 'How we choose what to build', body: 'We start from the question of which management decision the product makes possible and what that decision is worth to the owner. If the answer does not translate into money or time, there is no product. Every project therefore starts with economics, not technology.' }
+  },
   {
     date: '2026-07-10',
-    tags: ['Syntha', 'ChatX', 'Renova'],
+    tags: ['Syntha', 'ChatX'],
     tag: 'pilots',
-    ru: {
-      title: 'Что значит «войти пилотом»',
-      body: 'Пилот — это не тестирование за свой счёт. Мы берём одну вашу реальную задачу, доводим до результата на ваших данных и вместе решаем, что дальше. Ограниченный контур, понятный срок, ваши цифры остаются вашими.'
-    },
-    en: {
-      title: 'What joining as a pilot means',
-      body: 'A pilot is not unpaid testing. We take one real problem of yours, carry it to a result on your data, and decide together what comes next. A bounded scope, a clear timeframe, and your numbers stay yours.'
-    },
-    tg: {
-      ru: {
-        title: 'Что значит «поработать в системе»',
-        body: 'Это не бесплатное тестирование сырого продукта.\n\nМы берём одну вашу настоящую задачу, доводим её до результата на ваших данных и вместе смотрим, что получилось.\n\nОграниченный контур, понятный срок. Ваши цифры остаются вашими.\n\nЕсли не сработало — вы это узнаете за недели, а не за год.'
-      }
-    }
-}
+    ru: { title: 'Что значит «поработать в системе»', body: 'Это не бесплатное тестирование сырого продукта.\n\nМы берём одну вашу настоящую задачу, доводим её до результата на ваших данных и вместе смотрим, что получилось.\n\nОграниченный контур, понятный срок. Ваши цифры остаются вашими.\n\nЕсли не сработало — вы это узнаете за недели, а не за год.' },
+    en: { title: 'What joining as a pilot means', body: 'A pilot is not unpaid testing. We take one real problem of yours, carry it to a result on your data, and decide together what comes next. A bounded scope, a clear timeframe, and your numbers stay yours.' }
+  },
+  {
+    date: '2026-11-08',
+    tags: ['ассортимент', 'фэшнритейл', 'закупка'],
+    tag: 'market',
+    site: false,
+    ru: { title: 'Собственная марка ретейлера — это не маркетинг, а роль в матрице', body: 'У сетевого ретейлера всегда есть соблазн запустить private label: маржа выше, зависимость от чужого бренда ниже.\n\nНо это не отдельная линия для отчёта, а новая роль в ассортименте — она должна закрывать то, чего не хватает у остальных брендов на полке, а не конкурировать с ними за того же покупателя.\n\nСобственная марка без этой роли не экономит на комиссии поставщику. Она просто размывает капитал ещё на одну категорию.' }
+  },
+  {
+    date: '2026-11-09',
+    tags: ['рынокРоссии', 'фэшнритейл', 'закупка'],
+    tag: 'market',
+    site: false,
+    ru: { title: 'Импортозамещение в моде посчитали по брендам, а не по цепочке', body: 'Полки заполнили локальные марки — это видно и уже посчитано.\n\nНезаметно другое: ткань, фурнитура и швейные мощности почти не изменились. Локальный бренд на витрине часто стоит на тех же внешних поставках, что и раньше — просто на два звена дальше от покупателя.\n\nЗамещение витрины и замещение производства — разные показатели. Путать их в закупочном планировании — значит закладывать чужой риск в свой бюджет.' }
+  },
+  {
+    date: '2026-11-10',
+    tags: ['показатели', 'аналитика', 'фэшнритейл'],
+    tag: 'analysis',
+    site: false,
+    ru: { title: 'Возврат — это не потерянный товар, а неразмеченная ошибка', body: 'В онлайне возврат обычно считают строкой логистических расходов.\n\nНа самом деле это чаще провал решения на этапе покупки: не тот размер, не то ожидание от фото, не та посадка. Каждый возврат размечен — вплоть до причины.\n\nБольшинство брендов эту разметку выбрасывают вместе с коробкой, вместо того чтобы вернуть её в карточку товара и в размерную сетку.' }
+  },
+  {
+    date: '2026-11-11',
+    tags: ['фэшнритейл', 'маркетплейсы', 'запасы'],
+    tag: 'market',
+    site: false,
+    ru: { title: 'Срок доставки продаёт лучше, чем скидка', body: 'Покупатель, который выбирает между сайтом бренда и маркетплейсом, чаще выбирает не цену. Он выбирает «сегодня-завтра» против «через неделю».\n\nЭто выглядит как логистическая метрика, но решает её не склад, а ассортиментное планирование: сколько держать на региональных точках заранее, а не довозить по запросу.\n\nБренд, который считает только цену против маркетплейса, проигрывает на показателе, который вообще не смотрел.' }
+  },
+  {
+    date: '2026-11-12',
+    tags: ['бюджетирование', 'аналитика', 'фэшнритейл'],
+    tag: 'analysis',
+    site: false,
+    ru: { title: 'Финансовая модель бренда обычно не знает, что такое сезон', body: 'Большинство финансовых моделей в моде считают месяц как любой другой — ровно.\n\nА деньги в отрасли живут волнами: закупка вперёд, продажи всплеском, остаток провалом. Модель, которая не видит эту форму, между сезонами показывает ложную стабильность, а в момент пиковой закупки — настоящий кассовый шок.\n\nСезонность — это не примечание к модели. Это её форма.' }
+  },
+  {
+    date: '2026-11-13',
+    tags: ['закупка', 'аналитика', 'данные'],
+    tag: 'product',
+    site: false,
+    ru: { title: 'Команда закупки растёт быстрее, чем система под неё', body: 'Когда в закупке было двое, таблица в Excel решала всё.\n\nПри двенадцати — каждый ведёт свою версию, и совпадают они только случайно.\n\nМомент, когда нанимают третьего аналитика, обычно и есть момент, когда компания переросла инструмент, а не человека.' }
+  },
+  {
+    date: '2026-11-14',
+    tags: ['маркетплейсы', 'ассортимент', 'фэшнритейл'],
+    tag: 'market',
+    site: false,
+    ru: { title: 'Витрина маркетплейса — это не ваша выкладка', body: 'На своём сайте бренд решает, что показать первым, вторым, третьим.\n\nНа маркетплейсе за него решает алгоритм площадки — по рейтингу, скорости продаж, отзывам и рекламному бюджету соседей по категории.\n\nАссортиментная стратегия, продуманная для собственной витрины, на чужой просто не включается.' }
+  }
 ];
