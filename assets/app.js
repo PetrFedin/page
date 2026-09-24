@@ -1,4 +1,4 @@
-import { T, PROJECTS, CONTACTS } from './content.js';
+import { T, PROJECTS, CONTACTS, BOOKING_URL, COMPARE } from './content.js';
 import { DECK } from './deck.js';
 import { LOGOS } from './logos.js';
 import { createViewer } from './viewer.js';
@@ -194,7 +194,9 @@ function render() {
         <button class="btn btn-sm btn-primary" type="button" data-open="${p.id}">${t.projects.open}</button>
         <button class="btn btn-sm" type="button" data-status="${p.id}">${t.projects.statusBtn}</button>
         <button class="btn btn-sm" type="button" data-news="${p.id}">${t.projects.newsBtn}</button>
+        ${COMPARE[p.id] && lang === 'ru' ? `<button class="btn btn-sm" type="button" data-compare="${p.id}">${t.projects.compareBtn}</button>` : ''}
         ${p.id === 'syntha' ? `<button class="btn btn-sm flow-toggle" type="button" data-flow-toggle aria-expanded="false">${t.flow.eyebrow}</button>` : ''}
+        ${p.id === 'syntha' ? `<button class="btn btn-sm" type="button" data-leak-open>${t.leakQuiz.label}</button>` : ''}
       </div>
       ${p.id === 'syntha' ? '<div class="flow-embed" id="flow-embed" hidden></div>' : ''}
     </article>`).join('');
@@ -202,6 +204,23 @@ function render() {
 
   $('#contact-title').textContent = t.contact.title;
   $('#contact-sub').textContent = t.contact.subtitle;
+  $('#persona-picker').innerHTML = `<span class="persona-label">${t.contact.personaLabel}</span>
+    ${t.contact.personas.map((p) => `<button type="button" class="persona-chip" data-persona-topic="${p.topic}">${p.label}</button>`).join('')}`;
+
+  $('#booking-title').textContent = t.contact.booking.title;
+  $('#booking-note').textContent = t.contact.booking.note;
+  const bookingCta = $('#booking-cta');
+  if (BOOKING_URL) {
+    bookingCta.href = BOOKING_URL;
+    bookingCta.target = '_blank';
+    bookingCta.rel = 'noopener';
+    bookingCta.textContent = t.contact.booking.cta;
+  } else {
+    bookingCta.href = '#contact';
+    bookingCta.removeAttribute('target');
+    bookingCta.removeAttribute('rel');
+    bookingCta.textContent = t.contact.booking.ctaFallback;
+  }
   document.querySelectorAll('[data-f]').forEach((s) => { s.textContent = t.contact[s.dataset.f]; });
   $('#submit').textContent = t.contact.send;
   $('#file-btn').textContent = t.contact.fileChoose;
@@ -240,6 +259,7 @@ function render() {
   if (modal.open) openProject(modal.dataset.project);
   if (deckModal.open) renderDeck();
   if (diagModal.open) renderDiagnostic();
+  if (leakModal.open) renderLeakQuiz();
   if (pnModal.open) openProjectNews(pnModal.dataset.project);
   if (infoModal.open) showInfo(infoModal.dataset.view ?? '');
 }
@@ -289,6 +309,8 @@ function openProject(id, anchor) {
   $('#modal-logo').innerHTML = LOGOS[p.id];
   $('#modal-tagline').textContent = c.tagline;
   $('#modal-stage').textContent = c.stage;
+  $('#modal-roadmap').innerHTML = !c.roadmap ? '' : c.roadmap.map((r) => `
+    <li class="roadmap-step roadmap-${r.state}">${r.label}</li>`).join('');
 
   /* Первым кадром — видео прохода по разделам: оно доказывает, что продукт работает.
      poster держит первый экран, пока видео грузится, и остаётся вместо него,
@@ -338,7 +360,9 @@ function openProject(id, anchor) {
     <ul class="collab-list">
       ${c.collab.map((i) => `<li><b>${i.k}</b><span>${i.v}</span></li>`).join('')}
     </ul>
-    <p class="collab-note">${t.projects.collabNote}</p>`;
+    <p class="collab-note">${t.projects.collabNote}</p>
+    ${c.investor ? `<p class="investor-note"><b>${t.projects.investorLabel} · ${c.investor.stage}</b>${c.investor.note}</p>` : ''}
+    <p class="team-note"><b>${t.projects.teamLabel}</b>${t.projects.teamNote}</p>`;
 
   /* Подробный разбор проекта есть у Syntha, ChatX и Renova, и только по-русски. */
   const more = $('#modal-more');
@@ -382,6 +406,9 @@ $('#cards').addEventListener('click', (e) => {
   if (news) return go(`${news.dataset.news}-news`);
   const status = e.target.closest('[data-status]');
   if (status) return go(`${status.dataset.status}-status`);
+  const compareBtn = e.target.closest('[data-compare]');
+  if (compareBtn) return openCompare(compareBtn.dataset.compare);
+  if (e.target.closest('[data-leak-open]')) { leakAnswers = []; return go('leak-quiz'); }
   const open = e.target.closest('[data-open]');
   if (open) return go(open.dataset.open);
   const card = e.target.closest('[data-project]');
@@ -616,6 +643,86 @@ function openDiagnosticModal() {
 $('#diag-open').addEventListener('click', () => { diagAnswers = []; go('diagnostic'); });
 $('#diag-close').addEventListener('click', () => leave());
 diagModal.addEventListener('click', (e) => { if (e.target === diagModal) leave(); });
+
+/* ---------- мини-диагностика: где утекает сезон ----------
+   Тот же механизм, что у большого теста форматов, но с четырьмя категориями
+   утечки вместо четырёх форматов работы, и своя карточка результата. */
+const LEAK_KEYS = ['plan', 'buying', 'sale', 'stock'];
+let leakAnswers = [];
+function renderLeakQuiz() {
+  const t = T[lang].leakQuiz;
+  $('#leak-title').textContent = t.title;
+  $('#leak-subtitle').textContent = t.subtitle;
+
+  const step = leakAnswers.length;
+  const body = $('#leak-body');
+
+  if (step < t.questions.length) {
+    const q = t.questions[step];
+    body.innerHTML = `
+      <div class="diag-progress">
+        <span>${t.progress.replace('{i}', step + 1).replace('{n}', t.questions.length)}</span>
+        <div class="diag-bar"><span style="width:${Math.round((step / t.questions.length) * 100)}%"></span></div>
+      </div>
+      <h3 class="diag-q">${q.q}</h3>
+      <div class="diag-options">
+        ${q.options.map((o) => `<button type="button" class="diag-opt" data-leak="${o.leak}">${o.t}</button>`).join('')}
+      </div>
+      ${step > 0 ? '<button type="button" class="diag-back leak-back"></button>' : ''}`;
+    const back = body.querySelector('.leak-back');
+    if (back) back.textContent = t.back;
+  } else {
+    const counts = { plan: 0, buying: 0, sale: 0, stock: 0 };
+    leakAnswers.forEach((k) => counts[k]++);
+    const bestKey = LEAK_KEYS.reduce((a, b) => (counts[b] > counts[a] ? b : a));
+    const res = t.results[bestKey];
+    body.innerHTML = `
+      <div class="diag-result">
+        <p class="diag-result-label">${t.resultLabel}</p>
+        <h3>${res.title}</h3>
+        <p class="diag-result-body">${res.body}</p>
+        <p class="diag-note">${t.resultNote}</p>
+        <div class="diag-actions">
+          <button type="button" class="btn btn-primary" data-leak-cta>${t.cta}</button>
+          <button type="button" class="btn" data-leak-more="${res.area}">${t.ctaMore}</button>
+        </div>
+        <button type="button" class="diag-retake leak-retake"></button>
+      </div>`;
+    body.querySelector('.leak-retake').textContent = t.retake;
+  }
+}
+$('#leak-body').addEventListener('click', (e) => {
+  const opt = e.target.closest('.diag-opt');
+  if (opt) { leakAnswers.push(opt.dataset.leak); return renderLeakQuiz(); }
+  if (e.target.closest('.leak-back')) { leakAnswers.pop(); return renderLeakQuiz(); }
+  if (e.target.closest('.leak-retake')) { leakAnswers = []; return renderLeakQuiz(); }
+  const more = e.target.closest('[data-leak-more]');
+  if (more) { leakModal.close(); return go(`area-${more.dataset.leakMore}`); }
+  const cta = e.target.closest('[data-leak-cta]');
+  if (cta) {
+    const t = T[lang].leakQuiz;
+    const counts = { plan: 0, buying: 0, sale: 0, stock: 0 };
+    leakAnswers.forEach((k) => counts[k]++);
+    const bestKey = LEAK_KEYS.reduce((a, b) => (counts[b] > counts[a] ? b : a));
+    const res = t.results[bestKey];
+    $('#topic').value = 'consulting';
+    const msgEl = $('#form [name="message"]');
+    if (msgEl && !msgEl.value.trim()) msgEl.value = t.messagePrefix + res.title + t.messageSuffix;
+    syncSubmit?.();
+    leave();
+    requestAnimationFrame(() => $('#contact').scrollIntoView({ behavior: 'smooth' }));
+    setTimeout(() => $('#form [name="name"]').focus(), 400);
+  }
+});
+
+const leakModal = $('#leak-modal');
+function openLeakModal() {
+  renderLeakQuiz();
+  if (!leakModal.open) leakModal.showModal();
+  leakModal.querySelector('.modal-body').scrollTop = 0;
+}
+$('#leak-close').addEventListener('click', () => leave());
+leakModal.addEventListener('click', (e) => { if (e.target === leakModal) leave(); });
 
 /* ---------- новости ---------- */
 let newsShown = 2;
@@ -973,6 +1080,36 @@ $('#contacts').addEventListener('click', (e) => {
 $('#qr-close').addEventListener('click', () => qrModal.close());
 qrModal.addEventListener('click', (e) => { if (e.target === qrModal) qrModal.close(); });
 
+/* ---------- публичное сравнение с альтернативами: та же «Схема 1», что на странице проекта ---------- */
+const compareModal = $('#compare-modal');
+function openCompare(id) {
+  const data = COMPARE[id];
+  if (!data) return;
+  const t = T[lang].projects;
+  $('#compare-logo').innerHTML = LOGOS[id];
+  $('#compare-title').textContent = t.compareTitle;
+  $('#compare-body').innerHTML = `
+    <div class="grid-table cols-5 coverage">
+      <div class="gt-head" role="presentation">
+        <span>Функциональная область</span>
+        ${data.columns.map((c) => `<span>${c}</span>`).join('')}
+      </div>
+      ${data.rows.map((r) => `
+        <div class="gt-row">
+          <div class="gt-cell" data-label="Область"><b>${r.area}</b></div>
+          ${r.marks.map((m, i) => `
+            <div class="gt-cell ${i === r.marks.length - 1 ? 'own' : ''}" data-label="${data.columns[i]}">
+              <i class="mark ${m}">${t.marks[m]}</i>
+            </div>`).join('')}
+        </div>`).join('')}
+    </div>`;
+  $('#compare-note').textContent = data.note;
+  if (!compareModal.open) compareModal.showModal();
+  compareModal.querySelector('.modal-body').scrollTop = 0;
+}
+$('#compare-close').addEventListener('click', () => compareModal.close());
+compareModal.addEventListener('click', (e) => { if (e.target === compareModal) compareModal.close(); });
+
 /* копирование био для прессы */
 $('#press-body').addEventListener('click', async (e) => {
   const b = e.target.closest('[data-copy]');
@@ -991,6 +1128,7 @@ function closeModals() {
   if (modal.open) modal.close(true);
   if (deckModal.open) deckModal.close(true);
   if (diagModal.open) diagModal.close(true);
+  if (leakModal.open) leakModal.close(true);
   if (postModal.open) postModal.close(true);
   if (pnModal.open) pnModal.close(true);
   if (infoModal.open) infoModal.close(true);
@@ -1001,6 +1139,7 @@ function applyHash() {
   if (!h) return closeModals();
   if (h === 'deck') return openDeck();
   if (h === 'diagnostic') return openDiagnosticModal();
+  if (h === 'leak-quiz') return openLeakModal();
   /* Ссылка на отдельный пост открывает его целиком, подгружая ленту,
      если пост ещё не показан среди первых newsShown карточек. */
   if (h.startsWith('post-')) {
@@ -1085,6 +1224,17 @@ function syncTopicOther() {
 }
 $('#topic').addEventListener('change', syncTopicOther);
 syncTopicOther();
+
+/* Персона-чипы у формы: подставляют тему и переводят фокус на имя,
+   чтобы заявка сразу приходила размеченной. */
+$('#persona-picker').addEventListener('click', (e) => {
+  const b = e.target.closest('[data-persona-topic]');
+  if (!b) return;
+  $('#topic').value = b.dataset.personaTopic;
+  syncTopicOther();
+  $('#form [name="name"]').focus();
+  document.querySelectorAll('.persona-chip').forEach((el) => el.classList.toggle('active', el === b));
+});
 
 /* ---------- форма ---------- */
 $('#form').addEventListener('submit', async (e) => {
@@ -1205,7 +1355,7 @@ $('#services').addEventListener('click', (e) => {
 });
 
 /* Esc закрывает окно — адрес возвращаем тем же путём, что и кнопка. */
-[modal, deckModal, diagModal, postModal, pnModal, infoModal].forEach((d) => d.addEventListener('cancel', (e) => { e.preventDefault(); leave(); }));
+[modal, deckModal, diagModal, leakModal, postModal, pnModal, infoModal].forEach((d) => d.addEventListener('cancel', (e) => { e.preventDefault(); leave(); }));
 
 render();
 syncSnaps();

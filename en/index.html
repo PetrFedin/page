@@ -126,6 +126,8 @@
       <p class="sub" id="contact-sub"></p>
     </div>
 
+    <div class="persona-picker" id="persona-picker"></div>
+
     <div class="contact-grid">
       <form class="form" id="form" novalidate>
         <label class="field">
@@ -169,6 +171,11 @@
       </form>
 
       <aside class="direct">
+        <div class="booking-card" id="booking-card">
+          <h3 id="booking-title"></h3>
+          <p class="sub" id="booking-note"></p>
+          <a class="btn btn-primary" id="booking-cta" href="#contact"></a>
+        </div>
         <h3 id="direct-title"></h3>
         <ul id="contacts"></ul>
         <a class="btn btn-sm vcard" id="vcard" href="/assets/petr-fedin.vcf" download></a>
@@ -206,6 +213,7 @@
       <span class="modal-logo" id="modal-logo"></span>
       <p class="modal-tagline" id="modal-tagline"></p>
       <span class="stage" id="modal-stage"></span>
+      <ol class="roadmap" id="modal-roadmap"></ol>
     </header>
 
     <div class="gallery" id="gallery" tabindex="0" aria-label="Screens"></div>
@@ -277,6 +285,20 @@
   </div>
 </dialog>
 
+<dialog class="modal modal-wide" id="compare-modal">
+  <button class="modal-close" id="compare-close" type="button" aria-label="Close">
+    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>
+  </button>
+  <div class="modal-body">
+    <header class="deck-head">
+      <span class="modal-logo" id="compare-logo"></span>
+      <h2 id="compare-title"></h2>
+    </header>
+    <div id="compare-body"></div>
+    <p class="doc-note" id="compare-note"></p>
+  </div>
+</dialog>
+
 <dialog class="modal modal-wide" id="cv-modal">
   <button class="modal-close" id="cv-close" type="button" aria-label="Close">
     <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>
@@ -301,6 +323,19 @@
       <p class="sub" id="diag-subtitle"></p>
     </header>
     <div class="diag-body" id="diag-body"></div>
+  </div>
+</dialog>
+
+<dialog class="modal" id="leak-modal">
+  <button class="modal-close" id="leak-close" type="button" aria-label="Close">
+    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>
+  </button>
+  <div class="modal-body">
+    <header class="deck-head">
+      <h2 id="leak-title"></h2>
+      <p class="sub" id="leak-subtitle"></p>
+    </header>
+    <div class="diag-body" id="leak-body"></div>
   </div>
 </dialog>
 

@@ -159,9 +159,17 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 .trap{position:absolute; left:-9999px; width:1px; height:1px; opacity:0}
 .form-note{font-size:14px; min-height:20px; color:var(--muted)}
 .form-note.ok{color:var(--accent)}
+.booking-card{
+  background:var(--panel); border:1px solid var(--line); border-radius:14px;
+  padding:20px; margin-bottom:28px; display:grid; gap:10px; justify-items:start;
+}
+.booking-card h3{font-size:17px; margin:0}
+.booking-card .sub{margin:0; font-size:13.5px; color:var(--muted)}
 .direct h3{font-size:19px; margin-bottom:14px}
 .direct ul{list-style:none; margin:0; padding:0; display:grid; gap:10px}
 .direct a{color:var(--ink); text-decoration:none; border-bottom:1px solid var(--line)}
+.direct .btn{border-bottom:none}
+.direct .btn-primary{color:var(--bg)}
 .direct a:hover{border-color:var(--ink)}
 .direct .lbl{display:block; font-size:12px; letter-spacing:.09em; text-transform:uppercase; color:var(--muted); margin-bottom:2px}
 .qr-trigger{
@@ -212,6 +220,21 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
   display:flex; align-items:center; justify-content:center;
 }
 .modal-head{display:grid; gap:12px; justify-items:start; margin-bottom:24px; padding-right:40px}
+.roadmap{
+  list-style:none; margin:4px 0 0; padding:0; display:flex; flex-wrap:wrap;
+  align-items:center; gap:0; font-size:12.5px;
+}
+.roadmap-step{
+  position:relative; padding:5px 14px 5px 0; color:var(--muted);
+}
+.roadmap-step:not(:last-child)::after{content:'→'; margin-left:14px; color:var(--line)}
+.roadmap-done{color:var(--muted)}
+.roadmap-current{color:var(--ink); font-weight:500}
+.roadmap-current::before{
+  content:''; display:inline-block; width:6px; height:6px; border-radius:50%;
+  background:var(--accent); margin-right:6px; vertical-align:middle;
+}
+.roadmap-next{color:var(--muted)}
 .modal-logo{color:var(--ink); display:block}
 .modal-logo svg{height:28px; width:auto; display:block}
 .modal-tagline{font-family:var(--serif); font-size:clamp(21px,4.5vw,27px); line-height:1.25}
@@ -392,6 +415,15 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 }
 .news-filter:hover{border-color:var(--ink); color:var(--ink)}
 .news-filter[aria-pressed="true"]{background:var(--ink); border-color:var(--ink); color:var(--bg)}
+
+.persona-picker{display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:18px 0 26px}
+.persona-label{font-size:12px; letter-spacing:.09em; text-transform:uppercase; color:var(--muted); margin-right:2px}
+.persona-chip{
+  appearance:none; border:1px solid var(--line); background:var(--bg); color:var(--muted);
+  border-radius:999px; padding:7px 14px; font-size:13px; cursor:pointer; font:inherit;
+}
+.persona-chip:hover{border-color:var(--ink); color:var(--ink)}
+.persona-chip.active{background:var(--ink); border-color:var(--ink); color:var(--bg)}
 
 .feed{list-style:none; margin:0; padding:0; display:grid; gap:14px; align-content:start}
 .post{
@@ -960,6 +992,22 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 .collab-list b{font-size:13px; letter-spacing:.06em; text-transform:uppercase; color:var(--accent); font-weight:500}
 .collab-list span{font-size:15px; color:var(--muted)}
 .collab-note{margin-top:14px; font-size:13px; color:var(--muted)}
+.team-note{
+  margin-top:14px; font-size:13.5px; color:var(--ink);
+  background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:12px 14px;
+}
+.team-note b{
+  display:block; font-size:11px; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--muted); font-weight:500; margin-bottom:4px;
+}
+.investor-note{
+  margin-top:14px; font-size:13.5px; color:var(--ink);
+  background:var(--accent-soft); border-radius:10px; padding:12px 14px;
+}
+.investor-note b{
+  display:block; font-size:11px; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--accent); font-weight:500; margin-bottom:4px;
+}
 @media (min-width:760px){
   .collab-list{grid-template-columns:repeat(2,minmax(0,1fr))}
 }

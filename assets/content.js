@@ -183,7 +183,14 @@ export const T = {
       viewer: { zoomIn: 'Увеличить', zoomOut: 'Уместить', prev: 'Предыдущий экран', next: 'Следующий экран' },
       status: { title: 'Текущая стадия проекта', done: 'Сделано', now: 'В работе', next: 'Дальше', seeking: 'Что ищем' },
       collabTitle: 'Как можно участвовать',
-      collabNote: 'Детали архитектуры и дорожную карту показываем предметно — при знакомстве и под соглашение о неразглашении.'
+      collabNote: 'Детали архитектуры и дорожную карту показываем предметно — при знакомстве и под соглашение о неразглашении.',
+      teamLabel: 'Команда',
+      teamNote: 'Сейчас веду разработку один — от продукта и данных до кода. Состав команды, то, как устроена разработка, и техническая архитектура — по запросу под NDA.',
+      investorLabel: 'Инвесторам',
+      compareBtn: 'Сравнение',
+      compareTitle: 'Сравнение с альтернативами',
+      compareNote: 'Колонка проекта отражает то, что уже работает и что запланировано. Оценки конкурентов — по открытым материалам, уточняем при необходимости.',
+      marks: { yes: 'есть', no: 'нет', part: 'частично' }
     },
     area: {
       doesLabel: 'Что входит в работу',
@@ -388,8 +395,20 @@ export const T = {
       name: 'Имя',
       contact: 'Email или Telegram',
       topic: 'Тема',
-      topics: { consulting: 'Консалтинг', syntha: 'Syntha', renova: 'Renova', chatx: 'ChatX', press: 'Пресса и комментарий', event: 'Выступление или участие в мероприятии', other: 'Другое' },
+      topics: { consulting: 'Консалтинг', investors: 'Инвестиции', syntha: 'Syntha', renova: 'Renova', chatx: 'ChatX', press: 'Пресса и комментарий', event: 'Выступление или участие в мероприятии', other: 'Другое' },
       topicOther: 'Напишите тему',
+      personaLabel: 'Пишу как',
+      personas: [
+        { id: 'investors', label: 'Инвестор', topic: 'investors' },
+        { id: 'client', label: 'Клиент', topic: 'consulting' },
+        { id: 'press', label: 'Пресса', topic: 'press' }
+      ],
+      booking: {
+        title: 'Быстрее всего — звонок',
+        note: '15–20 минут, выбираете время сами в календаре — без переписки.',
+        cta: 'Запланировать звонок',
+        ctaFallback: 'Написать, чтобы согласовать звонок'
+      },
       message: 'Сообщение',
       file: 'Файл',
       fileHint: 'Можно приложить бриф, презентацию или таблицу — до 20 МБ',
@@ -476,6 +495,80 @@ export const T = {
           ]
         }
       ]
+    },
+    leakQuiz: {
+      label: 'Где утекает у вас',
+      title: 'Где утекает ваш сезон',
+      subtitle: 'Четыре вопроса. Результат — не формат работы, а конкретная точка, с которой стоит начать.',
+      progress: 'Вопрос {i} из {n}',
+      back: 'Назад',
+      retake: 'Пройти заново',
+      resultLabel: 'Похоже, у вас',
+      resultNote: 'Результат — гипотеза по четырём ответам, а не диагноз. Точная картина — на диагностике.',
+      cta: 'Обсудить эту точку',
+      ctaMore: 'Как это закрывает Syntha →',
+      messagePrefix: 'Результат мини-диагностики «Где утекает сезон»: «',
+      messageSuffix: '».',
+      questions: [
+        {
+          q: 'Когда вы понимаете, что план на сезон разошёлся с реальностью?',
+          options: [
+            { t: 'Бюджет закупки был задан на глаз — сверить его не с чем', leak: 'plan' },
+            { t: 'Узнаю, когда заказ уже размещён, а себестоимость оказалась другой', leak: 'buying' },
+            { t: 'Вижу расхождение, когда ассортимент уже на площадках', leak: 'sale' },
+            { t: 'Только когда считаем итоги периода', leak: 'stock' }
+          ]
+        },
+        {
+          q: 'Как у вас принимается решение об уценке или дозаказе?',
+          options: [
+            { t: 'Решение принимает тот, у кого есть время свести отчёт, а не расчёт', leak: 'plan' },
+            { t: 'К моменту решения нужные цифры по себестоимости уже устарели', leak: 'buying' },
+            { t: 'Цена меняется по ощущению байера, а не по факту продаж и остатка', leak: 'sale' },
+            { t: 'Решение откладывается, потому что не видно, сколько денег в остатке', leak: 'stock' }
+          ]
+        },
+        {
+          q: 'Где сейчас живут ваши данные о продукте, продажах и остатке?',
+          options: [
+            { t: 'В опыте и памяти команды, а не в цифрах', leak: 'plan' },
+            { t: 'Себестоимость и сроки поставщика — в переписке, а не в системе', leak: 'buying' },
+            { t: 'Продажи и остаток по площадкам сверяются вручную', leak: 'sale' },
+            { t: 'Капитал в остатке виден только раз в квартал', leak: 'stock' }
+          ]
+        },
+        {
+          q: 'Что чаще всего звучит на разборе сезона постфактум?',
+          options: [
+            { t: '«Мы неправильно оценили спрос при планировании»', leak: 'plan' },
+            { t: '«Себестоимость съела маржу, а узнали об этом поздно»', leak: 'buying' },
+            { t: '«Уценили слишком поздно или слишком рано»', leak: 'sale' },
+            { t: '«Деньги простояли в остатке, а могли работать»', leak: 'stock' }
+          ]
+        }
+      ],
+      results: {
+        plan: {
+          title: 'План сезона',
+          body: 'Бюджет и ассортимент задаются без расчёта по категориям — решение принимается раньше, чем появляются цифры, которые должны были его определить. Это самая ранняя точка утечки: всё, что построено на таком плане дальше, наследует его неточность.',
+          area: 'buying'
+        },
+        buying: {
+          title: 'Закупка и себестоимость',
+          body: 'Заказ размещается раньше, чем известны реальная себестоимость изделия и сроки поставщика. К моменту, когда цифры готовы, решение уже принято — и пересмотреть его дорого.',
+          area: 'product'
+        },
+        sale: {
+          title: 'Открытие продаж и цена',
+          body: 'Ассортимент и остаток расходятся с тем, что реально покупают, а решение о цене — снизить сейчас или подождать — принимается по ощущению, а не по факту продаж и марже.',
+          area: 'buying'
+        },
+        stock: {
+          title: 'Остаток и деньги',
+          body: 'Капитал, замороженный в остатке, становится виден только при закрытии периода — тогда же, когда уже поздно менять, что с ним делать.',
+          area: 'turnaround'
+        }
+      }
     },
     flow: {
       eyebrow: 'Консалтинг × Syntha',
@@ -581,7 +674,13 @@ export const T = {
       viewer: { zoomIn: 'Zoom in', zoomOut: 'Fit to screen', prev: 'Previous screen', next: 'Next screen' },
       status: { title: 'Current stage', done: 'Done', now: 'In progress', next: 'Next', seeking: 'What we are looking for' },
       collabTitle: 'Ways to take part',
-      collabNote: 'Architecture details and the roadmap we show in person and under an NDA.'
+      collabNote: 'Architecture details and the roadmap we show in person and under an NDA.',
+      teamLabel: 'Team',
+      teamNote: 'Right now I build this alone — product, data and code. Team composition and technical architecture are shared on request, under an NDA.',
+      investorLabel: 'For investors',
+      compareBtn: 'Compare',
+      compareTitle: 'Comparison with alternatives',
+      compareNote: 'The project column reflects what already works and what is planned. Competitor cells are based on public material and refined on request.'
     },
     area: {
       doesLabel: 'What the work includes',
@@ -688,8 +787,20 @@ export const T = {
       name: 'Name',
       contact: 'Email or Telegram',
       topic: 'Topic',
-      topics: { consulting: 'Advisory', syntha: 'Syntha', renova: 'Renova', chatx: 'ChatX', press: 'Press and comment', event: 'Speaking or event participation', other: 'Other' },
+      topics: { consulting: 'Advisory', investors: 'Investment', syntha: 'Syntha', renova: 'Renova', chatx: 'ChatX', press: 'Press and comment', event: 'Speaking or event participation', other: 'Other' },
       topicOther: 'Describe the topic',
+      personaLabel: 'Writing as',
+      personas: [
+        { id: 'investors', label: 'Investor', topic: 'investors' },
+        { id: 'client', label: 'Client', topic: 'consulting' },
+        { id: 'press', label: 'Press', topic: 'press' }
+      ],
+      booking: {
+        title: 'Fastest way — a call',
+        note: '15–20 minutes, pick a time yourself — no back-and-forth.',
+        cta: 'Schedule a call',
+        ctaFallback: 'Write to arrange a call'
+      },
       message: 'Message',
       file: 'File',
       fileHint: 'Attach a brief, a deck or a spreadsheet — up to 20 MB',
@@ -777,6 +888,80 @@ export const T = {
         }
       ]
     },
+    leakQuiz: {
+      label: 'Find your leak',
+      title: 'Where does your season leak',
+      subtitle: 'Four questions. The result is not a work format — it is the one point worth starting with.',
+      progress: 'Question {i} of {n}',
+      back: 'Back',
+      retake: 'Take again',
+      resultLabel: 'Looks like it is',
+      resultNote: 'The result is a hypothesis from four answers, not a diagnosis. The real picture comes from a proper diagnostic.',
+      cta: 'Discuss this point',
+      ctaMore: 'How Syntha closes this →',
+      messagePrefix: 'Result of the "Where does your season leak" mini-quiz: "',
+      messageSuffix: '".',
+      questions: [
+        {
+          q: 'When do you notice the season plan has drifted from reality?',
+          options: [
+            { t: 'The buying budget was set by feel — nothing to check it against', leak: 'plan' },
+            { t: 'I find out once the order is placed and the cost turns out different', leak: 'buying' },
+            { t: 'I see it once the assortment is already live and selling', leak: 'sale' },
+            { t: 'Only once we close out the period', leak: 'stock' }
+          ]
+        },
+        {
+          q: 'How does a markdown or reorder call get made?',
+          options: [
+            { t: 'Whoever has time to pull a report decides, not whoever has the numbers', leak: 'plan' },
+            { t: 'By the time we decide, the cost figures are already stale', leak: 'buying' },
+            { t: 'Price moves by the buyer’s feel, not by actual sales and stock', leak: 'sale' },
+            { t: 'The call gets delayed because no one can see how much cash is in stock', leak: 'stock' }
+          ]
+        },
+        {
+          q: 'Where do your product, sales and stock data actually live right now?',
+          options: [
+            { t: 'In the team’s experience and memory, not in numbers', leak: 'plan' },
+            { t: 'Cost and supplier lead times live in email, not in a system', leak: 'buying' },
+            { t: 'Sales and stock across channels are reconciled by hand', leak: 'sale' },
+            { t: 'Capital in stock is only visible once a quarter', leak: 'stock' }
+          ]
+        },
+        {
+          q: 'What comes up most often in the post-season debrief?',
+          options: [
+            { t: '"We got the demand forecast wrong at the planning stage"', leak: 'plan' },
+            { t: '"Cost ate the margin and we found out too late"', leak: 'buying' },
+            { t: '"We marked down too late or too early"', leak: 'sale' },
+            { t: '"Cash sat in stock when it could have been working"', leak: 'stock' }
+          ]
+        }
+      ],
+      results: {
+        plan: {
+          title: 'Season plan',
+          body: 'The budget and assortment are set with no calculation by category — the decision is made before the numbers that should have shaped it exist. This is the earliest leak point: everything built on this plan inherits its imprecision.',
+          area: 'buying'
+        },
+        buying: {
+          title: 'Buying and cost',
+          body: 'An order is placed before the true item cost and supplier lead time are known. By the time the numbers are ready, the decision is already made — and expensive to revisit.',
+          area: 'product'
+        },
+        sale: {
+          title: 'Launch to sale and price',
+          body: 'Assortment and stock drift from what is actually selling, and the pricing call — markdown now or wait — is made by feel, not by actual sales and margin.',
+          area: 'buying'
+        },
+        stock: {
+          title: 'Stock and cash',
+          body: 'Capital locked in stock only becomes visible when the period closes — exactly when it is too late to decide what to do with it.',
+          area: 'turnaround'
+        }
+      }
+    },
     flow: {
       eyebrow: 'Advisory × Syntha',
       title: 'One season — through advisory and through Syntha',
@@ -810,6 +995,8 @@ export const PROJECTS = [
         next: ['Пилот с первым брендом', 'Интеграция с учётной системой бренда'],
         seeking: 'Бренды и магазины, готовые проработать систему и работать в ней, и партнёра по выходу на рынок.'
       },
+      investor: { stage: 'Bootstrapped', note: 'Развитие идёт на собственные средства. Инвестиции обсуждаю точечно — под конкретные метрики после пилота и понятный объём участия.' },
+      roadmap: [{ label: 'Прототип', state: 'done' }, { label: 'Пилот с брендом', state: 'current' }, { label: 'Публичный запуск', state: 'next' }],
       tagline: 'Операционная система фэшн-бренда',
       stage: 'В разработке',
       card: 'Бренды, магазины, байеры и дистрибьюторы работают в одной системе: продукт, шоурум, заказы, производство.',
@@ -826,6 +1013,8 @@ export const PROJECTS = [
         next: ['Pilot with a first brand', 'Integration with the brand\u2019s ERP'],
         seeking: 'Brands and retailers ready to shape the system and work in it, and a go-to-market partner.'
       },
+      investor: { stage: 'Bootstrapped', note: 'Self-funded so far. I discuss investment case by case, once a pilot gives concrete metrics and a clear scope of participation.' },
+      roadmap: [{ label: 'Prototype', state: 'done' }, { label: 'Pilot with a brand', state: 'current' }, { label: 'Public launch', state: 'next' }],
       tagline: 'The operating platform for a fashion brand',
       stage: 'In development',
       card: 'Collections, a digital showroom, buyer orders and the production loop in one system.',
@@ -849,6 +1038,8 @@ export const PROJECTS = [
         next: ['Пилот внутри компании-заказчика', 'Мобильное приложение поверх PWA'],
         seeking: 'Компании, готовые перевести в него свою работу, и партнёра по внедрению.'
       },
+      investor: { stage: 'Bootstrapped', note: 'Развитие идёт на собственные средства. Готов обсуждать инвестиции на стадии, когда продукт выходит на первый пилот.' },
+      roadmap: [{ label: 'Прототип', state: 'done' }, { label: 'Пилот в компании', state: 'current' }, { label: 'Публичный запуск', state: 'next' }],
       tagline: 'Мессенджер, который закрывает работу целиком',
       stage: 'Рабочий прототип',
       card: 'Переписка, звонки, задачи, календарь, файлы, встречи и оргструктура — весь рабочий контур компании.',
@@ -865,6 +1056,8 @@ export const PROJECTS = [
         next: ['Pilot inside a client company', 'A mobile app on top of the PWA'],
         seeking: 'Companies ready to move their work into it, and an implementation partner.'
       },
+      investor: { stage: 'Bootstrapped', note: 'Self-funded so far. Open to discussing investment once the product reaches its first pilot.' },
+      roadmap: [{ label: 'Prototype', state: 'done' }, { label: 'Pilot inside a company', state: 'current' }, { label: 'Public launch', state: 'next' }],
       tagline: 'Corporate workspace',
       stage: 'Working prototype',
       card: 'Channels, tasks, calendar, files and calls in one loop — from conversation to outcome.',
@@ -888,6 +1081,8 @@ export const PROJECTS = [
         next: ['Сборка в TestFlight и закрытый тест', 'OAuth «Мой налог»'],
         seeking: 'Мастеров и бригады, а также заказчиков — готовых проработать приложение и вести на нём реальный объект.'
       },
+      investor: { stage: 'Bootstrapped', note: 'Развитие идёт на собственные средства. К внешнему финансированию пока не готовился отдельно — открыт к разговору, если он релевантен на стадии MVP.' },
+      roadmap: [{ label: 'MVP', state: 'done' }, { label: 'Закрытый тест', state: 'current' }, { label: 'Публичный запуск', state: 'next' }],
       tagline: 'Ремонт под контролем',
       stage: 'MVP, подготовка к запуску',
       card: 'Заказчик ведёт весь ход работ, видит деньги и сроки и решает все вопросы с мастерами в одном месте.',
@@ -904,6 +1099,8 @@ export const PROJECTS = [
         next: ['TestFlight build and a closed test', 'Tax-service OAuth'],
         seeking: 'Contractors and crews, and clients too — ready to shape the app and run a real project on it.'
       },
+      investor: { stage: 'Bootstrapped', note: 'Self-funded so far — have not actively sought outside financing yet. Open to a conversation if it is relevant at the MVP stage.' },
+      roadmap: [{ label: 'MVP', state: 'done' }, { label: 'Closed test', state: 'current' }, { label: 'Public launch', state: 'next' }],
       tagline: 'Renovation that runs on numbers',
       stage: 'MVP, preparing for launch',
       card: 'An app that answers, at any point: how much has been spent, what is happening now, and what comes next.',
@@ -915,6 +1112,51 @@ export const PROJECTS = [
   }
 
 ];
+
+/* Публичное облегчённое сравнение с альтернативами — те же данные, что в «Схема 1»
+   на страницах проектов (только по-русски, как и сами страницы). Оценки конкурентов —
+   по открытым материалам и классам продуктов, не по конкретным версиям функций. */
+export const COMPARE = {
+  syntha: {
+    columns: ['PLM-системы', 'Платформы оптовых продаж', 'Учётные системы', 'Syntha'],
+    rows: [
+      { area: 'Продуктовое ядро и версии модели', marks: ['yes', 'no', 'no', 'yes'] },
+      { area: 'Материалы, спецификация, плановая себестоимость', marks: ['yes', 'no', 'part', 'yes'] },
+      { area: 'Образцы, техпаки, размерные таблицы, качество', marks: ['yes', 'no', 'no', 'yes'] },
+      { area: 'Закупка материалов и производство', marks: ['part', 'no', 'part', 'yes'] },
+      { area: 'Шоурум, листы коллекций, прайс-листы, ассортименты', marks: ['no', 'yes', 'no', 'yes'] },
+      { area: 'Заказ, подтверждение, резерв', marks: ['no', 'yes', 'part', 'yes'] },
+      { area: 'Фактическая себестоимость поставки и закрытие маржи', marks: ['no', 'no', 'part', 'yes'] }
+    ],
+    note: 'К платформам оптовых продаж относятся JOOR, NuORDER, Brandboom и Faire: они закрывают показ коллекции и приём заказа. К отраслевым PLM — Centric, WFX, Wave PLM и российские решения этого класса: они закрывают разработку продукта. Ни один из двух классов не доводит цепочку до фактической себестоимости поставки, и бренд сводит её вручную. Детальное сравнение по функциям, срокам и рискам ведём постоянно и предоставляем по запросу.'
+  },
+  chatx: {
+    columns: ['Мессенджеры', 'Трекеры задач', 'Сервисы встреч', 'ChatX'],
+    rows: [
+      { area: 'Переписка, каналы, поиск', marks: ['yes', 'no', 'no', 'yes'] },
+      { area: 'Задачи, проекты, обязательства', marks: ['no', 'yes', 'no', 'yes'] },
+      { area: 'Звонки, запись, расшифровка', marks: ['part', 'no', 'yes', 'yes'] },
+      { area: 'Связь решения с задачей и записью', marks: ['no', 'no', 'no', 'yes'] },
+      { area: 'Оргструктура и права по ролям', marks: ['no', 'part', 'no', 'yes'] }
+    ],
+    note: 'К мессенджерам относятся Slack и Telegram, к трекерам задач — Jira, Asana и Linear, к сервисам встреч — Otter, Fireflies и Zoom AI Companion. Связь решения с задачей и записью — та область, ради которой продукт и делается: её не закрывает ни один из трёх классов.'
+  },
+  renova: {
+    columns: ['Таблица и чеки', 'Групповой чат', 'Учёт подрядчика', 'Renova'],
+    rows: [
+      { area: 'Смета и её версии', marks: ['part', 'no', 'yes', 'yes'] },
+      { area: 'Этапы, приёмка, фотофиксация', marks: ['no', 'part', 'part', 'yes'] },
+      { area: 'Оплата, привязанная к этапу', marks: ['no', 'no', 'part', 'yes'] },
+      { area: 'Проверка чека и статуса исполнителя', marks: ['no', 'no', 'no', 'yes'] },
+      { area: 'Видимость для заказчика', marks: ['part', 'part', 'no', 'yes'] }
+    ],
+    note: 'Учёт подрядчика — это 1С и специализированный софт прораба, закрытый от заказчика. Проверка чека и статуса исполнителя — область, которую не закрывает ни один из трёх привычных способов ведения ремонта.'
+  }
+};
+
+/* Ссылка на календарь для звонка (Calendly/Cal.com) — пока не задана.
+   Пока пусто, кнопка ведёт к форме — как только появится ссылка, подставь её сюда. */
+export const BOOKING_URL = '';
 
 export const CONTACTS = [
   { label: { ru: 'WhatsApp', en: 'WhatsApp' }, value: '+7 977 578 16 85', href: 'https://wa.me/79775781685' },
