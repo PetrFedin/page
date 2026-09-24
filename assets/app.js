@@ -138,10 +138,8 @@ function render() {
     <li><button class="fact" type="button" data-area="${f.id}">
       <b>${f.n}</b><span>${f.l}</span><span class="fact-more">${t.formats.more}</span>
     </button></li>`).join('');
-  $('#cv-row-label').innerHTML = `${t.hero.cvLabel} <span class="cv-row-note">· ${t.hero.cvNote}</span>`;
-  $('#cv-actions').innerHTML = `
-    <button class="btn btn-sm" type="button" data-cv="${lang === 'ru' ? 'русском' : 'Russian'}">RU</button>
-    <button class="btn btn-sm" type="button" data-cv="${lang === 'ru' ? 'английском' : 'English'}">EN</button>`;
+  $('#cv-row-link').textContent = t.hero.cvLabel;
+  $('#cv-row-note').textContent = `· ${t.hero.cvNote}`;
   $('#cta-consulting').textContent = t.hero.ctaConsulting;
   $('#cta-projects').textContent = t.hero.ctaProjects;
   $('#cta-feed').textContent = t.hero.ctaFeed;
@@ -232,13 +230,10 @@ function render() {
         ${COMPARE[p.id] && lang === 'ru' ? `<button class="btn btn-sm" type="button" data-compare="${p.id}">${t.projects.compareBtn}</button>` : ''}
         ${p.id === 'syntha' ? `<button class="btn btn-sm flow-toggle" type="button" data-flow-toggle aria-expanded="false">${t.flow.eyebrow}</button>` : ''}
         ${p.id === 'syntha' ? `<button class="btn btn-sm" type="button" data-leak-open>${t.leakQuiz.label}</button>` : ''}
-        ${SIMPLE_FLOWS[p.id] ? `<button class="btn btn-sm flow-toggle" type="button" data-simple-flow-toggle="${p.id}" aria-expanded="false">${t[SIMPLE_FLOWS[p.id]].eyebrow}</button>` : ''}
       </div>
       ${p.id === 'syntha' ? '<div class="flow-embed" id="flow-embed" hidden></div>' : ''}
-      ${SIMPLE_FLOWS[p.id] ? `<div class="flow-embed" id="flow-embed-${p.id}" hidden></div>` : ''}
     </article>`).join('');
   if (flowOpen) renderSeasonFlow();
-  Object.keys(SIMPLE_FLOWS).forEach((id) => { if (simpleFlowOpen[id]) renderSimpleFlow(id); });
 
   $('#contact-title').textContent = t.contact.title;
   $('#contact-sub').textContent = t.contact.subtitle;
@@ -419,15 +414,13 @@ function openProject(id, anchor) {
 
 /* Закрыть раскрытую ленту (кнопкой ✕ внутри неё или повторным кликом по тумблеру):
    одна точка выхода, чтобы состояние тумблера и наблюдателя не расходились. */
-function closeFlow(id) {
-  const isSyntha = id === 'syntha';
-  const embed = isSyntha ? $('#flow-embed') : $(`#flow-embed-${id}`);
-  const toggle = isSyntha ? $('[data-flow-toggle]') : $(`[data-simple-flow-toggle="${id}"]`);
+function closeFlow() {
+  const embed = $('#flow-embed');
   if (!embed || embed.hidden) return;
   embed.hidden = true;
-  toggle?.setAttribute('aria-expanded', 'false');
-  if (isSyntha) { flowOpen = false; if (flowObserver) flowObserver.disconnect(); }
-  else { simpleFlowOpen[id] = false; if (simpleFlowObservers[id]) simpleFlowObservers[id].disconnect(); }
+  $('[data-flow-toggle]')?.setAttribute('aria-expanded', 'false');
+  flowOpen = false;
+  if (flowObserver) flowObserver.disconnect();
 }
 
 $('#cards').addEventListener('click', (e) => {
@@ -435,36 +428,20 @@ $('#cards').addEventListener('click', (e) => {
      открывать модалку проекта, только свои переходы */
   if (e.target.closest('.flow-embed')) {
     const closeBtn = e.target.closest('[data-flow-close]');
-    if (closeBtn) return closeFlow(closeBtn.dataset.flowClose);
+    if (closeBtn) return closeFlow();
     const area = e.target.closest('[data-open-area]');
     if (area) return go(`area-${area.dataset.openArea}`);
     if (e.target.closest('[data-open-syntha]')) return go('syntha');
-    const cmp = e.target.closest('[data-flow-compare]');
-    if (cmp) return openCompare(cmp.dataset.flowCompare);
-    const openProjectBtn = e.target.closest('[data-flow-open]');
-    if (openProjectBtn) return go(openProjectBtn.dataset.flowOpen);
     return;
   }
   const flowToggle = e.target.closest('[data-flow-toggle]');
   if (flowToggle) {
     const embed = $('#flow-embed');
-    if (!embed.hidden) return closeFlow('syntha');
+    if (!embed.hidden) return closeFlow();
     flowOpen = true;
     embed.hidden = false;
     flowToggle.setAttribute('aria-expanded', 'true');
     renderSeasonFlow();
-    requestAnimationFrame(() => embed.scrollIntoView({ block: 'nearest', behavior: 'smooth' }));
-    return;
-  }
-  const simpleToggle = e.target.closest('[data-simple-flow-toggle]');
-  if (simpleToggle) {
-    const id = simpleToggle.dataset.simpleFlowToggle;
-    const embed = $(`#flow-embed-${id}`);
-    if (!embed.hidden) return closeFlow(id);
-    simpleFlowOpen[id] = true;
-    embed.hidden = false;
-    simpleToggle.setAttribute('aria-expanded', 'true');
-    renderSimpleFlow(id);
     requestAnimationFrame(() => embed.scrollIntoView({ block: 'nearest', behavior: 'smooth' }));
     return;
   }
@@ -629,61 +606,6 @@ function renderSeasonFlow() {
     entries.forEach((entry) => { if (entry.isIntersecting) setActive(+entry.target.dataset.step); });
   }, { rootMargin: '-40% 0px -40% 0px', threshold: 0 });
   steps.forEach((el) => flowObserver.observe(el));
-}
-
-/* ---------- те же раскрывающиеся ленты для ChatX и Renova ----------
-   Короче, чем у Syntha (три шага вместо пяти), и без привязки к «Релевантному
-   опыту»: левый чип открывает «Сравнение», правый — карточку самого проекта. */
-const SIMPLE_FLOWS = { chatx: 'flowChatx', renova: 'flowRenova' };
-const simpleFlowOpen = { chatx: false, renova: false };
-const simpleFlowObservers = {};
-function renderSimpleFlow(id) {
-  const embed = $(`#flow-embed-${id}`);
-  if (!embed) return;
-  const t = T[lang][SIMPLE_FLOWS[id]];
-
-  embed.innerHTML = `
-    <div class="flow-embed-head">
-      <button type="button" class="flow-embed-close" data-flow-close="${id}" aria-label="${lang === 'ru' ? 'Свернуть' : 'Collapse'}">
-        <svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.8" fill="none"/></svg>
-      </button>
-      <p class="flow-embed-eyebrow">${t.eyebrow}</p>
-      <h4>${t.title}</h4>
-      <p class="sub">${t.subtitle}</p>
-    </div>
-    <div class="season-track">
-      <div class="season-rail" aria-hidden="true">
-        <span class="season-rail-line"></span>
-        ${t.steps.map((_, i) => `<span class="season-dot" data-dot="${i}"></span>`).join('')}
-      </div>
-      <ol class="season-steps">
-        ${t.steps.map((st, i) => `
-          <li class="season-step" data-step="${i}">
-            <span class="season-n">${st.n}</span>
-            <h3>${st.title}</h3>
-            <p class="season-leak"><b>${t.leakLabel}</b>${st.leak}</p>
-            <div class="season-links">
-              <button type="button" class="season-chip" data-flow-compare="${id}">${t.leftHead} · ${st.leftLabel}</button>
-              <button type="button" class="season-chip season-chip-syntha" data-flow-open="${id}">${t.rightHead} · ${st.contour}</button>
-            </div>
-          </li>`).join('')}
-      </ol>
-    </div>`;
-
-  if (simpleFlowObservers[id]) simpleFlowObservers[id].disconnect();
-  if (embed.hidden) return;
-  const steps = [...embed.querySelectorAll('.season-step')];
-  const dots = [...embed.querySelectorAll('.season-dot')];
-  const setActive = (i) => {
-    steps.forEach((el, j) => el.classList.toggle('active', j === i));
-    dots.forEach((el, j) => el.classList.toggle('active', j === i));
-  };
-  setActive(0);
-  const obs = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => { if (entry.isIntersecting) setActive(+entry.target.dataset.step); });
-  }, { rootMargin: '-40% 0px -40% 0px', threshold: 0 });
-  steps.forEach((el) => obs.observe(el));
-  simpleFlowObservers[id] = obs;
 }
 
 /* ---------- диагностика: пять вопросов → формат работы ---------- */
@@ -1279,17 +1201,13 @@ $('#press-body').addEventListener('click', async (e) => {
   }
 });
 
-/* запрос резюме — живёт в «Релевантном опыте», а не в разделе для прессы */
-$('#cv-actions').addEventListener('click', (e) => {
-  const cvBtn = e.target.closest('[data-cv]');
-  if (!cvBtn) return;
+/* запрос резюме — живёт в «Релевантном опыте», а не в разделе для прессы:
+   просто ссылка на форму, без отдельных кнопок RU/EN. */
+$('#cv-row-link').addEventListener('click', () => {
   const t = T[lang];
   $('#topic').value = 'other';
   $('#topic-other').value = t.hero.cvShort;
   syncTopicOther();
-  const msgEl = $('#form [name="message"]');
-  if (msgEl && !msgEl.value.trim()) msgEl.value = t.hero.cvMessage.replace('{lang}', cvBtn.dataset.cv);
-  syncSubmit?.();
   $('#contact').scrollIntoView({ behavior: 'smooth' });
   setTimeout(() => $('#form [name="name"]').focus(), 400);
 });
