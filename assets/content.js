@@ -387,6 +387,7 @@ export const T = {
       contact: 'Email или Telegram',
       topic: 'Тема',
       topics: { consulting: 'Консалтинг', syntha: 'Syntha', renova: 'Renova', chatx: 'ChatX', press: 'Пресса и комментарий', event: 'Выступление или участие в мероприятии', other: 'Другое' },
+      topicOther: 'Напишите тему',
       message: 'Сообщение',
       file: 'Файл',
       fileHint: 'Можно приложить бриф, презентацию или таблицу — до 20 МБ',
@@ -480,11 +481,11 @@ export const T = {
       synthaLabel: 'Syntha',
       leakLabel: 'Что решается на этом шаге',
       steps: [
-        { n: '01', title: 'План сезона', leak: 'Бюджет закупки принимается на глаз, без расчёта по категориям — и у консалтинга, и у системы на этом шаге нет общей картины спроса и остатков.', area: 'buying', contour: 'Продукт и коллекция' },
-        { n: '02', title: 'Закупка', leak: 'Заказ размещается раньше, чем известны реальная себестоимость изделия и сроки поставщика, — решение принимается без данных, которые появятся только позже.', area: 'product', contour: 'Себестоимость и экономика' },
-        { n: '03', title: 'Открытие продаж', leak: 'Ассортимент и остаток на площадках расходятся с тем, что реально покупают, а правки согласуются в переписке, где теряется ответственность за решение.', area: 'buying', contour: 'Коммерция и сделка' },
-        { n: '04', title: 'Уценка', leak: 'Решение об уценке принимается по ощущению, а не по факту продаж и остатка, — и не сверено с тем, что в этот момент видит коммерция.', area: 'buying', contour: 'Данные и показатели' },
-        { n: '05', title: 'Остаток и деньги', leak: 'Капитал, замороженный в остатке, не виден до самого закрытия периода, а решение о выводе позиции и повторном заказе принимается порознь, а не как одно целое.', area: 'turnaround', contour: 'Данные и показатели' }
+        { n: '01', title: 'План сезона', leak: 'Бюджет закупки задаётся на глаз, без расчёта по категориям, — консалтинг и система на этом шаге видят разные версии одного и того же спроса.', area: 'buying', contour: 'Продукт и коллекция' },
+        { n: '02', title: 'Закупка', leak: 'Заказ размещается раньше, чем известны реальная себестоимость изделия и сроки поставщика, — цифры, которые должны были определить решение, приходят уже после него.', area: 'product', contour: 'Себестоимость и экономика' },
+        { n: '03', title: 'Открытие продаж', leak: 'Ассортимент и остаток на площадках расходятся с тем, что реально покупают: правки согласуются в переписке, и решение теряет автора.', area: 'buying', contour: 'Коммерция и сделка' },
+        { n: '04', title: 'Уценка', leak: 'Когда продажи расходятся с планом, уценку назначают по ощущению, а не по марже и остатку, — решение, которое напрямую бьёт по деньгам, принимается без денежного расчёта.', area: 'capital', contour: 'Деньги и маржа' },
+        { n: '05', title: 'Остаток и деньги', leak: 'Капитал, замороженный в остатке, становится виден только при закрытии периода — тогда же, когда уже поздно менять, что с ним делать: выводить позицию или дозаказывать.', area: 'turnaround', contour: 'Приоритеты и капитал' }
       ]
     }
   },
@@ -683,6 +684,7 @@ export const T = {
       contact: 'Email or Telegram',
       topic: 'Topic',
       topics: { consulting: 'Advisory', syntha: 'Syntha', renova: 'Renova', chatx: 'ChatX', press: 'Press and comment', event: 'Speaking or event participation', other: 'Other' },
+      topicOther: 'Describe the topic',
       message: 'Message',
       file: 'File',
       fileHint: 'Attach a brief, a deck or a spreadsheet — up to 20 MB',
@@ -776,11 +778,11 @@ export const T = {
       synthaLabel: 'Syntha',
       leakLabel: 'What gets decided at this step',
       steps: [
-        { n: '01', title: 'Season plan', leak: 'The buying budget is set by feel, with no calculation by category — at this step neither advisory nor the system has a shared picture of demand and stock.', area: 'buying', contour: 'Product and collection' },
-        { n: '02', title: 'Buying', leak: 'An order is placed before the true item cost and supplier lead time are known — the call is made without data that only arrives later.', area: 'product', contour: 'Cost and economics' },
-        { n: '03', title: 'Launch to sale', leak: 'Assortment and stock across channels drift from what is actually selling, and changes get agreed over email, where ownership of the decision gets lost.', area: 'buying', contour: 'Commerce and the deal' },
-        { n: '04', title: 'Markdown', leak: 'The markdown call is made by feel, not by actual sales and stock, and is never checked against what commerce is seeing at that moment.', area: 'buying', contour: 'Data and metrics' },
-        { n: '05', title: 'Stock and cash', leak: 'Capital locked in stock stays invisible until the period closes, and the exit-or-reorder call is made separately instead of as one decision.', area: 'turnaround', contour: 'Data and metrics' }
+        { n: '01', title: 'Season plan', leak: 'The buying budget is set by feel, with no calculation by category — at this step advisory and the system are looking at two different versions of the same demand.', area: 'buying', contour: 'Product and collection' },
+        { n: '02', title: 'Buying', leak: 'An order is placed before the true item cost and supplier lead time are known — the numbers that should have shaped the decision arrive only after it is made.', area: 'product', contour: 'Cost and economics' },
+        { n: '03', title: 'Launch to sale', leak: 'Assortment and stock across channels drift from what is actually selling, and changes get agreed over email, where the decision loses its owner.', area: 'buying', contour: 'Commerce and the deal' },
+        { n: '04', title: 'Markdown', leak: 'When sales drift from plan, the markdown call is made by feel, not by margin and stock — a decision that hits cash directly is made with no financial math behind it.', area: 'capital', contour: 'Money and margin' },
+        { n: '05', title: 'Stock and cash', leak: 'Capital locked in stock only becomes visible when the period closes — exactly when it is too late to decide whether to exit the item or reorder it.', area: 'turnaround', contour: 'Priorities and capital' }
       ]
     }
   }

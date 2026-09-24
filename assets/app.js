@@ -215,6 +215,7 @@ function render() {
   topic.innerHTML = Object.entries(t.contact.topics)
     .map(([k, v]) => `<option value="${k}">${v}</option>`).join('');
   if (keep) topic.value = keep;
+  syncTopicOther?.();
 
   $('#contacts').innerHTML = CONTACTS.map((c) => `
     <li><span class="lbl">${c.label[lang] ?? c.label}</span>
@@ -238,17 +239,17 @@ $('#lang-toggle').addEventListener('click', () => {
   render();
 });
 
-/* ---------- часы в шапке: день недели, дата и время ---------- */
+/* ---------- часы в шапке: день недели, дата и время идут в часовом поясе посетителя ---------- */
 function renderClock() {
   const el = $('#clock');
   if (!el) return;
-  const fmt = new Intl.DateTimeFormat(lang === 'ru' ? 'ru-RU' : 'en-GB', {
-    weekday: 'short', day: 'numeric', month: 'long', year: 'numeric',
-    hour: '2-digit', minute: '2-digit'
-  });
-  el.textContent = fmt.format(new Date());
+  const locale = lang === 'ru' ? 'ru-RU' : 'en-GB';
+  const now = new Date();
+  const date = new Intl.DateTimeFormat(locale, { weekday: 'short', day: 'numeric', month: 'long', year: 'numeric' }).format(now);
+  const time = new Intl.DateTimeFormat(locale, { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }).format(now);
+  el.textContent = `${date} · ${time}`;
 }
-setInterval(renderClock, 30000);
+setInterval(renderClock, 1000);
 
 /* ---------- тема ---------- */
 const savedTheme = store.get('theme');
@@ -591,7 +592,7 @@ $('#diag-close').addEventListener('click', () => leave());
 diagModal.addEventListener('click', (e) => { if (e.target === diagModal) leave(); });
 
 /* ---------- новости ---------- */
-let newsShown = 4;
+let newsShown = 2;
 
 /* Разборы статей и рабочие материалы заканчиваются ссылкой отдельной
    строкой — выносим её из-под line-clamp, иначе у длинных постов
@@ -627,7 +628,7 @@ $('#news-filters').addEventListener('click', (e) => {
   const btn = e.target.closest('[data-filter]');
   if (!btn) return;
   newsFilter = btn.dataset.filter || null;
-  newsShown = 4;
+  newsShown = 2;
   renderNews();
 });
 
@@ -1016,6 +1017,16 @@ function syncSubmit() {
 form.addEventListener('input', syncSubmit);
 form.addEventListener('change', syncSubmit);
 syncSubmit();
+
+/* При теме «Другое» появляется поле, куда можно написать, о чём речь. */
+function syncTopicOther() {
+  const field = $('#topic-other-field');
+  const isOther = $('#topic').value === 'other';
+  field.hidden = !isOther;
+  if (!isOther) $('#topic-other').value = '';
+}
+$('#topic').addEventListener('change', syncTopicOther);
+syncTopicOther();
 
 /* ---------- форма ---------- */
 $('#form').addEventListener('submit', async (e) => {
