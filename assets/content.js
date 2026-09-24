@@ -918,6 +918,6 @@ export const PROJECTS = [
 
 export const CONTACTS = [
   { label: { ru: 'WhatsApp', en: 'WhatsApp' }, value: '+7 977 578 16 85', href: 'https://wa.me/79775781685' },
-  { label: { ru: 'Telegram', en: 'Telegram' }, value: '@sheqel', href: 'https://t.me/sheqel' },
-  { label: { ru: 'Канал проектов', en: 'Project channel' }, value: '@syntha_pro', href: 'https://t.me/syntha_pro', qr: '/assets/qr-syntha-pro.svg' }
+  { label: { ru: 'Telegram', en: 'Telegram' }, value: '@sheqel', href: 'https://t.me/sheqel', qr: '/assets/qr-sheqel.svg' },
+  { label: { ru: 'Канал проектов', en: 'Project channel' }, value: '@syntha_pro', href: 'https://t.me/syntha_pro', qr: '/assets/qr-syntha-pro.jpg' }
 ];
