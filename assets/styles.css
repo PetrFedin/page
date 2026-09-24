@@ -32,6 +32,10 @@ p{margin:0}
 img{max-width:100%; display:block}
 
 /* ---------- topbar ---------- */
+.scroll-progress{
+  position:fixed; top:0; left:0; height:2.5px; width:0%;
+  background:var(--accent); z-index:30; transition:width .08s linear;
+}
 .topbar{
   position:sticky; top:0; z-index:20;
   display:flex; align-items:center; gap:16px;
@@ -396,6 +400,8 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
   width:100%; height:auto; border-radius:var(--radius);
   aspect-ratio:3/4; object-fit:cover; object-position:50% 18%;
   background:var(--panel); box-shadow:var(--shadow);
+  transition:transform .25s ease-out;
+  will-change:transform;
 }
 
 .facts-band{border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:var(--panel)}

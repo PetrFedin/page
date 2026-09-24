@@ -547,6 +547,32 @@ export const T = {
         { n: '03', title: 'Открытие продаж', leak: 'Ассортимент и остаток на площадках расходятся с тем, что реально покупают: правки согласуются в переписке и теряют автора, а решение о цене или уценке — снизить сейчас или подождать — принимается по ощущению, а не по факту продаж и марже.', area: 'buying', contour: 'Коммерция, цена и сделка' },
         { n: '04', title: 'Остаток и деньги', leak: 'Капитал, замороженный в остатке, становится виден только при закрытии периода — тогда же, когда уже поздно менять, что с ним делать: выводить позицию или дозаказывать.', area: 'turnaround', contour: 'Приоритеты и капитал' }
       ]
+    },
+    flowChatx: {
+      eyebrow: 'Сегодня × ChatX',
+      title: 'Один рабочий день — до ChatX и после',
+      subtitle: 'Один и тот же день глазами разрозненных инструментов и глазами ChatX: что теряется между ними и что остаётся в одном месте.',
+      leftHead: 'Сегодня',
+      rightHead: 'ChatX',
+      leakLabel: 'Что решается на этом шаге',
+      steps: [
+        { n: '01', title: 'Разговор', leak: 'Обсуждение проходит в мессенджере, но там же и теряется, когда пора превращать его в задачу.', leftLabel: 'Мессенджеры', contour: 'Один сквозной граф вместо разрозненных каналов' },
+        { n: '02', title: 'Встреча и решение', leak: 'Звонок записан отдельным сервисом, а принятое решение нигде не связано ни с записью, ни с тем, что было дальше.', leftLabel: 'Сервисы встреч', contour: 'Запись, итог и решение — вместе' },
+        { n: '03', title: 'Задача и результат', leak: 'Задача заведена в трекере, но добраться от неё обратно до разговора, где она возникла, — отдельный квест.', leftLabel: 'Трекеры задач', contour: 'Путь назад до записи или сообщения' }
+      ]
+    },
+    flowRenova: {
+      eyebrow: 'Сегодня × Renova',
+      title: 'Один объект — до Renova и после',
+      subtitle: 'Один и тот же ремонт глазами привычных способов и глазами Renova: что теряется между ними и что заказчик видит сам.',
+      leftHead: 'Сегодня',
+      rightHead: 'Renova',
+      leakLabel: 'Что решается на этом шаге',
+      steps: [
+        { n: '01', title: 'Смета', leak: 'Смета живёт в таблице или на бумаге: новая версия перезаписывает старую, и непонятно, что и почему изменилось.', leftLabel: 'Таблица и чеки', contour: 'Версии сметы и история изменений' },
+        { n: '02', title: 'Ход работ и оплата', leak: 'Этапы и оплата согласуются в общем чате — деньги иногда уходят раньше, чем этап принят обеими сторонами.', leftLabel: 'Групповой чат', contour: 'Оплата привязана к принятому этапу' },
+        { n: '03', title: 'Исполнитель', leak: 'Проверка чека и статуса исполнителя не входит ни в один процесс — приходится верить на слово.', leftLabel: 'Учёт подрядчика', contour: 'Чек и статус сверяются через ФНС' }
+      ]
     }
   },
 
@@ -921,6 +947,32 @@ export const T = {
         { n: '02', title: 'Buying', leak: 'An order is placed before the true item cost and supplier lead time are known — the numbers that should have shaped the decision arrive only after it is made.', area: 'product', contour: 'Cost and economics' },
         { n: '03', title: 'Launch to sale', leak: 'Assortment and stock across channels drift from what is actually selling: changes get agreed over email and lose their owner, and the pricing call — markdown now or wait — is made by feel, not by actual sales and margin.', area: 'buying', contour: 'Commerce, price and the deal' },
         { n: '04', title: 'Stock and cash', leak: 'Capital locked in stock only becomes visible when the period closes — exactly when it is too late to decide whether to exit the item or reorder it.', area: 'turnaround', contour: 'Priorities and capital' }
+      ]
+    },
+    flowChatx: {
+      eyebrow: 'Today × ChatX',
+      title: 'One workday — before ChatX and after',
+      subtitle: 'The same day through today’s scattered tools and through ChatX: what gets lost between them and what stays in one place.',
+      leftHead: 'Today',
+      rightHead: 'ChatX',
+      leakLabel: 'What gets decided at this step',
+      steps: [
+        { n: '01', title: 'Conversation', leak: 'The discussion happens in a messenger and gets lost there right when it is time to turn it into a task.', leftLabel: 'Messengers', contour: 'One graph instead of scattered channels' },
+        { n: '02', title: 'Meeting and decision', leak: 'The call is recorded by a separate service, and the decision made is never linked to the recording or to what happened next.', leftLabel: 'Meeting tools', contour: 'Recording, summary and decision — together' },
+        { n: '03', title: 'Task and outcome', leak: 'The task lives in a tracker, but tracing it back to the conversation that created it is its own quest.', leftLabel: 'Task trackers', contour: 'A path back to the recording or message' }
+      ]
+    },
+    flowRenova: {
+      eyebrow: 'Today × Renova',
+      title: 'One renovation — before Renova and after',
+      subtitle: 'The same renovation through the usual ways of running it and through Renova: what gets lost between them and what the client sees directly.',
+      leftHead: 'Today',
+      rightHead: 'Renova',
+      leakLabel: 'What gets decided at this step',
+      steps: [
+        { n: '01', title: 'Estimate', leak: 'The estimate lives in a spreadsheet or on paper: a new version overwrites the old one, and what changed — and why — is unclear.', leftLabel: 'Spreadsheet and receipts', contour: 'Estimate versions and change history' },
+        { n: '02', title: 'Work and payment', leak: 'Stages and payments get agreed in a group chat — money sometimes moves before both sides accept the stage.', leftLabel: 'Group chat', contour: 'Payment tied to an accepted stage' },
+        { n: '03', title: 'Contractor', leak: 'Checking the receipt and the contractor’s status is not part of any process — you just take their word for it.', leftLabel: 'Contractor bookkeeping', contour: 'Receipt and status verified via the tax service' }
       ]
     }
   }

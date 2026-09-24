@@ -53,6 +53,37 @@ function addTopButtons(label) {
 
 addEventListener('resize', syncSnaps);
 
+/* ---------- индикатор прогресса скролла ---------- */
+const scrollProgress = $('#scroll-progress');
+let scrollTicking = false;
+function updateScrollProgress() {
+  const max = document.documentElement.scrollHeight - innerHeight;
+  scrollProgress.style.width = `${max > 0 ? Math.min(100, (scrollY / max) * 100) : 0}%`;
+  scrollTicking = false;
+}
+addEventListener('scroll', () => {
+  if (scrollTicking) return;
+  scrollTicking = true;
+  requestAnimationFrame(updateScrollProgress);
+}, { passive: true });
+addEventListener('resize', updateScrollProgress);
+updateScrollProgress();
+
+/* ---------- лёгкий параллакс у портрета в hero ----------
+   Только там, где есть настоящая мышь и человек не просил убрать анимации —
+   на тач-экране и с prefers-reduced-motion эффект просто не подключается. */
+const heroSection = document.querySelector('.hero');
+if (heroSection && matchMedia('(hover:hover) and (pointer:fine)').matches
+    && !matchMedia('(prefers-reduced-motion:reduce)').matches) {
+  heroSection.addEventListener('mousemove', (e) => {
+    const r = heroSection.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - 0.5;
+    const y = (e.clientY - r.top) / r.height - 0.5;
+    $('#hero-photo').style.transform = `translate(${x * -10}px, ${y * -8}px) scale(1.015)`;
+  });
+  heroSection.addEventListener('mouseleave', () => { $('#hero-photo').style.transform = ''; });
+}
+
 /* ---------- меню на телефоне ---------- */
 const nav = $('#nav');
 const burger = $('#burger');
@@ -203,10 +234,13 @@ function render() {
         ${COMPARE[p.id] && lang === 'ru' ? `<button class="btn btn-sm" type="button" data-compare="${p.id}">${t.projects.compareBtn}</button>` : ''}
         ${p.id === 'syntha' ? `<button class="btn btn-sm flow-toggle" type="button" data-flow-toggle aria-expanded="false">${t.flow.eyebrow}</button>` : ''}
         ${p.id === 'syntha' ? `<button class="btn btn-sm" type="button" data-leak-open>${t.leakQuiz.label}</button>` : ''}
+        ${SIMPLE_FLOWS[p.id] ? `<button class="btn btn-sm flow-toggle" type="button" data-simple-flow-toggle="${p.id}" aria-expanded="false">${t[SIMPLE_FLOWS[p.id]].eyebrow}</button>` : ''}
       </div>
       ${p.id === 'syntha' ? '<div class="flow-embed" id="flow-embed" hidden></div>' : ''}
+      ${SIMPLE_FLOWS[p.id] ? `<div class="flow-embed" id="flow-embed-${p.id}" hidden></div>` : ''}
     </article>`).join('');
   if (flowOpen) renderSeasonFlow();
+  Object.keys(SIMPLE_FLOWS).forEach((id) => { if (simpleFlowOpen[id]) renderSimpleFlow(id); });
 
   $('#contact-title').textContent = t.contact.title;
   $('#contact-sub').textContent = t.contact.subtitle;
@@ -392,6 +426,10 @@ $('#cards').addEventListener('click', (e) => {
     const area = e.target.closest('[data-open-area]');
     if (area) return go(`area-${area.dataset.openArea}`);
     if (e.target.closest('[data-open-syntha]')) return go('syntha');
+    const cmp = e.target.closest('[data-flow-compare]');
+    if (cmp) return openCompare(cmp.dataset.flowCompare);
+    const openProjectBtn = e.target.closest('[data-flow-open]');
+    if (openProjectBtn) return go(openProjectBtn.dataset.flowOpen);
     return;
   }
   const flowToggle = e.target.closest('[data-flow-toggle]');
@@ -402,6 +440,18 @@ $('#cards').addEventListener('click', (e) => {
     flowToggle.setAttribute('aria-expanded', String(flowOpen));
     if (flowOpen) { renderSeasonFlow(); requestAnimationFrame(() => embed.scrollIntoView({ block: 'nearest', behavior: 'smooth' })); }
     else if (flowObserver) flowObserver.disconnect();
+    return;
+  }
+  const simpleToggle = e.target.closest('[data-simple-flow-toggle]');
+  if (simpleToggle) {
+    const id = simpleToggle.dataset.simpleFlowToggle;
+    const embed = $(`#flow-embed-${id}`);
+    const open = embed.hidden;
+    simpleFlowOpen[id] = open;
+    embed.hidden = !open;
+    simpleToggle.setAttribute('aria-expanded', String(open));
+    if (open) { renderSimpleFlow(id); requestAnimationFrame(() => embed.scrollIntoView({ block: 'nearest', behavior: 'smooth' })); }
+    else if (simpleFlowObservers[id]) simpleFlowObservers[id].disconnect();
     return;
   }
   const news = e.target.closest('[data-news]');
@@ -562,6 +612,58 @@ function renderSeasonFlow() {
     entries.forEach((entry) => { if (entry.isIntersecting) setActive(+entry.target.dataset.step); });
   }, { rootMargin: '-40% 0px -40% 0px', threshold: 0 });
   steps.forEach((el) => flowObserver.observe(el));
+}
+
+/* ---------- те же раскрывающиеся ленты для ChatX и Renova ----------
+   Короче, чем у Syntha (три шага вместо пяти), и без привязки к «Релевантному
+   опыту»: левый чип открывает «Сравнение», правый — карточку самого проекта. */
+const SIMPLE_FLOWS = { chatx: 'flowChatx', renova: 'flowRenova' };
+const simpleFlowOpen = { chatx: false, renova: false };
+const simpleFlowObservers = {};
+function renderSimpleFlow(id) {
+  const embed = $(`#flow-embed-${id}`);
+  if (!embed) return;
+  const t = T[lang][SIMPLE_FLOWS[id]];
+
+  embed.innerHTML = `
+    <div class="flow-embed-head">
+      <p class="flow-embed-eyebrow">${t.eyebrow}</p>
+      <h4>${t.title}</h4>
+      <p class="sub">${t.subtitle}</p>
+    </div>
+    <div class="season-track">
+      <div class="season-rail" aria-hidden="true">
+        <span class="season-rail-line"></span>
+        ${t.steps.map((_, i) => `<span class="season-dot" data-dot="${i}"></span>`).join('')}
+      </div>
+      <ol class="season-steps">
+        ${t.steps.map((st, i) => `
+          <li class="season-step" data-step="${i}">
+            <span class="season-n">${st.n}</span>
+            <h3>${st.title}</h3>
+            <p class="season-leak"><b>${t.leakLabel}</b>${st.leak}</p>
+            <div class="season-links">
+              <button type="button" class="season-chip" data-flow-compare="${id}">${t.leftHead} · ${st.leftLabel}</button>
+              <button type="button" class="season-chip season-chip-syntha" data-flow-open="${id}">${t.rightHead} · ${st.contour}</button>
+            </div>
+          </li>`).join('')}
+      </ol>
+    </div>`;
+
+  if (simpleFlowObservers[id]) simpleFlowObservers[id].disconnect();
+  if (embed.hidden) return;
+  const steps = [...embed.querySelectorAll('.season-step')];
+  const dots = [...embed.querySelectorAll('.season-dot')];
+  const setActive = (i) => {
+    steps.forEach((el, j) => el.classList.toggle('active', j === i));
+    dots.forEach((el, j) => el.classList.toggle('active', j === i));
+  };
+  setActive(0);
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => { if (entry.isIntersecting) setActive(+entry.target.dataset.step); });
+  }, { rootMargin: '-40% 0px -40% 0px', threshold: 0 });
+  steps.forEach((el) => obs.observe(el));
+  simpleFlowObservers[id] = obs;
 }
 
 /* ---------- диагностика: пять вопросов → формат работы ---------- */
