@@ -204,6 +204,10 @@ function render() {
       <a href="${c.href}" target="_blank" rel="noopener">${c.value}</a></li>`).join('');
 
   $('#year').textContent = new Date().getFullYear();
+  renderNow();
+  renderCases();
+  renderSeasonFlow();
+  renderDiagnostic();
   renderNews();
   addTopButtons(t.nav.toTop);
   syncSnaps();
@@ -380,6 +384,161 @@ $('#modal-cta').addEventListener('click', () => {
   leave();
   $('#contact').scrollIntoView({ behavior: 'smooth' });
   setTimeout(() => $('#form [name="name"]').focus(), 400);
+});
+
+/* ---------- «Сейчас»: статусы проектов и последний пост ---------- */
+function renderNow() {
+  const t = T[lang];
+  $('#now-label').textContent = t.now.label;
+  $('#now-projects').innerHTML = PROJECTS.map((p) => `
+    <li><span class="now-dot" aria-hidden="true"></span><b>${p.name}</b><span>${p[lang].stage}</span></li>`).join('');
+
+  const latest = SITE_NEWS[0];
+  const post = $('#now-post');
+  if (!latest) { post.hidden = true; }
+  else {
+    post.hidden = false;
+    post.dataset.date = latest.date;
+    const fmt = new Intl.DateTimeFormat(lang === 'ru' ? 'ru-RU' : 'en-GB', { day: 'numeric', month: 'long' });
+    post.innerHTML = `<span class="now-post-label">${t.now.latest}</span>
+      <span class="now-post-title">${latest[lang].title}</span>
+      <span class="now-post-date">${fmt.format(new Date(latest.date))} · ${t.now.readMore}</span>`;
+  }
+}
+/* Переход по ссылке-якорю не вызывает applyHash — используем свой роутинг. */
+$('#now-post').addEventListener('click', (e) => {
+  e.preventDefault();
+  const date = e.currentTarget.dataset.date;
+  if (date) go(`post-${date}`);
+});
+
+/* ---------- кейсы: было → сделали → стало ---------- */
+function renderCases() {
+  const t = T[lang].consulting;
+  $('#cases').innerHTML = `
+    <div class="cases-head"><h3>${t.casesTitle}</h3><p class="sub">${t.casesSubtitle}</p></div>
+    <div class="cases-track snap">
+      ${t.cases.map((c) => `
+        <article class="case-card">
+          <span class="case-tag">${c.tag}</span>
+          <div class="case-row"><b>${t.casesBefore}</b><p>${c.before}</p></div>
+          <div class="case-row"><b>${t.casesAction}</b><p>${c.action}</p></div>
+          <div class="case-row case-after"><b>${t.casesAfter}</b>
+            <ul>${c.results.map((r) => `<li>${r}</li>`).join('')}</ul></div>
+        </article>`).join('')}
+    </div>`;
+}
+
+/* ---------- «Где утекают деньги сезона»: консалтинг и Syntha одним сценарием ----------
+   Единственное место на сайте, где применяется вертикальный scroll-эффект: пять шагов
+   подряд, IntersectionObserver подсвечивает текущий на рельсе слева (сверху на телефоне). */
+let flowObserver = null;
+function renderSeasonFlow() {
+  const t = T[lang].flow;
+  const factsById = Object.fromEntries(T[lang].hero.facts.map((f) => [f.id, f.n]));
+
+  $('#flow-eyebrow').textContent = t.eyebrow;
+  $('#flow-title').textContent = t.title;
+  $('#flow-subtitle').textContent = t.subtitle;
+
+  $('#season-track').innerHTML = `
+    <div class="season-rail" aria-hidden="true">
+      <span class="season-rail-line"></span>
+      ${t.steps.map((_, i) => `<span class="season-dot" data-dot="${i}"></span>`).join('')}
+    </div>
+    <ol class="season-steps">
+      ${t.steps.map((st, i) => `
+        <li class="season-step" data-step="${i}">
+          <span class="season-n">${st.n}</span>
+          <h3>${st.title}</h3>
+          <p class="season-leak"><b>${t.leakLabel}</b>${st.leak}</p>
+          <div class="season-links">
+            <button type="button" class="season-chip" data-open-area="${st.area}">${t.consultingLabel} · ${factsById[st.area] ?? st.area}</button>
+            <button type="button" class="season-chip season-chip-syntha" data-open-syntha>${t.synthaLabel} · ${st.contour}</button>
+          </div>
+        </li>`).join('')}
+    </ol>`;
+
+  if (flowObserver) flowObserver.disconnect();
+  const steps = [...document.querySelectorAll('.season-step')];
+  const dots = [...document.querySelectorAll('.season-dot')];
+  const setActive = (i) => {
+    steps.forEach((el, j) => el.classList.toggle('active', j === i));
+    dots.forEach((el, j) => el.classList.toggle('active', j === i));
+  };
+  setActive(0);
+  flowObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => { if (entry.isIntersecting) setActive(+entry.target.dataset.step); });
+  }, { rootMargin: '-40% 0px -40% 0px', threshold: 0 });
+  steps.forEach((el) => flowObserver.observe(el));
+}
+$('#season-track').addEventListener('click', (e) => {
+  const area = e.target.closest('[data-open-area]');
+  if (area) return go(`area-${area.dataset.openArea}`);
+  if (e.target.closest('[data-open-syntha]')) go('syntha');
+});
+
+/* ---------- диагностика: пять вопросов → формат работы ---------- */
+let diagAnswers = [];
+function renderDiagnostic() {
+  const t = T[lang].diagnostic;
+  $('#diag-eyebrow').textContent = t.label;
+  $('#diag-title').textContent = t.title;
+  $('#diag-subtitle').textContent = t.subtitle;
+
+  const step = diagAnswers.length;
+  const body = $('#diag-body');
+
+  if (step < t.questions.length) {
+    const q = t.questions[step];
+    body.innerHTML = `
+      <div class="diag-progress">
+        <span>${t.progress.replace('{i}', step + 1).replace('{n}', t.questions.length)}</span>
+        <div class="diag-bar"><span style="width:${Math.round((step / t.questions.length) * 100)}%"></span></div>
+      </div>
+      <h3 class="diag-q">${q.q}</h3>
+      <div class="diag-options">
+        ${q.options.map((o) => `<button type="button" class="diag-opt" data-f="${o.f}">${o.t}</button>`).join('')}
+      </div>
+      ${step > 0 ? `<button type="button" class="diag-back">${t.back}</button>` : ''}`;
+  } else {
+    const counts = [0, 0, 0, 0];
+    diagAnswers.forEach((f) => counts[f]++);
+    const bestIdx = counts.indexOf(Math.max(...counts));
+    const fmt = T[lang].formats.items[bestIdx];
+    body.innerHTML = `
+      <div class="diag-result">
+        <p class="diag-result-label">${t.resultLabel}</p>
+        <h3>${fmt.title}</h3>
+        <span class="diag-term">${fmt.term}</span>
+        <p class="diag-result-body">${fmt.body}</p>
+        <p class="diag-note">${t.resultNote}</p>
+        <div class="diag-actions">
+          <button type="button" class="btn btn-primary" data-diag-cta="${bestIdx}">${t.cta}</button>
+          <button type="button" class="btn" data-diag-more="${bestIdx}">${t.ctaMore}</button>
+        </div>
+        <button type="button" class="diag-retake">${t.retake}</button>
+      </div>`;
+  }
+}
+$('#diag-body').addEventListener('click', (e) => {
+  const opt = e.target.closest('.diag-opt');
+  if (opt) { diagAnswers.push(+opt.dataset.f); return renderDiagnostic(); }
+  if (e.target.closest('.diag-back')) { diagAnswers.pop(); return renderDiagnostic(); }
+  if (e.target.closest('.diag-retake')) { diagAnswers = []; return renderDiagnostic(); }
+  const more = e.target.closest('[data-diag-more]');
+  if (more) return go(`format-${T[lang].formats.items[+more.dataset.diagMore].n}`);
+  const cta = e.target.closest('[data-diag-cta]');
+  if (cta) {
+    const t = T[lang].diagnostic;
+    const fmt = T[lang].formats.items[+cta.dataset.diagCta];
+    $('#topic').value = 'consulting';
+    const msgEl = $('#form [name="message"]');
+    if (msgEl && !msgEl.value.trim()) msgEl.value = t.messagePrefix + fmt.title + t.messageSuffix;
+    syncSubmit?.();
+    $('#contact').scrollIntoView({ behavior: 'smooth' });
+    setTimeout(() => $('#form [name="name"]').focus(), 400);
+  }
 });
 
 /* ---------- новости ---------- */

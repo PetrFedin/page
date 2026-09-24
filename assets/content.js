@@ -165,6 +165,31 @@ export const T = {
           body: 'Денежный поток, оборотный капитал, оценка бизнеса, потребность в финансировании, сделки и стабилизация.',
           decision: 'Сколько капитала нужно и насколько бизнес готов к росту или сделке.'
         }
+      ],
+      casesTitle: 'Что уже сделано',
+      casesSubtitle: 'Три ситуации из практики — с тем же расчётом, который лежит в основе каждого формата ниже.',
+      casesBefore: 'Было',
+      casesAction: 'Сделали',
+      casesAfter: 'Стало',
+      cases: [
+        {
+          tag: 'Закупка и ассортимент',
+          before: 'Заказ защищался мнением, а не расчётом. Отчётность собиралась вручную, согласование растягивалось на дни.',
+          action: 'Ввели бюджет закупки с лимитами по брендам и каналам, обязательное обоснование заказа и регулярный пересчёт прогноза по факту продаж.',
+          results: ['90% отчётности автоматизировано', 'Согласование заказов втрое быстрее', 'Управленческий отчёт — с 2–3 дней до 10 минут']
+        },
+        {
+          tag: 'Продукт и производство',
+          before: 'Себестоимость становилась известна только после запуска производства. Спецификации и образцы жили в переписке и разрозненных файлах.',
+          action: 'Связали продуктовые данные с продажами и запасом, ввели единую версию спецификаций и образцов, контроль сроков поставщиков.',
+          results: ['Себестоимость изделия видна до запуска производства', 'Спецификации, образцы и версии собраны в одном месте', 'Сроки поставщиков под контролем, срывы видны заранее']
+        },
+        {
+          tag: 'Стабилизация',
+          before: 'Решения о деньгах принимались с опозданием. Никто не мог сказать, кто и что решает, кассовые разрывы обнаруживались по факту.',
+          action: 'Ввели кассовый календарь, закрепили права решений письменно и короткий цикл план — факт — действие.',
+          results: ['Платежи выстроены в кассовый календарь', 'Цикл план — факт — действие: одна неделя', 'Решения принимаются на встрече, не в чате']
+        }
       ]
     },
     projects: {
@@ -400,6 +425,88 @@ export const T = {
       directTitle: 'Контакты',
       vcard: 'Сохранить контакт',
       privacy: 'Конфиденциальность клиентских данных — базовый стандарт работы.'
+    },
+    now: {
+      label: 'Сейчас',
+      latest: 'Последний пост в ленте',
+      readMore: 'Читать →'
+    },
+    diagnostic: {
+      label: 'Диагностика',
+      title: 'Какой формат вам подходит',
+      subtitle: 'Пять вопросов — тридцать секунд. В конце — конкретный формат работы, а не общий совет.',
+      progress: 'Вопрос {i} из {n}',
+      start: 'Начать',
+      back: 'Назад',
+      resultLabel: 'Похоже, подходит',
+      resultNote: 'Формат — гипотеза по пяти ответам, а не диагноз. Финальное решение — на разговоре.',
+      cta: 'Обсудить формат',
+      ctaMore: 'Что входит →',
+      retake: 'Пройти заново',
+      messagePrefix: 'Результат диагностики на сайте: «',
+      messageSuffix: '».',
+      questions: [
+        {
+          q: 'Что сейчас ближе всего к вашей ситуации?',
+          options: [
+            { t: 'Кажется, что деньги где-то теряются, но непонятно где именно', f: 0 },
+            { t: 'Решения принимаются, но каждый раз заново и на ощупь', f: 1 },
+            { t: 'Бизнес теряет управляемость, решения запаздывают', f: 2 },
+            { t: 'Цифры не сходятся между отделами, а решения ждут отчёта', f: 3 }
+          ]
+        },
+        {
+          q: 'Сколько времени вы готовы выделить на совместную работу?',
+          options: [
+            { t: 'Короткий заход на 4–6 недель, дальше сам', f: 0 },
+            { t: 'Регулярное сопровождение месяцами, без человека в штате', f: 1 },
+            { t: 'Столько, сколько нужно, чтобы восстановить контроль', f: 2 },
+            { t: 'Проект на 2–4 месяца с понятным результатом', f: 3 }
+          ]
+        },
+        {
+          q: 'Кто должен остаться с результатом после работы?',
+          options: [
+            { t: 'Я сам — нужен план и цифры, а не постоянный советник', f: 0 },
+            { t: 'Моя команда — нужны правила и регулярный контроль', f: 1 },
+            { t: 'Компания в целом — нужна восстановленная управляемость', f: 2 },
+            { t: 'Системы — нужна архитектура данных, которая работает без меня', f: 3 }
+          ]
+        },
+        {
+          q: 'Что для вас сейчас важнее?',
+          options: [
+            { t: 'Понять, где именно теряются деньги', f: 0 },
+            { t: 'Не терять темп между разовыми консультациями', f: 1 },
+            { t: 'Остановить то, что не работает, прямо сейчас', f: 2 },
+            { t: 'Свести цифры из разных систем в одну картину', f: 3 }
+          ]
+        },
+        {
+          q: 'Насколько срочно нужно решение?',
+          options: [
+            { t: 'Не горит, но хочу ясности к следующему сезону', f: 0 },
+            { t: 'Это постоянная часть моей текущей работы', f: 1 },
+            { t: 'Срочно — решения запаздывают уже сейчас', f: 2 },
+            { t: 'К моменту, когда меняем систему или процесс', f: 3 }
+          ]
+        }
+      ]
+    },
+    flow: {
+      eyebrow: 'Консалтинг × Syntha',
+      title: 'Где утекают деньги сезона',
+      subtitle: 'Один и тот же сезон глазами консалтинга и глазами системы: что теряется на каждом шаге и что это закрывает.',
+      consultingLabel: 'Консалтинг',
+      synthaLabel: 'Syntha',
+      leakLabel: 'Где теряются деньги',
+      steps: [
+        { n: '01', title: 'План сезона', leak: 'Бюджет закупки принимается на глаз, без расчёта и обоснования по категориям.', area: 'buying', contour: 'Продукт и коллекция' },
+        { n: '02', title: 'Закупка', leak: 'Заказ размещается раньше, чем известна реальная себестоимость изделия.', area: 'product', contour: 'Себестоимость и экономика' },
+        { n: '03', title: 'Открытие продаж', leak: 'Ассортимент и остаток на площадках расходятся с тем, что реально покупают.', area: 'buying', contour: 'Коммерция и сделка' },
+        { n: '04', title: 'Уценка', leak: 'Решение об уценке принимается по ощущению, а не по факту продаж и остатка.', area: 'buying', contour: 'Данные и показатели' },
+        { n: '05', title: 'Остаток и деньги', leak: 'Капитал, замороженный в остатке, не виден до самого закрытия периода.', area: 'turnaround', contour: 'Данные и показатели' }
+      ]
     }
   },
 
@@ -476,6 +583,31 @@ export const T = {
           title: 'Capital & resilience',
           body: 'Cash flow, working capital, valuation, funding needs, transactions and turnaround.',
           decision: 'How much capital is needed and whether the business is ready to grow or to transact.'
+        }
+      ],
+      casesTitle: 'What has already been done',
+      casesSubtitle: 'Three situations from practice — the same kind of calculation behind every format below.',
+      casesBefore: 'Before',
+      casesAction: 'Did',
+      casesAfter: 'After',
+      cases: [
+        {
+          tag: 'Buying and assortment',
+          before: 'An order was defended by opinion, not by numbers. Reporting was built by hand and approval dragged on for days.',
+          action: 'Introduced an open-to-buy with limits by brand and channel, mandatory justification before an order is paid, and a demand forecast recalculated on actual sales.',
+          results: ['90% of reporting automated', 'Order approval three times faster', 'Management report from 2–3 days to 10 minutes']
+        },
+        {
+          tag: 'Product and production',
+          before: 'Item cost became known only after production started. Specifications and samples lived in emails and scattered files.',
+          action: 'Linked product data to sales and inventory, moved specifications and samples to one version, and put supplier lead times under control.',
+          results: ['Item cost visible before production starts', 'Specifications, samples and versions kept in one place', 'Supplier lead times under control, slippage visible early']
+        },
+        {
+          tag: 'Turnaround',
+          before: 'Decisions about cash were made late. Nobody could say who decided what, and cash gaps only surfaced after the fact.',
+          action: 'Built a cash calendar, wrote decision rights down, and shortened the plan — actual — action cycle.',
+          results: ['Payments organised into a cash calendar weeks ahead', 'The plan — actual — action cycle shortened to a week', 'Decisions taken in the meeting rather than in chat']
         }
       ]
     },
@@ -618,6 +750,88 @@ export const T = {
       directTitle: 'Contacts',
       vcard: 'Save contact',
       privacy: 'Client confidentiality is a baseline standard of the work.'
+    },
+    now: {
+      label: 'Right now',
+      latest: 'Latest post in the feed',
+      readMore: 'Read →'
+    },
+    diagnostic: {
+      label: 'Diagnostic',
+      title: 'Which format fits',
+      subtitle: 'Five questions, thirty seconds. At the end — a specific format, not generic advice.',
+      progress: 'Question {i} of {n}',
+      start: 'Start',
+      back: 'Back',
+      resultLabel: 'Looks like a fit',
+      resultNote: 'A format is a hypothesis from five answers, not a diagnosis. The real decision happens in conversation.',
+      cta: 'Discuss this format',
+      ctaMore: 'What it includes →',
+      retake: 'Start over',
+      messagePrefix: 'Result of the site diagnostic: “',
+      messageSuffix: '.”',
+      questions: [
+        {
+          q: 'Which is closest to where you are right now?',
+          options: [
+            { t: 'It feels like money is leaking somewhere, but it is unclear where', f: 0 },
+            { t: 'Decisions get made, but each time from scratch, by feel', f: 1 },
+            { t: 'The business is losing control and decisions are running late', f: 2 },
+            { t: 'The numbers do not match between departments and decisions wait on a report', f: 3 }
+          ]
+        },
+        {
+          q: 'How much time can you commit to working together?',
+          options: [
+            { t: 'A short 4–6 week engagement, then I take it from there', f: 0 },
+            { t: 'Ongoing support over months, without adding headcount', f: 1 },
+            { t: 'As much as it takes to restore control', f: 2 },
+            { t: 'A 2–4 month project with a defined outcome', f: 3 }
+          ]
+        },
+        {
+          q: 'Who should be left holding the result once the work is done?',
+          options: [
+            { t: 'Me — I need a plan and the numbers, not a standing advisor', f: 0 },
+            { t: 'My team — we need written rules and regular control', f: 1 },
+            { t: 'The company as a whole — control needs to be restored', f: 2 },
+            { t: 'The systems — I need a data architecture that runs without me', f: 3 }
+          ]
+        },
+        {
+          q: 'What matters most to you right now?',
+          options: [
+            { t: 'Understanding exactly where the money is leaking', f: 0 },
+            { t: 'Not losing momentum between one-off consultations', f: 1 },
+            { t: 'Stopping what is not working, right now', f: 2 },
+            { t: 'Bringing numbers from different systems into one picture', f: 3 }
+          ]
+        },
+        {
+          q: 'How urgent is this?',
+          options: [
+            { t: 'Not urgent, but I want clarity before the next season', f: 0 },
+            { t: 'It is an ongoing part of my work', f: 1 },
+            { t: 'Urgent — decisions are already running late', f: 2 },
+            { t: 'By the time we switch systems or change a process', f: 3 }
+          ]
+        }
+      ]
+    },
+    flow: {
+      eyebrow: 'Advisory × Syntha',
+      title: 'Where a season leaks money',
+      subtitle: 'The same season seen from advisory and from the system: what is lost at each step and what closes it.',
+      consultingLabel: 'Advisory',
+      synthaLabel: 'Syntha',
+      leakLabel: 'Where the money leaks',
+      steps: [
+        { n: '01', title: 'Season plan', leak: 'The buying budget is set by feel, with no calculation or justification by category.', area: 'buying', contour: 'Product and collection' },
+        { n: '02', title: 'Buying', leak: 'An order is placed before the true item cost is known.', area: 'product', contour: 'Cost and economics' },
+        { n: '03', title: 'Launch to sale', leak: 'Assortment and stock across channels drift from what is actually selling.', area: 'buying', contour: 'Commerce and the deal' },
+        { n: '04', title: 'Markdown', leak: 'The markdown call is made by feel, not by actual sales and stock.', area: 'buying', contour: 'Data and metrics' },
+        { n: '05', title: 'Stock and cash', leak: 'Capital locked in stock stays invisible until the period closes.', area: 'turnaround', contour: 'Data and metrics' }
+      ]
     }
   }
 };

@@ -537,6 +537,151 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 .media-note{font-size:14px; color:var(--muted); margin:0}
 .media-item .btn{justify-self:start}
 
+/* ---------- «Сейчас»: статусы трёх проектов и последний пост ---------- */
+.now-band{border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:var(--panel)}
+.now-label{
+  max-width:var(--maxw); margin:0 auto; padding:16px 16px 0;
+  font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted);
+}
+.now-body{
+  max-width:var(--maxw); margin:0 auto; padding:10px 16px 16px;
+  display:flex; flex-wrap:wrap; align-items:baseline; gap:12px 28px;
+}
+.now-projects{list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:9px 18px}
+.now-projects li{display:flex; align-items:center; gap:7px; font-size:13.5px; color:var(--muted)}
+.now-projects b{color:var(--ink); font-weight:500}
+.now-dot{width:6px; height:6px; border-radius:50%; background:var(--accent); flex:0 0 auto}
+.now-post{
+  display:flex; flex-wrap:wrap; align-items:baseline; gap:4px 8px; max-width:100%;
+  text-decoration:none; color:inherit; font-size:13.5px;
+}
+.now-post[hidden]{display:none}
+.now-post-label{color:var(--muted)}
+.now-post-title{color:var(--ink); font-weight:500}
+.now-post-date{color:var(--accent); white-space:nowrap}
+.now-post:hover .now-post-title{text-decoration:underline}
+@media (min-width:760px){ .now-post{margin-left:auto} }
+
+/* ---------- кейсы: было → сделали → стало ---------- */
+.cases{margin-top:40px; padding-top:32px; border-top:1px solid var(--line)}
+.cases-head{max-width:640px; margin-bottom:20px}
+.cases-head h3{font-size:clamp(21px,3.4vw,26px)}
+.cases-head .sub{margin-top:8px}
+.cases-track{display:grid; gap:14px}
+.case-card{
+  background:var(--panel); border:1px solid var(--line); border-radius:12px;
+  padding:20px 18px; display:grid; gap:12px; align-content:start;
+}
+.case-tag{
+  font-size:11px; letter-spacing:.09em; text-transform:uppercase; color:var(--accent);
+  background:var(--accent-soft); border-radius:999px; padding:4px 10px; justify-self:start;
+}
+.case-row b{
+  display:block; font-size:11px; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--muted); font-weight:500; margin-bottom:4px;
+}
+.case-row p{font-size:14.5px; color:var(--muted)}
+.case-after{padding-top:10px; border-top:1px dashed var(--line)}
+.case-after ul{list-style:none; margin:0; padding:0; display:grid; gap:6px}
+.case-after li{font-size:14px; color:var(--ink); padding-left:16px; position:relative}
+.case-after li::before{
+  content:""; position:absolute; left:0; top:8px; width:6px; height:6px;
+  border-radius:2px; background:var(--accent);
+}
+@media (min-width:760px){ .cases-track{grid-template-columns:repeat(3,minmax(0,1fr))} }
+
+/* ---------- «Где утекают деньги сезона» ----------
+   Единственное место на сайте с вертикальным scroll-эффектом: пять шагов сезона,
+   рельс слева (сверху на телефоне) подсвечивает текущий через IntersectionObserver. */
+.season-flow .section-head{max-width:680px}
+.season-track{position:relative}
+.season-rail{
+  position:sticky; top:56px; z-index:2; display:flex; justify-content:space-between;
+  align-items:center; padding:10px 0 18px; background:var(--bg);
+}
+.season-rail-line{position:absolute; left:0; right:0; top:50%; height:1px; background:var(--line); z-index:-1}
+.season-dot{
+  width:9px; height:9px; border-radius:50%; background:var(--line); flex:0 0 auto;
+  transition:background .2s ease, transform .2s ease;
+}
+.season-dot.active{background:var(--accent); transform:scale(1.3)}
+.season-steps{list-style:none; margin:0; padding:0; display:grid; gap:28px}
+.season-step{
+  background:var(--panel); border:1px solid var(--line); border-radius:14px;
+  padding:22px 20px; opacity:.55; transition:opacity .25s ease, border-color .25s ease;
+}
+.season-step.active{opacity:1; border-color:var(--ink)}
+.season-n{
+  font-family:var(--serif); font-size:13px; letter-spacing:.06em; color:var(--accent);
+  display:block; margin-bottom:6px;
+}
+.season-step h3{font-size:20px; margin-bottom:10px}
+.season-leak{font-size:14.5px; color:var(--muted); margin-bottom:16px}
+.season-leak b{
+  display:block; font-size:11px; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--muted); font-weight:500; margin-bottom:4px;
+}
+.season-links{display:flex; flex-wrap:wrap; gap:8px}
+.season-chip{
+  appearance:none; border:1px solid var(--line); background:var(--bg); color:var(--ink);
+  border-radius:999px; padding:7px 13px; font-size:13px; cursor:pointer; font:inherit;
+}
+.season-chip:hover{border-color:var(--ink)}
+.season-chip-syntha{border-color:var(--accent); color:var(--accent)}
+.season-chip-syntha:hover{background:var(--accent-soft)}
+@media (min-width:760px){
+  .season-track{display:grid; grid-template-columns:56px 1fr; gap:32px; align-items:start}
+  .season-rail{flex-direction:column; justify-content:space-between; top:96px; height:60vh; background:none; padding:0}
+  .season-rail-line{left:50%; right:auto; top:0; bottom:0; width:1px; height:100%; transform:translateX(-50%)}
+}
+@media (max-width:759px){
+  /* На телефоне заголовок раздела сам прилипает к top:56px (общее правило сайта) —
+     рельс не может занимать ту же полосу, иначе перекрывается заголовком. Прогресс
+     и так виден по карточке шага: активная ярче и с тёмной рамкой. */
+  .season-rail{position:static; padding:4px 0 16px}
+}
+
+/* ---------- диагностика: пять вопросов → формат работы ---------- */
+.diagnostic .section-head{max-width:640px}
+.diag-body{
+  max-width:640px; background:var(--panel); border:1px solid var(--line);
+  border-radius:16px; padding:26px 22px;
+}
+.diag-progress{display:flex; align-items:center; gap:12px; margin-bottom:18px}
+.diag-progress span{font-size:12px; letter-spacing:.06em; color:var(--muted); white-space:nowrap}
+.diag-bar{flex:1; height:3px; background:var(--line); border-radius:999px; overflow:hidden}
+.diag-bar span{display:block; height:100%; background:var(--accent); transition:width .25s ease}
+.diag-q{font-size:21px; margin-bottom:16px}
+.diag-options{display:grid; gap:9px}
+.diag-opt{
+  appearance:none; text-align:left; border:1px solid var(--line); background:var(--bg);
+  color:var(--ink); border-radius:10px; padding:13px 15px; font:inherit; font-size:15px;
+  cursor:pointer; transition:border-color .15s ease, background .15s ease;
+}
+.diag-opt:hover{border-color:var(--ink); background:var(--accent-soft)}
+.diag-back{
+  margin-top:16px; appearance:none; border:none; background:none; color:var(--muted);
+  font:inherit; font-size:13px; cursor:pointer; padding:0; text-decoration:underline;
+}
+.diag-back:hover{color:var(--ink)}
+.diag-result-label{
+  font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--accent);
+  margin-bottom:8px;
+}
+.diag-result h3{font-size:24px; margin-bottom:10px}
+.diag-term{
+  display:inline-block; font-size:11px; letter-spacing:.09em; text-transform:uppercase; color:var(--accent);
+  background:var(--accent-soft); border-radius:999px; padding:4px 10px; margin-bottom:14px;
+}
+.diag-result-body{font-size:15px; color:var(--muted); margin-bottom:14px}
+.diag-note{font-size:13px; color:var(--muted); padding-top:14px; border-top:1px dashed var(--line); margin-bottom:20px}
+.diag-actions{display:flex; flex-wrap:wrap; gap:10px; margin-bottom:14px}
+.diag-retake{
+  appearance:none; border:none; background:none; color:var(--muted);
+  font:inherit; font-size:13px; cursor:pointer; padding:0; text-decoration:underline;
+}
+.diag-retake:hover{color:var(--ink)}
+
 /* ---------- листание блоков на телефоне ---------- */
 @media (max-width:759px){
   .snap{
