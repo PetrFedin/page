@@ -286,8 +286,8 @@ export const NEWS = [
     date: '2026-09-23',
     tags: ['Syntha', 'ИТвмоде', 'фэшнритейл'],
     tag: 'market',
-    ru: { title: 'Сравнение с мировыми платформами — по запросу', body: 'Нас регулярно спрашивают, чем Syntha отличается от мировых систем для фэшн-бизнеса.\n\nУ нас есть ответ в виде документа: подробное сравнение по всему функционалу — JOOR, NuORDER, Brandboom, Faire и другие. Что закрыто у них, что закрыто у нас, что заложено дальше.\n\nПубликовать его мы не будем: это рабочий материал, а не презентация. Отдаём по запросу тем, с кем предметно обсуждаем пилот или партнёрство.' },
-    en: { title: 'Comparison with global platforms — on request', body: 'We maintain a detailed functional comparison of Syntha against the global systems for fashion — JOOR, NuORDER, Brandboom, Faire and others: what they cover, what we cover and what is planned next. It is a working document rather than a marketing piece, so it is not published. We share it on request with those discussing a pilot or a partnership with us.' }
+    ru: { title: 'Сравнение с мировыми платформами', body: 'Нас регулярно спрашивают, чем Syntha отличается от мировых систем для фэшн-бизнеса.\n\nВедём подробное сравнение по всему функционалу — JOOR, NuORDER, Brandboom, Faire и другие: что закрыто у них, что закрыто у нас, что заложено дальше. Пока это рабочий черновик, а не готовая презентация, и страница видна только тем, у кого есть прямая ссылка.\n\n/private/syntha-vs-platforms.html' },
+    en: { title: 'Comparison with global platforms', body: 'We are regularly asked how Syntha differs from the global systems for fashion business.\n\nWe keep a detailed functional comparison — JOOR, NuORDER, Brandboom, Faire and others: what they cover, what we cover, what is planned next. It is still a working draft, not a finished deck, and the page is visible only to those with the direct link.\n\n/private/syntha-vs-platforms.html' }
   },
   {
     date: '2026-09-19',

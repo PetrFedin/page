@@ -26,7 +26,8 @@ export const T = {
             'Распределение, пополнение и перемещения между площадками',
             'Правила уценки и вывода позиций из ассортимента',
             'Обязательное обоснование заказа до оплаты',
-            'Управленческая отчётность и инструменты для аналитиков'
+            'Управленческая отчётность и инструменты для аналитиков',
+            'Регулярный аудит остатков и точность прогноза по факту'
           ],
           gives: [
             'Понятные правила: что покупаем, сколько, когда и почему',
@@ -61,7 +62,8 @@ export const T = {
             'Размещение заказа, мощности и сроки поставщиков',
             'Контроль качества и приёмка партий',
             'Связка продуктовых данных с продажами и запасом',
-            'Связь продуктовых данных с продажами и запасом'
+            'Аудит поставщиков и альтернативные площадки размещения заказа',
+            'Регламент версий и согласований, чтобы правки не терялись в переписке'
           ],
           gives: [
             'Себестоимость, которую видно до запуска, а не после',
@@ -87,7 +89,8 @@ export const T = {
             'Финансовая модель: прибыль, денежный поток, оборотный капитал',
             'Расчёт потребности в финансировании и сценарии',
             'Материалы для переговоров с инвестором, банком или покупателем',
-            'Оценка готовности бизнеса к сделке'
+            'Оценка готовности бизнеса к сделке',
+            'Стресс-тест модели на пессимистичном и базовом сценарии'
           ],
           gives: [
             'Обоснованный ответ «идти или не идти» с ценой вопроса',
@@ -113,7 +116,8 @@ export const T = {
             'Процессы, роли и права решений',
             'Короткий цикл план → факт → действие',
             'Координация функций и сложные переговоры с партнёрами',
-            'Контроль исполнения до выхода на устойчивый режим'
+            'Контроль исполнения до выхода на устойчивый режим',
+            'Еженедельная отчётность перед собственником на всё время режима'
           ],
           gives: [
             'Ответ на вопрос «кто и что решает» в письменном виде',
@@ -244,7 +248,8 @@ export const T = {
             'Оценка оборачиваемости, маржи и вклада по категориям',
             'Проверка данных: где расходятся цифры и почему',
             'Встречи с ключевыми людьми: закупка, финансы, коммерция',
-            'Финальная сессия с собственником'
+            'Финальная сессия с собственником',
+            'Каждый вывод подкреплён цифрой из ваших же данных, а не общими формулировками'
           ],
           out: [
             'Карта проблем с приоритетами и ценой вопроса',
@@ -267,7 +272,8 @@ export const T = {
             'Правила решений и показатели, закреплённые письменно',
             'Разбор отклонений плана и факта в коротком цикле',
             'Подготовка материалов к совету директоров или инвестору',
-            'Связь с командой между встречами по текущим вопросам'
+            'Связь с командой между встречами по текущим вопросам',
+            'Письменная фиксация каждого решения — с расчётом и датой, а не «как договорились»'
           ],
           out: [
             'Правила решений, которые работают без меня',
@@ -290,7 +296,8 @@ export const T = {
             'Пересборка процессов, ролей и прав решений',
             'Координация функций: закупка, финансы, производство, розница',
             'Сложные переговоры с поставщиками, банками и партнёрами',
-            'Контроль исполнения до выхода на устойчивый режим'
+            'Контроль исполнения до выхода на устойчивый режим',
+            'Персональная ответственность за результат — не рекомендация, а исполнение'
           ],
           out: [
             'Восстановленная управляемость и закреплённая ответственность',
@@ -314,7 +321,8 @@ export const T = {
             'Прототип управленческой панели',
             'Требования к PLM, ERP, CRM, WMS и BI и роль каждой системы',
             'Сценарии автоматизации: прогноз спроса, сигналы по остаткам, уценка',
-            'План внедрения и переход от таблиц к регулярному управлению'
+            'План внедрения и переход от таблиц к регулярному управлению',
+            'Приоритизация по эффекту: что даёт быструю отдачу, а что требует системной перестройки'
           ],
           out: [
             'Целевая архитектура и бизнес-требования',
@@ -368,6 +376,7 @@ export const T = {
       title: 'Лента',
       subtitle: 'Коротко о том, зачем мы это делаем, кому это нужно и что меняется в проектах.',
       more: 'Показать ещё',
+      source: 'Источник →',
       channel: 'Все посты в Telegram →',
       share: 'Поделиться',
       shareIn: { tg: 'В Telegram', wa: 'В WhatsApp', copy: 'Скопировать ссылку' },
@@ -502,25 +511,25 @@ export const T = {
         { id: 'buying', n: 'Buying and assortment',
           l: 'Multi-brand retail: open-to-buy, assortment matrix, demand forecast, allocation, markdown',
           lead: 'Buying as a system for returning capital, not as an order sent to a supplier.',
-          does: ['Open-to-buy and limits by brand, category and channel', 'Assortment matrix, size curves, depth and width', 'Demand forecast recalculated from actual sales and stock', 'Allocation, replenishment and transfers between locations', 'Markdown rules and exit rules for items', 'Mandatory justification of an order before it is paid', 'Management reporting and tools for the analytics team'],
+          does: ['Open-to-buy and limits by brand, category and channel', 'Assortment matrix, size curves, depth and width', 'Demand forecast recalculated from actual sales and stock', 'Allocation, replenishment and transfers between locations', 'Markdown rules and exit rules for items', 'Mandatory justification of an order before it is paid', 'Management reporting and tools for the analytics team', 'Regular stock audit and forecast accuracy checks against actuals'],
           gives: ['Clear rules: what to buy, how much, when and why', 'An order defended with numbers before it becomes money', 'A regular recalculation cycle instead of heroic one-off reports'],
           results: ['90% of reporting automated', 'Order approval three times faster', 'Share of profitable items +20%', 'Seasonal sell-through +8pp', 'Excess stock −10%', 'GMROI +23%', 'Item stock-turn days −34%', 'Buying margin +3pp', '1,000–1,200 underperforming items excluded per season', 'Recurring errors −66%', 'Management reporting errors −90%', 'Data accuracy for reporting +70%', 'Management report from 2–3 days to 10 minutes', '−150 hours of manual work a month', 'Ad-hoc task output per analyst ×3'] },
         { id: 'product', n: 'Product and production',
           l: 'Premium segment: cost, specifications, order placement, supplier lead times',
           lead: 'The path from sketch to shipment assembled into one manageable chain.',
-          does: ['Order economics and true item cost', 'Specifications, samples, tech packs, versions and approvals', 'Order placement, supplier capacity and lead times', 'Quality control and batch acceptance', 'Product data linked to sales and inventory', 'Product data linked to sales and inventory'],
+          does: ['Order economics and true item cost', 'Specifications, samples, tech packs, versions and approvals', 'Order placement, supplier capacity and lead times', 'Quality control and batch acceptance', 'Product data linked to sales and inventory', 'Supplier audit and alternative sourcing options', 'A version and approval discipline so changes stop getting lost in email'],
           gives: ['Cost visible before launch, not after', 'Early signals on slipping deadlines and quality', 'One version of product data instead of emails and spreadsheets'],
           results: ['Item cost visible before production starts', 'Specifications, samples and versions kept in one place', 'Supplier lead times under control, slippage visible early', 'Product data linked to sales and inventory', 'Batch acceptance on one set of rules', 'From spreadsheets to regular management'] },
         { id: 'capital', n: 'Markets and finance',
           l: 'Market and competitor assessment, financial model, funding requirement, investor materials',
           lead: 'A growth decision calculated before it becomes an obligation.',
-          does: ['Market, competitive landscape and growth geography assessment', 'Entry model: assortment, pricing, channel, partner', 'Financial model: profit, cash flow, working capital', 'Funding requirement and scenarios', 'Materials for talks with an investor, a bank or a buyer', 'Readiness assessment for a transaction'],
+          does: ['Market, competitive landscape and growth geography assessment', 'Entry model: assortment, pricing, channel, partner', 'Financial model: profit, cash flow, working capital', 'Funding requirement and scenarios', 'Materials for talks with an investor, a bank or a buyer', 'Readiness assessment for a transaction', 'Stress-testing the model against a base and a downside scenario'],
           gives: ['A substantiated go or no-go with the price of the question', 'A clear funding need and a payback horizon', 'A document pack you can take into negotiations'],
           results: ['A new-market decision made on calculation rather than instinct', 'Funding need and payback defended before an outside party', 'A promising-looking direction dropped because the numbers did not hold', 'Deal economics calculated before the negotiation, not after', 'One financial model instead of several versions across departments', 'A valuation prepared in the form the other side accepts'] },
         { id: 'turnaround', n: 'Turnaround',
           l: 'Liquidity, priorities, processes and roles, plan-versus-actual control, return to growth',
           lead: 'Restoring control when decisions are late and cash is running out.',
-          does: ['Cash calendar and liquidity management', 'Priorities: what to stop, fund or accelerate', 'Processes, roles and decision rights', 'A short plan → actual → action cycle', 'Cross-function coordination and difficult negotiations', 'Execution control until the business is stable'],
+          does: ['Cash calendar and liquidity management', 'Priorities: what to stop, fund or accelerate', 'Processes, roles and decision rights', 'A short plan → actual → action cycle', 'Cross-function coordination and difficult negotiations', 'Execution control until the business is stable', 'Weekly reporting to the owner for the whole duration of the turnaround'],
           gives: ['Who decides what, written down', 'Decisions made on time rather than after the fact', 'A clear criterion for when the turnaround is over'],
           results: ['Payments organised into a cash calendar weeks ahead', 'An agreed and executed list of what gets stopped', 'Decision rights written down — arguments about authority ended', 'The plan — actual — action cycle shortened to a week', 'Decisions taken in the meeting rather than in chat', 'A defined criterion for leaving turnaround mode'] }
       ],
@@ -610,7 +619,7 @@ export const T = {
           out: 'Output: a prioritised map of problems, the calculations and a plan for the coming season.',
           lead: 'A short engagement to find where the money leaks and to leave with a plan for the coming season.',
           steps: ['Week 1 — data and scope: sales, inventory, buying, channels, cash.', 'Weeks 2–3 — calculations: where capital is locked and which categories create contribution.', 'Week 4 — hypotheses tested against the numbers.', 'Weeks 5–6 — decisions: a prioritised map, the calculations and a plan.'],
-          includes: ['Buying, inventory and channel economics', 'Stock turn, margin and contribution by category', 'Data check: where numbers disagree and why', 'Sessions with buying, finance and commerce', 'A closing session with the owner'],
+          includes: ['Buying, inventory and channel economics', 'Stock turn, margin and contribution by category', 'Data check: where numbers disagree and why', 'Sessions with buying, finance and commerce', 'A closing session with the owner', 'Every conclusion backed by a number from your own data, not a generic claim'],
           out: ['A prioritised map of problems with the price of each', 'The calculations as a file that stays with you', 'An action plan for the coming season with owners'],
           fit: 'For when it feels like money is leaking but it is unclear where.'
         },
@@ -619,7 +628,7 @@ export const T = {
           out: 'Output: decision rules, metrics and a regular plan-versus-actual review inside the team.',
           lead: 'Regular support for decisions inside your own working cycle — without joining the payroll.',
           steps: ['Month one — onboarding: current rules and metrics, agreeing what counts as success.', 'Then — cadence: regular sessions tied to the buying and planning cycle.', 'Quarterly — a reset of what worked and what changes next cycle.'],
-          includes: ['Participation in buying, assortment and channel decisions', 'Decision rules and metrics written down', 'Plan-versus-actual review in a short cycle', 'Materials for the board or an investor', 'Contact with the team between sessions'],
+          includes: ['Participation in buying, assortment and channel decisions', 'Decision rules and metrics written down', 'Plan-versus-actual review in a short cycle', 'Materials for the board or an investor', 'Contact with the team between sessions', 'Every decision written down with a calculation and a date, not "as agreed"'],
           out: ['Decision rules that work without me', 'Metrics and regular control inside the team', 'A trained team rather than dependence on an outside expert'],
           fit: 'For when decisions get made, but from scratch and by feel every time.'
         },
@@ -628,7 +637,7 @@ export const T = {
           out: 'Output: restored manageability, assigned accountability and a return to growth.',
           lead: 'I take over the programme when the business loses control and decisions come too late.',
           steps: ['First weeks — stabilisation: liquidity, cash calendar, stopping what does not work.', 'Then — rebuilding management: priorities, roles, decision rights, a short control cycle.', 'Then — return to growth and handover to the team.'],
-          includes: ['Liquidity and spending priorities', 'Rebuilt processes, roles and decision rights', 'Coordination across buying, finance, production and retail', 'Difficult negotiations with suppliers, banks and partners', 'Execution control until the business is stable'],
+          includes: ['Liquidity and spending priorities', 'Rebuilt processes, roles and decision rights', 'Coordination across buying, finance, production and retail', 'Difficult negotiations with suppliers, banks and partners', 'Execution control until the business is stable', 'Personal accountability for the result — execution, not a recommendation'],
           out: ['Restored manageability and assigned accountability', 'A clear criterion for when the turnaround ends', 'Handover to the team with working rules'],
           fit: 'For when you need not advice but someone who takes execution on.'
         },
@@ -636,7 +645,7 @@ export const T = {
           body: 'I design the end-to-end loop: from data sources to the dashboard decisions are actually made on.',
           lead: 'Not one more system, but a chain: product → sales → inventory → cash → decision.',
           steps: ['Audit — what data exists, where it lives and which of it can be trusted.', 'Data model — reference data, calculation rules, quality and ownership.', 'Decision dashboard — metrics, deviations and signals people act on.', 'Rollout — business requirements for the systems, process testing, training.'],
-          includes: ['A map of sources and the gaps between systems', 'One data model and reference data', 'A management dashboard prototype', 'Requirements for PLM, ERP, CRM, WMS and BI and the role of each', 'Automation scenarios: demand forecast, stock signals, markdown', 'A rollout plan and the move from spreadsheets to regular management'],
+          includes: ['A map of sources and the gaps between systems', 'One data model and reference data', 'A management dashboard prototype', 'Requirements for PLM, ERP, CRM, WMS and BI and the role of each', 'Automation scenarios: demand forecast, stock signals, markdown', 'A rollout plan and the move from spreadsheets to regular management', 'Prioritised by impact: what pays off fast versus what needs structural rebuilding'],
           out: ['Target architecture and business requirements', 'A data model that stays inside the company', 'A dashboard prototype and a rollout plan'],
           fit: 'For when numbers disagree between departments and decisions wait for a report.'
         }
@@ -669,6 +678,7 @@ export const T = {
       title: 'Feed',
       subtitle: 'Short notes on why we build this, who it is for, and what changes in the projects.',
       more: 'Show more',
+      source: 'Source →',
       channel: 'All posts on Telegram →',
       share: 'Share',
       shareIn: { tg: 'To Telegram', wa: 'To WhatsApp', copy: 'Copy link' },

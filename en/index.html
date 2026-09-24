@@ -97,6 +97,7 @@
     <div class="deck-actions">
       <button class="btn btn-primary" id="deck-open" type="button"></button>
       <a class="btn" id="deck-pdf" href="/assets/fashion-advisory.pdf" download target="_blank" rel="noopener"></a>
+      <button class="btn" id="diag-open" type="button"></button>
     </div>
   </section>
 
@@ -116,15 +117,6 @@
     </div>
     <ol class="feed" id="feed"></ol>
     <button class="btn" id="news-more" type="button" hidden></button>
-  </section>
-
-  <section class="section diagnostic" id="diagnostic">
-    <div class="section-head">
-      <p class="eyebrow" id="diag-eyebrow"></p>
-      <h2 id="diag-title"></h2>
-      <p class="sub" id="diag-subtitle"></p>
-    </div>
-    <div class="diag-body" id="diag-body"></div>
   </section>
 
   <section class="section" id="contact">
@@ -280,6 +272,20 @@
       <p class="sub" id="cv-note"></p>
     </header>
     <div id="cv-body"></div>
+  </div>
+</dialog>
+
+<dialog class="modal" id="diag-modal">
+  <button class="modal-close" id="diag-close" type="button" aria-label="Close">
+    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>
+  </button>
+  <div class="modal-body">
+    <header class="deck-head">
+      <p class="eyebrow" id="diag-eyebrow"></p>
+      <h2 id="diag-title"></h2>
+      <p class="sub" id="diag-subtitle"></p>
+    </header>
+    <div class="diag-body" id="diag-body"></div>
   </div>
 </dialog>
 

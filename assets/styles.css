@@ -357,15 +357,23 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 /* ---------- лента новостей ---------- */
 .feed{list-style:none; margin:0; padding:0; display:grid; gap:14px; align-content:start}
 .post{background:var(--panel); border:1px solid var(--line); border-radius:12px;
-  padding:22px 20px; display:grid; gap:9px; align-content:start}
+  padding:22px 20px; display:grid; grid-template-rows:auto auto 1fr; gap:9px; min-height:300px}
 .post-meta{display:flex; align-items:center; gap:10px; flex-wrap:wrap}
 .post-meta time{font-size:12px; color:var(--muted)}
 .post-tag{
   font-size:11px; letter-spacing:.09em; text-transform:uppercase;
   color:var(--accent); background:var(--accent-soft); border-radius:999px; padding:4px 10px;
 }
-.post h3{font-size:19px; line-height:1.25}
-.post p{color:var(--muted); font-size:15px}
+.post h3{
+  font-size:19px; line-height:1.25;
+  display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+}
+.post p{
+  color:var(--muted); font-size:15px; white-space:pre-line;
+  display:-webkit-box; -webkit-line-clamp:6; -webkit-box-orient:vertical; overflow:hidden;
+}
+.post-source{align-self:end; font-size:13px; color:var(--accent); text-decoration:none}
+.post-source:hover{text-decoration:underline}
 #news-more{margin-top:20px}
 
 @media (min-width:760px){
@@ -468,6 +476,8 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
   justify-self:center; text-align:center;
 }
 .format p{font-size:15px; color:var(--muted); margin:0}
+/* формат, подобранный в диагностике, выделяется рамкой на странице */
+.format.diag-match{border:2px solid var(--accent); box-shadow:0 0 0 3px var(--accent-soft)}
 .format-out{padding-top:10px; border-top:1px dashed var(--line); color:var(--ink) !important}
 @media (min-width:760px){
   .formats-grid{grid-template-columns:repeat(2,minmax(0,1fr)); grid-template-rows:repeat(5,auto)}
@@ -561,7 +571,6 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 .now-post-title{color:var(--ink); font-weight:500}
 .now-post-date{color:var(--accent); white-space:nowrap}
 .now-post:hover .now-post-title{text-decoration:underline}
-@media (min-width:760px){ .now-post{margin-left:auto} }
 
 /* ---------- «Где утекают деньги сезона»: раскрывается внутри карточки Syntha ----------
    Единственное место на сайте с вертикальным scroll-эффектом: пять шагов сезона,
@@ -630,10 +639,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 }
 
 /* ---------- диагностика: пять вопросов → формат работы ---------- */
-.diag-body{
-  max-width:640px; background:var(--panel); border:1px solid var(--line);
-  border-radius:16px; padding:26px 22px;
-}
+.diag-body{max-width:640px}
 .diag-progress{display:flex; align-items:center; gap:12px; margin-bottom:18px}
 .diag-progress span{font-size:12px; letter-spacing:.06em; color:var(--muted); white-space:nowrap}
 .diag-bar{flex:1; height:3px; background:var(--line); border-radius:999px; overflow:hidden}
@@ -800,18 +806,17 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
   .direct li a{text-align:right}
 }
 
-/* презентация: заголовок блока держится сверху при прокрутке окна */
-@media (max-width:759px){
-  .deck-block{padding-top:0}
-  .deck-block > h3{
-    position:sticky; top:0; z-index:5; margin:0 -18px 0; padding:12px 60px 12px 18px;
-    display:flex; align-items:center; justify-content:space-between; gap:12px;
-    background:var(--panel);
-    border-bottom:1px solid var(--line);
-  }
-  .deck-block > h3 + .sub{margin-top:14px}
-  .deck-block > h3 + .deck-grid{margin-top:16px}
+/* презентация: заголовок блока держится сверху при прокрутке окна — на всех экранах */
+.deck-block{padding-top:0}
+.deck-block > h3{
+  position:sticky; top:0; z-index:5; margin:0 -18px 0; padding:12px 60px 12px 18px;
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+  background:var(--panel);
+  border-bottom:1px solid var(--line);
 }
+.deck-block > h3 + .sub{margin-top:14px}
+.deck-block > h3 + .deck-grid{margin-top:16px}
+@media (min-width:700px){ .deck-block > h3{margin:0 -34px 0; padding:12px 60px 12px 34px} }
 
 /* просмотрщик: листание снимков и переключение масштаба */
 .photo-nav{
@@ -1050,15 +1055,11 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 .doc-toc a{color:var(--ink); text-decoration:none; border-bottom:1px solid transparent}
 .doc-toc a:hover{border-color:var(--ink)}
 
-/* Экраны продукта. */
-.shots video{
-  display:block; width:100%; height:auto; border:1px solid var(--line); border-radius:4px;
-  background:var(--panel);
-}
+/* Экраны продукта: видео — первый элемент в том же ряду, того же размера. */
 .shot-row{display:grid; gap:12px; margin-top:12px}
-.shot-row img{
+.shot-row img, .shot-row video{
   display:block; width:100%; height:auto;
-  border:1px solid var(--line); border-radius:4px;
+  border:1px solid var(--line); border-radius:4px; background:var(--panel);
 }
 .exhibit figcaption.under{
   border-bottom:none; border-top:1px solid var(--line);

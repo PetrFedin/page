@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Renova — ремонт под контролем заказчика</title>
+<meta name="description" content="Заказчик ведёт весь ход ремонта в приложении: смета, этапы, деньги и переписка с мастерами в одном месте. Диагноз, принцип решения, стадия проекта и форматы участия.">
+<meta name="color-scheme" content="light dark">
+<meta property="og:title" content="Renova — ремонт под контролем заказчика">
+<meta property="og:description" content="Смета, этапы работ, деньги и переписка с мастерами в одном приложении — заказчик видит весь ремонт, а не отдельные чеки.">
+<meta property="og:type" content="article">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="canonical" href="https://syntha.pro/renova">
+<meta property="og:image" content="/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:site_name" content="Пётр Федин">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body class="doc-page">
+
+<header class="topbar">
+  <nav class="nav" id="nav">
+    <a href="/#consulting">Консалтинг</a>
+    <a href="/#projects">Проекты</a>
+    <a href="/#news">Лента</a>
+    <a href="/#contact">Связаться</a>
+  </nav>
+  <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="nav" aria-label="Меню">
+    <span></span><span></span>
+  </button>
+  <div class="switches">
+    <button class="theme" id="theme-toggle" type="button" aria-label="Тема">
+      <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" fill="currentColor"/></svg>
+    </button>
+  </div>
+</header>
+
+<main class="doc">
+
+  <p class="doc-back"><a href="/#projects">← Все проекты</a>
+    <time class="doc-date" id="doc-date" datetime=""></time></p>
+
+  <header class="doc-head">
+    <span class="doc-logo" id="doc-logo"></span>
+    <h1>Ремонт под контролем заказчика</h1>
+    <p class="doc-lead">Смета, этапы работ, деньги и переписка с исполнителями — в одном
+      приложении, а не в чате и кармане с чеками.</p>
+    <p class="doc-stage"><span class="stage">MVP, подготовка к запуску</span></p>
+    <p class="doc-state">Работают смета с версиями, этапы с приёмкой и фотофиксацией,
+      платежи по этапам и проверка чеков и статуса самозанятого через ФНС. Участники
+      проекта и устойчивость офлайн — в разработке. Состав работ: <a href="#s07">раздел 07</a>.</p>
+  </header>
+
+  <section class="summary" aria-label="Резюме">
+    <p class="summary-label">Резюме</p>
+    <ol class="summary-list">
+      <li>Ремонт сегодня ведётся в переписке и чеках в кармане: смета расходится
+        с фактом, а перерасход обнаруживается только в конце.</li>
+      <li>Легальность исполнителя ничем не подтверждена, и спросить, если что-то
+        пошло не так, часто не у кого.</li>
+      <li>Renova держит смету, этапы, деньги и переписку в одном месте — каждое
+        действие пересчитывает цифры, а не полагается на память сторон.</li>
+    </ol>
+    <p class="doc-cta">
+      <a class="btn btn-primary" href="/#contact">Обсудить участие</a>
+      <a class="btn" href="/#contact">Запросить демонстрацию</a>
+    </p>
+  </section>
+
+  <nav class="doc-toc" aria-label="Содержание">
+    <p class="summary-label">Содержание</p>
+    <ol>
+      <li><a href="#s01">Диагноз</a></li>
+      <li><a href="#s02">Принцип решения</a></li>
+      <li><a href="#s03">Класс системы</a></li>
+      <li><a href="#s04">Охват</a></li>
+      <li><a href="#s05">Роли</a></li>
+      <li><a href="#s06">Интерфейс</a></li>
+      <li><a href="#s07">Стадия</a></li>
+      <li><a href="#s08">Участие</a></li>
+      <li><a href="#s09">Вопросы</a></li>
+    </ol>
+  </nav>
+
+  <section class="doc-block" id="s01">
+    <p class="sec-no">01 — Диагноз</p>
+    <h2><span>Ремонт живёт в переписке, а отвечает за него никто</span></h2>
+    <p class="doc-lead-in">У ремонта нет системы, в которой ведётся его экономика.
+      Есть смета в файле, переписка в мессенджере и стопка чеков.</p>
+
+    <ol class="findings">
+      <li>
+        <h3>Смета расходится с фактом</h3>
+        <p>Первоначальная смета живёт отдельно от того, что реально куплено и оплачено.
+          Разрыв копится незаметно и вскрывается в конце проекта.</p>
+      </li>
+      <li>
+        <h3>Оплата не привязана к результату</h3>
+        <p>Деньги переводятся по договорённости на словах, а не по факту принятого
+          этапа. Проверить, за что именно заплачено, задним числом сложно.</p>
+      </li>
+      <li>
+        <h3>Легальность исполнителя не подтверждена</h3>
+        <p>Статус самозанятого или ИП заявляется на словах. Официальной проверки
+          в моменте платежа обычно не происходит.</p>
+      </li>
+    </ol>
+
+    <aside class="case">
+      <p class="case-label">Характерный случай</p>
+      <p>Бригада попросила предоплату на материалы, заказчик перевёл по номеру телефона.
+        Материалы закупили дешевле сметы, разницу никто не обсуждал — просто исчезла
+        из отчётности, которой не было.</p>
+      <p class="case-out">К моменту сдачи объекта фактический бюджет превысил смету на
+        существенную сумму, и разобрать, на каком этапе это произошло, было нечем.</p>
+    </aside>
+
+    <p class="doc-out">Совокупный эффект — заказчик не видит реальную стоимость ремонта
+      до тех пор, пока не потратит её.</p>
+  </section>
+
+  <section class="doc-block" id="s02">
+    <p class="sec-no">02 — Принцип решения</p>
+    <h2><span>Каждое действие пересчитывает цифры</span></h2>
+
+    <ol class="principles">
+      <li>
+        <h3>Смета — не документ, а состояние</h3>
+        <p>Изменение сметы — это версия, а не правка поверх старой. Видно, что и когда
+          изменилось и почему план разошёлся с фактом.</p>
+      </li>
+      <li>
+        <h3>Оплата привязана к приёмке</h3>
+        <p>Платёж по этапу возможен только после того, как этап принят: с фотофиксацией
+          и подтверждением обеих сторон.</p>
+      </li>
+      <li>
+        <h3>Проверка — в официальных источниках</h3>
+        <p>Чек и статус самозанятого проверяются через ФНС, а не принимаются на слово.
+          Расхождение видно сразу, а не после спора.</p>
+      </li>
+    </ol>
+  </section>
+
+  <section class="doc-block" id="s03">
+    <p class="sec-no">03 — Класс системы</p>
+    <h2><span>Место между групповым чатом и учётной системой подрядчика</span></h2>
+    <p class="doc-lead-in">Сегодня ремонт частного заказчика ведут одним из трёх способов.
+      Ни один не даёт заказчику видеть экономику объекта целиком.</p>
+
+    <figure class="exhibit">
+      <figcaption>Схема 1. Покрытие функциональных областей по способу ведения ремонта</figcaption>
+      <div class="grid-table cols-5 coverage">
+        <div class="gt-head" role="presentation">
+          <span>Функциональная область</span>
+          <span>Таблица и чеки</span>
+          <span>Групповой чат</span>
+          <span>Учёт подрядчика</span>
+          <span>Renova</span>
+        </div>
+        <div class="gt-row">
+          <div class="gt-cell" data-label="Область"><b>Смета и её версии</b></div>
+          <div class="gt-cell" data-label="Таблица"><i class="mark part">частично</i></div>
+          <div class="gt-cell" data-label="Чат"><i class="mark no">нет</i></div>
+          <div class="gt-cell" data-label="Учёт подрядчика"><i class="mark yes">есть</i></div>
+          <div class="gt-cell own" data-label="Renova"><i class="mark yes">есть</i></div>
+        </div>
+        <div class="gt-row">
+          <div class="gt-cell" data-label="Область"><b>Этапы, приёмка, фотофиксация</b></div>
+          <div class="gt-cell" data-label="Таблица"><i class="mark no">нет</i></div>
+          <div class="gt-cell" data-label="Чат"><i class="mark part">частично</i></div>
+          <div class="gt-cell" data-label="Учёт подрядчика"><i class="mark part">частично</i></div>
+          <div class="gt-cell own" data-label="Renova"><i class="mark yes">есть</i></div>
+        </div>
+        <div class="gt-row">
+          <div class="gt-cell" data-label="Область"><b>Оплата, привязанная к этапу</b></div>
+          <div class="gt-cell" data-label="Таблица"><i class="mark no">нет</i></div>
+          <div class="gt-cell" data-label="Чат"><i class="mark no">нет</i></div>
+          <div class="gt-cell" data-label="Учёт подрядчика"><i class="mark part">частично</i></div>
+          <div class="gt-cell own" data-label="Renova"><i class="mark yes">есть</i></div>
+        </div>
+        <div class="gt-row">
+          <div class="gt-cell" data-label="Область"><b>Проверка чека и статуса исполнителя</b></div>
+          <div class="gt-cell" data-label="Таблица"><i class="mark no">нет</i></div>
+          <div class="gt-cell" data-label="Чат"><i class="mark no">нет</i></div>
+          <div class="gt-cell" data-label="Учёт подрядчика"><i class="mark no">нет</i></div>
+          <div class="gt-cell own" data-label="Renova"><i class="mark yes">есть</i></div>
+        </div>
+        <div class="gt-row">
+          <div class="gt-cell" data-label="Область"><b>Видимость для заказчика</b></div>
+          <div class="gt-cell" data-label="Таблица"><i class="mark part">частично</i></div>
+          <div class="gt-cell" data-label="Чат"><i class="mark part">частично</i></div>
+          <div class="gt-cell" data-label="Учёт подрядчика"><i class="mark no">нет</i></div>
+          <div class="gt-cell own" data-label="Renova"><i class="mark yes">есть</i></div>
+        </div>
+      </div>
+    </figure>
+
+    <p class="doc-note">Колонка Renova отражает проектный охват; текущая готовность —
+      в <a href="#s07">разделе 07</a>. Проверка чека и статуса исполнителя — область,
+      которую не закрывает ни один из трёх привычных способов.</p>
+  </section>
+
+  <section class="doc-block" id="s04">
+    <p class="sec-no">04 — Охват</p>
+    <h2><span>Путь от сметы до принятого результата</span></h2>
+    <p class="doc-lead-in">Каждый шаг ссылается на предыдущий: деньги нельзя перевести
+      за этап, который не принят, а смету нельзя изменить незаметно.</p>
+
+    <ol class="flow" aria-label="Путь ремонта">
+      <li>Смета</li>
+      <li>Согласование версии</li>
+      <li>Работы на этапе</li>
+      <li>Фотофиксация</li>
+      <li>Приёмка</li>
+      <li>Оплата</li>
+      <li>Следующий этап</li>
+    </ol>
+
+    <figure class="exhibit">
+      <figcaption>Схема 2. Контуры системы и закрываемые ими решения</figcaption>
+      <div class="grid-table cols-3">
+        <div class="gt-head" role="presentation">
+          <span>Контур</span><span>Управленческое решение</span><span>Эффект</span>
+        </div>
+        <div class="gt-row">
+          <div class="gt-cell" data-label="Контур"><b>Смета</b>
+            <small>Позиции по нормам, версии, сравнение плана с фактом</small></div>
+          <div class="gt-cell" data-label="Управленческое решение">Сколько должен стоить
+            ремонт и что в него входит</div>
+          <div class="gt-cell" data-label="Эффект">Изменение сметы видно сразу, а не
+            обнаруживается по факту перерасхода</div>
+        </div>
+        <div class="gt-row">
+          <div class="gt-cell" data-label="Контур"><b>Этапы работ</b>
+            <small>Приёмка, фотофиксация, привязка к позициям сметы</small></div>
+          <div class="gt-cell" data-label="Управленческое решение">Что сделано и принято
+            заказчиком на этот момент</div>
+          <div class="gt-cell" data-label="Эффект">Спор о готовности решается фотографией
+            и датой, а не словом на слово</div>
+        </div>
+        <div class="gt-row">
+          <div class="gt-cell" data-label="Контур"><b>Деньги</b>
+            <small>Платежи по этапам, чеки, статус самозанятого через ФНС</small></div>
+          <div class="gt-cell" data-label="Управленческое решение">Можно ли платить
+            за этот этап и этому исполнителю</div>
+          <div class="gt-cell" data-label="Эффект">Оплата возможна только за принятый
+            этап и проверенного исполнителя</div>
+        </div>
+        <div class="gt-row">
+          <div class="gt-cell" data-label="Контур"><b>Переписка</b>
+            <small>Обсуждение, привязанное к конкретному этапу, а не к общему чату</small></div>
+          <div class="gt-cell" data-label="Управленческое решение">О каком именно этапе
+            идёт разговор</div>
+          <div class="gt-cell" data-label="Эффект">Переписка не теряется в общей ленте
+            мессенджера и не расходится с фактом работ</div>
+        </div>
+      </div>
+    </figure>
+  </section>
+
+  <section class="doc-block" id="s05">
+    <p class="sec-no">05 — Роли</p>
+    <h2><span>У заказчика и исполнителя — разные экраны</span></h2>
+    <p class="doc-lead-in">Заказчик и мастер видят один и тот же объект, но каждый —
+      свою часть и со своей ответственностью.</p>
+
+    <ol class="findings">
+      <li>
+        <h3>Заказчик</h3>
+        <p>Видит смету целиком, все версии и отклонения, статус каждого этапа
+          и историю платежей. Принимает или отклоняет этап с комментарием.</p>
+      </li>
+      <li>
+        <h3>Мастер или бригада</h3>
+        <p>Ведёт свой участок: фотофиксация этапа, запрос на приёмку, статус
+          и подтверждённая легальность для получения оплаты.</p>
+      </li>
+      <li>
+        <h3>Ремонтная компания</h3>
+        <p>Проверяет подход на потоке объектов, а не на одном: та же модель,
+          несколько параллельных смет и бригад.</p>
+      </li>
+    </ol>
+  </section>
+
+  <section class="doc-block" id="s06">
+    <p class="sec-no">06 — Интерфейс</p>
+    <h2><span>Как это выглядит</span></h2>
+    <p class="doc-lead-in">Экраны сняты с работающей сборки. Продукт делается телефоном
+      вперёд: ремонт ведут с площадки, а не из-за компьютера.</p>
+
+    <figure class="exhibit shots">
+      <div class="shot-row">
+        <video controls playsinline preload="none" poster="/assets/shots/renova-1.webp"
+               aria-label="Проход по разделам Renova">
+          <source src="/assets/video/renova.mp4" type="video/mp4">
+          <source src="/assets/video/renova.webm" type="video/webm">
+        </video>
+        <img src="/assets/shots/renova-1.webp" alt="Renova — смета" loading="lazy"
+             width="1500" height="3252">
+        <img src="/assets/shots/renova-2.webp" alt="Renova — этапы работ" loading="lazy"
+             width="1500" height="3252">
+        <img src="/assets/shots/renova-3.webp" alt="Renova — платежи" loading="lazy"
+             width="1500" height="3252">
+      </div>
+      <p class="doc-note shot-hint">Нажмите на снимок, чтобы открыть его во весь экран
+        и пролистать остальные.</p>
+    </figure>
+  </section>
+
+  <section class="doc-block" id="s07">
+    <p class="sec-no">07 — Стадия</p>
+    <h2><span>MVP на стадии подготовки к запуску</span></h2>
+    <div class="status-grid" id="doc-status"></div>
+  </section>
+
+  <section class="doc-block" id="s08">
+    <p class="sec-no">08 — Участие</p>
+    <h2><span>Форматы участия в проекте</span></h2>
+
+    <div class="grid-table cols-2 parts">
+      <div class="gt-row">
+        <div class="gt-cell" data-label="Формат"><b>Заказчик</b></div>
+        <div class="gt-cell" data-label="Условия">Ведёте в приложении свой ремонт
+          и говорите, чего в нём не хватает — на реальном объекте, не в демо.</div>
+      </div>
+      <div class="gt-row">
+        <div class="gt-cell" data-label="Формат"><b>Мастер или бригада</b></div>
+        <div class="gt-cell" data-label="Условия">Работаете на реальном объекте:
+          сметы, сроки, приёмка — с обратной связью по ходу использования.</div>
+      </div>
+      <div class="gt-row">
+        <div class="gt-cell" data-label="Формат"><b>Ремонтная компания</b></div>
+        <div class="gt-cell" data-label="Условия">Проверяем подход на потоке объектов,
+          а не на одном — параллельно нескольким бригадам и сметам.</div>
+      </div>
+    </div>
+
+    <p class="doc-note">Устройство системы и план развития раскрываются предметно —
+      при личном обсуждении и под соглашение о неразглашении.</p>
+  </section>
+
+  <section class="doc-block" id="s09">
+    <p class="sec-no">09 — Вопросы</p>
+    <h2><span>Вопросы, возникающие чаще других</span></h2>
+    <dl class="faq">
+      <div>
+        <dt>Чем это отличается от таблицы и переписки в мессенджере?</dt>
+        <dd>Связью между сметой, этапом и платежом. Оплата возможна только за принятый
+          этап, а изменение сметы фиксируется версией, а не правкой поверх старой.</dd>
+      </div>
+      <div>
+        <dt>Как проверяется легальность исполнителя?</dt>
+        <dd>Чек и статус самозанятого проверяются через официальный источник — ФНС,
+          а не принимаются на слово от мастера или бригады.</dd>
+      </div>
+      <div>
+        <dt>Нужно ли переносить весь ремонт в приложение сразу?</dt>
+        <dd>Нет. Можно начать с одного этапа или одной сметы — остальное ведётся
+          привычным способом, пока не появится доверие к новому.</dd>
+      </div>
+      <div>
+        <dt>Что будет, если пропадёт связь на объекте?</dt>
+        <dd>Устойчивость операций при потере связи — в разработке; сейчас приложению
+          для записи действий нужно сетевое подключение.</dd>
+      </div>
+      <div>
+        <dt>Как связан с Syntha и ChatX?</dt>
+        <dd>Не связан напрямую: Renova — отдельный эксперимент, где решения по деньгам
+          принимаются вообще без цифр, в отличие от фэшн-бизнеса, где данные хотя бы
+          частично уже есть.</dd>
+      </div>
+      <div>
+        <dt>Возможна ли демонстрация?</dt>
+        <dd>Да, на действующей сборке.</dd>
+      </div>
+    </dl>
+  </section>
+
+  <section class="doc-block doc-end">
+    <h2><span>Контакт</span></h2>
+    <p>Укажите интересующий формат — заказчик, мастер или бригада, ремонтная компания.
+      Отвечаю лично.</p>
+    <p class="doc-cta doc-cta-end">
+      <a class="btn btn-primary" href="/#contact">Написать</a>
+      <a class="btn" href="/#projects">Другие проекты</a>
+    </p>
+  </section>
+
+</main>
+
+<dialog class="photo-modal" id="photo-modal">
+  <button class="modal-close" id="photo-close" type="button" aria-label="Закрыть">
+    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>
+  </button>
+  <img id="photo-big" src="" alt="">
+  <button class="photo-nav prev" id="photo-prev" type="button" hidden>
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <button class="photo-nav next" id="photo-next" type="button" hidden>
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <div class="photo-bar" id="photo-bar" hidden>
+    <span class="photo-count" id="photo-count"></span>
+    <button class="btn btn-sm" id="photo-zoom" type="button"></button>
+  </div>
+</dialog>
+
+<footer class="footer">
+  <p><a href="/privacy.html">Политика конфиденциальности</a></p>
+  <p class="year">© <span id="year"></span></p>
+</footer>
+
+<script type="module" src="/assets/project-page.js" data-project="renova"></script>
+</body>
+</html>

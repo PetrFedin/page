@@ -169,6 +169,7 @@ function render() {
   $('#deck-pdf').textContent = t.consulting.deckPdf;
   $('#deck-pdf').href = t.consulting.deckFile;
   $('#deck-pdf-2').href = t.consulting.deckFile;
+  $('#diag-open').textContent = t.diagnostic.label;
   $('#services').className = "services snap";
   $('#services').innerHTML = t.consulting.items.map((it, i) => `
     <li>
@@ -222,12 +223,12 @@ function render() {
 
   $('#year').textContent = new Date().getFullYear();
   renderNow();
-  renderDiagnostic();
   renderNews();
   addTopButtons(t.nav.toTop);
   syncSnaps();
   if (modal.open) openProject(modal.dataset.project);
   if (deckModal.open) renderDeck();
+  if (diagModal.open) renderDiagnostic();
   if (pnModal.open) openProjectNews(pnModal.dataset.project);
   if (infoModal.open) showInfo(infoModal.dataset.view ?? '');
 }
@@ -316,11 +317,10 @@ function openProject(id, anchor) {
     </ul>
     <p class="collab-note">${t.projects.collabNote}</p>`;
 
-  /* Разбор проекта есть пока только у Syntha и только по-русски. */
-  /* Разбор проекта есть пока у Syntha и ChatX и только по-русски. */
+  /* Подробный разбор проекта есть у Syntha, ChatX и Renova, и только по-русски. */
   const more = $('#modal-more');
   if (more) {
-    const есть = ['syntha', 'chatx'].includes(id) && lang === 'ru';
+    const есть = ['syntha', 'chatx', 'renova'].includes(id) && lang === 'ru';
     more.hidden = !есть;
     if (есть) more.href = `/${id}.html`;
   }
@@ -521,6 +521,10 @@ function renderDiagnostic() {
     diagAnswers.forEach((f) => counts[f]++);
     const bestIdx = counts.indexOf(Math.max(...counts));
     const fmt = T[lang].formats.items[bestIdx];
+    /* результат виден не только в модалке: у нужного формата в разделе
+       «Форматы работы» на странице появляется рамка */
+    document.querySelectorAll('.format').forEach((el) => el.classList.remove('diag-match'));
+    document.querySelector(`.format[data-format="${fmt.n}"]`)?.classList.add('diag-match');
     body.innerHTML = `
       <div class="diag-result">
         <p class="diag-result-label">${t.resultLabel}</p>
@@ -542,7 +546,7 @@ $('#diag-body').addEventListener('click', (e) => {
   if (e.target.closest('.diag-back')) { diagAnswers.pop(); return renderDiagnostic(); }
   if (e.target.closest('.diag-retake')) { diagAnswers = []; return renderDiagnostic(); }
   const more = e.target.closest('[data-diag-more]');
-  if (more) return go(`format-${T[lang].formats.items[+more.dataset.diagMore].n}`);
+  if (more) { diagModal.close(); return go(`format-${T[lang].formats.items[+more.dataset.diagMore].n}`); }
   const cta = e.target.closest('[data-diag-cta]');
   if (cta) {
     const t = T[lang].diagnostic;
@@ -551,13 +555,38 @@ $('#diag-body').addEventListener('click', (e) => {
     const msgEl = $('#form [name="message"]');
     if (msgEl && !msgEl.value.trim()) msgEl.value = t.messagePrefix + fmt.title + t.messageSuffix;
     syncSubmit?.();
-    $('#contact').scrollIntoView({ behavior: 'smooth' });
+    leave();
+    requestAnimationFrame(() => $('#contact').scrollIntoView({ behavior: 'smooth' }));
     setTimeout(() => $('#form [name="name"]').focus(), 400);
   }
 });
 
+/* ---------- диагностика: модалка с тестом ---------- */
+const diagModal = $('#diag-modal');
+function openDiagnosticModal() {
+  diagAnswers = [];
+  renderDiagnostic();
+  if (!diagModal.open) diagModal.showModal();
+  diagModal.querySelector('.modal-body').scrollTop = 0;
+}
+$('#diag-open').addEventListener('click', () => go('diagnostic'));
+$('#diag-close').addEventListener('click', () => leave());
+diagModal.addEventListener('click', (e) => { if (e.target === diagModal) leave(); });
+
 /* ---------- новости ---------- */
 let newsShown = 4;
+
+/* Разборы статей и рабочие материалы заканчиваются ссылкой отдельной
+   строкой — выносим её из-под line-clamp, иначе у длинных постов
+   источник обрезается вместе с текстом. */
+function splitBodyLink(body) {
+  const lines = body.split('\n');
+  const last = lines[lines.length - 1].trim();
+  if (/^(https?:\/\/|\/)\S+$/.test(last)) {
+    return { text: lines.slice(0, -1).join('\n').trim(), href: last };
+  }
+  return { text: body, href: null };
+}
 
 function renderNews() {
   const t = T[lang].news;
@@ -569,7 +598,9 @@ function renderNews() {
     { day: 'numeric', month: 'long', year: 'numeric' });
 
   $('#feed').className = 'feed snap';
-  $('#feed').innerHTML = SITE_NEWS.slice(0, newsShown).map((p) => `
+  $('#feed').innerHTML = SITE_NEWS.slice(0, newsShown).map((p) => {
+    const { text, href } = splitBodyLink(p[lang].body);
+    return `
     <li class="post" id="post-${p.date}">
       <div class="post-meta">
         <time datetime="${p.date}">${fmt.format(new Date(p.date))}</time>
@@ -583,8 +614,10 @@ function renderNews() {
         </button>
       </div>
       <h3>${p[lang].title}</h3>
-      <p>${p[lang].body}</p>
-    </li>`).join('');
+      <p>${text}</p>
+      ${href ? `<a class="post-source" href="${href}" target="_blank" rel="noopener">${t.source}</a>` : ''}
+    </li>`;
+  }).join('');
 
   const more = $('#news-more');
   more.hidden = newsShown >= SITE_NEWS.length;
@@ -784,6 +817,7 @@ $('#press-body').addEventListener('click', async (e) => {
 function closeModals() {
   if (modal.open) modal.close(true);
   if (deckModal.open) deckModal.close(true);
+  if (diagModal.open) diagModal.close(true);
   if (pnModal.open) pnModal.close(true);
   if (infoModal.open) infoModal.close(true);
 }
@@ -792,6 +826,7 @@ function applyHash() {
   const h = decodeURIComponent(location.hash.slice(1));
   if (!h) return closeModals();
   if (h === 'deck') return openDeck();
+  if (h === 'diagnostic') return openDiagnosticModal();
   /* Ссылка на отдельный пост: разворачиваем ленту, если он ещё не показан. */
   if (h.startsWith('post-')) {
     closeModals();
@@ -986,7 +1021,7 @@ $('#services').addEventListener('click', (e) => {
 });
 
 /* Esc закрывает окно — адрес возвращаем тем же путём, что и кнопка. */
-[modal, deckModal, pnModal, infoModal].forEach((d) => d.addEventListener('cancel', (e) => { e.preventDefault(); leave(); }));
+[modal, deckModal, diagModal, pnModal, infoModal].forEach((d) => d.addEventListener('cancel', (e) => { e.preventDefault(); leave(); }));
 
 render();
 syncSnaps();

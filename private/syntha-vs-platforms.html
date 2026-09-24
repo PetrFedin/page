@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Syntha — сравнение с мировыми платформами (рабочий документ)</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/styles.css">
+<style>
+  .compare-wrap{overflow-x:auto; margin-top:28px}
+  table.compare{width:100%; border-collapse:collapse; min-width:760px; font-size:14.5px}
+  table.compare caption{text-align:left; color:var(--muted); font-size:13px; margin-bottom:10px}
+  table.compare th, table.compare td{
+    border:1px solid var(--line); padding:10px 12px; text-align:left; vertical-align:top;
+  }
+  table.compare thead th{
+    background:var(--panel); font-family:var(--serif); font-weight:500; white-space:nowrap;
+  }
+  table.compare tbody th{background:var(--panel); font-weight:500; white-space:nowrap}
+  table.compare td.us{background:var(--accent-soft)}
+  table.compare td.todo{color:var(--muted); font-style:italic}
+</style>
+</head>
+<body class="doc-page">
+
+<header class="topbar">
+  <div class="switches" style="margin-left:auto">
+    <button class="theme" id="theme-toggle" type="button" aria-label="Тема">
+      <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" fill="currentColor"/></svg>
+    </button>
+  </div>
+</header>
+
+<main class="doc">
+  <p class="doc-back"><a href="/#news">← Лента</a></p>
+
+  <header class="doc-head">
+    <h1>Syntha и мировые платформы — рабочее сравнение</h1>
+    <p class="doc-lead">Внутренний рабочий документ, не для публикации: черновая карта функционала,
+      без вычитки и проверки у самих платформ. Страница не в поиске и не в карте сайта —
+      ссылка на неё есть только в посте ленты.</p>
+  </header>
+
+  <section class="doc-block">
+    <h2><span>Что уже разложено</span></h2>
+    <p>Категории функционала и позиция Syntha по каждой — заполнено. Колонки конкурентов
+      («уточнить») — раздел для ручной проверки по актуальной документации JOOR, NuORDER,
+      Brandboom и Faire: без неё эти ячейки не публикуются даже здесь как факт.</p>
+
+    <div class="compare-wrap">
+      <table class="compare">
+        <caption>Черновик, требует ручной проверки колонок конкурентов перед любым внешним использованием.</caption>
+        <thead>
+          <tr>
+            <th scope="col">Функция</th>
+            <th scope="col" class="us">Syntha</th>
+            <th scope="col">JOOR</th>
+            <th scope="col">NuORDER</th>
+            <th scope="col">Brandboom</th>
+            <th scope="col">Faire</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Цифровой шоурум</th>
+            <td class="us">Есть — серверные цены каталога, доступ по ролям</td>
+            <td class="todo">уточнить</td><td class="todo">уточнить</td><td class="todo">уточнить</td><td class="todo">уточнить</td>
+          </tr>
+          <tr>
+            <th scope="row">Резерв склада и MOQ</th>
+            <td class="us">Есть — атомарные резервы, контроль MOQ и доступности</td>
+            <td class="todo">уточнить</td><td class="todo">уточнить</td><td class="todo">уточнить</td><td class="todo">уточнить</td>
+          </tr>
+          <tr>
+            <th scope="row">Подтверждение заказа</th>
+            <td class="us">Двустороннее, с пространством сделки</td>
+            <td class="todo">уточнить</td><td class="todo">уточнить</td><td class="todo">уточнить</td><td class="todo">уточнить</td>
+          </tr>
+          <tr>
+            <th scope="row">Продуктовый контур (планирование, спецификации, образцы, техпаки)</th>
+            <td class="us">В разработке — часть той же модели данных, что и коммерция</td>
+            <td class="todo">уточнить</td><td class="todo">уточнить</td><td class="todo">уточнить</td><td class="todo">уточнить</td>
+          </tr>
+          <tr>
+            <th scope="row">Интеграция с учётной системой бренда</th>
+            <td class="us">Следующий шаг после пилота — отдельная проектная работа</td>
+            <td class="todo">уточнить</td><td class="todo">уточнить</td><td class="todo">уточнить</td><td class="todo">уточнить</td>
+          </tr>
+          <tr>
+            <th scope="row">Фокус на рынок РФ / СНГ</th>
+            <td class="us">Да, изначально под этот рынок</td>
+            <td class="todo">уточнить</td><td class="todo">уточнить</td><td class="todo">уточнить</td><td class="todo">уточнить</td>
+          </tr>
+          <tr>
+            <th scope="row">Модель цены</th>
+            <td class="todo">уточнить (пока не зафиксирована публично)</td>
+            <td class="todo">уточнить</td><td class="todo">уточнить</td><td class="todo">уточнить</td><td class="todo">уточнить</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="doc-after" style="margin-top:20px">Строки и формулировки — черновик для внутренней сверки,
+      не готовый маркетинговый материал. Добавляйте и правьте прямо в файле
+      <code>private/syntha-vs-platforms.html</code>.</p>
+  </section>
+</main>
+
+<footer class="footer">
+  <p class="year">© <span id="year"></span></p>
+</footer>
+
+<script>
+  try {
+    const saved = localStorage.getItem('theme');
+    if (saved) document.documentElement.dataset.theme = saved;
+  } catch {}
+  document.getElementById('theme-toggle').addEventListener('click', () => {
+    const dark = matchMedia('(prefers-color-scheme:dark)').matches;
+    const current = document.documentElement.dataset.theme || (dark ? 'dark' : 'light');
+    const next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.dataset.theme = next;
+    try { localStorage.setItem('theme', next); } catch {}
+  });
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
