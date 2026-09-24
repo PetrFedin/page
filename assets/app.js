@@ -138,6 +138,10 @@ function render() {
     <li><button class="fact" type="button" data-area="${f.id}">
       <b>${f.n}</b><span>${f.l}</span><span class="fact-more">${t.formats.more}</span>
     </button></li>`).join('');
+  $('#cv-row-label').innerHTML = `${t.hero.cvLabel} <span class="cv-row-note">· ${t.hero.cvNote}</span>`;
+  $('#cv-actions').innerHTML = `
+    <button class="btn btn-sm" type="button" data-cv="${lang === 'ru' ? 'русском' : 'Russian'}">RU</button>
+    <button class="btn btn-sm" type="button" data-cv="${lang === 'ru' ? 'английском' : 'English'}">EN</button>`;
   $('#cta-consulting').textContent = t.hero.ctaConsulting;
   $('#cta-projects').textContent = t.hero.ctaProjects;
   $('#cta-feed').textContent = t.hero.ctaFeed;
@@ -190,12 +194,6 @@ function render() {
       <ul>${t.press.topics.map((x) => `<li>${x}</li>`).join('')}</ul>
       <h4>${t.press.photoLabel}</h4>
       <a class="btn btn-sm" href="/assets/photo/petr-formal.jpg" download>${t.press.photoBtn}</a>
-      <h4>${t.press.cvLabel}</h4>
-      <p class="cv-note">${t.press.cvNote}</p>
-      <div class="cv-actions">
-        <button class="btn btn-sm" type="button" data-cv="${lang === 'ru' ? 'русском' : 'Russian'}">${t.press.cvRu}</button>
-        <button class="btn btn-sm" type="button" data-cv="${lang === 'ru' ? 'английском' : 'English'}">${t.press.cvEn}</button>
-      </div>
     </div>`;
 
   $('#consent-text').textContent = t.contact.consent;
@@ -419,10 +417,25 @@ function openProject(id, anchor) {
   if (anchor === 'status') requestAnimationFrame(() => $('#status').scrollIntoView({ block: 'start' }));
 }
 
+/* Закрыть раскрытую ленту (кнопкой ✕ внутри неё или повторным кликом по тумблеру):
+   одна точка выхода, чтобы состояние тумблера и наблюдателя не расходились. */
+function closeFlow(id) {
+  const isSyntha = id === 'syntha';
+  const embed = isSyntha ? $('#flow-embed') : $(`#flow-embed-${id}`);
+  const toggle = isSyntha ? $('[data-flow-toggle]') : $(`[data-simple-flow-toggle="${id}"]`);
+  if (!embed || embed.hidden) return;
+  embed.hidden = true;
+  toggle?.setAttribute('aria-expanded', 'false');
+  if (isSyntha) { flowOpen = false; if (flowObserver) flowObserver.disconnect(); }
+  else { simpleFlowOpen[id] = false; if (simpleFlowObservers[id]) simpleFlowObservers[id].disconnect(); }
+}
+
 $('#cards').addEventListener('click', (e) => {
   /* визуализация сезона живёт внутри карточки Syntha — клики в ней не должны
      открывать модалку проекта, только свои переходы */
   if (e.target.closest('.flow-embed')) {
+    const closeBtn = e.target.closest('[data-flow-close]');
+    if (closeBtn) return closeFlow(closeBtn.dataset.flowClose);
     const area = e.target.closest('[data-open-area]');
     if (area) return go(`area-${area.dataset.openArea}`);
     if (e.target.closest('[data-open-syntha]')) return go('syntha');
@@ -435,23 +448,24 @@ $('#cards').addEventListener('click', (e) => {
   const flowToggle = e.target.closest('[data-flow-toggle]');
   if (flowToggle) {
     const embed = $('#flow-embed');
-    flowOpen = embed.hidden;
-    embed.hidden = !flowOpen;
-    flowToggle.setAttribute('aria-expanded', String(flowOpen));
-    if (flowOpen) { renderSeasonFlow(); requestAnimationFrame(() => embed.scrollIntoView({ block: 'nearest', behavior: 'smooth' })); }
-    else if (flowObserver) flowObserver.disconnect();
+    if (!embed.hidden) return closeFlow('syntha');
+    flowOpen = true;
+    embed.hidden = false;
+    flowToggle.setAttribute('aria-expanded', 'true');
+    renderSeasonFlow();
+    requestAnimationFrame(() => embed.scrollIntoView({ block: 'nearest', behavior: 'smooth' }));
     return;
   }
   const simpleToggle = e.target.closest('[data-simple-flow-toggle]');
   if (simpleToggle) {
     const id = simpleToggle.dataset.simpleFlowToggle;
     const embed = $(`#flow-embed-${id}`);
-    const open = embed.hidden;
-    simpleFlowOpen[id] = open;
-    embed.hidden = !open;
-    simpleToggle.setAttribute('aria-expanded', String(open));
-    if (open) { renderSimpleFlow(id); requestAnimationFrame(() => embed.scrollIntoView({ block: 'nearest', behavior: 'smooth' })); }
-    else if (simpleFlowObservers[id]) simpleFlowObservers[id].disconnect();
+    if (!embed.hidden) return closeFlow(id);
+    simpleFlowOpen[id] = true;
+    embed.hidden = false;
+    simpleToggle.setAttribute('aria-expanded', 'true');
+    renderSimpleFlow(id);
+    requestAnimationFrame(() => embed.scrollIntoView({ block: 'nearest', behavior: 'smooth' }));
     return;
   }
   const news = e.target.closest('[data-news]');
@@ -576,6 +590,9 @@ function renderSeasonFlow() {
 
   embed.innerHTML = `
     <div class="flow-embed-head">
+      <button type="button" class="flow-embed-close" data-flow-close="syntha" aria-label="${lang === 'ru' ? 'Свернуть' : 'Collapse'}">
+        <svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.8" fill="none"/></svg>
+      </button>
       <p class="flow-embed-eyebrow">${t.eyebrow}</p>
       <h4>${t.title}</h4>
       <p class="sub">${t.subtitle}</p>
@@ -627,6 +644,9 @@ function renderSimpleFlow(id) {
 
   embed.innerHTML = `
     <div class="flow-embed-head">
+      <button type="button" class="flow-embed-close" data-flow-close="${id}" aria-label="${lang === 'ru' ? 'Свернуть' : 'Collapse'}">
+        <svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.8" fill="none"/></svg>
+      </button>
       <p class="flow-embed-eyebrow">${t.eyebrow}</p>
       <h4>${t.title}</h4>
       <p class="sub">${t.subtitle}</p>
@@ -1142,17 +1162,26 @@ function renderArea(id) {
 
 function renderFormat(n) {
   const t = T[lang];
-  const f = t.formats.items.find((x) => x.n === n);
+  const items = t.formats.items;
+  const idx = items.findIndex((x) => x.n === n);
+  const f = items[idx];
   if (!f) return false;
   infoModal.dataset.view = `format-${n}`;
   $('#cv-title').textContent = f.title;
   $('#cv-note').textContent = f.lead ?? f.body;
+  const prev = items[(idx - 1 + items.length) % items.length];
+  const next = items[(idx + 1) % items.length];
   $('#cv-body').innerHTML =
     `<p class="info-term">${f.term}</p>` +
     list(t.formats.stepsLabel, f.steps) +
     list(t.formats.includesLabel, f.includes) +
     list(t.formats.outLabel, Array.isArray(f.out) ? f.out : [f.out]) +
-    (f.fit ? `<p class="info-fit"><b>${t.formats.fitLabel}</b>${f.fit}</p>` : '');
+    (f.fit ? `<p class="info-fit"><b>${t.formats.fitLabel}</b>${f.fit}</p>` : '') +
+    `<div class="format-nav">
+       <button type="button" class="btn btn-sm" data-format-nav="${prev.n}">← ${prev.title}</button>
+       <button type="button" class="btn btn-sm" data-format-nav="${next.n}">${next.title} →</button>
+     </div>
+     <button type="button" class="btn btn-primary format-contact" data-format-contact="${f.n}">${t.formats.contactCta}</button>`;
   return true;
 }
 
@@ -1175,6 +1204,24 @@ $('#formats').addEventListener('click', (e) => {
 });
 $('#cv-close').addEventListener('click', () => leave());
 infoModal.addEventListener('click', (e) => { if (e.target === infoModal) leave(); });
+$('#cv-body').addEventListener('click', (e) => {
+  const nav = e.target.closest('[data-format-nav]');
+  if (nav) return go(`format-${nav.dataset.formatNav}`);
+  const contact = e.target.closest('[data-format-contact]');
+  if (contact) {
+    const t = T[lang];
+    const f = t.formats.items.find((x) => x.n === contact.dataset.formatContact);
+    $('#topic').value = 'consulting';
+    const msgEl = $('#form [name="message"]');
+    if (msgEl && !msgEl.value.trim() && f) {
+      msgEl.value = t.formats.contactMessage.replace('{title}', f.title);
+    }
+    syncSubmit?.();
+    leave();
+    requestAnimationFrame(() => $('#contact').scrollIntoView({ behavior: 'smooth' }));
+    setTimeout(() => $('#form [name="name"]').focus(), 400);
+  }
+});
 
 /* ---------- QR-код канала: маленькая кнопка рядом с контактом разворачивает код ---------- */
 const qrModal = $('#qr-modal');
@@ -1229,20 +1276,22 @@ $('#press-body').addEventListener('click', async (e) => {
       copyBtn.textContent = T[lang].press.copied;
       setTimeout(() => { copyBtn.textContent = was; }, 1600);
     } catch { /* буфер недоступен — текст можно выделить руками */ }
-    return;
   }
+});
+
+/* запрос резюме — живёт в «Релевантном опыте», а не в разделе для прессы */
+$('#cv-actions').addEventListener('click', (e) => {
   const cvBtn = e.target.closest('[data-cv]');
-  if (cvBtn) {
-    const t = T[lang];
-    $('#topic').value = 'other';
-    $('#topic-other').value = t.press.cvLabel;
-    syncTopicOther();
-    const msgEl = $('#form [name="message"]');
-    if (msgEl && !msgEl.value.trim()) msgEl.value = t.press.cvMessage.replace('{lang}', cvBtn.dataset.cv);
-    syncSubmit?.();
-    $('#contact').scrollIntoView({ behavior: 'smooth' });
-    setTimeout(() => $('#form [name="name"]').focus(), 400);
-  }
+  if (!cvBtn) return;
+  const t = T[lang];
+  $('#topic').value = 'other';
+  $('#topic-other').value = t.hero.cvShort;
+  syncTopicOther();
+  const msgEl = $('#form [name="message"]');
+  if (msgEl && !msgEl.value.trim()) msgEl.value = t.hero.cvMessage.replace('{lang}', cvBtn.dataset.cv);
+  syncSubmit?.();
+  $('#contact').scrollIntoView({ behavior: 'smooth' });
+  setTimeout(() => $('#form [name="name"]').focus(), 400);
 });
 
 /* ---------- адреса окон ----------

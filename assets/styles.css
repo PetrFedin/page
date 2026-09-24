@@ -420,6 +420,12 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 .facts-bar b{font-size:11px; letter-spacing:.09em; text-transform:uppercase; color:var(--accent); font-weight:500}
 .facts-bar span{font-size:14px; color:var(--muted); line-height:1.45;
   display:-webkit-box; -webkit-line-clamp:4; -webkit-box-orient:vertical; overflow:hidden}
+.cv-row{
+  max-width:var(--maxw); margin:0 auto; padding:0 16px 26px;
+  display:flex; flex-wrap:wrap; align-items:center; gap:10px 14px;
+}
+.cv-row-label{font-size:13px; color:var(--ink)}
+.cv-row-note{color:var(--muted)}
 
 /* ---------- лента новостей ---------- */
 .news-filters{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px}
@@ -614,7 +620,6 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 }
 .press-item p{font-size:15px; margin-bottom:10px}
 .press-side ul{margin:0 0 24px; padding-left:18px; display:grid; gap:8px; color:var(--muted); font-size:15px}
-.cv-note{margin:0 0 10px; font-size:13.5px; color:var(--muted)}
 .cv-actions{display:flex; flex-wrap:wrap; gap:8px}
 @media (min-width:760px){ .press-grid{grid-template-columns:1.25fr .75fr; gap:48px} }
 
@@ -647,6 +652,9 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 }
 .btn:disabled{opacity:.42; cursor:not-allowed}
 .btn:disabled:hover{border-color:var(--line); opacity:.42}
+.format-nav{display:flex; flex-wrap:wrap; gap:8px; margin-top:26px; padding-top:22px; border-top:1px solid var(--line)}
+.format-nav .btn{flex:1 1 0; min-width:0; white-space:normal; text-align:center}
+.format-contact{margin-top:12px; width:100%; justify-content:center}
 
 /* ---------- публикации ---------- */
 .media-list{display:grid; gap:16px}
@@ -700,18 +708,24 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 /* ---------- «Где утекают деньги сезона»: раскрывается внутри карточки Syntha ----------
    Единственное место на сайте с вертикальным scroll-эффектом: пять шагов сезона,
    рельс слева (сверху на телефоне) подсвечивает текущий через IntersectionObserver. */
-.flow-toggle{border-color:var(--accent); color:var(--accent)}
+.flow-toggle[aria-expanded="true"]{border-color:var(--accent); color:var(--accent)}
 .flow-toggle:hover{background:var(--accent-soft)}
 .flow-embed{
   grid-column:1/-1; margin-top:18px; padding-top:18px; border-top:1px dashed var(--line);
 }
 .flow-embed[hidden]{display:none}
-.flow-embed-head{margin-bottom:16px}
+.flow-embed-head{margin-bottom:16px; position:relative; padding-right:32px}
 .flow-embed-eyebrow{
   font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--accent); margin-bottom:6px;
 }
 .flow-embed-head h4{font-size:18px; margin-bottom:6px}
 .flow-embed-head .sub{font-size:14px}
+.flow-embed-close{
+  position:absolute; top:-2px; right:0; width:26px; height:26px; padding:0;
+  display:flex; align-items:center; justify-content:center;
+  border:1px solid var(--line); border-radius:50%; background:var(--panel); color:var(--muted); cursor:pointer;
+}
+.flow-embed-close:hover{border-color:var(--ink); color:var(--ink)}
 /* внутри карточки визуализация всегда в одну колонку, без прилипающего рельса —
    карточка слишком узкая для двухколоночной раскладки сезонной схемы */
 .flow-embed .season-track{display:block}
@@ -893,8 +907,6 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 }
 .section-head .sub{margin-top:10px; margin-bottom:22px; max-width:640px}
 .section-head .channel-link{margin-bottom:18px}
-
-@media (min-width:1020px){ .card-foot{flex-wrap:nowrap} }
 
 /* кнопка «наверх» — часть прилипшего заголовка раздела */
 .to-top{

@@ -134,7 +134,11 @@ export const T = {
           ]
         }
       ],
-      photoAlt: 'Пётр Федин'
+      photoAlt: 'Пётр Федин',
+      cvLabel: 'Резюме — по запросу',
+      cvNote: 'Отправляю по согласованию',
+      cvShort: 'Резюме',
+      cvMessage: 'Прошу выслать резюме на {lang}.'
     },
     consulting: {
       title: 'Консалтинг',
@@ -203,6 +207,10 @@ export const T = {
       includesLabel: 'Что входит',
       outLabel: 'Что остаётся у вас',
       fitLabel: 'Когда подходит',
+      prevFormat: 'Предыдущий формат',
+      nextFormat: 'Следующий формат',
+      contactCta: 'Связаться',
+      contactMessage: 'Интересует формат «{title}».',
       items: [
         { n: '01', title: 'Диагностика', term: 'проектно, 4–6 недель',
           body: 'Разбираем экономику решения: где связан капитал, что тормозит рост, какие цифры расходятся.',
@@ -332,11 +340,6 @@ export const T = {
       ],
       photoLabel: 'Портрет для публикации',
       photoBtn: 'Скачать фото',
-      cvLabel: 'Резюме',
-      cvNote: 'По запросу — отправляю по согласованию, на русском или английском.',
-      cvRu: 'Запросить на русском',
-      cvEn: 'Запросить на английском',
-      cvMessage: 'Прошу выслать резюме на {lang}.',
       copy: 'Скопировать',
       copied: 'Скопировано'
     },
@@ -462,7 +465,7 @@ export const T = {
     },
     leakQuiz: {
       label: 'Проверить сезон',
-      title: 'Где утекает ваш сезон',
+      title: 'Разбор вашего сезона',
       subtitle: 'Четыре вопроса. Результат — не формат работы, а конкретная точка, с которой стоит начать.',
       progress: 'Вопрос {i} из {n}',
       back: 'Назад',
@@ -471,7 +474,7 @@ export const T = {
       resultNote: 'Результат — гипотеза по четырём ответам, а не диагноз. Точная картина — на диагностике.',
       cta: 'Обсудить эту точку',
       ctaMore: 'Как это закрывает Syntha →',
-      messagePrefix: 'Результат мини-диагностики «Где утекает сезон»: «',
+      messagePrefix: 'Результат разбора сезона: «',
       messageSuffix: '».',
       questions: [
         {
@@ -549,7 +552,7 @@ export const T = {
       ]
     },
     flowChatx: {
-      eyebrow: 'Сегодня × ChatX',
+      eyebrow: 'До и после ChatX',
       title: 'Один рабочий день — до ChatX и после',
       subtitle: 'Один и тот же день глазами разрозненных инструментов и глазами ChatX: что теряется между ними и что остаётся в одном месте.',
       leftHead: 'Сегодня',
@@ -558,11 +561,12 @@ export const T = {
       steps: [
         { n: '01', title: 'Разговор', leak: 'Обсуждение проходит в мессенджере, но там же и теряется, когда пора превращать его в задачу.', leftLabel: 'Мессенджеры', contour: 'Один сквозной граф вместо разрозненных каналов' },
         { n: '02', title: 'Встреча и решение', leak: 'Звонок записан отдельным сервисом, а принятое решение нигде не связано ни с записью, ни с тем, что было дальше.', leftLabel: 'Сервисы встреч', contour: 'Запись, итог и решение — вместе' },
-        { n: '03', title: 'Задача и результат', leak: 'Задача заведена в трекере, но добраться от неё обратно до разговора, где она возникла, — отдельный квест.', leftLabel: 'Трекеры задач', contour: 'Путь назад до записи или сообщения' }
+        { n: '03', title: 'Задача', leak: 'Задача заведена в трекере, но добраться от неё обратно до разговора, где она возникла, — отдельный квест.', leftLabel: 'Трекеры задач', contour: 'Путь назад до записи или сообщения' },
+        { n: '04', title: 'Права и оргструктура', leak: 'Доступы настраиваются вручную и держатся на памяти того, кто их выдавал, — уволенный сотрудник может остаться в общих каналах месяцами.', leftLabel: 'Ручные доступы', contour: 'Права проверяются на сервере, по роли' }
       ]
     },
     flowRenova: {
-      eyebrow: 'Сегодня × Renova',
+      eyebrow: 'До и после Renova',
       title: 'Один объект — до Renova и после',
       subtitle: 'Один и тот же ремонт глазами привычных способов и глазами Renova: что теряется между ними и что заказчик видит сам.',
       leftHead: 'Сегодня',
@@ -571,7 +575,8 @@ export const T = {
       steps: [
         { n: '01', title: 'Смета', leak: 'Смета живёт в таблице или на бумаге: новая версия перезаписывает старую, и непонятно, что и почему изменилось.', leftLabel: 'Таблица и чеки', contour: 'Версии сметы и история изменений' },
         { n: '02', title: 'Ход работ и оплата', leak: 'Этапы и оплата согласуются в общем чате — деньги иногда уходят раньше, чем этап принят обеими сторонами.', leftLabel: 'Групповой чат', contour: 'Оплата привязана к принятому этапу' },
-        { n: '03', title: 'Исполнитель', leak: 'Проверка чека и статуса исполнителя не входит ни в один процесс — приходится верить на слово.', leftLabel: 'Учёт подрядчика', contour: 'Чек и статус сверяются через ФНС' }
+        { n: '03', title: 'Исполнитель', leak: 'Проверка чека и статуса исполнителя не входит ни в один процесс — приходится верить на слово.', leftLabel: 'Учёт подрядчика', contour: 'Чек и статус сверяются через ФНС' },
+        { n: '04', title: 'Видимость для заказчика', leak: 'Заказчик видит объект только тогда, когда сам спросит, — а до тех пор не знает, идут ли работы по плану.', leftLabel: 'Редкие созвоны', contour: 'Статус объекта виден заказчику в любой момент' }
       ]
     }
   },
@@ -615,7 +620,11 @@ export const T = {
           gives: ['Who decides what, written down', 'Decisions made on time rather than after the fact', 'A clear criterion for when the turnaround is over'],
           results: ['Payments organised into a cash calendar weeks ahead', 'An agreed and executed list of what gets stopped', 'Decision rights written down — arguments about authority ended', 'The plan — actual — action cycle shortened to a week', 'Decisions taken in the meeting rather than in chat', 'A defined criterion for leaving turnaround mode'] }
       ],
-      photoAlt: 'Petr Fedin'
+      photoAlt: 'Petr Fedin',
+      cvLabel: 'CV — on request',
+      cvNote: 'Sent by agreement',
+      cvShort: 'CV',
+      cvMessage: 'Please send the CV in {lang}.'
     },
     consulting: {
       title: 'Advisory',
@@ -683,6 +692,10 @@ export const T = {
       includesLabel: 'What it includes',
       outLabel: 'What stays with you',
       fitLabel: 'When it fits',
+      prevFormat: 'Previous format',
+      nextFormat: 'Next format',
+      contactCta: 'Get in touch',
+      contactMessage: 'Interested in the "{title}" format.',
       items: [
         { n: '01', title: 'Diagnostics', term: 'project-based, 4–6 weeks',
           body: 'We take apart the economics of the decision: where capital is locked, what caps growth, which numbers disagree.',
@@ -735,11 +748,6 @@ export const T = {
       topicsLabel: 'Speaking and comment topics',
       topics: ['Buying economics and the return of capital', 'Budgeting and open-to-buy', 'Building analytics: from data to decisions', 'The metrics fashion retail actually runs on', 'Merchandise planning and inventory control', 'The retail cycle and working with the customer', 'Marketplaces and omnichannel selling', 'The Russian fashion market: what is changing', 'PLM and a brand\u2019s digital architecture', 'Managing through a crisis and returning to growth'],
       photoLabel: 'Portrait for publication', photoBtn: 'Download photo',
-      cvLabel: 'CV',
-      cvNote: 'On request — sent by agreement, in Russian or English.',
-      cvRu: 'Request in Russian',
-      cvEn: 'Request in English',
-      cvMessage: 'Please send the CV in {lang}.',
       copy: 'Copy', copied: 'Copied'
     },
     news: {
@@ -863,7 +871,7 @@ export const T = {
     },
     leakQuiz: {
       label: 'Check your season',
-      title: 'Where does your season leak',
+      title: 'A read on your season',
       subtitle: 'Four questions. The result is not a work format — it is the one point worth starting with.',
       progress: 'Question {i} of {n}',
       back: 'Back',
@@ -872,7 +880,7 @@ export const T = {
       resultNote: 'The result is a hypothesis from four answers, not a diagnosis. The real picture comes from a proper diagnostic.',
       cta: 'Discuss this point',
       ctaMore: 'How Syntha closes this →',
-      messagePrefix: 'Result of the "Where does your season leak" mini-quiz: "',
+      messagePrefix: 'Result of the season read: "',
       messageSuffix: '".',
       questions: [
         {
@@ -950,7 +958,7 @@ export const T = {
       ]
     },
     flowChatx: {
-      eyebrow: 'Today × ChatX',
+      eyebrow: 'ChatX: before and after',
       title: 'One workday — before ChatX and after',
       subtitle: 'The same day through today’s scattered tools and through ChatX: what gets lost between them and what stays in one place.',
       leftHead: 'Today',
@@ -959,11 +967,12 @@ export const T = {
       steps: [
         { n: '01', title: 'Conversation', leak: 'The discussion happens in a messenger and gets lost there right when it is time to turn it into a task.', leftLabel: 'Messengers', contour: 'One graph instead of scattered channels' },
         { n: '02', title: 'Meeting and decision', leak: 'The call is recorded by a separate service, and the decision made is never linked to the recording or to what happened next.', leftLabel: 'Meeting tools', contour: 'Recording, summary and decision — together' },
-        { n: '03', title: 'Task and outcome', leak: 'The task lives in a tracker, but tracing it back to the conversation that created it is its own quest.', leftLabel: 'Task trackers', contour: 'A path back to the recording or message' }
+        { n: '03', title: 'Task', leak: 'The task lives in a tracker, but tracing it back to the conversation that created it is its own quest.', leftLabel: 'Task trackers', contour: 'A path back to the recording or message' },
+        { n: '04', title: 'Roles and access', leak: 'Access is set up by hand and lives in the memory of whoever granted it — someone who has left can stay in shared channels for months.', leftLabel: 'Manual access', contour: 'Permissions are checked server-side, by role' }
       ]
     },
     flowRenova: {
-      eyebrow: 'Today × Renova',
+      eyebrow: 'Renova: before and after',
       title: 'One renovation — before Renova and after',
       subtitle: 'The same renovation through the usual ways of running it and through Renova: what gets lost between them and what the client sees directly.',
       leftHead: 'Today',
@@ -972,7 +981,8 @@ export const T = {
       steps: [
         { n: '01', title: 'Estimate', leak: 'The estimate lives in a spreadsheet or on paper: a new version overwrites the old one, and what changed — and why — is unclear.', leftLabel: 'Spreadsheet and receipts', contour: 'Estimate versions and change history' },
         { n: '02', title: 'Work and payment', leak: 'Stages and payments get agreed in a group chat — money sometimes moves before both sides accept the stage.', leftLabel: 'Group chat', contour: 'Payment tied to an accepted stage' },
-        { n: '03', title: 'Contractor', leak: 'Checking the receipt and the contractor’s status is not part of any process — you just take their word for it.', leftLabel: 'Contractor bookkeeping', contour: 'Receipt and status verified via the tax service' }
+        { n: '03', title: 'Contractor', leak: 'Checking the receipt and the contractor’s status is not part of any process — you just take their word for it.', leftLabel: 'Contractor bookkeeping', contour: 'Receipt and status verified via the tax service' },
+        { n: '04', title: 'Visibility for the client', leak: 'The client only sees the site when they ask — otherwise there is no way to know whether work is on schedule.', leftLabel: 'Occasional calls', contour: 'Project status visible to the client at any time' }
       ]
     }
   }
