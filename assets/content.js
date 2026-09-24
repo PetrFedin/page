@@ -166,31 +166,6 @@ export const T = {
           decision: 'Сколько капитала нужно и насколько бизнес готов к росту или сделке.'
         }
       ],
-      casesTitle: 'Что уже сделано',
-      casesSubtitle: 'Три ситуации из практики — с тем же расчётом, который лежит в основе каждого формата ниже.',
-      casesBefore: 'Было',
-      casesAction: 'Сделали',
-      casesAfter: 'Стало',
-      cases: [
-        {
-          tag: 'Закупка и ассортимент',
-          before: 'Заказ защищался мнением, а не расчётом. Отчётность собиралась вручную, согласование растягивалось на дни.',
-          action: 'Ввели бюджет закупки с лимитами по брендам и каналам, обязательное обоснование заказа и регулярный пересчёт прогноза по факту продаж.',
-          results: ['90% отчётности автоматизировано', 'Согласование заказов втрое быстрее', 'Управленческий отчёт — с 2–3 дней до 10 минут']
-        },
-        {
-          tag: 'Продукт и производство',
-          before: 'Себестоимость становилась известна только после запуска производства. Спецификации и образцы жили в переписке и разрозненных файлах.',
-          action: 'Связали продуктовые данные с продажами и запасом, ввели единую версию спецификаций и образцов, контроль сроков поставщиков.',
-          results: ['Себестоимость изделия видна до запуска производства', 'Спецификации, образцы и версии собраны в одном месте', 'Сроки поставщиков под контролем, срывы видны заранее']
-        },
-        {
-          tag: 'Стабилизация',
-          before: 'Решения о деньгах принимались с опозданием. Никто не мог сказать, кто и что решает, кассовые разрывы обнаруживались по факту.',
-          action: 'Ввели кассовый календарь, закрепили права решений письменно и короткий цикл план — факт — действие.',
-          results: ['Платежи выстроены в кассовый календарь', 'Цикл план — факт — действие: одна неделя', 'Решения принимаются на встрече, не в чате']
-        }
-      ]
     },
     projects: {
       title: 'Наши проекты',
@@ -585,31 +560,6 @@ export const T = {
           decision: 'How much capital is needed and whether the business is ready to grow or to transact.'
         }
       ],
-      casesTitle: 'What has already been done',
-      casesSubtitle: 'Three situations from practice — the same kind of calculation behind every format below.',
-      casesBefore: 'Before',
-      casesAction: 'Did',
-      casesAfter: 'After',
-      cases: [
-        {
-          tag: 'Buying and assortment',
-          before: 'An order was defended by opinion, not by numbers. Reporting was built by hand and approval dragged on for days.',
-          action: 'Introduced an open-to-buy with limits by brand and channel, mandatory justification before an order is paid, and a demand forecast recalculated on actual sales.',
-          results: ['90% of reporting automated', 'Order approval three times faster', 'Management report from 2–3 days to 10 minutes']
-        },
-        {
-          tag: 'Product and production',
-          before: 'Item cost became known only after production started. Specifications and samples lived in emails and scattered files.',
-          action: 'Linked product data to sales and inventory, moved specifications and samples to one version, and put supplier lead times under control.',
-          results: ['Item cost visible before production starts', 'Specifications, samples and versions kept in one place', 'Supplier lead times under control, slippage visible early']
-        },
-        {
-          tag: 'Turnaround',
-          before: 'Decisions about cash were made late. Nobody could say who decided what, and cash gaps only surfaced after the fact.',
-          action: 'Built a cash calendar, wrote decision rights down, and shortened the plan — actual — action cycle.',
-          results: ['Payments organised into a cash calendar weeks ahead', 'The plan — actual — action cycle shortened to a week', 'Decisions taken in the meeting rather than in chat']
-        }
-      ]
     },
     projects: {
       title: 'Our projects',

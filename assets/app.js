@@ -5,8 +5,22 @@ import { createViewer } from './viewer.js';
 import { syncSnaps } from './snap.js';
 import { NEWS } from './news.js';
 
-/* Сайт — витрина: показываем отобранные материалы. Канал получает весь поток. */
-const SITE_NEWS = NEWS.filter((p) => p.site !== false);
+/* Сайт — витрина: показываем отобранные материалы. Канал получает весь поток.
+   В ленте разборы статей перемежаются с новостями о проектах — по одному
+   разбору на каждые два поста о проектах, пока разборы не закончатся. */
+function interleaveNews(base, extra, ratio = 2) {
+  const out = [];
+  let ei = 0;
+  base.forEach((post, i) => {
+    out.push(post);
+    if (ei < extra.length && (i + 1) % ratio === 0) out.push(extra[ei++]);
+  });
+  while (ei < extra.length) out.push(extra[ei++]);
+  return out;
+}
+const isReview = (p) => p.tags?.includes('разбор');
+const siteVisible = NEWS.filter((p) => p.site !== false);
+const SITE_NEWS = interleaveNews(siteVisible.filter((p) => !isReview(p)), siteVisible.filter(isReview));
 
 const $ = (s) => document.querySelector(s);
 const store = {
@@ -180,8 +194,11 @@ function render() {
         <button class="btn btn-sm btn-primary" type="button" data-open="${p.id}">${t.projects.open}</button>
         <button class="btn btn-sm" type="button" data-status="${p.id}">${t.projects.statusBtn}</button>
         <button class="btn btn-sm" type="button" data-news="${p.id}">${t.projects.newsBtn}</button>
+        ${p.id === 'syntha' ? `<button class="btn btn-sm flow-toggle" type="button" data-flow-toggle aria-expanded="false">${t.flow.eyebrow}</button>` : ''}
       </div>
+      ${p.id === 'syntha' ? '<div class="flow-embed" id="flow-embed" hidden></div>' : ''}
     </article>`).join('');
+  if (flowOpen) renderSeasonFlow();
 
   $('#contact-title').textContent = t.contact.title;
   $('#contact-sub').textContent = t.contact.subtitle;
@@ -205,8 +222,6 @@ function render() {
 
   $('#year').textContent = new Date().getFullYear();
   renderNow();
-  renderCases();
-  renderSeasonFlow();
   renderDiagnostic();
   renderNews();
   addTopButtons(t.nav.toTop);
@@ -322,6 +337,24 @@ function openProject(id, anchor) {
 }
 
 $('#cards').addEventListener('click', (e) => {
+  /* визуализация сезона живёт внутри карточки Syntha — клики в ней не должны
+     открывать модалку проекта, только свои переходы */
+  if (e.target.closest('.flow-embed')) {
+    const area = e.target.closest('[data-open-area]');
+    if (area) return go(`area-${area.dataset.openArea}`);
+    if (e.target.closest('[data-open-syntha]')) return go('syntha');
+    return;
+  }
+  const flowToggle = e.target.closest('[data-flow-toggle]');
+  if (flowToggle) {
+    const embed = $('#flow-embed');
+    flowOpen = embed.hidden;
+    embed.hidden = !flowOpen;
+    flowToggle.setAttribute('aria-expanded', String(flowOpen));
+    if (flowOpen) { renderSeasonFlow(); requestAnimationFrame(() => embed.scrollIntoView({ block: 'nearest', behavior: 'smooth' })); }
+    else if (flowObserver) flowObserver.disconnect();
+    return;
+  }
   const news = e.target.closest('[data-news]');
   if (news) return go(`${news.dataset.news}-news`);
   const status = e.target.closest('[data-status]');
@@ -412,56 +445,43 @@ $('#now-post').addEventListener('click', (e) => {
   if (date) go(`post-${date}`);
 });
 
-/* ---------- кейсы: было → сделали → стало ---------- */
-function renderCases() {
-  const t = T[lang].consulting;
-  $('#cases').innerHTML = `
-    <div class="cases-head"><h3>${t.casesTitle}</h3><p class="sub">${t.casesSubtitle}</p></div>
-    <div class="cases-track snap">
-      ${t.cases.map((c) => `
-        <article class="case-card">
-          <span class="case-tag">${c.tag}</span>
-          <div class="case-row"><b>${t.casesBefore}</b><p>${c.before}</p></div>
-          <div class="case-row"><b>${t.casesAction}</b><p>${c.action}</p></div>
-          <div class="case-row case-after"><b>${t.casesAfter}</b>
-            <ul>${c.results.map((r) => `<li>${r}</li>`).join('')}</ul></div>
-        </article>`).join('')}
-    </div>`;
-}
-
-/* ---------- «Где утекают деньги сезона»: консалтинг и Syntha одним сценарием ----------
+/* ---------- «Где утекают деньги сезона»: раскрывается внутри карточки Syntha ----------
    Единственное место на сайте, где применяется вертикальный scroll-эффект: пять шагов
-   подряд, IntersectionObserver подсвечивает текущий на рельсе слева (сверху на телефоне). */
+   подряд, IntersectionObserver подсвечивает текущий на рельсе слева (сверху на телефоне).
+   Живёт свёрнутым внутри карточки проекта — раскрывается по клику на data-flow-toggle. */
 let flowObserver = null;
+let flowOpen = false;
 function renderSeasonFlow() {
+  const embed = $('#flow-embed');
+  if (!embed) return;
   const t = T[lang].flow;
   const factsById = Object.fromEntries(T[lang].hero.facts.map((f) => [f.id, f.n]));
 
-  $('#flow-eyebrow').textContent = t.eyebrow;
-  $('#flow-title').textContent = t.title;
-  $('#flow-subtitle').textContent = t.subtitle;
-
-  $('#season-track').innerHTML = `
-    <div class="season-rail" aria-hidden="true">
-      <span class="season-rail-line"></span>
-      ${t.steps.map((_, i) => `<span class="season-dot" data-dot="${i}"></span>`).join('')}
-    </div>
-    <ol class="season-steps">
-      ${t.steps.map((st, i) => `
-        <li class="season-step" data-step="${i}">
-          <span class="season-n">${st.n}</span>
-          <h3>${st.title}</h3>
-          <p class="season-leak"><b>${t.leakLabel}</b>${st.leak}</p>
-          <div class="season-links">
-            <button type="button" class="season-chip" data-open-area="${st.area}">${t.consultingLabel} · ${factsById[st.area] ?? st.area}</button>
-            <button type="button" class="season-chip season-chip-syntha" data-open-syntha>${t.synthaLabel} · ${st.contour}</button>
-          </div>
-        </li>`).join('')}
-    </ol>`;
+  embed.innerHTML = `
+    <div class="flow-embed-head"><h4>${t.title}</h4><p class="sub">${t.subtitle}</p></div>
+    <div class="season-track">
+      <div class="season-rail" aria-hidden="true">
+        <span class="season-rail-line"></span>
+        ${t.steps.map((_, i) => `<span class="season-dot" data-dot="${i}"></span>`).join('')}
+      </div>
+      <ol class="season-steps">
+        ${t.steps.map((st, i) => `
+          <li class="season-step" data-step="${i}">
+            <span class="season-n">${st.n}</span>
+            <h3>${st.title}</h3>
+            <p class="season-leak"><b>${t.leakLabel}</b>${st.leak}</p>
+            <div class="season-links">
+              <button type="button" class="season-chip" data-open-area="${st.area}">${t.consultingLabel} · ${factsById[st.area] ?? st.area}</button>
+              <button type="button" class="season-chip season-chip-syntha" data-open-syntha>${t.synthaLabel} · ${st.contour}</button>
+            </div>
+          </li>`).join('')}
+      </ol>
+    </div>`;
 
   if (flowObserver) flowObserver.disconnect();
-  const steps = [...document.querySelectorAll('.season-step')];
-  const dots = [...document.querySelectorAll('.season-dot')];
+  if (embed.hidden) return;
+  const steps = [...embed.querySelectorAll('.season-step')];
+  const dots = [...embed.querySelectorAll('.season-dot')];
   const setActive = (i) => {
     steps.forEach((el, j) => el.classList.toggle('active', j === i));
     dots.forEach((el, j) => el.classList.toggle('active', j === i));
@@ -472,11 +492,6 @@ function renderSeasonFlow() {
   }, { rootMargin: '-40% 0px -40% 0px', threshold: 0 });
   steps.forEach((el) => flowObserver.observe(el));
 }
-$('#season-track').addEventListener('click', (e) => {
-  const area = e.target.closest('[data-open-area]');
-  if (area) return go(`area-${area.dataset.openArea}`);
-  if (e.target.closest('[data-open-syntha]')) go('syntha');
-});
 
 /* ---------- диагностика: пять вопросов → формат работы ---------- */
 let diagAnswers = [];

@@ -68,7 +68,6 @@ img{max-width:100%; display:block}
 .hero,.section{max-width:var(--maxw); margin:0 auto; padding:0 16px; scroll-margin-top:64px}
 .hero{padding-top:56px; padding-bottom:48px; display:grid; gap:36px}
 .section{padding-top:56px; padding-bottom:56px; border-top:1px solid var(--line); margin-top:8px}
-.section-head{max-width:640px; margin-bottom:36px}
 .sub{color:var(--muted); margin-top:10px}
 
 .eyebrow{
@@ -243,11 +242,13 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
   /* Syntha — основной проект, поэтому занимает всю первую строку,
      а ChatX и Renova встают под ним в две колонки. Пять строк на карточку
      нужны subgrid, чтобы у нижней пары совпали заголовки и кнопки. */
-  .cards{grid-template-columns:repeat(2,minmax(0,1fr)); grid-template-rows:repeat(10,auto)}
+  .cards{grid-template-columns:repeat(2,minmax(0,1fr)); grid-template-rows:repeat(11,auto)}
   .cards > .card:first-child{grid-column:1 / -1}
   .card-foot{align-self:end}
   .card{grid-row:span 5; grid-template-rows:subgrid; align-content:stretch; row-gap:12px}
   .card .card-body{align-self:start}
+  /* у Syntha есть шестая строка под раскрывающуюся визуализацию сезона */
+  .card[data-project="syntha"]{grid-row:span 6}
   .contact-grid{grid-template-columns:1.4fr .6fr; gap:48px}
   .facts{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
@@ -562,38 +563,25 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 .now-post:hover .now-post-title{text-decoration:underline}
 @media (min-width:760px){ .now-post{margin-left:auto} }
 
-/* ---------- кейсы: было → сделали → стало ---------- */
-.cases{margin-top:40px; padding-top:32px; border-top:1px solid var(--line)}
-.cases-head{max-width:640px; margin-bottom:20px}
-.cases-head h3{font-size:clamp(21px,3.4vw,26px)}
-.cases-head .sub{margin-top:8px}
-.cases-track{display:grid; gap:14px}
-.case-card{
-  background:var(--panel); border:1px solid var(--line); border-radius:12px;
-  padding:20px 18px; display:grid; gap:12px; align-content:start;
-}
-.case-tag{
-  font-size:11px; letter-spacing:.09em; text-transform:uppercase; color:var(--accent);
-  background:var(--accent-soft); border-radius:999px; padding:4px 10px; justify-self:start;
-}
-.case-row b{
-  display:block; font-size:11px; letter-spacing:.1em; text-transform:uppercase;
-  color:var(--muted); font-weight:500; margin-bottom:4px;
-}
-.case-row p{font-size:14.5px; color:var(--muted)}
-.case-after{padding-top:10px; border-top:1px dashed var(--line)}
-.case-after ul{list-style:none; margin:0; padding:0; display:grid; gap:6px}
-.case-after li{font-size:14px; color:var(--ink); padding-left:16px; position:relative}
-.case-after li::before{
-  content:""; position:absolute; left:0; top:8px; width:6px; height:6px;
-  border-radius:2px; background:var(--accent);
-}
-@media (min-width:760px){ .cases-track{grid-template-columns:repeat(3,minmax(0,1fr))} }
-
-/* ---------- «Где утекают деньги сезона» ----------
+/* ---------- «Где утекают деньги сезона»: раскрывается внутри карточки Syntha ----------
    Единственное место на сайте с вертикальным scroll-эффектом: пять шагов сезона,
    рельс слева (сверху на телефоне) подсвечивает текущий через IntersectionObserver. */
-.season-flow .section-head{max-width:680px}
+.flow-toggle{border-color:var(--accent); color:var(--accent)}
+.flow-toggle:hover{background:var(--accent-soft)}
+.flow-embed{
+  grid-column:1/-1; margin-top:18px; padding-top:18px; border-top:1px dashed var(--line);
+}
+.flow-embed[hidden]{display:none}
+.flow-embed-head{margin-bottom:16px}
+.flow-embed-head h4{font-size:18px; margin-bottom:6px}
+.flow-embed-head .sub{font-size:14px}
+/* внутри карточки визуализация всегда в одну колонку, без прилипающего рельса —
+   карточка слишком узкая для двухколоночной раскладки сезонной схемы */
+.flow-embed .season-track{display:block}
+.flow-embed .season-rail{
+  position:static; padding:4px 0 16px; flex-direction:row; height:auto; top:auto;
+}
+.flow-embed .season-rail-line{left:0; right:0; top:50%; bottom:auto; width:auto; height:1px; transform:none}
 .season-track{position:relative}
 .season-rail{
   position:sticky; top:56px; z-index:2; display:flex; justify-content:space-between;
@@ -642,7 +630,6 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 }
 
 /* ---------- диагностика: пять вопросов → формат работы ---------- */
-.diagnostic .section-head{max-width:640px}
 .diag-body{
   max-width:640px; background:var(--panel); border:1px solid var(--line);
   border-radius:16px; padding:26px 22px;
@@ -758,35 +745,32 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
   .hero .lead{margin-top:0}
 }
 
-/* пройденные разделы сворачиваются до заголовка */
-@media (max-width:759px){
-  /* заголовок должен липнуть в пределах всего раздела, а не своей обёртки */
-  .section-head{display:contents}
-  .section > .section-head > h2{
-    position:sticky; top:56px; z-index:6; margin:0 -16px; padding:10px 16px;
-    display:flex; align-items:center; justify-content:space-between; gap:12px;
-    /* полностью непрозрачный: иначе сквозь него видно уезжающий текст */
-    background:var(--bg);
-    border-bottom:1px solid var(--line);
-  }
-  .section-head .sub{margin-top:10px; margin-bottom:22px}
-  .section-head .channel-link{margin-bottom:18px}
+/* пройденные разделы сворачиваются до заголовка — на всех размерах экрана,
+   а не только на телефоне: заголовок раздела липнет при прокрутке вниз
+   и в нём же живёт кнопка «наверх». */
+/* заголовок должен липнуть в пределах всего раздела, а не своей обёртки */
+.section-head{display:contents}
+.section > .section-head > h2{
+  position:sticky; top:56px; z-index:6; margin:0 -16px; padding:10px 16px;
+  display:flex; align-items:center; justify-content:space-between; gap:12px;
+  /* полностью непрозрачный: иначе сквозь него видно уезжающий текст */
+  background:var(--bg);
+  border-bottom:1px solid var(--line);
 }
+.section-head .sub{margin-top:10px; margin-bottom:22px; max-width:640px}
+.section-head .channel-link{margin-bottom:18px}
 
 @media (min-width:1020px){ .card-foot{flex-wrap:nowrap} }
 
-/* кнопка «наверх» видна только в прилипшем заголовке раздела */
-.to-top{display:none}
-@media (max-width:759px){
-  .to-top{
-    display:grid; place-items:center; flex:0 0 32px; width:32px; height:32px;
-    padding:0; border:1px solid var(--line); border-radius:50%;
-    background:var(--panel); color:var(--muted); cursor:pointer;
-  }
-  .to-top:hover{color:var(--ink)}
-  /* экраны проекта раскрываются на весь экран */
-  .frame img{cursor:zoom-in}
+/* кнопка «наверх» — часть прилипшего заголовка раздела */
+.to-top{
+  display:grid; place-items:center; flex:0 0 32px; width:32px; height:32px;
+  padding:0; border:1px solid var(--line); border-radius:50%;
+  background:var(--panel); color:var(--muted); cursor:pointer;
 }
+.to-top:hover{color:var(--ink)}
+/* экраны проекта раскрываются на весь экран на телефоне */
+@media (max-width:759px){ .frame img{cursor:zoom-in} }
 
 /* на телефоне снимок разворачивается во весь экран: по высоте, с прокруткой вбок */
 @media (max-width:759px){
