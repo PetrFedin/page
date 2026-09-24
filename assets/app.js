@@ -159,6 +159,12 @@ function render() {
       <ul>${t.press.topics.map((x) => `<li>${x}</li>`).join('')}</ul>
       <h4>${t.press.photoLabel}</h4>
       <a class="btn btn-sm" href="/assets/photo/petr-formal.jpg" download>${t.press.photoBtn}</a>
+      <h4>${t.press.cvLabel}</h4>
+      <p class="cv-note">${t.press.cvNote}</p>
+      <div class="cv-actions">
+        <button class="btn btn-sm" type="button" data-cv="${lang === 'ru' ? 'русском' : 'Russian'}">${t.press.cvRu}</button>
+        <button class="btn btn-sm" type="button" data-cv="${lang === 'ru' ? 'английском' : 'English'}">${t.press.cvEn}</button>
+      </div>
     </div>`;
 
   $('#consent-text').textContent = t.contact.consent;
@@ -216,7 +222,7 @@ function render() {
     bookingCta.rel = 'noopener';
     bookingCta.textContent = t.contact.booking.cta;
   } else {
-    bookingCta.href = '#contact';
+    bookingCta.href = '#form';
     bookingCta.removeAttribute('target');
     bookingCta.removeAttribute('rel');
     bookingCta.textContent = t.contact.booking.ctaFallback;
@@ -361,7 +367,7 @@ function openProject(id, anchor) {
       ${c.collab.map((i) => `<li><b>${i.k}</b><span>${i.v}</span></li>`).join('')}
     </ul>
     <p class="collab-note">${t.projects.collabNote}</p>
-    ${c.investor ? `<p class="investor-note"><b>${t.projects.investorLabel} · ${c.investor.stage}</b>${c.investor.note}</p>` : ''}
+    ${c.investor ? `<p class="investor-note"><b>${t.projects.investorLabel}</b>${c.investor.note}</p>` : ''}
     <p class="team-note"><b>${t.projects.teamLabel}</b>${t.projects.teamNote}</p>`;
 
   /* Подробный разбор проекта есть у Syntha, ChatX и Renova, и только по-русски. */
@@ -994,10 +1000,11 @@ function openProjectNews(id) {
   $('#pn-channel').textContent = t.news.channel;
   $('#pn-feed').innerHTML = posts.length
     ? posts.map((post) => `
-      <li class="post">
+      <li class="post" data-post="${post.date}">
         <div class="post-meta"><time datetime="${post.date}">${fmt.format(new Date(post.date))}</time></div>
         <h3>${post[lang].title}</h3>
-        <p>${post[lang].body}</p>
+        <p>${splitBodyLink(post[lang].body).text}</p>
+        <span class="post-read">${t.news.read}</span>
       </li>`).join('')
     : `<li class="post"><p>${t.projects.newsEmpty}</p></li>`;
 
@@ -1005,6 +1012,10 @@ function openProjectNews(id) {
   pnModal.querySelector('.modal-body').scrollTop = 0;
 }
 
+$('#pn-feed').addEventListener('click', (e) => {
+  const post = e.target.closest('[data-post]');
+  if (post) { pnModal.close(); go(`post-${post.dataset.post}`); }
+});
 $('#pn-close').addEventListener('click', () => leave());
 pnModal.addEventListener('click', (e) => { if (e.target === pnModal) leave(); });
 
@@ -1112,14 +1123,28 @@ compareModal.addEventListener('click', (e) => { if (e.target === compareModal) c
 
 /* копирование био для прессы */
 $('#press-body').addEventListener('click', async (e) => {
-  const b = e.target.closest('[data-copy]');
-  if (!b) return;
-  try {
-    await navigator.clipboard.writeText($(`#${b.dataset.copy}`).textContent.trim());
-    const was = b.textContent;
-    b.textContent = T[lang].press.copied;
-    setTimeout(() => { b.textContent = was; }, 1600);
-  } catch { /* буфер недоступен — текст можно выделить руками */ }
+  const copyBtn = e.target.closest('[data-copy]');
+  if (copyBtn) {
+    try {
+      await navigator.clipboard.writeText($(`#${copyBtn.dataset.copy}`).textContent.trim());
+      const was = copyBtn.textContent;
+      copyBtn.textContent = T[lang].press.copied;
+      setTimeout(() => { copyBtn.textContent = was; }, 1600);
+    } catch { /* буфер недоступен — текст можно выделить руками */ }
+    return;
+  }
+  const cvBtn = e.target.closest('[data-cv]');
+  if (cvBtn) {
+    const t = T[lang];
+    $('#topic').value = 'other';
+    $('#topic-other').value = t.press.cvLabel;
+    syncTopicOther();
+    const msgEl = $('#form [name="message"]');
+    if (msgEl && !msgEl.value.trim()) msgEl.value = t.press.cvMessage.replace('{lang}', cvBtn.dataset.cv);
+    syncSubmit?.();
+    $('#contact').scrollIntoView({ behavior: 'smooth' });
+    setTimeout(() => $('#form [name="name"]').focus(), 400);
+  }
 });
 
 /* ---------- адреса окон ----------
@@ -1227,6 +1252,16 @@ syncTopicOther();
 
 /* Персона-чипы у формы: подставляют тему и переводят фокус на имя,
    чтобы заявка сразу приходила размеченной. */
+/* Пока нет реальной ссылки на календарь, кнопка не может просто вести на «#contact» —
+   если человек уже видит форму, обычный якорный переход выглядит так, будто ничего
+   не произошло. Вместо этого — явный скролл к форме и фокус на первое поле. */
+$('#booking-cta').addEventListener('click', (e) => {
+  if (BOOKING_URL) return;
+  e.preventDefault();
+  $('#contact').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  setTimeout(() => $('#form [name="name"]').focus(), 450);
+});
+
 $('#persona-picker').addEventListener('click', (e) => {
   const b = e.target.closest('[data-persona-topic]');
   if (!b) return;

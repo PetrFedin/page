@@ -117,7 +117,9 @@ h2{font-size:clamp(26px,5vw,36px)}
 .svc-d b{color:var(--accent); font-weight:500; font-size:12px; letter-spacing:.1em; text-transform:uppercase; display:block; margin-bottom:3px}
 
 /* ---------- project cards ---------- */
-.cards{display:grid; gap:14px; align-items:stretch}
+/* У «Наших проектов» нет подзаголовка — без него после закреплённого h2
+   не было своего отступа, и разделительная линия шла впритык к первой карточке. */
+.cards{display:grid; gap:14px; align-items:stretch; margin-top:22px}
 .card{
   background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
   padding:24px 20px; text-align:left; cursor:pointer; color:inherit;
@@ -600,6 +602,8 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 }
 .press-item p{font-size:15px; margin-bottom:10px}
 .press-side ul{margin:0 0 24px; padding-left:18px; display:grid; gap:8px; color:var(--muted); font-size:15px}
+.cv-note{margin:0 0 10px; font-size:13.5px; color:var(--muted)}
+.cv-actions{display:flex; flex-wrap:wrap; gap:8px}
 @media (min-width:760px){ .press-grid{grid-template-columns:1.25fr .75fr; gap:48px} }
 
 /* ---------- согласие и визитка ---------- */

@@ -185,8 +185,8 @@ export const T = {
       collabTitle: 'Как можно участвовать',
       collabNote: 'Детали архитектуры и дорожную карту показываем предметно — при знакомстве и под соглашение о неразглашении.',
       teamLabel: 'Команда',
-      teamNote: 'Сейчас веду разработку один — от продукта и данных до кода. Состав команды, то, как устроена разработка, и техническая архитектура — по запросу под NDA.',
-      investorLabel: 'Инвесторам',
+      teamNote: 'Сейчас веду проект один — от продукта и данных до кода. Техническую архитектуру и состав команды показываю предметно: по запросу и под NDA.',
+      investorLabel: 'Инвесторам и партнёрам',
       compareBtn: 'Сравнение',
       compareTitle: 'Сравнение с альтернативами',
       compareNote: 'Колонка проекта отражает то, что уже работает и что запланировано. Оценки конкурентов — по открытым материалам, уточняем при необходимости.',
@@ -367,6 +367,11 @@ export const T = {
       ],
       photoLabel: 'Портрет для публикации',
       photoBtn: 'Скачать фото',
+      cvLabel: 'Резюме',
+      cvNote: 'По запросу — отправляю по согласованию, на русском или английском.',
+      cvRu: 'Запросить на русском',
+      cvEn: 'Запросить на английском',
+      cvMessage: 'Прошу выслать резюме на {lang}.',
       copy: 'Скопировать',
       copied: 'Скопировано'
     },
@@ -497,7 +502,7 @@ export const T = {
       ]
     },
     leakQuiz: {
-      label: 'Где утекает у вас',
+      label: 'Найти утечку',
       title: 'Где утекает ваш сезон',
       subtitle: 'Четыре вопроса. Результат — не формат работы, а конкретная точка, с которой стоит начать.',
       progress: 'Вопрос {i} из {n}',
@@ -676,8 +681,8 @@ export const T = {
       collabTitle: 'Ways to take part',
       collabNote: 'Architecture details and the roadmap we show in person and under an NDA.',
       teamLabel: 'Team',
-      teamNote: 'Right now I build this alone — product, data and code. Team composition and technical architecture are shared on request, under an NDA.',
-      investorLabel: 'For investors',
+      teamNote: 'Right now I run this alone — product, data and code. Technical architecture and team composition are shared in detail on request, under an NDA.',
+      investorLabel: 'For investors and partners',
       compareBtn: 'Compare',
       compareTitle: 'Comparison with alternatives',
       compareNote: 'The project column reflects what already works and what is planned. Competitor cells are based on public material and refined on request.'
@@ -761,7 +766,13 @@ export const T = {
       longLabel: 'Full', long: 'Petr Fedin works where strategy, commerce, product, data and capital meet in fashion. Years of management experience in large multi-brand retail: open-to-buy, assortment matrix, demand forecasting, margin and stock turn. He runs operational diagnostics, growth strategy and management turnaround projects, and builds his own products for the industry.',
       topicsLabel: 'Speaking and comment topics',
       topics: ['Buying economics and the return of capital', 'Budgeting and open-to-buy', 'Building analytics: from data to decisions', 'The metrics fashion retail actually runs on', 'Merchandise planning and inventory control', 'The retail cycle and working with the customer', 'Marketplaces and omnichannel selling', 'The Russian fashion market: what is changing', 'PLM and a brand\u2019s digital architecture', 'Managing through a crisis and returning to growth'],
-      photoLabel: 'Portrait for publication', photoBtn: 'Download photo', copy: 'Copy', copied: 'Copied'
+      photoLabel: 'Portrait for publication', photoBtn: 'Download photo',
+      cvLabel: 'CV',
+      cvNote: 'On request — sent by agreement, in Russian or English.',
+      cvRu: 'Request in Russian',
+      cvEn: 'Request in English',
+      cvMessage: 'Please send the CV in {lang}.',
+      copy: 'Copy', copied: 'Copied'
     },
     news: {
       title: 'Feed',
@@ -889,7 +900,7 @@ export const T = {
       ]
     },
     leakQuiz: {
-      label: 'Find your leak',
+      label: 'Find the leak',
       title: 'Where does your season leak',
       subtitle: 'Four questions. The result is not a work format — it is the one point worth starting with.',
       progress: 'Question {i} of {n}',
@@ -995,7 +1006,7 @@ export const PROJECTS = [
         next: ['Пилот с первым брендом', 'Интеграция с учётной системой бренда'],
         seeking: 'Бренды и магазины, готовые проработать систему и работать в ней, и партнёра по выходу на рынок.'
       },
-      investor: { stage: 'Bootstrapped', note: 'Развитие идёт на собственные средства. Инвестиции обсуждаю точечно — под конкретные метрики после пилота и понятный объём участия.' },
+      investor: { note: 'Рассматриваю разные форматы участия: долевые инвестиции, спонсорство, покупку бизнеса или доли, маркетинговое партнёрство, интеграцию с другими продуктами и бизнесами. Обсуждаю точечно — под конкретные метрики после пилота и понятный объём участия.' },
       roadmap: [{ label: 'Прототип', state: 'done' }, { label: 'Пилот с брендом', state: 'current' }, { label: 'Публичный запуск', state: 'next' }],
       tagline: 'Операционная система фэшн-бренда',
       stage: 'В разработке',
@@ -1013,7 +1024,7 @@ export const PROJECTS = [
         next: ['Pilot with a first brand', 'Integration with the brand\u2019s ERP'],
         seeking: 'Brands and retailers ready to shape the system and work in it, and a go-to-market partner.'
       },
-      investor: { stage: 'Bootstrapped', note: 'Self-funded so far. I discuss investment case by case, once a pilot gives concrete metrics and a clear scope of participation.' },
+      investor: { note: 'Open to different forms of participation: equity investment, sponsorship, buying the business or a stake, marketing partnerships, integration with other products and businesses. I discuss it case by case, once a pilot gives concrete metrics and a clear scope.' },
       roadmap: [{ label: 'Prototype', state: 'done' }, { label: 'Pilot with a brand', state: 'current' }, { label: 'Public launch', state: 'next' }],
       tagline: 'The operating platform for a fashion brand',
       stage: 'In development',
@@ -1038,7 +1049,7 @@ export const PROJECTS = [
         next: ['Пилот внутри компании-заказчика', 'Мобильное приложение поверх PWA'],
         seeking: 'Компании, готовые перевести в него свою работу, и партнёра по внедрению.'
       },
-      investor: { stage: 'Bootstrapped', note: 'Развитие идёт на собственные средства. Готов обсуждать инвестиции на стадии, когда продукт выходит на первый пилот.' },
+      investor: { note: 'Рассматриваю разные форматы участия: долевые инвестиции, спонсорство, покупку бизнеса или доли, маркетинговое партнёрство, интеграцию с другими продуктами и бизнесами. Готов обсуждать это на стадии, когда продукт выходит на первый пилот.' },
       roadmap: [{ label: 'Прототип', state: 'done' }, { label: 'Пилот в компании', state: 'current' }, { label: 'Публичный запуск', state: 'next' }],
       tagline: 'Мессенджер, который закрывает работу целиком',
       stage: 'Рабочий прототип',
@@ -1056,7 +1067,7 @@ export const PROJECTS = [
         next: ['Pilot inside a client company', 'A mobile app on top of the PWA'],
         seeking: 'Companies ready to move their work into it, and an implementation partner.'
       },
-      investor: { stage: 'Bootstrapped', note: 'Self-funded so far. Open to discussing investment once the product reaches its first pilot.' },
+      investor: { note: 'Open to different forms of participation: equity investment, sponsorship, buying the business or a stake, marketing partnerships, integration with other products and businesses. Happy to discuss it once the product reaches its first pilot.' },
       roadmap: [{ label: 'Prototype', state: 'done' }, { label: 'Pilot inside a company', state: 'current' }, { label: 'Public launch', state: 'next' }],
       tagline: 'Corporate workspace',
       stage: 'Working prototype',
@@ -1081,7 +1092,7 @@ export const PROJECTS = [
         next: ['Сборка в TestFlight и закрытый тест', 'OAuth «Мой налог»'],
         seeking: 'Мастеров и бригады, а также заказчиков — готовых проработать приложение и вести на нём реальный объект.'
       },
-      investor: { stage: 'Bootstrapped', note: 'Развитие идёт на собственные средства. К внешнему финансированию пока не готовился отдельно — открыт к разговору, если он релевантен на стадии MVP.' },
+      investor: { note: 'Рассматриваю разные форматы участия: долевые инвестиции, спонсорство, покупку бизнеса или доли, маркетинговое партнёрство, интеграцию с другими продуктами и бизнесами. К внешнему финансированию пока не готовился отдельно — открыт к разговору на стадии MVP.' },
       roadmap: [{ label: 'MVP', state: 'done' }, { label: 'Закрытый тест', state: 'current' }, { label: 'Публичный запуск', state: 'next' }],
       tagline: 'Ремонт под контролем',
       stage: 'MVP, подготовка к запуску',
@@ -1099,7 +1110,7 @@ export const PROJECTS = [
         next: ['TestFlight build and a closed test', 'Tax-service OAuth'],
         seeking: 'Contractors and crews, and clients too — ready to shape the app and run a real project on it.'
       },
-      investor: { stage: 'Bootstrapped', note: 'Self-funded so far — have not actively sought outside financing yet. Open to a conversation if it is relevant at the MVP stage.' },
+      investor: { note: 'Open to different forms of participation: equity investment, sponsorship, buying the business or a stake, marketing partnerships, integration with other products and businesses. Have not actively sought outside financing yet — open to a conversation at the MVP stage.' },
       roadmap: [{ label: 'MVP', state: 'done' }, { label: 'Closed test', state: 'current' }, { label: 'Public launch', state: 'next' }],
       tagline: 'Renovation that runs on numbers',
       stage: 'MVP, preparing for launch',
