@@ -140,8 +140,8 @@ function render() {
     </button></li>`).join('');
   $('#cv-row-link').textContent = t.hero.cvLabel;
   $('#cv-row-roles').innerHTML = t.roles.items
-    .map((r) => `· <button type="button" class="cv-row-link" data-role="${r.n}">${r.title} (${r.abbr})</button>`)
-    .join(' ');
+    .map((r) => `<button type="button" class="cv-row-link" data-role="${r.n}">${r.title} (${r.abbr})</button>`)
+    .join(' · ') + ' · ';
   $('#cta-consulting').textContent = t.hero.ctaConsulting;
   $('#cta-projects').textContent = t.hero.ctaProjects;
   $('#cta-feed').textContent = t.hero.ctaFeed;
@@ -1129,7 +1129,10 @@ function renderRole(n) {
        <button type="button" class="btn btn-sm" data-role-nav="${prev.n}">← ${prev.title}</button>
        <button type="button" class="btn btn-sm" data-role-nav="${next.n}">${next.title} →</button>
      </div>
-     <button type="button" class="btn btn-primary format-contact" data-role-contact="${r.n}">${t.roles.contactCta}</button>`;
+     <div class="format-nav">
+       <button type="button" class="btn btn-primary" data-role-contact="${r.n}">${t.roles.contactCta}</button>
+       <button type="button" class="btn" data-role-cv="${r.n}">${t.hero.cvLabel}</button>
+     </div>`;
   return true;
 }
 
@@ -1184,6 +1187,12 @@ $('#cv-body').addEventListener('click', (e) => {
     leave();
     requestAnimationFrame(() => $('#contact').scrollIntoView({ behavior: 'smooth' }));
     setTimeout(() => $('#form [name="name"]').focus(), 400);
+    return;
+  }
+  const roleCv = e.target.closest('[data-role-cv]');
+  if (roleCv) {
+    leave();
+    requestAnimationFrame(() => requestCv());
   }
 });
 
@@ -1245,8 +1254,9 @@ $('#press-body').addEventListener('click', async (e) => {
 });
 
 /* запрос резюме — живёт в «Релевантном опыте», а не в разделе для прессы:
-   просто ссылка на форму, без отдельных кнопок RU/EN. */
-$('#cv-row-link').addEventListener('click', () => {
+   просто ссылка на форму, без отдельных кнопок RU/EN. Тот же переход вызывается
+   и из карточки роли (кнопка «Запросить резюме» рядом со «Связаться»). */
+function requestCv() {
   const t = T[lang];
   $('#topic').value = 'other';
   $('#topic-other').value = t.hero.cvShort;
@@ -1256,7 +1266,8 @@ $('#cv-row-link').addEventListener('click', () => {
   syncSubmit?.();
   $('#contact').scrollIntoView({ behavior: 'smooth' });
   setTimeout(() => $('#form [name="name"]').focus(), 400);
-});
+}
+$('#cv-row-link').addEventListener('click', requestCv);
 
 /* ---------- адреса окон ----------
    #syntha, #syntha-status, #deck — открываются по ссылке, «назад» закрывает окно. */
