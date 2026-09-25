@@ -309,6 +309,9 @@ export const T = {
       ]
     },
     roles: {
+      introLabel: 'Ищу позицию',
+      hubTitle: 'Роли, на которые претендую',
+      hubNote: 'Три направления — откройте каждое, чтобы увидеть компетенции и зону ответственности.',
       competenciesLabel: 'Ключевые компетенции',
       whyFitLabel: 'Почему подхожу',
       contactCta: 'Связаться',
@@ -759,6 +762,9 @@ export const T = {
       ]
     },
     roles: {
+      introLabel: 'Roles I could take on',
+      hubTitle: 'Roles I could take on',
+      hubNote: 'Three directions — open each to see the competencies and scope of responsibility.',
       competenciesLabel: 'Key competencies',
       whyFitLabel: 'Why I fit',
       contactCta: 'Get in touch',

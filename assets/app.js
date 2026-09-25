@@ -139,9 +139,7 @@ function render() {
       <b>${f.n}</b><span>${f.l}</span><span class="fact-more">${t.formats.more}</span>
     </button></li>`).join('');
   $('#cv-row-link').textContent = t.hero.cvLabel;
-  $('#cv-row-roles').innerHTML = t.roles.items
-    .map((r) => `<button type="button" class="cv-row-link" data-role="${r.n}">${r.title} (${r.abbr})</button>`)
-    .join(' · ') + ' · ';
+  $('#roles-open').textContent = t.roles.introLabel;
   $('#cta-consulting').textContent = t.hero.ctaConsulting;
   $('#cta-projects').textContent = t.hero.ctaProjects;
   $('#cta-feed').textContent = t.hero.ctaFeed;
@@ -1110,6 +1108,21 @@ function renderFormat(n) {
   return true;
 }
 
+function renderRolesHub() {
+  const t = T[lang];
+  infoModal.dataset.view = 'roles';
+  $('#cv-title').textContent = t.roles.hubTitle;
+  $('#cv-note').textContent = t.roles.hubNote;
+  $('#cv-body').innerHTML = `
+    <ul class="role-pick">
+      ${t.roles.items.map((r) => `
+        <li><button type="button" data-role-open="${r.n}">
+          <b>${r.title} (${r.abbr})</b><span>${r.term}</span>
+        </button></li>`).join('')}
+    </ul>`;
+  return true;
+}
+
 function renderRole(n) {
   const t = T[lang];
   const items = t.roles.items;
@@ -1137,7 +1150,8 @@ function renderRole(n) {
 }
 
 function showInfo(hash) {
-  const ok = hash.startsWith('area-') ? renderArea(hash.slice(5))
+  const ok = hash === 'roles' ? renderRolesHub()
+           : hash.startsWith('area-') ? renderArea(hash.slice(5))
            : hash.startsWith('format-') ? renderFormat(hash.slice(7))
            : hash.startsWith('role-') ? renderRole(hash.slice(5)) : false;
   if (!ok) return false;
@@ -1154,13 +1168,12 @@ $('#formats').addEventListener('click', (e) => {
   const b = e.target.closest('[data-format]');
   if (b) go(`format-${b.dataset.format}`);
 });
-$('#cv-row-roles').addEventListener('click', (e) => {
-  const b = e.target.closest('[data-role]');
-  if (b) go(`role-${b.dataset.role}`);
-});
+$('#roles-open').addEventListener('click', () => go('roles'));
 $('#cv-close').addEventListener('click', () => leave());
 infoModal.addEventListener('click', (e) => { if (e.target === infoModal) leave(); });
 $('#cv-body').addEventListener('click', (e) => {
+  const roleOpen = e.target.closest('[data-role-open]');
+  if (roleOpen) return go(`role-${roleOpen.dataset.roleOpen}`);
   const nav = e.target.closest('[data-format-nav]');
   if (nav) return go(`format-${nav.dataset.formatNav}`);
   const roleNav = e.target.closest('[data-role-nav]');
@@ -1298,7 +1311,7 @@ function applyHash() {
     if (openPostModal(date)) return;
     return closeModals();
   }
-  if (h.startsWith('area-') || h.startsWith('format-') || h.startsWith('role-')) { if (showInfo(h)) return; }
+  if (h === 'roles' || h.startsWith('area-') || h.startsWith('format-') || h.startsWith('role-')) { if (showInfo(h)) return; }
   if (h.endsWith('-news')) {
     const nid = h.slice(0, -'-news'.length);
     if (PROJECTS.some((p) => p.id === nid)) return openProjectNews(nid);
