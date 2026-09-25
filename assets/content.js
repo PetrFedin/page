@@ -1089,10 +1089,10 @@ export const PROJECTS = [
       tagline: 'The operating platform for a fashion brand',
       stage: 'In development',
       card: 'Collections, a digital showroom, buyer orders and the production loop in one system.',
-      what: 'A B2B platform for brands, retailers, distributors and production partners: campaign → collection → showroom → buyer selection → order → confirmation → deal. Alongside it, the production loop: planning, BOM, measurements, samples, sourcing, tech packs, production and final quality.',
-      who: 'Brands, retailers, their buying teams and production partners.',
-      why: 'The commercial cycle still runs on PDF line sheets, spreadsheets and email: availability, reservations and order confirmation drift apart, and product data is kept separately from sales.',
-      how: 'Price and availability are computed by the server, not a file: MOQ and available-to-sell controls, atomic inventory reservations, bilateral order confirmation, and cancellation that releases stock.'
+      what: 'A single loop that replaces several disconnected systems in use today. The product side runs from collection planning and specs through samples, tech packs, production and quality control. The commercial side: a digital showroom, buyer selections, orders, confirmation and the deal. Both halves run on the same data.',
+      who: 'Brands, retail chains, multi-brand buyers, distributors and production partners — each in their own role, with their own permissions.',
+      why: 'The commercial cycle is broken apart: product data lives in one place, sales in another, availability in a third. The brand can’t see what’s confirmed, the retailer isn’t sure what they’ll get, and reconciliation happens by hand, after the fact.',
+      how: 'We took the best of what the industry already runs on, and built what those systems are missing: product and commerce on one data model, price and availability computed by the server, order confirmation that is bilateral. Implementation details are a conversation for when we talk.'
     }
   },
   {
@@ -1132,7 +1132,7 @@ export const PROJECTS = [
       tagline: 'Corporate workspace',
       stage: 'Working prototype',
       card: 'Channels, tasks, calendar, files and calls in one loop — from conversation to outcome.',
-      what: 'A company workspace: channels and direct messages, tasks, calendar, files, voice messages and audio-video calls with meeting intelligence built in.',
+      what: 'A full corporate messenger covering the whole span of work: channels, groups and direct messages, voice messages, searchable files, tasks and commitments, calendar and planning, audio and video calls with recording, an org structure with roles and permissions, notifications and integrations with external systems.',
       who: 'Companies that need their own governed communication and execution loop rather than threads in a public messenger.',
       why: 'Decisions get lost between chat, the task tracker and email. Nobody can show where a decision was made or how it ended.',
       how: 'A meeting is recorded only with every participant’s consent, the transcript and summary are anchored to timecodes, and an AI-proposed action becomes a real task only after a human confirms it.'
@@ -1178,7 +1178,7 @@ export const PROJECTS = [
       what: 'A mobile renovation-management platform: norm-based estimates, work stages with acceptance, stage-by-stage payments, materials tracking, and receipt and self-employed status verification through the tax service.',
       who: 'Owners running a renovation, and the self-employed contractors and crews doing the work.',
       why: 'Renovation lives in chat threads and receipts in a pocket: the estimate drifts from actuals, overspend surfaces at the end, and the contractor\u2019s legal status is backed by nothing.',
-      how: 'Every action recalculates the numbers: plan against actual, an alert on overspend, payment tied to an accepted stage, receipts verified by QR, and a contractor rating built from deadlines, budget, quality and receipts.'
+      how: 'Every action recalculates the numbers: payment is tied to an accepted stage, and receipts and the contractor’s status are checked against official sources. The client sees at any moment how much has been spent, what is underway, and what comes next.'
     }
   }
 

@@ -91,10 +91,12 @@ const burger = $('#burger');
 function closeNav() {
   nav.classList.remove('open');
   burger.setAttribute('aria-expanded', 'false');
+  document.body.classList.remove('nav-open');
 }
 burger.addEventListener('click', () => {
   const open = nav.classList.toggle('open');
   burger.setAttribute('aria-expanded', String(open));
+  document.body.classList.toggle('nav-open', open);
 });
 nav.addEventListener('click', (e) => { if (e.target.tagName === 'A') closeNav(); });
 /* уводят курсор с меню — сворачиваем; на касании работает клик мимо */
@@ -451,7 +453,7 @@ $('#cards').addEventListener('click', (e) => {
   const status = e.target.closest('[data-status]');
   if (status) return go(`${status.dataset.status}-status`);
   const compareBtn = e.target.closest('[data-compare]');
-  if (compareBtn) return openCompare(compareBtn.dataset.compare);
+  if (compareBtn) return go(`${compareBtn.dataset.compare}-compare`);
   if (e.target.closest('[data-leak-open]')) { leakAnswers = []; return go('leak-quiz'); }
   const open = e.target.closest('[data-open]');
   if (open) return go(open.dataset.open);
@@ -1250,8 +1252,8 @@ function openCompare(id) {
   if (!compareModal.open) compareModal.showModal();
   compareModal.querySelector('.modal-body').scrollTop = 0;
 }
-$('#compare-close').addEventListener('click', () => compareModal.close());
-compareModal.addEventListener('click', (e) => { if (e.target === compareModal) compareModal.close(); });
+$('#compare-close').addEventListener('click', () => leave());
+compareModal.addEventListener('click', (e) => { if (e.target === compareModal) leave(); });
 
 /* копирование био для прессы */
 $('#press-body').addEventListener('click', async (e) => {
@@ -1292,6 +1294,7 @@ function closeModals() {
   if (postModal.open) postModal.close(true);
   if (pnModal.open) pnModal.close(true);
   if (infoModal.open) infoModal.close(true);
+  if (compareModal.open) compareModal.close(true);
 }
 
 function applyHash() {
@@ -1300,6 +1303,10 @@ function applyHash() {
   if (h === 'deck') return openDeck();
   if (h === 'diagnostic') return openDiagnosticModal();
   if (h === 'leak-quiz') return openLeakModal();
+  if (h.endsWith('-compare')) {
+    const cid = h.slice(0, -'-compare'.length);
+    if (COMPARE[cid]) return openCompare(cid);
+  }
   /* Ссылка на отдельный пост открывает его целиком, подгружая ленту,
      если пост ещё не показан среди первых newsShown карточек. */
   if (h.startsWith('post-')) {
@@ -1525,7 +1532,7 @@ $('#services').addEventListener('click', (e) => {
 });
 
 /* Esc закрывает окно — адрес возвращаем тем же путём, что и кнопка. */
-[modal, deckModal, diagModal, leakModal, postModal, pnModal, infoModal].forEach((d) => d.addEventListener('cancel', (e) => { e.preventDefault(); leave(); }));
+[modal, deckModal, diagModal, leakModal, postModal, pnModal, infoModal, compareModal].forEach((d) => d.addEventListener('cancel', (e) => { e.preventDefault(); leave(); }));
 
 render();
 syncSnaps();
