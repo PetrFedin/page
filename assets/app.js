@@ -9,10 +9,9 @@ import { NEWS } from './news.js';
    Лента идёт от свежего к старому по дате публикации — «Показать ещё» раскрывает
    более старые записи; порядок записей в news.js на отображение не влияет. */
 const SITE_NEWS = NEWS.filter((p) => p.site !== false).sort((a, b) => b.date.localeCompare(a.date));
-/* Разборы статей пишутся только по-русски (редполитика канала).
-   На английской версии их не показываем в ленте — вместо смешения
-   языков внутри карточки; postText() всё равно берёт русский текст
-   как запасной вариант для прямых ссылок на такой пост на EN-версии. */
+/* Пост показывается на EN-версии только если у него есть перевод (en:).
+   postText() берёт русский текст как запасной вариант для прямых ссылок
+   на непереведённый пост, если он всё же откроется на EN-версии. */
 const hasLang = (p) => Boolean(p[lang]);
 const postText = (p) => p[lang] ?? p.ru;
 
@@ -844,7 +843,7 @@ function renderNews() {
       <h3>${postText(p).title}</h3>
       ${p.source?.outlet ? `<p class="post-outlet">${p.source.outlet}</p>` : ''}
       <p>${text}</p>
-      ${p.tags?.length ? `<div class="post-chips">${p.tags.map((tg) => `<span class="post-chip">${tg}</span>`).join('')}</div>` : ''}
+      ${postText(p).tags?.length ? `<div class="post-chips">${postText(p).tags.map((tg) => `<span class="post-chip">${tg}</span>`).join('')}</div>` : ''}
       <span class="post-read">${t.read}</span>
     </li>`;
   }).join('');
@@ -909,12 +908,12 @@ function openPostModal(date) {
 
   /* Справка: о каком бренде/компании материал — не подменяет «О чём материал». */
   const subjectEl = $('#post-modal-subject');
-  if (p.subject) {
-    subjectEl.innerHTML = `<b>${t.subjectLabel}</b><p>${p.subject}</p>`;
+  if (postText(p).subject) {
+    subjectEl.innerHTML = `<b>${t.subjectLabel}</b><p>${postText(p).subject}</p>`;
     subjectEl.hidden = false;
   } else subjectEl.hidden = true;
 
-  $('#post-modal-tags').innerHTML = (p.tags ?? [])
+  $('#post-modal-tags').innerHTML = (postText(p).tags ?? [])
     .map((tg) => `<span class="post-chip">${tg}</span>`).join('');
 
   $('#post-modal-body').innerHTML = renderPostBody(text);
