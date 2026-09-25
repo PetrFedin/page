@@ -832,6 +832,7 @@ function renderNews() {
       <div class="post-meta">
         <time datetime="${p.date}">${fmt.format(new Date(p.date))}</time>
         <span class="post-tag">${t.tags[p.tag] ?? p.tag}</span>
+        ${p.images?.length ? `<img class="post-cover" src="${p.images[0]}" alt="" loading="lazy">` : ''}
         <button class="post-share" type="button" data-share="${p.date}" aria-label="${t.share}">
           <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
             <path d="M12 3v12M12 3L8 7m4-4l4 4M5 13v6a1 1 0 001 1h12a1 1 0 001-1v-6"
@@ -840,7 +841,6 @@ function renderNews() {
           </svg>
         </button>
       </div>
-      ${p.images?.length ? `<img class="post-cover" src="${p.images[0]}" alt="" loading="lazy">` : ''}
       <h3>${postText(p).title}</h3>
       ${p.source?.outlet ? `<p class="post-outlet">${p.source.outlet}</p>` : ''}
       <p>${text}</p>
@@ -910,6 +910,10 @@ function openPostModal(date) {
   const imagesEl = $('#post-modal-images');
   if (p.images?.length) {
     imagesEl.innerHTML = p.images.map((src) => `<img src="${src}" alt="" loading="lazy">`).join('');
+    const shots = [...imagesEl.querySelectorAll('img')].map((img) => ({ src: img.src, alt: '' }));
+    imagesEl.querySelectorAll('img').forEach((img, i) => {
+      img.addEventListener('click', () => openPhoto(shots, i));
+    });
     imagesEl.hidden = false;
   } else imagesEl.hidden = true;
 
