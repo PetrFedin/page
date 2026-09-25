@@ -3,7 +3,7 @@
    и лента, на разборе проекта — схемы и перечни. Смысл один — не растить
    вертикальную прокрутку там, где блоки равноправны и читаются по одному. */
 
-export const isPhone = () => matchMedia('(max-width: 759px)').matches;
+const isPhone = () => matchMedia('(max-width: 759px)').matches;
 
 function buildDots(track) {
   let dots = track.nextElementSibling;

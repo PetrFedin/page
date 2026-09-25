@@ -84,6 +84,5 @@ export function createViewer({ labels }) {
       if (!modal.open) modal.showModal();
     },
     close() { if (modal.open) modal.close(); },
-    get isOpen() { return modal.open; },
   };
 }

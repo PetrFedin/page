@@ -290,6 +290,7 @@ function render() {
   if (leakModal.open) renderLeakQuiz();
   if (pnModal.open) openProjectNews(pnModal.dataset.project);
   if (infoModal.open) showInfo(infoModal.dataset.view ?? '');
+  if (compareModal.open) openCompare(compareModal.dataset.project);
 }
 
 $('#lang-toggle').addEventListener('click', () => {
@@ -1204,6 +1205,7 @@ const compareModal = $('#compare-modal');
 function openCompare(id) {
   const data = COMPARE[id];
   if (!data) return;
+  compareModal.dataset.project = id;
   const t = T[lang].projects;
   $('#compare-logo').innerHTML = LOGOS[id];
   $('#compare-title').textContent = t.compareTitle;

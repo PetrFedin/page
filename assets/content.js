@@ -190,7 +190,6 @@ export const T = {
       investorLabel: 'Инвесторам и партнёрам',
       compareBtn: 'Сравнение',
       compareTitle: 'Сравнение с альтернативами',
-      compareNote: 'Колонка проекта отражает то, что уже работает и что запланировано. Оценки конкурентов — по открытым материалам, уточняем при необходимости.',
       marks: { yes: 'есть', no: 'нет', part: 'частично' }
     },
     area: {
@@ -206,8 +205,6 @@ export const T = {
       includesLabel: 'Что входит',
       outLabel: 'Что остаётся у вас',
       fitLabel: 'Когда подходит',
-      prevFormat: 'Предыдущий формат',
-      nextFormat: 'Следующий формат',
       contactCta: 'Связаться',
       contactMessage: 'Интересует формат «{title}».',
       items: [
@@ -462,7 +459,6 @@ export const T = {
       title: 'Какой формат вам подходит',
       subtitle: 'Пять вопросов — тридцать секунд. В конце — конкретный формат работы, а не общий совет.',
       progress: 'Вопрос {i} из {n}',
-      start: 'Начать',
       back: 'Назад',
       resultLabel: 'Похоже, подходит',
       resultNote: 'Формат — гипотеза по пяти ответам, а не диагноз. Финальное решение — на разговоре.',
@@ -704,7 +700,7 @@ export const T = {
       investorLabel: 'For investors and partners',
       compareBtn: 'Compare',
       compareTitle: 'Comparison with alternatives',
-      compareNote: 'The project column reflects what already works and what is planned. Competitor cells are based on public material and refined on request.'
+      marks: { yes: 'yes', no: 'no', part: 'partial' }
     },
     area: {
       doesLabel: 'What the work includes',
@@ -719,8 +715,6 @@ export const T = {
       includesLabel: 'What it includes',
       outLabel: 'What stays with you',
       fitLabel: 'When it fits',
-      prevFormat: 'Previous format',
-      nextFormat: 'Next format',
       contactCta: 'Get in touch',
       contactMessage: 'Interested in the "{title}" format.',
       items: [
