@@ -135,9 +135,9 @@ export const T = {
         }
       ],
       photoAlt: 'Пётр Федин',
-      cvLabel: 'Резюме — по запросу',
-      cvNote: 'Отправляю по согласованию',
-      cvShort: 'Резюме'
+      cvLabel: 'Запросить резюме',
+      cvShort: 'Резюме',
+      cvMessage: 'Просьба предоставить резюме.'
     },
     consulting: {
       title: 'Консалтинг',
@@ -311,6 +311,60 @@ export const T = {
         }
       ]
     },
+    roles: {
+      title: 'На какую роль претендую',
+      subtitle: 'Четыре направления, которые целиком закрывает мой опыт — с понятной зоной ответственности в каждом.',
+      more: 'Компетенции →',
+      competenciesLabel: 'Ключевые компетенции',
+      contactCta: 'Связаться',
+      contactMessage: 'Интересует роль «{title}».',
+      items: [
+        { n: '01', title: 'Директор по закупкам и аналитике', term: 'Закупка, ассортимент, аналитика',
+          body: 'Закупка и ассортимент как управляемая система: бюджет, прогноз спроса, аналитика и отчётность — один контур принятия решений, а не разрозненные задачи.',
+          competencies: [
+            'Бюджет закупки и лимиты по брендам, категориям и каналам',
+            'Ассортиментная матрица, размерная сетка, глубина и ширина коллекции',
+            'Прогноз спроса и пересчёт по факту продаж и остаткам',
+            'BI-контур от бюджета до рентабельности отдельной позиции',
+            'Наём, развитие и управление аналитической командой',
+            'Управленческая отчётность для собственника и совета'
+          ]
+        },
+        { n: '02', title: 'Директор по продукту и производству', term: 'Продукт, себестоимость, поставщики',
+          body: 'Путь от эскиза до отгрузки под одним управлением: себестоимость, спецификации, контроль качества и сроки поставщиков — без разрывов между отделами.',
+          competencies: [
+            'Экономика заказа и реальная себестоимость изделия',
+            'Спецификации, техпакеты, образцы и версии согласований',
+            'Размещение заказа, производственные мощности и сроки поставщиков',
+            'Аудит поставщиков и альтернативные площадки производства',
+            'Контроль качества и приёмка партий',
+            'Связка продуктовых данных с продажами и запасом'
+          ]
+        },
+        { n: '03', title: 'Коммерческий директор', term: 'Рынок, каналы, выручка',
+          body: 'Коммерческая модель бизнеса целиком: рынок, каналы продаж, ценообразование и экономика сделки — решения, посчитанные до того, как стали обязательством.',
+          competencies: [
+            'Оценка рынка, конкурентной среды и географии роста',
+            'Модель входа: ассортимент, цена, канал, партнёр',
+            'Розница, интернет-магазин, опт и маркетплейсы',
+            'Финансовая модель: прибыль, денежный поток, оборотный капитал',
+            'Переговоры с инвестором, банком или партнёром по сделке',
+            'Оценка готовности бизнеса к сделке или выходу на новый рынок'
+          ]
+        },
+        { n: '04', title: 'Генеральный директор', term: 'Управление, кризис, рост',
+          body: 'Управляемость бизнеса целиком — от ликвидности и приоритетов до команды и роста: возврат контроля, когда решения запаздывают, и его удержание, когда бизнес снова растёт.',
+          competencies: [
+            'Кассовый календарь и управление ликвидностью',
+            'Приоритеты: что останавливаем, что финансируем, что ускоряем',
+            'Процессы, роли и права решений во всей компании',
+            'Координация функций: закупка, финансы, производство, розница',
+            'Сложные переговоры с поставщиками, банками и партнёрами',
+            'Короткий цикл план → факт → действие'
+          ]
+        }
+      ]
+    },
     media: {
       title: 'Публикации и выступления',
       subtitle: 'Где меня цитируют и о чём спрашивают.',
@@ -366,6 +420,9 @@ export const T = {
       subtitle: 'Напишите, какой проект интересен и в каком формате — работа в системе, партнёрство, инвестиции или консалтинг.',
       name: 'Имя',
       contact: 'Email или Telegram',
+      entityLabel: 'Пишу как юридическое лицо',
+      entityName: 'Название организации (по желанию)',
+      entityInn: 'ИНН (по желанию)',
       topic: 'Тема',
       topics: { consulting: 'Консалтинг', investors: 'Инвестиции', syntha: 'Syntha', renova: 'Renova', chatx: 'ChatX', press: 'Пресса и комментарий', event: 'Выступление или участие в мероприятии', other: 'Другое' },
       topicOther: 'Напишите тему',
@@ -592,9 +649,9 @@ export const T = {
           results: ['Payments organised into a cash calendar weeks ahead', 'An agreed and executed list of what gets stopped', 'Decision rights written down — arguments about authority ended', 'The plan — actual — action cycle shortened to a week', 'Decisions taken in the meeting rather than in chat', 'A defined criterion for leaving turnaround mode'] }
       ],
       photoAlt: 'Petr Fedin',
-      cvLabel: 'CV — on request',
-      cvNote: 'Sent by agreement',
-      cvShort: 'CV'
+      cvLabel: 'Request CV',
+      cvShort: 'CV',
+      cvMessage: 'Please provide the CV.'
     },
     consulting: {
       title: 'Advisory',
@@ -704,6 +761,60 @@ export const T = {
         }
       ]
     },
+    roles: {
+      title: 'Roles I could take on',
+      subtitle: 'Four directions my experience covers in full, each with a clear scope of responsibility.',
+      more: 'Competencies →',
+      competenciesLabel: 'Key competencies',
+      contactCta: 'Get in touch',
+      contactMessage: 'Interested in the "{title}" role.',
+      items: [
+        { n: '01', title: 'Head of Buying & Analytics', term: 'Buying, assortment, analytics',
+          body: 'Buying and assortment as one managed system: budget, demand forecast, analytics and reporting in a single decision loop.',
+          competencies: [
+            'Open-to-buy and limits by brand, category and channel',
+            'Assortment matrix, size curves, depth and width',
+            'Demand forecast recalculated from actual sales and stock',
+            'A BI loop from budget to single-item profitability',
+            'Hiring, developing and managing an analytics team',
+            'Management reporting for the owner and the board'
+          ]
+        },
+        { n: '02', title: 'Head of Product & Production', term: 'Product, cost, suppliers',
+          body: 'The path from sketch to shipment under one management: cost, specifications, quality control and supplier lead times, with no gaps between teams.',
+          competencies: [
+            'Order economics and true item cost',
+            'Specifications, tech packs, samples and version control',
+            'Order placement, supplier capacity and lead times',
+            'Supplier audits and alternative sourcing',
+            'Quality control and batch acceptance',
+            'Product data linked to sales and inventory'
+          ]
+        },
+        { n: '03', title: 'Commercial Director', term: 'Market, channels, revenue',
+          body: 'The whole commercial model: market, sales channels, pricing and deal economics — calculated before they become a commitment.',
+          competencies: [
+            'Market, competitive landscape and growth geography',
+            'Entry model: assortment, pricing, channel, partner',
+            'Retail, e-commerce, wholesale and marketplaces',
+            'Financial model: profit, cash flow, working capital',
+            'Negotiations with an investor, bank or deal partner',
+            'Readiness assessment for a deal or a new market'
+          ]
+        },
+        { n: '04', title: 'CEO', term: 'Management, turnaround, growth',
+          body: 'Control over the whole business — from liquidity and priorities to team and growth: restoring control when decisions run late, and keeping it once the business grows again.',
+          competencies: [
+            'Cash calendar and liquidity management',
+            'Priorities: what to stop, fund or accelerate',
+            'Processes, roles and decision rights company-wide',
+            'Cross-function coordination: buying, finance, production, retail',
+            'Complex negotiations with suppliers, banks and partners',
+            'A short plan → actual → action cycle'
+          ]
+        }
+      ]
+    },
     media: {
       title: 'Press and speaking',
       subtitle: 'Where I am quoted and what I am asked about.',
@@ -743,6 +854,9 @@ export const T = {
       subtitle: 'Tell me which project interests you and in what format — using the system, partnership, investment or advisory.',
       name: 'Name',
       contact: 'Email or Telegram',
+      entityLabel: 'Writing on behalf of a company',
+      entityName: 'Company name (optional)',
+      entityInn: 'Tax ID (optional)',
       topic: 'Topic',
       topics: { consulting: 'Advisory', investors: 'Investment', syntha: 'Syntha', renova: 'Renova', chatx: 'ChatX', press: 'Press and comment', event: 'Speaking or event participation', other: 'Other' },
       topicOther: 'Describe the topic',

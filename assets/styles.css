@@ -429,7 +429,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
   font:inherit; font-size:13px; color:var(--accent); text-decoration:underline; text-underline-offset:2px;
 }
 .cv-row-link:hover{color:var(--ink)}
-.cv-row-note{color:var(--muted)}
+.roles{max-width:var(--maxw); margin:0 auto; padding:6px 16px 26px}
 
 /* ---------- лента новостей ---------- */
 .news-filters{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px}

@@ -139,7 +139,16 @@ function render() {
       <b>${f.n}</b><span>${f.l}</span><span class="fact-more">${t.formats.more}</span>
     </button></li>`).join('');
   $('#cv-row-link').textContent = t.hero.cvLabel;
-  $('#cv-row-note').textContent = `· ${t.hero.cvNote}`;
+  $('#roles').innerHTML = `
+    <div class="formats-head"><h3>${t.roles.title}</h3><p class="sub">${t.roles.subtitle}</p></div>
+    <div class="formats-grid snap">${t.roles.items.map((r) => `
+      <article class="format" data-role="${r.n}">
+        <span class="svc-n">${r.n}</span>
+        <h4>${r.title}</h4>
+        <span class="format-term">${r.term}</span>
+        <p>${r.body}</p>
+        <span class="format-more">${t.roles.more}</span>
+      </article>`).join('')}</div>`;
   $('#cta-consulting').textContent = t.hero.ctaConsulting;
   $('#cta-projects').textContent = t.hero.ctaProjects;
   $('#cta-feed').textContent = t.hero.ctaFeed;
@@ -186,12 +195,12 @@ function render() {
         <button class="btn btn-sm" type="button" data-copy="bio-short">${t.press.copy}</button></div>
       <div class="press-item"><h4>${t.press.longLabel}</h4><p id="bio-long">${t.press.long}</p>
         <button class="btn btn-sm" type="button" data-copy="bio-long">${t.press.copy}</button></div>
+      <div class="press-item"><h4>${t.press.photoLabel}</h4>
+        <a class="btn btn-sm" href="/assets/photo/petr-formal.jpg" download>${t.press.photoBtn}</a></div>
     </div>
     <div class="press-side">
       <h4>${t.press.topicsLabel}</h4>
       <ul>${t.press.topics.map((x) => `<li>${x}</li>`).join('')}</ul>
-      <h4>${t.press.photoLabel}</h4>
-      <a class="btn btn-sm" href="/assets/photo/petr-formal.jpg" download>${t.press.photoBtn}</a>
     </div>`;
 
   $('#consent-text').textContent = t.contact.consent;
@@ -1107,9 +1116,32 @@ function renderFormat(n) {
   return true;
 }
 
+function renderRole(n) {
+  const t = T[lang];
+  const items = t.roles.items;
+  const idx = items.findIndex((x) => x.n === n);
+  const r = items[idx];
+  if (!r) return false;
+  infoModal.dataset.view = `role-${n}`;
+  $('#cv-title').textContent = r.title;
+  $('#cv-note').textContent = r.body;
+  const prev = items[(idx - 1 + items.length) % items.length];
+  const next = items[(idx + 1) % items.length];
+  $('#cv-body').innerHTML =
+    `<p class="info-term">${r.term}</p>` +
+    list(t.roles.competenciesLabel, r.competencies) +
+    `<div class="format-nav">
+       <button type="button" class="btn btn-sm" data-role-nav="${prev.n}">← ${prev.title}</button>
+       <button type="button" class="btn btn-sm" data-role-nav="${next.n}">${next.title} →</button>
+     </div>
+     <button type="button" class="btn btn-primary format-contact" data-role-contact="${r.n}">${t.roles.contactCta}</button>`;
+  return true;
+}
+
 function showInfo(hash) {
   const ok = hash.startsWith('area-') ? renderArea(hash.slice(5))
-           : hash.startsWith('format-') ? renderFormat(hash.slice(7)) : false;
+           : hash.startsWith('format-') ? renderFormat(hash.slice(7))
+           : hash.startsWith('role-') ? renderRole(hash.slice(5)) : false;
   if (!ok) return false;
   if (!infoModal.open) infoModal.showModal();
   infoModal.querySelector('.modal-body').scrollTop = 0;
@@ -1124,19 +1156,28 @@ $('#formats').addEventListener('click', (e) => {
   const b = e.target.closest('[data-format]');
   if (b) go(`format-${b.dataset.format}`);
 });
+$('#roles').addEventListener('click', (e) => {
+  const b = e.target.closest('[data-role]');
+  if (b) go(`role-${b.dataset.role}`);
+});
 $('#cv-close').addEventListener('click', () => leave());
 infoModal.addEventListener('click', (e) => { if (e.target === infoModal) leave(); });
 $('#cv-body').addEventListener('click', (e) => {
   const nav = e.target.closest('[data-format-nav]');
   if (nav) return go(`format-${nav.dataset.formatNav}`);
+  const roleNav = e.target.closest('[data-role-nav]');
+  if (roleNav) return go(`role-${roleNav.dataset.roleNav}`);
   const contact = e.target.closest('[data-format-contact]');
-  if (contact) {
+  const roleContact = e.target.closest('[data-role-contact]');
+  if (contact || roleContact) {
     const t = T[lang];
-    const f = t.formats.items.find((x) => x.n === contact.dataset.formatContact);
+    const group = contact ? t.formats : t.roles;
+    const key = contact ? contact.dataset.formatContact : roleContact.dataset.roleContact;
+    const f = group.items.find((x) => x.n === key);
     $('#topic').value = 'consulting';
     const msgEl = $('#form [name="message"]');
     if (msgEl && !msgEl.value.trim() && f) {
-      msgEl.value = t.formats.contactMessage.replace('{title}', f.title);
+      msgEl.value = group.contactMessage.replace('{title}', f.title);
     }
     syncSubmit?.();
     leave();
@@ -1208,6 +1249,9 @@ $('#cv-row-link').addEventListener('click', () => {
   $('#topic').value = 'other';
   $('#topic-other').value = t.hero.cvShort;
   syncTopicOther();
+  const msgEl = $('#form [name="message"]');
+  if (msgEl && !msgEl.value.trim()) msgEl.value = t.hero.cvMessage;
+  syncSubmit?.();
   $('#contact').scrollIntoView({ behavior: 'smooth' });
   setTimeout(() => $('#form [name="name"]').focus(), 400);
 });
@@ -1241,7 +1285,7 @@ function applyHash() {
     if (openPostModal(date)) return;
     return closeModals();
   }
-  if (h.startsWith('area-') || h.startsWith('format-')) { if (showInfo(h)) return; }
+  if (h.startsWith('area-') || h.startsWith('format-') || h.startsWith('role-')) { if (showInfo(h)) return; }
   if (h.endsWith('-news')) {
     const nid = h.slice(0, -'-news'.length);
     if (PROJECTS.some((p) => p.id === nid)) return openProjectNews(nid);
@@ -1314,6 +1358,16 @@ function syncTopicOther() {
 }
 $('#topic').addEventListener('change', syncTopicOther);
 syncTopicOther();
+
+/* «Пишу как юридическое лицо» — раскрывает необязательные поля названия и ИНН. */
+function syncEntityFields() {
+  const isEntity = $('#entity-toggle').checked;
+  $('#entity-name-field').hidden = !isEntity;
+  $('#entity-inn-field').hidden = !isEntity;
+  if (!isEntity) { $('#entity-name').value = ''; $('#entity-inn').value = ''; }
+}
+$('#entity-toggle').addEventListener('change', syncEntityFields);
+syncEntityFields();
 
 /* Персона-чипы у формы: подставляют тему и переводят фокус на имя,
    чтобы заявка сразу приходила размеченной. */

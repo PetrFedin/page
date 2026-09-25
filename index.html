@@ -88,8 +88,8 @@
     <ul class="facts-bar" id="facts-bar"></ul>
     <p class="cv-row">
       <button type="button" class="cv-row-link" id="cv-row-link"></button>
-      <span class="cv-row-note" id="cv-row-note"></span>
     </p>
+    <div class="roles" id="roles"></div>
   </section>
 
   <section class="section" id="consulting">
@@ -143,6 +143,18 @@
         <label class="field">
           <span data-f="contact"></span>
           <input name="contact" type="text" autocomplete="email" required>
+        </label>
+        <label class="consent entity-toggle">
+          <input type="checkbox" id="entity-toggle" name="isEntity">
+          <span data-f="entityLabel"></span>
+        </label>
+        <label class="field entity-field" id="entity-name-field" hidden>
+          <span data-f="entityName"></span>
+          <input name="entityName" id="entity-name" type="text" autocomplete="organization">
+        </label>
+        <label class="field entity-field" id="entity-inn-field" hidden>
+          <span data-f="entityInn"></span>
+          <input name="entityInn" id="entity-inn" type="text" autocomplete="off" inputmode="numeric">
         </label>
         <label class="field">
           <span data-f="topic"></span>
