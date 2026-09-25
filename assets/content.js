@@ -233,7 +233,7 @@ export const T = {
           ],
           fit: 'Подходит, когда есть ощущение, что деньги теряются, но непонятно где.'
         },
-        { n: '02', title: 'Советник собственника', term: 'проектно, от 2 месяцев',
+        { n: '02', title: 'Советник собственника', term: 'сопровождение, от 2 месяцев',
           body: 'Сопровождаю решения по закупке, ассортименту, каналам и капиталу в рабочем цикле компании.',
           out: 'На выходе: правила решений, показатели и регулярный контроль план–факт внутри команды.',
           lead: 'Регулярное сопровождение решений внутри вашего рабочего цикла — без вхождения в штат.',
@@ -257,7 +257,7 @@ export const T = {
           ],
           fit: 'Подходит, когда решения принимаются, но каждый раз заново и на ощупь.'
         },
-        { n: '03', title: 'Руководство программой', term: 'проектно',
+        { n: '03', title: 'Руководство программой', term: 'проектно, от 3 месяцев',
           body: 'Беру на себя приоритеты, координацию функций и сложные переговоры, когда бизнес теряет управляемость.',
           out: 'На выходе: восстановленная управляемость, закреплённая ответственность и возврат к росту.',
           lead: 'Принимаю на себя управление программой, когда бизнес теряет управляемость и решения запаздывают.',
@@ -309,8 +309,8 @@ export const T = {
       ]
     },
     roles: {
-      introLabel: 'Ищу позицию',
-      hubTitle: 'Роли, на которые претендую',
+      introLabel: 'Открыт к предложениям',
+      hubTitle: 'Роли, которые готов рассмотреть',
       hubNote: 'Три направления — откройте каждое, чтобы увидеть компетенции и зону ответственности.',
       competenciesLabel: 'Ключевые компетенции',
       whyFitLabel: 'Почему подхожу',
@@ -733,7 +733,7 @@ export const T = {
           out: ['A prioritised map of problems with the price of each', 'The calculations as a file that stays with you', 'An action plan for the coming season with owners'],
           fit: 'For when it feels like money is leaking but it is unclear where.'
         },
-        { n: '02', title: 'Owner advisor', term: 'project-based, from 2 months',
+        { n: '02', title: 'Owner advisor', term: 'ongoing, from 2 months',
           body: 'I support decisions on buying, assortment, channels and capital inside your working cycle.',
           out: 'Output: decision rules, metrics and a regular plan-versus-actual review inside the team.',
           lead: 'Regular support for decisions inside your own working cycle — without joining the payroll.',
@@ -742,7 +742,7 @@ export const T = {
           out: ['Decision rules that work without me', 'Metrics and regular control inside the team', 'A trained team rather than dependence on an outside expert'],
           fit: 'For when decisions get made, but from scratch and by feel every time.'
         },
-        { n: '03', title: 'Programme lead', term: 'project-based',
+        { n: '03', title: 'Programme lead', term: 'project-based, from 3 months',
           body: 'I take on priorities, cross-function coordination and difficult negotiations when the business loses control.',
           out: 'Output: restored manageability, assigned accountability and a return to growth.',
           lead: 'I take over the programme when the business loses control and decisions come too late.',
@@ -762,8 +762,8 @@ export const T = {
       ]
     },
     roles: {
-      introLabel: 'Roles I could take on',
-      hubTitle: 'Roles I could take on',
+      introLabel: 'Open to offers',
+      hubTitle: 'Roles I would consider',
       hubNote: 'Three directions — open each to see the competencies and scope of responsibility.',
       competenciesLabel: 'Key competencies',
       whyFitLabel: 'Why I fit',
