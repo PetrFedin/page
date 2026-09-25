@@ -139,16 +139,9 @@ function render() {
       <b>${f.n}</b><span>${f.l}</span><span class="fact-more">${t.formats.more}</span>
     </button></li>`).join('');
   $('#cv-row-link').textContent = t.hero.cvLabel;
-  $('#roles').innerHTML = `
-    <div class="formats-head"><h3>${t.roles.title}</h3><p class="sub">${t.roles.subtitle}</p></div>
-    <div class="formats-grid snap">${t.roles.items.map((r) => `
-      <article class="format" data-role="${r.n}">
-        <span class="svc-n">${r.n}</span>
-        <h4>${r.title}</h4>
-        <span class="format-term">${r.term}</span>
-        <p>${r.body}</p>
-        <span class="format-more">${t.roles.more}</span>
-      </article>`).join('')}</div>`;
+  $('#cv-row-roles').innerHTML = t.roles.items
+    .map((r) => `· <button type="button" class="cv-row-link" data-role="${r.n}">${r.title} (${r.abbr})</button>`)
+    .join(' ');
   $('#cta-consulting').textContent = t.hero.ctaConsulting;
   $('#cta-projects').textContent = t.hero.ctaProjects;
   $('#cta-feed').textContent = t.hero.ctaFeed;
@@ -1124,13 +1117,14 @@ function renderRole(n) {
   const r = items[idx];
   if (!r) return false;
   infoModal.dataset.view = `role-${n}`;
-  $('#cv-title').textContent = r.title;
+  $('#cv-title').textContent = `${r.title} (${r.abbr})`;
   $('#cv-note').textContent = r.body;
   const prev = items[(idx - 1 + items.length) % items.length];
   const next = items[(idx + 1) % items.length];
   $('#cv-body').innerHTML =
     `<p class="info-term">${r.term}</p>` +
     list(t.roles.competenciesLabel, r.competencies) +
+    (r.whyFit ? `<p class="info-fit"><b>${t.roles.whyFitLabel}</b>${r.whyFit}</p>` : '') +
     `<div class="format-nav">
        <button type="button" class="btn btn-sm" data-role-nav="${prev.n}">← ${prev.title}</button>
        <button type="button" class="btn btn-sm" data-role-nav="${next.n}">${next.title} →</button>
@@ -1157,7 +1151,7 @@ $('#formats').addEventListener('click', (e) => {
   const b = e.target.closest('[data-format]');
   if (b) go(`format-${b.dataset.format}`);
 });
-$('#roles').addEventListener('click', (e) => {
+$('#cv-row-roles').addEventListener('click', (e) => {
   const b = e.target.closest('[data-role]');
   if (b) go(`role-${b.dataset.role}`);
 });
@@ -1175,10 +1169,16 @@ $('#cv-body').addEventListener('click', (e) => {
     const group = contact ? t.formats : t.roles;
     const key = contact ? contact.dataset.formatContact : roleContact.dataset.roleContact;
     const f = group.items.find((x) => x.n === key);
-    $('#topic').value = 'consulting';
+    if (roleContact) {
+      $('#topic').value = 'other';
+      $('#topic-other').value = t.roles.contactTopicOther;
+      syncTopicOther();
+    } else {
+      $('#topic').value = 'consulting';
+    }
     const msgEl = $('#form [name="message"]');
     if (msgEl && !msgEl.value.trim() && f) {
-      msgEl.value = group.contactMessage.replace('{title}', f.title);
+      msgEl.value = group.contactMessage.replace('{title}', f.title).replace('{abbr}', f.abbr ?? '');
     }
     syncSubmit?.();
     leave();

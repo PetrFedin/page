@@ -309,56 +309,59 @@ export const T = {
       ]
     },
     roles: {
-      title: 'На какую роль претендую',
-      subtitle: 'Четыре направления, которые целиком закрывает мой опыт — с понятной зоной ответственности в каждом.',
-      more: 'Компетенции →',
       competenciesLabel: 'Ключевые компетенции',
+      whyFitLabel: 'Почему подхожу',
       contactCta: 'Связаться',
-      contactMessage: 'Интересует роль «{title}».',
+      contactMessage: 'Интересует роль «{title}» ({abbr}).',
+      contactTopicOther: 'HR',
       items: [
-        { n: '01', title: 'Директор по закупкам и аналитике', term: 'Закупка, ассортимент, аналитика',
+        { n: '01', title: 'Коммерческий директор', abbr: 'CCO', term: 'Рынок, каналы, выручка, экономика сделки',
+          body: 'Коммерческая модель бизнеса целиком: рынок, каналы продаж, ценообразование и экономика сделки — решения, посчитанные до того, как стали обязательством.',
+          competencies: [
+            'Коммерческая стратегия и её защита перед советом директоров и инвестором',
+            'Оценка рынка, конкурентной среды и географии роста',
+            'Модель входа на рынок: ассортимент, цена, канал, партнёр',
+            'P&L по каналам: розница, интернет-магазин, опт, маркетплейсы',
+            'Ценообразование и управление наценкой по категориям и каналам',
+            'Финансовая модель: выручка, маржа, денежный поток, оборотный капитал',
+            'Переговоры с инвестором, банком или партнёром по сделке — от питча до закрытия',
+            'Координация коммерции с закупкой и производством в единой экономике',
+            'Постановка коммерческих KPI и контроль их исполнения',
+            'Оценка готовности бизнеса к сделке или выходу на новый рынок'
+          ],
+          whyFit: 'В практике уже реализовано: финансовые модели выхода на новые рынки, оценка бизнеса перед сделками и переговорами с инвестором, закупка, каналы и капитал — как одна система, а не отдельные отделы. Это и есть ежедневная работа коммерческого директора.'
+        },
+        { n: '02', title: 'Генеральный директор', abbr: 'CEO', term: 'Управление бизнесом, кризис, рост',
+          body: 'Управляемость бизнеса целиком — от ликвидности и приоритетов до команды и роста: возврат контроля, когда решения запаздывают, и его удержание, когда бизнес снова растёт.',
+          competencies: [
+            'Кассовый календарь и управление ликвидностью всей компании',
+            'Приоритеты: что останавливаем, что финансируем, что ускоряем',
+            'Процессы, роли и права решений во всей организации',
+            'Координация функций: закупка, финансы, производство, розница, аналитика',
+            'Сложные переговоры с поставщиками, банками и партнёрами',
+            'Короткий цикл план → факт → действие на уровне всей компании',
+            'Формирование управленческой команды и делегирование полномочий',
+            'Отчётность и коммуникация перед советом директоров и собственником',
+            'Решения о новых рынках, продуктах и капитале — по расчёту, а не на ощущение',
+            'Ответственность за P&L компании целиком, а не отдельной функции'
+          ],
+          whyFit: 'Стабилизировал управляемость бизнеса не один раз — от кассового календаря и приоритетов до возврата к росту, с полной ответственностью перед собственником. Это ядро роли генерального директора, а не разовый проект.'
+        },
+        { n: '03', title: 'Директор по закупкам и аналитике', abbr: 'CDO', term: 'Закупка, ассортимент, данные',
           body: 'Закупка и ассортимент как управляемая система: бюджет, прогноз спроса, аналитика и отчётность — один контур принятия решений, а не разрозненные задачи.',
           competencies: [
             'Бюджет закупки и лимиты по брендам, категориям и каналам',
             'Ассортиментная матрица, размерная сетка, глубина и ширина коллекции',
             'Прогноз спроса и пересчёт по факту продаж и остаткам',
             'BI-контур от бюджета до рентабельности отдельной позиции',
+            'Архитектура данных и единая модель показателей для всей компании',
+            'Управленческая отчётность для собственника и совета — от 2–3 дней до 10 минут',
             'Наём, развитие и управление аналитической командой',
-            'Управленческая отчётность для собственника и совета'
-          ]
-        },
-        { n: '02', title: 'Директор по продукту и производству', term: 'Продукт, себестоимость, поставщики',
-          body: 'Путь от эскиза до отгрузки под одним управлением: себестоимость, спецификации, контроль качества и сроки поставщиков — без разрывов между отделами.',
-          competencies: [
-            'Экономика заказа и реальная себестоимость изделия',
-            'Спецификации, техпакеты, образцы и версии согласований',
-            'Размещение заказа, производственные мощности и сроки поставщиков',
-            'Аудит поставщиков и альтернативные площадки производства',
-            'Контроль качества и приёмка партий',
-            'Связка продуктовых данных с продажами и запасом'
-          ]
-        },
-        { n: '03', title: 'Коммерческий директор', term: 'Рынок, каналы, выручка',
-          body: 'Коммерческая модель бизнеса целиком: рынок, каналы продаж, ценообразование и экономика сделки — решения, посчитанные до того, как стали обязательством.',
-          competencies: [
-            'Оценка рынка, конкурентной среды и географии роста',
-            'Модель входа: ассортимент, цена, канал, партнёр',
-            'Розница, интернет-магазин, опт и маркетплейсы',
-            'Финансовая модель: прибыль, денежный поток, оборотный капитал',
-            'Переговоры с инвестором, банком или партнёром по сделке',
-            'Оценка готовности бизнеса к сделке или выходу на новый рынок'
-          ]
-        },
-        { n: '04', title: 'Генеральный директор', term: 'Управление, кризис, рост',
-          body: 'Управляемость бизнеса целиком — от ликвидности и приоритетов до команды и роста: возврат контроля, когда решения запаздывают, и его удержание, когда бизнес снова растёт.',
-          competencies: [
-            'Кассовый календарь и управление ликвидностью',
-            'Приоритеты: что останавливаем, что финансируем, что ускоряем',
-            'Процессы, роли и права решений во всей компании',
-            'Координация функций: закупка, финансы, производство, розница',
-            'Сложные переговоры с поставщиками, банками и партнёрами',
-            'Короткий цикл план → факт → действие'
-          ]
+            'Переход от разрозненных таблиц к системе и регулярному управлению',
+            'Приоритизация инициатив по эффекту: что даёт быструю отдачу, а что требует перестройки',
+            'Связь продуктовых, коммерческих и складских данных в одной модели'
+          ],
+          whyFit: 'Построил BI-контур с нуля, перевёл закупку на регулярный пересчёт по факту продаж, обучил и вырастил аналитическую команду до уровня Senior. Это ровно то, что требуется от директора по закупкам и аналитике.'
         }
       ]
     },
@@ -756,56 +759,59 @@ export const T = {
       ]
     },
     roles: {
-      title: 'Roles I could take on',
-      subtitle: 'Four directions my experience covers in full, each with a clear scope of responsibility.',
-      more: 'Competencies →',
       competenciesLabel: 'Key competencies',
+      whyFitLabel: 'Why I fit',
       contactCta: 'Get in touch',
-      contactMessage: 'Interested in the "{title}" role.',
+      contactMessage: 'Interested in the "{title}" role ({abbr}).',
+      contactTopicOther: 'HR',
       items: [
-        { n: '01', title: 'Head of Buying & Analytics', term: 'Buying, assortment, analytics',
+        { n: '01', title: 'Commercial Director', abbr: 'CCO', term: 'Market, channels, revenue, deal economics',
+          body: 'The whole commercial model: market, sales channels, pricing and deal economics — calculated before they become a commitment.',
+          competencies: [
+            'Commercial strategy and defending it to the board and investors',
+            'Market, competitive landscape and growth geography assessment',
+            'Market entry model: assortment, pricing, channel, partner',
+            'P&L by channel: retail, e-commerce, wholesale, marketplaces',
+            'Pricing and margin management by category and channel',
+            'Financial model: revenue, margin, cash flow, working capital',
+            'Negotiations with an investor, bank or deal partner — from pitch to close',
+            'Aligning commerce with buying and production in one economic model',
+            'Setting commercial KPIs and tracking execution',
+            'Readiness assessment for a deal or a new market'
+          ],
+          whyFit: 'Already delivered in practice: market-entry financial models, deal-readiness assessments and investor negotiations, buying, channels and capital run as one system rather than separate departments. That is the day-to-day of a commercial director.'
+        },
+        { n: '02', title: 'Chief Executive Officer', abbr: 'CEO', term: 'Running the business, turnaround, growth',
+          body: 'Control over the whole business — from liquidity and priorities to team and growth: restoring control when decisions run late, and keeping it once the business grows again.',
+          competencies: [
+            'Cash calendar and liquidity management for the whole company',
+            'Priorities: what to stop, fund or accelerate',
+            'Processes, roles and decision rights company-wide',
+            'Cross-function coordination: buying, finance, production, retail, analytics',
+            'Complex negotiations with suppliers, banks and partners',
+            'A short plan → actual → action cycle at company level',
+            'Building a management team and delegating authority',
+            'Reporting and communication to the board and the owner',
+            'Decisions on new markets, products and capital — by calculation, not by feel',
+            'Ownership of the company P&L as a whole, not a single function'
+          ],
+          whyFit: 'Restored business control more than once — from a cash calendar and priorities to a return to growth, with full accountability to the owner. That is the core of the CEO role, not a one-off project.'
+        },
+        { n: '03', title: 'Head of Buying & Analytics', abbr: 'CDO', term: 'Buying, assortment, data',
           body: 'Buying and assortment as one managed system: budget, demand forecast, analytics and reporting in a single decision loop.',
           competencies: [
             'Open-to-buy and limits by brand, category and channel',
             'Assortment matrix, size curves, depth and width',
             'Demand forecast recalculated from actual sales and stock',
             'A BI loop from budget to single-item profitability',
+            'Data architecture and a single metrics model for the company',
+            'Management reporting for the owner and the board — from 2–3 days to 10 minutes',
             'Hiring, developing and managing an analytics team',
-            'Management reporting for the owner and the board'
-          ]
-        },
-        { n: '02', title: 'Head of Product & Production', term: 'Product, cost, suppliers',
-          body: 'The path from sketch to shipment under one management: cost, specifications, quality control and supplier lead times, with no gaps between teams.',
-          competencies: [
-            'Order economics and true item cost',
-            'Specifications, tech packs, samples and version control',
-            'Order placement, supplier capacity and lead times',
-            'Supplier audits and alternative sourcing',
-            'Quality control and batch acceptance',
-            'Product data linked to sales and inventory'
-          ]
-        },
-        { n: '03', title: 'Commercial Director', term: 'Market, channels, revenue',
-          body: 'The whole commercial model: market, sales channels, pricing and deal economics — calculated before they become a commitment.',
-          competencies: [
-            'Market, competitive landscape and growth geography',
-            'Entry model: assortment, pricing, channel, partner',
-            'Retail, e-commerce, wholesale and marketplaces',
-            'Financial model: profit, cash flow, working capital',
-            'Negotiations with an investor, bank or deal partner',
-            'Readiness assessment for a deal or a new market'
-          ]
-        },
-        { n: '04', title: 'CEO', term: 'Management, turnaround, growth',
-          body: 'Control over the whole business — from liquidity and priorities to team and growth: restoring control when decisions run late, and keeping it once the business grows again.',
-          competencies: [
-            'Cash calendar and liquidity management',
-            'Priorities: what to stop, fund or accelerate',
-            'Processes, roles and decision rights company-wide',
-            'Cross-function coordination: buying, finance, production, retail',
-            'Complex negotiations with suppliers, banks and partners',
-            'A short plan → actual → action cycle'
-          ]
+            'Moving from scattered spreadsheets to a system and regular management',
+            'Prioritising initiatives by impact: what pays off fast versus what needs rebuilding',
+            'Linking product, commercial and stock data in one model'
+          ],
+          whyFit: 'Built a BI loop from scratch, moved buying onto continuous recalculation from actual sales, hired and grew an analytics team to senior level. Exactly what is expected from a head of buying and analytics.'
         }
       ]
     },
