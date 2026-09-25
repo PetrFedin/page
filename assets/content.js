@@ -186,7 +186,7 @@ export const T = {
       viewer: { zoomIn: 'Увеличить', zoomOut: 'Уместить', prev: 'Предыдущий экран', next: 'Следующий экран' },
       status: { title: 'Текущая стадия проекта', done: 'Сделано', now: 'В работе', next: 'Дальше', seeking: 'Что ищем' },
       collabTitle: 'Как можно участвовать',
-      collabNote: 'Детали архитектуры и дорожную карту показываем предметно — при знакомстве и под соглашение о неразглашении.',
+      collabNote: 'Архитектуру и детали дорожной карты сверх того, что уже на сайте, показываем предметно — при знакомстве и под соглашение о неразглашении.',
       investorLabel: 'Инвесторам и партнёрам',
       compareBtn: 'Сравнение',
       compareTitle: 'Сравнение с альтернативами',
@@ -702,7 +702,7 @@ export const T = {
       viewer: { zoomIn: 'Zoom in', zoomOut: 'Fit to screen', prev: 'Previous screen', next: 'Next screen' },
       status: { title: 'Current stage', done: 'Done', now: 'In progress', next: 'Next', seeking: 'What we are looking for' },
       collabTitle: 'Ways to take part',
-      collabNote: 'Architecture details and the roadmap we show in person and under an NDA.',
+      collabNote: 'Architecture details and roadmap detail beyond what is already on the site are shared in person, under an NDA.',
       investorLabel: 'For investors and partners',
       compareBtn: 'Compare',
       compareTitle: 'Comparison with alternatives',
@@ -1067,7 +1067,7 @@ export const PROJECTS = [
         seeking: 'Бренды и магазины, готовые проработать систему и работать в ней, и партнёра по выходу на рынок.'
       },
       investor: { note: 'Рассматриваю разные форматы участия: долевые инвестиции, спонсорство, покупку бизнеса или доли, маркетинговое партнёрство, интеграцию с другими продуктами и бизнесами. Обсуждаю точечно — под конкретные метрики после пилота и понятный объём участия.' },
-      roadmap: [{ label: 'Прототип', state: 'done' }, { label: 'Пилот с брендом', state: 'current' }, { label: 'Публичный запуск', state: 'next' }],
+      roadmap: [{ label: 'Прототип', state: 'done' }, { label: 'В разработке', state: 'current' }, { label: 'Пилот и запуск', state: 'next' }],
       tagline: 'Операционная система фэшн-бренда',
       stage: 'В разработке',
       card: 'Бренды, магазины, байеры и дистрибьюторы работают в одной системе: продукт, шоурум, заказы, производство.',
@@ -1085,7 +1085,7 @@ export const PROJECTS = [
         seeking: 'Brands and retailers ready to shape the system and work in it, and a go-to-market partner.'
       },
       investor: { note: 'Open to different forms of participation: equity investment, sponsorship, buying the business or a stake, marketing partnerships, integration with other products and businesses. I discuss it case by case, once a pilot gives concrete metrics and a clear scope.' },
-      roadmap: [{ label: 'Prototype', state: 'done' }, { label: 'Pilot with a brand', state: 'current' }, { label: 'Public launch', state: 'next' }],
+      roadmap: [{ label: 'Prototype', state: 'done' }, { label: 'In development', state: 'current' }, { label: 'Pilot and launch', state: 'next' }],
       tagline: 'The operating platform for a fashion brand',
       stage: 'In development',
       card: 'Collections, a digital showroom, buyer orders and the production loop in one system.',
@@ -1110,7 +1110,7 @@ export const PROJECTS = [
         seeking: 'Компании, готовые перевести в него свою работу, и партнёра по внедрению.'
       },
       investor: { note: 'Рассматриваю разные форматы участия: долевые инвестиции, спонсорство, покупку бизнеса или доли, маркетинговое партнёрство, интеграцию с другими продуктами и бизнесами. Готов обсуждать это на стадии, когда продукт выходит на первый пилот.' },
-      roadmap: [{ label: 'Прототип', state: 'done' }, { label: 'Пилот в компании', state: 'current' }, { label: 'Публичный запуск', state: 'next' }],
+      roadmap: [{ label: 'Прототип', state: 'done' }, { label: 'Рабочий прототип', state: 'current' }, { label: 'Пилот и запуск', state: 'next' }],
       tagline: 'Мессенджер, который закрывает работу целиком',
       stage: 'Рабочий прототип',
       card: 'Переписка, звонки, задачи, календарь, файлы, встречи и оргструктура — весь рабочий контур компании.',
@@ -1128,7 +1128,7 @@ export const PROJECTS = [
         seeking: 'Companies ready to move their work into it, and an implementation partner.'
       },
       investor: { note: 'Open to different forms of participation: equity investment, sponsorship, buying the business or a stake, marketing partnerships, integration with other products and businesses. Happy to discuss it once the product reaches its first pilot.' },
-      roadmap: [{ label: 'Prototype', state: 'done' }, { label: 'Pilot inside a company', state: 'current' }, { label: 'Public launch', state: 'next' }],
+      roadmap: [{ label: 'Prototype', state: 'done' }, { label: 'Working prototype', state: 'current' }, { label: 'Pilot and launch', state: 'next' }],
       tagline: 'Corporate workspace',
       stage: 'Working prototype',
       card: 'Channels, tasks, calendar, files and calls in one loop — from conversation to outcome.',
@@ -1153,7 +1153,7 @@ export const PROJECTS = [
         seeking: 'Мастеров и бригады, а также заказчиков — готовых проработать приложение и вести на нём реальный объект.'
       },
       investor: { note: 'Рассматриваю разные форматы участия: долевые инвестиции, спонсорство, покупку бизнеса или доли, маркетинговое партнёрство, интеграцию с другими продуктами и бизнесами. К внешнему финансированию пока не готовился отдельно — открыт к разговору на стадии MVP.' },
-      roadmap: [{ label: 'MVP', state: 'done' }, { label: 'Закрытый тест', state: 'current' }, { label: 'Публичный запуск', state: 'next' }],
+      roadmap: [{ label: 'MVP', state: 'done' }, { label: 'Подготовка к запуску', state: 'current' }, { label: 'Закрытый тест и запуск', state: 'next' }],
       tagline: 'Ремонт под контролем',
       stage: 'MVP, подготовка к запуску',
       card: 'Заказчик ведёт весь ход работ, видит деньги и сроки и решает все вопросы с мастерами в одном месте.',
@@ -1171,7 +1171,7 @@ export const PROJECTS = [
         seeking: 'Contractors and crews, and clients too — ready to shape the app and run a real project on it.'
       },
       investor: { note: 'Open to different forms of participation: equity investment, sponsorship, buying the business or a stake, marketing partnerships, integration with other products and businesses. Have not actively sought outside financing yet — open to a conversation at the MVP stage.' },
-      roadmap: [{ label: 'MVP', state: 'done' }, { label: 'Closed test', state: 'current' }, { label: 'Public launch', state: 'next' }],
+      roadmap: [{ label: 'MVP', state: 'done' }, { label: 'Preparing to launch', state: 'current' }, { label: 'Closed test and launch', state: 'next' }],
       tagline: 'Renovation that runs on numbers',
       stage: 'MVP, preparing for launch',
       card: 'An app that answers, at any point: how much has been spent, what is happening now, and what comes next.',
