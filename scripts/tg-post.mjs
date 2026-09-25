@@ -84,7 +84,8 @@ function format(post, lang, env) {
   const c = post.tg?.[lang] ?? post[lang];
   const parts = [`<b>${esc(c.title)}</b>`, '', esc(c.body)];
   /* Теги идут отдельной строкой: по ним пост ищется в канале. */
-  if (post.tags?.length) parts.push('', post.tags.map((t) => `#${esc(t)}`).join(' '));
+  const tags = c.tags ?? post.ru.tags;
+  if (tags?.length) parts.push('', tags.map((t) => `#${esc(t)}`).join(' '));
   if (env.SITE_URL) parts.push('', `<a href="${env.SITE_URL}/#news">${esc(env.SITE_URL.replace(/^https?:\/\//, ''))}</a>`);
   return parts.join('\n');
 }

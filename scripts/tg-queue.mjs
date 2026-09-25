@@ -82,7 +82,8 @@ if (!post) {
 
 const c = post.tg?.ru ?? post.ru;
 /* Теги отдельной строкой: по ним пост потом находится в канале. */
-const tags = post.tags?.length ? `\n\n${post.tags.map((t) => `#${esc(t)}`).join(' ')}` : '';
+const postTags = c.tags ?? post.ru.tags;
+const tags = postTags?.length ? `\n\n${postTags.map((t) => `#${esc(t)}`).join(' ')}` : '';
 const text = `<b>${esc(c.title)}</b>\n\n${esc(c.body)}${tags}`;
 
 if (has('--dry-run')) {
