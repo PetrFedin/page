@@ -840,6 +840,7 @@ function renderNews() {
           </svg>
         </button>
       </div>
+      ${p.images?.length ? `<img class="post-cover" src="${p.images[0]}" alt="" loading="lazy">` : ''}
       <h3>${postText(p).title}</h3>
       ${p.source?.outlet ? `<p class="post-outlet">${p.source.outlet}</p>` : ''}
       <p>${text}</p>
@@ -905,6 +906,12 @@ function openPostModal(date) {
     }
     outletEl.hidden = false;
   } else outletEl.hidden = true;
+
+  const imagesEl = $('#post-modal-images');
+  if (p.images?.length) {
+    imagesEl.innerHTML = p.images.map((src) => `<img src="${src}" alt="" loading="lazy">`).join('');
+    imagesEl.hidden = false;
+  } else imagesEl.hidden = true;
 
   /* Справка: о каком бренде/компании материал — не подменяет «О чём материал». */
   const subjectEl = $('#post-modal-subject');
