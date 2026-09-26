@@ -378,7 +378,7 @@ export const T = {
       title: 'Для прессы и организаторов',
       subtitle: 'Всё, что нужно для программы мероприятия или комментария, — без переписки.',
       shortLabel: 'Коротко',
-      short: 'Пётр Федин — эксперт по экономике и трансформации фэшн-бизнеса и основатель отраслевых IT-продуктов. Фокус: закупка, ассортимент, запас и капитал.',
+      short: 'Пётр Федин — эксперт по экономике и трансформации фэшн-бизнеса и основатель отраслевых IT-продуктов.',
       longLabel: 'Развёрнуто',
       long: 'Пётр Федин работает на стыке стратегии, коммерции, продукта, данных и капитала в фэшн-бизнесе. Многолетний управленческий опыт в крупной мультибрендовой рознице: бюджет закупки, ассортиментная матрица, прогноз спроса, маржа и оборачиваемость. Ведёт проекты операционной диагностики, стратегии роста и стабилизации управления, а также развивает собственные продукты для отрасли.',
       topicsLabel: 'Темы для выступления и комментария',
@@ -830,7 +830,7 @@ export const T = {
     press: {
       title: 'For press and event organisers',
       subtitle: 'Everything needed for a programme or a comment — without an email exchange.',
-      shortLabel: 'Short', short: 'Petr Fedin is an expert in fashion business economics and transformation and the founder of industry IT products. Focus: buying, assortment, inventory and capital.',
+      shortLabel: 'Short', short: 'Petr Fedin is an expert in fashion business economics and transformation and the founder of industry IT products.',
       longLabel: 'Full', long: 'Petr Fedin works where strategy, commerce, product, data and capital meet in fashion. Years of management experience in large multi-brand retail: open-to-buy, assortment matrix, demand forecasting, margin and stock turn. He runs operational diagnostics, growth strategy and management turnaround projects, and builds his own products for the industry.',
       topicsLabel: 'Speaking and comment topics',
       topics: ['Buying economics and the return of capital', 'Budgeting and open-to-buy', 'Building analytics: from data to decisions', 'The metrics fashion retail actually runs on', 'Merchandise planning and inventory control', 'The retail cycle and working with the customer', 'Marketplaces and omnichannel selling', 'The Russian fashion market: what is changing', 'PLM and a brand\u2019s digital architecture', 'Managing through a crisis and returning to growth'],
