@@ -225,6 +225,19 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
   border:1px solid var(--line); background:var(--panel); color:var(--ink);
   display:flex; align-items:center; justify-content:center;
 }
+/* Ряд иконок в углу модалки (например у презентации: «Запросить резюме» + закрыть) —
+   тот же приём стики-позиционирования, что и у одиночной .modal-close. */
+.modal-icon-row{
+  position:sticky; top:8px; z-index:8; margin:0 4px -34px auto;
+  display:flex; justify-content:flex-end; gap:8px; width:fit-content;
+}
+.modal-icon-row .modal-close{position:static; margin:0}
+.modal-icon-btn{
+  width:34px; height:34px; border-radius:999px; cursor:pointer; flex:none;
+  border:1px solid var(--line); background:var(--panel); color:var(--ink);
+  display:flex; align-items:center; justify-content:center;
+}
+.modal-icon-btn:hover{border-color:var(--ink); color:var(--accent)}
 .modal-head{display:grid; gap:12px; justify-items:start; margin-bottom:24px; padding-right:40px}
 .roadmap{
   list-style:none; margin:4px 0 0; padding:0; display:flex; flex-wrap:wrap;
@@ -478,7 +491,9 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 .post-tag{
   font-size:11px; letter-spacing:.09em; text-transform:uppercase;
   color:var(--accent); background:var(--accent-soft); border-radius:999px; padding:4px 10px;
+  border:none; cursor:pointer; font:inherit; font-weight:inherit;
 }
+.post-tag:hover{background:var(--accent); color:#fff}
 .post h3{
   font-size:19px; line-height:1.25;
   display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;

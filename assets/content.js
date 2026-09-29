@@ -3,7 +3,7 @@
 export const T = {
   ru: {
     langName: 'RU',
-    nav: { consulting: 'Консалтинг', projects: 'Проекты', news: 'Лента', media: 'Публикации', contact: 'Связаться', toTop: 'Наверх' },
+    nav: { consulting: 'Консалтинг', projects: 'Проекты', news: 'Лента', media: 'Публикации', contact: 'Связаться', toTop: 'Наверх', close: 'Закрыть' },
     hero: {
       eyebrow: 'Фэшн-консалтинг и продуктовые проекты',
       name: 'Пётр Федин',
@@ -613,7 +613,7 @@ export const T = {
 
   en: {
     langName: 'EN',
-    nav: { consulting: 'Advisory', projects: 'Ventures', news: 'Feed', media: 'Press', contact: 'Contact', toTop: 'Back to top' },
+    nav: { consulting: 'Advisory', projects: 'Ventures', news: 'Feed', media: 'Press', contact: 'Contact', toTop: 'Back to top', close: 'Close' },
     hero: {
       eyebrow: 'Fashion advisory & product ventures',
       name: 'Petr Fedin',

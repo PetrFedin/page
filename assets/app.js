@@ -43,6 +43,21 @@ function makeTopButton(label, toTop) {
   return up;
 }
 
+/* Кнопка закрыть рядом со стрелкой «наверх» в липнущем заголовке раздела
+   внутри окна (например у презентации) — чтобы закрыть окно можно было
+   и не долистывая обратно к глобальному крестику вверху модалки. */
+function makeCloseButton(label, onClose) {
+  const x = document.createElement('button');
+  x.type = 'button';
+  x.className = 'to-top to-close';
+  x.setAttribute('aria-label', label);
+  x.title = label;
+  x.innerHTML = '<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">'
+    + '<path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.8" fill="none"/></svg>';
+  x.addEventListener('click', onClose);
+  return x;
+}
+
 function addTopButtons(label) {
   document.querySelectorAll('.section > .section-head > h2').forEach((h) => {
     if (h.querySelector('.to-top')) return;
@@ -831,7 +846,7 @@ function renderNews() {
     <li class="post" id="post-${p.date}" data-post="${p.date}">
       <div class="post-meta">
         <time datetime="${p.date}">${fmt.format(new Date(p.date))}</time>
-        <span class="post-tag">${t.tags[p.tag] ?? p.tag}</span>
+        <button type="button" class="post-tag" data-filter-tag="${p.tag}">${t.tags[p.tag] ?? p.tag}</button>
         ${p.images?.length ? `<img class="post-cover" src="${p.images[0]}" alt="" loading="lazy">` : ''}
         <button class="post-share" type="button" data-share="${p.date}" aria-label="${t.share}">
           <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
@@ -892,6 +907,7 @@ function openPostModal(date) {
   dateEl.textContent = fmt.format(new Date(p.date));
   dateEl.dateTime = p.date;
   $('#post-modal-tag').textContent = t.tags[p.tag] ?? p.tag;
+  $('#post-modal-tag').dataset.filterTag = p.tag;
   $('#post-modal-title').textContent = postText(p).title;
 
   /* Источник, автор и оригинальное название — под заголовком, у своих
@@ -947,6 +963,13 @@ function openPostModal(date) {
 }
 $('#post-close').addEventListener('click', () => leave());
 postModal.addEventListener('click', (e) => { if (e.target === postModal) leave(); });
+$('#post-modal-tag').addEventListener('click', () => {
+  newsFilter = $('#post-modal-tag').dataset.filterTag;
+  newsShown = 2;
+  leaveAll();
+  renderNews();
+  $('#news').scrollIntoView({ block: 'start' });
+});
 $('#post-modal-project').addEventListener('click', (e) => {
   const id = e.currentTarget.dataset.project;
   postModal.close(true);
@@ -1032,6 +1055,14 @@ function toast(text) {
 $('#feed').addEventListener('click', (e) => {
   const btn = e.target.closest('[data-share]');
   if (btn) return sharePost(btn.dataset.share);
+  const tagBtn = e.target.closest('[data-filter-tag]');
+  if (tagBtn) {
+    newsFilter = tagBtn.dataset.filterTag;
+    newsShown = 2;
+    renderNews();
+    $('#news').scrollIntoView({ block: 'start' });
+    return;
+  }
   const post = e.target.closest('[data-post]');
   if (post) go(`post-${post.dataset.post}`);
 });
@@ -1209,14 +1240,14 @@ $('#cv-body').addEventListener('click', (e) => {
       msgEl.value = group.contactMessage.replace('{title}', f.title).replace('{abbr}', f.abbr ?? '');
     }
     syncSubmit?.();
-    leave();
+    leaveAll();
     requestAnimationFrame(() => $('#contact').scrollIntoView({ behavior: 'smooth' }));
     setTimeout(() => $('#form [name="name"]').focus(), 400);
     return;
   }
   const roleCv = e.target.closest('[data-role-cv]');
   if (roleCv) {
-    leave();
+    leaveAll();
     requestAnimationFrame(() => requestCv());
   }
 });
@@ -1309,7 +1340,11 @@ function closeModals() {
 
 function applyHash() {
   const h = decodeURIComponent(location.hash.slice(1));
-  if (!h) return closeModals();
+  /* Закрываем всё, что уже открыто, прежде чем решать, что открыть дальше —
+     иначе прямой переход между хэшами разных модалок оставляет два открытых
+     <dialog> одновременно, и клики уходят не в то окно, которое видно. */
+  closeModals();
+  if (!h) return;
   if (h === 'deck') return openDeck();
   if (h === 'diagnostic') return openDiagnosticModal();
   if (h === 'leak-quiz') return openLeakModal();
@@ -1336,7 +1371,7 @@ function applyHash() {
   const status = h.endsWith('-status');
   const id = status ? h.slice(0, -'-status'.length) : h;
   if (PROJECTS.some((p) => p.id === id)) return openProject(id, status ? 'status' : null);
-  closeModals();                              // #consulting, #projects, #contact — обычные якоря
+  // #consulting, #projects, #contact — обычные якоря: всё уже закрыто выше.
 }
 
 /* go() меняет адрес; открытие происходит из applyHash — одна точка входа. */
@@ -1349,6 +1384,16 @@ function go(hash) {
 function leave() {
   if (history.state?.modal) history.back();
   else history.replaceState(null, '', location.pathname + location.search);
+}
+
+/* Выход из всей цепочки окон разом — не на шаг назад (leave()), а полностью:
+   нужен там, где клик ведёт не «в предыдущее окно», а на страницу целиком
+   (например «Связаться»/«Запросить резюме» из карточки роли, открытой
+   поверх хаба ролей) — иначе history.back() из leave() приземлится на
+   родительский хэш и хаб откроется заново поверх формы. */
+function leaveAll() {
+  closeModals();
+  history.replaceState(null, '', location.pathname + location.search);
 }
 
 addEventListener('popstate', applyHash);
@@ -1518,8 +1563,10 @@ function renderDeck() {
   /* заголовок блока липнет к верху окна — видно, какой раздел читаешь */
   const body = deckModal.querySelector('.modal-body');
   const label = T[lang].nav.toTop;
+  const closeLabel = T[lang].nav.close ?? 'Close';
   $('#deck-blocks').querySelectorAll('.deck-block > h3').forEach((h) => {
     h.append(makeTopButton(label, () => body.scrollTo({ top: 0, behavior: 'smooth' })));
+    h.append(makeCloseButton(closeLabel, () => leave()));
   });
 
   syncSnaps();
@@ -1535,6 +1582,7 @@ function openDeck(anchorId) {
 
 $('#deck-open').addEventListener('click', () => go('deck'));
 $('#deck-close').addEventListener('click', () => leave());
+$('#deck-cv').addEventListener('click', () => { leaveAll(); requestCv(); });
 deckModal.addEventListener('click', (e) => { if (e.target === deckModal) leave(); });
 $('#services').addEventListener('click', (e) => {
   const btn = e.target.closest('[data-svc]');
