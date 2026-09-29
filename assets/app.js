@@ -343,6 +343,10 @@ function applyTextSize(size) {
   const label = T[lang].nav.textSize?.[size] ?? 'Text size';
   $('#text-size-toggle').setAttribute('aria-label', label);
   $('#text-size-toggle').title = label;
+  /* zoom не поднимает событие resize — карусели (.snap) не пересчитают
+     свою геометрию сами, пока их кто-то не попросит. Ждём кадр, чтобы
+     браузер успел применить новый zoom перед замером ширины. */
+  requestAnimationFrame(() => requestAnimationFrame(syncSnaps));
 }
 const savedTextSize = store.get('textSize', 'normal');
 applyTextSize(TEXT_SIZES.includes(savedTextSize) ? savedTextSize : 'normal');
@@ -1373,6 +1377,7 @@ function closeModals() {
   if (pnModal.open) pnModal.close(true);
   if (infoModal.open) infoModal.close(true);
   if (compareModal.open) compareModal.close(true);
+  if (qrModal.open) qrModal.close(true);
 }
 
 function applyHash() {
