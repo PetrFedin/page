@@ -1341,6 +1341,7 @@ $('#cv-row-link').addEventListener('click', requestCv);
 /* ---------- адреса окон ----------
    #syntha, #syntha-status, #deck — открываются по ссылке, «назад» закрывает окно. */
 function closeModals() {
+  viewer.close();
   if (modal.open) modal.close(true);
   if (deckModal.open) deckModal.close(true);
   if (diagModal.open) diagModal.close(true);

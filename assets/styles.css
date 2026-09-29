@@ -200,8 +200,10 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 .modal[open]{
   position:fixed; inset:0; width:100%; height:100%; max-width:none; max-height:none;
   margin:0; padding:16px; border:none; background:transparent; color:var(--ink);
-  display:grid; grid-template-columns:minmax(0,1fr); grid-template-rows:minmax(0,1fr);
-  place-items:center; overflow:hidden;
+  /* flex вместо grid+place-items: надёжнее центрирует высокий контент
+     в Safari, где сочетание <dialog> top-layer + place-items иногда
+     прижимает панель к низу вместо центра. */
+  display:flex; align-items:center; justify-content:center; overflow:hidden;
 }
 .modal::backdrop{background:rgba(10,10,12,.55); backdrop-filter:blur(3px)}
 .modal-body{
@@ -898,14 +900,12 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 .photo-modal[open]{
   position:fixed; inset:0; width:100%; height:100%; max-width:none; max-height:none;
   margin:0; padding:40px 32px; border:none; background:transparent;
-  display:grid; grid-template-columns:minmax(0,1fr); grid-template-rows:minmax(0,1fr);
-  place-items:center; overflow:hidden;
+  display:flex; align-items:center; justify-content:center; overflow:hidden;
 }
 .photo-modal::backdrop{background:rgba(10,10,12,.72); backdrop-filter:blur(3px)}
 .photo-modal img,.photo-modal video{width:min(520px,100%); max-width:100%; height:auto; max-height:100%; object-fit:contain; border-radius:14px; display:block}
 .photo-modal.zoomed img,.photo-modal.zoomed video{width:auto; max-width:none; height:calc(100vh - 80px); max-height:none}
-.photo-modal.zoomed[open]{overflow:auto; align-items:start; justify-items:start;
-  justify-content:safe center; align-content:safe center}
+.photo-modal.zoomed[open]{overflow:auto; align-items:safe center; justify-content:safe center}
 .photo-modal .modal-close{position:fixed; top:24px; right:24px; float:none; margin:0; z-index:2}
 @media (max-width:759px){
   .portrait-btn{border-radius:14px}
