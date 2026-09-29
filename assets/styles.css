@@ -421,6 +421,10 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
    для прозы здесь ни при чём, оставляет пустое поле справа на широком экране.
    Даём окну больше воздуха, чтобы колонки и текст под таблицей его заполняли. */
 #compare-modal .modal-body{width:min(1200px,100%)}
+/* .doc-note держит прозу в 68ch — здесь это ровно тот же пустой хвост
+   справа, только под таблицей, а не рядом с ней. Полю сравнения ширина
+   читаемого абзаца не нужна, ему нужно занять всё окно. */
+#compare-note{max-width:none}
 .modal-qr .modal-body{
   width:min(260px,100%); padding:28px 24px 22px;
   display:flex; flex-direction:column; align-items:center; gap:12px; text-align:center;
