@@ -45,6 +45,9 @@
     <button class="theme" id="theme-toggle" type="button" aria-label="Theme">
       <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" fill="currentColor"/></svg>
     </button>
+    <button class="theme" id="diag-open" type="button">
+      <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.6" fill="none"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
   </div>
 </header>
 
@@ -104,7 +107,6 @@
     <div class="deck-actions">
       <button class="btn btn-primary" id="deck-open" type="button"></button>
       <a class="btn" id="deck-pdf" href="/assets/fashion-advisory.pdf" download target="_blank" rel="noopener"></a>
-      <button class="btn" id="diag-open" type="button"></button>
     </div>
   </section>
 
@@ -281,6 +283,7 @@
     <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>
   </button>
   <img id="photo-big" src="/assets/photo/petr-portrait.webp" alt="">
+  <video id="photo-video" playsinline controls hidden></video>
   <button class="photo-nav prev" id="photo-prev" type="button" hidden>
     <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
   </button>

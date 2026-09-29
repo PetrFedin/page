@@ -218,7 +218,8 @@ function render() {
   $('#deck-pdf').textContent = t.consulting.deckPdf;
   $('#deck-pdf').href = t.consulting.deckFile;
   $('#deck-pdf-2').href = t.consulting.deckFile;
-  $('#diag-open').textContent = t.diagnostic.label;
+  $('#diag-open').setAttribute('aria-label', t.diagnostic.label);
+  $('#diag-open').title = t.diagnostic.label;
   $('#services').className = "services snap";
   $('#services').innerHTML = t.consulting.items.map((it, i) => `
     <li>
@@ -366,10 +367,22 @@ function openProject(id, anchor) {
     <div class="frame ${p.device}"><img src="${src}" alt="${p.name} — ${i + 1}" loading="lazy"></div>`));
 
   gallery.innerHTML = frames.join('');
-  const shots = [...gallery.querySelectorAll('img')].map((img) => ({ src: img.src, alt: img.alt }));
+  /* Общий список для просмотрщика — в том же порядке, что и кадры в ленте:
+     видео (если есть) первым, дальше снимки. Так стрелками можно листать
+     видео и фото вместе, одним списком. */
+  const mediaList = [];
+  if (p.video) mediaList.push({ src: p.video, poster: p.shots[0], alt: p.name, type: 'video' });
+  [...gallery.querySelectorAll('img')].forEach((img) => mediaList.push({ src: img.src, alt: img.alt }));
   gallery.querySelectorAll('img').forEach((img, i) => {
-    img.addEventListener('click', () => openPhoto(shots, i));
+    img.addEventListener('click', () => openPhoto(mediaList, i + (p.video ? 1 : 0)));
   });
+  if (p.video) {
+    const videoFrame = gallery.querySelector('.frame.has-video');
+    videoFrame?.addEventListener('click', (e) => {
+      if (e.target.closest('.play')) return; // маленькую inline-плашку не трогаем
+      openPhoto(mediaList, 0);
+    });
+  }
   $('#dots').innerHTML = frames.map((_, i) =>
     `<button class="dot" type="button" data-i="${i}" aria-current="${i === 0}" aria-label="${i + 1}"></button>`).join('');
 
@@ -1591,6 +1604,24 @@ $('#services').addEventListener('click', (e) => {
 
 /* Esc закрывает окно — адрес возвращаем тем же путём, что и кнопка. */
 [modal, deckModal, diagModal, leakModal, postModal, pnModal, infoModal, compareModal].forEach((d) => d.addEventListener('cancel', (e) => { e.preventDefault(); leave(); }));
+
+/* Подсказка при наведении на иконки: там, где уже есть aria-label,
+   зеркалим его в title — один источник подписи, без ручного дублирования
+   по каждой иконочной кнопке (их десятки, часть рисуется в рантайме). */
+function syncIconTitles(root = document.body) {
+  root.querySelectorAll('[aria-label]:not([title])').forEach((el) => {
+    el.title = el.getAttribute('aria-label');
+  });
+}
+new MutationObserver((muts) => {
+  for (const m of muts) {
+    if (m.type === 'attributes' && m.target.hasAttribute?.('aria-label') && !m.target.hasAttribute('title')) {
+      m.target.title = m.target.getAttribute('aria-label');
+    }
+    m.addedNodes?.forEach((n) => { if (n.nodeType === 1) syncIconTitles(n); });
+  }
+}).observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['aria-label'] });
+syncIconTitles();
 
 render();
 syncSnaps();

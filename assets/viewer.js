@@ -10,17 +10,23 @@ export function createViewer({ labels }) {
   if (!modal) return { open() {} };
 
   const big = $('#photo-big');
+  const vid = $('#photo-video');
   let list = [];
   let at = 0;
 
-  /* Кнопка увеличения нужна там, где уложенный снимок не занимает всю высоту:
-     у вертикальных экранов она бы ничего не меняла. */
+  /* Кнопка увеличения нужна там, где уложенный кадр не занимает всю высоту:
+     у вертикальных экранов она бы ничего не меняла. Работает и для видео,
+     и для фото — берём натуральные размеры того, что сейчас показано. */
   function syncZoom() {
-    if (!big.naturalWidth || modal.classList.contains('zoomed')) return;
+    const isVideo = list[at]?.type === 'video';
+    const el = isVideo ? vid : big;
+    const nw = isVideo ? el.videoWidth : el.naturalWidth;
+    const nh = isVideo ? el.videoHeight : el.naturalHeight;
+    if (!nw || modal.classList.contains('zoomed')) return;
     const cs = getComputedStyle(modal);
     const w = modal.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
     const h = modal.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
-    $('#photo-zoom').hidden = big.naturalWidth / big.naturalHeight <= w / h;
+    $('#photo-zoom').hidden = nw / nh <= w / h;
   }
 
   function syncLabels() {
@@ -33,11 +39,35 @@ export function createViewer({ labels }) {
 
   function show(i) {
     if (!list.length) return;
+    /* Видео на паузу и не играет фоном, когда листаем дальше. */
+    if (!vid.paused) vid.pause();
     at = (i + list.length) % list.length;
-    big.src = list[at].src;
-    big.alt = list[at].alt ?? '';
-    /* Увеличение относится к конкретному снимку — на соседнем начинаем сначала. */
-    modal.classList.remove('zoomed');
+    const item = list[at];
+    const isVideo = item.type === 'video';
+
+    big.hidden = isVideo;
+    vid.hidden = !isVideo;
+    if (isVideo) {
+      if (vid.dataset.loadedSrc !== item.src) {
+        vid.innerHTML = '';
+        const mp4 = item.src.replace(/\.webm$/, '.mp4');
+        for (const [src, mime] of [[mp4, 'video/mp4'], [item.src, 'video/webm']]) {
+          const source = document.createElement('source');
+          source.src = src;
+          source.type = mime;
+          vid.append(source);
+        }
+        if (item.poster) vid.poster = item.poster;
+        vid.load();
+        vid.dataset.loadedSrc = item.src;
+      }
+    } else {
+      big.src = item.src;
+      big.alt = item.alt ?? '';
+    }
+    /* Увеличение — по явному выбору пользователя, а не привязано к кадру:
+       переключаясь дальше по галерее, состояние сохраняется, пока сам
+       кадр это позволяет (см. syncZoom). */
     modal.scrollTo({ top: 0, left: 0 });
 
     const many = list.length > 1;
@@ -45,7 +75,9 @@ export function createViewer({ labels }) {
     $('#photo-next').hidden = !many;
     $('#photo-count').textContent = many ? `${at + 1} / ${list.length}` : '';
     syncLabels();
-    if (big.complete) syncZoom(); else big.addEventListener('load', syncZoom, { once: true });
+    if (isVideo) {
+      if (vid.readyState >= 1) syncZoom(); else vid.addEventListener('loadedmetadata', syncZoom, { once: true });
+    } else if (big.complete) syncZoom(); else big.addEventListener('load', syncZoom, { once: true });
   }
 
   $('#photo-close').addEventListener('click', () => modal.close());

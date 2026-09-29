@@ -268,6 +268,9 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 .frame.iphone{width:232px; border-radius:22px; padding:1.5px}
 .frame.ipad{width:min(420px,78vw); border-radius:10px; padding:1.5px}
 .frame img,.frame video{width:100%; height:auto; object-fit:cover; object-position:top center; background:#fff; display:block}
+.frame img{cursor:zoom-in}
+.frame.has-video{cursor:zoom-in}
+.frame.has-video .play{cursor:pointer}
 .frame.iphone img,.frame.iphone video{border-radius:20.5px; aspect-ratio:500/1084}
 .frame.ipad img,.frame.ipad video{border-radius:8.5px; object-position:left top; aspect-ratio:1194/834}
 .dots{display:flex; gap:7px; justify-content:center; margin-bottom:26px}
@@ -899,8 +902,8 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
   place-items:center; overflow:hidden;
 }
 .photo-modal::backdrop{background:rgba(10,10,12,.72); backdrop-filter:blur(3px)}
-.photo-modal img{width:min(520px,100%); max-width:100%; height:auto; max-height:100%; object-fit:contain; border-radius:14px; display:block}
-.photo-modal.zoomed img{width:auto; max-width:none; height:calc(100vh - 80px); max-height:none}
+.photo-modal img,.photo-modal video{width:min(520px,100%); max-width:100%; height:auto; max-height:100%; object-fit:contain; border-radius:14px; display:block}
+.photo-modal.zoomed img,.photo-modal.zoomed video{width:auto; max-width:none; height:calc(100vh - 80px); max-height:none}
 .photo-modal.zoomed[open]{overflow:auto; align-items:start; justify-items:start;
   justify-content:safe center; align-content:safe center}
 .photo-modal .modal-close{position:fixed; top:24px; right:24px; float:none; margin:0; z-index:2}
@@ -957,13 +960,13 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 @media (max-width:759px){
   .photo-modal[open]{padding:26px 14px 74px; overflow:hidden}
   /* снимок целиком, с полем по краям: видно, что он открыт поверх страницы */
-  .photo-modal img{
+  .photo-modal img,.photo-modal video{
     width:auto; height:auto; max-width:100%; max-height:calc(100dvh - 100px);
     object-fit:contain; border-radius:10px;
   }
   /* увеличенный — во всю высоту экрана, лишнее уходит за край и прокручивается */
   .photo-modal.zoomed[open]{overflow:auto}
-  .photo-modal.zoomed img{
+  .photo-modal.zoomed img,.photo-modal.zoomed video{
     height:calc(100dvh - 100px); max-height:none; width:auto; max-width:none;
   }
 }
