@@ -384,11 +384,14 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
    меню обрезается по краю, и до самой кнопки уменьшения не дотянуться.
    Порог считаем от масштаба (1.15 / 1.3), а не жёстко зашиваем пиксели. */
 @media (max-width:873px){
-  html[data-text-size="lg"] .nav{display:none}
+  /* :not(.open) — иначе на узком экране с lg/xl это правило перебивает
+     .nav.open{display:flex} по специфичности (см. .nav.open ниже), и бургер
+     открывает пустую панель без пунктов меню. */
+  html[data-text-size="lg"] .nav:not(.open){display:none}
   html[data-text-size="lg"] .burger{display:flex}
 }
 @media (max-width:987px){
-  html[data-text-size="xl"] .nav{display:none}
+  html[data-text-size="xl"] .nav:not(.open){display:none}
   html[data-text-size="xl"] .burger{display:flex}
 }
 @media (min-width:760px){
