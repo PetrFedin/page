@@ -27,9 +27,9 @@
    в zoom не участвует, поэтому её центрирование не зависит от масштаба
    содержимого. На широких мониторах zoom дополнительно раздвигает
    колонку контента — свободные поля по бокам используются под текст. */
-html[data-text-size="lg"] > header,html[data-text-size="lg"] > main,
+html[data-text-size="lg"] header.topbar,html[data-text-size="lg"] main,
 html[data-text-size="lg"] .modal-body,html[data-text-size="lg"] .photo-modal img,html[data-text-size="lg"] .photo-modal video{zoom:1.15}
-html[data-text-size="xl"] > header,html[data-text-size="xl"] > main,
+html[data-text-size="xl"] header.topbar,html[data-text-size="xl"] main,
 html[data-text-size="xl"] .modal-body,html[data-text-size="xl"] .photo-modal img,html[data-text-size="xl"] .photo-modal video{zoom:1.3}
 /* Самый крупный размер (он же первый, по умолчанию на ноутбуке/планшете) —
    занимает почти всю ширину экрана, средний — заметно уже, обычный —
@@ -40,9 +40,17 @@ html[data-text-size="xl"] .modal-body,html[data-text-size="xl"] .photo-modal img
 }
 
 *{box-sizing:border-box}
+/* overflow-x:hidden живёт только на html: тот же эффект (без горизонтальной
+   прокрутки всей страницы, карусели внутри сохраняют свой overflow-x:auto),
+   но не на body — на body это же свойство молча переводит overflow-y в auto
+   (так браузер трактует «x скрыт, y не задан») и превращает body в
+   собственный скролл-контейнер, хотя фактически страница прокручивается
+   через html. Из-за этого зазора position:sticky у шапки и заголовков
+   разделов переставал прилипать вовсе — визуально это была та самая
+   «шапка/заголовок не держится и наезжает» при прокрутке. */
 html{scroll-behavior:smooth; overflow-x:hidden}
 body{
-  margin:0; background:var(--bg); color:var(--ink); overflow-x:hidden;
+  margin:0; background:var(--bg); color:var(--ink);
   font-family:var(--sans); font-size:16px; line-height:1.6;
   -webkit-font-smoothing:antialiased;
 }
@@ -1148,7 +1156,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 /* ---------- страница проекта ----------
    Это аналитический документ, а не продуктовый лендинг: вместо панелей
    с тенями — тонкие линейки, нумерация разделов и схемы-таблицы. */
-.doc{max-width:920px; margin:0 auto; padding:26px 16px 72px}
+.doc{max-width:var(--maxw); margin:0 auto; padding:26px 16px 72px}
 .doc-back{margin-bottom:26px; font-size:14px}
 .doc-back a{color:var(--muted); text-decoration:none}
 .doc-back a:hover{color:var(--ink)}
@@ -1245,7 +1253,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 .faq dd{margin:0; font-size:15px; line-height:1.6; color:var(--muted); max-width:62ch}
 
 .doc-end h2{max-width:none}
-.doc-page .footer{max-width:920px; margin:0 auto}
+.doc-page .footer{max-width:var(--maxw); margin:0 auto}
 
 @media (min-width:760px){
   .doc{padding:40px 24px 88px}

@@ -57,6 +57,27 @@ $('#theme-toggle').addEventListener('click', () => {
   store.set('theme', next);
 });
 
+/* ---------- размер текста: тот же переключатель и тот же ключ localStorage,
+   что на главной странице, — открыв разбор проекта, читатель видит тот же
+   размер, что выбрал там. */
+const TEXT_SIZES = ['xl', 'lg', 'normal'];
+function applyTextSize(size) {
+  if (size === 'normal') delete document.documentElement.dataset.textSize;
+  else document.documentElement.dataset.textSize = size;
+  const label = T.ru.nav.textSize?.[size] ?? 'Text size';
+  $('#text-size-toggle').setAttribute('aria-label', label);
+  $('#text-size-toggle').title = label;
+}
+const defaultTextSize = innerWidth >= 768 ? 'xl' : 'normal';
+const savedTextSize = store.get('textSize', defaultTextSize);
+applyTextSize(TEXT_SIZES.includes(savedTextSize) ? savedTextSize : defaultTextSize);
+$('#text-size-toggle').addEventListener('click', () => {
+  const current = document.documentElement.dataset.textSize || 'normal';
+  const next = TEXT_SIZES[(TEXT_SIZES.indexOf(current) + 1) % TEXT_SIZES.length];
+  applyTextSize(next);
+  store.set('textSize', next);
+});
+
 const burger = $('#burger');
 const nav = $('#nav');
 const setMenu = (open) => {
