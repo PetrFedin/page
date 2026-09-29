@@ -8,3 +8,4 @@ node_modules/
 *.env
 telegram.env
 published.json
+.claude/worktrees/
