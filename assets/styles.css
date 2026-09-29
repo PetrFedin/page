@@ -32,10 +32,12 @@ html[data-text-size="lg"] .modal-body,html[data-text-size="lg"] .photo-modal img
 html[data-text-size="xl"] > header,html[data-text-size="xl"] > main,
 html[data-text-size="xl"] .modal-body,html[data-text-size="xl"] .photo-modal img,html[data-text-size="xl"] .photo-modal video{zoom:1.3}
 /* Самый крупный размер (он же первый, по умолчанию на ноутбуке/планшете) —
-   занимает почти всю ширину экрана, средний — заметно уже, обычный —
+   занимает почти всю ширину экрана независимо от того, насколько он широкий
+   (раньше был потолок 1720px — на большом мониторе снова оставались пустые
+   поля, ровно то, на что жаловались), средний — заметно уже, обычный —
    держит классическую узкую колонку (--maxw из :root). */
 @media (min-width:1024px){
-  html[data-text-size="xl"]{--maxw:min(1720px, 100vw - 64px)}
+  html[data-text-size="xl"]{--maxw:calc(100vw - 64px)}
   html[data-text-size="lg"]{--maxw:1320px}
 }
 
