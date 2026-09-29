@@ -136,6 +136,7 @@ function render() {
   document.documentElement.lang = lang;
 
   $('#lang-toggle').textContent = lang === 'ru' ? 'EN' : 'RU';
+  applyTextSize(document.documentElement.dataset.textSize || 'normal');
   renderClock();
   document.querySelectorAll('[data-nav]').forEach((a) => { a.textContent = t.nav[a.dataset.nav]; });
 
@@ -328,6 +329,28 @@ $('#theme-toggle').addEventListener('click', () => {
   const next = current === 'dark' ? 'light' : 'dark';
   document.documentElement.dataset.theme = next;
   store.set('theme', next);
+});
+
+/* ---------- размер текста ----------
+   Один переключатель на все размеры экрана: обычный → крупнее (+15%) →
+   самый крупный (+30%) → обычный. На вкладке/телефоне это и есть та
+   самая «увеличить», на широком мониторе дополнительно раздвигает
+   колонку контента (см. правило в styles.css). */
+const TEXT_SIZES = ['normal', 'lg', 'xl'];
+function applyTextSize(size) {
+  if (size === 'normal') delete document.documentElement.dataset.textSize;
+  else document.documentElement.dataset.textSize = size;
+  const label = T[lang].nav.textSize?.[size] ?? 'Text size';
+  $('#text-size-toggle').setAttribute('aria-label', label);
+  $('#text-size-toggle').title = label;
+}
+const savedTextSize = store.get('textSize', 'normal');
+applyTextSize(TEXT_SIZES.includes(savedTextSize) ? savedTextSize : 'normal');
+$('#text-size-toggle').addEventListener('click', () => {
+  const current = document.documentElement.dataset.textSize || 'normal';
+  const next = TEXT_SIZES[(TEXT_SIZES.indexOf(current) + 1) % TEXT_SIZES.length];
+  applyTextSize(next);
+  store.set('textSize', next);
 });
 
 /* ---------- модалка проекта ---------- */
