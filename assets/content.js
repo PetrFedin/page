@@ -454,7 +454,7 @@ export const T = {
       required: 'Заполните имя, контакт и сообщение.',
       directTitle: 'Контакты',
       qrAlt: 'Показать QR-код',
-      qrTitle: 'Отсканируйте, чтобы открыть канал в Telegram',
+      qrTitle: 'Отсканируйте, чтобы открыть в Telegram',
       vcard: 'Сохранить контакт',
       privacy: 'Конфиденциальность клиентских данных — базовый стандарт работы.'
     },
@@ -894,7 +894,7 @@ export const T = {
       required: 'Please fill in name, contact and message.',
       directTitle: 'Contacts',
       qrAlt: 'Show QR code',
-      qrTitle: 'Scan to open the channel on Telegram',
+      qrTitle: 'Scan to open on Telegram',
       vcard: 'Save contact',
       privacy: 'Client confidentiality is a baseline standard of the work.'
     },
@@ -908,7 +908,6 @@ export const T = {
       title: 'Which format fits',
       subtitle: 'Five questions, thirty seconds. At the end — a specific format, not generic advice.',
       progress: 'Question {i} of {n}',
-      start: 'Start',
       back: 'Back',
       resultLabel: 'Looks like a fit',
       resultNote: 'A format is a hypothesis from five answers, not a diagnosis. The real decision happens in conversation.',
