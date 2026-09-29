@@ -142,8 +142,8 @@ export const T = {
     },
     consulting: {
       title: 'Консалтинг',
-      subtitle: 'Работаю до управленческого решения и рабочего инструмента, а не до отчёта.',
       decisionLabel: 'Решение',
+      noteLabel: 'Работаю до управленческого решения и рабочего инструмента, а не до отчёта.',
       deckOpen: 'Смотреть презентацию',
       deckPdf: 'Скачать PDF',
       deckFile: '/assets/fashion-advisory.pdf',
@@ -166,12 +166,14 @@ export const T = {
         {
           title: 'Данные, PLM и цифровой контур',
           body: 'Процессы, роли и показатели; PLM, ERP, CRM, WMS и BI; производство, склад и логистика.',
-          decision: 'Как управлять регулярно, быстрее и на одной версии данных.'
+          decision: 'Как управлять регулярно, быстрее и на одной версии данных.',
+          note: true
         },
         {
           title: 'Капитал и устойчивость',
           body: 'Денежный поток, оборотный капитал, оценка бизнеса, потребность в финансировании, сделки и стабилизация.',
-          decision: 'Сколько капитала нужно и насколько бизнес готов к росту или сделке.'
+          decision: 'Сколько капитала нужно и насколько бизнес готов к росту или сделке.',
+          note: true
         }
       ],
     },
@@ -659,8 +661,8 @@ export const T = {
     },
     consulting: {
       title: 'Advisory',
-      subtitle: 'The engagement ends with a decision and a working tool, not with a report.',
       decisionLabel: 'Decision',
+      noteLabel: 'The engagement ends with a decision and a working tool, not with a report.',
       deckOpen: 'View the deck',
       deckPdf: 'Download PDF',
       deckFile: '/assets/fashion-advisory-en.pdf',
@@ -683,12 +685,14 @@ export const T = {
         {
           title: 'Data, PLM & systems',
           body: 'Processes, roles and KPIs; PLM, ERP, CRM, WMS and BI; production, warehouse and logistics.',
-          decision: 'How to run the business on a regular cadence and a single version of the data.'
+          decision: 'How to run the business on a regular cadence and a single version of the data.',
+          note: true
         },
         {
           title: 'Capital & resilience',
           body: 'Cash flow, working capital, valuation, funding needs, transactions and turnaround.',
-          decision: 'How much capital is needed and whether the business is ready to grow or to transact.'
+          decision: 'How much capital is needed and whether the business is ready to grow or to transact.',
+          note: true
         }
       ],
     },
