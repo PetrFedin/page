@@ -27,8 +27,17 @@
    колонку контента — свободные поля по бокам используются под текст,
    а не просто увеличивают воздух. Модалки не растягиваются шире —
    просто масштабируются вместе со всем остальным. */
-html[data-text-size="lg"]{zoom:1.15}
-html[data-text-size="xl"]{zoom:1.3}
+/* zoom НЕ вешаем на <html> целиком: в Safari это ломает position:fixed
+   у <dialog> — окна съезжают вбок вместо центрирования (координаты
+   fixed считаются в перемасштабированном пространстве непредсказуемо).
+   Масштабируем отдельно обычную страницу (header/main) и отдельно —
+   содержимое модалки (.modal-body, кадр просмотрщика): сама фиксированная
+   обёртка модалки (.modal[open]) остаётся немасштабированной и всегда
+   корректно центрируется, а видно как будто увеличено всё целиком. */
+html[data-text-size="lg"] > header,html[data-text-size="lg"] > main{zoom:1.15}
+html[data-text-size="xl"] > header,html[data-text-size="xl"] > main{zoom:1.3}
+html[data-text-size="lg"] .modal-body,html[data-text-size="lg"] .photo-modal img,html[data-text-size="lg"] .photo-modal video{zoom:1.15}
+html[data-text-size="xl"] .modal-body,html[data-text-size="xl"] .photo-modal img,html[data-text-size="xl"] .photo-modal video{zoom:1.3}
 @media (min-width:1200px){
   html[data-text-size="lg"]{--maxw:1240px}
   html[data-text-size="xl"]{--maxw:1320px}
