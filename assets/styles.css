@@ -965,6 +965,11 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 }
 .photo-modal::backdrop{background:rgba(10,10,12,.72); backdrop-filter:blur(3px)}
 .photo-modal img,.photo-modal video{width:min(520px,100%); max-width:100%; height:auto; max-height:100%; object-fit:contain; border-radius:14px; display:block}
+/* Пока показан кадр видео, пустой <img> (и наоборот) остаётся display:block
+   из правила выше — оно специфичнее атрибута [hidden] у самого браузера —
+   и как невидимый, но всё ещё существующий flex-элемент утаскивает соседа
+   мимо центра. Явно гасим именно скрытый элемент. */
+.photo-modal img[hidden],.photo-modal video[hidden]{display:none}
 .photo-modal.zoomed img,.photo-modal.zoomed video{width:auto; max-width:none; height:calc(100vh - 80px); max-height:none}
 .photo-modal.zoomed[open]{overflow:auto; align-items:safe center; justify-content:safe center}
 .photo-modal .modal-close{position:fixed; top:24px; right:24px; float:none; margin:0; z-index:2}
