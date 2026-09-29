@@ -324,9 +324,14 @@
 </dialog>
 
 <dialog class="modal modal-wide" id="cv-modal">
-  <button class="modal-close" id="cv-close" type="button" aria-label="Close">
-    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>
-  </button>
+  <div class="modal-icon-row">
+    <button class="modal-icon-btn" id="cv-back" type="button" aria-label="Back" title="Back">
+      <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <button class="modal-close" id="cv-close" type="button" aria-label="Close" title="Close">
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>
+    </button>
+  </div>
   <div class="modal-body">
     <header class="deck-head">
       <h2 id="cv-title"></h2>

@@ -332,11 +332,13 @@ $('#theme-toggle').addEventListener('click', () => {
 });
 
 /* ---------- размер текста ----------
-   Один переключатель на все размеры экрана: обычный → крупнее (+15%) →
-   самый крупный (+30%) → обычный. На вкладке/телефоне это и есть та
-   самая «увеличить», на широком мониторе дополнительно раздвигает
-   колонку контента (см. правило в styles.css). */
-const TEXT_SIZES = ['normal', 'lg', 'xl'];
+   Один переключатель на все размеры экрана: цикл идёт от крупного к
+   мелкому — самый крупный (+30%) → крупнее (+15%) → обычный → снова
+   самый крупный. На ноутбуке и планшете самый крупный размер — исходный
+   по умолчанию (кто читает с монитора, не щурится), на телефоне — обычный,
+   там и без масштабирования текст уже занимает весь экран. Дополнительно
+   на широком мониторе раздвигает колонку контента (см. правило в styles.css). */
+const TEXT_SIZES = ['xl', 'lg', 'normal'];
 function applyTextSize(size) {
   if (size === 'normal') delete document.documentElement.dataset.textSize;
   else document.documentElement.dataset.textSize = size;
@@ -348,8 +350,9 @@ function applyTextSize(size) {
      браузер успел применить новый zoom перед замером ширины. */
   requestAnimationFrame(() => requestAnimationFrame(syncSnaps));
 }
-const savedTextSize = store.get('textSize', 'normal');
-applyTextSize(TEXT_SIZES.includes(savedTextSize) ? savedTextSize : 'normal');
+const defaultTextSize = innerWidth >= 768 ? 'xl' : 'normal';
+const savedTextSize = store.get('textSize', defaultTextSize);
+applyTextSize(TEXT_SIZES.includes(savedTextSize) ? savedTextSize : defaultTextSize);
 $('#text-size-toggle').addEventListener('click', () => {
   const current = document.documentElement.dataset.textSize || 'normal';
   const next = TEXT_SIZES[(TEXT_SIZES.indexOf(current) + 1) % TEXT_SIZES.length];
@@ -514,8 +517,8 @@ $('#cards').addEventListener('click', (e) => {
   const card = e.target.closest('[data-project]');
   if (card) go(card.dataset.project);
 });
-$('#modal-close').addEventListener('click', () => leave());
-modal.addEventListener('click', (e) => { if (e.target === modal) leave(); });
+$('#modal-close').addEventListener('click', () => leaveAll());
+modal.addEventListener('click', (e) => { if (e.target === modal) leaveAll(); });
 
 $('#dots').addEventListener('click', (e) => {
   const d = e.target.closest('.dot');
@@ -744,8 +747,8 @@ function openDiagnosticModal() {
   diagModal.querySelector('.modal-body').scrollTop = 0;
 }
 $('#diag-open').addEventListener('click', () => { diagAnswers = []; go('diagnostic'); });
-$('#diag-close').addEventListener('click', () => leave());
-diagModal.addEventListener('click', (e) => { if (e.target === diagModal) leave(); });
+$('#diag-close').addEventListener('click', () => leaveAll());
+diagModal.addEventListener('click', (e) => { if (e.target === diagModal) leaveAll(); });
 
 /* ---------- мини-диагностика: где утекает сезон ----------
    Тот же механизм, что у большого теста форматов, но с четырьмя категориями
@@ -824,8 +827,8 @@ function openLeakModal() {
   if (!leakModal.open) leakModal.showModal();
   leakModal.querySelector('.modal-body').scrollTop = 0;
 }
-$('#leak-close').addEventListener('click', () => leave());
-leakModal.addEventListener('click', (e) => { if (e.target === leakModal) leave(); });
+$('#leak-close').addEventListener('click', () => leaveAll());
+leakModal.addEventListener('click', (e) => { if (e.target === leakModal) leaveAll(); });
 
 /* ---------- новости ---------- */
 let newsShown = 2;
@@ -1001,8 +1004,8 @@ function openPostModal(date) {
   postModal.querySelector('.modal-body').scrollTop = 0;
   return true;
 }
-$('#post-close').addEventListener('click', () => leave());
-postModal.addEventListener('click', (e) => { if (e.target === postModal) leave(); });
+$('#post-close').addEventListener('click', () => leaveAll());
+postModal.addEventListener('click', (e) => { if (e.target === postModal) leaveAll(); });
 $('#post-modal-tag').addEventListener('click', () => {
   newsFilter = $('#post-modal-tag').dataset.filterTag;
   newsShown = 2;
@@ -1140,8 +1143,8 @@ $('#pn-feed').addEventListener('click', (e) => {
   const post = e.target.closest('[data-post]');
   if (post) { pnModal.close(); go(`post-${post.dataset.post}`); }
 });
-$('#pn-close').addEventListener('click', () => leave());
-pnModal.addEventListener('click', (e) => { if (e.target === pnModal) leave(); });
+$('#pn-close').addEventListener('click', () => leaveAll());
+pnModal.addEventListener('click', (e) => { if (e.target === pnModal) leaveAll(); });
 
 /* ---------- окно направления и формата ---------- */
 const infoModal = $('#cv-modal');
@@ -1252,8 +1255,9 @@ $('#formats').addEventListener('click', (e) => {
   if (b) go(`format-${b.dataset.format}`);
 });
 $('#roles-open').addEventListener('click', () => go('roles'));
-$('#cv-close').addEventListener('click', () => leave());
-infoModal.addEventListener('click', (e) => { if (e.target === infoModal) leave(); });
+$('#cv-close').addEventListener('click', () => leaveAll());
+$('#cv-back').addEventListener('click', () => leave());
+infoModal.addEventListener('click', (e) => { if (e.target === infoModal) leaveAll(); });
 $('#cv-body').addEventListener('click', (e) => {
   const roleOpen = e.target.closest('[data-role-open]');
   if (roleOpen) return go(`role-${roleOpen.dataset.roleOpen}`);
@@ -1333,8 +1337,8 @@ function openCompare(id) {
   if (!compareModal.open) compareModal.showModal();
   compareModal.querySelector('.modal-body').scrollTop = 0;
 }
-$('#compare-close').addEventListener('click', () => leave());
-compareModal.addEventListener('click', (e) => { if (e.target === compareModal) leave(); });
+$('#compare-close').addEventListener('click', () => leaveAll());
+compareModal.addEventListener('click', (e) => { if (e.target === compareModal) leaveAll(); });
 
 /* копирование био для прессы */
 $('#press-body').addEventListener('click', async (e) => {
@@ -1623,16 +1627,16 @@ function openDeck(anchorId) {
 }
 
 $('#deck-open').addEventListener('click', () => go('deck'));
-$('#deck-close').addEventListener('click', () => leave());
+$('#deck-close').addEventListener('click', () => leaveAll());
 $('#deck-cv').addEventListener('click', () => { leaveAll(); requestCv(); });
-deckModal.addEventListener('click', (e) => { if (e.target === deckModal) leave(); });
+deckModal.addEventListener('click', (e) => { if (e.target === deckModal) leaveAll(); });
 $('#services').addEventListener('click', (e) => {
   const btn = e.target.closest('[data-svc]');
   if (btn) { go('deck'); openDeck(`deck-directions-${btn.dataset.svc}`); }
 });
 
 /* Esc закрывает окно — адрес возвращаем тем же путём, что и кнопка. */
-[modal, deckModal, diagModal, leakModal, postModal, pnModal, infoModal, compareModal].forEach((d) => d.addEventListener('cancel', (e) => { e.preventDefault(); leave(); }));
+[modal, deckModal, diagModal, leakModal, postModal, pnModal, infoModal, compareModal].forEach((d) => d.addEventListener('cancel', (e) => { e.preventDefault(); leaveAll(); }));
 
 /* Подсказка при наведении на иконки: там, где уже есть aria-label,
    зеркалим его в title — один источник подписи, без ручного дублирования
