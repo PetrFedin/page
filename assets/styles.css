@@ -157,6 +157,10 @@ h2{font-size:clamp(26px,5vw,36px)}
   background:var(--panel); color:var(--ink); text-decoration:none;
   font-size:15px; cursor:pointer; transition:transform .12s ease, border-color .12s ease;
 }
+/* display:inline-flex выше перебивает браузерный [hidden] — без этого правила
+   скрытая кнопка (например #post-modal-source или #post-modal-project без
+   данных) остаётся пустой пилюлей на экране, хоть и невидимо для скринридера. */
+.btn[hidden]{display:none}
 .btn:hover{border-color:var(--ink)}
 .btn:active{transform:translateY(1px)}
 .btn-primary{background:var(--ink); color:var(--bg); border-color:var(--ink)}
@@ -182,6 +186,9 @@ h2{font-size:clamp(26px,5vw,36px)}
 .svc-b{color:var(--muted); font-size:15px}
 .svc-d{font-size:15px; padding-top:10px; border-top:1px dashed var(--line)}
 .svc-d b{color:var(--accent); font-weight:500; font-size:12px; letter-spacing:.1em; text-transform:uppercase; display:block; margin-bottom:3px}
+/* Отмечает блоки 4–5 (данные/PLM, капитал): здесь работа особенно явно
+   заканчивается решением и инструментом, а не отчётом. */
+.svc-note{font-size:13px; font-style:italic; color:var(--accent); padding-top:8px}
 
 /* ---------- project cards ---------- */
 /* У «Наших проектов» нет подзаголовка — без него после закреплённого h2
@@ -410,6 +417,10 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 
 /* ---------- окно презентации ---------- */
 .modal-wide .modal-body{width:min(880px,100%)}
+/* Сравнение с альтернативами — таблица, а не сплошной текст: узкая колонка
+   для прозы здесь ни при чём, оставляет пустое поле справа на широком экране.
+   Даём окну больше воздуха, чтобы колонки и текст под таблицей его заполняли. */
+#compare-modal .modal-body{width:min(1200px,100%)}
 .modal-qr .modal-body{
   width:min(260px,100%); padding:28px 24px 22px;
   display:flex; flex-direction:column; align-items:center; gap:12px; text-align:center;
@@ -597,6 +608,10 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
   gap:8px; margin-bottom:18px;
 }
 .post-modal-images img{width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:10px; cursor:zoom-in}
+/* У поста без картинок и без «о чём материал» display:grid выше перебивает
+   браузерный [hidden] — без этого правила контейнер остаётся пустой
+   рамкой на месте (пустой блок с бордером и паддингом, без содержимого). */
+.post-modal-images[hidden],.post-modal-subject[hidden]{display:none}
 .post-modal-subject{
   background:var(--panel); border:1px solid var(--line); border-radius:10px;
   padding:14px 16px; margin-bottom:18px; display:grid; gap:5px;
@@ -1021,6 +1036,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 }
 .section-head .sub{margin-top:10px; margin-bottom:22px; max-width:640px}
 .section-head .channel-link{margin-bottom:18px}
+.consulting-diag-link{display:inline-block; margin:10px 0 22px}
 
 /* кнопка «наверх» — часть прилипшего заголовка раздела */
 .to-top{
@@ -1063,7 +1079,11 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 /* презентация: заголовок блока держится сверху при прокрутке окна — на всех экранах */
 .deck-block{padding-top:0}
 .deck-block > h3{
-  position:sticky; top:0; z-index:5; margin:0 -18px 0; padding:12px 60px 12px 18px;
+  /* Заголовок раздела перекрывает собой общий ряд иконок модалки (модал-icon-row,
+     z-index:8), пока он прилип к верху: так в углу виден только один набор
+     кнопок — сначала общие «резюме/закрыть», а после прокрутки — «наверх/закрыть»
+     текущего раздела, без наложения друг на друга. */
+  position:sticky; top:0; z-index:9; margin:0 -18px 0; padding:12px 60px 12px 18px;
   display:flex; align-items:center; justify-content:space-between; gap:12px;
   background:var(--panel);
   border-bottom:1px solid var(--line);

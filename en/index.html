@@ -45,9 +45,6 @@
     <button class="theme" id="theme-toggle" type="button" aria-label="Theme">
       <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" fill="currentColor"/></svg>
     </button>
-    <button class="theme" id="diag-open" type="button">
-      <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.6" fill="none"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-    </button>
     <button class="theme text-size" id="text-size-toggle" type="button">
       <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M5 17L9.5 6h1L15 17M6.3 13h7.4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M17 17v-6l-2 1.3" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
@@ -101,16 +98,16 @@
   <section class="section" id="consulting">
     <div class="section-head">
       <h2 id="consulting-title"></h2>
-      <p class="sub" id="consulting-sub"></p>
+      <button type="button" class="cv-row-link consulting-diag-link" id="diag-open"></button>
     </div>
     <ol class="services" id="services"></ol>
-
-    <div class="formats" id="formats"></div>
 
     <div class="deck-actions">
       <button class="btn btn-primary" id="deck-open" type="button"></button>
       <a class="btn" id="deck-pdf" href="/assets/fashion-advisory.pdf" download target="_blank" rel="noopener"></a>
     </div>
+
+    <div class="formats" id="formats"></div>
   </section>
 
   <section class="section" id="projects">

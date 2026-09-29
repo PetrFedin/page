@@ -167,7 +167,7 @@ function render() {
   $('#cta-contact').textContent = t.hero.ctaContact;
 
   $('#consulting-title').textContent = t.consulting.title;
-  $('#consulting-sub').textContent = t.consulting.subtitle;
+  $('#diag-open').textContent = t.diagnostic.label;
   $('#formats').innerHTML = `
     <div class="formats-head"><h3>${t.formats.title}</h3><p class="sub">${t.formats.subtitle}</p></div>
     <div class="formats-grid snap">${t.formats.items.map((f) => `
@@ -223,8 +223,6 @@ function render() {
   $('#deck-pdf').textContent = t.consulting.deckPdf;
   $('#deck-pdf').href = t.consulting.deckFile;
   $('#deck-pdf-2').href = t.consulting.deckFile;
-  $('#diag-open').setAttribute('aria-label', t.diagnostic.label);
-  $('#diag-open').title = t.diagnostic.label;
   $('#services').className = "services snap";
   $('#services').innerHTML = t.consulting.items.map((it, i) => `
     <li>
@@ -233,6 +231,7 @@ function render() {
         <span class="svc-t">${it.title}</span>
         <span class="svc-b">${it.body}</span>
         <span class="svc-d"><b>${t.consulting.decisionLabel}</b>${it.decision}</span>
+        ${it.note ? `<span class="svc-note">${t.consulting.noteLabel}</span>` : ''}
         <span class="svc-more">${t.projects.open} →</span>
       </button>
     </li>`).join('');
