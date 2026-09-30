@@ -22,7 +22,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="Пётр Федин">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="stylesheet" href="/assets/styles.css?v=202609301214">
+<link rel="stylesheet" href="/assets/styles.css?v=202609301227">
 </head>
 <body>
 
@@ -386,6 +386,15 @@
       <a class="btn" id="post-modal-source" target="_blank" rel="noopener" hidden></a>
     </div>
   </div>
+  <button class="photo-nav prev" id="post-prev" type="button" hidden>
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <button class="photo-nav next" id="post-next" type="button" hidden>
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <div class="photo-bar" id="post-nav-bar" hidden>
+    <span class="photo-count" id="post-count"></span>
+  </div>
 </dialog>
 
 <dialog class="modal" id="project-news">
@@ -402,6 +411,6 @@
   </div>
 </dialog>
 
-<script type="module" src="/assets/app.js?v=202609301214"></script>
+<script type="module" src="/assets/app.js?v=202609301227"></script>
 </body>
 </html>

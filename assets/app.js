@@ -18,6 +18,11 @@ const SITE_NEWS = NEWS.filter((p) => p.site !== false && p.date <= today)
    на непереведённый пост, если он всё же откроется на EN-версии. */
 const hasLang = (p) => Boolean(p[lang]);
 const postText = (p) => p[lang] ?? p.ru;
+/* Публикации конкретного проекта — тот же фильтр, что и в его окне
+   «Новости» (openProjectNews), и там же используется порядок SITE_NEWS
+   (от свежего к старому): листание постов в #post-modal должно идти
+   ровно по этому же списку. */
+const projectPostList = (tag) => SITE_NEWS.filter((n) => n.tag === tag && hasLang(n));
 
 const $ = (s) => document.querySelector(s);
 const store = {
@@ -238,7 +243,11 @@ function render() {
 
   $('#projects-title').textContent = t.projects.title;
   $('#cards').className = "cards snap";
-  $('#cards').innerHTML = PROJECTS.map((p) => `
+  $('#cards').innerHTML = PROJECTS.map((p) => {
+    /* Кнопка «Новости» ведёт в тупик, если публикаций по проекту ещё нет —
+       гасим её вместо того, чтобы открывать пустое окно. */
+    const hasNews = SITE_NEWS.some((n) => n.tag === p.id && hasLang(n));
+    return `
     <article class="card" data-project="${p.id}">
       <span class="card-logo">${LOGOS[p.id]}</span>
       <h3 class="card-tag">${p[lang].tagline}</h3>
@@ -247,13 +256,14 @@ function render() {
       <div class="card-foot">
         <button class="btn btn-sm btn-primary" type="button" data-open="${p.id}">${t.projects.open}</button>
         <button class="btn btn-sm" type="button" data-status="${p.id}">${t.projects.statusBtn}</button>
-        <button class="btn btn-sm" type="button" data-news="${p.id}">${t.projects.newsBtn}</button>
+        <button class="btn btn-sm" type="button" data-news="${p.id}"${hasNews ? '' : ` disabled title="${t.projects.newsEmpty}"`}>${t.projects.newsBtn}</button>
         ${COMPARE[p.id] && lang === 'ru' ? `<button class="btn btn-sm" type="button" data-compare="${p.id}">${t.projects.compareBtn}</button>` : ''}
         ${p.id === 'syntha' ? `<button class="btn btn-sm flow-toggle" type="button" data-flow-toggle aria-expanded="false">${t.flow.eyebrow}</button>` : ''}
         ${p.id === 'syntha' ? `<button class="btn btn-sm" type="button" data-leak-open>${t.leakQuiz.label}</button>` : ''}
       </div>
       ${p.id === 'syntha' ? '<div class="flow-embed" id="flow-embed" hidden></div>' : ''}
-    </article>`).join('');
+    </article>`;
+  }).join('');
   if (flowOpen) renderSeasonFlow();
 
   $('#contact-title').textContent = t.contact.title;
@@ -1003,10 +1013,41 @@ function openPostModal(date) {
   const src = $('#post-modal-source');
   if (href) { src.href = href; src.hidden = false; src.textContent = t.source; }
   else src.hidden = true;
+
+  /* Листание по публикациям того же проекта — тот же приём, что и в
+     просмотрщике снимков (photo-prev/photo-next): стрелки по бокам и
+     счётчик снизу, видны только когда у проекта больше одного поста. */
+  const projList = PROJECTS.some((x) => x.id === p.tag) ? projectPostList(p.tag) : [];
+  const idx = projList.findIndex((x) => x.date === date);
+  const many = projList.length > 1 && idx !== -1;
+  postModal.dataset.navTag = many ? p.tag : '';
+  postModal.dataset.navDate = date;
+  $('#post-prev').hidden = !many;
+  $('#post-next').hidden = !many;
+  $('#post-prev').setAttribute('aria-label', t.postPrev);
+  $('#post-next').setAttribute('aria-label', t.postNext);
+  $('#post-nav-bar').hidden = !many;
+  $('#post-count').textContent = many ? `${idx + 1} / ${projList.length}` : '';
+
   if (!postModal.open) postModal.showModal();
   postModal.querySelector('.modal-body').scrollTop = 0;
   return true;
 }
+function stepPost(dir) {
+  const tag = postModal.dataset.navTag;
+  if (!tag) return;
+  const list = projectPostList(tag);
+  const idx = list.findIndex((x) => x.date === postModal.dataset.navDate);
+  if (idx === -1) return;
+  const next = list[(idx + dir + list.length) % list.length];
+  openPostModal(next.date);
+}
+$('#post-prev').addEventListener('click', () => stepPost(-1));
+$('#post-next').addEventListener('click', () => stepPost(1));
+postModal.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowLeft') { e.preventDefault(); stepPost(-1); }
+  if (e.key === 'ArrowRight') { e.preventDefault(); stepPost(1); }
+});
 $('#post-close').addEventListener('click', () => leaveAll());
 postModal.addEventListener('click', (e) => { if (e.target === postModal) leaveAll(); });
 $('#post-modal-tag').addEventListener('click', () => {
