@@ -1220,7 +1220,7 @@ export const PROJECTS = [
     ru: {
       tagline: '«СОСТОЯНИЕ» — рабочая концепция комьюнити и ежегодной конференции для Promomed',
       roadmap: [{ label: 'Концепция и MVP', state: 'done' }, { label: 'Согласование с Promomed', state: 'current' }, { label: 'Разработка и запуск', state: 'next' }],
-      stage: 'Концепция, MVP собран',
+      stage: 'Концепция, MVP',
       card: 'Не мероприятие на день, а маршрут на год: комьюнити вокруг здоровья и ежегодная конференция «Человек. Наука. Жизнь.» для «Промомед» на одной платформе.',
       what: 'Собран MVP рабочей концепции «СОСТОЯНИЕ»: персональный маршрут дня вместо общей программы для всех, Smart Route — расписание, собранное под интересы конкретного человека, Moment Mode («у меня есть 20 минут» — лучший следующий шаг с учётом времени), и «Паспорт СОСТОЯНИЯ» — не рейтинг, а личный след участия (знания, событие, диалог, практика), который открывает персональный набор материалов после конференции.',
       who: '«Промомед» — ведущая инновационная биофармацевтическая компания с потенциалом значительного роста в перспективных сегментах фармацевтического рынка — а также её клиенты и партнёры.',
@@ -1230,7 +1230,7 @@ export const PROJECTS = [
     en: {
       roadmap: [{ label: 'Concept and MVP', state: 'done' }, { label: 'Alignment with Promomed', state: 'current' }, { label: 'Build and launch', state: 'next' }],
       tagline: '“SOSTOYANIE” — a working concept for a community and annual conference for Promomed',
-      stage: 'Concept, MVP built',
+      stage: 'Concept, MVP',
       card: 'Not an event for a day, but a route for a year: a health community and Promomed’s “Human. Science. Life.” annual conference on one platform.',
       what: 'An MVP has been built for the “SOSTOYANIE” working concept: a personal day route instead of one programme for everyone, Smart Route — a schedule built around one person’s interests, Moment Mode (“I have 20 minutes” — the best next step given the time available), and a “SOSTOYANIE Passport” — not a leaderboard, but a personal record of participation (knowledge, event, dialogue, practice) that unlocks a personal set of materials after the conference.',
       who: 'Promomed — a leading innovative biopharmaceutical company with the potential for significant growth in promising segments of the pharmaceutical market — and its clients and partners.',
