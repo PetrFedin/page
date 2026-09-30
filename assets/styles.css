@@ -356,8 +356,14 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 .modal-actions [hidden]{display:none}
 .modal-cta{width:100%}
 
-/* до планшета навигация раскрывается панелью под шапкой */
-@media (max-width:759px){
+/* до планшета навигация раскрывается панелью под шапкой. Те же правила
+   нужны и на более широких экранах, где крупный размер текста (lg/xl)
+   снова прячет строчную навигацию за бургер (см. правила ниже, пороги
+   873px/987px) — иначе при открытии .nav попадает под правило
+   min-width:760px{.nav{display:flex}} и рисуется строкой в шапке, а не
+   панелью: строка не помещается в шапку вместе с переключателями языка/
+   темы/размера текста, и эти кнопки обрезаются вправо за пределы экрана. */
+@media (max-width:759px), (max-width:873px) and (min-width:760px), (max-width:987px) and (min-width:760px){
   .nav.open{
     display:flex; flex-direction:column; gap:0; position:absolute;
     left:0; right:0; top:100%; background:var(--panel);
