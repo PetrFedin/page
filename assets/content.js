@@ -166,14 +166,12 @@ export const T = {
         {
           title: 'Данные, PLM и цифровой контур',
           body: 'Процессы, роли и показатели; PLM, ERP, CRM, WMS и BI; производство, склад и логистика.',
-          decision: 'Как управлять регулярно, быстрее и на одной версии данных.',
-          note: true
+          decision: 'Как управлять регулярно, быстрее и на одной версии данных.'
         },
         {
           title: 'Капитал и устойчивость',
           body: 'Денежный поток, оборотный капитал, оценка бизнеса, потребность в финансировании, сделки и стабилизация.',
-          decision: 'Сколько капитала нужно и насколько бизнес готов к росту или сделке.',
-          note: true
+          decision: 'Сколько капитала нужно и насколько бизнес готов к росту или сделке.'
         }
       ],
     },
@@ -685,14 +683,12 @@ export const T = {
         {
           title: 'Data, PLM & systems',
           body: 'Processes, roles and KPIs; PLM, ERP, CRM, WMS and BI; production, warehouse and logistics.',
-          decision: 'How to run the business on a regular cadence and a single version of the data.',
-          note: true
+          decision: 'How to run the business on a regular cadence and a single version of the data.'
         },
         {
           title: 'Capital & resilience',
           body: 'Cash flow, working capital, valuation, funding needs, transactions and turnaround.',
-          decision: 'How much capital is needed and whether the business is ready to grow or to transact.',
-          note: true
+          decision: 'How much capital is needed and whether the business is ready to grow or to transact.'
         }
       ],
     },

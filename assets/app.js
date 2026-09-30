@@ -167,6 +167,7 @@ function render() {
   $('#cta-contact').textContent = t.hero.ctaContact;
 
   $('#consulting-title').textContent = t.consulting.title;
+  $('#consulting-sub').textContent = t.consulting.noteLabel;
   $('#diag-open').textContent = t.diagnostic.label;
   $('#formats').innerHTML = `
     <div class="formats-head"><h3>${t.formats.title}</h3><p class="sub">${t.formats.subtitle}</p></div>
@@ -231,7 +232,6 @@ function render() {
         <span class="svc-t">${it.title}</span>
         <span class="svc-b">${it.body}</span>
         <span class="svc-d"><b>${t.consulting.decisionLabel}</b>${it.decision}</span>
-        ${it.note ? `<span class="svc-note">${t.consulting.noteLabel}</span>` : ''}
         <span class="svc-more">${t.projects.open} →</span>
       </button>
     </li>`).join('');

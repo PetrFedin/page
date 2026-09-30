@@ -113,26 +113,26 @@ img{max-width:100%; display:block}
    сайта — вместо стандартного синего контура браузера при клике/фокусе.
    Наведение чуть увеличивает кнопку, нажатие — выделяет заливкой. */
 .lang,.theme,.modal-close,.modal-icon-btn,.to-top,.photo-nav,.post-share,
-.shot-video-expand,#photo-zoom{
+.shot-expand,#photo-zoom{
   transition:transform .12s ease, background-color .12s ease, border-color .12s ease;
 }
 .lang:hover,.theme:hover,.modal-close:hover,.modal-icon-btn:hover,.to-top:hover,
-.photo-nav:hover,.post-share:hover,.shot-video-expand:hover{
+.photo-nav:hover,.post-share:hover,.shot-expand:hover{
   transform:scale(1.08);
 }
 .lang:active,.theme:active,.modal-close:active,.modal-icon-btn:active,.to-top:active,
-.photo-nav:active,.post-share:active,.shot-video-expand:active{
+.photo-nav:active,.post-share:active,.shot-expand:active{
   transform:scale(.96); background:var(--accent-soft); border-color:var(--accent); color:var(--accent);
 }
 .lang:focus-visible,.theme:focus-visible,.modal-close:focus-visible,.modal-icon-btn:focus-visible,
 .to-top:focus-visible,.photo-nav:focus-visible,.post-share:focus-visible,
-.shot-video-expand:focus-visible,#photo-zoom:focus-visible{
+.shot-expand:focus-visible,#photo-zoom:focus-visible{
   outline:2px solid var(--accent); outline-offset:2px;
 }
 .lang:focus:not(:focus-visible),.theme:focus:not(:focus-visible),.modal-close:focus:not(:focus-visible),
 .modal-icon-btn:focus:not(:focus-visible),.to-top:focus:not(:focus-visible),
 .photo-nav:focus:not(:focus-visible),.post-share:focus:not(:focus-visible),
-.shot-video-expand:focus:not(:focus-visible){
+.shot-expand:focus:not(:focus-visible){
   outline:none;
 }
 
@@ -165,7 +165,8 @@ h2{font-size:clamp(26px,5vw,36px)}
 .btn:active{transform:translateY(1px)}
 .btn-primary{background:var(--ink); color:var(--bg); border-color:var(--ink)}
 .btn-primary:hover{opacity:.88}
-.deck-actions{display:flex; flex-wrap:wrap; gap:10px; margin-top:32px}
+.deck-actions{display:flex; flex-wrap:wrap; align-items:center; gap:18px 10px; margin-top:32px}
+.deck-actions .consulting-diag-link{margin:0}
 @media (max-width:759px){
   .deck-actions .btn{flex:1 1 auto; padding:12px 10px; font-size:14px}
 }
@@ -1348,10 +1349,10 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
   list-style:none; margin:0; padding:0; counter-reset:t;
   display:grid; gap:8px 24px;
   grid-template-columns:repeat(2,minmax(0,1fr));
-  /* Число строк задаёт разбивку по колонкам (условно 14 пунктов у
-     Syntha — 7+7, у остальных страниц — своё значение через
-     --toc-rows инлайн-стилем на самом <nav>). */
-  grid-template-rows:repeat(var(--toc-rows, 7), auto); grid-auto-flow:column;
+  /* Число строк задаёт разбивку по колонкам — по 3 пункта в столбце
+     на всех страницах разбора; --toc-rows на самом <nav> переопределяет
+     при необходимости. */
+  grid-template-rows:repeat(var(--toc-rows, 3), auto); grid-auto-flow:column;
 }
 .doc-toc li{counter-increment:t; position:relative; padding-left:30px; font-size:15px}
 .doc-toc li::before{
@@ -1370,14 +1371,15 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
   display:block; height:460px; width:auto; flex:0 0 auto;
   border:1px solid var(--line); border-radius:4px; background:var(--panel);
 }
-.shot-video-wrap{position:relative; flex:0 0 auto; display:block; height:460px}
+.shot-video-wrap,.shot-img-wrap{position:relative; flex:0 0 auto; display:block; height:460px}
 .shot-video-wrap video{height:100%}
-.shot-video-expand{
+.shot-img-wrap img{height:100%}
+.shot-expand{
   position:absolute; top:10px; right:10px; z-index:2; width:32px; height:32px;
   border-radius:999px; border:1px solid var(--line); background:var(--panel); color:var(--ink);
   display:flex; align-items:center; justify-content:center; cursor:pointer;
 }
-.shot-video-expand:hover{border-color:var(--ink); color:var(--accent)}
+.shot-expand:hover{border-color:var(--ink); color:var(--accent)}
 .phases .gt-cell small{color:var(--muted)}
 
 @media (min-width:760px){
@@ -1491,7 +1493,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
   .shot-row.snap{gap:12px}
   /* Экраны листаются в исходной пропорции, без обрезки. */
   .shot-row.snap img,.shot-row.snap video{height:auto; width:100%}
-  .shot-row.snap .shot-video-wrap{height:auto; width:100%}
+  .shot-row.snap .shot-video-wrap,.shot-row.snap .shot-img-wrap{height:auto; width:100%}
   .shot-row.snap .shot-video-wrap video{width:100%}
 }
 

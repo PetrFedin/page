@@ -98,8 +98,29 @@ if (rowVideo) {
   shots.push({ src: source?.src ?? rowVideo.currentSrc, poster: rowVideo.poster, alt: rowVideo.getAttribute('aria-label') ?? '', type: 'video' });
 }
 [...document.querySelectorAll('.shot-row img')].forEach((img) => shots.push({ src: img.currentSrc || img.src, alt: img.alt }));
+
+/* Значок «увеличить» в своём углу — одинаковый для видео и для снимков,
+   чтобы у кадра была явная подсказка «открывается во весь экран», а не
+   только курсор-лупа. */
+function addExpandButton(wrap, onOpen) {
+  const expand = document.createElement('button');
+  expand.type = 'button';
+  expand.className = 'shot-expand';
+  expand.setAttribute('aria-label', T.ru.projects.viewer.zoomIn);
+  expand.innerHTML = '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">'
+    + '<path d="M9 4H4v5M15 4h5v5M9 20H4v-5M15 20h5v-5" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  expand.addEventListener('click', onOpen);
+  wrap.append(expand);
+}
+
 document.querySelectorAll('.shot-row img').forEach((img, i) => {
-  img.addEventListener('click', () => viewer.open(shots, i + (rowVideo ? 1 : 0)));
+  const at = i + (rowVideo ? 1 : 0);
+  img.addEventListener('click', () => viewer.open(shots, at));
+  const wrap = document.createElement('div');
+  wrap.className = 'shot-img-wrap';
+  img.replaceWith(wrap);
+  wrap.append(img);
+  addExpandButton(wrap, () => viewer.open(shots, at));
 });
 if (rowVideo) {
   /* у видео уже есть свои controls — отдельная кнопка-уголок открывает его
@@ -109,14 +130,7 @@ if (rowVideo) {
   wrap.className = 'shot-video-wrap';
   rowVideo.replaceWith(wrap);
   wrap.append(rowVideo);
-  const expand = document.createElement('button');
-  expand.type = 'button';
-  expand.className = 'shot-video-expand';
-  expand.setAttribute('aria-label', T.ru.projects.viewer.zoomIn);
-  expand.innerHTML = '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">'
-    + '<path d="M9 4H4v5M15 4h5v5M9 20H4v-5M15 20h5v-5" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-  expand.addEventListener('click', () => viewer.open(shots, 0));
-  wrap.append(expand);
+  addExpandButton(wrap, () => viewer.open(shots, 0));
 }
 
 /* ---------- заголовок раздела держится сверху, стрелка возвращает к началу ---------- */
