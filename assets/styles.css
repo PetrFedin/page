@@ -1211,6 +1211,18 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
   counter-increment:s; position:relative; padding-left:30px;
   font-size:17px; line-height:1.5; max-width:72ch;
 }
+/* При самом широком размере текста колонка (--maxw) растянута почти на весь
+   экран, а абзацы держат читаемую ширину в ch — рядом со списками и
+   таблицами, занимающими всю колонку, это выглядит как случайные
+   неровные пробелы. При xl на десктопе отпускаем прозу шире; на lg/normal
+   (узкая колонка для чтения) ничего не трогаем — там повода нет. */
+@media (min-width:1024px){
+  html[data-text-size="xl"] .summary-list li,
+  html[data-text-size="xl"] .doc-block p,
+  html[data-text-size="xl"] .doc-note,
+  html[data-text-size="xl"] .case p,
+  html[data-text-size="xl"] .faq dd{max-width:none}
+}
 .summary-list li::before{
   content:counter(s); position:absolute; left:0; top:2px;
   font-size:12px; color:var(--accent); letter-spacing:.04em;
