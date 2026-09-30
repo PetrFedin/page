@@ -166,7 +166,6 @@ h2{font-size:clamp(26px,5vw,36px)}
 .btn-primary{background:var(--ink); color:var(--bg); border-color:var(--ink)}
 .btn-primary:hover{opacity:.88}
 .deck-actions{display:flex; flex-wrap:wrap; align-items:center; gap:18px 10px; margin-top:32px}
-.deck-actions .consulting-diag-link{margin:0}
 @media (max-width:759px){
   .deck-actions .btn{flex:1 1 auto; padding:12px 10px; font-size:14px}
 }
@@ -1050,7 +1049,6 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 }
 .section-head .sub{margin-top:10px; margin-bottom:22px; max-width:640px}
 .section-head .channel-link{margin-bottom:18px}
-.consulting-diag-link{display:inline-block; margin:10px 0 22px}
 
 /* кнопка «наверх» — часть прилипшего заголовка раздела */
 .to-top{
