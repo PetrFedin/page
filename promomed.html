@@ -51,11 +51,12 @@
   <header class="doc-head">
     <span class="doc-logo" id="doc-logo"></span>
     <h1>Promomed</h1>
-    <p class="doc-lead">Связь с клиентами и партнёрами для ежегодной конференции Promomed.</p>
-    <p class="doc-stage"><span class="stage">Предложение</span></p>
-    <p class="doc-state">Предлагаем «Промомед» платформу с двумя связанными
-      половинами: комьюнити вокруг здоровья и организация ежегодной конференции
-      компании на этой же базе. Состав работ: <a href="#s04">раздел 04</a>.</p>
+    <p class="doc-lead">«СОСТОЯНИЕ» — рабочая концепция комьюнити и ежегодной
+      конференции для Promomed.</p>
+    <p class="doc-stage"><span class="stage">Концепция, MVP собран</span></p>
+    <p class="doc-state">MVP рабочей концепции «СОСТОЯНИЕ»: персональный маршрут дня,
+      Smart Route, Moment Mode и Паспорт СОСТОЯНИЯ вместо общей программы для всех.
+      Состав работ: <a href="#s04">раздел 04</a>.</p>
   </header>
 
   <section class="summary" aria-label="Резюме">
@@ -66,10 +67,11 @@
         фармацевтического рынка.</li>
       <li>Комьюнити вокруг здоровья и ежегодная конференция обычно ведутся
         раздельно: связь с аудиторией, которая копится весь год, не работает
-        на само мероприятие.</li>
-      <li>Предлагаем одну платформу: комьюнити не выключается между
-        конференциями, а конференция строится на уже накопленной связи
-        с клиентами и партнёрами.</li>
+        на само мероприятие, а после конференции остаётся пакет раздаточных
+        материалов, а не персональный маршрут.</li>
+      <li>«СОСТОЯНИЕ» — рабочая концепция предложения для «Промомед», не
+        официальный продукт компании: название, программа, партнёры и
+        показатели в MVP демонстрационные.</li>
     </ol>
     <p class="doc-cta">
       <a class="btn btn-primary" href="/#contact">Обсудить участие</a>
@@ -84,7 +86,8 @@
       <li><a href="#s02">Принцип решения</a></li>
       <li><a href="#s03">Кому подходит</a></li>
       <li><a href="#s04">Стадия</a></li>
-      <li><a href="#s05">Участие</a></li>
+      <li><a href="#s05">Как это выглядит</a></li>
+      <li><a href="#s06">Участие</a></li>
     </ol>
   </nav>
 
@@ -147,21 +150,36 @@
     <div class="status-grid">
       <div class="status-col status-done">
         <h4>Готово</h4>
-        <ul><li>Предложение платформы: комьюнити вокруг здоровья и ежегодная конференция на одной базе</li></ul>
+        <ul><li>Рабочая концепция «СОСТОЯНИЕ»: персональный маршрут, Smart Route, Moment Mode, Паспорт СОСТОЯНИЯ — MVP собран</li></ul>
       </div>
       <div class="status-col status-now">
         <h4>Сейчас</h4>
-        <ul><li>Согласование предложения с «Промомед»</li></ul>
+        <ul><li>Согласование концепции с «Промомед»</li></ul>
       </div>
       <div class="status-col status-next">
         <h4>Дальше</h4>
-        <ul><li>Уточнение состава экранов и функций</li><li>Разработка и запуск</li></ul>
+        <ul><li>Уточнение программы, партнёров и показателей под реальную конференцию</li><li>Разработка и запуск</li></ul>
       </div>
     </div>
   </section>
 
   <section class="doc-block" id="s05">
-    <p class="sec-no">05 — Участие</p>
+    <p class="sec-no">05 — Как это выглядит</p>
+    <h2><span>Персональный маршрут дня</span></h2>
+    <p class="doc-lead-in">Снимок с рабочей MVP-сборки: не общая программа, а маршрут
+      под интерес конкретного участника.</p>
+
+    <figure class="exhibit shots">
+      <div class="shot-row">
+        <img src="/assets/shots/promomed-1.jpg" alt="«СОСТОЯНИЕ» — персональный маршрут дня"
+             loading="lazy">
+      </div>
+      <p class="doc-note shot-hint">Нажмите на снимок, чтобы открыть его во весь экран.</p>
+    </figure>
+  </section>
+
+  <section class="doc-block" id="s06">
+    <p class="sec-no">06 — Участие</p>
     <h2><span>Кому будет полезно подключиться сейчас</span></h2>
     <p class="doc-lead-in">Согласование с «Промомед» ещё впереди — это подходящий
       момент обсудить участие.</p>
@@ -173,11 +191,29 @@
 
 </main>
 
+<dialog class="photo-modal" id="photo-modal">
+  <button class="modal-close" id="photo-close" type="button" aria-label="Закрыть">
+    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>
+  </button>
+  <img id="photo-big" src="" alt="">
+  <video id="photo-video" playsinline controls hidden></video>
+  <button class="photo-nav prev" id="photo-prev" type="button" hidden>
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <button class="photo-nav next" id="photo-next" type="button" hidden>
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <div class="photo-bar" id="photo-bar" hidden>
+    <span class="photo-count" id="photo-count"></span>
+    <button class="btn btn-sm" id="photo-zoom" type="button"></button>
+  </div>
+</dialog>
+
 <footer class="footer">
   <p><a href="/privacy.html">Политика конфиденциальности</a></p>
   <p class="year">© <span id="year"></span></p>
 </footer>
 
-<script type="module" src="/assets/project-page.js?v=202609301304" data-project="promomed"></script>
+<script type="module" src="/assets/project-page.js?v=202609301526" data-project="promomed"></script>
 </body>
 </html>

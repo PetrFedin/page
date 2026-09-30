@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>MFW — приложение для Недели моды в Москве и BRICS Fashion Summit</title>
-<meta name="description" content="MVP приложения для двух фэшн-мероприятий — Недели моды в Москве и BRICS Fashion Summit. Готовится к показу организаторам.">
+<title>MFW — приложение для Недели моды в Москве и BRICS+ Fashion Summit</title>
+<meta name="description" content="MVP приложения для двух фэшн-мероприятий — Недели моды в Москве и BRICS+ Fashion Summit. Готовится к показу организаторам.">
 <meta name="color-scheme" content="light dark">
-<meta property="og:title" content="MFW — приложение для Недели моды в Москве и BRICS Fashion Summit">
-<meta property="og:description" content="MVP приложения для двух фэшн-мероприятий — Недели моды в Москве и BRICS Fashion Summit.">
+<meta property="og:title" content="MFW — приложение для Недели моды в Москве и BRICS+ Fashion Summit">
+<meta property="og:description" content="MVP приложения для двух фэшн-мероприятий — Недели моды в Москве и BRICS+ Fashion Summit.">
 <meta property="og:type" content="article">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -52,7 +52,7 @@
     <span class="doc-logo" id="doc-logo"></span>
     <h1>MFW</h1>
     <p class="doc-lead">Платформа для двух параллельных мероприятий — Недели моды
-      в Москве и BRICS Fashion Summit.</p>
+      в Москве и BRICS+ Fashion Summit.</p>
     <p class="doc-stage"><span class="stage">MVP</span></p>
     <p class="doc-state">Собран MVP, который показывает оба мероприятия в одном месте.
       Сейчас готовится демонстрация организаторам. Состав работ: <a href="#s04">раздел 04</a>.</p>
@@ -64,7 +64,7 @@
       <li>Два крупных мероприятия идут параллельно, но обычно живут в разных
         программах, чатах и рассылках — участнику и гостю приходится держать
         в голове два источника вместо одного.</li>
-      <li>MFW показывает Неделю моды в Москве и BRICS Fashion Summit как единое
+      <li>MFW показывает Неделю моды в Москве и BRICS+ Fashion Summit как единое
         целое: одна точка входа вместо двух.</li>
       <li>MVP собран, сейчас готовится демонстрация организаторам обеих площадок —
         точный состав экранов и сценарий обсуждаются с ними.</li>
@@ -82,7 +82,8 @@
       <li><a href="#s02">Принцип решения</a></li>
       <li><a href="#s03">Кому подходит</a></li>
       <li><a href="#s04">Стадия</a></li>
-      <li><a href="#s05">Участие</a></li>
+      <li><a href="#s05">Как это выглядит</a></li>
+      <li><a href="#s06">Участие</a></li>
     </ol>
   </nav>
 
@@ -105,7 +106,7 @@
       </li>
       <li>
         <h3>Мероприятия не выглядят единым целым</h3>
-        <p>Организаторам сложнее показать Неделю моды в Москве и BRICS Fashion Summit
+        <p>Организаторам сложнее показать Неделю моды в Москве и BRICS+ Fashion Summit
           как связанное события индустрии, если у них нет общей цифровой витрины.</p>
       </li>
     </ol>
@@ -127,7 +128,7 @@
     <h2><span>Организаторы, участники и гости обоих мероприятий</span></h2>
     <ol class="findings">
       <li>
-        <h3>Организаторы Недели моды в Москве и BRICS Fashion Summit</h3>
+        <h3>Организаторы Недели моды в Москве и BRICS+ Fashion Summit</h3>
         <p>Единая витрина для показа обоих мероприятий партнёрам, прессе
           и индустрии.</p>
       </li>
@@ -161,7 +162,25 @@
   </section>
 
   <section class="doc-block" id="s05">
-    <p class="sec-no">05 — Участие</p>
+    <p class="sec-no">05 — Как это выглядит</p>
+    <h2><span>Два экрана — MFW и BFS</span></h2>
+    <p class="doc-lead-in">Снимки с рабочей превью-сборки: своё лицо у каждого
+      мероприятия, общая платформа внутри.</p>
+
+    <figure class="exhibit shots">
+      <div class="shot-row">
+        <img src="/assets/shots/mfw-1.jpg" alt="MFW — экран Недели моды в Москве"
+             loading="lazy">
+        <img src="/assets/shots/mfw-2.jpg" alt="MFW — экран BRICS+ Fashion Summit"
+             loading="lazy">
+      </div>
+      <p class="doc-note shot-hint">Нажмите на снимок, чтобы открыть его во весь экран
+        и пролистать оба.</p>
+    </figure>
+  </section>
+
+  <section class="doc-block" id="s06">
+    <p class="sec-no">06 — Участие</p>
     <h2><span>Кому будет полезно подключиться сейчас</span></h2>
     <p class="doc-lead-in">Питч организаторам ещё впереди — это подходящий момент
       обсудить участие.</p>
@@ -173,11 +192,29 @@
 
 </main>
 
+<dialog class="photo-modal" id="photo-modal">
+  <button class="modal-close" id="photo-close" type="button" aria-label="Закрыть">
+    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>
+  </button>
+  <img id="photo-big" src="" alt="">
+  <video id="photo-video" playsinline controls hidden></video>
+  <button class="photo-nav prev" id="photo-prev" type="button" hidden>
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <button class="photo-nav next" id="photo-next" type="button" hidden>
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <div class="photo-bar" id="photo-bar" hidden>
+    <span class="photo-count" id="photo-count"></span>
+    <button class="btn btn-sm" id="photo-zoom" type="button"></button>
+  </div>
+</dialog>
+
 <footer class="footer">
   <p><a href="/privacy.html">Политика конфиденциальности</a></p>
   <p class="year">© <span id="year"></span></p>
 </footer>
 
-<script type="module" src="/assets/project-page.js?v=202609301304" data-project="mfw"></script>
+<script type="module" src="/assets/project-page.js?v=202609301526" data-project="mfw"></script>
 </body>
 </html>

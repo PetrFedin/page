@@ -1191,51 +1191,51 @@ export const PROJECTS = [
   {
     id: 'mfw',
     name: 'MFW',
-    shots: [],
+    shots: ['/assets/shots/mfw-1.jpg', '/assets/shots/mfw-2.jpg'],
     ru: {
       roadmap: [{ label: 'MVP', state: 'done' }, { label: 'Демонстрация организаторам', state: 'current' }, { label: 'Использование на мероприятиях', state: 'next' }],
-      tagline: 'Платформа для двух параллельных мероприятий — Недели моды в Москве и BRICS Fashion Summit',
+      tagline: 'Платформа для двух параллельных мероприятий — Недели моды в Москве и BRICS+ Fashion Summit',
       stage: 'MVP',
-      card: 'Одна платформа показывает сразу два больших фэшн-мероприятия — Неделю моды в Москве и BRICS Fashion Summit — вместо двух разрозненных источников информации.',
-      what: 'Собран MVP платформы, которая отображает два параллельных мероприятия — Неделю моды в Москве и BRICS Fashion Summit — в одном месте, а не как два несвязанных события. Сейчас готовится демонстрация организаторам обеих площадок.',
-      who: 'Организаторы Недели моды в Москве и BRICS Fashion Summit, а через них — участники и гости обоих мероприятий.',
-      why: 'Два крупных мероприятия, идущих параллельно, обычно живут в разных PDF-программах, чатах и рассылках — участнику и гостю приходится держать в голове два источника вместо одного, а организаторам сложнее показать мероприятия как единое целое.',
-      how: 'Предлагаем единую платформу, где оба мероприятия видны рядом, а не по отдельности: общая точка входа вместо двух разных программ. Экранный состав MVP и конкретный сценарий использования — предмет разговора с организаторами на демонстрации.'
+      card: 'Одна платформа показывает сразу два больших фэшн-мероприятия — Неделю моды в Москве и BRICS+ Fashion Summit — с общей инфраструктурой и разным визуальным лицом у каждого.',
+      what: 'Собран MVP платформы для Недели моды в Москве (MFW) и BRICS+ Fashion Summit (BFS): у каждого мероприятия своя визуальная идентичность и отдельная регистрация, а общая инфраструктура одна — аккаунт, программа, уведомления, лояльность, Brand CRM/CDP и аналитика. Для брендов работают профиль Brand 365, подписчики и избранное, сегменты аудитории, конструктор кампаний, верифицированные QR-вознаграждения. Для организаторов и владельца — сквозная аналитика по обоим мероприятиям и Owner Control Tower.',
+      who: 'Организаторы Недели моды в Москве и BRICS+ Fashion Summit, участвующие бренды, а через платформу — участники и гости обоих мероприятий.',
+      why: 'Два крупных мероприятия, идущих параллельно, обычно живут в разных программах, чатах и рассылках — участнику и гостю приходится держать в голове два источника вместо одного. Брендам ещё сложнее: аудитория, лояльность и аналитика собираются заново под каждое мероприятие, а сквозной связи между MFW и BFS нет вообще.',
+      how: 'MFW и BFS делят общую инфраструктуру, но не визуальный дизайн: у MFW своя фэшн-редакционная идентичность (Бренд → Дизайнер → Показ → Коллекция → LIVE/Replay → Подписка → Вознаграждение), у BFS — своя деловая (Организация → Спикер/Делегат → Сессия → Тема → Встреча → Подписка → Лид). Аккаунт один, регистрация и цифровой пропуск — отдельно на каждое мероприятие.'
     },
     en: {
       roadmap: [{ label: 'MVP', state: 'done' }, { label: 'Demo to organisers', state: 'current' }, { label: 'Use at the events', state: 'next' }],
-      tagline: 'A platform for two parallel events — Moscow Fashion Week and the BRICS Fashion Summit',
+      tagline: 'A platform for two parallel events — Moscow Fashion Week and the BRICS+ Fashion Summit',
       stage: 'MVP',
-      card: 'One platform surfaces two major fashion events at once — Moscow Fashion Week and the BRICS Fashion Summit — instead of two disconnected sources of information.',
-      what: 'An MVP has been built that displays two parallel events — Moscow Fashion Week and the BRICS Fashion Summit — in one place rather than as two unrelated events. A demo to both organisers is being prepared now.',
-      who: 'The organisers of Moscow Fashion Week and the BRICS Fashion Summit, and through them, both events’ attendees and guests.',
-      why: 'Two large events running in parallel typically live in separate PDF programs, chats and mailing lists — attendees end up juggling two sources instead of one, and organisers have a harder time presenting the events as one experience.',
-      how: 'We’re proposing a single platform where both events sit side by side rather than apart — one entry point instead of two separate programs. The MVP’s exact screen set and use scenario is a conversation for the demo with the organisers.'
+      card: 'One platform surfaces two major fashion events at once — Moscow Fashion Week and the BRICS+ Fashion Summit — with shared infrastructure and a distinct visual identity for each.',
+      what: 'An MVP has been built for Moscow Fashion Week (MFW) and the BRICS+ Fashion Summit (BFS): each event keeps its own visual identity and its own registration, while shared infrastructure covers the account, programme, notifications, loyalty, Brand CRM/CDP and analytics. For brands: a Brand 365 profile, followers and favourites, audience segments, a campaign builder, and verified QR rewards. For organisers and the owner: cross-event analytics and an Owner Control Tower.',
+      who: 'The organisers of Moscow Fashion Week and the BRICS+ Fashion Summit, participating brands, and — through the platform — both events’ attendees and guests.',
+      why: 'Two large events running in parallel typically live in separate programs, chats and mailing lists — attendees end up juggling two sources instead of one. It’s harder still for brands: audience, loyalty and analytics get rebuilt for every event, with no thread connecting MFW and BFS at all.',
+      how: 'MFW and BFS share infrastructure but not visual design: MFW keeps its own fashion/editorial identity (Brand → Designer → Show → Collection → LIVE/Replay → Follow → Reward), BFS its own business one (Organisation → Speaker/Delegate → Session → Topic → Meeting → Follow → Lead). One account, separate registration and digital pass per event.'
     }
   },
   {
     id: 'promomed',
     name: 'Promomed',
-    shots: [],
+    shots: ['/assets/shots/promomed-1.jpg'],
     ru: {
-      tagline: 'Связь с клиентами и партнёрами для ежегодной конференции Promomed',
-      roadmap: [{ label: 'Предложение', state: 'done' }, { label: 'Согласование с Promomed', state: 'current' }, { label: 'Разработка и запуск', state: 'next' }],
-      stage: 'Предложение',
-      card: 'Платформа для «Промомед» — ведущей инновационной биофармацевтической компании: развитие комьюнити вокруг здоровья и организация её ежегодной конференции.',
-      what: 'Мы предлагаем «Промомед» платформу с двумя связанными половинами: развитие комьюнити вокруг здоровья — постоянная связь с клиентами и партнёрами между мероприятиями — и организация ежегодной конференции компании на этой же базе, а не отдельным инструментом.',
+      tagline: '«СОСТОЯНИЕ» — рабочая концепция комьюнити и ежегодной конференции для Promomed',
+      roadmap: [{ label: 'Концепция и MVP', state: 'done' }, { label: 'Согласование с Promomed', state: 'current' }, { label: 'Разработка и запуск', state: 'next' }],
+      stage: 'Концепция, MVP собран',
+      card: 'Платформа для «Промомед» — ведущей инновационной биофармацевтической компании: развитие комьюнити вокруг здоровья и организация её ежегодной конференции «Человек. Наука. Жизнь.» на одной базе.',
+      what: 'Собран MVP рабочей концепции «СОСТОЯНИЕ»: персональный маршрут дня вместо общей программы для всех, Smart Route — расписание, собранное под интересы конкретного человека, Moment Mode («у меня есть 20 минут» — лучший следующий шаг с учётом времени), и «Паспорт СОСТОЯНИЯ» — не рейтинг, а личный след участия (знания, событие, диалог, практика), который открывает персональный набор материалов после конференции.',
       who: '«Промомед» — ведущая инновационная биофармацевтическая компания с потенциалом значительного роста в перспективных сегментах фармацевтического рынка — а также её клиенты и партнёры.',
-      why: 'Комьюнити вокруг здоровья и ежегодная конференция обычно ведутся раздельно: рассылки и соцсети — отдельно, регистрация и программа конференции — отдельно. Связь с аудиторией, которая копится весь год, не работает на само мероприятие.',
-      how: 'Предлагаем одну платформу: комьюнити не выключается между конференциями, а конференция строится на уже накопленной связи с клиентами и партнёрами, а не собирается заново. Точный состав экранов и функций — предмет согласования с «Промомед» на следующем этапе.'
+      why: 'Комьюнити вокруг здоровья и ежегодная конференция обычно ведутся раздельно: рассылки и соцсети — отдельно, регистрация и программа конференции — отдельно. Связь с аудиторией, которая копится весь год, не работает на само мероприятие, а после конференции у участника остаётся пакет раздаточных материалов, а не персональный маршрут.',
+      how: 'Предлагаем одну платформу: комьюнити не выключается между конференциями, а конференция строится на уже накопленной связи с клиентами и партнёрами. Важно: «СОСТОЯНИЕ» — рабочая концепция предложения для «Промомед», не официальный продукт компании — название, программа, эксперты, партнёры, даты и показатели в MVP демонстрационные. Точный состав экранов и функций — предмет согласования с «Промомед» на следующем этапе.'
     },
     en: {
-      roadmap: [{ label: 'Proposal', state: 'done' }, { label: 'Alignment with Promomed', state: 'current' }, { label: 'Build and launch', state: 'next' }],
-      tagline: 'Client and partner relationships for Promomed’s annual conference',
-      stage: 'Proposal',
-      card: 'A platform for Promomed — a leading innovative biopharmaceutical company: a health community plus the organisation of its annual conference.',
-      what: 'We’re proposing Promomed a platform with two linked halves: a health community — ongoing contact with clients and partners between events — and, on that same base, the organisation of the company’s annual conference, rather than a separate tool.',
+      roadmap: [{ label: 'Concept and MVP', state: 'done' }, { label: 'Alignment with Promomed', state: 'current' }, { label: 'Build and launch', state: 'next' }],
+      tagline: '“SOSTOYANIE” — a working concept for a community and annual conference for Promomed',
+      stage: 'Concept, MVP built',
+      card: 'A platform for Promomed — a leading innovative biopharmaceutical company: a health community and the organisation of its “Human. Science. Life.” annual conference on one base.',
+      what: 'An MVP has been built for the “SOSTOYANIE” working concept: a personal day route instead of one programme for everyone, Smart Route — a schedule built around one person’s interests, Moment Mode (“I have 20 minutes” — the best next step given the time available), and a “SOSTOYANIE Passport” — not a leaderboard, but a personal record of participation (knowledge, event, dialogue, practice) that unlocks a personal set of materials after the conference.',
       who: 'Promomed — a leading innovative biopharmaceutical company with the potential for significant growth in promising segments of the pharmaceutical market — and its clients and partners.',
-      why: 'A health community and an annual conference are usually run apart: newsletters and social media on one side, conference registration and program on the other. Audience relationships built up over the year don’t feed into the event itself.',
-      how: 'We’re proposing a single platform: the community stays active between conferences, and the conference is built on relationships already gathered rather than assembled from scratch. The exact set of screens and features is for Promomed to align on at the next stage.'
+      why: 'A health community and an annual conference are usually run apart: newsletters and social media on one side, conference registration and program on the other. Audience relationships built up over the year don’t feed into the event itself, and what a participant leaves with is a handout pack rather than a personal route.',
+      how: 'We’re proposing a single platform: the community stays active between conferences, and the conference is built on relationships already gathered. Important: “SOSTOYANIE” is a working concept proposed for Promomed, not an official company product — the name, programme, experts, partners, dates and figures in the MVP are illustrative. The exact set of screens and features is for Promomed to align on at the next stage.'
     }
   }
 

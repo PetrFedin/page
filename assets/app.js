@@ -1,9 +1,9 @@
-import { T, PROJECTS, CONTACTS, COMPARE } from './content.js';
-import { DECK } from './deck.js';
-import { LOGOS } from './logos.js';
-import { createViewer } from './viewer.js';
-import { syncSnaps } from './snap.js';
-import { NEWS } from './news.js';
+import { T, PROJECTS, CONTACTS, COMPARE } from './content.js?v=202609301526';
+import { DECK } from './deck.js?v=202609301526';
+import { LOGOS } from './logos.js?v=202609301526';
+import { createViewer } from './viewer.js?v=202609301526';
+import { syncSnaps } from './snap.js?v=202609301526';
+import { NEWS } from './news.js?v=202609301526';
 
 /* Сайт — витрина: показываем отобранные материалы. Канал получает весь поток.
    Лента идёт от свежего к старому по дате публикации — «Показать ещё» раскрывает
