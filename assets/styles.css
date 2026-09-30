@@ -1363,8 +1363,13 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
   grid-template-columns:repeat(2,minmax(0,1fr));
   /* Число строк задаёт разбивку по колонкам — по 3 пункта в столбце
      на всех страницах разбора; --toc-rows на самом <nav> переопределяет
-     при необходимости. */
+     при необходимости. Пунктов почти везде больше 6, то есть колонок
+     больше двух — без grid-auto-columns лишние колонки сверх явных двух
+     получают ширину по содержимому вместо доли колонки: на мобильном
+     это толкает всё оглавление за край экрана, на десктопе делает
+     колонки неровными. */
   grid-template-rows:repeat(var(--toc-rows, 3), auto); grid-auto-flow:column;
+  grid-auto-columns:minmax(0,1fr);
 }
 .doc-toc li{counter-increment:t; position:relative; padding-left:30px; font-size:15px}
 .doc-toc li::before{
@@ -1469,6 +1474,10 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 
 /* ---------- листание разбора проекта на телефоне ---------- */
 @media (max-width:759px){
+  /* Оглавление на узком экране: колонок по числу пунктов (auto-flow:column)
+     на 343px просто не помещается — слова начинают вылезать за край. Здесь
+     всегда ровно две колонки, а лишние пункты уходят вниз новой строкой. */
+  .doc-toc ol{grid-template-columns:repeat(2,minmax(0,1fr)); grid-template-rows:none; grid-auto-flow:row}
   /* У этих блоков свой display:grid объявлен ниже общего правила карусели,
      поэтому переключение на дорожку задаётся здесь явно. */
   .grid-table.snap,.audiences.snap,.faq.snap,.shot-row.snap{
