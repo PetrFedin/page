@@ -177,6 +177,7 @@ export const T = {
     },
     projects: {
       title: 'Наши проекты',
+      subtitle: 'Второе направление рядом с консалтингом: разработка и запуск собственных IT-продуктов — в фэшн и за его пределами.',
       open: 'Подробнее',
       statusBtn: 'Стадия',
       newsBtn: 'Новости',
@@ -696,6 +697,7 @@ export const T = {
     },
     projects: {
       title: 'Our projects',
+      subtitle: 'A second track alongside advisory work: building and launching our own IT products — in fashion and beyond.',
       open: 'Details',
       statusBtn: 'Stage',
       newsBtn: 'News',
@@ -1184,6 +1186,52 @@ export const PROJECTS = [
       who: 'Owners running a renovation, and the self-employed contractors and crews doing the work.',
       why: 'Renovation lives in chat threads and receipts in a pocket: the estimate drifts from actuals, overspend surfaces at the end, and the contractor\u2019s legal status is backed by nothing.',
       how: 'Every action recalculates the numbers: payment is tied to an accepted stage, and receipts and the contractor’s status are checked against official sources. The client sees at any moment how much has been spent, what is underway, and what comes next.'
+    }
+  },
+  {
+    id: 'mfw',
+    name: 'MFW',
+    shots: [],
+    ru: {
+      tagline: 'Приложение для Недели моды в Москве и BRICS Fashion Summit',
+      stage: 'MVP',
+      card: 'Единое приложение для двух фэшн-мероприятий — Недели моды в Москве и BRICS Fashion Summit. MVP, который сейчас готовится к показу организаторам.',
+      what: 'MVP на стадии подготовки к демонстрации организаторам обоих мероприятий.',
+      who: 'Организаторы Недели моды в Москве и BRICS Fashion Summit.',
+      why: 'Раздел уточняется — страница дополнится по мере продвижения питча организаторам.',
+      how: 'Раздел уточняется — страница дополнится по мере продвижения питча организаторам.'
+    },
+    en: {
+      tagline: 'An app for Moscow Fashion Week and the BRICS Fashion Summit',
+      stage: 'MVP',
+      card: 'One app for two fashion events — Moscow Fashion Week and the BRICS Fashion Summit. MVP, currently being prepared for a pitch to the organisers.',
+      what: 'An MVP being prepared for a pitch to the organisers of both events.',
+      who: 'The organisers of Moscow Fashion Week and the BRICS Fashion Summit.',
+      why: 'Section pending — the page will grow as the pitch to the organisers moves forward.',
+      how: 'Section pending — the page will grow as the pitch to the organisers moves forward.'
+    }
+  },
+  {
+    id: 'promomed',
+    name: 'Promomed',
+    shots: [],
+    ru: {
+      tagline: 'Связь с клиентами и партнёрами для ежегодной конференции Promomed',
+      stage: 'В разработке',
+      card: 'Приложение для компании Promomed: развивает связь с клиентами и партнёрами и на этой основе помогает организовать её современную ежегодную конференцию.',
+      what: 'Инструмент для развития связи с клиентами и партнёрами компании, на базе которого строится её ежегодная конференция.',
+      who: 'Компания Promomed, её клиенты и партнёры.',
+      why: 'Раздел уточняется — страница дополнится по мере продвижения проекта.',
+      how: 'Раздел уточняется — страница дополнится по мере продвижения проекта.'
+    },
+    en: {
+      tagline: 'Client and partner relationships for Promomed’s annual conference',
+      stage: 'In development',
+      card: 'An app for Promomed: builds client and partner relationships and, on that basis, helps run its modern annual conference.',
+      what: 'A tool for developing the company’s relationships with clients and partners, on top of which its annual conference is organised.',
+      who: 'Promomed, and its clients and partners.',
+      why: 'Section pending — the page will grow as the project moves forward.',
+      how: 'Section pending — the page will grow as the project moves forward.'
     }
   }
 

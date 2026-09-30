@@ -242,6 +242,7 @@ function render() {
     </li>`).join('');
 
   $('#projects-title').textContent = t.projects.title;
+  $('#projects-sub').textContent = t.projects.subtitle;
   $('#cards').className = "cards snap";
   $('#cards').innerHTML = PROJECTS.map((p) => {
     /* Кнопка «Новости» ведёт в тупик, если публикаций по проекту ещё нет —
@@ -469,7 +470,7 @@ function openProject(id, anchor) {
   /* Подробный разбор проекта есть у Syntha, ChatX и Renova, и только по-русски. */
   const more = $('#modal-more');
   if (more) {
-    const есть = ['syntha', 'chatx', 'renova'].includes(id) && lang === 'ru';
+    const есть = ['syntha', 'chatx', 'renova', 'mfw', 'promomed'].includes(id) && lang === 'ru';
     more.hidden = !есть;
     if (есть) more.href = `/${id}.html`;
   }
