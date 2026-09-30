@@ -1,4 +1,4 @@
-import { T, PROJECTS, CONTACTS, COMPARE } from './content.js?v=202609301526';
+import { T, PROJECTS, CONTACTS, COMPARE } from './content.js?v=202609301613';
 import { DECK } from './deck.js?v=202609301526';
 import { LOGOS } from './logos.js?v=202609301526';
 import { createViewer } from './viewer.js?v=202609301526';
