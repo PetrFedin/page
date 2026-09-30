@@ -1193,22 +1193,24 @@ export const PROJECTS = [
     name: 'MFW',
     shots: [],
     ru: {
-      tagline: 'Приложение для Недели моды в Москве и BRICS Fashion Summit',
+      roadmap: [{ label: 'MVP', state: 'done' }, { label: 'Демонстрация организаторам', state: 'current' }, { label: 'Использование на мероприятиях', state: 'next' }],
+      tagline: 'Платформа для двух параллельных мероприятий — Недели моды в Москве и BRICS Fashion Summit',
       stage: 'MVP',
-      card: 'Единое приложение для двух фэшн-мероприятий — Недели моды в Москве и BRICS Fashion Summit. MVP, который сейчас готовится к показу организаторам.',
-      what: 'MVP на стадии подготовки к демонстрации организаторам обоих мероприятий.',
-      who: 'Организаторы Недели моды в Москве и BRICS Fashion Summit.',
-      why: 'Раздел уточняется — страница дополнится по мере продвижения питча организаторам.',
-      how: 'Раздел уточняется — страница дополнится по мере продвижения питча организаторам.'
+      card: 'Одна платформа показывает сразу два больших фэшн-мероприятия — Неделю моды в Москве и BRICS Fashion Summit — вместо двух разрозненных источников информации.',
+      what: 'Собран MVP платформы, которая отображает два параллельных мероприятия — Неделю моды в Москве и BRICS Fashion Summit — в одном месте, а не как два несвязанных события. Сейчас готовится демонстрация организаторам обеих площадок.',
+      who: 'Организаторы Недели моды в Москве и BRICS Fashion Summit, а через них — участники и гости обоих мероприятий.',
+      why: 'Два крупных мероприятия, идущих параллельно, обычно живут в разных PDF-программах, чатах и рассылках — участнику и гостю приходится держать в голове два источника вместо одного, а организаторам сложнее показать мероприятия как единое целое.',
+      how: 'Предлагаем единую платформу, где оба мероприятия видны рядом, а не по отдельности: общая точка входа вместо двух разных программ. Экранный состав MVP и конкретный сценарий использования — предмет разговора с организаторами на демонстрации.'
     },
     en: {
-      tagline: 'An app for Moscow Fashion Week and the BRICS Fashion Summit',
+      roadmap: [{ label: 'MVP', state: 'done' }, { label: 'Demo to organisers', state: 'current' }, { label: 'Use at the events', state: 'next' }],
+      tagline: 'A platform for two parallel events — Moscow Fashion Week and the BRICS Fashion Summit',
       stage: 'MVP',
-      card: 'One app for two fashion events — Moscow Fashion Week and the BRICS Fashion Summit. MVP, currently being prepared for a pitch to the organisers.',
-      what: 'An MVP being prepared for a pitch to the organisers of both events.',
-      who: 'The organisers of Moscow Fashion Week and the BRICS Fashion Summit.',
-      why: 'Section pending — the page will grow as the pitch to the organisers moves forward.',
-      how: 'Section pending — the page will grow as the pitch to the organisers moves forward.'
+      card: 'One platform surfaces two major fashion events at once — Moscow Fashion Week and the BRICS Fashion Summit — instead of two disconnected sources of information.',
+      what: 'An MVP has been built that displays two parallel events — Moscow Fashion Week and the BRICS Fashion Summit — in one place rather than as two unrelated events. A demo to both organisers is being prepared now.',
+      who: 'The organisers of Moscow Fashion Week and the BRICS Fashion Summit, and through them, both events’ attendees and guests.',
+      why: 'Two large events running in parallel typically live in separate PDF programs, chats and mailing lists — attendees end up juggling two sources instead of one, and organisers have a harder time presenting the events as one experience.',
+      how: 'We’re proposing a single platform where both events sit side by side rather than apart — one entry point instead of two separate programs. The MVP’s exact screen set and use scenario is a conversation for the demo with the organisers.'
     }
   },
   {
@@ -1217,21 +1219,23 @@ export const PROJECTS = [
     shots: [],
     ru: {
       tagline: 'Связь с клиентами и партнёрами для ежегодной конференции Promomed',
-      stage: 'В разработке',
-      card: 'Приложение для компании Promomed: развивает связь с клиентами и партнёрами и на этой основе помогает организовать её современную ежегодную конференцию.',
-      what: 'Инструмент для развития связи с клиентами и партнёрами компании, на базе которого строится её ежегодная конференция.',
-      who: 'Компания Promomed, её клиенты и партнёры.',
-      why: 'Раздел уточняется — страница дополнится по мере продвижения проекта.',
-      how: 'Раздел уточняется — страница дополнится по мере продвижения проекта.'
+      roadmap: [{ label: 'Предложение', state: 'done' }, { label: 'Согласование с Promomed', state: 'current' }, { label: 'Разработка и запуск', state: 'next' }],
+      stage: 'Предложение',
+      card: 'Платформа для «Промомед» — ведущей инновационной биофармацевтической компании: развитие комьюнити вокруг здоровья и организация её ежегодной конференции.',
+      what: 'Мы предлагаем «Промомед» платформу с двумя связанными половинами: развитие комьюнити вокруг здоровья — постоянная связь с клиентами и партнёрами между мероприятиями — и организация ежегодной конференции компании на этой же базе, а не отдельным инструментом.',
+      who: '«Промомед» — ведущая инновационная биофармацевтическая компания с потенциалом значительного роста в перспективных сегментах фармацевтического рынка — а также её клиенты и партнёры.',
+      why: 'Комьюнити вокруг здоровья и ежегодная конференция обычно ведутся раздельно: рассылки и соцсети — отдельно, регистрация и программа конференции — отдельно. Связь с аудиторией, которая копится весь год, не работает на само мероприятие.',
+      how: 'Предлагаем одну платформу: комьюнити не выключается между конференциями, а конференция строится на уже накопленной связи с клиентами и партнёрами, а не собирается заново. Точный состав экранов и функций — предмет согласования с «Промомед» на следующем этапе.'
     },
     en: {
+      roadmap: [{ label: 'Proposal', state: 'done' }, { label: 'Alignment with Promomed', state: 'current' }, { label: 'Build and launch', state: 'next' }],
       tagline: 'Client and partner relationships for Promomed’s annual conference',
-      stage: 'In development',
-      card: 'An app for Promomed: builds client and partner relationships and, on that basis, helps run its modern annual conference.',
-      what: 'A tool for developing the company’s relationships with clients and partners, on top of which its annual conference is organised.',
-      who: 'Promomed, and its clients and partners.',
-      why: 'Section pending — the page will grow as the project moves forward.',
-      how: 'Section pending — the page will grow as the project moves forward.'
+      stage: 'Proposal',
+      card: 'A platform for Promomed — a leading innovative biopharmaceutical company: a health community plus the organisation of its annual conference.',
+      what: 'We’re proposing Promomed a platform with two linked halves: a health community — ongoing contact with clients and partners between events — and, on that same base, the organisation of the company’s annual conference, rather than a separate tool.',
+      who: 'Promomed — a leading innovative biopharmaceutical company with the potential for significant growth in promising segments of the pharmaceutical market — and its clients and partners.',
+      why: 'A health community and an annual conference are usually run apart: newsletters and social media on one side, conference registration and program on the other. Audience relationships built up over the year don’t feed into the event itself.',
+      how: 'We’re proposing a single platform: the community stays active between conferences, and the conference is built on relationships already gathered rather than assembled from scratch. The exact set of screens and features is for Promomed to align on at the next stage.'
     }
   }
 
