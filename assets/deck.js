@@ -142,7 +142,7 @@ export const DECK = {
     chainTitle: 'From market to cash',
     chain: ['Market', 'Customer', 'Brand', 'Collection', 'Product', 'Buying & production', 'Inventory', 'Channel & sales', 'Cash'],
     chainTo: [0, 1, 0, 2, 2, 3, 3, 1, 4],
-    chainHint: 'Choose a stage — to open the area of work that covers it.',
+    chainHint: 'Choose a stage to open the area of work that covers it.',
     decisionLabel: 'Decision',
     download: 'Download the deck (PDF)',
     glossaryTitle: 'Abbreviations',
@@ -152,7 +152,7 @@ export const DECK = {
       ['CRM', 'customer management'],
       ['WMS', 'warehouse management'],
       ['BI', 'dashboards and reports'],
-      ['SKU', 'a stock-keeping unit']
+      ['SKU', 'stock-keeping unit']
     ],
     footnote: 'I never disclose client names or sensitive data. Confidentiality is a baseline rule.',
     blocks: [
@@ -187,7 +187,7 @@ export const DECK = {
           { eyebrow: 'Product & operations', title: 'Product development and data are disconnected', decision: 'Design the PLM, BI and automation set-up.' },
           { eyebrow: 'Capital & management', title: 'Profit does not convert into cash', decision: 'Connect profit, cash and working capital.' },
           { eyebrow: 'Capital & management', title: 'Capital need or transaction', decision: 'Prepare the model, the funding need and the materials.' },
-          { eyebrow: 'Capital & management', title: 'Decisions are made too late', decision: 'Set up early-warning signals, a management cycle and control.' },
+          { eyebrow: 'Capital & management', title: 'Decisions are made too late', decision: 'Set up early-warning signals, a management cycle and controls.' },
           { eyebrow: 'Capital & management', title: 'Roles and decision rights are blurred', decision: 'Define accountability and decision rights.' }
         ],
         after: 'The aim is to decide before a mistake turns into dead stock, a cash gap, a lost season or a bad investment.'
@@ -208,7 +208,7 @@ export const DECK = {
         title: 'Data, analytics and PLM',
         note: 'I build a chain, not “one more system”: product → sales → inventory → cash → decision.',
         items: [
-          { title: 'Product PLM loop', body: 'Style record, materials, samples, specifications, cost, versions, approvals and the collection calendar.' },
+          { title: 'PLM for product development', body: 'Style record, materials, samples, specifications, cost, versions, approvals and the collection calendar.' },
           { title: 'Analytics and BI', body: 'One version of sales, margin, inventory, customers, channels, buying, production and cash.' },
           { title: 'Systems architecture', body: 'Requirements for ERP, CRM, WMS and integrations: what each system does.' },
           { title: 'AI and automation', body: 'Demand forecast, stock signals, markdown scenarios, buying and allocation recommendations.' },
@@ -250,7 +250,7 @@ export const DECK = {
             ]
           }
         ],
-        after: 'My role can grow from adviser to the owner into head of the turnaround programme: priorities, coordinating functions, controlling delivery, hard negotiations.'
+        after: 'My role can grow from the owner’s adviser to head of the turnaround programme: priorities, coordinating functions, controlling delivery, hard negotiations.'
       },
       {
         id: 'experience',

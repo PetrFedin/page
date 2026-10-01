@@ -905,7 +905,7 @@ export const T = {
         { id: 'buying', n: 'Buying and assortment',
           l: 'Multi-brand retail: open-to-buy, assortment matrix, demand forecast, allocation, markdown',
           lead: 'Buying that returns capital, not just orders sent to suppliers.',
-          does: ['Open-to-buy and limits by brand, category and channel', 'Assortment matrix, size curves, depth and width', 'Demand forecast recalculated from actual sales and stock', 'Allocation, replenishment and transfers between locations', 'Markdown rules and exit rules for items', 'Every order justified before it is paid', 'Management reporting and tools for the analytics team', 'Regular stock audits and forecast-versus-actual checks'],
+          does: ['Open-to-buy and limits by brand, category and channel', 'Assortment matrix, size curves, depth and width', 'Demand forecast recalculated from actual sales and stock', 'Allocation, replenishment and transfers between locations', 'Markdown rules and exit rules for items', 'Order sign-off against the numbers, before payment', 'Management reporting and tools for the analytics team', 'Regular stock audits and forecast-versus-actual checks'],
           gives: ['Clear rules: what to buy, how much, when and why', 'Every order defended with numbers before money is spent', 'A regular recalculation cycle instead of one-off heroics'],
           results: ['90% of reporting automated', 'Order approval three times faster', 'Share of profitable items +20%', 'Seasonal sell-through +8pp', 'Excess stock −10%', 'GMROI +23%', 'Days of stock per item −34%', 'Buying margin +3pp', '1,000–1,200 underperforming items excluded per season', 'Recurring errors −66%', 'Management reporting errors −90%', 'Data accuracy for reporting +70%', 'Management report from 2–3 days to 10 minutes', '−150 hours of manual work a month', 'Analyst output on ad-hoc tasks ×3'] },
         { id: 'product', n: 'Product and production',
@@ -917,20 +917,20 @@ export const T = {
         { id: 'capital', n: 'Markets and finance',
           l: 'Market and competitor assessment, financial model, funding requirement, investor materials',
           lead: 'Growth decisions calculated before they become obligations.',
-          does: ['Market, competitive landscape and growth geography assessment', 'Entry model: assortment, pricing, channel, partner', 'Financial model: profit, cash flow, working capital', 'Funding requirement and scenarios', 'Materials for talks with an investor, a bank or a buyer', 'Readiness assessment for a transaction', 'Stress-testing the model against a base and a downside scenario'],
+          does: ['Market, competitive landscape and growth geography assessment', 'Entry model: assortment, pricing, channel, partner', 'Financial model: profit, cash flow, working capital', 'Funding requirement and scenarios', 'Materials for talks with an investor, a bank or a buyer', 'Readiness assessment for a transaction', 'Model stress test: base and downside scenarios'],
           gives: ['A go or no-go backed by numbers, with the cost stated', 'A clear funding need and a payback horizon', 'A document pack you can take into negotiations'],
           results: ['A new-market decision made on calculation rather than instinct', 'Funding need and payback defended before an outside party', 'A promising direction dropped because the numbers did not hold', 'Deal economics calculated before the negotiation, not after', 'One financial model instead of several versions across departments', 'A valuation in a form the other side accepts'] },
         { id: 'turnaround', n: 'Turnaround',
           l: 'Liquidity, priorities, processes and roles, plan-versus-actual control, return to growth',
           lead: 'Restoring control when decisions are late and cash is running out.',
-          does: ['Cash calendar and liquidity management', 'Priorities: what to stop, fund or accelerate', 'Processes, roles and decision rights', 'A short plan → actual → action cycle', 'Cross-function coordination and difficult negotiations', 'Execution control until the business is stable', 'Weekly reporting to the owner throughout'],
+          does: ['Cash calendar and liquidity management', 'Priorities: what to stop, fund or accelerate', 'Processes, roles and decision rights', 'A short plan → actual → action cycle', 'Cross-functional coordination and difficult negotiations', 'Execution control until the business is stable', 'Weekly reporting to the owner throughout'],
           gives: ['Who decides what, written down', 'Decisions made on time rather than after the fact', 'A clear criterion for when the turnaround is over'],
-          results: ['Payments organised into a cash calendar weeks ahead', 'An agreed and executed list of what gets stopped', 'Decision rights written down — arguments about authority ended', 'The plan — actual — action cycle shortened to a week', 'Decisions taken in the meeting rather than in chat', 'A defined criterion for leaving turnaround mode'] }
+          results: ['Payments organised into a cash calendar weeks ahead', 'An agreed and executed list of what gets stopped', 'Decision rights written down — arguments about authority ended', 'The plan → actual → action cycle shortened to a week', 'Decisions taken in the meeting rather than in chat', 'A defined criterion for leaving turnaround mode'] }
       ],
       photoAlt: 'Petr Fedin',
       cvLabel: 'Request CV',
       cvShort: 'CV',
-      cvMessage: 'Please provide the CV.'
+      cvMessage: 'Please send me your CV.'
     },
     consulting: {
       title: 'Advisory',
@@ -942,7 +942,7 @@ export const T = {
       items: [
         {
           title: 'Strategic choice',
-          body: 'Russia, CIS and selected Asian markets; positioning, categories, and whether product and commercial model fit.',
+          body: 'Russia, the CIS and selected Asian markets; positioning, categories, and whether product and commercial model fit.',
           decision: 'Which market to enter, what to scale and how much capital it takes.'
         },
         {
@@ -958,7 +958,7 @@ export const T = {
         {
           title: 'Data, PLM & systems',
           body: 'Processes, roles and KPIs; PLM, ERP, CRM, WMS and BI; production, warehouse and logistics.',
-          decision: 'How to run the business on a regular cadence, from one version of the data.'
+          decision: 'How to run the business to a steady cadence, from one version of the data.'
         },
         {
           title: 'Capital & resilience',
@@ -977,7 +977,7 @@ export const T = {
       newsBtn: 'News',
       play: 'Play video',
       newsEmpty: 'No posts about this project yet.',
-      discuss: 'Discuss involvement',
+      discuss: 'Discuss taking part',
       labels: { what: 'What it is', who: 'Who it is for', why: 'Why', how: 'How it works' },
       viewer: { zoomIn: 'Zoom in', zoomOut: 'Fit to screen', prev: 'Previous screen', next: 'Next screen' },
       status: { title: 'Current stage', done: 'Done', now: 'In progress', next: 'Next', seeking: 'What I am looking for' },
@@ -989,7 +989,7 @@ export const T = {
       marks: { yes: 'yes', no: 'no', part: 'partial' },
       launch: {
         title: 'Launch a project',
-        subtitle: 'I have taken Syntha, ChatX, Renova and MFW+BFS from idea to working MVP. I can do the same for you: pick a format or take the 15-second test.',
+        subtitle: 'I have taken Syntha, ChatX, Renova and MFW+BFS from idea to working software. I can do the same for you: pick a format or take the 15-second test.',
         cta: 'Discuss this format',
         contactMessage: 'Interested in the “{title}” format for our project.',
         more: 'Read in full →',
@@ -997,7 +997,7 @@ export const T = {
         items: [
           {
             id: 'idea', n: '01', title: 'A new idea', term: 'project, 4–8 weeks',
-            body: 'You have a hypothesis, but no product or team yet. I shape the concept, test it against the numbers and build it to a working MVP.',
+            body: 'You have a hypothesis, but no product or team yet. I shape the concept, test it against the numbers and build a working MVP.',
             lead: 'From hypothesis to a working MVP you can show to users and investors — the way Syntha, ChatX and Renova began.',
             steps: [
               'Week 1 — hypothesis and boundaries: who the product is for, which problem it closes, what counts as success in three months. All on one page.',
@@ -1086,7 +1086,7 @@ export const T = {
             ],
             includes: [
               'A review of the current product, processes and data in real work',
-              'Target architecture and a digital set-up around roles and scenarios',
+              'A target architecture and a digital set-up around roles and scenarios',
               'A plan for rebuilding step by step without stopping the business',
               'Requirements for data, integrations and reporting',
               'Support for your team and contractors during delivery',
@@ -1113,13 +1113,13 @@ export const T = {
           },
           {
             id: 'full', n: '04', title: 'Full cycle: from development to launch', term: 'project, 36–48 weeks',
-            body: 'I take the whole product: concept, design, development, testing, launch and handover. I answer for the entire path, from first hypothesis to a working product in users’ hands.',
+            body: 'I take the whole product: concept, design, development, testing, launch and handover. I am accountable for the whole path, from first hypothesis to a working product in users’ hands.',
             lead: 'The whole path in one project: concept, design, development, testing, launch, handover to your team.',
             steps: [
               'Weeks 1–6 — concept and validation: hypothesis, economics, user interviews, the boundaries of the first version and success criteria; a prototype you can already show.',
               'Weeks 7–12 — design: roles and scenarios, data model, architecture, screen design, a release plan and a budget by stage.',
               'Weeks 13–32 — iterative development: a release every two to three weeks, each demoed and accepted; integrations, security, roles and permissions.',
-              'Weeks 33–40 — testing and pilot: load, security, real-work scenarios, a pilot with a limited group, fixing the findings.',
+              'Weeks 33–40 — testing and pilot: load and security tests, real-work scenarios, a pilot with a limited group, and fixes for what the tests find.',
               'Weeks 41–48 — launch and handover: deployment, data migration, team training, documentation, and a support period after launch.'
             ],
             includes: [
@@ -1200,13 +1200,13 @@ export const T = {
     area: {
       doesLabel: 'What the work includes',
       givesLabel: 'What stays with you',
-      resultsLabel: 'Achievements and results',
+      resultsLabel: 'Results',
       contactCta: 'Get in touch',
       contactMessage: 'Interested in the “{title}” area.'
     },
     formats: {
       title: 'Ways to work together',
-      subtitle: 'Four formats: you know upfront how long it takes, what I do and what stays with you.',
+      subtitle: 'Four formats: you know up front how long it takes, what I do and what stays with you.',
       more: 'Read in full →',
       stepsLabel: 'How the work goes',
       includesLabel: 'What it includes',
@@ -1216,7 +1216,7 @@ export const T = {
       rhythmLabel: 'How I work',
       notFitLabel: 'When it does not fit',
       contactCta: 'Get in touch',
-      contactMessage: 'Interested in the "{title}" format.',
+      contactMessage: 'Interested in the “{title}” format.',
       items: [
         { n: '01', title: 'Diagnostics', term: 'project-based, 4–6 weeks',
           body: 'I take your economics apart: where capital is locked, what caps growth, which numbers disagree.',
@@ -1252,11 +1252,11 @@ export const T = {
           lead: 'Regular support for decisions inside your own working cycle — without joining the payroll.',
           steps: [
             'Month 1 — onboarding: I review current buying and planning rules, metrics and roles; we agree what counts as success for the cycle and set the rhythm.',
-            'Months 2–3 — working rhythm: meetings aligned to the buying and planning cycle, plan-vs-actual reviews, and a seat in key decisions before they are made, not after.',
+            'Months 2–3 — working rhythm: meetings aligned to the buying and planning cycle, plan-versus-actual reviews, and a say in key decisions before they are made, not after.',
             'From month 4 — consolidation: decision rules and metrics become written policy and your team runs the reviews without me.',
             'Every quarter — review and reset: what worked, what changes for the next cycle; we decide whether to continue, reduce my involvement or finish.'
           ],
-          includes: ['Participation in buying, assortment and channel decisions', 'Decision rules and metrics written down', 'Plan-versus-actual review in a short cycle', 'Materials for the board or an investor', 'Contact with the team between sessions', 'Every decision written down with a calculation and a date, not "as agreed"'],
+          includes: ['Participation in buying, assortment and channel decisions', 'Decision rules and metrics written down', 'Plan-versus-actual review in a short cycle', 'Materials for the board or an investor', 'Contact with the team between sessions', 'Every decision written down with a calculation and a date, not “as agreed”'],
           out: ['Decision rules that work without me', 'Metrics and regular control inside the team', 'A trained team rather than dependence on an outside expert'],
           fit: 'For when decisions get made, but by feel and from scratch every time.',
           needs: [
@@ -1273,11 +1273,11 @@ export const T = {
           notFit: 'Not for you if you need someone to execute decisions on the team’s behalf. That is “Programme lead”.'
         },
         { n: '03', title: 'Programme lead', term: 'project-based, 4–6 months',
-          body: 'When the business loses control, I take over priorities, cross-function coordination and the difficult negotiations.',
+          body: 'When the business loses control, I take over priorities, cross-functional coordination and the difficult negotiations.',
           out: 'Output: control restored, accountability assigned, growth resumed.',
           lead: 'Execution, not recommendations: I run the programme when decisions come too late.',
           steps: [
-            'Weeks 1–2 — stabilisation: liquidity, a 13-week cash calendar, stopping what does not work; we fix who owns what.',
+            'Weeks 1–2 — stabilisation: liquidity, a 13-week cash calendar, stopping what does not work; we settle who owns what.',
             'Weeks 3–6 — building management: quarterly priorities, roles, decision rights and a weekly control cycle.',
             'Months 2–4 — execution: I run the programme with the team — buying, finance, production, retail — and take on the hard negotiations with suppliers, banks and partners.',
             'Months 4–6 — return to growth and handover: I lift the constraints, train those who continue and hand management over; the exit criterion is agreed in advance.'
@@ -1296,10 +1296,10 @@ export const T = {
             'A weekly status meeting: priorities, cash, risks',
             'A monthly report to the owner and the board with clear exit criteria'
           ],
-          notFit: 'Not for you if you want advice without handing me the mandate to execute. Then “Diagnostics” or “Owner advisor”.'
+          notFit: 'Not for you if you want advice without handing me the mandate to execute. Start with “Diagnostics” or “Owner advisor” instead.'
         },
         { n: '04', title: 'Data, analytics and PLM', term: 'project-based, 3–6 months',
-          body: 'I design the whole loop: from data sources to the dashboard your decisions actually rest on.',
+          body: 'I design the whole chain: from data sources to the dashboard your decisions rest on.',
           lead: 'Not one more system, but a chain: product → sales → inventory → cash → decision.',
           steps: [
             'Month 1 — audit: which data exist, where they live and what can be trusted; a map of systems and gaps; a list of decisions that must rest on numbers.',
@@ -1308,7 +1308,7 @@ export const T = {
             'Months 3–4 — system requirements: PLM, ERP, CRM, WMS, BI — what each does and how data flows between them; choosing solutions and contractors.',
             'Months 4–6 — rollout: process testing, team training, moving from spreadsheets to regular management, and checking the result.'
           ],
-          includes: ['A map of sources and the gaps between systems', 'One data model and reference data', 'A management dashboard prototype', 'Requirements for PLM, ERP, CRM, WMS and BI and the role of each', 'Automation scenarios: demand forecast, stock signals, markdown', 'A rollout plan and the move from spreadsheets to regular management', 'Prioritised by impact: what pays off fast versus what needs structural rebuilding'],
+          includes: ['A map of sources and the gaps between systems', 'One data model and reference data', 'A management dashboard prototype', 'Requirements for PLM, ERP, CRM, WMS and BI and the role of each', 'Automation scenarios: demand forecast, stock signals, markdown', 'A rollout plan and the move from spreadsheets to regular management', 'Priorities set by impact: quick wins versus structural rebuilds'],
           out: ['Target architecture and business requirements', 'A data model that stays inside the company', 'A dashboard prototype and a rollout plan'],
           fit: 'For when numbers disagree between departments and decisions wait for a report.',
           needs: [
@@ -1333,7 +1333,7 @@ export const T = {
       competenciesLabel: 'Key competencies',
       whyFitLabel: 'Why I fit',
       contactCta: 'Get in touch',
-      contactMessage: 'Interested in the "{title}" role ({abbr}).',
+      contactMessage: 'Interested in the “{title}” role ({abbr}).',
       contactTopicOther: 'HR',
       items: [
         { n: '01', title: 'Commercial Director', abbr: 'CCO', term: 'Market, channels, revenue, deal economics',
@@ -1353,12 +1353,12 @@ export const T = {
           whyFit: 'I have already done this: market-entry financial models, deal-readiness assessments, investor negotiations, and buying, channels and capital run as one system rather than separate departments. That is a commercial director’s daily work.'
         },
         { n: '02', title: 'Chief Executive Officer', abbr: 'CEO', term: 'Running the business, turnaround, growth',
-          body: 'Control of the whole business, from liquidity and priorities to team and growth: restoring it when decisions run late and keeping it as the business grows again.',
+          body: 'Control of the whole business, from liquidity and priorities to team and growth: I restore it when decisions run late and keep it as growth returns.',
           competencies: [
             'Cash calendar and liquidity management for the whole company',
             'Priorities: what to stop, fund or accelerate',
             'Processes, roles and decision rights company-wide',
-            'Cross-function coordination: buying, finance, production, retail, analytics',
+            'Cross-functional coordination: buying, finance, production, retail, analytics',
             'Complex negotiations with suppliers, banks and partners',
             'A short plan → actual → action cycle at company level',
             'Building a management team and delegating authority',
@@ -1369,12 +1369,12 @@ export const T = {
           whyFit: 'I have restored control of a business more than once, from cash calendar and priorities to a return to growth, with full accountability to the owner. That is the core of the CEO role, not a one-off project.'
         },
         { n: '03', title: 'Head of Buying & Analytics', abbr: 'CDO', term: 'Buying, assortment, data',
-          body: 'Buying and assortment as one managed system: budget, demand forecast, analytics and reporting in a single loop.',
+          body: 'Buying and assortment as one managed system: budget, demand forecast, analytics and reporting on one data model.',
           competencies: [
             'Open-to-buy and limits by brand, category and channel',
             'Assortment matrix, size curves, depth and width',
             'Demand forecast recalculated from actual sales and stock',
-            'A BI loop from budget to single-item profitability',
+            'A BI system from budget to profitability per item',
             'Data architecture and a single metrics model for the company',
             'Management reporting for the owner and the board — from 2–3 days to 10 minutes',
             'Hiring, developing and managing an analytics team',
@@ -1382,7 +1382,7 @@ export const T = {
             'Prioritising initiatives by impact: what pays off fast versus what needs rebuilding',
             'Linking product, commercial and stock data in one model'
           ],
-          whyFit: 'I built a BI loop from scratch, moved buying onto continuous recalculation from actual sales, and hired and grew an analytics team to senior level. That is exactly what a head of buying and analytics does.'
+          whyFit: 'I built a BI system from scratch, moved buying onto continuous recalculation from actual sales, and hired and grew an analytics team to senior level. That is exactly what a head of buying and analytics does.'
         }
       ]
     },
@@ -1431,7 +1431,7 @@ export const T = {
       entityName: 'Company name (optional)',
       entityInn: 'Tax ID (optional)',
       topic: 'Topic',
-      topics: { consulting: 'Advisory', investors: 'Investment', syntha: 'Syntha', renova: 'Renova', chatx: 'ChatX', mfw: 'MFW+BFS', promomed: 'Promomed + Состояние', press: 'Press and comment', event: 'Speaking or event participation', other: 'Other' },
+      topics: { consulting: 'Advisory', investors: 'Investment', syntha: 'Syntha', renova: 'Renova', chatx: 'ChatX', mfw: 'MFW+BFS', promomed: 'Promomed + SOSTOYANIE', press: 'Press and comment', event: 'Speaking or event participation', other: 'Other' },
       topicOther: 'Describe the topic',
       personaLabel: 'Writing as',
       personas: [
@@ -1476,7 +1476,7 @@ export const T = {
       ctaMore: 'Read in full →',
       retake: 'Start over',
       messagePrefix: 'Result of the site diagnostic: “',
-      messageSuffix: '.”',
+      messageSuffix: '”.',
       questions: [
         {
           q: 'Which is closest to where you are right now?',
@@ -1484,7 +1484,7 @@ export const T = {
             { t: 'It feels like money is leaking somewhere, but it is unclear where', f: 0 },
             { t: 'Decisions get made, but by feel and from scratch each time', f: 1 },
             { t: 'The business is losing control and decisions are running late', f: 2 },
-            { t: 'Departments’ numbers disagree and decisions wait on a report', f: 3 }
+            { t: 'Numbers differ between departments and decisions wait on a report', f: 3 }
           ]
         },
         {
@@ -1497,7 +1497,7 @@ export const T = {
           ]
         },
         {
-          q: 'Who should be left holding the result once the work is done?',
+          q: 'Who should own the result once the work is done?',
           options: [
             { t: 'Me — I need a plan and the numbers, not a standing advisor', f: 0 },
             { t: 'My team — we need written rules and regular control', f: 1 },
@@ -1527,17 +1527,17 @@ export const T = {
     },
     leakQuiz: {
       label: 'Check your season',
-      title: 'A read on your season',
+      title: 'Where your season leaks',
       subtitle: 'Four questions. The result is not a work format but the single point worth starting with.',
       progress: 'Question {i} of {n}',
       back: 'Back',
-      retake: 'Take again',
+      retake: 'Take it again',
       resultLabel: 'Most likely it is',
       resultNote: 'Four answers give a hypothesis, not a diagnosis. The real picture comes from a proper diagnostic.',
       cta: 'Discuss the result',
       ctaMore: 'How Syntha closes this →',
-      messagePrefix: 'Result of the season read: "',
-      messageSuffix: '".',
+      messagePrefix: 'Result of the season read: “',
+      messageSuffix: '”.',
       questions: [
         {
           q: 'When do you notice the season plan has drifted from reality?',
@@ -1569,10 +1569,10 @@ export const T = {
         {
           q: 'What comes up most often in the post-season debrief?',
           options: [
-            { t: '"We got the demand forecast wrong at the planning stage"', leak: 'plan' },
-            { t: '"Cost ate the margin and we found out too late"', leak: 'buying' },
-            { t: '"We marked down too late or too early"', leak: 'sale' },
-            { t: '"Cash sat in stock when it could have been working"', leak: 'stock' }
+            { t: '“We got the demand forecast wrong at the planning stage”', leak: 'plan' },
+            { t: '“Cost ate the margin and we found out too late”', leak: 'buying' },
+            { t: '“We marked down too late or too early”', leak: 'sale' },
+            { t: '“Cash sat in stock when it could have been working”', leak: 'stock' }
           ]
         }
       ],
@@ -1602,7 +1602,7 @@ export const T = {
     flow: {
       eyebrow: 'Advisory × Syntha',
       title: 'One season — through advisory and through Syntha',
-      subtitle: 'From plan to season close: the decision at each step, what stands in the way — money, data, timing or a handoff between people — and how the system closes the gap.',
+      subtitle: 'From plan to season close: the decision at each step, what stands in the way — money, data, timing or a handover between people — and how the system closes the gap.',
       consultingLabel: 'Advisory',
       synthaLabel: 'Syntha',
       leakLabel: 'What goes wrong at this step',
@@ -1645,12 +1645,12 @@ export const PROJECTS = [
     en: {
       collab: [{ k: 'Pilot', v: 'A brand or retailer runs a real season in the system and shapes what I build next.' }, { k: 'Go to market', v: 'A partner who knows the channel and takes on sales and rollout.' }, { k: 'Integration', v: 'Connecting the system to a brand’s ERP, as a separate project.' }, { k: 'On request', v: 'A demo on your own data, and a feature comparison with global platforms.' }],
       status: {
-        done: ['Organisation roles, partner access and permissions, including a quality role', 'Digital showrooms, server-authoritative catalogue pricing, a frozen buyer storefront', 'Atomic inventory reservations, MOQ and availability controls, two-sided order confirmation, order amendments', 'Product: SKU and GTIN, BOM, measurement charts, samples, tech packs', 'Production: cutting, production orders, quality control, materials sourcing', 'Order economics: cost per SKU, cost allocation, margin, close-out; RU/EN interface'],
-        now: ['End-to-end check of product → commerce → margin on a live environment', 'Price lists by market, validity period and tax', 'Shipping, receiving, claims: testing the full cycle', 'Design system: moving the remaining legacy layers over'],
-        next: ['A pilot with a first brand on a real season', 'Integration with the brand’s ERP'],
+        done: ['Organisation roles, partner access and permissions, including a quality role', 'Digital showrooms, server-side catalogue pricing, a frozen buyer storefront', 'Atomic inventory reservations, MOQ and availability controls, two-sided order confirmation, order amendments', 'Product: SKU and GTIN, BOM, measurement charts, samples, tech packs', 'Production: cutting, production orders, quality control, materials sourcing', 'Order economics: cost per SKU, cost allocation, margin, close-out; RU/EN interface'],
+        now: ['End-to-end check of product → commerce → margin on a live environment', 'Price lists by market, validity period and tax', 'Shipping, receiving, claims: testing the full cycle', 'Design system: clearing out the remaining legacy layers'],
+        next: ['A pilot with a first brand across a real season', 'Integration with the brand’s ERP'],
         seeking: 'Brands and retailers for the pilot, and a go-to-market partner.'
       },
-      investor: { note: 'Open to several formats: equity investment, sponsorship, buying the business or a stake, marketing partnerships, integration with other products. I discuss it case by case, after the pilot, against concrete metrics and a clear scope.' },
+      investor: { note: 'Open to several formats: equity investment, sponsorship, buying the business or a stake, marketing partnerships, integration with other products. I will discuss terms after the pilot, against concrete metrics and a clear scope.' },
       roadmap: [{ label: 'Prototype', state: 'done' }, { label: 'Working system', state: 'done' }, { label: 'Preparing for a pilot', state: 'current' }, { label: 'Pilot and launch', state: 'next' }],
       tagline: 'The operating platform for a fashion brand',
       stage: 'Preparing for a pilot',
@@ -1688,8 +1688,8 @@ export const PROJECTS = [
     en: {
       collab: [{ k: 'Early access', v: 'A company moves part of its work into the messenger and shapes the feature set.' }, { k: 'Rollout', v: 'A partner who deploys the product in companies and supports the switch.' }, { k: 'On request', v: 'A demo and an architecture walkthrough under an NDA.' }],
       status: {
-        done: ['Channels, groups, direct messages, voice notes, files, tasks, calendar and permission-aware search', 'Audio and video calls, recording only with every participant’s consent', 'Transcript, summary and decisions with timecodes; a task is created only after a person confirms it', 'Org structure: a department tree, roles, staffing slots, delegated management', 'Outbound webhooks with signing, retries and a log, API keys, a Telegram bridge', 'Two-factor sign-in, an action log, real-time events across servers, PWA, RU/EN'],
-        now: ['Checks with real providers: email, calls, transcription, push', 'Checking the Telegram bridge on a real bot', 'Calendar: two-way sync with Google and Outlook'],
+        done: ['Channels, groups, direct messages, voice notes, files, tasks, calendar and permission-aware search', 'Audio and video calls, recording only with every participant’s consent', 'Transcript, summary and decisions with timecodes; a task is created only after a person confirms it', 'Org structure: a department tree, roles, staffing slots, delegated management', 'Outbound webhooks with signing, retries and a log, API keys, a Telegram bridge', 'Two-factor sign-in, an audit log, real-time events across servers, PWA, RU/EN'],
+        now: ['Checks with real providers: email, calls, transcription, push', 'Telegram bridge: a check on a real bot', 'Calendar: two-way sync with Google and Outlook'],
         next: ['A pilot inside a client company', 'Slack and Teams adapters', 'Automations: “if X, suggest Y” rules with a log'],
         seeking: 'Companies ready to move their work into it, and an implementation partner.'
       },
@@ -1731,17 +1731,17 @@ export const PROJECTS = [
     en: {
       collab: [{ k: 'Client', v: 'Run your own renovation in the app and tell me what is missing.' }, { k: 'Contractor or crew', v: 'Work a real site: estimates, schedule, handover.' }, { k: 'Renovation company', v: 'Test the approach across a stream of sites, not just one.' }, { k: 'On request', v: 'A demo and what I have learned from this project.' }],
       status: {
-        done: ['Norm-based estimates, versions, plan vs actual', 'Work stages, handover and acceptance, photo evidence, supervision and warranty claims', 'Stage payments: payment plans, confirmation with evidence, disputes, invoices for extra work', 'Client, contractor and link-based guest roles, chats per project and stage, a notification centre', 'Purchasing and materials with prices, documents, offline mode', 'Receipt and self-employed status checks via the tax service: code and tests are ready, live verification awaits keys'],
-        now: ['Preparing the TestFlight build: release configuration and environment', 'The independent contractor flow: application, confirmation, replacing the contractor', 'Resilience of the action queue on connection loss', 'A full screen audit and closing the issues found'],
+        done: ['Norm-based estimates, versions, plan versus actual', 'Work stages, handover and acceptance, photo evidence, supervision and warranty claims', 'Stage payments: payment plans, confirmation with evidence, disputes, invoices for extra work', 'Client, contractor and link-based guest roles, chats per project and stage, a notification centre', 'Purchasing and materials with prices, documents, offline mode', 'Receipt and self-employed status checks via the tax service: code and tests are ready, live verification awaits keys'],
+        now: ['Preparing the TestFlight build: release configuration and environment', 'The independent contractor flow: application, confirmation, replacing the contractor', 'Resilience of the action queue on connection loss', 'A full audit of every screen, and fixes for what it finds'],
         next: ['Server deployment and a closed test on real projects', 'Live payments and tax-service OAuth', 'Push notifications on devices', 'App Store publication after legal preparation'],
         seeking: 'Contractors, crews and clients ready to run a real project in the app.'
       },
-      investor: { note: 'Open to different forms of participation: equity investment, sponsorship, buying the business or a stake, marketing partnerships, integration with other products and businesses. I have not actively sought outside financing yet — open to a conversation at the MVP stage.' },
+      investor: { note: 'Open to several formats: equity investment, sponsorship, buying the business or a stake, marketing partnerships, integration with other products and businesses. I have not actively sought outside financing yet — open to a conversation at the MVP stage.' },
       roadmap: [{ label: 'MVP', state: 'done' }, { label: 'Preparing a closed test', state: 'current' }, { label: 'Closed test and launch', state: 'next' }],
       tagline: 'Renovation that runs on numbers',
       stage: 'MVP, preparing a closed test',
       card: 'Renovation in one app: norm-based estimates, stages with acceptance, payment per accepted stage, chats and documents. The MVP is built; a closed test is next.',
-      what: 'An iPhone-first app for running a renovation. Norm-based estimates, work stages with acceptance, stage payments and materials in one place. Receipt and self-employed status checks via the tax service are built; live checks await keys.',
+      what: 'An iPhone-first app for running a renovation. Norm-based estimates, work stages with acceptance, stage payments, materials, documents and chats per stage. It works offline.',
       who: 'Owners renovating, and the contractors and crews doing the work. Each gets their own screen.',
       why: 'Renovation lives in chat threads and pocketed receipts. The estimate drifts from actuals, overspend surfaces at the end, and nothing confirms the contractor’s status.',
       how: 'Every action recalculates the numbers. Payment is tied to an accepted stage. The tax-service checks of receipts and contractor status are coded and tested; live checks await keys. The client always sees what has been spent, what is underway and what comes next.'
@@ -1766,7 +1766,7 @@ export const PROJECTS = [
       roadmap: [{ label: 'MVP', state: 'done' }, { label: 'Demo to organisers', state: 'current' }, { label: 'Use at the events', state: 'next' }],
       tagline: 'Moscow Fashion Week and the BRICS+ Fashion Summit on one platform: two events, one audience, one account',
       stage: 'MVP, ready to demo',
-      card: 'One account and a separate digital pass for Moscow Fashion Week and the BRICS+ Fashion Summit. Personal programme, B2B meetings, brand campaigns with QR rewards, shared analytics. The MVP is built and ready to demo.',
+      card: 'One account and a separate digital pass for each event: Moscow Fashion Week and the BRICS+ Fashion Summit. Personal programme, B2B meetings, brand campaigns with QR rewards, shared analytics. The MVP is built and ready to demo.',
       what: 'I’ve built an MVP for Moscow Fashion Week (MFW) and the BRICS+ Fashion Summit (BFS). Each event has its own look and its own registration; the account, programme, loyalty and analytics are shared. Brands get a Brand 365 profile, followers, audience segments, a campaign builder and one-time QR rewards. Organisers and the owner get cross-event analytics and an Owner Control Tower.',
       who: 'Organisers get one showcase and combined numbers for both events. Brands and designers get a profile, followers and an audience that stays after the show. Guests get one account, a personal programme and a digital pass for each event.',
       why: 'Today guests juggle two schedules, brands rebuild two audiences from scratch, and the industry has no shared picture. The platform replaces “two PDFs and three chats” with one space where interest builds from show to show instead of vanishing at the exit.',
