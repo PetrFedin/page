@@ -192,7 +192,27 @@ export const T = {
       investorLabel: 'Инвесторам и партнёрам',
       compareBtn: 'Сравнение',
       compareTitle: 'Сравнение с альтернативами',
-      marks: { yes: 'есть', no: 'нет', part: 'частично' }
+      marks: { yes: 'есть', no: 'нет', part: 'частично' },
+      launch: {
+        title: 'Запустить свой проект',
+        subtitle: 'Те же продукты, что выше, прошли этот путь от идеи до работающего MVP. Три формата захода — выберите, что ближе к вашей задаче.',
+        cta: 'Обсудить формат',
+        contactMessage: 'Интересует формат «{title}» для нашего проекта.',
+        items: [
+          {
+            id: 'idea', n: '01', title: 'Новая идея',
+            body: 'У вас есть гипотеза, но нет ни продукта, ни команды. Собираем концепцию, проверяем её на цифрах и доводим до работающего MVP — так же, как Syntha, ChatX и Renova начинались с одной идеи.'
+          },
+          {
+            id: 'transform', n: '02', title: 'Трансформация существующего',
+            body: 'Продукт или процесс уже есть, но не поспевает за бизнесом. Пересобираем архитектуру и цифровой контур вокруг того, как компания действительно работает, а не переписываем код ради кода.'
+          },
+          {
+            id: 'audit', n: '03', title: 'Анализ и внедрение',
+            body: 'Нужно понять, что из готовых решений на рынке подходит, и встроить его в реальные процессы — без долгой разработки с нуля, если в ней нет необходимости.'
+          }
+        ]
+      }
     },
     area: {
       doesLabel: 'Что входит в работу',
@@ -713,7 +733,27 @@ export const T = {
       investorLabel: 'For investors and partners',
       compareBtn: 'Compare',
       compareTitle: 'Comparison with alternatives',
-      marks: { yes: 'yes', no: 'no', part: 'partial' }
+      marks: { yes: 'yes', no: 'no', part: 'partial' },
+      launch: {
+        title: 'Launch your own project',
+        subtitle: 'The products above went through this same path, from idea to a working MVP. Three ways in — pick whichever is closer to your situation.',
+        cta: 'Discuss this format',
+        contactMessage: 'Interested in the “{title}” format for our project.',
+        items: [
+          {
+            id: 'idea', n: '01', title: 'A new idea',
+            body: 'You have a hypothesis but no product and no team yet. We shape the concept, pressure-test it against the numbers, and take it to a working MVP — the same way Syntha, ChatX and Renova each started from a single idea.'
+          },
+          {
+            id: 'transform', n: '02', title: 'Transforming what exists',
+            body: 'A product or process already exists but can’t keep up with the business. We rebuild the architecture and digital contour around how the company actually works, rather than rewriting code for its own sake.'
+          },
+          {
+            id: 'audit', n: '03', title: 'Analysis and implementation',
+            body: 'You need to know which off-the-shelf solution actually fits, then get it embedded into real processes — without a long from-scratch build if one isn’t needed.'
+          }
+        ]
+      }
     },
     area: {
       doesLabel: 'What the work includes',

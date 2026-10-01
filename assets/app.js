@@ -1,4 +1,4 @@
-import { T, PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610011503';
+import { T, PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610011508';
 import { DECK } from './deck.js?v=202609301526';
 import { LOGOS } from './logos.js?v=202610011503';
 import { createViewer } from './viewer.js?v=202609301526';
@@ -266,6 +266,18 @@ function render() {
     </article>`;
   }).join('');
   if (flowOpen) renderSeasonFlow();
+
+  /* Продуктовые проекты выше — доказательство, а не витрина: тем, кто
+     досмотрел до конца раздела, предлагаем тот же путь для своей задачи. */
+  $('#project-launch').innerHTML = `
+    <div class="formats-head"><h3>${t.projects.launch.title}</h3><p class="sub">${t.projects.launch.subtitle}</p></div>
+    <div class="formats-grid">${t.projects.launch.items.map((f) => `
+      <article class="format format-static">
+        <span class="svc-n">${f.n}</span>
+        <h4>${f.title}</h4>
+        <p>${f.body}</p>
+        <button type="button" class="btn btn-sm" data-launch="${f.id}">${t.projects.launch.cta}</button>
+      </article>`).join('')}</div>`;
 
   $('#contact-title').textContent = t.contact.title;
   $('#contact-sub').textContent = t.contact.subtitle;
@@ -1298,6 +1310,23 @@ $('#facts-bar').addEventListener('click', (e) => {
 $('#formats').addEventListener('click', (e) => {
   const b = e.target.closest('[data-format]');
   if (b) go(`format-${b.dataset.format}`);
+});
+/* Формат запуска — не квиз: сразу подготавливаем письмо и ведём к форме,
+   без промежуточного окна с деталями. */
+$('#project-launch').addEventListener('click', (e) => {
+  const b = e.target.closest('[data-launch]');
+  if (!b) return;
+  const group = T[lang].projects.launch;
+  const f = group.items.find((x) => x.id === b.dataset.launch);
+  $('#topic').value = 'other';
+  $('#topic-other').value = f.title;
+  syncTopicOther();
+  const msgEl = $('#form [name="message"]');
+  if (msgEl && !msgEl.value.trim()) msgEl.value = group.contactMessage.replace('{title}', f.title);
+  syncSubmit?.();
+  leaveAll();
+  requestAnimationFrame(() => $('#contact').scrollIntoView({ behavior: 'smooth' }));
+  setTimeout(() => $('#form [name="name"]').focus(), 400);
 });
 $('#roles-open').addEventListener('click', () => go('roles'));
 $('#cv-close').addEventListener('click', () => leaveAll());

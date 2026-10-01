@@ -655,6 +655,11 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
   .fact-more{align-self:end}
   .feed{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
+/* Лента — всегда по 3 карточки в строке на широком экране, чтобы не
+   растягивалась в длинный список по мере роста числа постов. */
+@media (min-width:1024px){
+  .feed{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
 
 .channel-link{
   display:inline-block; margin-top:14px; font-size:14px;
@@ -750,6 +755,10 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
   .format-more{align-self:end}
 }
 @media (min-width:1020px){ .formats-grid{grid-template-columns:repeat(4,minmax(0,1fr))} }
+/* Три формата запуска проекта — не квиз-карточки с переходом, а статичное
+   предложение: своя сетка (3 колонки, не 4) и курсор по умолчанию. */
+.format-static{cursor:default}
+@media (min-width:760px){ .project-launch .formats-grid{grid-template-columns:repeat(3,minmax(0,1fr))} }
 
 /* ---------- пресса ---------- */
 .press-grid{display:grid; gap:24px}
