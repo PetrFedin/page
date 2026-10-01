@@ -571,7 +571,8 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 .fact-card{position:relative; display:grid; gap:6px; align-content:start}
 .fact-open{appearance:none; border:0; background:none; padding:0; font:inherit; color:inherit; text-align:left; cursor:pointer}
 .fact-open::after{content:""; position:absolute; inset:0; border-radius:12px}
-.fact-card .format-foot{position:relative; z-index:1}
+.fact-card .format-foot{position:relative; z-index:1; pointer-events:none}
+.fact-card .format-foot .btn{pointer-events:auto}
 .fact-card:hover{border-color:var(--ink)}
 .fact-card:hover .format-more{color:var(--accent)}
 .fact-more{font-size:13px; color:var(--muted); margin-top:2px}
@@ -791,7 +792,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 .consent{display:flex; gap:10px; align-items:flex-start; font-size:13px; color:var(--muted)}
 .consent input{width:auto; margin-top:2px; accent-color:var(--accent)}
 .consent a{color:var(--accent)}
-.direct .vcard{display:flex; width:fit-content; margin:24px auto 0; border-bottom:1px solid var(--line); position:relative}
+.direct .vcard{display:flex; width:max-content; flex:none; margin:24px auto 0; border-bottom:1px solid var(--line); position:relative}
 .direct .vcard::after{
   content:""; position:absolute; inset:-1px; border-radius:999px; pointer-events:none;
   border:1px solid var(--accent); opacity:0; animation:vcard-pulse 2.4s ease-out infinite;
@@ -1096,7 +1097,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
   border-bottom:1px solid var(--line);
 }
 .section-head .sub{margin-top:10px; margin-bottom:22px; max-width:640px}
-@media (min-width:900px){ .section-head .sub{max-width:none} }
+@media (min-width:760px){ .section-head .sub{max-width:none} }
 .section-head .channel-link{margin-bottom:18px}
 
 /* кнопка «наверх» — часть прилипшего заголовка раздела */
@@ -1581,3 +1582,6 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
   .grid-table.snap .gt-cell + .gt-cell{margin-top:12px}
 }
 
+/* штатные элементы форм (флажки, списки) берут цвета выбранной темы, а не системной */
+:root[data-theme="dark"]{color-scheme:dark}
+:root[data-theme="light"]{color-scheme:light}

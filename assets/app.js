@@ -1,8 +1,8 @@
-import { T, PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610020126';
-import { DECK } from './deck.js?v=202610020126';
-import { LOGOS } from './logos.js?v=202610020126';
+import { T, PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610020133';
+import { DECK } from './deck.js?v=202610020133';
+import { LOGOS } from './logos.js?v=202610020133';
 import { createViewer } from './viewer.js?v=202609301526';
-import { syncSnaps } from './snap.js?v=202610020126';
+import { syncSnaps } from './snap.js?v=202610020133';
 import { NEWS } from './news.js?v=202609301526';
 
 /* Сайт — витрина: показываем отобранные материалы. Канал получает весь поток.
@@ -187,6 +187,10 @@ function render() {
   $('#hero-name').textContent = t.hero.name;
   $('#hero-lead').textContent = t.hero.lead;
   $('#hero-bio').textContent = t.hero.bio;
+  document.querySelectorAll('.modal-close').forEach((b) => { b.setAttribute('aria-label', t.nav.close); b.title = t.nav.close; });
+  const backLabel = lang === 'ru' ? 'Назад' : 'Back';
+  $('#cv-back').setAttribute('aria-label', backLabel);
+  $('#cv-back').title = backLabel;
   $('#hero-photo').alt = t.hero.photoAlt;
   $('#photo-big').alt = t.hero.photoAlt;
   $('#hero-avatar').alt = t.hero.photoAlt;
