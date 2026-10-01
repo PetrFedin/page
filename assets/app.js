@@ -1,8 +1,8 @@
-import { T, PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610020101';
-import { DECK } from './deck.js?v=202610020101';
-import { LOGOS } from './logos.js?v=202610020101';
+import { T, PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610020126';
+import { DECK } from './deck.js?v=202610020126';
+import { LOGOS } from './logos.js?v=202610020126';
 import { createViewer } from './viewer.js?v=202609301526';
-import { syncSnaps } from './snap.js?v=202610020101';
+import { syncSnaps } from './snap.js?v=202610020126';
 import { NEWS } from './news.js?v=202609301526';
 
 /* Сайт — витрина: показываем отобранные материалы. Канал получает весь поток.
@@ -195,11 +195,18 @@ function render() {
   $('#experience-title').textContent = t.hero.factsTitle;
   $('#facts-bar').className = "facts-bar snap snap-fit";
   $('#facts-bar').innerHTML = t.hero.facts.map((f, i) => `
-    <li><button class="fact" type="button" data-area="${f.id}">
-      <span class="svc-n">0${i + 1}</span><b>${f.n}</b><span class="fact-l">${f.l}</span><span class="fact-more">${t.formats.more}</span>
-    </button></li>`).join('');
+    <li class="fact-card">
+      <span class="svc-n">0${i + 1}</span>
+      <b><button class="fact-open" type="button" data-area="${f.id}">${f.n}</button></b>
+      <span class="fact-l">${f.l}</span>
+      <div class="format-foot">
+        <span class="format-more">${t.formats.more}</span>
+        <button type="button" class="btn btn-sm" data-area-contact="${f.id}">${t.formats.contactCta}</button>
+      </div>
+    </li>`).join('');
   $('#cv-row-link').textContent = t.hero.cvLabel;
   $('#roles-open').textContent = t.roles.introLabel;
+  $('#cta-experience').textContent = t.hero.ctaExperience;
   $('#cta-consulting').textContent = t.hero.ctaConsulting;
   $('#cta-projects').textContent = t.hero.ctaProjects;
   $('#cta-feed').textContent = t.hero.ctaFeed;
@@ -648,14 +655,10 @@ $('#modal-cta').addEventListener('click', () => {
 });
 
 /* ---------- «Сейчас»: статусы проектов и последний пост ---------- */
-/* Порядок в «Сейчас» — по стадии готовности (кто дальше всех), а не по
-   порядку карточек в разделе «Проекты» (там порядок — витринный, не менять). */
-const NOW_STAGE_RANK = { renova: 0, mfw: 1, chatx: 2, syntha: 3, promomed: 4 };
 function renderNow() {
   const t = T[lang];
   $('#now-label').textContent = t.now.label;
-  const byStage = [...PROJECTS].sort((a, b) => NOW_STAGE_RANK[a.id] - NOW_STAGE_RANK[b.id]);
-  $('#now-projects').innerHTML = byStage.map((p) => `
+  $('#now-projects').innerHTML = PROJECTS.map((p) => `
     <li><button type="button" class="now-project" data-goto-project="${p.id}">
       <span class="now-dot" aria-hidden="true"></span><b>${p.name}</b><span>${p[lang].stage}</span>
     </button></li>`).join('');
@@ -856,6 +859,7 @@ function renderLaunchDiag() {
         <p class="diag-note">${t.resultNote}</p>
         <div class="diag-actions">
           <button type="button" class="btn btn-primary" data-launch-diag-cta="${bestIdx}">${t.cta}</button>
+          <button type="button" class="btn" data-launch-diag-more="${fmt.id}">${t.ctaMore}</button>
         </div>
         <button type="button" class="diag-retake">${t.retake}</button>
       </div>`;
@@ -866,6 +870,8 @@ $('#launch-diag-body').addEventListener('click', (e) => {
   if (opt) { launchDiagAnswers.push(+opt.dataset.f); return renderLaunchDiag(); }
   if (e.target.closest('.diag-back')) { launchDiagAnswers.pop(); return renderLaunchDiag(); }
   if (e.target.closest('.diag-retake')) { launchDiagAnswers = []; return renderLaunchDiag(); }
+  const more = e.target.closest('[data-launch-diag-more]');
+  if (more) { launchDiagModal.close(); return go(`launch-${more.dataset.launchDiagMore}`); }
   const cta = e.target.closest('[data-launch-diag-cta]');
   if (cta) {
     const t = T[lang].projects.launch.diag;
@@ -1151,26 +1157,29 @@ function openPostModal(date) {
   /* Листание по публикациям того же проекта — тот же приём, что и в
      просмотрщике снимков (photo-prev/photo-next): стрелки по бокам и
      счётчик снизу, видны только когда у проекта больше одного поста. */
-  const projList = PROJECTS.some((x) => x.id === p.tag) ? projectPostList(p.tag) : [];
+  const projList = postNavList(date);
   const idx = projList.findIndex((x) => x.date === date);
   const many = projList.length > 1 && idx !== -1;
-  postModal.dataset.navTag = many ? p.tag : '';
   postModal.dataset.navDate = date;
   $('#post-prev').hidden = !many;
   $('#post-next').hidden = !many;
   $('#post-prev').setAttribute('aria-label', t.postPrev);
   $('#post-next').setAttribute('aria-label', t.postNext);
-  $('#post-nav-bar').hidden = !many;
   $('#post-count').textContent = many ? `${idx + 1} / ${projList.length}` : '';
 
   if (!postModal.open) postModal.showModal();
   postModal.querySelector('.modal-body').scrollTop = 0;
   return true;
 }
+/* Листаем те посты, что сейчас в ленте (с учётом выбранной категории);
+   если пост открыт по ссылке и в выборку не входит — всю ленту. */
+function postNavList(date) {
+  const filtered = filteredNews();
+  return filtered.some((x) => x.date === date) ? filtered : SITE_NEWS.filter(hasLang);
+}
 function stepPost(dir) {
-  const tag = postModal.dataset.navTag;
-  if (!tag) return;
-  const list = projectPostList(tag);
+  if (!postModal.dataset.navDate) return;
+  const list = postNavList(postModal.dataset.navDate);
   const idx = list.findIndex((x) => x.date === postModal.dataset.navDate);
   if (idx === -1) return;
   const next = list[(idx + dir + list.length) % list.length];
@@ -1337,13 +1346,22 @@ function renderArea(id) {
   infoModal.dataset.view = `area-${id}`;
   $('#cv-title').textContent = f.n;
   $('#cv-note').textContent = f.lead;
+  const items = t.hero.facts;
+  const idx = items.findIndex((x) => x.id === id);
+  const prev = items[(idx - 1 + items.length) % items.length];
+  const next = items[(idx + 1) % items.length];
   $('#cv-body').innerHTML =
     list(t.area.doesLabel, f.does) +
     list(t.area.givesLabel, f.gives) +
     (f.results.length
       ? `<section class="info-list"><h3>${t.area.resultsLabel}</h3>
          <ul class="cv-results">${f.results.map((r) => `<li>${r}</li>`).join('')}</ul></section>`
-      : '');
+      : '') +
+    `<div class="format-nav">
+       <button type="button" class="btn btn-sm" data-area-nav="${prev.id}">← ${prev.n}</button>
+       <button type="button" class="btn btn-sm" data-area-nav="${next.id}">${next.n} →</button>
+     </div>
+     <button type="button" class="btn btn-primary format-contact" data-area-contact="${f.id}">${t.area.contactCta}</button>`;
   return true;
 }
 
@@ -1363,7 +1381,10 @@ function renderFormat(n) {
     list(t.formats.stepsLabel, f.steps) +
     list(t.formats.includesLabel, f.includes) +
     list(t.formats.outLabel, Array.isArray(f.out) ? f.out : [f.out]) +
+    list(t.formats.needsLabel, f.needs) +
+    list(t.formats.rhythmLabel, f.rhythm) +
     (f.fit ? `<p class="info-fit"><b>${t.formats.fitLabel}</b>${f.fit}</p>` : '') +
+    (f.notFit ? `<p class="info-fit info-notfit"><b>${t.formats.notFitLabel}</b>${f.notFit}</p>` : '') +
     `<div class="format-nav">
        <button type="button" class="btn btn-sm" data-format-nav="${prev.n}">← ${prev.title}</button>
        <button type="button" class="btn btn-sm" data-format-nav="${next.n}">${next.title} →</button>
@@ -1388,7 +1409,10 @@ function renderLaunch(id) {
     list(t.formats.stepsLabel, f.steps) +
     list(t.formats.includesLabel, f.includes) +
     list(t.formats.outLabel, f.out) +
+    list(t.formats.needsLabel, f.needs) +
+    list(t.formats.rhythmLabel, f.rhythm) +
     (f.fit ? `<p class="info-fit"><b>${t.formats.fitLabel}</b>${f.fit}</p>` : '') +
+    (f.notFit ? `<p class="info-fit info-notfit"><b>${t.formats.notFitLabel}</b>${f.notFit}</p>` : '') +
     `<div class="format-nav">
        <button type="button" class="btn btn-sm" data-launch-nav="${prev.id}">← ${prev.title}</button>
        <button type="button" class="btn btn-sm" data-launch-nav="${next.id}">${next.title} →</button>
@@ -1464,9 +1488,17 @@ function startContact({ topic, topicOther, message }) {
 }
 
 $('#facts-bar').addEventListener('click', (e) => {
+  const c = e.target.closest('[data-area-contact]');
+  if (c) return contactFromArea(c.dataset.areaContact);
   const b = e.target.closest('[data-area]');
   if (b) go(`area-${b.dataset.area}`);
 });
+function contactFromArea(id) {
+  const t = T[lang];
+  const f = t.hero.facts.find((x) => x.id === id);
+  if (!f) return;
+  startContact({ topic: 'consulting', message: t.area.contactMessage.replace('{title}', f.n) });
+}
 $('#formats').addEventListener('click', (e) => {
   const c = e.target.closest('[data-format-card-contact]');
   if (c) {
@@ -1498,6 +1530,10 @@ $('#cv-body').addEventListener('click', (e) => {
   if (roleOpen) return go(`role-${roleOpen.dataset.roleOpen}`);
   const nav = e.target.closest('[data-format-nav]');
   if (nav) return go(`format-${nav.dataset.formatNav}`);
+  const areaNav = e.target.closest('[data-area-nav]');
+  if (areaNav) return go(`area-${areaNav.dataset.areaNav}`);
+  const areaContact = e.target.closest('[data-area-contact]');
+  if (areaContact) return contactFromArea(areaContact.dataset.areaContact);
   const launchNav = e.target.closest('[data-launch-nav]');
   if (launchNav) return go(`launch-${launchNav.dataset.launchNav}`);
   const launchContact = e.target.closest('[data-launch-contact]');

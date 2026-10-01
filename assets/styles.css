@@ -305,6 +305,8 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 /* первая строка заголовка не уходит под кнопки в углу окна */
 .modal-icon-row + .deck-head > :first-child{padding-right:84px}
 .modal-close + .deck-head > :first-child{padding-right:46px}
+#post-modal .modal-icon-row + .post-modal-meta{padding-right:124px}
+.post-count{font-size:12px; color:var(--muted); letter-spacing:.06em}
 .modal-icon-btn{
   width:34px; height:34px; border-radius:999px; cursor:pointer; flex:none;
   border:1px solid var(--line); background:var(--panel); color:var(--ink);
@@ -455,26 +457,27 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 
 .chain{margin-bottom:40px}
 .chain h3{font-size:15px; font-family:var(--sans); font-weight:500; color:var(--muted); margin-bottom:12px}
-.chain-list{list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:6px; counter-reset:c}
+.chain-list{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); grid-auto-rows:1fr; gap:10px; counter-reset:c}
+@media (min-width:640px){ .chain-list{grid-template-columns:repeat(3,minmax(0,1fr))} }
 .chain-list li{
-  font-size:13px; padding:6px 12px; border-radius:999px;
+  display:flex; font-size:13px; border-radius:12px;
   border:1px solid var(--line); color:var(--muted); background:var(--panel);
 }
 .chain-list li:last-child{border-color:var(--accent); color:var(--accent)}
-.chain-hint{font-size:13px; color:var(--muted); margin:-4px 0 12px}
-.chain-list li:has(.chain-step){padding:0; background:none; border:none}
+.chain-hint{font-size:14px; color:var(--muted); margin:-2px 0 14px}
+.chain-list li:has(.chain-step){padding:0}
 .chain-step{
   appearance:none; font:inherit; cursor:pointer; text-align:left; color:var(--ink);
-  display:grid; gap:1px; padding:8px 14px; border-radius:12px;
-  border:1px solid var(--line); background:var(--panel);
-  transition:border-color .12s ease, background .12s ease;
+  display:grid; align-content:center; gap:3px; width:100%; min-height:64px; padding:10px 14px;
+  border:0; border-radius:12px; background:none;
+  transition:background .12s ease;
 }
-.chain-step b{font-weight:500; font-size:14px}
+.chain-step b{font-weight:500; font-size:14.5px}
 .chain-step span{font-size:11.5px; color:var(--muted)}
-.chain-step:hover{border-color:var(--accent); background:var(--accent-soft)}
-.chain-step:active{background:var(--ink); border-color:var(--ink); color:var(--bg)}
+.chain-list li:has(.chain-step:hover){border-color:var(--accent)}
+.chain-step:hover{background:var(--accent-soft)}
+.chain-step:active{background:var(--ink); color:var(--bg)}
 .chain-step:active span{color:var(--bg)}
-.chain-list li:last-child .chain-step{border-color:var(--accent)}
 .deck-flash{animation:deck-flash 1.6s ease}
 @keyframes deck-flash{0%,100%{box-shadow:0 0 0 0 transparent} 25%{box-shadow:0 0 0 4px var(--accent-soft); border-color:var(--accent)}}
 
@@ -565,6 +568,12 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
   display:grid; gap:6px; align-content:start; cursor:pointer; padding:0;
 }
 .facts-bar > li{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px 16px}
+.fact-card{position:relative; display:grid; gap:6px; align-content:start}
+.fact-open{appearance:none; border:0; background:none; padding:0; font:inherit; color:inherit; text-align:left; cursor:pointer}
+.fact-open::after{content:""; position:absolute; inset:0; border-radius:12px}
+.fact-card .format-foot{position:relative; z-index:1}
+.fact-card:hover{border-color:var(--ink)}
+.fact-card:hover .format-more{color:var(--accent)}
 .fact-more{font-size:13px; color:var(--muted); margin-top:2px}
 .fact:hover b{color:var(--ink)}
 .fact:hover .fact-more{color:var(--accent)}
@@ -782,7 +791,13 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 .consent{display:flex; gap:10px; align-items:flex-start; font-size:13px; color:var(--muted)}
 .consent input{width:auto; margin-top:2px; accent-color:var(--accent)}
 .consent a{color:var(--accent)}
-.direct .vcard{display:flex; width:fit-content; margin:24px auto 0; border-bottom:1px solid var(--line)}
+.direct .vcard{display:flex; width:fit-content; margin:24px auto 0; border-bottom:1px solid var(--line); position:relative}
+.direct .vcard::after{
+  content:""; position:absolute; inset:-1px; border-radius:999px; pointer-events:none;
+  border:1px solid var(--accent); opacity:0; animation:vcard-pulse 2.4s ease-out infinite;
+}
+@keyframes vcard-pulse{0%{transform:scale(1); opacity:.7} 70%,100%{transform:scale(1.14,1.5); opacity:0}}
+@media (min-width:760px){ .direct .vcard{margin-left:0; margin-right:0} }
 /* QR-значок пульсирует кольцом — видно, что на него можно нажать */
 .qr-trigger{position:relative}
 .qr-trigger::after{
@@ -790,7 +805,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
   border:1px solid var(--accent); opacity:0; animation:qr-pulse 2.2s ease-out infinite;
 }
 @keyframes qr-pulse{0%{transform:scale(1); opacity:.7} 70%,100%{transform:scale(1.55); opacity:0}}
-@media (prefers-reduced-motion:reduce){ .qr-trigger::after{animation:none} }
+@media (prefers-reduced-motion:reduce){ .qr-trigger::after,.direct .vcard::after,.snap-dots[data-first="true"] button:not([aria-current="true"]){animation:none} }
 
 .format-more{font-size:13px; color:var(--muted)}
 .format-foot{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:4px}
@@ -811,6 +826,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 .info-list ul{margin:0; padding-left:18px; display:grid; gap:9px; font-size:15px}
 .info-list ul.cv-results{padding-left:0}
 .info-fit{margin-top:22px; background:var(--accent-soft); border-radius:10px; padding:14px 16px; font-size:15px}
+.info-notfit{background:none; border:1px dashed var(--line)}
 .info-fit b{
   display:block; font-size:11px; letter-spacing:.1em; text-transform:uppercase;
   color:var(--accent); font-weight:500; margin-bottom:4px;
@@ -1006,6 +1022,11 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
     background:var(--line); cursor:pointer; transition:width .18s ease, background .18s ease;
   }
   .snap-dots button[aria-current="true"]{width:18px; background:var(--accent)}
+  /* в начале дорожки ещё не пролистанные точки мягко мигают — подсказка, что можно свайпнуть */
+  .snap-dots[data-first="true"] button:not([aria-current="true"]){animation:dot-hint 1.8s ease-in-out infinite}
+  .snap-dots[data-first="true"] button:nth-child(3){animation-delay:.25s}
+  .snap-dots[data-first="true"] button:nth-child(4){animation-delay:.5s}
+  @keyframes dot-hint{0%,100%{background:var(--line); transform:scale(1)} 50%{background:var(--accent); transform:scale(1.35)}}
   /* навигация живёт в шапке — дублирующие кнопки в первом экране убираем */
   .hero-cta{display:none}
   .hero{padding-top:28px; padding-bottom:30px; gap:20px; grid-template-columns:auto 1fr; align-items:start}
@@ -1075,6 +1096,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
   border-bottom:1px solid var(--line);
 }
 .section-head .sub{margin-top:10px; margin-bottom:22px; max-width:640px}
+@media (min-width:900px){ .section-head .sub{max-width:none} }
 .section-head .channel-link{margin-bottom:18px}
 
 /* кнопка «наверх» — часть прилипшего заголовка раздела */
@@ -1102,12 +1124,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
   }
 }
 
-/* сквозная логика: шаги листаются как карточки */
 @media (max-width:759px){
-  .chain-list.snap li{
-    display:grid; place-content:center; text-align:center; min-height:72px;
-    border-radius:12px; padding:16px 14px; font-size:15px;
-  }
   /* контакт и подпись — в одну строку */
   .direct a{font-size:17px}
 }

@@ -6,10 +6,10 @@
 
    Какой это проект, страница сообщает атрибутом data-project на своём
    теге script: иначе пришлось бы держать две почти одинаковые копии. */
-import { PROJECTS, T } from './content.js?v=202610020101';
-import { LOGOS } from './logos.js?v=202610020101';
+import { PROJECTS, T } from './content.js?v=202610020126';
+import { LOGOS } from './logos.js?v=202610020126';
 import { createViewer } from './viewer.js?v=202609301526';
-import { syncSnaps } from './snap.js?v=202610020101';
+import { syncSnaps } from './snap.js?v=202610020126';
 
 const $ = (sel) => document.querySelector(sel);
 const id = document.currentScript?.dataset.project

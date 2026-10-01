@@ -56,6 +56,7 @@ function buildDots(track) {
     let a = 0;
     слайды.forEach((el, i) => { if (el.offsetLeft < c) a = i; });
     [...dots.children].forEach((d, i) => d.setAttribute('aria-current', String(i === a)));
+    dots.dataset.first = String(a === 0);
   };
   track.addEventListener('scroll', active, { passive: true });
   dots.addEventListener('click', (e) => {

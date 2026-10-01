@@ -9,6 +9,7 @@ export const T = {
       eyebrow: 'Фэшн-консалтинг и продуктовые проекты',
       name: 'Пётр Федин',
       lead: 'Стратегия, экономика и трансформация фэшн-бизнеса. Помогаю собственникам видеть экономику решения до того, как оно станет закупкой, запасом и потраченным капиталом.',
+      ctaExperience: 'Опыт',
       ctaConsulting: 'Консалтинг',
       ctaProjects: 'Проекты',
       ctaFeed: 'Лента',
@@ -200,42 +201,59 @@ export const T = {
         subtitle: 'От идеи до работающего MVP — путь, который уже прошли Syntha, ChatX и Renova. Три формата, чтобы начать: выберите сами или пройдите тест за 15 секунд.',
         cta: 'Обсудить формат',
         contactMessage: 'Интересует формат «{title}» для нашего проекта.',
+        more: 'Читать целиком →',
+        contact: 'Связаться',
         items: [
           {
-            id: 'idea', n: '01', title: 'Новая идея', term: 'проектно, от 6 недель до работающего MVP',
+            id: 'idea', n: '01', title: 'Новая идея', term: 'проектно, 8–12 недель до MVP',
             body: 'У вас есть гипотеза, но нет ни продукта, ни команды. Собираем концепцию, проверяем её на цифрах и доводим до работающего MVP — так же, как Syntha, ChatX и Renova начинались с одной идеи.',
             lead: 'Путь от гипотезы до работающего MVP, который можно показать пользователям и инвесторам, — тем же способом, которым начинались Syntha, ChatX и Renova.',
             steps: [
-              'Неделя 1 — гипотеза и границы: для кого продукт, какую задачу он закрывает, что считаем успехом. Фиксируем всё на одной странице.',
-              'Недели 2–3 — проверка на цифрах: размер задачи, экономика пользователя и заказчика, конкуренты и альтернативы. Отсекаем то, что не держится на цифрах.',
-              'Недели 3–4 — концепция продукта: роли, ключевые сценарии, состав первой версии и то, что в неё сознательно не входит.',
-              'Недели 4–6 и далее — MVP: собираем работающую версию на реальных сценариях, показываем на экранах, а не на слайдах, собираем обратную связь.',
-              'Финал — решение о следующем шаге: продолжать, менять курс или остановиться, пока это дёшево.'
+              'Неделя 1 — гипотеза и границы: для кого продукт, какую задачу закрывает, что считаем успехом через три месяца. Всё на одной странице.',
+              'Недели 2–3 — проверка на цифрах и людях: размер задачи, экономика пользователя и заказчика, альтернативы и конкуренты, 5–8 разговоров с будущими пользователями.',
+              'Недели 3–4 — концепция продукта: роли, ключевые сценарии, состав первой версии и то, что в неё сознательно не входит; прототип экранов.',
+              'Недели 5–10 — MVP: проектирование данных и экранов, разработка рабочей версии на реальных сценариях; демонстрация каждые две недели и правки по обратной связи.',
+              'Недели 11–12 — пилот и итог: запуск на ограниченной группе, замеры, решение — продолжать, менять курс или остановиться, пока это дёшево.'
             ],
             includes: [
               'Формулировка гипотезы и критериев успеха',
-              'Проверка экономики и рынка на ваших или открытых данных',
-              'Концепция продукта: роли, сценарии, состав первой версии',
-              'Дизайн экранов и работающий MVP на реальных сценариях',
-              'Дорожная карта: что делаем дальше и чего это стоит',
-              'Материалы для разговора с пользователями, партнёрами или инвесторами'
+              'Проверка экономики и рынка, интервью с будущими пользователями',
+              'Концепция продукта и прототип экранов',
+              'Проектирование данных и архитектуры первой версии',
+              'Работающий MVP на реальных сценариях',
+              'Пилот на ограниченной группе и замеры',
+              'Дорожная карта и оценка следующего этапа'
             ],
             out: [
-              'Работающий MVP и исходные материалы, которые остаются у вас',
-              'Описание продукта и дорожная карта на следующий этап',
+              'Работающий MVP, исходный код и документация — остаются у вас',
+              'Описание продукта, дорожная карта и оценка следующего этапа',
+              'Данные пилота: что сработало, что нет',
               'Понятное решение: идём дальше, меняем курс или останавливаемся'
             ],
-            fit: 'Подходит, когда есть идея или гипотеза, но ещё нет ни продукта, ни команды, и нужно быстро понять, стоит ли в неё вкладываться. Сроки зависят от задачи — называю после первого разговора.'
+            needs: [
+              'Один человек, который принимает решения по продукту, — обычно вы',
+              'Доступ к будущим пользователям для 5–8 разговоров',
+              'Реальные примеры данных и процессов — пусть даже в таблицах',
+              'Готовность смотреть демонстрацию раз в две недели и отвечать в течение двух рабочих дней'
+            ],
+            rhythm: [
+              'Созвон раз в неделю на 30–45 минут',
+              'Демонстрация рабочей версии раз в две недели',
+              'Точки решения: конец 3-й, 6-й и 12-й недели'
+            ],
+            fit: 'Подходит, когда есть идея или гипотеза, но ещё нет ни продукта, ни команды, и нужно быстро понять, стоит ли в неё вкладываться.',
+            notFit: 'Не подходит, если нужно довести систему до промышленной эксплуатации и поддерживать её: это следующий этап после MVP, его объём оцениваем по итогам пилота.'
           },
           {
-            id: 'transform', n: '02', title: 'Трансформация существующего', term: 'проектно или сопровождение, от 2 месяцев',
+            id: 'transform', n: '02', title: 'Трансформация существующего', term: 'проектно или сопровождение, 3–6 месяцев',
             body: 'Продукт или процесс уже есть, но не поспевает за бизнесом. Пересобираем архитектуру и цифровой контур вокруг того, как компания действительно работает, а не переписываем код ради кода.',
             lead: 'Пересборка существующего продукта или процесса вокруг того, как компания действительно работает, — без переписывания кода ради кода.',
             steps: [
-              'Недели 1–2 — картина как есть: как продукт и процессы используются на самом деле, где люди обходят систему, какие данные расходятся.',
-              'Недели 3–4 — целевое устройство: какие роли, сценарии и данные должны быть в основе, что оставляем, что убираем.',
-              'Недели 5–8 — пошаговая пересборка: меняем по блокам, чтобы бизнес продолжал работать, а каждый блок можно было проверить.',
-              'Далее — внедрение и контроль: обучение ролей, правила работы с данными, показатели, по которым видно, что стало лучше.'
+              'Недели 1–3 — картина как есть: как продукт и процессы используются на самом деле, где люди обходят систему, какие данные расходятся; интервью и наблюдение за работой.',
+              'Недели 4–6 — целевое устройство: роли, сценарии и данные в основе, что оставляем, что убираем; архитектура, понятная и бизнесу, и разработке.',
+              'Недели 7–10 — план и первый блок: делим работу на блоки, которые можно менять без остановки бизнеса; собираем и запускаем первый блок на пилотной группе.',
+              'Месяцы 3–5 — пошаговая пересборка: меняем блок за блоком, каждый проверяем на реальной работе, параллельно обучаем роли.',
+              'Последний месяц — закрепление: правила работы с данными, показатели, передача команде и замер того, что стало лучше.'
             ],
             includes: [
               'Разбор текущих продукта, процессов и данных на реальной работе',
@@ -250,17 +268,30 @@ export const T = {
               'Обновлённые продукт или процесс, встроенные в рабочий цикл',
               'Правила и показатели, по которым команда дальше управляет сама'
             ],
-            fit: 'Подходит, когда продукт или процесс уже есть, но не поспевает за бизнесом, а переписывать всё с нуля дорого и рискованно.'
+            needs: [
+              'Доступ к текущему продукту, коду или системе и к людям, которые с ним работают',
+              'Владелец результата со стороны бизнеса и технический ответственный',
+              'Возможность менять процессы, а не только программу',
+              'Группа пользователей для пилотов, готовая работать по-новому'
+            ],
+            rhythm: [
+              'Еженедельный штаб: прогресс, риски, решения',
+              'Демонстрация каждого блока перед запуском',
+              'Отчёт по показателям раз в месяц'
+            ],
+            fit: 'Подходит, когда продукт или процесс уже есть, но не поспевает за бизнесом, а переписывать всё с нуля дорого и рискованно.',
+            notFit: 'Не подходит, если решение переписать систему целиком уже принято и не проверялось, что именно не работает, — сначала я предложу короткий разбор.'
           },
           {
-            id: 'audit', n: '03', title: 'Анализ и внедрение', term: 'проектно, 3–6 недель',
+            id: 'audit', n: '03', title: 'Анализ и внедрение', term: 'проектно, 4–8 недель',
             body: 'Нужно понять, что из готовых решений на рынке подходит, и встроить его в реальные процессы — без долгой разработки с нуля, если в ней нет необходимости.',
             lead: 'Независимый разбор того, какие готовые решения на рынке подходят именно вам, и встраивание выбранного в реальные процессы.',
             steps: [
-              'Неделя 1 — требования: какие задачи и роли нужно закрыть, какие данные есть, что обязательно, а что желательно.',
-              'Недели 2–3 — обзор рынка: короткий список готовых решений и сравнение по вашим сценариям, а не по презентациям вендоров.',
-              'Неделя 4 — пилот на реальных данных: проверяем, как выбранное решение работает в ваших процессах.',
-              'Недели 5–6 — внедрение: настройка, интеграции, обучение, правила работы — и решение, нужна ли разработка поверх.'
+              'Неделя 1 — требования: задачи и роли, данные, обязательные и желательные функции, ограничения по безопасности и бюджету.',
+              'Недели 2–3 — обзор рынка: длинный список сужаем до трёх-четырёх решений, сравниваем на ваших сценариях, а не по презентациям вендоров; запрашиваем демо и условия.',
+              'Недели 3–4 — пилот: проверяем одно-два решения на реальных данных и с реальными пользователями; фиксируем риски и стоимость владения.',
+              'Недели 5–6 — решение и план: рекомендация — брать готовое, дорабатывать или строить своё; план внедрения и интеграций, ответственные.',
+              'Недели 7–8 — запуск: настройка, интеграции, обучение, правила работы; контроль первых недель использования.'
             ],
             includes: [
               'Матрица требований по ролям и сценариям',
@@ -275,7 +306,19 @@ export const T = {
               'План внедрения и интеграций с ответственными',
               'Запущенное решение, встроенное в процессы, — или честное «лучше строить своё»'
             ],
-            fit: 'Подходит, когда нужно понять, что из готового на рынке подойдёт, и встроить это без долгой разработки с нуля.'
+            needs: [
+              'Список процессов и ролей, которые решение должно покрыть',
+              'Доступ к будущим пользователям для интервью и пилота',
+              'Бюджетные рамки и ограничения: безопасность, интеграции, данные',
+              'Ответственный внутри компании за внедрение'
+            ],
+            rhythm: [
+              'Созвон раз в неделю',
+              'Сравнительная таблица и демонстрации — к концу 3-й недели',
+              'Рекомендация и план — к концу 6-й недели'
+            ],
+            fit: 'Подходит, когда нужно понять, что из готового на рынке подойдёт, и встроить это без долгой разработки с нуля.',
+            notFit: 'Не подходит, если выбор уже сделан и нужно только настроить: тогда достаточно короткого внедрения без обзора рынка.'
           }
         ],
         diag: {
@@ -287,6 +330,7 @@ export const T = {
           resultLabel: 'Похоже, подходит',
           resultNote: 'Формат — гипотеза по трём ответам, а не диагноз. Финальное решение — на разговоре.',
           cta: 'Обсудить формат',
+          ctaMore: 'Читать целиком →',
           retake: 'Пройти заново',
           messagePrefix: 'Результат теста на сайте: формат «',
           messageSuffix: '».',
@@ -322,7 +366,9 @@ export const T = {
     area: {
       doesLabel: 'Что входит в работу',
       givesLabel: 'Что остаётся у вас',
-      resultsLabel: 'Достижения и результаты'
+      resultsLabel: 'Достижения и результаты',
+      contactCta: 'Связаться',
+      contactMessage: 'Интересует направление «{title}».'
     },
     formats: {
       title: 'Форматы работы',
@@ -332,6 +378,9 @@ export const T = {
       includesLabel: 'Что входит',
       outLabel: 'Что остаётся у вас',
       fitLabel: 'Когда подходит',
+      needsLabel: 'Что нужно от вас',
+      rhythmLabel: 'Как мы работаем',
+      notFitLabel: 'Когда не подходит',
       contactCta: 'Связаться',
       contactMessage: 'Интересует формат «{title}».',
       items: [
@@ -340,10 +389,12 @@ export const T = {
           out: 'На выходе: карта проблем с приоритетами, расчёты и план действий на ближайший сезон.',
           lead: 'Короткий заход, чтобы понять, где именно теряются деньги, и получить план на ближайший сезон.',
           steps: [
-            'Неделя 1 — данные и периметр: продажи, запасы, закупка, каналы, деньги. Смотрю, что есть и чему можно верить.',
-            'Недели 2–3 — расчёты: где связан капитал, какие категории и каналы создают вклад, а какие его съедают.',
-            'Неделя 4 — гипотезы и проверка: считаем сценарии, отсекаем то, что не выдерживает цифр.',
-            'Недели 5–6 — решения: карта проблем с приоритетами, расчёты и план действий.'
+            'Неделя 0 — до старта: согласуем вопрос собственника, круг данных и людей, подписываем соглашение о конфиденциальности. Список нужных выгрузок получаете заранее.',
+            'Неделя 1 — данные и периметр: продажи, запасы, закупка, каналы и деньги за 2–3 сезона. Проверяю, что есть, чему можно верить и где данные расходятся между системами.',
+            'Недели 2–3 — расчёты: где связан капитал, какие категории, бренды и каналы создают вклад, а какие его съедают; оборачиваемость, маржа после уценок, возрастная структура запаса.',
+            'Неделя 4 — интервью и проверка гипотез: закупка, финансы, коммерция, склад. Сверяю цифры с тем, как решения принимаются на самом деле.',
+            'Неделя 5 — сценарии: считаю варианты решений и их влияние на деньги, отсекаю то, что не выдерживает цифр.',
+            'Неделя 6 — итог: карта проблем с приоритетами и ценой вопроса, план на сезон, финальная сессия с собственником и передача расчётов.'
           ],
           includes: [
             'Разбор экономики закупки, запаса и каналов',
@@ -351,23 +402,36 @@ export const T = {
             'Проверка данных: где расходятся цифры и почему',
             'Встречи с ключевыми людьми: закупка, финансы, коммерция',
             'Финальная сессия с собственником',
-            'Каждый вывод подкреплён цифрой из ваших же данных, а не общими формулировками'
+            'Каждый вывод подкреплён цифрой из ваших же данных, а не общими формулировками', 'Промежуточный отчёт на 3-й неделе — чтобы вы видели направление до итога'
           ],
           out: [
             'Карта проблем с приоритетами и ценой вопроса',
             'Расчёты в виде файла, который остаётся у вас',
             'План действий на ближайший сезон с ответственными'
           ],
-          fit: 'Подходит, когда есть ощущение, что деньги теряются, но непонятно где.'
+          fit: 'Подходит, когда есть ощущение, что деньги теряются, но непонятно где.',
+          needs: [
+            'Выгрузки продаж, запасов, закупки и уценок за 2–3 сезона — список полей даю я',
+            'Один человек со стороны компании, отвечающий за доступ к данным и встречи',
+            '3–5 интервью по 45–60 минут: закупка, финансы, коммерция, склад',
+            'Время собственника: старт, промежуточный разговор и итоговая сессия'
+          ],
+          rhythm: [
+            'Еженедельный созвон на 30 минут: что нашли и что ещё нужно',
+            'Промежуточный отчёт на 3-й неделе',
+            'Итоговая сессия с собственником и передача файла расчётов'
+          ],
+          notFit: 'Не подходит, если данных нет совсем или нужен исполнитель, а не разбор: тогда начинаем с «Данных, аналитики и PLM» или «Руководства программой».'
         },
-        { n: '02', title: 'Советник собственника', term: 'сопровождение, от 2 месяцев',
+        { n: '02', title: 'Советник собственника', term: 'сопровождение, от 3 месяцев',
           body: 'Сопровождаю решения по закупке, ассортименту, каналам и капиталу в рабочем цикле компании.',
           out: 'На выходе: правила решений, показатели и регулярный контроль план–факт внутри команды.',
           lead: 'Регулярное сопровождение решений внутри вашего рабочего цикла — без вхождения в штат.',
           steps: [
-            'Первый месяц — вхождение: разбираю текущие правила и показатели, фиксирую, что считаем успехом.',
-            'Дальше — ритм: регулярные встречи под цикл закупки и планирования, разбор отклонений между ними.',
-            'Ежеквартально — пересборка: что из правил сработало, что меняем на следующий цикл.'
+            'Первый месяц — вхождение: разбираю текущие правила закупки и планирования, показатели и роли; фиксируем, что считаем успехом на цикл, и договариваемся о ритме.',
+            'Месяцы 2–3 — рабочий ритм: встречи под цикл закупки и планирования, разбор отклонений плана и факта, участие в ключевых решениях до их принятия, а не после.',
+            'С 4-го месяца — закрепление: правила решений и показатели переходят в письменный регламент, команда начинает вести разборы без меня.',
+            'Каждый квартал — пересборка: что из правил сработало, что меняем на следующий цикл; решаем — продолжать, сокращать участие или завершать.'
           ],
           includes: [
             'Участие в решениях по закупке, ассортименту и каналам',
@@ -382,16 +446,29 @@ export const T = {
             'Показатели и регулярный контроль внутри команды',
             'Обученная команда, а не зависимость от внешнего эксперта'
           ],
-          fit: 'Подходит, когда решения принимаются, но каждый раз заново и на ощупь.'
+          fit: 'Подходит, когда решения принимаются, но каждый раз заново и на ощупь.',
+          needs: [
+            'Доступ к рабочим цифрам: план, факт, остатки, заказы поставщикам',
+            'Люди с правом решений на встречах: собственник, руководители закупки и финансов',
+            'Готовность фиксировать решения письменно — с расчётом и датой',
+            'Ответ на срочные вопросы в течение рабочего дня'
+          ],
+          rhythm: [
+            '2–4 встречи в месяц по 1,5–2 часа, под календарь закупки',
+            'Короткий разбор отклонений раз в неделю или две',
+            'Квартальная сессия: итоги, правила, план участия'
+          ],
+          notFit: 'Не подходит, если нужен человек, который будет исполнять решения за команду, — для этого формат «Руководство программой».'
         },
-        { n: '03', title: 'Руководство программой', term: 'проектно, от 3 месяцев',
+        { n: '03', title: 'Руководство программой', term: 'проектно, от 4–6 месяцев',
           body: 'Беру на себя приоритеты, координацию функций и сложные переговоры, когда бизнес теряет управляемость.',
           out: 'На выходе: восстановленная управляемость, закреплённая ответственность и возврат к росту.',
           lead: 'Принимаю на себя управление программой, когда бизнес теряет управляемость и решения запаздывают.',
           steps: [
-            'Первые недели — стабилизация: ликвидность, кассовый календарь, остановка того, что не работает.',
-            'Дальше — сборка управления: приоритеты, роли, права решений, короткий цикл контроля.',
-            'Затем — возврат к росту: снимаю ограничения и передаю управление команде.'
+            'Недели 1–2 — стабилизация: ликвидность, 13-недельный календарь денег, остановка того, что не работает; фиксируем, кто за что отвечает.',
+            'Недели 3–6 — сборка управления: приоритеты на квартал, роли, права решений, недельный цикл контроля.',
+            'Месяцы 2–4 — исполнение: веду программу вместе с командой — закупка, финансы, производство, розница; сложные переговоры с поставщиками, банками и партнёрами беру на себя.',
+            'Месяцы 4–6 — возврат к росту и передача: снимаю ограничения, обучаю тех, кто продолжит, передаю управление; критерий выхода согласован заранее.'
           ],
           includes: [
             'Управление ликвидностью и приоритетами расходов',
@@ -406,16 +483,29 @@ export const T = {
             'Понятный критерий, когда режим стабилизации закончен',
             'Передача управления команде с рабочими правилами'
           ],
-          fit: 'Подходит, когда нужен не совет, а человек, который возьмёт на себя исполнение.'
+          fit: 'Подходит, когда нужен не совет, а человек, который возьмёт на себя исполнение.',
+          needs: [
+            'Решение собственника о полномочиях: что я решаю сам, а что согласовываю',
+            'Полный доступ к финансам, договорам и людям',
+            'Команда, готовая работать в новом ритме, — я помогаю её собрать, но не заменяю',
+            'Готовность принимать неудобные решения вовремя'
+          ],
+          rhythm: [
+            'Ежедневный короткий контроль в первые недели',
+            'Еженедельный штаб: приоритеты, деньги, риски',
+            'Ежемесячный отчёт собственнику и совету с понятными критериями выхода'
+          ],
+          notFit: 'Не подходит, если нужен только совет без права исполнять: тогда «Диагностика» или «Советник собственника».'
         },
-        { n: '04', title: 'Данные, аналитика и PLM', term: 'проектно, 2–4 месяца',
+        { n: '04', title: 'Данные, аналитика и PLM', term: 'проектно, 3–6 месяцев',
           body: 'Проектирую сквозной контур: от источников данных до панели, по которой принимают решения.',
           lead: 'Не «ещё одна система», а связка: продукт → продажи → запасы → деньги → решение.',
           steps: [
-            'Аудит — какие данные есть, где они живут и чему из них можно верить.',
-            'Модель данных — справочники, правила расчёта, качество и ответственность за цифры.',
-            'Панель решений — показатели, отклонения и сигналы, по которым действуют, а не смотрят.',
-            'Внедрение — бизнес-требования к системам, тестирование процессов, обучение команды.'
+            'Месяц 1 — аудит: какие данные есть, где живут и чему верить; карта систем и разрывов; список решений, которые должны опираться на цифры.',
+            'Месяц 2 — модель данных: справочники, правила расчёта показателей, качество и ответственность за каждую цифру.',
+            'Месяцы 2–3 — панель решений: показатели, отклонения и сигналы; прототип на ваших данных, который проверяют ежедневные пользователи.',
+            'Месяцы 3–4 — требования к системам: PLM, ERP, CRM, WMS, BI — что делает каждая и как между ними ходят данные; выбор решений и подрядчиков.',
+            'Месяцы 4–6 — внедрение: тестирование процессов, обучение команды, переход от таблиц к регулярному управлению, контроль результата.'
           ],
           includes: [
             'Карта источников и разрывов между системами',
@@ -431,7 +521,19 @@ export const T = {
             'Модель данных, которая остаётся внутри компании',
             'Прототип панели решений и план внедрения'
           ],
-          fit: 'Подходит, когда цифры не сходятся между отделами, а решения ждут отчёта.'
+          fit: 'Подходит, когда цифры не сходятся между отделами, а решения ждут отчёта.',
+          needs: [
+            'Владелец данных в компании: человек, отвечающий за справочники и качество цифр',
+            'Доступ к текущим системам и выгрузкам, включая таблицы, в которых реально работают',
+            'Пользователи панели — на тестах и обучении',
+            'Решение, кто в компании ведёт контур после проекта'
+          ],
+          rhythm: [
+            'Еженедельный созвон с владельцем данных',
+            'Демонстрация прототипа раз в 2–3 недели',
+            'Контрольная точка по эффекту через месяц после запуска'
+          ],
+          notFit: 'Не подходит, если нужна покупка конкретной системы «под ключ»: я проектирую контур и требования, а выбираем и внедряем вместе с вашими подрядчиками.'
         }
       ]
     },
@@ -599,7 +701,7 @@ export const T = {
       resultLabel: 'Похоже, подходит',
       resultNote: 'Формат — гипотеза по пяти ответам, а не диагноз. Финальное решение — на разговоре.',
       cta: 'Обсудить формат',
-      ctaMore: 'Что входит →',
+      ctaMore: 'Читать целиком →',
       retake: 'Пройти заново',
       messagePrefix: 'Результат диагностики на сайте: «',
       messageSuffix: '».',
@@ -660,7 +762,7 @@ export const T = {
       retake: 'Пройти заново',
       resultLabel: 'Похоже, у вас',
       resultNote: 'Результат — гипотеза по четырём ответам, а не диагноз. Точная картина — на диагностике.',
-      cta: 'Обсудить эту точку',
+      cta: 'Обсудить результат',
       ctaMore: 'Как это закрывает Syntha →',
       messagePrefix: 'Результат разбора сезона: «',
       messageSuffix: '».',
@@ -749,6 +851,7 @@ export const T = {
       eyebrow: 'Fashion advisory & product ventures',
       name: 'Petr Fedin',
       lead: 'Strategy, economics and transformation for fashion businesses. I help owners see the economics of a decision before it turns into a purchase order, dead stock and spent capital.',
+      ctaExperience: 'Experience',
       ctaConsulting: 'Advisory',
       ctaProjects: 'Ventures',
       ctaFeed: 'Feed',
@@ -846,42 +949,59 @@ export const T = {
         subtitle: 'From idea to a working MVP — the same path Syntha, ChatX and Renova already took. Three ways to start: pick one, or take a 15-second test.',
         cta: 'Discuss this format',
         contactMessage: 'Interested in the “{title}” format for our project.',
+        more: 'Read in full →',
+        contact: 'Get in touch',
         items: [
           {
-            id: 'idea', n: '01', title: 'A new idea', term: 'project, from 6 weeks to a working MVP',
+            id: 'idea', n: '01', title: 'A new idea', term: 'project, 8–12 weeks to an MVP',
             body: 'You have a hypothesis but no product and no team yet. We shape the concept, pressure-test it against the numbers, and take it to a working MVP — the same way Syntha, ChatX and Renova each started from a single idea.',
             lead: 'The path from a hypothesis to a working MVP you can show to users and investors — the same way Syntha, ChatX and Renova began.',
             steps: [
-              'Week 1 — hypothesis and boundaries: who the product is for, which problem it closes, what counts as success. All on one page.',
-              'Weeks 2–3 — a check against the numbers: size of the problem, user and customer economics, competitors and alternatives. We cut what the numbers do not support.',
-              'Weeks 3–4 — product concept: roles, key scenarios, what the first version contains and what it deliberately leaves out.',
-              'Weeks 4–6 and on — the MVP: a working version built on real scenarios, shown on screens rather than slides, with feedback collected.',
-              'Finish — a decision on the next step: continue, change course, or stop while it is still cheap.'
+              'Week 1 — hypothesis and boundaries: who the product is for, which problem it closes, what counts as success in three months. All on one page.',
+              'Weeks 2–3 — a check against numbers and people: size of the problem, user and customer economics, alternatives and competitors, 5–8 conversations with future users.',
+              'Weeks 3–4 — product concept: roles, key scenarios, what the first version contains and what it deliberately leaves out; a screen prototype.',
+              'Weeks 5–10 — the MVP: data and screen design, a working version built on real scenarios; a demo every two weeks and changes from feedback.',
+              'Weeks 11–12 — pilot and result: a launch with a limited group, measurements, and a decision — continue, change course, or stop while it is still cheap.'
             ],
             includes: [
               'The hypothesis and success criteria, written down',
-              'A check of economics and market on your data or open data',
-              'Product concept: roles, scenarios, scope of the first version',
-              'Screen design and a working MVP on real scenarios',
-              'A roadmap: what comes next and what it costs',
-              'Material for conversations with users, partners or investors'
+              'A check of economics and market, interviews with future users',
+              'Product concept and a screen prototype',
+              'Data and architecture design for the first version',
+              'A working MVP on real scenarios',
+              'A pilot with a limited group, with measurements',
+              'A roadmap and an estimate for the next stage'
             ],
             out: [
-              'A working MVP and the source material, which stay with you',
-              'A product description and a roadmap for the next stage',
+              'A working MVP, source code and documentation — they stay with you',
+              'A product description, a roadmap and an estimate for the next stage',
+              'Pilot data: what worked and what did not',
               'A clear decision: go on, change course or stop'
             ],
-            fit: 'Fits when you have an idea or hypothesis but no product and no team yet, and need to learn fast whether it is worth investing in. Timing depends on the task — I name it after the first conversation.'
+            needs: [
+              'One person who makes product decisions — usually you',
+              'Access to future users for 5–8 conversations',
+              'Real examples of data and processes, even in spreadsheets',
+              'Readiness to watch a demo every two weeks and reply within two working days'
+            ],
+            rhythm: [
+              'A weekly call of 30–45 minutes',
+              'A demo of the working version every two weeks',
+              'Decision points: the end of weeks 3, 6 and 12'
+            ],
+            fit: 'Fits when you have an idea or hypothesis but no product and no team yet, and need to learn fast whether it is worth investing in.',
+            notFit: 'Not a fit if you need the system taken to production and maintained: that is the stage after the MVP, and we size it from the pilot results.'
           },
           {
-            id: 'transform', n: '02', title: 'Transforming what exists', term: 'project or ongoing, from 2 months',
+            id: 'transform', n: '02', title: 'Transforming what exists', term: 'project or ongoing, 3–6 months',
             body: 'A product or process already exists but can’t keep up with the business. We rebuild the architecture and digital contour around how the company actually works, rather than rewriting code for its own sake.',
             lead: 'Rebuilding an existing product or process around how the company actually works — without rewriting code for its own sake.',
             steps: [
-              'Weeks 1–2 — the picture as it is: how the product and processes are really used, where people work around the system, which data disagree.',
-              'Weeks 3–4 — the target design: which roles, scenarios and data sit at the core, what stays, what goes.',
-              'Weeks 5–8 — step-by-step rebuild: changed block by block so the business keeps running and each block can be checked.',
-              'After that — rollout and control: role training, data rules, and the metrics that show things got better.'
+              'Weeks 1–3 — the picture as it is: how the product and processes are really used, where people work around the system, which data disagree; interviews and observation of real work.',
+              'Weeks 4–6 — the target design: the roles, scenarios and data at the core, what stays and what goes; an architecture clear to both business and engineering.',
+              'Weeks 7–10 — plan and first block: the work is split into blocks that can change without stopping the business; the first block is built and launched with a pilot group.',
+              'Months 3–5 — step-by-step rebuild: block by block, each checked on real work, with role training in parallel.',
+              'Final month — consolidation: data rules, metrics, handover to the team and a measurement of what improved.'
             ],
             includes: [
               'A review of the current product, processes and data in real work',
@@ -896,17 +1016,30 @@ export const T = {
               'An updated product or process built into the working cycle',
               'Rules and metrics your team then manages by itself'
             ],
-            fit: 'Fits when a product or process exists but cannot keep up with the business, and rewriting everything from scratch is costly and risky.'
+            needs: [
+              'Access to the current product, code or system and to the people who work with it',
+              'A business owner of the result and a technical lead',
+              'The ability to change processes, not only software',
+              'A group of users for pilots, ready to work the new way'
+            ],
+            rhythm: [
+              'A weekly staff meeting: progress, risks, decisions',
+              'A demo of each block before launch',
+              'A metrics report once a month'
+            ],
+            fit: 'Fits when a product or process exists but cannot keep up with the business, and rewriting everything from scratch is costly and risky.',
+            notFit: 'Not a fit if a full rewrite is already decided without checking what exactly does not work — I will first propose a short review.'
           },
           {
-            id: 'audit', n: '03', title: 'Analysis and implementation', term: 'project, 3–6 weeks',
+            id: 'audit', n: '03', title: 'Analysis and implementation', term: 'project, 4–8 weeks',
             body: 'You need to know which off-the-shelf solution actually fits, then get it embedded into real processes — without a long from-scratch build if one isn’t needed.',
             lead: 'An independent look at which ready-made solutions on the market fit you, and embedding the chosen one into real processes.',
             steps: [
-              'Week 1 — requirements: which tasks and roles must be covered, which data exist, what is mandatory and what is nice to have.',
-              'Weeks 2–3 — market review: a short list of ready-made solutions compared on your scenarios, not on vendor decks.',
-              'Week 4 — a pilot on real data: checking how the chosen solution works in your processes.',
-              'Weeks 5–6 — rollout: setup, integrations, training, working rules — and a decision on whether anything needs building on top.'
+              'Week 1 — requirements: tasks and roles, data, mandatory and nice-to-have functions, security and budget constraints.',
+              'Weeks 2–3 — market review: a long list narrowed to three or four solutions, compared on your scenarios rather than vendor decks; demos and terms requested.',
+              'Weeks 3–4 — pilot: one or two solutions checked on real data with real users; risks and cost of ownership recorded.',
+              'Weeks 5–6 — decision and plan: a recommendation — buy, extend or build your own; a rollout and integration plan, with owners.',
+              'Weeks 7–8 — launch: setup, integrations, training, working rules; control of the first weeks of use.'
             ],
             includes: [
               'A requirements matrix by role and scenario',
@@ -921,7 +1054,19 @@ export const T = {
               'A rollout and integration plan with owners',
               'A launched solution built into your processes — or an honest “better to build your own”'
             ],
-            fit: 'Fits when you need to know what off the shelf will work and embed it without a long build from scratch.'
+            needs: [
+              'A list of the processes and roles the solution must cover',
+              'Access to future users for interviews and the pilot',
+              'Budget limits and constraints: security, integrations, data',
+              'Someone inside the company responsible for the rollout'
+            ],
+            rhythm: [
+              'A weekly call',
+              'A comparison table and demos — by the end of week 3',
+              'The recommendation and plan — by the end of week 6'
+            ],
+            fit: 'Fits when you need to know what off the shelf will work and embed it without a long build from scratch.',
+            notFit: 'Not a fit if the choice is already made and you only need setup: then a short rollout without the market review is enough.'
           }
         ],
         diag: {
@@ -933,6 +1078,7 @@ export const T = {
           resultLabel: 'Looks like a fit',
           resultNote: 'The format is a hypothesis from three answers, not a diagnosis. The real call happens in conversation.',
           cta: 'Discuss this format',
+          ctaMore: 'Read in full →',
           retake: 'Take it again',
           messagePrefix: 'Site test result: format “',
           messageSuffix: '”.',
@@ -968,7 +1114,9 @@ export const T = {
     area: {
       doesLabel: 'What the work includes',
       givesLabel: 'What stays with you',
-      resultsLabel: 'Achievements and results'
+      resultsLabel: 'Achievements and results',
+      contactCta: 'Get in touch',
+      contactMessage: 'Interested in the “{title}” area.'
     },
     formats: {
       title: 'Ways to work together',
@@ -978,6 +1126,9 @@ export const T = {
       includesLabel: 'What it includes',
       outLabel: 'What stays with you',
       fitLabel: 'When it fits',
+      needsLabel: 'What we need from you',
+      rhythmLabel: 'How we work',
+      notFitLabel: 'When it does not fit',
       contactCta: 'Get in touch',
       contactMessage: 'Interested in the "{title}" format.',
       items: [
@@ -985,36 +1136,107 @@ export const T = {
           body: 'We take apart the economics of the decision: where capital is locked, what caps growth, which numbers disagree.',
           out: 'Output: a prioritised map of problems, the calculations and a plan for the coming season.',
           lead: 'A short engagement to find where the money leaks and to leave with a plan for the coming season.',
-          steps: ['Week 1 — data and scope: sales, inventory, buying, channels, cash.', 'Weeks 2–3 — calculations: where capital is locked and which categories create contribution.', 'Week 4 — hypotheses tested against the numbers.', 'Weeks 5–6 — decisions: a prioritised map, the calculations and a plan.'],
-          includes: ['Buying, inventory and channel economics', 'Stock turn, margin and contribution by category', 'Data check: where numbers disagree and why', 'Sessions with buying, finance and commerce', 'A closing session with the owner', 'Every conclusion backed by a number from your own data, not a generic claim'],
+          steps: [
+            'Week 0 — before the start: we agree the owner’s question, the scope of data and people, and sign a confidentiality agreement. You get the list of required extracts in advance.',
+            'Week 1 — data and scope: sales, inventory, buying, channels and cash for 2–3 seasons. I check what exists, what can be trusted and where systems disagree.',
+            'Weeks 2–3 — calculations: where capital is locked, which categories, brands and channels create contribution and which consume it; stock turn, post-markdown margin, inventory age.',
+            'Week 4 — interviews and hypothesis testing: buying, finance, commerce, warehouse. I compare the numbers with how decisions are really made.',
+            'Week 5 — scenarios: I calculate decision options and their effect on cash, and drop what does not survive the numbers.',
+            'Week 6 — result: a prioritised problem map with the cost of each, a season plan, a closing session with the owner and the handover of the calculations.'
+          ],
+          includes: ['Buying, inventory and channel economics', 'Stock turn, margin and contribution by category', 'Data check: where numbers disagree and why', 'Sessions with buying, finance and commerce', 'A closing session with the owner', 'Every conclusion backed by a number from your own data, not a generic claim', 'An interim report in week 3, so you see the direction before the result'],
           out: ['A prioritised map of problems with the price of each', 'The calculations as a file that stays with you', 'An action plan for the coming season with owners'],
-          fit: 'For when it feels like money is leaking but it is unclear where.'
+          fit: 'For when it feels like money is leaking but it is unclear where.',
+          needs: [
+            'Extracts of sales, inventory, buying and markdowns for 2–3 seasons — I provide the field list',
+            'One person on your side responsible for data access and meetings',
+            '3–5 interviews of 45–60 minutes: buying, finance, commerce, warehouse',
+            'The owner’s time: the start, an interim talk and the closing session'
+          ],
+          rhythm: [
+            'A weekly 30-minute call: what we found and what else is needed',
+            'An interim report in week 3',
+            'A closing session with the owner and the calculation file handed over'
+          ],
+          notFit: 'Not a fit if there is no data at all, or you need an executor rather than an analysis: then we start with “Data, analytics and PLM” or “Programme lead”.'
         },
-        { n: '02', title: 'Owner advisor', term: 'ongoing, from 2 months',
+        { n: '02', title: 'Owner advisor', term: 'ongoing, from 3 months',
           body: 'I support decisions on buying, assortment, channels and capital inside your working cycle.',
           out: 'Output: decision rules, metrics and a regular plan-versus-actual review inside the team.',
           lead: 'Regular support for decisions inside your own working cycle — without joining the payroll.',
-          steps: ['Month one — onboarding: current rules and metrics, agreeing what counts as success.', 'Then — cadence: regular sessions tied to the buying and planning cycle.', 'Quarterly — a reset of what worked and what changes next cycle.'],
+          steps: [
+            'Month 1 — onboarding: I review current buying and planning rules, metrics and roles; we agree what counts as success for the cycle and set the rhythm.',
+            'Months 2–3 — working rhythm: meetings aligned to the buying and planning cycle, plan-vs-actual reviews, and a seat in key decisions before they are made, not after.',
+            'From month 4 — consolidation: decision rules and metrics become a written regulation and your team starts running the reviews without me.',
+            'Every quarter — rebuild: what worked, what changes for the next cycle; we decide whether to continue, reduce my involvement or finish.'
+          ],
           includes: ['Participation in buying, assortment and channel decisions', 'Decision rules and metrics written down', 'Plan-versus-actual review in a short cycle', 'Materials for the board or an investor', 'Contact with the team between sessions', 'Every decision written down with a calculation and a date, not "as agreed"'],
           out: ['Decision rules that work without me', 'Metrics and regular control inside the team', 'A trained team rather than dependence on an outside expert'],
-          fit: 'For when decisions get made, but from scratch and by feel every time.'
+          fit: 'For when decisions get made, but from scratch and by feel every time.',
+          needs: [
+            'Access to working numbers: plan, actuals, stock, supplier orders',
+            'People with decision rights in the room: the owner and the heads of buying and finance',
+            'Willingness to record decisions in writing, with the calculation and the date',
+            'A reply to urgent questions within a working day'
+          ],
+          rhythm: [
+            '2–4 meetings a month of 1.5–2 hours, aligned to the buying calendar',
+            'A short deviation review every week or two',
+            'A quarterly session: results, rules, plan for my involvement'
+          ],
+          notFit: 'Not a fit if you need someone to execute decisions on the team’s behalf — that is the “Programme lead” format.'
         },
-        { n: '03', title: 'Programme lead', term: 'project-based, from 3 months',
+        { n: '03', title: 'Programme lead', term: 'project-based, from 4–6 months',
           body: 'I take on priorities, cross-function coordination and difficult negotiations when the business loses control.',
           out: 'Output: restored manageability, assigned accountability and a return to growth.',
           lead: 'I take over the programme when the business loses control and decisions come too late.',
-          steps: ['First weeks — stabilisation: liquidity, cash calendar, stopping what does not work.', 'Then — rebuilding management: priorities, roles, decision rights, a short control cycle.', 'Then — return to growth and handover to the team.'],
+          steps: [
+            'Weeks 1–2 — stabilisation: liquidity, a 13-week cash calendar, stopping what does not work; we fix who owns what.',
+            'Weeks 3–6 — building management: quarterly priorities, roles, decision rights and a weekly control cycle.',
+            'Months 2–4 — execution: I run the programme with the team — buying, finance, production, retail — and take on the hard negotiations with suppliers, banks and partners.',
+            'Months 4–6 — return to growth and handover: I lift the constraints, train those who continue and hand management over; the exit criterion is agreed in advance.'
+          ],
           includes: ['Liquidity and spending priorities', 'Rebuilt processes, roles and decision rights', 'Coordination across buying, finance, production and retail', 'Difficult negotiations with suppliers, banks and partners', 'Execution control until the business is stable', 'Personal accountability for the result — execution, not a recommendation'],
           out: ['Restored manageability and assigned accountability', 'A clear criterion for when the turnaround ends', 'Handover to the team with working rules'],
-          fit: 'For when you need not advice but someone who takes execution on.'
+          fit: 'For when you need not advice but someone who takes execution on.',
+          needs: [
+            'The owner’s decision on authority: what I decide myself and what I align',
+            'Full access to finances, contracts and people',
+            'A team ready to work in a new rhythm — I help assemble it but do not replace it',
+            'Readiness to take uncomfortable decisions on time'
+          ],
+          rhythm: [
+            'A short daily check in the first weeks',
+            'A weekly staff meeting: priorities, cash, risks',
+            'A monthly report to the owner and the board with clear exit criteria'
+          ],
+          notFit: 'Not a fit if you only need advice without the mandate to execute: then “Diagnostics” or “Owner advisor”.'
         },
-        { n: '04', title: 'Data, analytics and PLM', term: 'project-based, 2–4 months',
+        { n: '04', title: 'Data, analytics and PLM', term: 'project-based, 3–6 months',
           body: 'I design the end-to-end loop: from data sources to the dashboard decisions are actually made on.',
           lead: 'Not one more system, but a chain: product → sales → inventory → cash → decision.',
-          steps: ['Audit — what data exists, where it lives and which of it can be trusted.', 'Data model — reference data, calculation rules, quality and ownership.', 'Decision dashboard — metrics, deviations and signals people act on.', 'Rollout — business requirements for the systems, process testing, training.'],
+          steps: [
+            'Month 1 — audit: which data exist, where they live and what can be trusted; a map of systems and gaps; a list of decisions that must rest on numbers.',
+            'Month 2 — data model: reference data, metric calculation rules, quality and ownership of every number.',
+            'Months 2–3 — decision dashboard: metrics, deviations and signals; a prototype on your data that daily users check.',
+            'Months 3–4 — system requirements: PLM, ERP, CRM, WMS, BI — what each does and how data flows between them; choosing solutions and contractors.',
+            'Months 4–6 — rollout: process testing, team training, moving from spreadsheets to regular management, and checking the result.'
+          ],
           includes: ['A map of sources and the gaps between systems', 'One data model and reference data', 'A management dashboard prototype', 'Requirements for PLM, ERP, CRM, WMS and BI and the role of each', 'Automation scenarios: demand forecast, stock signals, markdown', 'A rollout plan and the move from spreadsheets to regular management', 'Prioritised by impact: what pays off fast versus what needs structural rebuilding'],
           out: ['Target architecture and business requirements', 'A data model that stays inside the company', 'A dashboard prototype and a rollout plan'],
-          fit: 'For when numbers disagree between departments and decisions wait for a report.'
+          fit: 'For when numbers disagree between departments and decisions wait for a report.',
+          needs: [
+            'A data owner in the company: the person responsible for reference data and number quality',
+            'Access to current systems and extracts, including the spreadsheets people actually work in',
+            'Dashboard users — for tests and training',
+            'A decision on who runs the contour after the project'
+          ],
+          rhythm: [
+            'A weekly call with the data owner',
+            'A prototype demo every 2–3 weeks',
+            'A checkpoint on the effect a month after launch'
+          ],
+          notFit: 'Not a fit if you want a specific system bought “turnkey”: I design the contour and the requirements, and we select and implement together with your contractors.'
         }
       ]
     },
@@ -1165,7 +1387,7 @@ export const T = {
       resultLabel: 'Looks like a fit',
       resultNote: 'A format is a hypothesis from five answers, not a diagnosis. The real decision happens in conversation.',
       cta: 'Discuss this format',
-      ctaMore: 'What it includes →',
+      ctaMore: 'Read in full →',
       retake: 'Start over',
       messagePrefix: 'Result of the site diagnostic: “',
       messageSuffix: '.”',
@@ -1226,7 +1448,7 @@ export const T = {
       retake: 'Take again',
       resultLabel: 'Looks like it is',
       resultNote: 'The result is a hypothesis from four answers, not a diagnosis. The real picture comes from a proper diagnostic.',
-      cta: 'Discuss this point',
+      cta: 'Discuss the result',
       ctaMore: 'How Syntha closes this →',
       messagePrefix: 'Result of the season read: "',
       messageSuffix: '".',
