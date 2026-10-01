@@ -5,9 +5,9 @@ export const DECK = {
   ru: {
     kicker: 'Фэшн-консалтинг для брендов',
     title: 'Стратегия, экономика и трансформация фэшн-бизнеса',
-    lead: 'Помогаю собственникам видеть экономику решения до того, как оно становится закупкой, запасом, обязательством и потраченным капиталом. Работа идёт на стыке стратегии, коммерции, продукта, данных, цифрового контура, финансов и управленческого исполнения.',
+    lead: 'Помогаю собственникам увидеть экономику решения до того, как оно превратится в закупку, залежавшийся запас, обязательство и потраченный капитал. Работаю со стратегией, коммерцией, продуктом, данными, финансами и исполнением.',
     tagline: 'Рост • трансформация • стабилизация',
-    chainTitle: 'Сквозная логика работы',
+    chainTitle: 'От рынка до денег',
     chain: ['Рынок', 'Клиент', 'Бренд', 'Коллекция', 'Продукт', 'Закупка и производство', 'Запас', 'Канал и продажа', 'Деньги'],
     chainTo: [0, 1, 0, 2, 2, 3, 3, 1, 4],
     chainHint: 'Выберите этап — откроется направление работы, которое его закрывает.',
@@ -16,33 +16,33 @@ export const DECK = {
     glossaryTitle: 'Сокращения',
     glossary: [
       ['PLM', 'управление жизненным циклом продукта'],
-      ['ERP', 'операционный контур'],
-      ['CRM', 'клиентская база'],
-      ['WMS', 'склад'],
-      ['BI', 'управленческая аналитика'],
+      ['ERP', 'учёт и операции компании'],
+      ['CRM', 'система работы с клиентами'],
+      ['WMS', 'складской учёт'],
+      ['BI', 'отчёты и панели для управления'],
       ['SKU', 'товарная позиция']
     ],
-    footnote: 'Названия клиентов и чувствительные данные не раскрываются. Конфиденциальность клиентских данных — базовый стандарт работы.',
+    footnote: 'Названия клиентов и чувствительные данные не раскрываю. Конфиденциальность — базовое правило работы.',
     blocks: [
       {
         id: 'directions',
         title: 'Направления работы',
-        note: 'Экономический результат создаётся на стыке функций: рынок, клиент, продукт, операции, капитал и цифровой контур связываются в единую систему решений.',
+        note: 'Деньги теряются на стыках: рынок, клиент, продукт, операции и капитал нельзя считать по отдельности.',
         items: [
           { eyebrow: '01', title: 'Стратегический выбор', body: 'Рынки России, СНГ и отдельных стран Азии; позиционирование; категории; адаптация продукта и коммерческой модели.', decision: 'Куда выходить, что масштабировать и какой капитал потребуется.' },
           { eyebrow: '02', title: 'Коммерческая модель', body: 'Клиенты, цены, маркетинг, розница, интернет-магазин, опт и маркетплейсы.', decision: 'Где бренд реально зарабатывает на клиенте и канале.' },
           { eyebrow: '03', title: 'Продукт и товарное планирование', body: 'Коллекция, SKU, прогноз спроса, закупка, распределение, пополнение и уценка.', decision: 'Что покупать, производить, переоценивать и развивать.' },
-          { eyebrow: '04', title: 'Операции, управление и цифровой контур', body: 'Процессы, роли, показатели; PLM, ERP, CRM, WMS, BI; производство, склад и логистика.', decision: 'Как управлять регулярно, быстрее и на одной версии данных.' },
-          { eyebrow: '05', title: 'Капитал, инвестиции и устойчивость', body: 'Денежный поток, оборотный капитал, оценка бизнеса, потребность в финансировании, сделки и стабилизация.', decision: 'Сколько капитала требуется, как его обосновать и насколько бизнес готов к росту или сделке.' }
+          { eyebrow: '04', title: 'Операции, управление и системы', body: 'Процессы, роли, показатели; PLM, ERP, CRM, WMS, BI; производство, склад и логистика.', decision: 'Как управлять по ритму и на одной версии данных.' },
+          { eyebrow: '05', title: 'Капитал, инвестиции и устойчивость', body: 'Денежный поток, оборотный капитал, оценка бизнеса, потребность в финансировании, сделки и стабилизация.', decision: 'Сколько нужно капитала, чем его обосновать и готов ли бизнес к росту или сделке.' }
         ]
       },
       {
         id: 'requests',
         title: 'С чем приходят собственники',
-        note: 'Собственники приходят за решением, а не за отчётом. Каждая задача переводится в управленческое действие: куда расти, что остановить, что стабилизировать и что профинансировать.',
+        note: 'Собственники приходят за решением, а не за отчётом. Каждая задача сводится к действию: куда расти, что остановить, что стабилизировать, что профинансировать.',
         items: [
           { eyebrow: 'Рост', title: 'Новый рынок', decision: 'Выбрать рынок, модель входа, ассортимент и цену.' },
-          { eyebrow: 'Рост', title: 'Расширение категорий', decision: 'Определить, где бренд имеет право расширяться.' },
+          { eyebrow: 'Рост', title: 'Расширение категорий', decision: 'Понять, где бренд может расширяться.' },
           { eyebrow: 'Рост', title: 'Инвестиционный выбор', decision: 'Выбрать, что масштабировать первым.' },
           { eyebrow: 'Рост', title: 'Ограничения роста', decision: 'Снять узкие места до расширения.' },
           { eyebrow: 'Коммерция', title: 'Продажи растут, маржа не растёт', decision: 'Найти, где размывается маржа.' },
@@ -52,18 +52,18 @@ export const DECK = {
           { eyebrow: 'Товар и операции', title: 'Ассортимент разрастается', decision: 'Выбрать, что развивать, сокращать или переоценивать.' },
           { eyebrow: 'Товар и операции', title: 'Запасы неуправляемы', decision: 'Настроить распределение, пополнение и перемещения.' },
           { eyebrow: 'Товар и операции', title: 'Производство тормозит рост', decision: 'Изменить мощность, сроки, качество и поставщиков.' },
-          { eyebrow: 'Товар и операции', title: 'Разработка продукта и данные разорваны', decision: 'Спроектировать PLM/BI-контур и автоматизацию.' },
+          { eyebrow: 'Товар и операции', title: 'Разработка продукта и данные разорваны', decision: 'Спроектировать PLM, BI и автоматизацию.' },
           { eyebrow: 'Капитал и управление', title: 'Прибыль не превращается в деньги', decision: 'Связать прибыль, деньги и оборотный капитал.' },
           { eyebrow: 'Капитал и управление', title: 'Потребность в капитале или сделка', decision: 'Подготовить модель, потребность и материалы.' },
           { eyebrow: 'Капитал и управление', title: 'Решения принимаются слишком поздно', decision: 'Ввести сигналы, цикл управления и контроль.' },
           { eyebrow: 'Капитал и управление', title: 'Роли и полномочия размыты', decision: 'Закрепить ответственность и права решений.' }
         ],
-        after: 'Фокус — принять решение раньше, чем ошибка становится запасом, кассовым разрывом, потерей сезона или неверной инвестицией.'
+        after: 'Цель — решить раньше, чем ошибка станет запасом, кассовым разрывом, потерянным сезоном или неверной инвестицией.'
       },
       {
         id: 'flow',
         title: 'Как данные становятся решением',
-        note: 'Четыре шага, которые превращают ручной сбор цифр в систему решений.',
+        note: 'Четыре шага от ручного сбора цифр к решению.',
         items: [
           { eyebrow: '01', title: 'Источники', body: 'Продажи, запасы, клиенты, закупки, производство, финансы, маркетинг.' },
           { eyebrow: '02', title: 'Единая модель данных', body: 'Справочники, правила расчёта, качество данных, ответственность.' },
@@ -74,21 +74,21 @@ export const DECK = {
       {
         id: 'digital',
         title: 'Данные, аналитика и PLM',
-        note: 'Проектирую не «ещё одну систему», а сквозной контур: продукт → продажи → запасы → деньги → решение. Источники → единая модель данных → панель решений → действие.',
+        note: 'Строю не «ещё одну систему», а цепочку: продукт → продажи → запасы → деньги → решение.',
         items: [
           { title: 'PLM-контур продукта', body: 'Карточка изделия, материалы, образцы, спецификации, себестоимость, версии, согласования и календарь коллекции.' },
-          { title: 'Аналитика и BI', body: 'Единая версия продаж, маржи, запасов, клиентов, каналов, закупок, производства и денег.' },
-          { title: 'Системная архитектура', body: 'Требования к ERP, CRM, WMS и интеграциям, роль каждой системы в контуре.' },
+          { title: 'Аналитика и BI', body: 'Одна версия цифр: продажи, маржа, запасы, клиенты, каналы, закупки, производство, деньги.' },
+          { title: 'Системная архитектура', body: 'Требования к ERP, CRM, WMS и интеграциям: что делает каждая система.' },
           { title: 'ИИ и автоматизация', body: 'Прогноз спроса, сигналы по остаткам, сценарии уценки, рекомендации закупки и распределения.' },
           { title: 'Товарное планирование', body: 'Прогноз, лимит закупки, размерность, распределение, пополнение, перемещения и доступность товара.' },
-          { title: 'Контроль внедрения', body: 'Бизнес-требования, тестирование процессов, обучение и переход от таблиц к регулярному управлению.' }
+          { title: 'Контроль внедрения', body: 'Требования, тестирование процессов, обучение и переход от таблиц к регулярному управлению.' }
         ],
-        after: 'На выходе: целевая архитектура, бизнес-требования, модель данных, прототип управленческой панели и план внедрения. Позиция: сначала бизнес-логика, данные и ответственность — только затем система и автоматизация.'
+        after: 'Результат: целевая архитектура, бизнес-требования, модель данных, прототип панели и план внедрения. Принцип: сначала бизнес-логика, данные и ответственность, потом система и автоматизация.'
       },
       {
         id: 'outcome',
         title: 'Что остаётся внутри компании',
-        note: 'Клиент получает не презентацию, а набор решений и рабочий ритм: модели, правила решений, показатели, роли и регулярный контроль исполнения.',
+        note: 'Клиент получает не презентацию, а решения и рабочий ритм: модели, правила, показатели, роли и регулярный контроль.',
         items: [
           {
             title: 'Решения собственника',
@@ -118,17 +118,17 @@ export const DECK = {
             ]
           }
         ],
-        after: 'Роль может расширяться от советника собственника до руководителя программы стабилизации: приоритеты, координация функций, контроль исполнения и сложные переговоры.'
+        after: 'Роль может вырасти от советника собственника до руководителя программы стабилизации: приоритеты, координация функций, контроль исполнения, сложные переговоры.'
       },
       {
         id: 'experience',
         title: 'Релевантный опыт',
-        note: 'Показываю тип задачи, масштаб и глубину работы — без названий клиентов.',
+        note: 'Тип задач, масштаб и глубина работы — без названий клиентов.',
         items: [
           { eyebrow: 'Управленческий опыт', title: 'Крупная мультибрендовая фэшн-розница', body: '500+ брендов, 30 000+ SKU: закупки, ассортимент, маржа, оборачиваемость, товарная аналитика и автоматизация решений.' },
-          { eyebrow: 'Операционная диагностика', title: 'Премиальный сегмент: разработка и производство', body: 'Периметр: финансы → продукт → производство → запасы → управление. Сквозная работа от экономики заказа и капитала до производства и управленческой модели.' },
-          { eyebrow: 'Стратегия и финансы', title: 'Стратегия роста, рынки и капитал', body: 'Периметр: рынок → финансовая модель → капитал → переговоры. География, конкурентная среда, потребность в финансировании и материалы для решения собственника.' },
-          { eyebrow: 'Стабилизация', title: 'Пересборка управления в турбулентности', body: 'Периметр: ликвидность → приоритеты → ответственность → контроль. Стабилизация управляемости и возвращение бизнеса в режим роста.' }
+          { eyebrow: 'Операционная диагностика', title: 'Премиальный сегмент: разработка и производство', body: 'Финансы → продукт → производство → запасы → управление. От экономики заказа и капитала до производства и модели управления.' },
+          { eyebrow: 'Стратегия и финансы', title: 'Стратегия роста, рынки и капитал', body: 'Рынок → финансовая модель → капитал → переговоры. География, конкуренты, потребность в финансировании и материалы для решения собственника.' },
+          { eyebrow: 'Стабилизация', title: 'Пересборка управления в турбулентности', body: 'Ликвидность → приоритеты → ответственность → контроль. Вернуть управляемость и выйти обратно на рост.' }
         ]
       }
     ]
@@ -137,9 +137,9 @@ export const DECK = {
   en: {
     kicker: 'Fashion advisory for brands',
     title: 'Strategy, economics and transformation for fashion businesses',
-    lead: 'I help owners see the economics of a decision before it turns into a purchase order, dead stock, a liability and spent capital. The work sits where strategy, commerce, product, data, systems, finance and management execution meet.',
+    lead: 'I help owners see what a decision will really cost before it becomes a purchase order, dead stock, a liability or spent capital. I work across strategy, commerce, product, data, finance and execution.',
     tagline: 'Growth • transformation • turnaround',
-    chainTitle: 'The end-to-end logic',
+    chainTitle: 'From market to cash',
     chain: ['Market', 'Customer', 'Brand', 'Collection', 'Product', 'Buying & production', 'Inventory', 'Channel & sales', 'Cash'],
     chainTo: [0, 1, 0, 2, 2, 3, 3, 1, 4],
     chainHint: 'Choose a stage — to open the area of work that covers it.',
@@ -148,54 +148,54 @@ export const DECK = {
     glossaryTitle: 'Abbreviations',
     glossary: [
       ['PLM', 'product lifecycle management'],
-      ['ERP', 'the operational backbone'],
-      ['CRM', 'the customer base'],
-      ['WMS', 'the warehouse'],
-      ['BI', 'management analytics'],
+      ['ERP', 'accounting and operations'],
+      ['CRM', 'customer management'],
+      ['WMS', 'warehouse management'],
+      ['BI', 'dashboards and reports'],
       ['SKU', 'a stock-keeping unit']
     ],
-    footnote: 'Client names and sensitive data are never disclosed. Client confidentiality is a baseline standard of the work.',
+    footnote: 'I never disclose client names or sensitive data. Confidentiality is a baseline rule.',
     blocks: [
       {
         id: 'directions',
         title: 'Areas of work',
-        note: 'Economic results are created where functions meet: market, customer, product, operations, capital and systems are tied into one decision system.',
+        note: 'Money is made or lost where functions meet. Market, customer, product, operations and capital have to be planned together.',
         items: [
           { eyebrow: '01', title: 'Strategic choice', body: 'Russia, CIS and selected Asian markets; positioning; categories; product and commercial model fit.', decision: 'Which market to enter, what to scale and how much capital it takes.' },
           { eyebrow: '02', title: 'Commercial model', body: 'Customers, pricing, marketing, retail, e-commerce, wholesale and marketplaces.', decision: 'Where the brand actually makes money — by customer and by channel.' },
           { eyebrow: '03', title: 'Product & merchandise planning', body: 'Collection, SKU, demand forecast, open-to-buy, allocation, replenishment and markdown.', decision: 'What to buy, produce, reprice and grow.' },
-          { eyebrow: '04', title: 'Operations, management & systems', body: 'Processes, roles and KPIs; PLM, ERP, CRM, WMS, BI; production, warehouse and logistics.', decision: 'How to run the business on a regular cadence and a single version of the data.' },
-          { eyebrow: '05', title: 'Capital, investment & resilience', body: 'Cash flow, working capital, valuation, funding needs, transactions and turnaround.', decision: 'How much capital is needed, how to justify it and whether the business is ready to grow or transact.' }
+          { eyebrow: '04', title: 'Operations, management & systems', body: 'Processes, roles and KPIs; PLM, ERP, CRM, WMS, BI; production, warehouse and logistics.', decision: 'How to run the business on a steady cadence and one set of numbers.' },
+          { eyebrow: '05', title: 'Capital, investment & resilience', body: 'Cash flow, working capital, valuation, funding needs, transactions and turnaround.', decision: 'How much capital you need, how to justify it, and whether the business is ready to grow or do a deal.' }
         ]
       },
       {
         id: 'requests',
         title: 'What owners come with',
-        note: 'Owners come for a decision, not a report. Every question is translated into a management action: where to grow, what to stop, what to stabilise and what to fund.',
+        note: 'Owners come for a decision, not a report. Each problem ends in an action: where to grow, what to stop, what to stabilise, what to fund.',
         items: [
           { eyebrow: 'Growth', title: 'New market', decision: 'Choose the priority market, entry model, assortment and pricing.' },
-          { eyebrow: 'Growth', title: 'Category expansion', decision: 'Define where the brand has the right to expand.' },
+          { eyebrow: 'Growth', title: 'Category expansion', decision: 'Work out where the brand can credibly expand.' },
           { eyebrow: 'Growth', title: 'Investment choice', decision: 'Decide what to scale first.' },
           { eyebrow: 'Growth', title: 'Growth constraints', decision: 'Remove bottlenecks before expansion.' },
-          { eyebrow: 'Commercial', title: 'Sales grow, margin does not', decision: 'Identify where sales economics is diluted.' },
+          { eyebrow: 'Commercial', title: 'Sales grow, margin does not', decision: 'Find where the margin leaks.' },
           { eyebrow: 'Commercial', title: 'Channels generate revenue', decision: 'Measure contribution and reset terms.' },
-          { eyebrow: 'Commercial', title: 'Customer acquisition costs rise', decision: 'Adjust pricing, marketing and repeat purchase.' },
+          { eyebrow: 'Commercial', title: 'Customer acquisition costs rise', decision: 'Rework pricing, marketing and repeat sales.' },
           { eyebrow: 'Commercial', title: 'Markdowns erode margin', decision: 'Redesign discounts, inventory and exit rules.' },
           { eyebrow: 'Product & operations', title: 'Assortment is expanding', decision: 'Decide what to develop, cut or reprice.' },
           { eyebrow: 'Product & operations', title: 'Inventory is unmanaged', decision: 'Set allocation, replenishment and transfers.' },
           { eyebrow: 'Product & operations', title: 'Production slows growth', decision: 'Adjust capacity, lead times, quality and suppliers.' },
-          { eyebrow: 'Product & operations', title: 'Product development and data are disconnected', decision: 'Design the PLM/BI architecture and automation.' },
+          { eyebrow: 'Product & operations', title: 'Product development and data are disconnected', decision: 'Design the PLM, BI and automation set-up.' },
           { eyebrow: 'Capital & management', title: 'Profit does not convert into cash', decision: 'Connect profit, cash and working capital.' },
           { eyebrow: 'Capital & management', title: 'Capital need or transaction', decision: 'Prepare the model, the funding need and the materials.' },
-          { eyebrow: 'Capital & management', title: 'Decisions are made too late', decision: 'Install signals, a management cycle and execution control.' },
+          { eyebrow: 'Capital & management', title: 'Decisions are made too late', decision: 'Set up early-warning signals, a management cycle and control.' },
           { eyebrow: 'Capital & management', title: 'Roles and decision rights are blurred', decision: 'Define accountability and decision rights.' }
         ],
-        after: 'The point is to decide before the mistake becomes dead stock, a cash gap, a lost season or a wrong investment.'
+        after: 'The aim is to decide before a mistake turns into dead stock, a cash gap, a lost season or a bad investment.'
       },
       {
         id: 'flow',
         title: 'How data becomes a decision',
-        note: 'Four steps that turn manual number-gathering into a decision system.',
+        note: 'Four steps from hand-collected numbers to a decision.',
         items: [
           { eyebrow: '01', title: 'Sources', body: 'Sales, inventory, customers, buying, production, finance, marketing.' },
           { eyebrow: '02', title: 'One data model', body: 'Reference data, calculation rules, data quality, ownership.' },
@@ -206,21 +206,21 @@ export const DECK = {
       {
         id: 'digital',
         title: 'Data, analytics and PLM',
-        note: 'The goal is not one more system but an end-to-end loop: product → sales → inventory → cash → decision. Sources → one data model → a decision dashboard → action.',
+        note: 'I build a chain, not “one more system”: product → sales → inventory → cash → decision.',
         items: [
           { title: 'Product PLM loop', body: 'Style record, materials, samples, specifications, cost, versions, approvals and the collection calendar.' },
           { title: 'Analytics and BI', body: 'One version of sales, margin, inventory, customers, channels, buying, production and cash.' },
-          { title: 'Systems architecture', body: 'Requirements for ERP, CRM, WMS and integrations, and the role of each system in the loop.' },
+          { title: 'Systems architecture', body: 'Requirements for ERP, CRM, WMS and integrations: what each system does.' },
           { title: 'AI and automation', body: 'Demand forecast, stock signals, markdown scenarios, buying and allocation recommendations.' },
           { title: 'Merchandise planning', body: 'Forecast, open-to-buy, size curves, allocation, replenishment, transfers and product availability.' },
-          { title: 'Implementation control', body: 'Business requirements, process testing, training and the move from spreadsheets to a regular management cadence.' }
+          { title: 'Implementation control', body: 'Requirements, process testing, training and the move from spreadsheets to routine management.' }
         ],
-        after: 'Deliverables: target architecture, business requirements, data model, a management dashboard prototype and an implementation plan. The principle: business logic, data and accountability first — the system and automation second.'
+        after: 'You get: target architecture, business requirements, a data model, a dashboard prototype and an implementation plan. Principle: business logic, data and accountability first; systems and automation second.'
       },
       {
         id: 'outcome',
         title: 'What stays inside the company',
-        note: 'The client gets a set of decisions and a working cadence rather than a deck: models, decision rules, metrics, roles and regular execution control.',
+        note: 'You get decisions and a working rhythm, not a deck: models, rules, metrics, roles and regular control.',
         items: [
           {
             title: 'Owner decisions',
@@ -250,17 +250,17 @@ export const DECK = {
             ]
           }
         ],
-        after: 'The role can extend from advising the owner to running the turnaround programme: priorities, cross-function coordination, execution control and difficult negotiations.'
+        after: 'My role can grow from adviser to the owner into head of the turnaround programme: priorities, coordinating functions, controlling delivery, hard negotiations.'
       },
       {
         id: 'experience',
         title: 'Relevant experience',
-        note: 'Showing the type of work, its scale and depth — without client names.',
+        note: 'Type of problem, scale and depth of work, with no client names.',
         items: [
           { eyebrow: 'Management experience', title: 'Large multi-brand fashion retail', body: '500+ brands, 30,000+ SKUs: buying, assortment, margin, stock turn, merchandise analytics and decision automation.' },
-          { eyebrow: 'Operational diagnostics', title: 'Premium segment: development and production', body: 'Scope: finance → product → production → inventory → management. End-to-end work from order economics and capital to production and the management model.' },
-          { eyebrow: 'Strategy and finance', title: 'Growth strategy, markets and capital', body: 'Scope: market → financial model → capital → negotiations. Geography, competitive landscape, funding needs and materials for the owner’s decision.' },
-          { eyebrow: 'Turnaround', title: 'Rebuilding management in turbulent conditions', body: 'Scope: liquidity → priorities → accountability → control. Restoring control of the business and returning it to growth.' }
+          { eyebrow: 'Operational diagnostics', title: 'Premium segment: development and production', body: 'Finance → product → production → inventory → management. From order economics and capital to production and the management model.' },
+          { eyebrow: 'Strategy and finance', title: 'Growth strategy, markets and capital', body: 'Market → financial model → capital → negotiations. Geography, competitors, funding needs and materials for the owner’s decision.' },
+          { eyebrow: 'Turnaround', title: 'Rebuilding management in turbulent conditions', body: 'Liquidity → priorities → accountability → control. Regaining control and getting the business back to growth.' }
         ]
       }
     ]
