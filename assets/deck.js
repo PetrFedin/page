@@ -50,7 +50,7 @@ export const DECK = {
           { eyebrow: 'Коммерция', title: 'Клиент дорожает', decision: 'Пересобрать цену, маркетинг и повторные покупки.' },
           { eyebrow: 'Коммерция', title: 'Уценки съедают маржу', decision: 'Пересобрать скидки, остатки и правила выхода.' },
           { eyebrow: 'Товар и операции', title: 'Ассортимент разрастается', decision: 'Выбрать, что развивать, сокращать или переоценивать.' },
-          { eyebrow: 'Товар и операции', title: 'Запасы неуправляемы', decision: 'Настроить распределение, пополнение, перемещения.' },
+          { eyebrow: 'Товар и операции', title: 'Запасы неуправляемы', decision: 'Настроить распределение, пополнение и перемещения.' },
           { eyebrow: 'Товар и операции', title: 'Производство тормозит рост', decision: 'Изменить мощность, сроки, качество и поставщиков.' },
           { eyebrow: 'Товар и операции', title: 'Разработка продукта и данные разорваны', decision: 'Спроектировать PLM/BI-контур и автоматизацию.' },
           { eyebrow: 'Капитал и управление', title: 'Прибыль не превращается в деньги', decision: 'Связать прибыль, деньги и оборотный капитал.' },
@@ -81,7 +81,7 @@ export const DECK = {
           { title: 'Системная архитектура', body: 'Требования к ERP, CRM, WMS и интеграциям, роль каждой системы в контуре.' },
           { title: 'ИИ и автоматизация', body: 'Прогноз спроса, сигналы по остаткам, сценарии уценки, рекомендации закупки и распределения.' },
           { title: 'Товарное планирование', body: 'Прогноз, лимит закупки, размерность, распределение, пополнение, перемещения и доступность товара.' },
-          { title: 'Контроль внедрения', body: 'Бизнес-требования, тестирование процессов, обучение и переход от Excel к регулярному управлению.' }
+          { title: 'Контроль внедрения', body: 'Бизнес-требования, тестирование процессов, обучение и переход от таблиц к регулярному управлению.' }
         ],
         after: 'На выходе: целевая архитектура, бизнес-требования, модель данных, прототип управленческой панели и план внедрения. Позиция: сначала бизнес-логика, данные и ответственность — только затем система и автоматизация.'
       },
@@ -188,7 +188,7 @@ export const DECK = {
           { eyebrow: 'Capital & management', title: 'Profit does not convert into cash', decision: 'Connect profit, cash and working capital.' },
           { eyebrow: 'Capital & management', title: 'Capital need or transaction', decision: 'Prepare the model, the funding need and the materials.' },
           { eyebrow: 'Capital & management', title: 'Decisions are made too late', decision: 'Install signals, a management cycle and execution control.' },
-          { eyebrow: 'Capital & management', title: 'Roles and authorities are blurred', decision: 'Define accountability and decision rights.' }
+          { eyebrow: 'Capital & management', title: 'Roles and decision rights are blurred', decision: 'Define accountability and decision rights.' }
         ],
         after: 'The point is to decide before the mistake becomes dead stock, a cash gap, a lost season or a wrong investment.'
       },
@@ -260,7 +260,7 @@ export const DECK = {
           { eyebrow: 'Management experience', title: 'Large multi-brand fashion retail', body: '500+ brands, 30,000+ SKUs: buying, assortment, margin, stock turn, merchandise analytics and decision automation.' },
           { eyebrow: 'Operational diagnostics', title: 'Premium segment: development and production', body: 'Scope: finance → product → production → inventory → management. End-to-end work from order economics and capital to production and the management model.' },
           { eyebrow: 'Strategy and finance', title: 'Growth strategy, markets and capital', body: 'Scope: market → financial model → capital → negotiations. Geography, competitive landscape, funding needs and materials for the owner’s decision.' },
-          { eyebrow: 'Turnaround', title: 'Rebuilding management under turbulence', body: 'Scope: liquidity → priorities → accountability → control. Restoring control of the business and returning it to growth.' }
+          { eyebrow: 'Turnaround', title: 'Rebuilding management in turbulent conditions', body: 'Scope: liquidity → priorities → accountability → control. Restoring control of the business and returning it to growth.' }
         ]
       }
     ]
