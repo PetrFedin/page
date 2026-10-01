@@ -1,8 +1,8 @@
-import { T, PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610012339';
-import { DECK } from './deck.js?v=202609301526';
-import { LOGOS } from './logos.js?v=202610012339';
+import { T, PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610020101';
+import { DECK } from './deck.js?v=202610020101';
+import { LOGOS } from './logos.js?v=202610020101';
 import { createViewer } from './viewer.js?v=202609301526';
-import { syncSnaps } from './snap.js?v=202609301526';
+import { syncSnaps } from './snap.js?v=202610020101';
 import { NEWS } from './news.js?v=202609301526';
 
 /* Сайт — витрина: показываем отобранные материалы. Канал получает весь поток.
@@ -140,6 +140,40 @@ let lang = (urlLang === 'ru' || urlLang === 'en') ? urlLang
   : store.get('lang') || (browserRu ? 'ru' : 'en');
 if (!T[lang]) lang = 'ru';
 
+let projectsExpanded = false;
+const PROJECTS_FIRST = 3;
+
+function renderCards() {
+  const t = T[lang];
+  $('#cards').className = "cards snap snap-fit";
+  $('#cards').innerHTML = (projectsExpanded ? PROJECTS : PROJECTS.slice(0, PROJECTS_FIRST)).map((p) => {
+    /* Кнопка «Новости» ведёт в тупик, если публикаций по проекту ещё нет —
+       гасим её вместо того, чтобы открывать пустое окно. */
+    const hasNews = SITE_NEWS.some((n) => n.tag === p.id && hasLang(n));
+    return `
+    <article class="card" data-project="${p.id}">
+      <span class="card-logo">${LOGOS[p.id]}</span>
+      <h3 class="card-tag">${p[lang].tagline}</h3>
+      <p class="card-body">${p[lang].card}</p>
+      <span class="stage">${p[lang].stage}</span>
+      <div class="card-foot">
+        <button class="btn btn-sm btn-primary" type="button" data-open="${p.id}">${t.projects.open}</button>
+        <button class="btn btn-sm" type="button" data-status="${p.id}">${t.projects.statusBtn}</button>
+        <button class="btn btn-sm" type="button" data-news="${p.id}"${hasNews ? '' : ` disabled title="${t.projects.newsEmpty}"`}>${t.projects.newsBtn}</button>
+        ${COMPARE[p.id] && lang === 'ru' ? `<button class="btn btn-sm" type="button" data-compare="${p.id}">${t.projects.compareBtn}</button>` : ''}
+        ${p.id === 'syntha' ? `<button class="btn btn-sm flow-toggle" type="button" data-flow-toggle aria-expanded="false">${t.flow.eyebrow}</button>` : ''}
+        ${p.id === 'syntha' ? `<button class="btn btn-sm" type="button" data-leak-open>${t.leakQuiz.label}</button>` : ''}
+      </div>
+      ${p.id === 'syntha' ? '<div class="flow-embed" id="flow-embed" hidden></div>' : ''}
+    </article>`;
+  }).join('');
+  if (flowOpen) renderSeasonFlow();
+  const pm = $('#projects-more');
+  pm.hidden = PROJECTS.length <= PROJECTS_FIRST;
+  pm.textContent = projectsExpanded ? t.projects.collapse : `${t.projects.more} (${PROJECTS.length - PROJECTS_FIRST})`;
+  pm.setAttribute('aria-expanded', String(projectsExpanded));
+}
+
 function render() {
   const t = T[lang];
   document.documentElement.lang = lang;
@@ -159,10 +193,10 @@ function render() {
   $('#avatar-btn').setAttribute('aria-label', t.hero.photoAlt);
   $('#portrait-btn').setAttribute('aria-label', t.hero.photoAlt);
   $('#experience-title').textContent = t.hero.factsTitle;
-  $('#facts-bar').className = "facts-bar snap";
-  $('#facts-bar').innerHTML = t.hero.facts.map((f) => `
+  $('#facts-bar').className = "facts-bar snap snap-fit";
+  $('#facts-bar').innerHTML = t.hero.facts.map((f, i) => `
     <li><button class="fact" type="button" data-area="${f.id}">
-      <b>${f.n}</b><span>${f.l}</span><span class="fact-more">${t.formats.more}</span>
+      <span class="svc-n">0${i + 1}</span><b>${f.n}</b><span class="fact-l">${f.l}</span><span class="fact-more">${t.formats.more}</span>
     </button></li>`).join('');
   $('#cv-row-link').textContent = t.hero.cvLabel;
   $('#roles-open').textContent = t.roles.introLabel;
@@ -176,13 +210,16 @@ function render() {
   $('#diag-open').textContent = t.diagnostic.label;
   $('#formats').innerHTML = `
     <div class="formats-head"><h3>${t.formats.title}</h3><p class="sub">${t.formats.subtitle}</p></div>
-    <div class="formats-grid snap">${t.formats.items.map((f) => `
+    <div class="formats-grid snap snap-fit">${t.formats.items.map((f) => `
       <article class="format" data-format="${f.n}">
         <span class="svc-n">${f.n}</span>
         <h4>${f.title}</h4>
         <span class="format-term">${f.term}</span>
         <p>${f.body}</p>
-        <span class="format-more">${t.formats.more}</span>
+        <div class="format-foot">
+          <span class="format-more">${t.formats.more}</span>
+          <button type="button" class="btn btn-sm" data-format-card-contact="${f.n}">${t.formats.contactCta}</button>
+        </div>
       </article>`).join('')}</div>`;
 
   /* Раздел «Публикации» имеет смысл только когда их больше одной —
@@ -229,7 +266,7 @@ function render() {
   $('#deck-pdf').textContent = t.consulting.deckPdf;
   $('#deck-pdf').href = t.consulting.deckFile;
   $('#deck-pdf-2').href = t.consulting.deckFile;
-  $('#services').className = "services snap";
+  $('#services').className = "services snap snap-fit";
   $('#services').innerHTML = t.consulting.items.map((it, i) => `
     <li>
       <button class="svc" type="button" data-svc="${i}">
@@ -243,44 +280,26 @@ function render() {
 
   $('#projects-title').textContent = t.projects.title;
   $('#projects-sub').textContent = t.projects.subtitle;
-  $('#cards').className = "cards snap";
-  $('#cards').innerHTML = PROJECTS.map((p) => {
-    /* Кнопка «Новости» ведёт в тупик, если публикаций по проекту ещё нет —
-       гасим её вместо того, чтобы открывать пустое окно. */
-    const hasNews = SITE_NEWS.some((n) => n.tag === p.id && hasLang(n));
-    return `
-    <article class="card" data-project="${p.id}">
-      <span class="card-logo">${LOGOS[p.id]}</span>
-      <h3 class="card-tag">${p[lang].tagline}</h3>
-      <p class="card-body">${p[lang].card}</p>
-      <span class="stage">${p[lang].stage}</span>
-      <div class="card-foot">
-        <button class="btn btn-sm btn-primary" type="button" data-open="${p.id}">${t.projects.open}</button>
-        <button class="btn btn-sm" type="button" data-status="${p.id}">${t.projects.statusBtn}</button>
-        <button class="btn btn-sm" type="button" data-news="${p.id}"${hasNews ? '' : ` disabled title="${t.projects.newsEmpty}"`}>${t.projects.newsBtn}</button>
-        ${COMPARE[p.id] && lang === 'ru' ? `<button class="btn btn-sm" type="button" data-compare="${p.id}">${t.projects.compareBtn}</button>` : ''}
-        ${p.id === 'syntha' ? `<button class="btn btn-sm flow-toggle" type="button" data-flow-toggle aria-expanded="false">${t.flow.eyebrow}</button>` : ''}
-        ${p.id === 'syntha' ? `<button class="btn btn-sm" type="button" data-leak-open>${t.leakQuiz.label}</button>` : ''}
-      </div>
-      ${p.id === 'syntha' ? '<div class="flow-embed" id="flow-embed" hidden></div>' : ''}
-    </article>`;
-  }).join('');
-  if (flowOpen) renderSeasonFlow();
+  renderCards();
 
   /* Продуктовые проекты выше — доказательство, а не витрина: тем, кто
      досмотрел до конца раздела, предлагаем тот же путь для своей задачи. */
   $('#project-launch').innerHTML = `
     <div class="formats-head">
       <h3>${t.projects.launch.title}</h3><p class="sub">${t.projects.launch.subtitle}</p>
-      <p style="margin-top:14px"><button type="button" class="btn btn-sm" data-launch-diag-open>${t.projects.launch.diag.label}</button></p>
     </div>
-    <div class="formats-grid snap">${t.projects.launch.items.map((f) => `
-      <article class="format format-static" data-format-id="${f.id}">
+    <div class="formats-grid snap snap-fit">${t.projects.launch.items.map((f) => `
+      <article class="format" data-launch-open="${f.id}" data-format-id="${f.id}">
         <span class="svc-n">${f.n}</span>
         <h4>${f.title}</h4>
+        <span class="format-term">${f.term}</span>
         <p>${f.body}</p>
-        <button type="button" class="btn btn-sm" data-launch="${f.id}">${t.projects.launch.cta}</button>
-      </article>`).join('')}</div>`;
+        <div class="format-foot">
+          <span class="format-more">${t.projects.launch.more}</span>
+          <button type="button" class="btn btn-sm" data-launch-contact="${f.id}">${t.projects.launch.contact}</button>
+        </div>
+      </article>`).join('')}</div>
+    <p class="launch-diag-row"><button type="button" class="btn" data-launch-diag-open>${t.projects.launch.diag.label}</button></p>`;
 
   $('#contact-title').textContent = t.contact.title;
   $('#contact-sub').textContent = t.contact.subtitle;
@@ -304,7 +323,6 @@ function render() {
 
   $('#contacts').innerHTML = CONTACTS.map((c) => `
     <li><span class="lbl">${c.label[lang] ?? c.label}</span>
-      <a href="${c.href}" target="_blank" rel="noopener">${c.value}</a>
       ${c.qr ? `<button class="qr-trigger" type="button" data-qr="${c.qr}" aria-label="${t.contact.qrAlt}">
         <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true">
           <rect x="3" y="3" width="7" height="7" fill="none" stroke="currentColor" stroke-width="1.6"/>
@@ -315,7 +333,8 @@ function render() {
           <rect x="14.5" y="18.7" width="2.3" height="2.3" fill="currentColor"/>
           <rect x="18.7" y="18.7" width="2.3" height="2.3" fill="currentColor"/>
         </svg>
-      </button>` : ''}</li>`).join('');
+      </button>` : ''}
+      <a href="${c.href}" target="_blank" rel="noopener">${c.value}</a></li>`).join('');
 
   $('#year').textContent = new Date().getFullYear();
   renderNow();
@@ -598,13 +617,26 @@ gallery.addEventListener('click', (e) => {
 $('#now-projects').addEventListener('click', (e) => {
   const b = e.target.closest('[data-goto-project]');
   if (!b) return;
-  const card = document.querySelector(`.card[data-project="${b.dataset.gotoProject}"]`);
+  let card = document.querySelector(`.card[data-project="${b.dataset.gotoProject}"]`);
+  if (!card && !projectsExpanded) {
+    projectsExpanded = true;
+    renderCards();
+    syncSnaps();
+    card = document.querySelector(`.card[data-project="${b.dataset.gotoProject}"]`);
+  }
   if (!card) return;
   card.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
   card.classList.remove('card-highlight');
   void card.offsetWidth;
   card.classList.add('card-highlight');
   card.addEventListener('animationend', () => card.classList.remove('card-highlight'), { once: true });
+});
+
+$('#projects-more').addEventListener('click', () => {
+  projectsExpanded = !projectsExpanded;
+  renderCards();
+  syncSnaps();
+  if (!projectsExpanded) $('#projects').scrollIntoView({ block: 'start' });
 });
 
 /* «Обсудить участие» — переносит проект в форму */
@@ -940,7 +972,11 @@ $('#leak-close').addEventListener('click', () => leaveAll());
 leakModal.addEventListener('click', (e) => { if (e.target === leakModal) leaveAll(); });
 
 /* ---------- новости ---------- */
-let newsShown = 2;
+/* На телефоне лента листается свайпом — показываем все посты выбранной категории,
+   и точек ровно столько, сколько постов. На широком экране — один ряд из трёх,
+   остальное по кнопке «Показать ещё». */
+function newsFirst() { return matchMedia('(max-width: 759px)').matches ? Infinity : 3; }
+let newsShown = newsFirst();
 
 /* Разборы статей и рабочие материалы заканчиваются ссылкой отдельной
    строкой — выносим её из-под line-clamp, иначе у длинных постов
@@ -976,7 +1012,7 @@ $('#news-filters').addEventListener('click', (e) => {
   const btn = e.target.closest('[data-filter]');
   if (!btn) return;
   newsFilter = btn.dataset.filter || null;
-  newsShown = 2;
+  newsShown = newsFirst();
   renderNews();
 });
 
@@ -991,7 +1027,7 @@ function renderNews() {
     { day: 'numeric', month: 'long', year: 'numeric' });
 
   const list = filteredNews();
-  $('#feed').className = 'feed snap';
+  $('#feed').className = 'feed snap snap-fit';
   $('#feed').innerHTML = list.slice(0, newsShown).map((p) => {
     const { text } = splitBodyLink(postText(p).body);
     return `
@@ -1018,16 +1054,18 @@ function renderNews() {
 
   const more = $('#news-more');
   const expanded = newsShown >= list.length;
-  more.hidden = list.length <= 2;
-  more.textContent = expanded ? t.collapse : t.more;
+  more.hidden = list.length <= newsFirst();
+  more.textContent = expanded ? t.collapse : `${t.more} (${list.length - newsShown})`;
   more.dataset.expanded = String(expanded);
+  /* точки под лентой должны соответствовать числу показанных постов, а не прежней выборке */
+  syncSnaps();
 }
 
 $('#news-more').addEventListener('click', () => {
   const list = filteredNews();
-  newsShown = newsShown >= list.length ? 2 : list.length;
+  newsShown = newsShown >= list.length ? newsFirst() : list.length;
   renderNews();
-  if (newsShown === 2) $('#news').scrollIntoView({ block: 'start' });
+  if (newsShown !== list.length) $('#news').scrollIntoView({ block: 'start' });
 });
 
 /* ---------- чтение поста целиком ----------
@@ -1148,7 +1186,7 @@ $('#post-close').addEventListener('click', () => leaveAll());
 postModal.addEventListener('click', (e) => { if (e.target === postModal) leaveAll(); });
 $('#post-modal-tag').addEventListener('click', () => {
   newsFilter = $('#post-modal-tag').dataset.filterTag;
-  newsShown = 2;
+  newsShown = newsFirst();
   leaveAll();
   renderNews();
   $('#news').scrollIntoView({ block: 'start' });
@@ -1241,7 +1279,7 @@ $('#feed').addEventListener('click', (e) => {
   const tagBtn = e.target.closest('[data-filter-tag]');
   if (tagBtn) {
     newsFilter = tagBtn.dataset.filterTag;
-    newsShown = 2;
+    newsShown = newsFirst();
     renderNews();
     $('#news').scrollIntoView({ block: 'start' });
     return;
@@ -1334,6 +1372,31 @@ function renderFormat(n) {
   return true;
 }
 
+function renderLaunch(id) {
+  const t = T[lang];
+  const items = t.projects.launch.items;
+  const idx = items.findIndex((x) => x.id === id);
+  const f = items[idx];
+  if (!f) return false;
+  infoModal.dataset.view = `launch-${id}`;
+  $('#cv-title').textContent = f.title;
+  $('#cv-note').textContent = f.lead ?? f.body;
+  const prev = items[(idx - 1 + items.length) % items.length];
+  const next = items[(idx + 1) % items.length];
+  $('#cv-body').innerHTML =
+    `<p class="info-term">${f.term}</p>` +
+    list(t.formats.stepsLabel, f.steps) +
+    list(t.formats.includesLabel, f.includes) +
+    list(t.formats.outLabel, f.out) +
+    (f.fit ? `<p class="info-fit"><b>${t.formats.fitLabel}</b>${f.fit}</p>` : '') +
+    `<div class="format-nav">
+       <button type="button" class="btn btn-sm" data-launch-nav="${prev.id}">← ${prev.title}</button>
+       <button type="button" class="btn btn-sm" data-launch-nav="${next.id}">${next.title} →</button>
+     </div>
+     <button type="button" class="btn btn-primary format-contact" data-launch-contact="${f.id}">${t.formats.contactCta}</button>`;
+  return true;
+}
+
 function renderRolesHub() {
   const t = T[lang];
   infoModal.dataset.view = 'roles';
@@ -1379,6 +1442,7 @@ function showInfo(hash) {
   const ok = hash === 'roles' ? renderRolesHub()
            : hash.startsWith('area-') ? renderArea(hash.slice(5))
            : hash.startsWith('format-') ? renderFormat(hash.slice(7))
+           : hash.startsWith('launch-') ? renderLaunch(hash.slice(7))
            : hash.startsWith('role-') ? renderRole(hash.slice(5)) : false;
   if (!ok) return false;
   if (!infoModal.open) infoModal.showModal();
@@ -1386,32 +1450,44 @@ function showInfo(hash) {
   return true;
 }
 
+/* Общий ход «связаться»: подставляем тему и текст, закрываем окна и ведём к форме. */
+function startContact({ topic, topicOther, message }) {
+  $('#topic').value = topic;
+  if (topic === 'other') $('#topic-other').value = topicOther ?? '';
+  syncTopicOther();
+  const msgEl = $('#form [name="message"]');
+  if (msgEl && message && !msgEl.value.trim()) msgEl.value = message;
+  syncSubmit?.();
+  leaveAll();
+  requestAnimationFrame(() => $('#contact').scrollIntoView({ behavior: 'smooth' }));
+  setTimeout(() => $('#form [name="name"]').focus(), 400);
+}
+
 $('#facts-bar').addEventListener('click', (e) => {
   const b = e.target.closest('[data-area]');
   if (b) go(`area-${b.dataset.area}`);
 });
 $('#formats').addEventListener('click', (e) => {
+  const c = e.target.closest('[data-format-card-contact]');
+  if (c) {
+    const f = T[lang].formats.items.find((x) => x.n === c.dataset.formatCardContact);
+    return startContact({ topic: 'consulting', message: T[lang].formats.contactMessage.replace('{title}', f.title) });
+  }
   const b = e.target.closest('[data-format]');
   if (b) go(`format-${b.dataset.format}`);
 });
-/* Клик по карточке формата — сразу готовим письмо и ведём к форме, без
-   промежуточного окна с деталями. Отдельная кнопка открывает короткий тест
-   для тех, кто не уверен, какой формат ближе (по аналогии с консалтингом). */
+/* Карточка формата открывает подробное окно (как у консалтинга), кнопка
+   «Связаться» ведёт сразу к форме, «Подобрать формат» — короткий тест. */
 $('#project-launch').addEventListener('click', (e) => {
   if (e.target.closest('[data-launch-diag-open]')) { launchDiagAnswers = []; return go('launch-diagnostic'); }
-  const b = e.target.closest('[data-launch]');
-  if (!b) return;
   const group = T[lang].projects.launch;
-  const f = group.items.find((x) => x.id === b.dataset.launch);
-  $('#topic').value = 'other';
-  $('#topic-other').value = f.title;
-  syncTopicOther();
-  const msgEl = $('#form [name="message"]');
-  if (msgEl && !msgEl.value.trim()) msgEl.value = group.contactMessage.replace('{title}', f.title);
-  syncSubmit?.();
-  leaveAll();
-  requestAnimationFrame(() => $('#contact').scrollIntoView({ behavior: 'smooth' }));
-  setTimeout(() => $('#form [name="name"]').focus(), 400);
+  const c = e.target.closest('[data-launch-contact]');
+  if (c) {
+    const f = group.items.find((x) => x.id === c.dataset.launchContact);
+    return startContact({ topic: 'other', topicOther: f.title, message: group.contactMessage.replace('{title}', f.title) });
+  }
+  const o = e.target.closest('[data-launch-open]');
+  if (o) go(`launch-${o.dataset.launchOpen}`);
 });
 $('#roles-open').addEventListener('click', () => go('roles'));
 $('#cv-close').addEventListener('click', () => leaveAll());
@@ -1422,6 +1498,14 @@ $('#cv-body').addEventListener('click', (e) => {
   if (roleOpen) return go(`role-${roleOpen.dataset.roleOpen}`);
   const nav = e.target.closest('[data-format-nav]');
   if (nav) return go(`format-${nav.dataset.formatNav}`);
+  const launchNav = e.target.closest('[data-launch-nav]');
+  if (launchNav) return go(`launch-${launchNav.dataset.launchNav}`);
+  const launchContact = e.target.closest('[data-launch-contact]');
+  if (launchContact) {
+    const group = T[lang].projects.launch;
+    const f = group.items.find((x) => x.id === launchContact.dataset.launchContact);
+    return startContact({ topic: 'other', topicOther: f.title, message: group.contactMessage.replace('{title}', f.title) });
+  }
   const roleNav = e.target.closest('[data-role-nav]');
   if (roleNav) return go(`role-${roleNav.dataset.roleNav}`);
   const contact = e.target.closest('[data-format-contact]');
@@ -1570,7 +1654,7 @@ function applyHash() {
     if (openPostModal(date)) return;
     return closeModals();
   }
-  if (h === 'roles' || h.startsWith('area-') || h.startsWith('format-') || h.startsWith('role-')) { if (showInfo(h)) return; }
+  if (h === 'roles' || h.startsWith('area-') || h.startsWith('format-') || h.startsWith('launch-') || h.startsWith('role-')) { if (showInfo(h)) return; }
   if (h.endsWith('-news')) {
     const nid = h.slice(0, -'-news'.length);
     if (PROJECTS.some((p) => p.id === nid)) return openProjectNews(nid);
@@ -1745,7 +1829,14 @@ function renderDeck() {
   $('#deck-tagline').textContent = d.tagline;
   $('#chain-title').textContent = d.chainTitle;
   $('#chain-list').className = 'chain-list snap';
-  $('#chain-list').innerHTML = d.chain.map((step) => `<li>${step}</li>`).join('');
+  $('#chain-hint').textContent = d.chainHint ?? '';
+  $('#chain-list').innerHTML = d.chain.map((step, i) => {
+    const to = d.chainTo?.[i];
+    const target = to == null ? null : d.blocks[0].items[to];
+    return target
+      ? `<li><button type="button" class="chain-step" data-chain-to="deck-directions-${to}"><b>${step}</b><span>${target.title}</span></button></li>`
+      : `<li>${step}</li>`;
+  }).join('');
   $('#deck-glossary').innerHTML = !d.glossary ? '' :
     `<h3>${d.glossaryTitle}</h3><dl class="gloss">` +
     d.glossary.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('') + '</dl>';
@@ -1780,6 +1871,22 @@ function renderDeck() {
 
   syncSnaps();
 }
+
+/* Шаг сквозной логики → карточка направления в этой же презентации: прокручиваем
+   и горизонтально (на телефоне блоки листаются), и вертикально, и подсвечиваем. */
+$('#chain-list').addEventListener('click', (e) => {
+  const b = e.target.closest('[data-chain-to]');
+  if (!b) return;
+  const item = $(`#${b.dataset.chainTo}`);
+  if (!item) return;
+  const track = item.parentElement;
+  if (track.scrollWidth > track.clientWidth + 4) track.scrollTo({ left: item.offsetLeft - track.offsetLeft, behavior: 'smooth' });
+  item.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  item.classList.remove('deck-flash');
+  void item.offsetWidth;
+  item.classList.add('deck-flash');
+  item.addEventListener('animationend', () => item.classList.remove('deck-flash'), { once: true });
+});
 
 function openDeck(anchorId) {
   renderDeck();

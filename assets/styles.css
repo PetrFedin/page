@@ -240,14 +240,15 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 .form-note{font-size:14px; min-height:20px; color:var(--muted)}
 .form-note.ok{color:var(--accent)}
 .direct h3{font-size:19px; margin-bottom:14px}
-.direct ul{list-style:none; margin:0; padding:0; display:grid; gap:10px}
+.direct ul{list-style:none; margin:0; padding:0; display:grid; gap:14px}
+.direct li{display:flex; flex-wrap:wrap; align-items:center; gap:4px 10px}
 .direct a{color:var(--ink); text-decoration:none; border-bottom:1px solid var(--line)}
 .direct .btn{border-bottom:none}
 .direct a:hover{border-color:var(--ink)}
-.direct .lbl{display:block; font-size:12px; letter-spacing:.09em; text-transform:uppercase; color:var(--muted); margin-bottom:2px}
+.direct .lbl{flex:0 0 100%; font-size:12px; letter-spacing:.09em; text-transform:uppercase; color:var(--muted)}
 .qr-trigger{
   display:inline-flex; align-items:center; justify-content:center; vertical-align:middle;
-  width:24px; height:24px; padding:0; margin-left:6px; flex:0 0 auto;
+  width:26px; height:26px; padding:0; margin:0; flex:0 0 auto;
   border:1px solid var(--line); border-radius:6px; background:var(--panel); color:var(--ink); cursor:pointer;
 }
 .qr-trigger:hover{border-color:var(--ink)}
@@ -301,6 +302,9 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
   display:flex; justify-content:flex-end; gap:8px; width:fit-content;
 }
 .modal-icon-row .modal-close{position:static; margin:0}
+/* первая строка заголовка не уходит под кнопки в углу окна */
+.modal-icon-row + .deck-head > :first-child{padding-right:84px}
+.modal-close + .deck-head > :first-child{padding-right:46px}
 .modal-icon-btn{
   width:34px; height:34px; border-radius:999px; cursor:pointer; flex:none;
   border:1px solid var(--line); background:var(--panel); color:var(--ink);
@@ -457,6 +461,22 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
   border:1px solid var(--line); color:var(--muted); background:var(--panel);
 }
 .chain-list li:last-child{border-color:var(--accent); color:var(--accent)}
+.chain-hint{font-size:13px; color:var(--muted); margin:-4px 0 12px}
+.chain-list li:has(.chain-step){padding:0; background:none; border:none}
+.chain-step{
+  appearance:none; font:inherit; cursor:pointer; text-align:left; color:var(--ink);
+  display:grid; gap:1px; padding:8px 14px; border-radius:12px;
+  border:1px solid var(--line); background:var(--panel);
+  transition:border-color .12s ease, background .12s ease;
+}
+.chain-step b{font-weight:500; font-size:14px}
+.chain-step span{font-size:11.5px; color:var(--muted)}
+.chain-step:hover{border-color:var(--accent); background:var(--accent-soft)}
+.chain-step:active{background:var(--ink); border-color:var(--ink); color:var(--bg)}
+.chain-step:active span{color:var(--bg)}
+.chain-list li:last-child .chain-step{border-color:var(--accent)}
+.deck-flash{animation:deck-flash 1.6s ease}
+@keyframes deck-flash{0%,100%{box-shadow:0 0 0 0 transparent} 25%{box-shadow:0 0 0 4px var(--accent-soft); border-color:var(--accent)}}
 
 .deck-block{padding-top:34px; margin-top:34px; border-top:1px solid var(--line)}
 .deck-block h3{font-size:clamp(21px,3.4vw,26px)}
@@ -548,9 +568,8 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 .fact-more{font-size:13px; color:var(--muted); margin-top:2px}
 .fact:hover b{color:var(--ink)}
 .fact:hover .fact-more{color:var(--accent)}
-.facts-bar b{font-size:11px; letter-spacing:.09em; text-transform:uppercase; color:var(--accent); font-weight:500}
-.facts-bar span{font-size:14px; color:var(--muted); line-height:1.45;
-  display:-webkit-box; -webkit-line-clamp:4; -webkit-box-orient:vertical; overflow:hidden}
+.facts-bar b{font-family:var(--serif); font-size:20px; font-weight:400; letter-spacing:0; text-transform:none; color:var(--ink)}
+.facts-bar .fact-l{font-size:15px; color:var(--muted); line-height:1.5}
 .cv-row{display:flex; flex-wrap:wrap; gap:10px; margin:22px 0 0; padding:0}
 /* ---------- лента новостей ---------- */
 .news-filters{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px}
@@ -642,11 +661,11 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 @media (min-width:760px){
   .hero{grid-template-columns:1.25fr .75fr; align-items:center; gap:56px; padding-top:76px; padding-bottom:64px}
   .facts-bar{
-    grid-template-columns:repeat(2,minmax(0,1fr)); grid-template-rows:repeat(3,auto);
+    grid-template-columns:repeat(2,minmax(0,1fr)); grid-template-rows:repeat(4,auto);
     gap:24px 32px;
   }
-  .facts-bar li{grid-row:span 3; display:grid; grid-template-rows:subgrid; row-gap:6px}
-  .fact{grid-row:span 3; grid-template-rows:subgrid; row-gap:6px}
+  .facts-bar li{grid-row:span 4; display:grid; grid-template-rows:subgrid; row-gap:6px}
+  .fact{grid-row:span 4; grid-template-rows:subgrid; row-gap:6px}
   .fact-more{align-self:end}
   .feed{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
@@ -742,12 +761,10 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
   .formats-grid{grid-template-columns:repeat(2,minmax(0,1fr)); grid-template-rows:repeat(5,auto)}
   .format{grid-row:span 5; grid-template-rows:subgrid; row-gap:8px}
   .format p{align-self:start}
-  .format-more{align-self:end}
+  .format-foot{align-self:end}
 }
 @media (min-width:1020px){ .formats-grid{grid-template-columns:repeat(4,minmax(0,1fr))} }
-/* Три формата запуска проекта — не квиз-карточки с переходом, а статичное
-   предложение: своя сетка (3 колонки, не 4) и курсор по умолчанию. */
-.format-static{cursor:default}
+/* Три формата запуска проекта — своя сетка: 3 колонки, а не 4. */
 @media (min-width:760px){ .project-launch .formats-grid{grid-template-columns:repeat(3,minmax(0,1fr))} }
 
 /* ---------- пресса ---------- */
@@ -765,9 +782,19 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 .consent{display:flex; gap:10px; align-items:flex-start; font-size:13px; color:var(--muted)}
 .consent input{width:auto; margin-top:2px; accent-color:var(--accent)}
 .consent a{color:var(--accent)}
-.vcard{margin-top:18px; display:inline-flex}
+.direct .vcard{display:flex; width:fit-content; margin:24px auto 0; border-bottom:1px solid var(--line)}
+/* QR-значок пульсирует кольцом — видно, что на него можно нажать */
+.qr-trigger{position:relative}
+.qr-trigger::after{
+  content:""; position:absolute; inset:-1px; border-radius:7px; pointer-events:none;
+  border:1px solid var(--accent); opacity:0; animation:qr-pulse 2.2s ease-out infinite;
+}
+@keyframes qr-pulse{0%{transform:scale(1); opacity:.7} 70%,100%{transform:scale(1.55); opacity:0}}
+@media (prefers-reduced-motion:reduce){ .qr-trigger::after{animation:none} }
 
-.format-more{font-size:13px; color:var(--muted); margin-top:4px}
+.format-more{font-size:13px; color:var(--muted)}
+.format-foot{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:4px}
+.launch-diag-row{margin:22px 0 0}
 .format:hover{border-color:var(--ink)}
 .format:hover .format-more{color:var(--accent)}
 
@@ -965,6 +992,8 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
     scrollbar-width:none; -webkit-overflow-scrolling:touch;
   }
   .snap::-webkit-scrollbar{display:none}
+  /* высота дорожки = высота видимой карточки: короткие не растягиваются до самой длинной */
+  .snap.snap-fit{align-items:flex-start; overflow-y:hidden}
   /* один блок на экран: следующий не выглядывает, а приходит по свайпу */
   .snap{gap:16px}
   .snap > *{flex:0 0 100%; scroll-snap-align:start; margin:0}
@@ -1080,12 +1109,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
     border-radius:12px; padding:16px 14px; font-size:15px;
   }
   /* контакт и подпись — в одну строку */
-  /* подпись сверху, значение под ней — слева; QR справа на всю высоту строки */
-  .direct ul{gap:16px}
-  .direct li{display:grid; grid-template-columns:minmax(0,1fr) auto; column-gap:12px; row-gap:3px; align-items:center}
-  .direct .lbl{grid-column:1; grid-row:1; margin-bottom:0}
-  .direct li a{grid-column:1; grid-row:2; justify-self:start; text-align:left; font-size:17px}
-  .direct li .qr-trigger{grid-column:2; grid-row:1 / span 2}
+  .direct a{font-size:17px}
 }
 
 /* презентация: заголовок блока держится сверху при прокрутке окна — на всех экранах */
@@ -1095,14 +1119,18 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
      z-index:8), пока он прилип к верху: так в углу виден только один набор
      кнопок — сначала общие «резюме/закрыть», а после прокрутки — «наверх/закрыть»
      текущего раздела, без наложения друг на друга. */
-  position:sticky; top:0; z-index:9; margin:0 -18px 0; padding:12px 60px 12px 18px;
-  display:flex; align-items:center; justify-content:space-between; gap:12px;
+  position:sticky; top:0; z-index:9; margin:0 -18px 0; padding:8px 22px 8px 18px;
+  display:flex; align-items:center; justify-content:flex-start; gap:8px;
   background:var(--panel);
   border-bottom:1px solid var(--line);
 }
 .deck-block > h3 + .sub{margin-top:14px}
 .deck-block > h3 + .deck-grid{margin-top:16px}
-@media (min-width:700px){ .deck-block > h3{margin:0 -34px 0; padding:12px 60px 12px 34px} }
+@media (min-width:700px){ .deck-block > h3{margin:0 -34px 0; padding:8px 38px 8px 34px} }
+/* те же 34px и тот же правый край, что у общего ряда иконок окна: кнопки
+   раздела встают ровно поверх них и заменяют друг друга без сдвига */
+.deck-block > h3 .to-top{flex:0 0 34px; width:34px; height:34px}
+.deck-block > h3 .to-top:not(.to-close){margin-left:auto}
 
 /* просмотрщик: листание снимков и переключение масштаба */
 .photo-nav{

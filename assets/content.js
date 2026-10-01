@@ -176,7 +176,9 @@ export const T = {
       ],
     },
     projects: {
-      title: 'Наши проекты',
+      title: 'Мои проекты',
+      more: 'Показать ещё',
+      collapse: 'Свернуть',
       subtitle: 'Второе направление рядом с консалтингом: разработка и запуск собственных IT-продуктов — в фэшн и за его пределами.',
       open: 'Подробнее',
       statusBtn: 'Стадия',
@@ -194,22 +196,86 @@ export const T = {
       compareTitle: 'Сравнение с альтернативами',
       marks: { yes: 'есть', no: 'нет', part: 'частично' },
       launch: {
-        title: 'Запустить свой проект',
+        title: 'Запустить проект',
         subtitle: 'От идеи до работающего MVP — путь, который уже прошли Syntha, ChatX и Renova. Три формата, чтобы начать: выберите сами или пройдите тест за 15 секунд.',
         cta: 'Обсудить формат',
         contactMessage: 'Интересует формат «{title}» для нашего проекта.',
         items: [
           {
-            id: 'idea', n: '01', title: 'Новая идея',
-            body: 'У вас есть гипотеза, но нет ни продукта, ни команды. Собираем концепцию, проверяем её на цифрах и доводим до работающего MVP — так же, как Syntha, ChatX и Renova начинались с одной идеи.'
+            id: 'idea', n: '01', title: 'Новая идея', term: 'проектно, от 6 недель до работающего MVP',
+            body: 'У вас есть гипотеза, но нет ни продукта, ни команды. Собираем концепцию, проверяем её на цифрах и доводим до работающего MVP — так же, как Syntha, ChatX и Renova начинались с одной идеи.',
+            lead: 'Путь от гипотезы до работающего MVP, который можно показать пользователям и инвесторам, — тем же способом, которым начинались Syntha, ChatX и Renova.',
+            steps: [
+              'Неделя 1 — гипотеза и границы: для кого продукт, какую задачу он закрывает, что считаем успехом. Фиксируем всё на одной странице.',
+              'Недели 2–3 — проверка на цифрах: размер задачи, экономика пользователя и заказчика, конкуренты и альтернативы. Отсекаем то, что не держится на цифрах.',
+              'Недели 3–4 — концепция продукта: роли, ключевые сценарии, состав первой версии и то, что в неё сознательно не входит.',
+              'Недели 4–6 и далее — MVP: собираем работающую версию на реальных сценариях, показываем на экранах, а не на слайдах, собираем обратную связь.',
+              'Финал — решение о следующем шаге: продолжать, менять курс или остановиться, пока это дёшево.'
+            ],
+            includes: [
+              'Формулировка гипотезы и критериев успеха',
+              'Проверка экономики и рынка на ваших или открытых данных',
+              'Концепция продукта: роли, сценарии, состав первой версии',
+              'Дизайн экранов и работающий MVP на реальных сценариях',
+              'Дорожная карта: что делаем дальше и чего это стоит',
+              'Материалы для разговора с пользователями, партнёрами или инвесторами'
+            ],
+            out: [
+              'Работающий MVP и исходные материалы, которые остаются у вас',
+              'Описание продукта и дорожная карта на следующий этап',
+              'Понятное решение: идём дальше, меняем курс или останавливаемся'
+            ],
+            fit: 'Подходит, когда есть идея или гипотеза, но ещё нет ни продукта, ни команды, и нужно быстро понять, стоит ли в неё вкладываться. Сроки зависят от задачи — называю после первого разговора.'
           },
           {
-            id: 'transform', n: '02', title: 'Трансформация существующего',
-            body: 'Продукт или процесс уже есть, но не поспевает за бизнесом. Пересобираем архитектуру и цифровой контур вокруг того, как компания действительно работает, а не переписываем код ради кода.'
+            id: 'transform', n: '02', title: 'Трансформация существующего', term: 'проектно или сопровождение, от 2 месяцев',
+            body: 'Продукт или процесс уже есть, но не поспевает за бизнесом. Пересобираем архитектуру и цифровой контур вокруг того, как компания действительно работает, а не переписываем код ради кода.',
+            lead: 'Пересборка существующего продукта или процесса вокруг того, как компания действительно работает, — без переписывания кода ради кода.',
+            steps: [
+              'Недели 1–2 — картина как есть: как продукт и процессы используются на самом деле, где люди обходят систему, какие данные расходятся.',
+              'Недели 3–4 — целевое устройство: какие роли, сценарии и данные должны быть в основе, что оставляем, что убираем.',
+              'Недели 5–8 — пошаговая пересборка: меняем по блокам, чтобы бизнес продолжал работать, а каждый блок можно было проверить.',
+              'Далее — внедрение и контроль: обучение ролей, правила работы с данными, показатели, по которым видно, что стало лучше.'
+            ],
+            includes: [
+              'Разбор текущих продукта, процессов и данных на реальной работе',
+              'Целевая архитектура и цифровой контур вокруг ролей и сценариев',
+              'План пошаговой пересборки без остановки бизнеса',
+              'Требования к данным, интеграциям и отчётности',
+              'Сопровождение команды и подрядчиков в реализации',
+              'Контроль внедрения: что изменилось в показателях'
+            ],
+            out: [
+              'Целевая архитектура и план пересборки, понятные и бизнесу, и разработке',
+              'Обновлённые продукт или процесс, встроенные в рабочий цикл',
+              'Правила и показатели, по которым команда дальше управляет сама'
+            ],
+            fit: 'Подходит, когда продукт или процесс уже есть, но не поспевает за бизнесом, а переписывать всё с нуля дорого и рискованно.'
           },
           {
-            id: 'audit', n: '03', title: 'Анализ и внедрение',
-            body: 'Нужно понять, что из готовых решений на рынке подходит, и встроить его в реальные процессы — без долгой разработки с нуля, если в ней нет необходимости.'
+            id: 'audit', n: '03', title: 'Анализ и внедрение', term: 'проектно, 3–6 недель',
+            body: 'Нужно понять, что из готовых решений на рынке подходит, и встроить его в реальные процессы — без долгой разработки с нуля, если в ней нет необходимости.',
+            lead: 'Независимый разбор того, какие готовые решения на рынке подходят именно вам, и встраивание выбранного в реальные процессы.',
+            steps: [
+              'Неделя 1 — требования: какие задачи и роли нужно закрыть, какие данные есть, что обязательно, а что желательно.',
+              'Недели 2–3 — обзор рынка: короткий список готовых решений и сравнение по вашим сценариям, а не по презентациям вендоров.',
+              'Неделя 4 — пилот на реальных данных: проверяем, как выбранное решение работает в ваших процессах.',
+              'Недели 5–6 — внедрение: настройка, интеграции, обучение, правила работы — и решение, нужна ли разработка поверх.'
+            ],
+            includes: [
+              'Матрица требований по ролям и сценариям',
+              'Сравнение готовых решений по вашим критериям, включая стоимость владения',
+              'Пилот на реальных данных и разбор рисков',
+              'План внедрения и интеграций',
+              'Рекомендация: брать готовое, дорабатывать или строить своё',
+              'Сопровождение запуска'
+            ],
+            out: [
+              'Обоснованный выбор решения с цифрами и рисками',
+              'План внедрения и интеграций с ответственными',
+              'Запущенное решение, встроенное в процессы, — или честное «лучше строить своё»'
+            ],
+            fit: 'Подходит, когда нужно понять, что из готового на рынке подойдёт, и встроить это без долгой разработки с нуля.'
           }
         ],
         diag: {
@@ -261,7 +327,7 @@ export const T = {
     formats: {
       title: 'Форматы работы',
       subtitle: 'Четыре формата: заранее понятно, сколько длится и что остаётся у вас.',
-      more: 'Что входит →',
+      more: 'Читать целиком →',
       stepsLabel: 'Как идёт работа',
       includesLabel: 'Что входит',
       outLabel: 'Что остаётся у вас',
@@ -756,7 +822,9 @@ export const T = {
       ],
     },
     projects: {
-      title: 'Our projects',
+      title: 'My projects',
+      more: 'Show more',
+      collapse: 'Collapse',
       subtitle: 'A second track alongside advisory work: building and launching our own IT products — in fashion and beyond.',
       open: 'Details',
       statusBtn: 'Stage',
@@ -774,22 +842,86 @@ export const T = {
       compareTitle: 'Comparison with alternatives',
       marks: { yes: 'yes', no: 'no', part: 'partial' },
       launch: {
-        title: 'Launch your own project',
+        title: 'Launch a project',
         subtitle: 'From idea to a working MVP — the same path Syntha, ChatX and Renova already took. Three ways to start: pick one, or take a 15-second test.',
         cta: 'Discuss this format',
         contactMessage: 'Interested in the “{title}” format for our project.',
         items: [
           {
-            id: 'idea', n: '01', title: 'A new idea',
-            body: 'You have a hypothesis but no product and no team yet. We shape the concept, pressure-test it against the numbers, and take it to a working MVP — the same way Syntha, ChatX and Renova each started from a single idea.'
+            id: 'idea', n: '01', title: 'A new idea', term: 'project, from 6 weeks to a working MVP',
+            body: 'You have a hypothesis but no product and no team yet. We shape the concept, pressure-test it against the numbers, and take it to a working MVP — the same way Syntha, ChatX and Renova each started from a single idea.',
+            lead: 'The path from a hypothesis to a working MVP you can show to users and investors — the same way Syntha, ChatX and Renova began.',
+            steps: [
+              'Week 1 — hypothesis and boundaries: who the product is for, which problem it closes, what counts as success. All on one page.',
+              'Weeks 2–3 — a check against the numbers: size of the problem, user and customer economics, competitors and alternatives. We cut what the numbers do not support.',
+              'Weeks 3–4 — product concept: roles, key scenarios, what the first version contains and what it deliberately leaves out.',
+              'Weeks 4–6 and on — the MVP: a working version built on real scenarios, shown on screens rather than slides, with feedback collected.',
+              'Finish — a decision on the next step: continue, change course, or stop while it is still cheap.'
+            ],
+            includes: [
+              'The hypothesis and success criteria, written down',
+              'A check of economics and market on your data or open data',
+              'Product concept: roles, scenarios, scope of the first version',
+              'Screen design and a working MVP on real scenarios',
+              'A roadmap: what comes next and what it costs',
+              'Material for conversations with users, partners or investors'
+            ],
+            out: [
+              'A working MVP and the source material, which stay with you',
+              'A product description and a roadmap for the next stage',
+              'A clear decision: go on, change course or stop'
+            ],
+            fit: 'Fits when you have an idea or hypothesis but no product and no team yet, and need to learn fast whether it is worth investing in. Timing depends on the task — I name it after the first conversation.'
           },
           {
-            id: 'transform', n: '02', title: 'Transforming what exists',
-            body: 'A product or process already exists but can’t keep up with the business. We rebuild the architecture and digital contour around how the company actually works, rather than rewriting code for its own sake.'
+            id: 'transform', n: '02', title: 'Transforming what exists', term: 'project or ongoing, from 2 months',
+            body: 'A product or process already exists but can’t keep up with the business. We rebuild the architecture and digital contour around how the company actually works, rather than rewriting code for its own sake.',
+            lead: 'Rebuilding an existing product or process around how the company actually works — without rewriting code for its own sake.',
+            steps: [
+              'Weeks 1–2 — the picture as it is: how the product and processes are really used, where people work around the system, which data disagree.',
+              'Weeks 3–4 — the target design: which roles, scenarios and data sit at the core, what stays, what goes.',
+              'Weeks 5–8 — step-by-step rebuild: changed block by block so the business keeps running and each block can be checked.',
+              'After that — rollout and control: role training, data rules, and the metrics that show things got better.'
+            ],
+            includes: [
+              'A review of the current product, processes and data in real work',
+              'Target architecture and a digital contour around roles and scenarios',
+              'A plan for rebuilding step by step without stopping the business',
+              'Requirements for data, integrations and reporting',
+              'Support for your team and contractors during delivery',
+              'Rollout control: what changed in the metrics'
+            ],
+            out: [
+              'A target architecture and rebuild plan clear to both business and engineering',
+              'An updated product or process built into the working cycle',
+              'Rules and metrics your team then manages by itself'
+            ],
+            fit: 'Fits when a product or process exists but cannot keep up with the business, and rewriting everything from scratch is costly and risky.'
           },
           {
-            id: 'audit', n: '03', title: 'Analysis and implementation',
-            body: 'You need to know which off-the-shelf solution actually fits, then get it embedded into real processes — without a long from-scratch build if one isn’t needed.'
+            id: 'audit', n: '03', title: 'Analysis and implementation', term: 'project, 3–6 weeks',
+            body: 'You need to know which off-the-shelf solution actually fits, then get it embedded into real processes — without a long from-scratch build if one isn’t needed.',
+            lead: 'An independent look at which ready-made solutions on the market fit you, and embedding the chosen one into real processes.',
+            steps: [
+              'Week 1 — requirements: which tasks and roles must be covered, which data exist, what is mandatory and what is nice to have.',
+              'Weeks 2–3 — market review: a short list of ready-made solutions compared on your scenarios, not on vendor decks.',
+              'Week 4 — a pilot on real data: checking how the chosen solution works in your processes.',
+              'Weeks 5–6 — rollout: setup, integrations, training, working rules — and a decision on whether anything needs building on top.'
+            ],
+            includes: [
+              'A requirements matrix by role and scenario',
+              'A comparison of ready-made solutions on your criteria, including cost of ownership',
+              'A pilot on real data and a risk review',
+              'A rollout and integration plan',
+              'A recommendation: buy, extend or build your own',
+              'Support through launch'
+            ],
+            out: [
+              'A justified choice of solution with numbers and risks',
+              'A rollout and integration plan with owners',
+              'A launched solution built into your processes — or an honest “better to build your own”'
+            ],
+            fit: 'Fits when you need to know what off the shelf will work and embed it without a long build from scratch.'
           }
         ],
         diag: {
@@ -841,7 +973,7 @@ export const T = {
     formats: {
       title: 'Ways to work together',
       subtitle: 'Four formats: you know upfront how long it takes and what stays with you.',
-      more: 'What it includes →',
+      more: 'Read in full →',
       stepsLabel: 'How the work goes',
       includesLabel: 'What it includes',
       outLabel: 'What stays with you',

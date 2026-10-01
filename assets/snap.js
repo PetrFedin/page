@@ -5,6 +5,24 @@
 
 const isPhone = () => matchMedia('(max-width: 759px)').matches;
 
+/* Дорожка с .snap-fit подгоняет высоту под карточки, которые сейчас видны, —
+   иначе все слайды тянутся до самого высокого и под короткими остаётся пустота. */
+const fitObserver = new ResizeObserver((entries) => {
+  new Set(entries.map((e) => e.target.parentElement)).forEach(fitHeight);
+});
+function fitHeight(track) {
+  if (!track?.classList.contains('snap-fit')) return;
+  if (!isPhone()) { track.style.height = ''; return; }
+  const tr = track.getBoundingClientRect();
+  let h = 0;
+  for (const el of track.children) {
+    if (!el.getClientRects().length) continue;
+    const r = el.getBoundingClientRect();
+    if (r.right > tr.left + 2 && r.left < tr.right - 2) h = Math.max(h, el.offsetHeight);
+  }
+  if (h) track.style.height = `${h + 12}px`;
+}
+
 function buildDots(track) {
   let dots = track.nextElementSibling;
   if (!dots?.classList.contains('snap-dots')) {
@@ -15,11 +33,20 @@ function buildDots(track) {
   /* Точки показываем не по ширине экрана, а по факту: если дорожку
      есть куда листать. Лента цепочки не помещается и на десктопе. */
   const листается = track.scrollWidth > track.clientWidth + 4;
+  if (!isPhone()) fitHeight(track);
   if (!isPhone() && !листается) { dots.hidden = true; return; }
   dots.hidden = false;
   /* Невидимые дети — например, шапка таблицы, скрытая на телефоне, —
      слайдами не считаются: иначе появляется лишняя пустая точка. */
   const слайды = [...track.children].filter((el) => el.getClientRects().length);
+  if (track.classList.contains('snap-fit')) {
+    if (!track.dataset.fit) {
+      track.dataset.fit = '1';
+      track.addEventListener('scroll', () => fitHeight(track), { passive: true });
+    }
+    [...track.children].forEach((el) => fitObserver.observe(el));
+    fitHeight(track);
+  }
   const n = слайды.length;
   dots.innerHTML = Array.from({ length: n }, (_, i) =>
     `<button type="button" data-i="${i}" aria-label="${i + 1}"${i ? '' : ' aria-current="true"'}></button>`).join('');
