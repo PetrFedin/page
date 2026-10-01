@@ -1,8 +1,9 @@
 /**
  * Cloudflare Pages Function: приём заявки → сообщение в Telegram.
  * Секреты задаются в настройках проекта Pages:
- *   TELEGRAM_BOT_TOKEN — токен бота от @BotFather
- *   TELEGRAM_CHAT_ID   — id чата получателя
+ *   TELEGRAM_BOT_TOKEN   — токен бота от @BotFather
+ *   TELEGRAM_CHAT_ID     — id чата получателя
+ *   TURNSTILE_SECRET_KEY — секретный ключ виджета Turnstile (не задан — проверка пропускается)
  * Ничего не сохраняем: заявка только пересылается.
  */
 
@@ -35,6 +36,25 @@ export async function onRequestPost({ request, env }) {
   }
 
   if (clean(body.company, 50)) return new Response('ok', { status: 200 }); // honeypot
+
+  /* Turnstile: временно выключено — на странице ещё placeholder вместо настоящего
+     site key, поэтому виджет не может выдать валидный токен никому. Включить
+     обратно, когда в index.html/en/index.html будет реальный data-sitekey. */
+  if (false && env.TURNSTILE_SECRET_KEY) {
+    const token = clean(body['cf-turnstile-response'], 2000);
+    if (!token) return new Response('captcha required', { status: 400 });
+    const verify = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        secret: env.TURNSTILE_SECRET_KEY,
+        response: token,
+        remoteip: request.headers.get('cf-connecting-ip') || undefined
+      })
+    });
+    const result = await verify.json().catch(() => ({ success: false }));
+    if (!result.success) return new Response('captcha failed', { status: 400 });
+  }
 
   const name = clean(body.name, LIMIT.name);
   const contact = clean(body.contact, LIMIT.contact);

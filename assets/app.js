@@ -1636,6 +1636,8 @@ $('#form').addEventListener('submit', async (e) => {
     form.reset();
     showFile();
     syncSubmit();
+    /* токен Turnstile одноразовый — без сброса повторная отправка уйдёт с протухшим */
+    window.turnstile?.reset();
   } catch {
     note.className = 'form-note';
     note.textContent = t.contact.fail;
