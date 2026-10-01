@@ -1,4 +1,4 @@
-import { T, PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610011748';
+import { T, PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610011935';
 import { DECK } from './deck.js?v=202609301526';
 import { LOGOS } from './logos.js?v=202610011748';
 import { createViewer } from './viewer.js?v=202609301526';
@@ -270,9 +270,12 @@ function render() {
   /* Продуктовые проекты выше — доказательство, а не витрина: тем, кто
      досмотрел до конца раздела, предлагаем тот же путь для своей задачи. */
   $('#project-launch').innerHTML = `
-    <div class="formats-head"><h3>${t.projects.launch.title}</h3><p class="sub">${t.projects.launch.subtitle}</p></div>
+    <div class="formats-head">
+      <h3>${t.projects.launch.title}</h3><p class="sub">${t.projects.launch.subtitle}</p>
+      <p style="margin-top:14px"><button type="button" class="btn btn-sm" data-launch-diag-open>${t.projects.launch.diag.label}</button></p>
+    </div>
     <div class="formats-grid">${t.projects.launch.items.map((f) => `
-      <article class="format format-static">
+      <article class="format format-static" data-format-id="${f.id}">
         <span class="svc-n">${f.n}</span>
         <h4>${f.title}</h4>
         <p>${f.body}</p>
@@ -322,6 +325,7 @@ function render() {
   if (modal.open) openProject(modal.dataset.project);
   if (deckModal.open) renderDeck();
   if (diagModal.open) renderDiagnostic();
+  if (launchDiagModal.open) renderLaunchDiag();
   if (leakModal.open) renderLeakQuiz();
   if (pnModal.open) openProjectNews(pnModal.dataset.project);
   if (infoModal.open) showInfo(infoModal.dataset.view ?? '');
@@ -775,6 +779,81 @@ function openDiagnosticModal() {
 $('#diag-open').addEventListener('click', () => { diagAnswers = []; go('diagnostic'); });
 $('#diag-close').addEventListener('click', () => leaveAll());
 diagModal.addEventListener('click', (e) => { if (e.target === diagModal) leaveAll(); });
+
+/* ---------- диагностика: три вопроса → формат запуска собственного проекта ----------
+   Тот же механизм, что у теста форматов консалтинга, только три категории
+   вместо четырёх и результат ведёт в форму с темой «Другое», а не «Консалтинг». */
+let launchDiagAnswers = [];
+function renderLaunchDiag() {
+  const t = T[lang].projects.launch.diag;
+  $('#launch-diag-eyebrow').textContent = t.label;
+  $('#launch-diag-title').textContent = t.title;
+  $('#launch-diag-subtitle').textContent = t.subtitle;
+
+  const step = launchDiagAnswers.length;
+  const body = $('#launch-diag-body');
+
+  if (step < t.questions.length) {
+    const q = t.questions[step];
+    body.innerHTML = `
+      <div class="diag-progress">
+        <span>${t.progress.replace('{i}', step + 1).replace('{n}', t.questions.length)}</span>
+        <div class="diag-bar"><span style="width:${Math.round((step / t.questions.length) * 100)}%"></span></div>
+      </div>
+      <h3 class="diag-q">${q.q}</h3>
+      <div class="diag-options">
+        ${q.options.map((o) => `<button type="button" class="diag-opt" data-f="${o.f}">${o.t}</button>`).join('')}
+      </div>
+      ${step > 0 ? `<button type="button" class="diag-back">${t.back}</button>` : ''}`;
+  } else {
+    const counts = [0, 0, 0];
+    launchDiagAnswers.forEach((f) => counts[f]++);
+    const bestIdx = counts.indexOf(Math.max(...counts));
+    const fmt = T[lang].projects.launch.items[bestIdx];
+    document.querySelectorAll('.project-launch .format').forEach((el) => el.classList.remove('diag-match'));
+    document.querySelector(`.project-launch .format[data-format-id="${fmt.id}"]`)?.classList.add('diag-match');
+    body.innerHTML = `
+      <div class="diag-result">
+        <p class="diag-result-label">${t.resultLabel}</p>
+        <h3>${fmt.title}</h3>
+        <p class="diag-result-body">${fmt.body}</p>
+        <p class="diag-note">${t.resultNote}</p>
+        <div class="diag-actions">
+          <button type="button" class="btn btn-primary" data-launch-diag-cta="${bestIdx}">${t.cta}</button>
+        </div>
+        <button type="button" class="diag-retake">${t.retake}</button>
+      </div>`;
+  }
+}
+$('#launch-diag-body').addEventListener('click', (e) => {
+  const opt = e.target.closest('.diag-opt');
+  if (opt) { launchDiagAnswers.push(+opt.dataset.f); return renderLaunchDiag(); }
+  if (e.target.closest('.diag-back')) { launchDiagAnswers.pop(); return renderLaunchDiag(); }
+  if (e.target.closest('.diag-retake')) { launchDiagAnswers = []; return renderLaunchDiag(); }
+  const cta = e.target.closest('[data-launch-diag-cta]');
+  if (cta) {
+    const t = T[lang].projects.launch.diag;
+    const fmt = T[lang].projects.launch.items[+cta.dataset.launchDiagCta];
+    $('#topic').value = 'other';
+    $('#topic-other').value = fmt.title;
+    syncTopicOther();
+    const msgEl = $('#form [name="message"]');
+    if (msgEl && !msgEl.value.trim()) msgEl.value = t.messagePrefix + fmt.title + t.messageSuffix;
+    syncSubmit?.();
+    leave();
+    requestAnimationFrame(() => $('#contact').scrollIntoView({ behavior: 'smooth' }));
+    setTimeout(() => $('#form [name="name"]').focus(), 400);
+  }
+});
+
+const launchDiagModal = $('#launch-diag-modal');
+function openLaunchDiagModal() {
+  renderLaunchDiag();
+  if (!launchDiagModal.open) launchDiagModal.showModal();
+  launchDiagModal.querySelector('.modal-body').scrollTop = 0;
+}
+$('#launch-diag-close').addEventListener('click', () => leaveAll());
+launchDiagModal.addEventListener('click', (e) => { if (e.target === launchDiagModal) leaveAll(); });
 
 /* ---------- мини-диагностика: где утекает сезон ----------
    Тот же механизм, что у большого теста форматов, но с четырьмя категориями
@@ -1311,9 +1390,11 @@ $('#formats').addEventListener('click', (e) => {
   const b = e.target.closest('[data-format]');
   if (b) go(`format-${b.dataset.format}`);
 });
-/* Формат запуска — не квиз: сразу подготавливаем письмо и ведём к форме,
-   без промежуточного окна с деталями. */
+/* Клик по карточке формата — сразу готовим письмо и ведём к форме, без
+   промежуточного окна с деталями. Отдельная кнопка открывает короткий тест
+   для тех, кто не уверен, какой формат ближе (по аналогии с консалтингом). */
 $('#project-launch').addEventListener('click', (e) => {
+  if (e.target.closest('[data-launch-diag-open]')) { launchDiagAnswers = []; return go('launch-diagnostic'); }
   const b = e.target.closest('[data-launch]');
   if (!b) return;
   const group = T[lang].projects.launch;
@@ -1450,6 +1531,7 @@ function closeModals() {
   if (modal.open) modal.close(true);
   if (deckModal.open) deckModal.close(true);
   if (diagModal.open) diagModal.close(true);
+  if (launchDiagModal.open) launchDiagModal.close(true);
   if (leakModal.open) leakModal.close(true);
   if (postModal.open) postModal.close(true);
   if (pnModal.open) pnModal.close(true);
@@ -1467,6 +1549,7 @@ function applyHash() {
   if (!h) return;
   if (h === 'deck') return openDeck();
   if (h === 'diagnostic') return openDiagnosticModal();
+  if (h === 'launch-diagnostic') return openLaunchDiagModal();
   if (h === 'leak-quiz') return openLeakModal();
   if (h.endsWith('-compare')) {
     const cid = h.slice(0, -'-compare'.length);

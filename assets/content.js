@@ -195,7 +195,7 @@ export const T = {
       marks: { yes: 'есть', no: 'нет', part: 'частично' },
       launch: {
         title: 'Запустить свой проект',
-        subtitle: 'Те же продукты, что выше, прошли этот путь от идеи до работающего MVP. Три формата захода — выберите, что ближе к вашей задаче.',
+        subtitle: 'От идеи до работающего MVP — путь, который уже прошли Syntha, ChatX и Renova. Три формата, чтобы начать: выберите сами или пройдите тест за 15 секунд.',
         cta: 'Обсудить формат',
         contactMessage: 'Интересует формат «{title}» для нашего проекта.',
         items: [
@@ -211,7 +211,46 @@ export const T = {
             id: 'audit', n: '03', title: 'Анализ и внедрение',
             body: 'Нужно понять, что из готовых решений на рынке подходит, и встроить его в реальные процессы — без долгой разработки с нуля, если в ней нет необходимости.'
           }
-        ]
+        ],
+        diag: {
+          label: 'Подобрать формат',
+          title: 'Какой формат запуска вам подходит',
+          subtitle: 'Три вопроса — пятнадцать секунд. В конце — конкретный формат, а не общий совет.',
+          progress: 'Вопрос {i} из {n}',
+          back: 'Назад',
+          resultLabel: 'Похоже, подходит',
+          resultNote: 'Формат — гипотеза по трём ответам, а не диагноз. Финальное решение — на разговоре.',
+          cta: 'Обсудить формат',
+          retake: 'Пройти заново',
+          messagePrefix: 'Результат теста на сайте: формат «',
+          messageSuffix: '».',
+          questions: [
+            {
+              q: 'Что из этого ближе всего к вашей ситуации?',
+              options: [
+                { t: 'Есть гипотеза, но нет ни продукта, ни команды', f: 0 },
+                { t: 'Продукт или процесс уже есть, но не поспевает за бизнесом', f: 1 },
+                { t: 'Непонятно, что из готовых решений на рынке подходит', f: 2 }
+              ]
+            },
+            {
+              q: 'С чего вы готовы начать?',
+              options: [
+                { t: 'С нуля: собрать концепцию и довести до MVP', f: 0 },
+                { t: 'Пересобрать архитектуру вокруг того, как компания работает', f: 1 },
+                { t: 'Разобраться в рынке и встроить готовое решение в процессы', f: 2 }
+              ]
+            },
+            {
+              q: 'Что сейчас важнее всего?',
+              options: [
+                { t: 'Проверить гипотезу на цифрах, прежде чем вкладываться дальше', f: 0 },
+                { t: 'Не переписывать всё с нуля, а пересобрать то, что уже работает', f: 1 },
+                { t: 'Не тратить время на разработку, если решение уже есть на рынке', f: 2 }
+              ]
+            }
+          ]
+        }
       }
     },
     area: {
@@ -736,7 +775,7 @@ export const T = {
       marks: { yes: 'yes', no: 'no', part: 'partial' },
       launch: {
         title: 'Launch your own project',
-        subtitle: 'The products above went through this same path, from idea to a working MVP. Three ways in — pick whichever is closer to your situation.',
+        subtitle: 'From idea to a working MVP — the same path Syntha, ChatX and Renova already took. Three ways to start: pick one, or take a 15-second test.',
         cta: 'Discuss this format',
         contactMessage: 'Interested in the “{title}” format for our project.',
         items: [
@@ -752,7 +791,46 @@ export const T = {
             id: 'audit', n: '03', title: 'Analysis and implementation',
             body: 'You need to know which off-the-shelf solution actually fits, then get it embedded into real processes — without a long from-scratch build if one isn’t needed.'
           }
-        ]
+        ],
+        diag: {
+          label: 'Find my format',
+          title: 'Which launch format fits you',
+          subtitle: 'Three questions — fifteen seconds. You get a specific format, not generic advice.',
+          progress: 'Question {i} of {n}',
+          back: 'Back',
+          resultLabel: 'Looks like a fit',
+          resultNote: 'The format is a hypothesis from three answers, not a diagnosis. The real call happens in conversation.',
+          cta: 'Discuss this format',
+          retake: 'Take it again',
+          messagePrefix: 'Site test result: format “',
+          messageSuffix: '”.',
+          questions: [
+            {
+              q: 'Which is closest to your situation right now?',
+              options: [
+                { t: 'There’s a hypothesis, but no product and no team', f: 0 },
+                { t: 'A product or process exists but can’t keep up with the business', f: 1 },
+                { t: 'Unclear which off-the-shelf solution actually fits', f: 2 }
+              ]
+            },
+            {
+              q: 'What are you ready to start with?',
+              options: [
+                { t: 'From scratch: shape the concept and get to an MVP', f: 0 },
+                { t: 'Rebuild the architecture around how the company actually works', f: 1 },
+                { t: 'Understand the market and embed an existing solution into our process', f: 2 }
+              ]
+            },
+            {
+              q: 'What matters most right now?',
+              options: [
+                { t: 'Pressure-test the hypothesis against numbers before investing further', f: 0 },
+                { t: 'Not rewriting everything — rebuild what already works', f: 1 },
+                { t: 'Not spending time building, if a solution already exists', f: 2 }
+              ]
+            }
+          ]
+        }
       }
     },
     area: {
