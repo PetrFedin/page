@@ -382,7 +382,7 @@ export const T = {
       shortLabel: 'Коротко',
       short: 'Пётр Федин — эксперт по экономике и трансформации фэшн-бизнеса и основатель отраслевых IT-продуктов.',
       longLabel: 'Развёрнуто',
-      long: 'Пётр Федин работает на стыке стратегии, коммерции, продукта, данных и капитала в фэшн-бизнесе. Многолетний управленческий опыт в крупной мультибрендовой рознице: бюджет закупки, ассортиментная матрица, прогноз спроса, маржа и оборачиваемость. Ведёт проекты операционной диагностики, стратегии роста и стабилизации управления, а также развивает собственные продукты для отрасли.',
+      long: 'Пётр Федин работает на стыке стратегии, коммерции, продукта, данных и капитала в фэшн-бизнесе. Многолетний управленческий опыт в крупной мультибрендовой рознице: бюджет закупки, ассортиментная матрица, прогноз спроса, маржа и оборачиваемость. Ведёт проекты операционной диагностики, стратегии роста и стабилизации управления, а также разрабатывает и запускает собственные IT-продукты — Syntha, ChatX, Renova и другие.',
       topicsLabel: 'Темы для выступления и комментария',
       topics: [
         'Экономика закупки и возврат капитала',
@@ -394,7 +394,8 @@ export const T = {
         'Маркетплейсы и мультиканальные продажи',
         'Фэшн-рынок России: что в нём меняется',
         'PLM и цифровой контур бренда',
-        'Управление в кризисе и восстановление роста'
+        'Управление в кризисе и восстановление роста',
+        'От консалтинга к продукту: как рождаются Syntha, ChatX и Renova'
       ],
       photoLabel: 'Портрет для публикации',
       photoBtn: 'Скачать фото',
@@ -837,9 +838,9 @@ export const T = {
       title: 'For press and event organisers',
       subtitle: 'Everything needed for a programme or a comment — without an email exchange.',
       shortLabel: 'Short', short: 'Petr Fedin is an expert in fashion business economics and transformation and the founder of industry IT products.',
-      longLabel: 'Full', long: 'Petr Fedin works where strategy, commerce, product, data and capital meet in fashion. Years of management experience in large multi-brand retail: open-to-buy, assortment matrix, demand forecasting, margin and stock turn. He runs operational diagnostics, growth strategy and management turnaround projects, and builds his own products for the industry.',
+      longLabel: 'Full', long: 'Petr Fedin works where strategy, commerce, product, data and capital meet in fashion. Years of management experience in large multi-brand retail: open-to-buy, assortment matrix, demand forecasting, margin and stock turn. He runs operational diagnostics, growth strategy and management turnaround projects, and builds and launches his own IT products — Syntha, ChatX, Renova and others.',
       topicsLabel: 'Speaking and comment topics',
-      topics: ['Buying economics and the return of capital', 'Budgeting and open-to-buy', 'Building analytics: from data to decisions', 'The metrics fashion retail actually runs on', 'Merchandise planning and inventory control', 'The retail cycle and working with the customer', 'Marketplaces and omnichannel selling', 'The Russian fashion market: what is changing', 'PLM and a brand\u2019s digital architecture', 'Managing through a crisis and returning to growth'],
+      topics: ['Buying economics and the return of capital', 'Budgeting and open-to-buy', 'Building analytics: from data to decisions', 'The metrics fashion retail actually runs on', 'Merchandise planning and inventory control', 'The retail cycle and working with the customer', 'Marketplaces and omnichannel selling', 'The Russian fashion market: what is changing', 'PLM and a brand\u2019s digital architecture', 'Managing through a crisis and returning to growth', 'From advisory to product: how Syntha, ChatX and Renova were built'],
       photoLabel: 'Portrait for publication', photoBtn: 'Download photo',
       copy: 'Copy', copied: 'Copied'
     },
