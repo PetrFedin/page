@@ -201,3 +201,11 @@ Functions только `/api/*` — остальное отдаётся стат
 `scripts/make-mp4.sh` (ffmpeg от Playwright распаковывает кадры, свой
 инструмент на AVFoundation собирает H.264). В плеере MP4 идёт первым: iOS
 декодирует его аппаратно, WebM — программно.
+
+## Planned integration roadmap
+
+Canonical implementation plan:
+
+- [docs/PAGE_INTEGRATION_MASTER_PLAN_2026-10-01.md](./docs/PAGE_INTEGRATION_MASTER_PLAN_2026-10-01.md)
+
+This file is a planned implementation source, not evidence that every listed capability is already live. Future full-roadmap work should cite this filename and follow its sequence, authority boundaries, dependencies and acceptance gates.
