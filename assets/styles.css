@@ -1018,18 +1018,18 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
   /* у полосы опыта и списка услуг свои фоны — выравниваем под карточку */
   .services.snap{background:none; border:none; border-radius:0}
   .services.snap li{border:1px solid var(--line); border-radius:12px; overflow:hidden}
-  /* Точка рисуется 6px-ной, а зона нажатия — 24px (padding + background-clip): палец попадает уверенно */
+  /* Точка рисуется 4px-ной, а зона нажатия — 22px (padding + background-clip): палец попадает уверенно */
   .snap-dots{display:flex; gap:0; justify-content:center; margin-top:6px}
   .snap-dots button{
-    box-sizing:border-box; width:24px; height:24px; padding:9px; border:none; border-radius:999px;
-    background:var(--line); background-clip:content-box; cursor:pointer; transition:width .18s ease, background .18s ease;
+    box-sizing:border-box; width:22px; height:22px; padding:9px; border:none; border-radius:999px;
+    background-color:var(--line); background-clip:content-box; cursor:pointer; transition:width .18s ease, background-color .18s ease;
   }
-  .snap-dots button[aria-current="true"]{width:36px; background:var(--accent); background-clip:content-box}
+  .snap-dots button[aria-current="true"]{width:30px; background-color:var(--accent)}
   /* в начале дорожки ещё не пролистанные точки мягко мигают — подсказка, что можно свайпнуть */
   .snap-dots[data-first="true"] button:not([aria-current="true"]){animation:dot-hint 1.8s ease-in-out infinite}
   .snap-dots[data-first="true"] button:nth-child(3){animation-delay:.25s}
   .snap-dots[data-first="true"] button:nth-child(4){animation-delay:.5s}
-  @keyframes dot-hint{0%,100%{background:var(--line); transform:scale(1)} 50%{background:var(--accent); transform:scale(1.35)}}
+  @keyframes dot-hint{0%,100%{background-color:var(--line); transform:scale(1)} 50%{background-color:var(--accent); transform:scale(1.25)}}
   /* навигация живёт в шапке — дублирующие кнопки в первом экране убираем */
   .hero-cta{display:none}
   .hero{padding-top:28px; padding-bottom:30px; gap:20px; grid-template-columns:auto 1fr; align-items:start}
