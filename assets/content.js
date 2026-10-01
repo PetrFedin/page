@@ -3,7 +3,7 @@
 export const T = {
   ru: {
     langName: 'RU',
-    nav: { consulting: 'Консалтинг', projects: 'Проекты', news: 'Лента', media: 'Публикации', contact: 'Связаться', toTop: 'Наверх', close: 'Закрыть',
+    nav: { experience: 'Опыт', consulting: 'Консалтинг', projects: 'Проекты', news: 'Лента', media: 'Публикации', contact: 'Связаться', toTop: 'Наверх', close: 'Закрыть',
       textSize: { xl: 'Уменьшить текст', lg: 'Обычный размер', normal: 'Крупнее текст' } },
     hero: {
       eyebrow: 'Фэшн-консалтинг и продуктовые проекты',
@@ -677,7 +677,7 @@ export const T = {
 
   en: {
     langName: 'EN',
-    nav: { consulting: 'Advisory', projects: 'Ventures', news: 'Feed', media: 'Press', contact: 'Contact', toTop: 'Back to top', close: 'Close',
+    nav: { experience: 'Experience', consulting: 'Advisory', projects: 'Ventures', news: 'Feed', media: 'Press', contact: 'Contact', toTop: 'Back to top', close: 'Close',
       textSize: { xl: 'Smaller text', lg: 'Normal size', normal: 'Larger text' } },
     hero: {
       eyebrow: 'Fashion advisory & product ventures',

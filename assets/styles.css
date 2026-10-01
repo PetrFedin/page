@@ -163,8 +163,12 @@ h2{font-size:clamp(26px,5vw,36px)}
 .btn[hidden]{display:none}
 .btn:hover{border-color:var(--ink)}
 .btn:active{transform:translateY(1px)}
-.btn-primary{background:var(--ink); color:var(--bg); border-color:var(--ink)}
-.btn-primary:hover{opacity:.88}
+/* Чёрным кнопка становится только когда нажата или выбрана — так видно, что именно активно. */
+.btn-primary{border-color:var(--ink)}
+.btn:active,
+.btn[aria-pressed="true"],
+.btn[aria-expanded="true"],
+.btn.is-selected{background:var(--ink); color:var(--bg); border-color:var(--ink)}
 .deck-actions{display:flex; flex-wrap:wrap; align-items:center; gap:18px 10px; margin-top:32px}
 @media (max-width:759px){
   .deck-actions .btn{flex:1 1 auto; padding:12px 10px; font-size:14px}
@@ -531,9 +535,8 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
   will-change:transform;
 }
 
-.facts-band{border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:var(--panel)}
 .facts-bar{
-  list-style:none; margin:0 auto; padding:26px 16px; max-width:var(--maxw);
+  list-style:none; margin:0; padding:0;
   display:grid; grid-template-columns:1fr; gap:20px 24px;
 }
 .facts-bar li{display:grid}
@@ -541,22 +544,14 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
   appearance:none; border:none; background:none; color:inherit; font:inherit; text-align:left;
   display:grid; gap:6px; align-content:start; cursor:pointer; padding:0;
 }
+.facts-bar > li{background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px 16px}
 .fact-more{font-size:13px; color:var(--muted); margin-top:2px}
 .fact:hover b{color:var(--ink)}
 .fact:hover .fact-more{color:var(--accent)}
 .facts-bar b{font-size:11px; letter-spacing:.09em; text-transform:uppercase; color:var(--accent); font-weight:500}
 .facts-bar span{font-size:14px; color:var(--muted); line-height:1.45;
   display:-webkit-box; -webkit-line-clamp:4; -webkit-box-orient:vertical; overflow:hidden}
-.cv-row{
-  max-width:var(--maxw); margin:0 auto; padding:0 16px 26px;
-  display:flex; flex-wrap:wrap; align-items:baseline; gap:6px; font-size:13px;
-}
-.cv-row-link{
-  appearance:none; border:none; background:none; padding:0; cursor:pointer;
-  font:inherit; font-size:13px; color:var(--accent); text-decoration:underline; text-underline-offset:2px;
-}
-.cv-row-link:hover{color:var(--ink)}
-
+.cv-row{display:flex; flex-wrap:wrap; gap:10px; margin:22px 0 0; padding:0}
 /* ---------- лента новостей ---------- */
 .news-filters{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px}
 .news-filter{
@@ -648,7 +643,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
   .hero{grid-template-columns:1.25fr .75fr; align-items:center; gap:56px; padding-top:76px; padding-bottom:64px}
   .facts-bar{
     grid-template-columns:repeat(2,minmax(0,1fr)); grid-template-rows:repeat(3,auto);
-    padding:34px 16px; gap:24px 32px;
+    gap:24px 32px;
   }
   .facts-bar li{grid-row:span 3; display:grid; grid-template-rows:subgrid; row-gap:6px}
   .fact{grid-row:span 3; grid-template-rows:subgrid; row-gap:6px}
@@ -671,11 +666,6 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 #project-news .feed{margin-bottom:24px}
 #project-news .post h3{font-size:18px}
 
-.facts-title{
-  max-width:var(--maxw); margin:0 auto; padding:26px 16px 0;
-  font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted);
-}
-.facts-title + .facts-bar{padding-top:16px}
 
 @media (min-width:1020px){ .facts-bar{grid-template-columns:repeat(4,minmax(0,1fr)); gap:24px 24px} }
 
@@ -834,14 +824,17 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
   max-width:var(--maxw); margin:0 auto; padding:10px 16px 16px;
   display:flex; flex-wrap:wrap; align-items:baseline; gap:12px 28px;
 }
-.now-projects{list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:9px 18px}
-.now-projects li{display:flex; align-items:center; font-size:13.5px; color:var(--muted)}
+.now-projects{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:14px 18px; width:100%}
+.now-projects li{display:flex; font-size:13.5px; color:var(--muted)}
 .now-project{
-  display:flex; align-items:center; gap:7px; border:none; background:none; padding:0;
-  font:inherit; color:inherit; cursor:pointer;
+  display:grid; grid-template-columns:auto 1fr; column-gap:8px; row-gap:2px; align-items:center; text-align:left;
+  border:none; background:none; padding:0; font:inherit; color:inherit; cursor:pointer;
 }
+.now-project .now-dot{grid-row:1; grid-column:1}
+.now-project b{grid-row:1; grid-column:2}
+.now-project > span:last-child{grid-row:2; grid-column:2; font-size:12.5px; line-height:1.35}
 .now-project:hover b{text-decoration:underline}
-.now-projects b{color:var(--ink); font-weight:500}
+.now-projects b{color:var(--ink); font-weight:500; font-size:14.5px}
 .now-dot{width:6px; height:6px; border-radius:50%; background:var(--accent); flex:0 0 auto}
 .now-post{
   display:flex; flex-wrap:wrap; align-items:baseline; gap:4px 8px; max-width:100%;
@@ -856,8 +849,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 /* ---------- «Где утекают деньги сезона»: раскрывается внутри карточки Syntha ----------
    Единственное место на сайте с вертикальным scroll-эффектом: пять шагов сезона,
    рельс слева (сверху на телефоне) подсвечивает текущий через IntersectionObserver. */
-.flow-toggle[aria-expanded="true"]{border-color:var(--accent); color:var(--accent)}
-.flow-toggle:hover{background:var(--accent-soft)}
+.flow-toggle:not([aria-expanded="true"]):hover{background:var(--accent-soft)}
 .flow-embed{
   grid-column:1/-1; margin-top:18px; padding-top:18px; border-top:1px dashed var(--line);
 }
@@ -979,9 +971,6 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
   /* у полосы опыта и списка услуг свои фоны — выравниваем под карточку */
   .services.snap{background:none; border:none; border-radius:0}
   .services.snap li{border:1px solid var(--line); border-radius:12px; overflow:hidden}
-  .facts-bar.snap > li{
-    background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px 16px;
-  }
   .snap-dots{display:flex; gap:7px; justify-content:center; margin-top:14px}
   .snap-dots button{
     width:6px; height:6px; border-radius:999px; border:none; padding:0;
@@ -1091,10 +1080,12 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
     border-radius:12px; padding:16px 14px; font-size:15px;
   }
   /* контакт и подпись — в одну строку */
-  .direct ul{gap:12px}
-  .direct li{display:flex; align-items:baseline; justify-content:space-between; gap:14px}
-  .direct .lbl{margin-bottom:0; flex:0 0 auto}
-  .direct li a{text-align:right}
+  /* подпись сверху, значение под ней — слева; QR справа на всю высоту строки */
+  .direct ul{gap:16px}
+  .direct li{display:grid; grid-template-columns:minmax(0,1fr) auto; column-gap:12px; row-gap:3px; align-items:center}
+  .direct .lbl{grid-column:1; grid-row:1; margin-bottom:0}
+  .direct li a{grid-column:1; grid-row:2; justify-self:start; text-align:left; font-size:17px}
+  .direct li .qr-trigger{grid-column:2; grid-row:1 / span 2}
 }
 
 /* презентация: заголовок блока держится сверху при прокрутке окна — на всех экранах */

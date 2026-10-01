@@ -1,6 +1,6 @@
-import { T, PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610011940';
+import { T, PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610012333';
 import { DECK } from './deck.js?v=202609301526';
-import { LOGOS } from './logos.js?v=202610011748';
+import { LOGOS } from './logos.js?v=202610012333';
 import { createViewer } from './viewer.js?v=202609301526';
 import { syncSnaps } from './snap.js?v=202609301526';
 import { NEWS } from './news.js?v=202609301526';
@@ -158,7 +158,7 @@ function render() {
   $('#hero-avatar').alt = t.hero.photoAlt;
   $('#avatar-btn').setAttribute('aria-label', t.hero.photoAlt);
   $('#portrait-btn').setAttribute('aria-label', t.hero.photoAlt);
-  $('#facts-title').textContent = t.hero.factsTitle;
+  $('#experience-title').textContent = t.hero.factsTitle;
   $('#facts-bar').className = "facts-bar snap";
   $('#facts-bar').innerHTML = t.hero.facts.map((f) => `
     <li><button class="fact" type="button" data-area="${f.id}">
@@ -274,7 +274,7 @@ function render() {
       <h3>${t.projects.launch.title}</h3><p class="sub">${t.projects.launch.subtitle}</p>
       <p style="margin-top:14px"><button type="button" class="btn btn-sm" data-launch-diag-open>${t.projects.launch.diag.label}</button></p>
     </div>
-    <div class="formats-grid">${t.projects.launch.items.map((f) => `
+    <div class="formats-grid snap">${t.projects.launch.items.map((f) => `
       <article class="format format-static" data-format-id="${f.id}">
         <span class="svc-n">${f.n}</span>
         <h4>${f.title}</h4>
