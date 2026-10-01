@@ -1,8 +1,8 @@
-import { T, PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610020157';
-import { DECK } from './deck.js?v=202610020157';
-import { LOGOS } from './logos.js?v=202610020157';
+import { T, PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610020159';
+import { DECK } from './deck.js?v=202610020159';
+import { LOGOS } from './logos.js?v=202610020159';
 import { createViewer } from './viewer.js?v=202609301526';
-import { syncSnaps } from './snap.js?v=202610020157';
+import { syncSnaps } from './snap.js?v=202610020159';
 import { NEWS } from './news.js?v=202609301526';
 
 /* Сайт — витрина: показываем отобранные материалы. Канал получает весь поток.
