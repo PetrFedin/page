@@ -548,7 +548,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 
 
 /* ---------- портрет и факты ---------- */
-.bio{margin-top:18px; max-width:560px; font-size:15px; color:var(--muted)}
+.bio{margin-top:18px; max-width:none; font-size:15px; color:var(--muted)}
 .portrait{margin:0; position:relative}
 .portrait img{
   width:100%; height:auto; border-radius:var(--radius);
@@ -774,8 +774,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
   .format-foot{align-self:end}
 }
 @media (min-width:1020px){ .formats-grid{grid-template-columns:repeat(4,minmax(0,1fr))} }
-/* Три формата запуска проекта — своя сетка: 3 колонки, а не 4. */
-@media (min-width:760px){ .project-launch .formats-grid{grid-template-columns:repeat(3,minmax(0,1fr))} }
+
 
 /* ---------- пресса ---------- */
 .press-grid{display:grid; gap:24px}
@@ -1585,3 +1584,18 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 /* штатные элементы форм (флажки, списки) берут цвета выбранной темы, а не системной */
 :root[data-theme="dark"]{color-scheme:dark}
 :root[data-theme="light"]{color-scheme:light}
+
+/* На широком экране вводные тексты идут во всю ширину колонки — без узкой
+   полосы текста и пустого поля справа. */
+@media (min-width:760px){
+  .deck-head .sub,.deck-block .sub,.deck-after,.formats-head,.formats-head .sub{max-width:none}
+}
+
+/* Страницы проектов на мониторе: колонка текста занимает всю ширину страницы,
+   а не узкую полосу с пустым полем справа. На телефоне и планшете — как было. */
+@media (min-width:1000px){
+  .doc-head h1{max-width:none}
+  .doc-lead,.doc-state,.doc-block p,.doc-note,.faq dd,.case p{max-width:none}
+  .doc-block h2,.doc-page .doc-block > h2 > span{max-width:none}
+  .summary-list li,.doc-lead-in{max-width:none}
+}

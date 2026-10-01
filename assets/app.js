@@ -1,8 +1,8 @@
-import { T, PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610020133';
-import { DECK } from './deck.js?v=202610020133';
-import { LOGOS } from './logos.js?v=202610020133';
+import { T, PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610020157';
+import { DECK } from './deck.js?v=202610020157';
+import { LOGOS } from './logos.js?v=202610020157';
 import { createViewer } from './viewer.js?v=202609301526';
-import { syncSnaps } from './snap.js?v=202610020133';
+import { syncSnaps } from './snap.js?v=202610020157';
 import { NEWS } from './news.js?v=202609301526';
 
 /* Сайт — витрина: показываем отобранные материалы. Канал получает весь поток.
@@ -849,7 +849,7 @@ function renderLaunchDiag() {
       </div>
       ${step > 0 ? `<button type="button" class="diag-back">${t.back}</button>` : ''}`;
   } else {
-    const counts = [0, 0, 0];
+    const counts = T[lang].projects.launch.items.map(() => 0);
     launchDiagAnswers.forEach((f) => counts[f]++);
     const bestIdx = counts.indexOf(Math.max(...counts));
     const fmt = T[lang].projects.launch.items[bestIdx];
