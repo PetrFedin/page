@@ -1,9 +1,9 @@
-import { T, PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610020159';
-import { DECK } from './deck.js?v=202610020159';
-import { LOGOS } from './logos.js?v=202610020159';
+import { T, PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610020207';
+import { DECK } from './deck.js?v=202610020207';
+import { LOGOS } from './logos.js?v=202610020207';
 import { createViewer } from './viewer.js?v=202609301526';
-import { syncSnaps } from './snap.js?v=202610020159';
-import { NEWS } from './news.js?v=202609301526';
+import { syncSnaps } from './snap.js?v=202610020207';
+import { NEWS } from './news.js?v=202610020207';
 
 /* Сайт — витрина: показываем отобранные материалы. Канал получает весь поток.
    Лента идёт от свежего к старому по дате публикации — «Показать ещё» раскрывает
@@ -33,7 +33,9 @@ const store = {
 /* ---------- просмотрщик снимков ---------- */
 const viewer = createViewer({ labels: () => T[lang].projects.viewer });
 const openPhoto = (list, i = 0) => viewer.open(list, i);
-const openPortrait = () => openPhoto([{ src: '/assets/photo/petr-portrait.webp', alt: $('#hero-photo').alt }]);
+/* портрет на английской версии — другой кадр */
+const portraitSrc = () => (lang === 'en' ? '/assets/photo/petr-ny.webp' : '/assets/photo/petr-portrait.webp');
+const openPortrait = () => openPhoto([{ src: portraitSrc(), alt: $('#hero-photo').alt }]);
 $('#portrait-btn').addEventListener('click', openPortrait);
 $('#avatar-btn').addEventListener('click', openPortrait);
 
@@ -191,6 +193,7 @@ function render() {
   const backLabel = lang === 'ru' ? 'Назад' : 'Back';
   $('#cv-back').setAttribute('aria-label', backLabel);
   $('#cv-back').title = backLabel;
+  ['#hero-photo', '#photo-big', '#hero-avatar'].forEach((id) => { const src = portraitSrc(); if (!$(id).src.endsWith(src)) $(id).src = src; });
   $('#hero-photo').alt = t.hero.photoAlt;
   $('#photo-big').alt = t.hero.photoAlt;
   $('#hero-avatar').alt = t.hero.photoAlt;
@@ -262,7 +265,7 @@ function render() {
       <div class="press-item"><h4>${t.press.longLabel}</h4><p id="bio-long">${t.press.long}</p>
         <button class="btn btn-sm" type="button" data-copy="bio-long">${t.press.copy}</button></div>
       <div class="press-item"><h4>${t.press.photoLabel}</h4>
-        <a class="btn btn-sm" href="/assets/photo/petr-formal.jpg" download>${t.press.photoBtn}</a></div>
+        <a class="btn btn-sm" href="/assets/photo/${lang === 'en' ? 'petr-ny' : 'petr-formal'}.jpg" download>${t.press.photoBtn}</a></div>
     </div>
     <div class="press-side">
       <h4>${t.press.topicsLabel}</h4>

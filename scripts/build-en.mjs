@@ -12,6 +12,7 @@ import { fileURLToPath } from 'node:url';
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const ЗАМЕНЫ = [
   ['<html lang="ru">', '<html lang="en">'],
+  ['/assets/photo/petr-portrait.webp', '/assets/photo/petr-ny.webp'],
   ['<title>Пётр Федин — фэшн-консалтинг и проекты</title>',
    '<title>Petr Fedin — fashion advisory and ventures</title>'],
   ['content="Консалтинг для фэшн-брендов и ритейла и собственные IT-продукты: Syntha, ChatX, Renova, MFW+BFS. Стратегия, экономика и трансформация фэшн-бизнеса."',
