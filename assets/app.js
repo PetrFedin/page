@@ -1,6 +1,6 @@
-import { T, PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610012335';
+import { T, PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610012339';
 import { DECK } from './deck.js?v=202609301526';
-import { LOGOS } from './logos.js?v=202610012335';
+import { LOGOS } from './logos.js?v=202610012339';
 import { createViewer } from './viewer.js?v=202609301526';
 import { syncSnaps } from './snap.js?v=202609301526';
 import { NEWS } from './news.js?v=202609301526';

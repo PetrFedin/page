@@ -6,8 +6,8 @@
 
    Какой это проект, страница сообщает атрибутом data-project на своём
    теге script: иначе пришлось бы держать две почти одинаковые копии. */
-import { PROJECTS, T } from './content.js?v=202610012335';
-import { LOGOS } from './logos.js?v=202610012335';
+import { PROJECTS, T } from './content.js?v=202610012339';
+import { LOGOS } from './logos.js?v=202610012339';
 import { createViewer } from './viewer.js?v=202609301526';
 import { syncSnaps } from './snap.js?v=202609301526';
 
