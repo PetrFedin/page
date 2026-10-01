@@ -1,4 +1,4 @@
-import { T, PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610011935';
+import { T, PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610011940';
 import { DECK } from './deck.js?v=202609301526';
 import { LOGOS } from './logos.js?v=202610011748';
 import { createViewer } from './viewer.js?v=202609301526';
@@ -616,10 +616,14 @@ $('#modal-cta').addEventListener('click', () => {
 });
 
 /* ---------- «Сейчас»: статусы проектов и последний пост ---------- */
+/* Порядок в «Сейчас» — по стадии готовности (кто дальше всех), а не по
+   порядку карточек в разделе «Проекты» (там порядок — витринный, не менять). */
+const NOW_STAGE_RANK = { renova: 0, mfw: 1, chatx: 2, syntha: 3, promomed: 4 };
 function renderNow() {
   const t = T[lang];
   $('#now-label').textContent = t.now.label;
-  $('#now-projects').innerHTML = PROJECTS.map((p) => `
+  const byStage = [...PROJECTS].sort((a, b) => NOW_STAGE_RANK[a.id] - NOW_STAGE_RANK[b.id]);
+  $('#now-projects').innerHTML = byStage.map((p) => `
     <li><button type="button" class="now-project" data-goto-project="${p.id}">
       <span class="now-dot" aria-hidden="true"></span><b>${p.name}</b><span>${p[lang].stage}</span>
     </button></li>`).join('');

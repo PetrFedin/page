@@ -13,7 +13,7 @@ export const T = {
       ctaProjects: 'Проекты',
       ctaFeed: 'Лента',
       ctaContact: 'Связаться',
-      bio: 'Работаю на стыке стратегии, коммерции, продукта, данных и капитала — от рынка и коллекции до запаса и денег.',
+      bio: 'Работаю на стыке стратегии, коммерции, продукта и данных — от рынка и коллекции до запаса и денег.',
       factsTitle: 'Релевантный опыт',
       facts: [
         {
@@ -687,7 +687,7 @@ export const T = {
       ctaProjects: 'Ventures',
       ctaFeed: 'Feed',
       ctaContact: 'Contact',
-      bio: 'I work where strategy, commerce, product, data and capital meet — from market and collection through to inventory and cash.',
+      bio: 'I work where strategy, commerce, product and data meet — from market and collection through to inventory and cash.',
       factsTitle: 'Relevant experience',
       facts: [
         { id: 'buying', n: 'Buying and assortment',
