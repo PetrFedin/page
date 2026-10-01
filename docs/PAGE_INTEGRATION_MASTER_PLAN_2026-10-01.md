@@ -143,3 +143,102 @@ Turnstile, analytics and media origins must be explicitly reflected if enabled.
 
 **Sequencing:** schema/HTML validation can be added with the SEO phase; CSP should be introduced before adding more third-party analytics/embeds.
 
+## Additional wave — content registry, feeds and supply-chain-safe static delivery
+
+This wave adds distribution/reuse without sacrificing static-first simplicity.
+
+### Single Project Content Registry — ADOPT
+
+Move repeated project metadata into one structured build-time registry:
+
+- slug;
+- RU/EN title/summary;
+- role/context;
+- date/status;
+- technologies/topics;
+- hero/media refs;
+- canonical URL;
+- related-project tags;
+- external links;
+- visibility/publish state.
+
+Use that registry to generate:
+
+- project cards;
+- project navigation;
+- JSON-LD;
+- sitemap/hreflang;
+- OG metadata;
+- RSS/JSON Feed entries;
+- related-project links.
+
+The generated HTML remains static. This prevents SEO/feed/card metadata from drifting apart.
+
+### RSS + JSON Feed — ADOPT/CONDITIONAL
+
+For published projects/updates, generate static feeds from the same registry.
+
+Fields:
+
+- stable ID;
+- canonical URL;
+- title/summary;
+- published/updated date;
+- language;
+- tags;
+- optional hero.
+
+Do not publish drafts/private contact data.
+
+If the site is not updated frequently enough to justify a feed, the implementation can remain dormant but generation should be deterministic.
+
+### Related Projects / Topic Graph — ADOPT
+
+Use explicit tags/relationships in the registry to render:
+
+- related project;
+- same domain;
+- same capability;
+- previous/next relevant case study.
+
+No recommendation service is needed. Deterministic build-time relations keep the site fast and explainable.
+
+### Subresource Integrity / Third-party Asset Inventory — ADOPT
+
+For any externally loaded static script/style that is pinned and supports it, use integrity metadata (SRI) and a documented third-party asset inventory.
+
+Inventory:
+
+- dependency/origin;
+- purpose;
+- version/hash;
+- CSP origin;
+- privacy effect;
+- fallback/criticality.
+
+Prefer self-hosted/pinned assets when practical.
+
+Do not use SRI with mutable unversioned resources where the hash would unpredictably break the site; remove or pin those dependencies instead.
+
+### Static Build Manifest — ADOPT
+
+Generate a small release manifest containing:
+
+- Git SHA;
+- build timestamp;
+- content-registry version/hash;
+- key generated artefact hashes;
+- sitemap/feed generation status.
+
+This improves deployment verification without adding a backend.
+
+### Additional acceptance
+
+- project card/JSON-LD/sitemap/feed derive from the same metadata source;
+- RU/EN variants remain explicitly linked;
+- related-project output is deterministic;
+- third-party assets are inventoried and compatible with CSP;
+- release manifest identifies exact content/build state.
+
+**Sequencing:** content registry first -> reuse for structured data/sitemap/OG -> feeds/related projects -> SRI inventory/build manifest.
+
