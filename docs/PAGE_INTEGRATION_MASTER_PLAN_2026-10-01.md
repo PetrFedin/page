@@ -82,3 +82,64 @@ Umami is optional. GrowthBook only after reliable event measurement and a real c
 10. PAGE-INT-09 scale gates
 
 **Implementation instruction:** improve quality and conversion without sacrificing static-site simplicity.
+
+## Additional wave — structured data and HTML/security validation
+
+### schema-dts / Schema.org structured data — ADOPT
+
+Reference: https://github.com/google/schema-dts
+
+Generate typed JSON-LD at build time for the site's actual entities:
+
+- Person;
+- WebSite;
+- ProfilePage / AboutPage where appropriate;
+- CreativeWork/SoftwareApplication for projects where the schema truthfully applies;
+- Organization only where a real organisation is being described.
+
+Use one structured metadata source to generate JSON-LD and avoid hand-edited divergence between RU/EN pages.
+
+Do not add ratings, awards, employers, products or claims that are not actually supported by the page/content.
+
+### html-validate CI — ADOPT
+
+Reference: https://github.com/html-validate/html-validate
+
+Add deterministic HTML validation to CI alongside Lighthouse/axe/Playwright.
+
+Catch:
+
+- invalid nesting;
+- duplicate IDs;
+- bad attributes;
+- heading/form errors;
+- broken ARIA relationships where statically detectable.
+
+This is especially useful because the project intentionally stays static/minimal rather than relying on a framework compiler.
+
+### Security headers / CSP — ADOPT NATIVE CONFIG
+
+Add a documented Content-Security-Policy and related headers appropriate to the current static site + Cloudflare function.
+
+At minimum evaluate:
+
+- Content-Security-Policy;
+- Referrer-Policy;
+- Permissions-Policy;
+- X-Content-Type-Options;
+- frame-ancestors;
+- form/connect destinations.
+
+Generate/maintain the policy from actual required origins; do not weaken to broad wildcards merely to make a third-party embed work.
+
+Turnstile, analytics and media origins must be explicitly reflected if enabled.
+
+### Acceptance extension
+
+- structured data validates against the rendered content and remains RU/EN consistent;
+- HTML CI catches invalid static output;
+- CSP does not block required site/contact functionality;
+- no structured-data claim exists only for SEO.
+
+**Sequencing:** schema/HTML validation can be added with the SEO phase; CSP should be introduced before adding more third-party analytics/embeds.
+
