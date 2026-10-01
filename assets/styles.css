@@ -666,6 +666,8 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
   font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); font-weight:500;
 }
 .post-section p{color:var(--ink); font-size:15.5px; line-height:1.6}
+.post-section ul{margin:2px 0 0; padding-left:20px; display:grid; gap:8px}
+.post-section li{color:var(--ink); font-size:15.5px; line-height:1.55}
 .post-modal-actions{display:flex; flex-wrap:wrap; gap:10px; margin-top:22px}
 
 @media (min-width:760px){
@@ -1016,12 +1018,13 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
   /* у полосы опыта и списка услуг свои фоны — выравниваем под карточку */
   .services.snap{background:none; border:none; border-radius:0}
   .services.snap li{border:1px solid var(--line); border-radius:12px; overflow:hidden}
-  .snap-dots{display:flex; gap:7px; justify-content:center; margin-top:14px}
+  /* Точка рисуется 6px-ной, а зона нажатия — 24px (padding + background-clip): палец попадает уверенно */
+  .snap-dots{display:flex; gap:0; justify-content:center; margin-top:6px}
   .snap-dots button{
-    width:6px; height:6px; border-radius:999px; border:none; padding:0;
-    background:var(--line); cursor:pointer; transition:width .18s ease, background .18s ease;
+    box-sizing:border-box; width:24px; height:24px; padding:9px; border:none; border-radius:999px;
+    background:var(--line); background-clip:content-box; cursor:pointer; transition:width .18s ease, background .18s ease;
   }
-  .snap-dots button[aria-current="true"]{width:18px; background:var(--accent)}
+  .snap-dots button[aria-current="true"]{width:36px; background:var(--accent); background-clip:content-box}
   /* в начале дорожки ещё не пролистанные точки мягко мигают — подсказка, что можно свайпнуть */
   .snap-dots[data-first="true"] button:not([aria-current="true"]){animation:dot-hint 1.8s ease-in-out infinite}
   .snap-dots[data-first="true"] button:nth-child(3){animation-delay:.25s}

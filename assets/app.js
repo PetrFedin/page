@@ -1,9 +1,9 @@
-import { T, PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610020223';
-import { DECK } from './deck.js?v=202610020223';
-import { LOGOS } from './logos.js?v=202610020223';
+import { T, PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610020229';
+import { DECK } from './deck.js?v=202610020229';
+import { LOGOS } from './logos.js?v=202610020229';
 import { createViewer } from './viewer.js?v=202609301526';
-import { syncSnaps } from './snap.js?v=202610020223';
-import { NEWS } from './news.js?v=202610020223';
+import { syncSnaps } from './snap.js?v=202610020229';
+import { NEWS } from './news.js?v=202610020229';
 
 /* Сайт — витрина: показываем отобранные материалы. Канал получает весь поток.
    Лента идёт от свежего к старому по дате публикации — «Показать ещё» раскрывает
@@ -181,6 +181,7 @@ function render() {
   document.documentElement.lang = lang;
 
   $('#lang-toggle').textContent = lang === 'ru' ? 'EN' : 'RU';
+  $('#lang-toggle').setAttribute('aria-label', lang === 'ru' ? 'EN — switch to English' : 'RU — переключить на русский');
   applyTextSize(document.documentElement.dataset.textSize || 'normal');
   renderClock();
   document.querySelectorAll('[data-nav]').forEach((a) => { a.textContent = t.nav[a.dataset.nav]; });
@@ -1088,13 +1089,32 @@ $('#news-more').addEventListener('click', () => {
 /* Только эти метки рисуются структурным блоком — иначе обычное
    предложение с двоеточием («В магазине продажи видно каждый день:
    что уходит...») ошибочно превращалось в заголовок. */
-const POST_LABELS = ['О чём материал', 'Разбор', 'Мнение аналитика', 'Выводы'];
+const POST_LABELS = [
+  'О чём материал', 'Разбор', 'Мнение аналитика', 'Выводы',
+  'What the piece covers', 'The breakdown', 'Analyst’s take', 'Analyst\'s take', 'Takeaways'
+];
+/* Блок после метки: обычные строки — абзацы, строки с «• » — маркированный список
+   (так выводы читаются как пункты, а не одной стеной текста). */
+function renderPostBlock(content) {
+  let html = '';
+  let items = [];
+  const flush = () => {
+    if (items.length) { html += `<ul>${items.map((i) => `<li>${i}</li>`).join('')}</ul>`; items = []; }
+  };
+  content.split('\n').forEach((line) => {
+    const m = line.match(/^•\s+(.*)/);
+    if (m) items.push(m[1].trim());
+    else if (line.trim()) { flush(); html += `<p>${line.trim()}</p>`; }
+  });
+  flush();
+  return html;
+}
 function renderPostBody(text) {
   return text.split('\n\n').map((block) => {
     const label = POST_LABELS.find((l) => block.startsWith(`${l}:`));
     return label
-      ? `<div class="post-section"><b>${label}</b><p>${block.slice(label.length + 1).trim()}</p></div>`
-      : `<p>${block.trim()}</p>`;
+      ? `<div class="post-section"><b>${label}</b>${renderPostBlock(block.slice(label.length + 1).trim())}</div>`
+      : renderPostBlock(block);
   }).join('');
 }
 

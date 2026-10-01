@@ -283,7 +283,7 @@ export const T = {
             notFit: 'Не подходит, если выбор уже сделан и нужно только настроить: тогда достаточно короткого внедрения без обзора рынка.'
           },
           {
-            id: 'transform', n: '03', title: 'Трансформация существующего', term: 'проектно или сопровождение, 12–16 недель',
+            id: 'transform', n: '03', title: 'Трансформация существующего', term: 'проектно, 12–16 недель',
             body: 'Продукт или процесс есть, но не поспевает за бизнесом. Пересобираю архитектуру под то, как компания работает на самом деле.',
             lead: 'Пересобираю действующий продукт или процесс под реальную работу компании — без переписывания кода ради кода.',
             steps: [
@@ -622,7 +622,7 @@ export const T = {
           ],
           whyFit: 'Не раз возвращал бизнесу управляемость: от кассового календаря и приоритетов до роста, с полной ответственностью перед собственником. Это ядро роли генерального директора.'
         },
-        { n: '03', title: 'Директор по закупкам и аналитике', abbr: 'CDO', term: 'Закупка, ассортимент, данные',
+        { n: '03', title: 'Директор по закупкам и аналитике', abbr: 'CBAO', term: 'Закупка, ассортимент, данные',
           body: 'Закупка и ассортимент как управляемая система: бюджет, прогноз спроса, аналитика и отчётность в одном цикле решений, а не россыпью задач.',
           competencies: [
             'Бюджет закупки и лимиты по брендам, категориям и каналам',
@@ -1074,7 +1074,7 @@ export const T = {
             notFit: 'Not for you if the choice is made and you only need setup. A short rollout without the market review will do.'
           },
           {
-            id: 'transform', n: '03', title: 'Transforming what exists', term: 'project or ongoing, 12–16 weeks',
+            id: 'transform', n: '03', title: 'Transforming what exists', term: 'project, 12–16 weeks',
             body: 'Your product or process exists but can’t keep up with the business. I rebuild its architecture and digital set-up around how the company really works.',
             lead: 'Rebuilding an existing product or process around how the company actually works — without rewriting code for its own sake.',
             steps: [
@@ -1368,7 +1368,7 @@ export const T = {
           ],
           whyFit: 'I have restored control of a business more than once, from cash calendar and priorities to a return to growth, with full accountability to the owner. That is the core of the CEO role, not a one-off project.'
         },
-        { n: '03', title: 'Head of Buying & Analytics', abbr: 'CDO', term: 'Buying, assortment, data',
+        { n: '03', title: 'Chief Buying & Analytics Officer', abbr: 'CBAO', term: 'Buying, assortment, data',
           body: 'Buying and assortment as one managed system: budget, demand forecast, analytics and reporting on one data model.',
           competencies: [
             'Open-to-buy and limits by brand, category and channel',
