@@ -452,7 +452,7 @@ export const T = {
       entityName: 'Название организации (по желанию)',
       entityInn: 'ИНН (по желанию)',
       topic: 'Тема',
-      topics: { consulting: 'Консалтинг', investors: 'Инвестиции', syntha: 'Syntha', renova: 'Renova', chatx: 'ChatX', press: 'Пресса и комментарий', event: 'Выступление или участие в мероприятии', other: 'Другое' },
+      topics: { consulting: 'Консалтинг', investors: 'Инвестиции', syntha: 'Syntha', renova: 'Renova', chatx: 'ChatX', mfw: 'MFW+BFS', promomed: 'Promomed + Состояние', press: 'Пресса и комментарий', event: 'Выступление или участие в мероприятии', other: 'Другое' },
       topicOther: 'Напишите тему',
       personaLabel: 'Пишу как',
       personas: [
@@ -913,7 +913,7 @@ export const T = {
       entityName: 'Company name (optional)',
       entityInn: 'Tax ID (optional)',
       topic: 'Topic',
-      topics: { consulting: 'Advisory', investors: 'Investment', syntha: 'Syntha', renova: 'Renova', chatx: 'ChatX', press: 'Press and comment', event: 'Speaking or event participation', other: 'Other' },
+      topics: { consulting: 'Advisory', investors: 'Investment', syntha: 'Syntha', renova: 'Renova', chatx: 'ChatX', mfw: 'MFW+BFS', promomed: 'Promomed + Состояние', press: 'Press and comment', event: 'Speaking or event participation', other: 'Other' },
       topicOther: 'Describe the topic',
       personaLabel: 'Writing as',
       personas: [
@@ -1262,23 +1262,23 @@ export const PROJECTS = [
     shots: ['/assets/shots/promomed-1.jpg', '/assets/shots/promomed-2.jpg'],
     ru: {
       tagline: '«СОСТОЯНИЕ» — рабочая концепция комьюнити и ежегодной конференции в сфере здоровья и красоты',
-      roadmap: [{ label: 'Концепция и MVP', state: 'done' }, { label: 'Согласование с Promomed', state: 'current' }, { label: 'Разработка и запуск', state: 'next' }],
+      roadmap: [{ label: 'Концепция и MVP', state: 'done' }, { label: 'Демонстрация Promomed', state: 'current' }, { label: 'Разработка и запуск', state: 'next' }],
       stage: 'Концепция, MVP',
       card: 'Платформа, которая превращает одну конференцию в год в постоянно растущее комьюнити — и даёт «Промомед» управляемую, измеримую связь с аудиторией вместо разового события.',
       what: 'Собран MVP рабочей концепции «СОСТОЯНИЕ»: персональный маршрут дня вместо общей программы для всех, Smart Route — расписание, собранное под интересы конкретного человека, Moment Mode («у меня есть 20 минут» — лучший следующий шаг с учётом времени), и «Паспорт СОСТОЯНИЯ» — не рейтинг, а личный след участия (знания, событие, диалог, практика), который открывает персональный набор материалов после конференции.',
       who: '«Промомед» — ведущая инновационная биофармацевтическая компания с потенциалом значительного роста в перспективных сегментах фармацевтического рынка — а также её клиенты и партнёры.',
       why: 'Комьюнити вокруг здоровья и ежегодная конференция обычно ведутся раздельно: рассылки и соцсети — отдельно, регистрация и программа конференции — отдельно. Связь с аудиторией, которая копится весь год, не работает на само мероприятие, а после конференции у участника остаётся пакет раздаточных материалов, а не персональный маршрут.',
-      how: 'Предлагаем одну платформу: комьюнити не выключается между конференциями, а конференция строится на уже накопленной связи с клиентами и партнёрами. Важно: «СОСТОЯНИЕ» — рабочая концепция предложения для «Промомед», не официальный продукт компании — название, программа, эксперты, партнёры, даты и показатели в MVP демонстрационные. Точный состав экранов и функций — предмет согласования с «Промомед» на следующем этапе.'
+      how: 'Мы разрабатываем «СОСТОЯНИЕ» для «Промомед»: одну платформу, где комьюнити не выключается между конференциями, а конференция строится на уже накопленной связи с клиентами и партнёрами. Сейчас — стадия демонстрации: экраны, сценарии и структура показывают, как это будет работать и что это даст компании, партнёрам и участникам. Название, программа, эксперты, партнёры, даты и показатели в MVP — иллюстративные, под реальный запуск.'
     },
     en: {
-      roadmap: [{ label: 'Concept and MVP', state: 'done' }, { label: 'Alignment with Promomed', state: 'current' }, { label: 'Build and launch', state: 'next' }],
+      roadmap: [{ label: 'Concept and MVP', state: 'done' }, { label: 'Demo to Promomed', state: 'current' }, { label: 'Build and launch', state: 'next' }],
       tagline: '“SOSTOYANIE” — a working concept for a community and annual conference in health and wellness',
       stage: 'Concept, MVP',
       card: 'A platform that turns one conference a year into a continuously growing community — giving Promomed a managed, measurable relationship with its audience instead of a one-off event.',
       what: 'An MVP has been built for the “SOSTOYANIE” working concept: a personal day route instead of one programme for everyone, Smart Route — a schedule built around one person’s interests, Moment Mode (“I have 20 minutes” — the best next step given the time available), and a “SOSTOYANIE Passport” — not a leaderboard, but a personal record of participation (knowledge, event, dialogue, practice) that unlocks a personal set of materials after the conference.',
       who: 'Promomed — a leading innovative biopharmaceutical company with the potential for significant growth in promising segments of the pharmaceutical market — and its clients and partners.',
       why: 'A health community and an annual conference are usually run apart: newsletters and social media on one side, conference registration and program on the other. Audience relationships built up over the year don’t feed into the event itself, and what a participant leaves with is a handout pack rather than a personal route.',
-      how: 'We’re proposing a single platform: the community stays active between conferences, and the conference is built on relationships already gathered. Important: “SOSTOYANIE” is a working concept proposed for Promomed, not an official company product — the name, programme, experts, partners, dates and figures in the MVP are illustrative. The exact set of screens and features is for Promomed to align on at the next stage.'
+      how: 'We’re building “SOSTOYANIE” for Promomed: a single platform where the community stays active between conferences, and the conference is built on relationships already gathered. We’re at the demo stage now: the screens, flows and structure show how this will work and what it brings the company, its partners and participants. The name, programme, experts, partners, dates and figures in the MVP are illustrative, for the real launch.'
     }
   }
 

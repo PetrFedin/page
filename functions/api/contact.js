@@ -90,6 +90,9 @@ export async function onRequestPost({ request, env }) {
     });
   }
 
-  if (!tg.ok) return new Response('telegram failed', { status: 502 });
+  if (!tg.ok) {
+    console.error('telegram api error', tg.status, await tg.text());
+    return new Response('telegram failed', { status: 502 });
+  }
   return new Response('ok', { status: 200 });
 }
