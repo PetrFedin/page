@@ -1779,7 +1779,7 @@ export const PROJECTS = [
     id: 'promomed',
     name: 'Promomed + Состояние',
     device: 'iphone',
-    shots: ['/assets/shots/promomed-1.jpg', '/assets/shots/promomed-2.jpg'],
+    shots: ['/assets/shots/promomed-3.jpg', '/assets/shots/promomed-4.jpg'],
     ru: {
       tagline: '«СОСТОЯНИЕ» — комьюнити и ежегодная конференция о здоровье и красоте: один маршрут на весь год',
       roadmap: [{ label: 'Рабочий прототип', state: 'done' }, { label: 'Демонстрация Promomed', state: 'current' }, { label: 'Разработка и запуск', state: 'next' }],
