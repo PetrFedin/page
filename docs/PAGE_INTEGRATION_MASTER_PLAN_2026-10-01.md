@@ -500,3 +500,99 @@ Add an optional presentation route with:
 
 **Sequencing:** Content Registry + proof metadata -> Proof Cards -> safe embeds -> 3D proof -> Sales Demo Mode.
 
+## Premium commercial wave — generated Client Pitch Rooms
+
+This wave turns syntha.pro from a public portfolio into a reusable sales instrument for specific clients, partners and investors without introducing a heavy CMS/application backend.
+
+### Pitch Room Definition — ADOPT
+
+Create build-time structured pitch-room metadata:
+
+- pitch ID/slug;
+- audience/client category;
+- language;
+- headline/value proposition;
+- selected projects;
+- selected proof cards;
+- selected capabilities;
+- relevant metrics/evidence;
+- CTA;
+- expiry/archive status;
+- public / unlisted / protected-delivery classification.
+
+Do not put confidential client information into a public static build.
+
+### Generated Proposal Microsite — ADOPT
+
+From the same canonical project/proof registry generate a focused route:
+
+problem/context -> why relevant -> selected solutions -> innovation -> proof -> delivery model -> next step
+
+No manual copy-paste of project claims; reuse canonical proof metadata so status cannot drift.
+
+### Capability Bundle View — ADOPT
+
+Allow a pitch to group capabilities across projects, e.g.:
+
+- Event Platform;
+- Fashion PLM/Commerce;
+- AI Work OS;
+- City/Spatial Experience;
+- Evidence/Legal;
+- High-trust Analytics.
+
+This shows that the portfolio is a reusable technology capability base rather than disconnected demos.
+
+### QR / Presentation Handoff — ADOPT
+
+Generate QR and short presentation-safe URL for a pitch room.
+
+Use cases:
+
+- meeting;
+- event;
+- investor demo;
+- proposal follow-up.
+
+QR is a navigation link only; no private credentials embedded.
+
+### Print / PDF-friendly Proposal — ADOPT
+
+Provide a print stylesheet and deterministic proposal export surface using the same page content.
+
+If a PDF artefact is generated, it is derived from the pitch-room version and records:
+
+- pitch version/hash;
+- generated_at;
+- source Git SHA.
+
+### Protected Delivery — CONDITIONAL
+
+For genuinely non-public material, use an external access-control layer or separate controlled delivery mechanism rather than pretending an obscure static URL is secure.
+
+Public static Page repository must not contain confidential proposal content.
+
+### Pitch Analytics — ADOPT/OPTIONAL
+
+Privacy-safe events:
+
+- pitch opened;
+- project proof opened;
+- live demo opened;
+- CTA used.
+
+Do not track individual recipients more deeply than consent/purpose requires.
+
+### Additional acceptance
+
+- pitch claims derive from canonical project/proof metadata;
+- live/prototype/concept status cannot be overridden locally;
+- public build contains no confidential client data;
+- pitch works on iPhone/iPad/desktop;
+- print/PDF matches exact pitch version;
+- archived/expired room is clearly marked/removed according to deployment policy.
+
+**Sequencing:** Project Content Registry + Proof Manifest -> pitch definitions -> generated rooms -> QR/print -> optional protected delivery/analytics.
+
+**Commercial framing:** one codebase can generate tailored, evidence-backed proposals for a client or investor in minutes while preserving truth and visual quality.
+
