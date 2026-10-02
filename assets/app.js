@@ -1,9 +1,9 @@
-import { T, PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610020312';
-import { DECK } from './deck.js?v=202610020312';
-import { LOGOS } from './logos.js?v=202610020312';
+import { T, PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610020330';
+import { DECK } from './deck.js?v=202610020330';
+import { LOGOS } from './logos.js?v=202610020330';
 import { createViewer } from './viewer.js?v=202609301526';
-import { syncSnaps } from './snap.js?v=202610020312';
-import { NEWS } from './news.js?v=202610020312';
+import { syncSnaps } from './snap.js?v=202610020330';
+import { NEWS } from './news.js?v=202610020330';
 
 /* Сайт — витрина: показываем отобранные материалы. Канал получает весь поток.
    Лента идёт от свежего к старому по дате публикации — «Показать ещё» раскрывает
@@ -1096,9 +1096,9 @@ $('#news-more').addEventListener('click', () => {
    что уходит...») ошибочно превращалось в заголовок. */
 const POST_LABELS = [
   'О чём материал', 'Разбор', 'Мнение аналитика', 'Выводы',
-  'Что изменилось', 'Что это даёт', 'Что дальше',
+  'Что изменилось', 'Что это даёт',
   'What the piece covers', 'The breakdown', 'Analyst’s take', 'Analyst\'s take', 'Takeaways',
-  'What changed', 'What it gives you', 'What’s next'
+  'What changed', 'What it gives you'
 ];
 /* Блок после метки: обычные строки — абзацы, строки с «• » — маркированный список
    (так выводы читаются как пункты, а не одной стеной текста). */

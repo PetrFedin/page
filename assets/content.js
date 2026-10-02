@@ -1753,7 +1753,7 @@ export const PROJECTS = [
     id: 'mfw',
     name: 'MFW+BFS',
     device: 'iphone',
-    shots: ['/assets/shots/mfw-1.jpg', '/assets/shots/mfw-2.jpg', '/assets/shots/bfs-1.jpg', '/assets/shots/bfs-3.jpg'],
+    shots: ['/assets/shots/mfw-3.jpg', '/assets/shots/mfw-4.jpg', '/assets/shots/bfs-4.jpg', '/assets/shots/bfs-5.jpg'],
     ru: {
       roadmap: [{ label: 'MVP', state: 'done' }, { label: 'Демонстрация организаторам', state: 'current' }, { label: 'Использование на мероприятиях', state: 'next' }],
       tagline: 'Неделя моды в Москве и BRICS+ Fashion Summit на одной платформе: два события, одна аудитория, один аккаунт',
