@@ -1,9 +1,9 @@
-import { T, PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610020229';
-import { DECK } from './deck.js?v=202610020229';
-import { LOGOS } from './logos.js?v=202610020229';
+import { T, PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610020303';
+import { DECK } from './deck.js?v=202610020303';
+import { LOGOS } from './logos.js?v=202610020303';
 import { createViewer } from './viewer.js?v=202609301526';
-import { syncSnaps } from './snap.js?v=202610020229';
-import { NEWS } from './news.js?v=202610020229';
+import { syncSnaps } from './snap.js?v=202610020303';
+import { NEWS } from './news.js?v=202610020303';
 
 /* Сайт — витрина: показываем отобранные материалы. Канал получает весь поток.
    Лента идёт от свежего к старому по дате публикации — «Показать ещё» раскрывает
@@ -77,6 +77,12 @@ function addTopButtons(label) {
 }
 
 addEventListener('resize', syncSnaps);
+
+/* Высота шапки нужна прилипающим заголовкам разделов: они встают ровно под ней, без щели */
+const topbarEl = document.querySelector('.topbar');
+const syncTopbarHeight = () => document.documentElement.style.setProperty('--topbar-h', `${topbarEl.offsetHeight}px`);
+syncTopbarHeight();
+new ResizeObserver(syncTopbarHeight).observe(topbarEl);
 
 /* ---------- индикатор прогресса скролла ---------- */
 const scrollProgress = $('#scroll-progress');
@@ -986,10 +992,9 @@ $('#leak-close').addEventListener('click', () => leaveAll());
 leakModal.addEventListener('click', (e) => { if (e.target === leakModal) leaveAll(); });
 
 /* ---------- новости ---------- */
-/* На телефоне лента листается свайпом — показываем все посты выбранной категории,
-   и точек ровно столько, сколько постов. На широком экране — один ряд из трёх,
-   остальное по кнопке «Показать ещё». */
-function newsFirst() { return matchMedia('(max-width: 759px)').matches ? Infinity : 3; }
+/* Лента: сначала три последних поста выбранной категории (на телефоне листаются
+   свайпом, точек столько же), остальное — по кнопке «Показать ещё», затем «Свернуть». */
+function newsFirst() { return 3; }
 let newsShown = newsFirst();
 
 /* Разборы статей и рабочие материалы заканчиваются ссылкой отдельной

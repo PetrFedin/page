@@ -6,10 +6,10 @@
 
    Какой это проект, страница сообщает атрибутом data-project на своём
    теге script: иначе пришлось бы держать две почти одинаковые копии. */
-import { PROJECTS, T } from './content.js?v=202610020229';
-import { LOGOS } from './logos.js?v=202610020229';
+import { PROJECTS, T } from './content.js?v=202610020303';
+import { LOGOS } from './logos.js?v=202610020303';
 import { createViewer } from './viewer.js?v=202609301526';
-import { syncSnaps } from './snap.js?v=202610020229';
+import { syncSnaps } from './snap.js?v=202610020303';
 
 const $ = (sel) => document.querySelector(sel);
 const id = document.currentScript?.dataset.project
@@ -156,3 +156,11 @@ for (const sel of ['.grid-table', '.findings', '.principles', '.audiences', '.sh
 }
 syncSnaps();
 addEventListener('resize', syncSnaps);
+
+/* высота шапки для прилипающих заголовков разделов */
+const topbarEl = document.querySelector('.topbar');
+if (topbarEl) {
+  const syncTopbarHeight = () => document.documentElement.style.setProperty('--topbar-h', `${topbarEl.offsetHeight}px`);
+  syncTopbarHeight();
+  new ResizeObserver(syncTopbarHeight).observe(topbarEl);
+}
