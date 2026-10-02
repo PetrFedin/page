@@ -242,3 +242,84 @@ This improves deployment verification without adding a backend.
 
 **Sequencing:** content registry first -> reuse for structured data/sitemap/OG -> feeds/related projects -> SRI inventory/build manifest.
 
+## Additional wave — minimal asset build pipeline without framework migration
+
+The site should stay static-first, but a small deterministic build can improve cacheability and payload size without introducing React/Next/Astro.
+
+### Lightning CSS build step — ADOPT
+
+Reference: https://github.com/parcel-bundler/lightningcss
+
+Use Lightning CSS at build time for:
+
+- minification;
+- vendor-prefix/transformation where required;
+- syntax lowering for declared browser targets;
+- source-map generation in non-production/debug builds;
+- optional CSS modules only if the current architecture actually needs them.
+
+Keep source CSS human-readable in the repository. Generated CSS is a deployment artefact.
+
+### esbuild JavaScript step — ADOPT/CONDITIONAL
+
+Reference: https://github.com/evanw/esbuild
+
+Use a very small esbuild configuration only when it materially improves the existing static JS:
+
+- bundling modules;
+- minification;
+- dead-code removal;
+- target-browser lowering;
+- content-hashed output names.
+
+Do not use this as justification to migrate the site to an SPA or framework.
+
+If the current JS remains simpler and smaller unbundled, keep esbuild conditional.
+
+### Content-hashed asset manifest — ADOPT
+
+Build output should create stable immutable assets such as:
+
+- app.[hash].js;
+- styles.[hash].css;
+- generated project/OG assets where appropriate.
+
+Generate a manifest mapping logical source to output asset.
+
+HTML generation references the manifest so cache-busting is deterministic.
+
+### Cache-Control strategy — ADOPT
+
+Recommended deployment semantics:
+
+- hashed assets: long immutable cache;
+- HTML: shorter/revalidate;
+- feeds/sitemap: revalidate;
+- contact/API responses: never treated like immutable static assets.
+
+This complements Workbox rather than depending on it.
+
+### Bundle / Payload budget gate — ADOPT
+
+Add CI thresholds for:
+
+- main CSS compressed size;
+- main JS compressed size;
+- critical page total transfer;
+- number of third-party origins.
+
+A build step is only successful if it reduces/controls payload without harming accessibility or maintainability.
+
+### Additional acceptance
+
+- source remains framework-free/static-first;
+- production CSS/JS output is deterministic from Git SHA/config;
+- hashed assets can be cached immutably;
+- HTML references only existing manifest assets;
+- Lighthouse/Playwright/axe gates remain green after minification/bundling;
+- the build pipeline can be removed without changing content authority.
+
+**Sequencing:** content registry + existing CI first -> Lightning CSS -> optional esbuild -> hashed manifest/cache headers -> payload budgets.
+
+**Dependency note:** Lightning CSS currently uses MPL-2.0 and esbuild MIT upstream; re-check exact version/license before vendoring or redistribution.
+
