@@ -417,3 +417,86 @@ Keep the change only if it improves the intended journey without significant ban
 
 **Dependency note:** this uses native web-platform capabilities/reference specs rather than adding a new framework dependency.
 
+## Premium innovation wave — interactive proof cards and live product demonstrations
+
+This wave makes the portfolio stronger in sales conversations: visitors can verify and interact with selected product proof instead of seeing only screenshots and claims.
+
+### Project Proof Manifest — ADOPT
+
+Extend the build-time Project Content Registry with:
+
+- repository/project ID;
+- proof type;
+- release SHA;
+- last verified date;
+- live demo URL;
+- video/demo asset;
+- key capability;
+- status: live / controlled demo / prototype / concept;
+- evidence/reference links;
+- device targets;
+- fallback media.
+
+Never label a prototype or mocked provider flow as production/live.
+
+### Interactive Proof Card — ADOPT
+
+For selected projects provide one compact expandable surface:
+
+- problem;
+- solution;
+- one interactive/live proof;
+- one measurable/technical proof;
+- architecture/authority highlight;
+- current status;
+- open full case.
+
+### Sandboxed Live Demo Embed — CONDITIONAL
+
+For safe approved demos:
+
+- lazy-load iframe;
+- restrictive sandbox/permissions;
+- explicit open-interactive-demo action;
+- no automatic camera/microphone/location;
+- fallback screenshot/video;
+- mobile timeout/size guard.
+
+Never embed admin/private/secret-bearing surfaces.
+
+### 3D / Spatial Proof — ADOPT/CONDITIONAL
+
+Reference:
+
+https://github.com/google/model-viewer
+
+Use model-viewer only where 3D materially proves capability, e.g. Renova, Moscow or Antiqua.
+
+Load a small validated GLB derivative, not production master assets.
+
+### Live Status Truth Boundary — REQUIRED
+
+Claims such as production, live, PostgreSQL, real provider, pilot or field verified must come from maintained proof metadata, not inference from repository screenshots.
+
+### Sales Demo Mode — ADOPT
+
+Add an optional presentation route with:
+
+- 5–7 strongest projects;
+- problem -> solution -> innovation -> proof;
+- one CTA per project;
+- iPhone/iPad/desktop responsive;
+- same registry data as full site.
+
+### Additional acceptance
+
+- every interactive module has static fallback;
+- status claims resolve to proof manifest fields;
+- private/admin credentials cannot be exposed;
+- demo failure does not damage core portfolio;
+- 3D is lazy-loaded and performance budgets stay green;
+- RU/EN proof remains paired;
+- live/prototype/concept labels are unambiguous.
+
+**Sequencing:** Content Registry + proof metadata -> Proof Cards -> safe embeds -> 3D proof -> Sales Demo Mode.
+
