@@ -1,9 +1,9 @@
-import { T, PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610020303';
-import { DECK } from './deck.js?v=202610020303';
-import { LOGOS } from './logos.js?v=202610020303';
+import { T, PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610020305';
+import { DECK } from './deck.js?v=202610020305';
+import { LOGOS } from './logos.js?v=202610020305';
 import { createViewer } from './viewer.js?v=202609301526';
-import { syncSnaps } from './snap.js?v=202610020303';
-import { NEWS } from './news.js?v=202610020303';
+import { syncSnaps } from './snap.js?v=202610020305';
+import { NEWS } from './news.js?v=202610020305';
 
 /* Сайт — витрина: показываем отобранные материалы. Канал получает весь поток.
    Лента идёт от свежего к старому по дате публикации — «Показать ещё» раскрывает
@@ -1835,6 +1835,11 @@ $('#form').addEventListener('submit', async (e) => {
   const data = Object.fromEntries(new FormData(form));
 
   if (data.company) return;                       // honeypot: бот заполнил скрытое поле
+  if (window.turnstile && !data['cf-turnstile-response']) {
+    note.className = 'form-note';
+    note.textContent = t.contact.captchaWait;
+    return;
+  }
   if (!data.name?.trim() || !data.contact?.trim() || !data.message?.trim()) {
     note.className = 'form-note';
     note.textContent = t.contact.required;

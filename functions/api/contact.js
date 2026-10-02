@@ -37,10 +37,8 @@ export async function onRequestPost({ request, env }) {
 
   if (clean(body.company, 50)) return new Response('ok', { status: 200 }); // honeypot
 
-  /* Turnstile: временно выключено — на странице ещё placeholder вместо настоящего
-     site key, поэтому виджет не может выдать валидный токен никому. Включить
-     обратно, когда в index.html/en/index.html будет реальный data-sitekey. */
-  if (false && env.TURNSTILE_SECRET_KEY) {
+  /* Turnstile: токен приходит из виджета на странице (поле cf-turnstile-response). */
+  if (env.TURNSTILE_SECRET_KEY) {
     const token = clean(body['cf-turnstile-response'], 2000);
     if (!token) return new Response('captcha required', { status: 400 });
     const verify = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
