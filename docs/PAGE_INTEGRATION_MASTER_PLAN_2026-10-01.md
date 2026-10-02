@@ -323,3 +323,97 @@ A build step is only successful if it reduces/controls payload without harming a
 
 **Dependency note:** Lightning CSS currently uses MPL-2.0 and esbuild MIT upstream; re-check exact version/license before vendoring or redistribution.
 
+## Additional wave — navigation speculation and resource-hint governance
+
+This wave targets perceived navigation speed while keeping the site static and avoiding unnecessary framework/runtime code.
+
+### Speculation Rules — CONDITIONAL NATIVE WEB PLATFORM
+
+Reference/spec work:
+
+https://github.com/WICG/nav-speculation
+
+For a small set of high-confidence same-origin navigations, evaluate browser-native prefetch/prerender rules.
+
+Candidate use:
+
+- homepage -> featured project;
+- project -> explicitly selected related project;
+- RU <-> EN counterpart only if user action strongly indicates navigation.
+
+Do not prerender every project link.
+
+### Privacy / Cost Rules — ADOPT
+
+Before prefetch/prerender, classify links:
+
+- safe static GET;
+- heavy media;
+- third-party;
+- contact/action;
+- query carrying sensitive data.
+
+Never speculate:
+
+- form submission;
+- Cloudflare contact function;
+- external authenticated URLs;
+- analytics/action endpoints;
+- downloads where cost is substantial and unlikely.
+
+### Resource Hint Budget — ADOPT
+
+Govern:
+
+- preload;
+- modulepreload;
+- preconnect;
+- dns-prefetch.
+
+Each hint should have:
+
+- target;
+- reason;
+- pages;
+- expected benefit;
+- measured before/after;
+- owner/config source.
+
+Too many preloads can slow down the critical page; treat hints as a performance budget, not free optimization.
+
+### Hero / Critical Media Priority — ADOPT
+
+Use explicit fetch/loading priority only for genuinely above-the-fold media.
+
+Rules:
+
+- one/few critical assets;
+- responsive correct size;
+- no eager loading of entire case-study gallery;
+- video poster before full video where appropriate.
+
+### Performance Experiment Gate — ADOPT
+
+Any speculation/resource-hint change should be checked against:
+
+- Lighthouse;
+- Web Vitals RUM where available;
+- transferred bytes/request count;
+- mobile network profile;
+- back/forward navigation behavior.
+
+Keep the change only if it improves the intended journey without significant bandwidth/privacy regression.
+
+### Additional acceptance
+
+- speculation rules target same-origin safe pages only;
+- contact/API actions are excluded;
+- resource-hint count is bounded;
+- mobile data transfer is measured;
+- unsupported browsers fall back to normal navigation;
+- site remains fully functional with all speculation disabled.
+
+**Sequencing:** current static build/performance budgets -> critical resource audit -> hints -> limited speculation rules -> RUM validation.
+
+**Dependency note:** this uses native web-platform capabilities/reference specs rather than adding a new framework dependency.
+
