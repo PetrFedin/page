@@ -1682,3 +1682,6 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 }
 
 .inv-head .stage{white-space:normal; max-width:100%}
+
+.form-missing{font-size:13px; color:var(--muted); margin:-4px 0 0; min-height:0}
+.form-missing:empty{display:none}

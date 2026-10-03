@@ -740,6 +740,8 @@ export const T = {
       send: 'Отправить',
       sending: 'Отправляю…',
       ok: 'Спасибо, сообщение получено. Отвечу в течение рабочего дня.',
+      missing: 'Осталось заполнить:',
+      missingParts: { name: 'имя', reach: 'способ связи', message: 'сообщение', consent: 'согласие на обработку данных' },
       prefillProject: 'Интересует проект {name}. ',
       failCaptcha: 'Не удалось пройти проверку на робота: возможно, её блокирует расширение или сеть. Напишите мне напрямую:',
       fail: 'Сообщение не отправлено. Напишите в Telegram или WhatsApp — отвечу быстрее.',
@@ -918,13 +920,13 @@ export const T = {
     hero: {
       eyebrow: 'Fashion advisory and proprietary IT products',
       name: 'Petr Fedin',
-      lead: 'Strategy, economics and transformation for fashion businesses. I show owners what a decision will cost before it becomes a purchase order, excess stock and committed capital — then I see it through to a working result.',
+      lead: 'Strategy, economics and transformation for fashion businesses. I put a price on every decision before it becomes a purchase order, surplus stock and frozen capital — and I see the work through to a result.',
       ctaExperience: 'Experience',
       ctaConsulting: 'Advisory',
       ctaProjects: 'Projects',
       ctaFeed: 'Feed',
       ctaContact: 'Contact',
-      bio: 'I work where strategy, commerce, product and data meet — from market and collection through to inventory and cash. Alongside advisory, I build my own IT products.',
+      bio: 'I work where strategy, commerce, product and data converge on a single number: from market and collection to stock and cash. Alongside advisory, I build my own IT products.',
       factsTitle: 'Relevant experience',
       facts: [
         { id: 'buying', n: 'Buying and assortment',
@@ -935,13 +937,13 @@ export const T = {
           results: ['90% of reporting automated', 'Order approval three times faster', 'Share of profitable items +20%', 'Seasonal sell-through +8pp', 'Excess stock −10%', 'GMROI +23%', 'Days of stock per item −34%', 'Buying margin +3pp', '1,000–1,200 underperforming items excluded per season', 'Recurring errors −66%', 'Management reporting errors −90%', 'Data accuracy for reporting +70%', 'Management report from 2–3 days to 10 minutes', '−150 hours of manual work a month', 'Analyst output on ad-hoc tasks ×3'] },
         { id: 'product', n: 'Product and production',
           l: 'Premium segment: cost, specifications, order placement, supplier lead times',
-          lead: 'One managed chain from sketch to shipment.',
-          does: ['Order economics and true item cost', 'Specifications, samples, tech packs, versions and approvals', 'Order placement, supplier capacity and lead times', 'Quality control and batch acceptance', 'Product data linked to sales and inventory', 'Supplier audit and alternative sourcing options', 'Version and approval control: no change lost in email'],
+          lead: 'Sketch to shipment in one chain, with cost, timing and versions in view.',
+          does: ['Order economics and true item cost', 'Specifications, samples, tech packs, versions and approvals', 'Order placement, supplier capacity and lead times', 'Quality control and batch acceptance', 'Product data linked to sales and inventory', 'Supplier audit and alternative sourcing options', 'One approval route for changes: none lost in email'],
           gives: ['Cost visible before launch, not after', 'Early signals on slipping deadlines and quality', 'A single version of the product data, not emails and spreadsheets'],
           results: ['Item cost visible before production starts', 'Specifications, samples and versions kept in one place', 'Supplier lead times under control, slippage visible early', 'Product data linked to sales and inventory', 'Batch acceptance on one set of rules', 'Spreadsheets replaced by systematic management'] },
         { id: 'capital', n: 'Markets and finance',
           l: 'Market and competitor assessment, financial model, funding requirement, investor materials',
-          lead: 'Growth decisions calculated before they become obligations.',
+          lead: 'Growth, calculated before it becomes an obligation.',
           does: ['Market, competitive landscape and growth geography assessment', 'Entry model: assortment, pricing, channel, partner', 'Financial model: profit, cash flow, working capital', 'Funding requirement and scenarios', 'Materials for discussions with an investor, bank or buyer', 'Readiness assessment for a transaction', 'Model stress test: base and downside scenarios'],
           gives: ['A go or no-go backed by numbers, with the cost stated', 'A clear funding need and a payback horizon', 'A document pack you can take into negotiations'],
           results: ['A new-market decision made on calculation rather than instinct', 'Funding need and payback defended before an external party', 'A promising direction dropped because the numbers did not hold', 'Deal economics calculated before the negotiation, not after', 'One financial model instead of several versions across departments', 'A valuation in a form the counterparty accepts'] },
@@ -1027,8 +1029,8 @@ export const T = {
             steps: [
               'Week 1 — hypothesis and boundaries: who the product is for, which problem it solves, what counts as success in three months. All on one page.',
               'Weeks 1–2 — validation against data and people: size of the problem, user and customer economics, alternatives, 5–8 conversations with future users.',
-              'Weeks 2–3 — product concept: roles, key scenarios, what the first version contains and what it deliberately leaves out; a screen prototype.',
-              'Weeks 3–6 — the MVP: data and screen design, a working version built on real scenarios; a demo every week and adjustments from feedback.',
+              'Weeks 2–3 — concept: roles, core scenarios, what the first version contains and what it deliberately leaves out; a screen prototype.',
+              'Weeks 3–6 — the MVP: data, screens and a working version built on real scenarios. A demo every week, adjustments from feedback.',
               'Weeks 7–8 — pilot and result: a launch with a limited group, measurements, and a decision — continue, change course, or stop while it is still cheap.'
             ],
             includes: [
@@ -1063,7 +1065,7 @@ export const T = {
           {
             id: 'audit', n: '02', title: 'Analysis and implementation', term: 'project, 8–12 weeks',
             body: 'Which off-the-shelf product fits your business? I establish that, then embed it in your processes — with no build from scratch unless one is needed.',
-            lead: 'An independent view of which ready-made products fit you, then the chosen one embedded in real processes.',
+            lead: 'I pick the ready-made product that suits you, independent of any vendor, and embed it in your processes.',
             steps: [
               'Weeks 1–2 — requirements: tasks and roles, data, must-have and optional functions, security and budget constraints.',
               'Weeks 3–5 — market review: a long list narrowed to three or four solutions, compared on your scenarios rather than vendor decks; demos and terms requested.',
@@ -1103,8 +1105,8 @@ export const T = {
             body: 'Your product or process exists but cannot keep up with the business. I rebuild its architecture and digital set-up around how the company really works.',
             lead: 'Rebuilding an existing product or process around how the company actually works — without rewriting code for its own sake.',
             steps: [
-              'Weeks 1–3 — the picture as it is: how the product and processes are really used, where people work around the system, which data disagree; interviews and observation of real work.',
-              'Weeks 4–5 — the target design: the roles, scenarios and data at the core, what stays and what goes; an architecture clear to both business and engineering.',
+              'Weeks 1–3 — the picture as it is: how the product is really used, where people work around the system, which data disagree. Interviews and observation of real work.',
+              'Weeks 4–5 — the target design: roles, scenarios and data; what stays, what goes. An architecture clear to both business and engineering.',
               'Weeks 6–8 — plan and first block: the work is split into blocks that can change without stopping the business; the first block is built and launched with a pilot group.',
               'Weeks 9–14 — step-by-step rebuild: block by block, each checked on real work, with role training in parallel.',
               'Weeks 15–16 — consolidation: data rules, metrics, handover to the team and a measurement of what improved.'
@@ -1138,8 +1140,8 @@ export const T = {
           },
           {
             id: 'full', n: '04', title: 'Full cycle: from development to launch', term: 'project, 36–48 weeks',
-            body: 'I take on the whole product: concept, design, development, testing, launch and handover. I am accountable from first hypothesis to a working product in users’ hands.',
-            lead: 'The whole path in one project: concept, design, development, testing, launch, handover to your team.',
+            body: 'I take on the whole product: concept, design, development, testing, launch and handover. One person is accountable, from first hypothesis to users.',
+            lead: 'One person for the whole path: from concept to launch, then handover to your team.',
             steps: [
               'Weeks 1–6 — concept and validation: hypothesis, economics, user interviews, the boundaries of the first version and success criteria; a prototype you can already show.',
               'Weeks 7–12 — design: roles and scenarios, data model, architecture, screen design, a release plan and a budget by stage.',
@@ -1231,7 +1233,7 @@ export const T = {
     },
     formats: {
       title: 'Ways to work together',
-      subtitle: 'Four formats. Each states in advance its duration, what I do and what stays with you.',
+      subtitle: 'Four formats. Duration, scope and outcome are fixed in advance.',
       more: 'Read in full →',
       stepsLabel: 'How the work proceeds',
       includesLabel: 'What it includes',
@@ -1250,7 +1252,7 @@ export const T = {
           steps: [
             'Week 0 — before the start: we agree the owner’s question and the scope of data and people, and sign an NDA. You get the list of required extracts in advance.',
             'Week 1 — data and scope: sales, inventory, buying, channels and cash for 2–3 seasons. I check what exists, what can be trusted and where systems disagree.',
-            'Weeks 2–3 — calculations: where capital is locked, which categories, brands and channels create contribution and which consume it; stock turn, post-markdown margin, inventory age.',
+            'Weeks 2–3 — calculations: where capital is frozen, which categories, brands and channels earn contribution and which eat into it; stock turn, post-markdown margin, inventory age.',
             'Week 4 — interviews and hypothesis testing: buying, finance, commerce, warehouse. I compare the numbers with how decisions are really made.',
             'Week 5 — scenarios: I calculate decision options and their effect on cash, and drop what does not survive the numbers.',
             'Week 6 — result: a prioritised problem map with the cost of each, a season plan, a closing session with the owner and the handover of the calculations.'
@@ -1272,12 +1274,12 @@ export const T = {
           notFit: 'Not suitable if there is no data at all, or if you need execution rather than analysis. In that case we start with “Data, analytics and PLM” or “Programme lead”.'
         },
         { n: '02', title: 'Owner’s advisor', term: 'ongoing, from 3 months',
-          body: 'I advise on buying, assortment, channel and capital decisions as they come up in your working cycle.',
+          body: 'I help you take buying, assortment, channel and capital decisions before they are made, not after.',
           out: 'Output: decision rules, metrics and a regular plan-versus-actual review inside the team.',
           lead: 'Regular support for decisions inside your own working cycle — without joining the payroll.',
           steps: [
-            'Month 1 — onboarding: I review current buying and planning rules, metrics and roles; we agree what counts as success for the cycle and set the rhythm.',
-            'Months 2–3 — working rhythm: meetings aligned to the buying and planning cycle, plan-versus-actual reviews, and a say in key decisions before they are made, not after.',
+            'Month 1 — onboarding: I review buying and planning rules, metrics and roles; we agree what counts as success for the cycle and set the rhythm.',
+            'Months 2–3 — working rhythm: meetings aligned to the buying and planning cycle, plan-versus-actual reviews, and a say in major decisions before they are made, not after.',
             'From month 4 — consolidation: decision rules and metrics become written policy and your team runs the reviews without me.',
             'Every quarter — review and reset: what worked, what changes for the next cycle; we decide whether to continue, reduce my involvement or finish.'
           ],
@@ -1340,7 +1342,7 @@ export const T = {
             'A data owner in the company: the person responsible for reference data and number quality',
             'Access to current systems and extracts, including the spreadsheets people actually work in',
             'Dashboard users — for tests and training',
-            'A decision on who runs the system after the project'
+            'A named owner for the system after the project'
           ],
           rhythm: [
             'A weekly call with the data owner',
@@ -1356,7 +1358,7 @@ export const T = {
       hubTitle: 'Roles I would consider',
       hubNote: 'Three directions. Open each for the competencies and scope of responsibility.',
       competenciesLabel: 'Key competencies',
-      whyFitLabel: 'Why I am suited',
+      whyFitLabel: 'Why I fit',
       contactCta: 'Get in touch',
       contactMessage: 'Interested in the “{title}” role ({abbr}).',
       contactTopicOther: 'HR',
@@ -1375,7 +1377,7 @@ export const T = {
             'Setting commercial KPIs and tracking execution',
             'Readiness assessment for a deal or a new market'
           ],
-          whyFit: 'I have already done this: market-entry financial models, deal-readiness assessments, investor negotiations, and buying, channels and capital run as one system rather than separate departments. That is a commercial director’s daily work.'
+          whyFit: 'I have built market-entry financial models, valued a business ahead of a deal and negotiated with an investor. I treat buying, channels and capital as one system, which is how a commercial director works.'
         },
         { n: '02', title: 'Chief Executive Officer', abbr: 'CEO', term: 'Running the business, turnaround, growth',
           body: 'Control of the whole business, from liquidity and priorities to team and growth: I restore it when decisions run late and keep it as growth returns.',
@@ -1391,7 +1393,7 @@ export const T = {
             'Decisions on new markets, products and capital — by calculation, not instinct',
             'Ownership of the company P&L as a whole, not a single function'
           ],
-          whyFit: 'I have restored control of a business more than once, from cash calendar and priorities to a return to growth, with full accountability to the owner. That is the core of the CEO role, not a one-off project.'
+          whyFit: 'I have restored control of a business more than once, from cash calendar and priorities to a return to growth, with full accountability to the owner. That is what a CEO’s job consists of.'
         },
         { n: '03', title: 'Chief Buying and Analytics Officer', abbr: 'CBAO', term: 'Buying, assortment, data',
           body: 'Buying and assortment as one managed system: budget, demand forecast, analytics and reporting on one data model.',
@@ -1407,7 +1409,7 @@ export const T = {
             'Prioritising initiatives by impact: what pays off fast versus what needs rebuilding',
             'Linking product, commercial and stock data in one model'
           ],
-          whyFit: 'I built a BI system from scratch, moved buying onto continuous recalculation from actual sales, and hired and grew an analytics team to senior level. That is exactly what a head of buying and analytics does.'
+          whyFit: 'I built a BI system from scratch, moved buying onto regular recalculation from actual sales, and trained and grew an analytics team to Senior level. That is the job of a chief buying and analytics officer.'
         }
       ]
     },
@@ -1421,7 +1423,7 @@ export const T = {
       title: 'For press and event organisers',
       subtitle: 'Everything needed for a programme or a comment, ready to use.',
       shortLabel: 'Short', short: 'Petr Fedin advises fashion businesses on economics and transformation. He is the founder of the IT products Syntha, ChatX and Renova.',
-      longLabel: 'Full', long: 'Petr Fedin works in fashion where strategy, commerce, product, data and capital meet. He has many years of management experience in large multi-brand retail: open-to-buy, assortment matrix, demand forecasting, margin and stock turn. He runs operational diagnostics, growth strategy and management turnaround projects, and builds and launches his own IT products: Syntha, ChatX, Renova and others.',
+      longLabel: 'Full', long: 'Petr Fedin works in fashion where strategy, commerce, product, data and capital meet. He has many years of management experience in large multi-brand retail: open-to-buy, assortment matrix, demand forecasting, margin and stock turn. He leads diagnostics, growth strategy and turnaround work, and builds his own IT products — Syntha, ChatX, Renova and others.',
       topicsLabel: 'Speaking and comment topics',
       topics: ['Buying economics and the return of capital', 'Budgeting and open-to-buy', 'Building analytics: from data to decisions', 'The metrics that drive fashion retail', 'Merchandise planning and inventory control', 'The retail cycle and working with the customer', 'Marketplaces and omnichannel selling', 'The Russian fashion market: what is changing', 'PLM and a brand\u2019s digital architecture', 'Managing through a crisis and returning to growth', 'From advisory to product: how Syntha, ChatX and Renova were built'],
       photoLabel: 'Portrait for publication', photoBtn: 'Download photo',
@@ -1449,13 +1451,13 @@ export const T = {
     },
     investors: {
       title: 'For investors and partners',
-      sub: 'Five products at different stages: what is built, what comes next and who I am looking for. I do not quote figures I do not have.',
+      sub: 'Five products, each at its own stage: what is built, what comes next and whom I am looking for. I quote no figure I do not have.',
       stage: 'Stage',
       path: 'Product path',
       seeking: 'Looking for',
       open: 'About the project',
       talk: 'Discuss participation',
-      prefill: 'I am interested in participating in {name}. ',
+      prefill: 'I am interested in taking part in {name}. ',
       noteTitle: 'Ways to take part'
     },
     contact: {
@@ -1494,8 +1496,10 @@ export const T = {
       send: 'Send',
       sending: 'Sending…',
       ok: 'Thank you. I will reply within a working day.',
-      prefillProject: 'I am interested in {name}. ',
-      failCaptcha: 'The robot check could not complete — an extension or the network may be blocking it. Please write to me directly:',
+      missing: 'Still to fill in:',
+      missingParts: { name: 'name', reach: 'a way to reach you', message: 'message', consent: 'consent to data processing' },
+      prefillProject: 'I would like to discuss {name}. ',
+      failCaptcha: 'The robot check did not complete; an extension or your network may be blocking it. Please write to me directly:',
       fail: 'The message was not sent. Please contact me on Telegram or WhatsApp instead.',
       required: 'Please provide your name, at least one contact method and a message.',
       emailBad: 'Please check your email address: it appears to be mistyped.',

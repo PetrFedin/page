@@ -1,9 +1,9 @@
-import { T, PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610032300';
-import { DECK } from './deck.js?v=202610032300';
-import { LOGOS } from './logos.js?v=202610032300';
+import { T, PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610032330';
+import { DECK } from './deck.js?v=202610032330';
+import { LOGOS } from './logos.js?v=202610032330';
 import { createViewer } from './viewer.js?v=202609301526';
-import { syncSnaps } from './snap.js?v=202610032300';
-import { NEWS } from './news.js?v=202610032300';
+import { syncSnaps } from './snap.js?v=202610032330';
+import { NEWS } from './news.js?v=202610032330';
 
 /* Сайт — витрина: показываем отобранные материалы. Канал получает весь поток.
    Лента идёт от свежего к старому по дате публикации — «Показать ещё» раскрывает
@@ -1833,11 +1833,46 @@ $('#file-clear').addEventListener('click', (e) => {
 /* Кнопка отправки неактивна, пока нет обязательных полей и согласия:
    так человек видит, чего не хватает, до нажатия, а не после. */
 const form = $('#form');
+/* Черновик живёт в сессии вкладки: случайно закрытое окно или перезагрузка не стирают набранное. */
+const DRAFT_KEYS = ['name', 'surname', 'patronymic', 'email', 'telegram', 'phone', 'message', 'topic'];
+let draftReady = false;
+function saveDraft() {
+  if (!draftReady) return;
+  try {
+    const f = new FormData(form);
+    const d = Object.fromEntries(DRAFT_KEYS.map((k) => [k, String(f.get(k) ?? '')]));
+    sessionStorage.setItem('draft', JSON.stringify(d));
+  } catch { /* приватный режим */ }
+}
+function restoreDraft() {
+  try {
+    const d = JSON.parse(sessionStorage.getItem('draft') || 'null');
+    if (!d) return;
+    DRAFT_KEYS.forEach((k) => {
+      const el = form.elements[k];
+      if (el && d[k] && !el.value && (k !== 'topic' || el.value !== d[k])) el.value = d[k];
+    });
+  } catch { /* пусто */ }
+}
+function clearDraft() { try { sessionStorage.removeItem('draft'); } catch { /* приватный режим */ } }
 function syncSubmit() {
   const f = new FormData(form);
   const filled = String(f.get('name') ?? '').trim() && String(f.get('message') ?? '').trim();
   const reach = ['email', 'telegram', 'phone'].some((k) => String(f.get(k) ?? '').trim());
   $('#submit').disabled = !(filled && reach && $('#consent').checked);
+  /* Пока человек уже начал заполнять, подсказываем, чего не хватает для отправки. */
+  const hint = $('#form-missing');
+  if (hint) {
+    const mp = T[lang].contact.missingParts;
+    const miss = [];
+    if (!String(f.get('name') ?? '').trim()) miss.push(mp.name);
+    if (!reach) miss.push(mp.reach);
+    if (!String(f.get('message') ?? '').trim()) miss.push(mp.message);
+    if (!$('#consent').checked) miss.push(mp.consent);
+    const started = ['name', 'message', 'email', 'telegram', 'phone'].some((k) => String(f.get(k) ?? '').trim());
+    hint.textContent = started && miss.length ? `${T[lang].contact.missing} ${miss.join(', ')}.` : '';
+  }
+  saveDraft?.();
 }
 form.addEventListener('input', syncSubmit);
 form.addEventListener('change', syncSubmit);
@@ -1956,6 +1991,7 @@ $('#form').addEventListener('submit', async (e) => {
     note.textContent = t.contact.ok;
     window.dispatchEvent(new Event('track:form-sent'));
     form.reset();
+    clearDraft();
     showFile();
     syncEntityFields();
     syncOptional();
@@ -2112,6 +2148,10 @@ syncIconTitles();
 
 render();
 syncSnaps();
+restoreDraft();
+draftReady = true;
+syncOptional();
+syncSubmit();
 
 /* Ссылки со страниц проектов приходят как /?topic=…&project=…#contact: подставляем тему и начало сообщения. */
 function consumeContactParams() {
