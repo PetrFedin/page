@@ -7,7 +7,7 @@
  * Ничего не сохраняем: заявка только пересылается.
  */
 
-const LIMIT = { name: 120, contact: 160, message: 4000 };
+const LIMIT = { name: 120, contact: 160, message: 4000, entity: 200 };
 
 const clean = (v, max) => String(v ?? '').trim().slice(0, max);
 const esc = (s) => s.replace(/[<>&]/g, (c) => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;' }[c]));
@@ -54,26 +54,47 @@ export async function onRequestPost({ request, env }) {
     if (!result.success) return new Response('captcha failed', { status: 400 });
   }
 
-  const name = clean(body.name, LIMIT.name);
-  const contact = clean(body.contact, LIMIT.contact);
+  const first = clean(body.name, LIMIT.name);
+  const surname = clean(body.surname, LIMIT.name);
+  const patronymic = clean(body.patronymic, LIMIT.name);
+  const name = [surname, first, patronymic].filter(Boolean).join(' ');
+  const email = clean(body.email, LIMIT.contact);
+  const telegram = clean(body.telegram, LIMIT.contact);
+  const phone = clean(body.phone, LIMIT.contact);
   const message = clean(body.message, LIMIT.message);
-  if (!name || !contact || !message) return new Response('missing fields', { status: 400 });
+  /* Нужны имя, сообщение и хотя бы один способ связи. */
+  if (!first || !message || !(email || telegram || phone)) return new Response('missing fields', { status: 400 });
+  if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) return new Response('bad email', { status: 400 });
+
+  const entity = {
+    name: clean(body.entityName, LIMIT.entity),
+    inn: clean(body.entityInn, 20),
+    address: clean(body.entityAddress, LIMIT.entity),
+    site: clean(body.entitySite, LIMIT.entity)
+  };
+  const isEntity = Object.values(entity).some(Boolean);
 
   if (!env.TELEGRAM_BOT_TOKEN || !env.TELEGRAM_CHAT_ID) {
     return new Response('not configured', { status: 500 });
   }
 
   const topic = clean(body.topicLabel || body.topic, 60) || '—';
+  const line = (cond, v) => (cond ? v : null);
   const text = [
     '<b>Заявка с syntha.pro</b>',
     '',
     `<b>Тема:</b> ${esc(topic)}`,
     `<b>Имя:</b> ${esc(name)}`,
-    `<b>Контакт:</b> ${esc(contact)}`,
+    line(email, `<b>Email:</b> ${esc(email)}`),
+    line(telegram, `<b>Telegram:</b> ${esc(telegram)}`),
+    line(phone, `<b>Телефон:</b> ${esc(phone)}`),
+    line(isEntity, `<b>Юрлицо:</b> ${esc([entity.name, entity.inn && `ИНН ${entity.inn}`].filter(Boolean).join(', ') || '—')}`),
+    line(entity.address, `<b>Адрес:</b> ${esc(entity.address)}`),
+    line(entity.site, `<b>Сайт:</b> ${esc(entity.site)}`),
     `<b>Язык:</b> ${esc(clean(body.lang, 4) || '—')}`,
     '',
     esc(message)
-  ].join('\n');
+  ].filter((l) => l !== null).join('\n');
 
   /* Файл уходит документом, а текст заявки — подписью к нему:
      так заявка и вложение остаются одним сообщением. */
@@ -110,7 +131,32 @@ export async function onRequestPost({ request, env }) {
 
   if (!tg.ok) {
     console.error('telegram api error', tg.status, await tg.text());
+    await save(env, request, body, { name, email, telegram, phone, entity, topic, message, file, ok: 0 });
     return new Response('telegram failed', { status: 502 });
   }
+  await save(env, request, body, { name, email, telegram, phone, entity, topic, message, file, ok: 1 });
   return new Response('ok', { status: 200 });
+}
+
+/* Копия заявки в базе статистики — чтобы видеть текст и путь человека по сайту.
+   Ошибка записи заявку не ломает: в Telegram она уже ушла. */
+async function save(env, request, body, d) {
+  if (!env.DB) return;
+  try {
+    const cf = request.cf || {};
+    await env.DB.prepare(
+      `INSERT INTO submissions (ts, vid, sid, name, email, telegram, phone, entity, topic, message, lang, file_name, country, city, ok)
+       VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`
+    ).bind(
+      Date.now(), clean(body.vid, 40), clean(body.sid, 40), d.name, d.email, d.telegram, d.phone,
+      Object.values(d.entity).some(Boolean) ? JSON.stringify(d.entity) : '', d.topic, d.message,
+      clean(body.lang, 4), d.file?.name ?? '', cf.country ?? '', cf.city ?? '', d.ok
+    ).run();
+    await env.DB.prepare(
+      `INSERT INTO events (ts, vid, sid, type, path, target, label, data, country, city) VALUES (?,?,?,?,?,?,?,?,?,?)`
+    ).bind(Date.now(), clean(body.vid, 40), clean(body.sid, 40), d.ok ? 'form_sent' : 'form_failed', '/', 'contact-form',
+      d.topic, JSON.stringify({ file: d.file?.name ?? null }), cf.country ?? '', cf.city ?? '').run();
+  } catch (err) {
+    console.error('stats save failed', String(err));
+  }
 }

@@ -57,6 +57,11 @@ function buildDots(track) {
     слайды.forEach((el, i) => { if (el.offsetLeft < c) a = i; });
     [...dots.children].forEach((d, i) => d.setAttribute('aria-current', String(i === a)));
     dots.dataset.first = String(a === 0);
+    /* Много слайдов (лента целиком) не помещаются рядом: показываем окно из семи точек вокруг текущей. */
+    if (n > 7) {
+      const from = Math.min(Math.max(a - 3, 0), n - 7);
+      [...dots.children].forEach((d, i) => { d.hidden = i < from || i >= from + 7; });
+    }
   };
   track.addEventListener('scroll', active, { passive: true });
   dots.addEventListener('click', (e) => {

@@ -22,8 +22,10 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="Пётр Федин">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="stylesheet" href="/assets/styles.css?v=202610020330">
+<link rel="stylesheet" href="/assets/styles.css?v=202610030100">
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<script src="/assets/track.js?v=202610030100" defer></script>
+<script src="/assets/guard.js?v=202610030100" defer></script>
 </head>
 <body>
 
@@ -147,26 +149,61 @@
 
     <div class="contact-grid">
       <form class="form" id="form" novalidate>
+        <div class="pair">
+          <label class="field" id="name-field">
+            <span data-f="name"></span>
+            <input name="name" type="text" autocomplete="given-name" required>
+          </label>
+          <label class="field" id="surname-field">
+            <span data-f="surname"></span>
+            <input name="surname" id="surname" type="text" autocomplete="family-name">
+          </label>
+          <label class="field" id="patronymic-field" hidden>
+            <span data-f="patronymic"></span>
+            <input name="patronymic" id="patronymic" type="text" autocomplete="additional-name">
+          </label>
+        </div>
+        <div class="opt-row" role="group">
+          <label class="opt"><input type="checkbox" id="opt-surname" checked><span data-f="surname"></span></label>
+          <label class="opt"><input type="checkbox" id="opt-patronymic"><span data-f="patronymic"></span></label>
+        </div>
         <label class="field">
-          <span data-f="name"></span>
-          <input name="name" type="text" autocomplete="name" required>
+          <span data-f="email"></span>
+          <input name="email" id="email" type="email" autocomplete="email" inputmode="email">
         </label>
-        <label class="field">
-          <span data-f="contact"></span>
-          <input name="contact" type="text" autocomplete="email" required>
-        </label>
+        <div class="pair">
+          <label class="field" id="telegram-field">
+            <span data-f="telegram"></span>
+            <input name="telegram" id="telegram" type="text" autocomplete="off" placeholder="@username">
+          </label>
+          <label class="field" id="phone-field">
+            <span data-f="phone"></span>
+            <input name="phone" id="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="+7 900 000-00-00">
+          </label>
+        </div>
+        <div class="opt-row" role="group">
+          <label class="opt"><input type="checkbox" id="opt-telegram" checked><span data-f="telegram"></span></label>
+          <label class="opt"><input type="checkbox" id="opt-phone" checked><span data-f="phone"></span></label>
+        </div>
+        <p class="form-hint" data-f="contactHint"></p>
         <label class="consent entity-toggle">
           <input type="checkbox" id="entity-toggle" name="isEntity">
           <span data-f="entityLabel"></span>
         </label>
-        <label class="field entity-field" id="entity-name-field" hidden>
-          <span data-f="entityName"></span>
-          <input name="entityName" id="entity-name" type="text" autocomplete="organization">
-        </label>
-        <label class="field entity-field" id="entity-inn-field" hidden>
-          <span data-f="entityInn"></span>
-          <input name="entityInn" id="entity-inn" type="text" autocomplete="off" inputmode="numeric">
-        </label>
+        <div class="entity-box" id="entity-box" hidden>
+          <div class="pair">
+            <label class="field"><span data-f="entityName"></span>
+              <input name="entityName" id="entity-name" type="text" autocomplete="organization"></label>
+            <label class="field"><span data-f="entityInn"></span>
+              <input name="entityInn" id="entity-inn" type="text" autocomplete="off" inputmode="numeric"></label>
+          </div>
+          <div class="pair">
+            <label class="field"><span data-f="entityAddress"></span>
+              <input name="entityAddress" id="entity-address" type="text" autocomplete="street-address"></label>
+            <label class="field"><span data-f="entitySite"></span>
+              <input name="entitySite" id="entity-site" type="text" autocomplete="url" inputmode="url" placeholder="example.com"></label>
+          </div>
+        </div>
         <label class="field">
           <span data-f="topic"></span>
           <select name="topic" id="topic"></select>
@@ -203,7 +240,10 @@
       <aside class="direct">
         <h3 id="direct-title"></h3>
         <ul id="contacts"></ul>
-        <a class="btn btn-sm vcard" id="vcard" href="/assets/petr-fedin.vcf" download></a>
+        <div class="direct-actions">
+          <a class="btn btn-sm vcard" id="vcard" href="/assets/petr-fedin.vcf" download></a>
+          <button class="btn btn-sm" type="button" id="share-contact"></button>
+        </div>
       </aside>
     </div>
   </section>
@@ -435,6 +475,6 @@
   </div>
 </dialog>
 
-<script type="module" src="/assets/app.js?v=202610020330"></script>
+<script type="module" src="/assets/app.js?v=202610030100"></script>
 </body>
 </html>

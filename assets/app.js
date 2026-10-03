@@ -1,9 +1,9 @@
-import { T, PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610020330';
-import { DECK } from './deck.js?v=202610020330';
-import { LOGOS } from './logos.js?v=202610020330';
+import { T, PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610030100';
+import { DECK } from './deck.js?v=202610030100';
+import { LOGOS } from './logos.js?v=202610030100';
 import { createViewer } from './viewer.js?v=202609301526';
-import { syncSnaps } from './snap.js?v=202610020330';
-import { NEWS } from './news.js?v=202610020330';
+import { syncSnaps } from './snap.js?v=202610030100';
+import { NEWS } from './news.js?v=202610030100';
 
 /* Сайт — витрина: показываем отобранные материалы. Канал получает весь поток.
    Лента идёт от свежего к старому по дате публикации — «Показать ещё» раскрывает
@@ -282,6 +282,7 @@ function render() {
   $('#consent-text').textContent = t.contact.consent;
   $('#consent-link').textContent = t.contact.consentLink;
   $('#vcard').textContent = t.contact.vcard;
+  $('#share-contact').textContent = t.contact.shareContact;
   syncSubmit?.();
   $('#deck-open').textContent = t.consulting.deckOpen;
   $('#deck-pdf').textContent = t.consulting.deckPdf;
@@ -800,7 +801,15 @@ function renderDiagnostic() {
 }
 $('#diag-body').addEventListener('click', (e) => {
   const opt = e.target.closest('.diag-opt');
-  if (opt) { diagAnswers.push(+opt.dataset.f); return renderDiagnostic(); }
+  if (opt) {
+    window.track?.('quiz_step', String(diagAnswers.length + 1), opt.textContent);
+    diagAnswers.push(+opt.dataset.f);
+    if (diagAnswers.length === T[lang].diagnostic.questions.length) {
+      const c = [0, 0, 0, 0]; diagAnswers.forEach((f) => c[f]++);
+      window.track?.('quiz_result', '', T[lang].formats.items[c.indexOf(Math.max(...c))].title);
+    }
+    return renderDiagnostic();
+  }
   if (e.target.closest('.diag-back')) { diagAnswers.pop(); return renderDiagnostic(); }
   if (e.target.closest('.diag-retake')) { diagAnswers = []; return renderDiagnostic(); }
   const more = e.target.closest('[data-diag-more]');
@@ -1791,8 +1800,9 @@ $('#file-clear').addEventListener('click', (e) => {
 const form = $('#form');
 function syncSubmit() {
   const f = new FormData(form);
-  const filled = ['name', 'contact', 'message'].every((k) => String(f.get(k) ?? '').trim());
-  $('#submit').disabled = !(filled && $('#consent').checked);
+  const filled = String(f.get('name') ?? '').trim() && String(f.get('message') ?? '').trim();
+  const reach = ['email', 'telegram', 'phone'].some((k) => String(f.get(k) ?? '').trim());
+  $('#submit').disabled = !(filled && reach && $('#consent').checked);
 }
 form.addEventListener('input', syncSubmit);
 form.addEventListener('change', syncSubmit);
@@ -1811,12 +1821,30 @@ syncTopicOther();
 /* «Пишу как юридическое лицо» — раскрывает необязательные поля названия и ИНН. */
 function syncEntityFields() {
   const isEntity = $('#entity-toggle').checked;
-  $('#entity-name-field').hidden = !isEntity;
-  $('#entity-inn-field').hidden = !isEntity;
-  if (!isEntity) { $('#entity-name').value = ''; $('#entity-inn').value = ''; }
+  $('#entity-box').hidden = !isEntity;
+  if (!isEntity) ['name', 'inn', 'address', 'site'].forEach((k) => { $(`#entity-${k}`).value = ''; });
 }
 $('#entity-toggle').addEventListener('change', syncEntityFields);
 syncEntityFields();
+
+/* Необязательные части имени и каналы связи включаются галочками;
+   выключенное поле прячется и очищается, чтобы в заявку не ушло лишнее. */
+function syncOptional() {
+  const on = (k) => $(`#opt-${k}`).checked;
+  [['surname', 'surname-field', 'surname'], ['patronymic', 'patronymic-field', 'patronymic'],
+   ['telegram', 'telegram-field', 'telegram'], ['phone', 'phone-field', 'phone']].forEach(([k, box, input]) => {
+    $(`#${box}`).hidden = !on(k);
+    if (!on(k)) $(`#${input}`).value = '';
+  });
+  /* одно поле в паре занимает всю строку */
+  document.querySelectorAll('#form .pair').forEach((pair) => {
+    const visible = [...pair.children].filter((c) => !c.hidden).length;
+    pair.dataset.n = String(visible);
+  });
+  syncSubmit?.();
+}
+['surname', 'patronymic', 'telegram', 'phone'].forEach((k) => $(`#opt-${k}`).addEventListener('change', syncOptional));
+syncOptional();
 
 /* Персона-чипы у формы: подставляют тему и переводят фокус на имя,
    чтобы заявка сразу приходила размеченной. */
@@ -1842,12 +1870,22 @@ $('#form').addEventListener('submit', async (e) => {
     note.textContent = t.contact.captchaWait;
     return;
   }
-  if (!data.name?.trim() || !data.contact?.trim() || !data.message?.trim()) {
+  window.track?.('form_try');
+  const reach = ['email', 'telegram', 'phone'].some((k) => data[k]?.trim());
+  if (!data.name?.trim() || !reach || !data.message?.trim()) {
+    window.track?.('form_error', '', !data.name?.trim() ? 'нет имени' : !reach ? 'нет способа связи' : 'нет сообщения');
     note.className = 'form-note';
     note.textContent = t.contact.required;
     return;
   }
+  if (data.email?.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(data.email.trim())) {
+    window.track?.('form_error', '', 'неверный email');
+    note.className = 'form-note';
+    note.textContent = t.contact.emailBad;
+    return;
+  }
   if (!$('#consent').checked) {
+    window.track?.('form_error', '', 'нет согласия');
     note.className = 'form-note';
     note.textContent = t.contact.consentRequired;
     return;
@@ -1866,6 +1904,8 @@ $('#form').addEventListener('submit', async (e) => {
       const fd = new FormData();
       for (const [k, v] of Object.entries(data)) if (k !== 'file') fd.append(k, v);
       fd.append('lang', lang);
+      fd.append('vid', window.__vid || '');
+      fd.append('sid', window.__sid || '');
       fd.append('topicLabel', t.contact.topics[data.topic]);
       fd.append('file', file, file.name);
       res = await fetch('/api/contact', { method: 'POST', body: fd });
@@ -1873,23 +1913,56 @@ $('#form').addEventListener('submit', async (e) => {
       res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ ...data, lang, topicLabel: t.contact.topics[data.topic] })
+        body: JSON.stringify({ ...data, lang, vid: window.__vid || '', sid: window.__sid || '', topicLabel: t.contact.topics[data.topic] })
       });
     }
     if (!res.ok) throw new Error(String(res.status));
     note.className = 'form-note ok';
     note.textContent = t.contact.ok;
+    window.dispatchEvent(new Event('track:form-sent'));
     form.reset();
     showFile();
+    syncEntityFields();
+    syncOptional();
     syncSubmit();
     /* токен Turnstile одноразовый — без сброса повторная отправка уйдёт с протухшим */
     window.turnstile?.reset();
   } catch {
+    window.track?.('form_error', '', 'сбой отправки');
     note.className = 'form-note';
     note.textContent = t.contact.fail;
   } finally {
     btn.disabled = false;
     btn.textContent = t.contact.send;
+  }
+});
+
+/* ---------- переслать контакт ----------
+   Системное окно «Поделиться» (на телефоне — мессенджеры, почта, AirDrop) с карточкой .vcf;
+   где его нет — копируем контакты текстом. */
+$('#share-contact').addEventListener('click', async () => {
+  const t = T[lang].contact;
+  const btn = $('#share-contact');
+  const lines = [t.shareText, 'https://syntha.pro/', ...CONTACTS.map((c) => `${c.label[lang]}: ${c.value}`)];
+  const text = lines.join('\n');
+  try {
+    let files;
+    try {
+      const vcf = await (await fetch('/assets/petr-fedin.vcf')).blob();
+      const file = new File([vcf], 'petr-fedin.vcf', { type: 'text/vcard' });
+      if (navigator.canShare?.({ files: [file] })) files = [file];
+    } catch { /* без файла тоже годится */ }
+    if (navigator.share) {
+      await navigator.share({ title: 'Пётр Федин', text, ...(files ? { files } : { url: 'https://syntha.pro/' }) });
+      return;
+    }
+    await navigator.clipboard.writeText(text);
+    const was = btn.textContent;
+    btn.textContent = t.shareCopied;
+    setTimeout(() => { btn.textContent = was; }, 2000);
+  } catch (err) {
+    if (err?.name === 'AbortError') return;
+    try { await navigator.clipboard.writeText(text); btn.textContent = t.shareCopied; setTimeout(() => { btn.textContent = t.shareContact; }, 2000); } catch { /* ничего */ }
   }
 });
 
