@@ -22,6 +22,8 @@ const ЗАМЕНЫ = [
   ['content="Пётр Федин — фэшн-консалтинг и проекты"',
    'content="Petr Fedin — fashion advisory and projects"'],
   ['<meta property="og:locale" content="ru_RU">', '<meta property="og:locale" content="en_US">'],
+  ['alt="Пётр Федин"', 'alt="Petr Fedin"'],
+  ['alt="QR-код"', 'alt="QR code"'],
   ['<link rel="canonical" href="https://syntha.pro/">',
    '<link rel="canonical" href="https://syntha.pro/en/">'],
 ];

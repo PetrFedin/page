@@ -208,3 +208,25 @@ Canonical implementation plan:
 - [docs/PAGE_INTEGRATION_MASTER_PLAN_2026-10-01.md](./docs/PAGE_INTEGRATION_MASTER_PLAN_2026-10-01.md)
 
 This file is a planned implementation source, not evidence that every listed capability is already live. Future full-roadmap work should cite this filename and follow its sequence, authority boundaries, dependencies and acceptance gates.
+
+
+## Сборка и поиск (3 октября 2026)
+
+```bash
+npm run build      # en/index.html из index.html → разметка проектов → предотрисовка → sitemap
+npm run og         # карточки превью ссылок assets/og/*.jpg из данных проектов
+npm run indexnow   # сообщить Bing/Яндексу об обновлении страниц (после выкладки)
+```
+
+* Главные страницы предотрисовываются в Chrome (`scripts/prerender.mjs`): между метками
+  `<!--PR:START-->` и `<!--PR:END-->` лежит готовая разметка, скрипты потом её перерисовывают.
+  Руками внутри меток ничего не править — менять `content.js` и `index.html` вне меток.
+* Страницы проектов существуют в двух языках: `syntha.html` и `en/syntha.html` (и так далее).
+  Поисковая разметка и ссылки hreflang пишутся скриптом `scripts/seo-pages.mjs`.
+* `llms.txt`, `robots.txt` (ИИ-роботам разрешено читать), ключ IndexNow `<ключ>.txt` — в корне.
+* Кабинет `/stats` (логин и пароль — секреты `STATS_USER`, `STATS_PASSWORD`): статистика, заявки,
+  календарь публикаций (сайт и Telegram-канал), проверка индексируемости и список действий.
+  Таблицы базы создаются сами при первом обращении.
+* Публикации по расписанию: таймер `workers/cron` (Cloudflare Worker, раз в 5 минут) вызывает
+  `/api/cron?key=…`; секрет `CRON_KEY` задан и у воркера, и у проекта Pages.
+  Для канала нужны секреты `CHANNEL_BOT_TOKEN` и `TELEGRAM_CHANNEL`.
