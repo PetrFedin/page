@@ -73,10 +73,10 @@ export const T = {
             'Одна версия продуктовых данных вместо писем и таблиц'
           ],
           results: [
-            'Себестоимость изделия видна до запуска производства',
+            'Решение о запуске модели принимается по рассчитанной себестоимости',
             'Спецификации, образцы и версии собраны в одном месте',
             'Сроки поставщиков под контролем, срывы видны заранее',
-            'Продуктовые данные связаны с продажами и запасом',
+            'Данные о модели видны вместе с её продажами и запасом',
             'Приёмка партий по единым правилам',
             'Переход от таблиц к регулярному управлению'
           ]
@@ -207,7 +207,7 @@ export const T = {
           {
             id: 'idea', n: '01', title: 'Новая идея', term: 'проектно, 4–8 недель',
             body: 'Есть гипотеза, но нет ни продукта, ни команды. Собираю концепцию, проверяю цифрами, довожу до работающего MVP.',
-            lead: 'От гипотезы до MVP, который можно показать пользователям и инвесторам. Так начинались Syntha, ChatX и Renova.',
+            lead: 'От гипотезы до MVP, который можно показать пользователям и инвесторам. Этот путь я уже проходил на собственных продуктах.',
             steps: [
               'Неделя 1 — гипотеза и границы: для кого продукт, какую задачу закрывает, что считать успехом через три месяца. Всё на одной странице.',
               'Недели 1–2 — проверка на цифрах и людях: размер задачи, экономика пользователя и заказчика, альтернативы, 5–8 разговоров с будущими пользователями.',
@@ -430,7 +430,7 @@ export const T = {
         { n: '01', title: 'Диагностика', term: 'проектно, 4–6 недель',
           body: 'Показываю, где заморожен капитал, что тормозит рост и какие цифры не сходятся.',
           out: 'На выходе: карта проблем с приоритетами, расчёты и план действий на ближайший сезон.',
-          lead: 'Короткий формат: нахожу, где теряются деньги, и передаю план на сезон.',
+          lead: 'Работаю с вашими выгрузками и людьми, а не по шаблону: на выходе карта потерь и план на сезон.',
           steps: [
             'Неделя 0 — до старта: согласуем вопрос собственника, круг данных и людей, подписываем соглашение о конфиденциальности. Список выгрузок вы получаете заранее.',
             'Неделя 1 — данные и периметр: продажи, запасы, закупка, каналы и деньги за 2–3 сезона. Проверяю, что есть, чему можно верить и где данные расходятся между системами.',
@@ -472,7 +472,7 @@ export const T = {
           lead: 'Участвую в ваших решениях регулярно, без оформления в штат.',
           steps: [
             'Первый месяц — знакомство: разбираю правила закупки и планирования, показатели и роли; фиксируем, что считаем успехом на цикл, и договариваемся о ритме.',
-            'Месяцы 2–3 — рабочий ритм: встречи под цикл закупки и планирования, разбор отклонений плана и факта, участие в важных решениях до их принятия, а не после.',
+            'Месяцы 2–3 — рабочий ритм: встречи под цикл закупки и планирования, разбор отклонений плана и факта, подготовка важных решений вместе с вами.',
             'С 4-го месяца — закрепление: правила решений и показатели переходят в письменный регламент, команда начинает вести разборы без меня.',
             'Каждый квартал — пересборка: что из правил сработало, что меняем на следующий цикл; решаем — продолжать, сокращать участие или завершать.'
           ],
@@ -493,7 +493,7 @@ export const T = {
           needs: [
             'Доступ к рабочим цифрам: план, факт, остатки, заказы поставщикам',
             'Люди с правом решений на встречах: собственник, руководители закупки и финансов',
-            'Готовность фиксировать решения письменно — с расчётом и датой',
+            'Готовность записывать решения в согласованном формате',
             'Ответ на срочные вопросы в течение рабочего дня'
           ],
           rhythm: [
@@ -506,11 +506,11 @@ export const T = {
         { n: '03', title: 'Руководство программой', term: 'проектно, 4–6 месяцев',
           body: 'Беру на себя приоритеты, координацию функций и сложные переговоры, когда бизнес теряет управляемость.',
           out: 'На выходе: восстановленная управляемость, закреплённая ответственность и возврат к росту.',
-          lead: 'Веду программу сам, когда бизнес теряет управляемость и решения запаздывают.',
+          lead: 'Беру руководство на себя: от остановки потерь и стабилизации до передачи управления команде.',
           steps: [
             'Недели 1–2 — стабилизация: ликвидность, 13-недельный календарь денег, остановка того, что не работает; фиксируем, кто за что отвечает.',
             'Недели 3–6 — сборка управления: приоритеты на квартал, роли, права решений, недельный цикл контроля.',
-            'Месяцы 2–4 — исполнение: веду программу вместе с командой — закупка, финансы, производство, розница; сложные переговоры с поставщиками, банками и партнёрами беру на себя.',
+            'Месяцы 2–4 — исполнение: веду программу вместе с командой — закупка, финансы, производство, розница; переговоры, которые команде не по силам, веду сам.',
             'Месяцы 4–6 — возврат к росту и передача: снимаю ограничения, обучаю тех, кто продолжит, передаю управление; критерий выхода согласован заранее.'
           ],
           includes: [
@@ -591,11 +591,11 @@ export const T = {
       contactTopicOther: 'HR',
       items: [
         { n: '01', title: 'Коммерческий директор', abbr: 'CCO', term: 'Рынок, каналы, выручка, экономика сделки',
-          body: 'Отвечаю за коммерческую модель целиком: рынок, каналы, цены и экономику сделки. Решения считаю до того, как они станут обязательством.',
+          body: 'Отвечаю за коммерческую модель целиком: рынок, каналы, цены и экономику сделки. Выход на рынок и сделку предлагаю только с расчётом на руках.',
           competencies: [
             'Коммерческая стратегия и её защита перед советом директоров и инвестором',
-            'Оценка рынка, конкурентной среды и географии роста',
-            'Модель входа на рынок: ассортимент, цена, канал, партнёр',
+            'Выбор рынков и географии роста по оценке спроса и конкурентов',
+            'Вход на рынок: какой ассортимент, по какой цене, через какой канал и с каким партнёром',
             'P&L по каналам: розница, интернет-магазин, опт, маркетплейсы',
             'Ценообразование и управление наценкой по категориям и каналам',
             'Финансовая модель: выручка, маржа, денежный поток, оборотный капитал',
@@ -604,30 +604,30 @@ export const T = {
             'Постановка коммерческих KPI и контроль их исполнения',
             'Оценка готовности бизнеса к сделке или выходу на новый рынок'
           ],
-          whyFit: 'Строил финансовые модели выхода на новые рынки, оценивал бизнес перед сделкой, вёл переговоры с инвестором. Закупку, каналы и капитал считаю как одну систему — так работает коммерческий директор.'
+          whyFit: 'Строил финансовые модели выхода на новые рынки, оценивал бизнес перед сделкой, вёл переговоры с инвестором. Закупку, каналы и капитал считаю как одну систему.'
         },
         { n: '02', title: 'Генеральный директор', abbr: 'CEO', term: 'Управление бизнесом, кризис, рост',
-          body: 'Управляемость бизнеса целиком: от ликвидности и приоритетов до команды и роста. Возвращаю контроль, когда решения запаздывают, и удерживаю, когда бизнес растёт.',
+          body: 'Управляемость бизнеса целиком: от ликвидности и приоритетов до команды и роста. Возвращаю контроль в кризисе и удерживаю его, когда бизнес растёт.',
           competencies: [
             'Кассовый календарь и управление ликвидностью всей компании',
-            'Приоритеты: что останавливаем, что финансируем, что ускоряем',
+            'Распределение денег и внимания команды: что остановить, что профинансировать, что ускорить',
             'Процессы, роли и права решений во всей организации',
             'Координация функций: закупка, финансы, производство, розница, аналитика',
             'Сложные переговоры с поставщиками, банками и партнёрами',
-            'Короткий цикл план → факт → действие на уровне всей компании',
+            'Недельный контроль плана и факта по всей компании, с действием по каждому отклонению',
             'Формирование управленческой команды и делегирование полномочий',
             'Отчётность и коммуникация перед советом директоров и собственником',
             'Решения о новых рынках, продуктах и капитале — по расчёту, а не по ощущению',
             'Ответственность за P&L компании целиком, а не отдельной функции'
           ],
-          whyFit: 'Не раз возвращал бизнесу управляемость: от кассового календаря и приоритетов до роста, с полной ответственностью перед собственником. Из этого и состоит работа генерального директора.'
+          whyFit: 'Не раз возвращал бизнесу управляемость: от кассового календаря и приоритетов до роста, с полной ответственностью перед собственником.'
         },
         { n: '03', title: 'Директор по закупкам и аналитике', abbr: 'CBAO', term: 'Закупка, ассортимент, данные',
           body: 'Закупка и ассортимент как управляемая система: бюджет, прогноз спроса, аналитика и отчётность в одном цикле решений, а не россыпью задач.',
           competencies: [
-            'Бюджет закупки и лимиты по брендам, категориям и каналам',
+            'Бюджет закупки с лимитами по брендам, категориям и каналам и контролем их исполнения',
             'Ассортиментная матрица, размерная сетка, глубина и ширина коллекции',
-            'Прогноз спроса и пересчёт по факту продаж и остаткам',
+            'Прогноз спроса, который регулярно пересчитывается по продажам и остаткам',
             'BI-контур от бюджета до рентабельности отдельной позиции',
             'Архитектура данных и единая модель показателей для всей компании',
             'Управленческая отчётность для собственника и совета — от 2–3 дней до 10 минут',
@@ -636,7 +636,7 @@ export const T = {
             'Приоритизация инициатив по эффекту и срокам окупаемости',
             'Связь продуктовых, коммерческих и складских данных в одной модели'
           ],
-          whyFit: 'Построил BI-контур с нуля, перевёл закупку на регулярный пересчёт по факту продаж, обучил и вырастил аналитическую команду до уровня Senior. Это и есть работа директора по закупкам и аналитике.'
+          whyFit: 'Построил BI-контур с нуля, перевёл закупку на регулярный пересчёт по факту продаж, обучил и вырастил аналитическую команду до уровня Senior.'
         }
       ]
     },
@@ -652,7 +652,7 @@ export const T = {
       shortLabel: 'Коротко',
       short: 'Пётр Федин — эксперт по экономике и трансформации фэшн-бизнеса и основатель IT-продуктов Syntha, ChatX и Renova.',
       longLabel: 'Развёрнуто',
-      long: 'Пётр Федин работает в фэшн-бизнесе на стыке стратегии, коммерции, продукта, данных и капитала. Многолетний управленческий опыт в крупной мультибрендовой рознице: бюджет закупки, матрица, прогноз спроса, маржа, оборачиваемость. Ведёт диагностику, стратегию роста и стабилизацию, создаёт собственные IT-продукты — Syntha, ChatX, Renova и другие.',
+      long: 'Пётр Федин знает фэшн-бизнес изнутри: многолетний управленческий опыт в крупной мультибрендовой рознице — бюджет закупки, матрица, прогноз спроса, маржа, оборачиваемость. Ведёт диагностику, стратегию роста и стабилизацию; параллельно создаёт IT-продукты — Syntha, ChatX, Renova и другие.',
       topicsLabel: 'Темы для выступления и комментария',
       topics: [
         'Экономика закупки и возврат капитала',
@@ -694,15 +694,88 @@ export const T = {
       tags: { analysis: 'Разбор', market: 'Рынок', product: 'Продукт', syntha: 'Syntha', renova: 'Renova', chatx: 'ChatX', mission: 'Позиция', investors: 'Инвесторам', pilots: 'Пилоты', press: 'Пресса' }
     },
     investors: {
-      title: 'Инвесторам и партнёрам',
-      sub: 'Пять продуктов на разных стадиях: что уже построено, что дальше и кого я ищу. Цифр, которых нет, не называю.',
-      stage: 'Стадия',
-      path: 'Путь продукта',
-      seeking: 'Ищу',
-      open: 'О проекте',
-      talk: 'Обсудить участие',
-      prefill: 'Интересует участие в проекте {name}. ',
-      noteTitle: 'Форматы участия'
+      "title": "Инвесторам и партнёрам",
+      "sub": "Я открыт к партнёрству и инвестициям в мои продукты, в новые идеи и в развитие fashion- и IT-продуктов. Ниже шесть форматов, с которых можно начать.",
+      "lead": "Продукты уже собраны и работают как прототипы или MVP, поэтому разговор идёт о конкретном: что проверить, что доделать, где применить. Развивать их можно вместе. Общая нить — моя практика консалтинга в fashion: я знаю, как устроены закупка, производство и продажи изнутри. Условия обсуждаем индивидуально: после пилота или по согласованным метрикам. Доходности не обещаю.",
+      "formats": [
+        {
+          "id": "equity",
+          "title": "Инвестиции в продукт",
+          "tagline": "Капитал на следующий этап развития",
+          "what": "Вы входите долей в один из продуктов или в идею. Деньги идут на пилот, разработку и вывод на рынок по плану, который мы согласуем заранее.",
+          "partner": "Прозрачный план развития и доступ к метрикам пилота. Вы видите, как продукт взрослеет, и участвуете в решениях по объёму и приоритетам.",
+          "project": "Ресурс на доработку, на пилот с первым клиентом и на выход за пределы моих собственных сил.",
+          "fit": "Частному инвестору или фонду, которому важны продукт и понятный путь к проверке, а не презентация.",
+          "start": "Знакомство и разговор под NDA, затем показ структуры продукта и плана. Параметры участия фиксируем после пилота."
+        },
+        {
+          "id": "strategic",
+          "title": "Стратегический партнёр",
+          "tagline": "Ваш бизнес как первая площадка",
+          "what": "Бренд, ритейлер или компания становится пилотным заказчиком. Вы работаете в продукте на реальных задачах, а ваш опыт определяет, что я делаю в первую очередь.",
+          "partner": "Продукт, подстроенный под ваши процессы, и ранний доступ к нему. Влияние на приоритеты вместо готового коробочного набора.",
+          "project": "Проверка на живой работе и честная обратная связь. Это то, чего не заменит ни демо, ни теория.",
+          "fit": "Бренду или компании, у которой есть задача, а не желание «посмотреть, что это такое».",
+          "start": "Демонстрация на ваших данных, затем ограниченный пилот с заранее оговорённым объёмом и сроком."
+        },
+        {
+          "id": "codev",
+          "title": "Совместная разработка",
+          "tagline": "Сращиваем продукты, а не конкурируем",
+          "what": "Мы соединяем мой продукт с вашим: общий обмен данными, общий сценарий для пользователя или модуль, который закрывает чужой пробел. Работаем отдельным проектом с понятной границей.",
+          "partner": "Новая возможность в вашем продукте без разработки с нуля. Совместный сценарий, который сложно повторить поодиночке.",
+          "project": "Доступ к вашей аудитории и системам и проверка того, что продукт уживается в чужой среде.",
+          "fit": "IT-компании или платформе, чьи продукты соседствуют с моими: учёт, ERP, коммуникации, события.",
+          "start": "Совместный разбор: где продукты пересекаются, какой сценарий нужен пользователю. После него — небольшой пробный проект."
+        },
+        {
+          "id": "distribution",
+          "title": "Продвижение и продажи",
+          "tagline": "Ваш канал, мой продукт",
+          "what": "Вы выводите продукт к своей аудитории: через клиентскую базу, сообщество, медиа или команду внедрения. Я отвечаю за продукт и за то, чтобы он работал у ваших клиентов.",
+          "partner": "Готовый продукт, который расширяет ваше предложение клиентам. Условия сотрудничества и разделения работы фиксируем в договорённости.",
+          "project": "Доступ к людям, которых я сам не достаю, и внедрение силами партнёра.",
+          "fit": "Агентству, интегратору, отраслевому медиа или консультанту, у которого есть доверие клиентов и канал.",
+          "start": "Короткая встреча: для кого продукт, как вы его представите. Затем пробное предложение небольшой группе клиентов."
+        },
+        {
+          "id": "events",
+          "title": "События и спонсорство",
+          "tagline": "Платформа для вашего мероприятия",
+          "what": "Платформа для недель моды, форумов и конференций работает на мероприятии: программа, регистрация, встречи, партнёрские кабинеты. Спонсор или организатор участвует в запуске.",
+          "partner": "Организатору — цифровой слой для гостей и партнёров. Спонсору — заметное присутствие в самом продукте и у его аудитории.",
+          "project": "Площадка, где систему видят и проверяют живые участники. Для события это первый реальный сезон работы.",
+          "fit": "Организатору события, отраслевой ассоциации или бренду-спонсору. Формат Made in Moscow тоже подходит.",
+          "start": "Демонстрация организаторам на материалах вашего события, затем согласование того, что из платформы нужно именно вам."
+        },
+        {
+          "id": "acquisition",
+          "title": "Покупка продукта или доли",
+          "tagline": "Продукт под вашим управлением",
+          "what": "Вы покупаете продукт, долю в нём или бизнес целиком. Рассматриваю и частичную передачу, и полную, если вы готовы вести продукт дальше.",
+          "partner": "Готовую базу: код, документацию, накопленные сценарии и опыт их проверки. Вы не начинаете с нуля.",
+          "project": "Команда и ресурсы, которых у одного человека нет. При желании я остаюсь в роли эксперта по отрасли.",
+          "fit": "Компании, которой нужен готовый продукт в fashion или смежной области, а не очередной внутренний проект.",
+          "start": "Предварительный разговор под NDA: что именно вас интересует и в какой форме. Условия обсуждаем после знакомства с продуктом."
+        }
+      ],
+      "labels": {
+        "partner": "Что получает партнёр",
+        "project": "Что получает проект",
+        "fit": "Кому подходит",
+        "start": "С чего начать",
+        "projects": "Где это можно применить",
+        "talk": "Обсудить сотрудничество",
+        "nda": "Архитектуру и дорожную карту показываю при знакомстве, после подписания соглашения о неразглашении."
+      },
+      "contactMessages": {
+        "equity": "Интересует формат «Инвестиции в продукт»: ",
+        "strategic": "Интересует формат «Стратегический партнёр»: ",
+        "codev": "Интересует формат «Совместная разработка»: ",
+        "distribution": "Интересует формат «Продвижение и продажи»: ",
+        "events": "Интересует формат «События и спонсорство»: ",
+        "acquisition": "Интересует формат «Покупка продукта или доли»: "
+      }
     },
     contact: {
       title: 'Связаться',
@@ -905,10 +978,10 @@ export const T = {
       synthaLabel: 'Syntha',
       leakLabel: 'Что идёт не так на этом шаге',
       steps: [
-        { n: '01', title: 'План сезона', leak: 'Бюджет закупки задаётся ориентировочно, без расчёта по категориям: у плана и у системы разные версии спроса.', area: 'buying', contour: 'Продукт и коллекция' },
-        { n: '02', title: 'Закупка', leak: 'Заказ уходит раньше, чем известны себестоимость и сроки поставщика: цифры приходят уже после решения.', area: 'product', contour: 'Себестоимость и экономика' },
-        { n: '03', title: 'Открытие продаж', leak: 'Ассортимент и остаток на площадках расходятся со спросом. Правки согласуются в переписке и теряют автора. Решение о цене или уценке принимают субъективно, а не по продажам и марже.', area: 'buying', contour: 'Коммерция, цена и сделка' },
-        { n: '04', title: 'Остаток и деньги', leak: 'Капитал в остатке виден только при закрытии периода: выводить позицию или дозаказывать уже поздно.', area: 'turnaround', contour: 'Приоритеты и капитал' }
+        { n: '01', title: 'План сезона', leak: 'Бюджет утверждается «в целом», без расчёта по категориям: у плана и у системы разные версии спроса.', area: 'buying', contour: 'Продукт и коллекция' },
+        { n: '02', title: 'Закупка', leak: 'Котировки и сроки поставщика приходят после размещения заказа: цену решения узнают постфактум.', area: 'product', contour: 'Себестоимость и экономика' },
+        { n: '03', title: 'Открытие продаж', leak: 'Ассортимент и остаток на площадках расходятся со спросом. Правки согласуются в переписке и теряют автора. Цена и уценка зависят от оценки байера, а не от расчёта по продажам и марже.', area: 'buying', contour: 'Коммерция, цена и сделка' },
+        { n: '04', title: 'Остаток и деньги', leak: 'Сколько денег лежит в остатке, видно по итогам периода: позиция уже залежалась, а дозаказ опоздал.', area: 'turnaround', contour: 'Приоритеты и капитал' }
       ]
     },
   },
@@ -940,7 +1013,7 @@ export const T = {
           lead: 'Sketch to shipment in one chain, with cost, timing and versions in view.',
           does: ['Order economics and true item cost', 'Specifications, samples, tech packs, versions and approvals', 'Order placement, supplier capacity and lead times', 'Quality control and batch acceptance', 'Product data linked to sales and inventory', 'Supplier audit and alternative sourcing options', 'One approval route for changes: none lost in email'],
           gives: ['Cost visible before launch, not after', 'Early signals on slipping deadlines and quality', 'A single version of the product data, not emails and spreadsheets'],
-          results: ['Item cost visible before production starts', 'Specifications, samples and versions kept in one place', 'Supplier lead times under control, slippage visible early', 'Product data linked to sales and inventory', 'Batch acceptance on one set of rules', 'Spreadsheets replaced by systematic management'] },
+          results: ['A launch decision made on a calculated item cost', 'Specifications, samples and versions kept in one place', 'Supplier lead times under control, slippage visible early', 'A model’s data seen alongside its sales and stock', 'Batch acceptance on one set of rules', 'Spreadsheets replaced by systematic management'] },
         { id: 'capital', n: 'Markets and finance',
           l: 'Market and competitor assessment, financial model, funding requirement, investor materials',
           lead: 'Growth, calculated before it becomes an obligation.',
@@ -1025,7 +1098,7 @@ export const T = {
           {
             id: 'idea', n: '01', title: 'A new idea', term: 'project, 4–8 weeks',
             body: 'You have a hypothesis, but no product or team yet. I shape the concept, test it against the numbers and build a working MVP.',
-            lead: 'From hypothesis to a working MVP you can show to users and investors — the way Syntha, ChatX and Renova began.',
+            lead: 'From hypothesis to a working MVP you can show to users and investors — and I have already made this journey with my own products.',
             steps: [
               'Week 1 — hypothesis and boundaries: who the product is for, which problem it solves, what counts as success in three months. All on one page.',
               'Weeks 1–2 — validation against data and people: size of the problem, user and customer economics, alternatives, 5–8 conversations with future users.',
@@ -1059,7 +1132,7 @@ export const T = {
               'A demo of the working version every week',
               'Decision points: the end of weeks 2, 4 and 8'
             ],
-            fit: 'You have an idea but no product or team, and need to learn fast whether it is worth investing in.',
+            fit: 'You need to learn fast whether an idea is worth investing in.',
             notFit: 'Not suitable if you need the system taken to production and maintained. That is the “Full cycle” format; this one stops at a compact MVP.'
           },
           {
@@ -1135,7 +1208,7 @@ export const T = {
               'A demo of each block before launch',
               'A metrics report once a month'
             ],
-            fit: 'Your product or process exists but cannot keep up with the business, and a full rewrite is costly and risky.',
+            fit: 'The product is lagging behind the business, and a full rewrite would be costly and risky.',
             notFit: 'Not suitable if a full rewrite has been decided without establishing what is actually broken. I will propose a short review first.'
           },
           {
@@ -1248,7 +1321,7 @@ export const T = {
         { n: '01', title: 'Diagnostics', term: 'project-based, 4–6 weeks',
           body: 'I analyse your economics: where capital is tied up, what limits growth, which numbers conflict.',
           out: 'Output: a prioritised map of problems, the calculations and a plan for the coming season.',
-          lead: 'A short engagement: locate where money is lost and leave with a plan for the coming season.',
+          lead: 'I work from your own extracts and with your own people, not from a template: you leave with a map of losses and a plan for the season.',
           steps: [
             'Week 0 — before the start: we agree the owner’s question and the scope of data and people, and sign an NDA. You get the list of required extracts in advance.',
             'Week 1 — data and scope: sales, inventory, buying, channels and cash for 2–3 seasons. I check what exists, what can be trusted and where systems disagree.',
@@ -1279,7 +1352,7 @@ export const T = {
           lead: 'Regular support for decisions inside your own working cycle — without joining the payroll.',
           steps: [
             'Month 1 — onboarding: I review buying and planning rules, metrics and roles; we agree what counts as success for the cycle and set the rhythm.',
-            'Months 2–3 — working rhythm: meetings aligned to the buying and planning cycle, plan-versus-actual reviews, and a say in major decisions before they are made, not after.',
+            'Months 2–3 — working rhythm: meetings aligned to the buying and planning cycle, plan-versus-actual reviews, and preparing major decisions together with you.',
             'From month 4 — consolidation: decision rules and metrics become written policy and your team runs the reviews without me.',
             'Every quarter — review and reset: what worked, what changes for the next cycle; we decide whether to continue, reduce my involvement or finish.'
           ],
@@ -1289,7 +1362,7 @@ export const T = {
           needs: [
             'Access to working numbers: plan, actuals, stock, supplier orders',
             'People with decision rights in the room: the owner and the heads of buying and finance',
-            'Willingness to record decisions in writing, with the calculation and the date',
+            'Willingness to record decisions in an agreed format',
             'A reply to urgent questions within a working day'
           ],
           rhythm: [
@@ -1302,11 +1375,11 @@ export const T = {
         { n: '03', title: 'Programme lead', term: 'project-based, 4–6 months',
           body: 'When the business loses control, I take over priorities, cross-functional coordination and the difficult negotiations.',
           out: 'Output: control restored, accountability assigned, growth resumed.',
-          lead: 'Execution, not recommendations: I run the programme when decisions come too late.',
+          lead: 'I take the helm: from stopping the losses and stabilising to handing management back to the team.',
           steps: [
             'Weeks 1–2 — stabilisation: liquidity, a 13-week cash calendar, stopping what does not work; we settle who owns what.',
             'Weeks 3–6 — building management: quarterly priorities, roles, decision rights and a weekly control cycle.',
-            'Months 2–4 — execution: I run the programme with the team — buying, finance, production, retail — and take on the hard negotiations with suppliers, banks and partners.',
+            'Months 2–4 — execution: I run the programme with the team — buying, finance, production, retail — and lead the negotiations the team cannot manage alone.',
             'Months 4–6 — return to growth and handover: I lift the constraints, train those who continue and hand management over; the exit criterion is agreed in advance.'
           ],
           includes: ['Liquidity and spending priorities', 'Rebuilt processes, roles and decision rights', 'Coordination across buying, finance, production and retail', 'Difficult negotiations with suppliers, banks and partners', 'Execution control until the business is stable', 'Personal accountability for the result — execution, not a recommendation'],
@@ -1364,11 +1437,11 @@ export const T = {
       contactTopicOther: 'HR',
       items: [
         { n: '01', title: 'Commercial Director', abbr: 'CCO', term: 'Market, channels, revenue, deal economics',
-          body: 'The whole commercial model — market, channels, pricing, deal economics — calculated before it becomes a commitment.',
+          body: 'I own the whole commercial model: market, channels, pricing and deal economics. I propose a market entry or a deal only with the numbers in hand.',
           competencies: [
             'Commercial strategy and defending it to the board and investors',
-            'Market, competitive landscape and growth geography assessment',
-            'Market entry model: assortment, pricing, channel, partner',
+            'Choosing markets and growth geography from demand and competitor assessment',
+            'Market entry: which assortment, at what price, through which channel and with which partner',
             'P&L by channel: retail, e-commerce, wholesale, marketplaces',
             'Pricing and margin management by category and channel',
             'Financial model: revenue, margin, cash flow, working capital',
@@ -1377,30 +1450,30 @@ export const T = {
             'Setting commercial KPIs and tracking execution',
             'Readiness assessment for a deal or a new market'
           ],
-          whyFit: 'I have built market-entry financial models, valued a business ahead of a deal and negotiated with an investor. I treat buying, channels and capital as one system, which is how a commercial director works.'
+          whyFit: 'I have built market-entry financial models, valued a business ahead of a deal and negotiated with an investor. I treat buying, channels and capital as one system.'
         },
         { n: '02', title: 'Chief Executive Officer', abbr: 'CEO', term: 'Running the business, turnaround, growth',
-          body: 'Control of the whole business, from liquidity and priorities to team and growth: I restore it when decisions run late and keep it as growth returns.',
+          body: 'Control of the whole business, from liquidity and priorities to team and growth: I restore it in a crisis and keep it as the business grows.',
           competencies: [
             'Cash calendar and liquidity management for the whole company',
-            'Priorities: what to stop, fund or accelerate',
+            'Allocating money and the team’s attention: what to stop, fund or accelerate',
             'Processes, roles and decision rights company-wide',
             'Cross-functional coordination: buying, finance, production, retail, analytics',
             'Complex negotiations with suppliers, banks and partners',
-            'A short plan → actual → action cycle at company level',
+            'Weekly plan-versus-actual control across the company, with an action for every deviation',
             'Building a management team and delegating authority',
             'Reporting and communication to the board and the owner',
             'Decisions on new markets, products and capital — by calculation, not instinct',
             'Ownership of the company P&L as a whole, not a single function'
           ],
-          whyFit: 'I have restored control of a business more than once, from cash calendar and priorities to a return to growth, with full accountability to the owner. That is what a CEO’s job consists of.'
+          whyFit: 'I have restored control of a business more than once, from cash calendar and priorities to a return to growth, with full accountability to the owner.'
         },
         { n: '03', title: 'Chief Buying and Analytics Officer', abbr: 'CBAO', term: 'Buying, assortment, data',
           body: 'Buying and assortment as one managed system: budget, demand forecast, analytics and reporting on one data model.',
           competencies: [
-            'Open-to-buy and limits by brand, category and channel',
+            'Open-to-buy with limits by brand, category and channel, and control of how they are used',
             'Assortment matrix, size curves, depth and width',
-            'Demand forecast recalculated from actual sales and stock',
+            'A demand forecast that is regularly recalculated from sales and stock',
             'A BI system from budget to profitability per item',
             'Data architecture and a single metrics model for the company',
             'Management reporting for the owner and the board — from 2–3 days to 10 minutes',
@@ -1409,7 +1482,7 @@ export const T = {
             'Prioritising initiatives by impact: what pays off fast versus what needs rebuilding',
             'Linking product, commercial and stock data in one model'
           ],
-          whyFit: 'I built a BI system from scratch, moved buying onto regular recalculation from actual sales, and trained and grew an analytics team to Senior level. That is the job of a chief buying and analytics officer.'
+          whyFit: 'I built a BI system from scratch, moved buying onto regular recalculation from actual sales, and trained and grew an analytics team to Senior level.'
         }
       ]
     },
@@ -1423,7 +1496,7 @@ export const T = {
       title: 'For press and event organisers',
       subtitle: 'Everything needed for a programme or a comment, ready to use.',
       shortLabel: 'Short', short: 'Petr Fedin advises fashion businesses on economics and transformation. He is the founder of the IT products Syntha, ChatX and Renova.',
-      longLabel: 'Full', long: 'Petr Fedin works in fashion where strategy, commerce, product, data and capital meet. He has many years of management experience in large multi-brand retail: open-to-buy, assortment matrix, demand forecasting, margin and stock turn. He leads diagnostics, growth strategy and turnaround work, and builds his own IT products — Syntha, ChatX, Renova and others.',
+      longLabel: 'Full', long: 'Petr Fedin knows the fashion business from the inside: many years of management experience in large multi-brand retail — open-to-buy, assortment matrix, demand forecasting, margin and stock turn. He leads diagnostics, growth strategy and turnaround work; alongside, he builds IT products — Syntha, ChatX, Renova and others.',
       topicsLabel: 'Speaking and comment topics',
       topics: ['Buying economics and the return of capital', 'Budgeting and open-to-buy', 'Building analytics: from data to decisions', 'The metrics that drive fashion retail', 'Merchandise planning and inventory control', 'The retail cycle and working with the customer', 'Marketplaces and omnichannel selling', 'The Russian fashion market: what is changing', 'PLM and a brand\u2019s digital architecture', 'Managing through a crisis and returning to growth', 'From advisory to product: how Syntha, ChatX and Renova were built'],
       photoLabel: 'Portrait for publication', photoBtn: 'Download photo',
@@ -1450,15 +1523,88 @@ export const T = {
       tags: { analysis: 'Analysis', market: 'Market', product: 'Product', syntha: 'Syntha', renova: 'Renova', chatx: 'ChatX', mission: 'Position', investors: 'For investors', pilots: 'Pilots', press: 'Press' }
     },
     investors: {
-      title: 'For investors and partners',
-      sub: 'Five products, each at its own stage: what is built, what comes next and whom I am looking for. I quote no figure I do not have.',
-      stage: 'Stage',
-      path: 'Product path',
-      seeking: 'Looking for',
-      open: 'About the project',
-      talk: 'Discuss participation',
-      prefill: 'I am interested in taking part in {name}. ',
-      noteTitle: 'Ways to take part'
+      "title": "For investors and partners",
+      "sub": "I am open to partnerships and investment in my products, in new ideas and in the development of fashion and IT products. Below are six ways to begin.",
+      "lead": "The products are already built, as working prototypes or MVPs, so the conversation can be practical: what to test, what to finish, where to apply it. They can be developed jointly. The common thread is my consulting practice in fashion, which gives me an insider's view of buying, production and sales. Terms are agreed individually, after a pilot or against agreed metrics. I promise no returns.",
+      "formats": [
+        {
+          "id": "equity",
+          "title": "Equity investment",
+          "tagline": "Capital for the next stage of a product",
+          "what": "You take a stake in one of the products or in a new idea. The funds go to a pilot, development and launch, following a plan we agree beforehand.",
+          "partner": "A clear development plan and sight of the pilot’s metrics. You watch the product mature and share in decisions on scope and priorities.",
+          "project": "Resources to finish the build, to run a pilot with a first customer and to grow beyond what one person can do.",
+          "fit": "A private investor or fund that cares about the product and a clear route to proving it, more than a pitch deck.",
+          "start": "An introduction and a conversation under NDA, then a walk through the product structure and plan. Terms are set after the pilot."
+        },
+        {
+          "id": "strategic",
+          "title": "Strategic partner",
+          "tagline": "Your business as the first proving ground",
+          "what": "A brand, retailer or company becomes the pilot customer. You work in the product on real tasks, and your experience decides what I build first.",
+          "partner": "A product shaped around your own processes, with early access. A say in priorities, instead of an off-the-shelf package.",
+          "project": "Testing in live work and frank feedback, which no demo or theory can replace.",
+          "fit": "A brand or company with a real problem to solve, not simply a wish to see what this is.",
+          "start": "A demo on your own data, then a limited pilot with a scope and duration agreed in advance."
+        },
+        {
+          "id": "codev",
+          "title": "Co-development",
+          "tagline": "Joining products instead of competing",
+          "what": "We connect my product to yours: shared data, a joint user journey, or a module that fills a gap in the other. It runs as a separate project with clear boundaries.",
+          "partner": "A new capability in your product without building it from scratch, and a joint journey that is hard to copy alone.",
+          "project": "Access to your audience and systems, and proof that the product holds up in someone else’s environment.",
+          "fit": "An IT company or platform whose products sit next to mine: accounting, ERP, communication, events.",
+          "start": "A joint review of where the products overlap and which journey the user needs, followed by a small trial project."
+        },
+        {
+          "id": "distribution",
+          "title": "Marketing and distribution",
+          "tagline": "Your channel, my product",
+          "what": "You take the product to your own audience through a client base, a community, media or an implementation team. I look after the product and make sure it works for your customers.",
+          "partner": "A finished product that widens what you offer clients. The terms and the split of work are set out in a written agreement.",
+          "project": "Reach to people I cannot get to myself, and rollout carried by the partner.",
+          "fit": "An agency, integrator, trade publication or consultant with client trust and a channel.",
+          "start": "A short meeting on who the product is for and how you would present it, then a trial offer to a small group of clients."
+        },
+        {
+          "id": "events",
+          "title": "Events and sponsorship",
+          "tagline": "A platform for your event",
+          "what": "The platform for fashion weeks, forums and conferences runs at the event: programme, registration, meetings and partner desks. A sponsor or an organiser takes part in the launch.",
+          "partner": "For an organiser, a digital layer for guests and partners. For a sponsor, a visible presence inside the product and in front of its audience.",
+          "project": "A stage where real attendees see and test the system. For the product, it is a first live season.",
+          "fit": "An event organiser, a trade association or a sponsoring brand. A Made in Moscow format would suit it as well.",
+          "start": "A demo for organisers using your event’s material, then agreeing which parts of the platform you need."
+        },
+        {
+          "id": "acquisition",
+          "title": "Acquiring a product or stake",
+          "tagline": "A product under your management",
+          "what": "You buy a product, a share of it, or the business outright. I will consider a partial handover as readily as a full one, if you are ready to take the product forward.",
+          "partner": "A ready foundation: code, documentation, tested scenarios and the experience of checking them. You do not start from zero.",
+          "project": "A team and resources that one person does not have. If you wish, I stay on as an industry adviser.",
+          "fit": "A company that wants a finished product in fashion or an adjacent field, rather than another internal build.",
+          "start": "A preliminary conversation under NDA on what interests you and in what form. Terms follow once you have seen the product."
+        }
+      ],
+      "labels": {
+        "partner": "What a partner gets",
+        "project": "What the project gets",
+        "fit": "Who it suits",
+        "start": "How it starts",
+        "projects": "Where it can be applied",
+        "talk": "Discuss cooperation",
+        "nda": "Further architecture and roadmap detail is shared in person, under NDA."
+      },
+      "contactMessages": {
+        "equity": "I am interested in “Equity investment”: ",
+        "strategic": "I am interested in “Strategic partner”: ",
+        "codev": "I am interested in “Co-development”: ",
+        "distribution": "I am interested in “Marketing and distribution”: ",
+        "events": "I am interested in “Events and sponsorship”: ",
+        "acquisition": "I am interested in “Acquiring a product or stake”: "
+      }
     },
     contact: {
       title: 'Get in touch',
@@ -1661,10 +1807,10 @@ export const T = {
       synthaLabel: 'Syntha',
       leakLabel: 'What goes wrong at this step',
       steps: [
-        { n: '01', title: 'Season plan', leak: 'The buying budget is set on instinct, with no calculation by category. Advisory and the system end up with two different versions of the same demand.', area: 'buying', contour: 'Product and collection' },
-        { n: '02', title: 'Buying', leak: 'The order goes out before the true item cost and supplier lead time are known. The numbers that should have shaped the decision arrive after it.', area: 'product', contour: 'Cost and economics' },
-        { n: '03', title: 'Launch to sale', leak: 'Assortment and stock across channels drift from what is selling. Changes are agreed over email and lose their owner. The pricing call — mark down now or wait — is made on instinct, not on sales and margin.', area: 'buying', contour: 'Commerce, price and the deal' },
-        { n: '04', title: 'Stock and cash', leak: 'Capital locked in stock only shows when the period closes — too late to decide whether to exit the item or reorder.', area: 'turnaround', contour: 'Priorities and capital' }
+        { n: '01', title: 'Season plan', leak: 'The budget is approved “in aggregate”, with no calculation by category: the plan and the system hold different versions of demand.', area: 'buying', contour: 'Product and collection' },
+        { n: '02', title: 'Buying', leak: 'Supplier quotes and lead times arrive after the order is placed: the real price of the decision is learned afterwards.', area: 'product', contour: 'Cost and economics' },
+        { n: '03', title: 'Launch to sale', leak: 'Assortment and stock across channels drift from what is selling. Changes are agreed over email and lose their owner. Price and markdown depend on one buyer’s judgement, not on a calculation from sales and margin.', area: 'buying', contour: 'Commerce, price and the deal' },
+        { n: '04', title: 'Stock and cash', leak: 'How much cash sits in stock is known only once the period closes: by then the item has gone stale and the reorder is late.', area: 'turnaround', contour: 'Priorities and capital' }
       ]
     },
   }
@@ -1690,11 +1836,11 @@ export const PROJECTS = [
       roadmap: [{ label: 'Прототип', state: 'done' }, { label: 'Рабочая система', state: 'done' }, { label: 'Готовится к пилоту', state: 'current' }, { label: 'Пилот и запуск', state: 'next' }],
       tagline: 'Операционная система фэшн-бренда',
       stage: 'Готовится к пилоту',
-      card: 'Бренд, магазин и байер работают в одной системе: от техпака и шоурума до заказа и фактической маржи. Коммерческое ядро и производственный контур построены, готовлю пилот.',
+      card: 'Бренд, магазин и байер работают в одной системе: от техпака и шоурума до заказа и фактической маржи. Система собрана, готовлю пилот с первым брендом.',
       what: 'Продукт и коммерция бренда на одной модели данных. Продукт: планирование коллекции, спецификации, образцы, техпаки, производство, контроль качества, закупка материалов. Коммерция: цифровой шоурум, подборки байера, заказ, подтверждение, сделка. Экономика заказа замыкает цепочку: себестоимость, маржа, закрытие.',
       who: 'Брендам, розничным сетям, байерам мультибренда, дистрибьюторам и производствам. У каждого своя роль и свои права доступа.',
       why: 'Данные о продукте хранятся в одной системе, продажи — в другой, остатки — в третьей. Бренд не видит, что подтверждено; магазин не уверен в поставке. Сверка идёт вручную и постфактум.',
-      how: 'Я опираюсь на устоявшиеся практики отрасли и достраиваю недостающее: продукт и коммерция в одной модели данных, цену и доступность рассчитывает сервер, заказ подтверждают обе стороны. Архитектуру показываю на демонстрации.'
+      how: 'Я опираюсь на устоявшиеся практики отрасли и достраиваю недостающее. Цену и доступность рассчитывает сервер, заказ подтверждают обе стороны. Архитектуру показываю на демонстрации.'
     },
     en: {
       collab: [{ k: 'Pilot', v: 'A brand or retailer runs a real season in the system, and its experience sets my development priorities.' }, { k: 'Go to market', v: 'A partner with channel access who takes on sales and rollout.' }, { k: 'Integration', v: 'Integration with the brand’s ERP is delivered as a separate project.' }, { k: 'On request', v: 'A demo on your own data, and a feature comparison with international platforms.' }],
@@ -1708,11 +1854,11 @@ export const PROJECTS = [
       roadmap: [{ label: 'Prototype', state: 'done' }, { label: 'Working system', state: 'done' }, { label: 'Preparing for a pilot', state: 'current' }, { label: 'Pilot and launch', state: 'next' }],
       tagline: 'The operating platform for a fashion brand',
       stage: 'Preparing for a pilot',
-      card: 'Brand, retailer and buyer work in one system, from tech pack and showroom to order and actual margin. The commercial core and production module are built; I am preparing a pilot.',
+      card: 'Brand, retailer and buyer work in one system, from tech pack and showroom to order and actual margin. The build is done; I am preparing a pilot with a first brand.',
       what: 'A brand’s product and commerce on one data model. Product: collection planning, specifications, samples, tech packs, production, quality control and materials sourcing. Commerce: digital showroom, buyer selections, order, confirmation and deal. Order economics closes the chain: cost, margin, close-out.',
       who: 'Brands, retail chains, multi-brand buyers, distributors and manufacturers. Each has its own role and access rights.',
       why: 'Product data sits in one system, sales in another, stock in a third. The brand cannot see what is confirmed; the retailer cannot rely on delivery. Reconciliation is manual and after the fact.',
-      how: 'I build on established industry practice and add what it lacks: product and commerce on one data model, price and availability calculated by the server, orders confirmed by both sides. I walk through the architecture in a demo.'
+      how: 'I build on established industry practice and add what it lacks. The server calculates price and availability, and both sides confirm the order. I walk through the architecture in a demo.'
     }
   },
   {
@@ -1729,15 +1875,15 @@ export const PROJECTS = [
         next: ['Пилот внутри компании-заказчика', 'Адаптеры Slack и Teams', 'Автоматизации: правила вида «если X, предложить Y» с журналом'],
         seeking: 'Компании, готовые перенести в ChatX часть работы, и партнёр по внедрению.'
       },
-      investor: { note: 'Рассматриваю форматы: долевые инвестиции, спонсорство, покупка бизнеса или доли, маркетинговое партнёрство, интеграция с другими продуктами. Предметный разговор — после выхода на первый пилот.' },
+      investor: { note: 'Форматы участия те же, что у Syntha: доля, спонсорство, покупка, маркетинговое партнёрство, интеграция. Предметный разговор — после выхода на первый пилот.' },
       roadmap: [{ label: 'Прототип', state: 'done' }, { label: 'Рабочий прототип', state: 'current' }, { label: 'Пилот и запуск', state: 'next' }],
       tagline: 'Рабочий мессенджер: переписка, задачи, звонки и календарь в одном пространстве',
       stage: 'Рабочий прототип',
       card: 'Мессенджер для компании: переписка, задачи, звонки с записью по согласию, календарь, вики, оргструктура и роли. Рабочий прототип, готовится пилот.',
-      what: 'Мессенджер для компании: каналы, группы и личные сообщения, голосовые, файлы, поиск с учётом прав. Задачи, календарь, аудио- и видеозвонки, расшифровка встреч. Оргструктура с ролями, вики компании, ИИ-помощник в чате, вебхуки и ключи API.',
+      what: 'Переписка: каналы, группы и личные сообщения, голосовые, файлы, поиск с учётом прав. Работа: задачи, календарь, аудио- и видеозвонки, расшифровка встреч. Управление: оргструктура с ролями, вики компании, ИИ-помощник в чате, вебхуки и ключи API.',
       who: 'Компаниям, которым нужна собственная управляемая среда работы вместо переписки в публичном мессенджере: от небольшой команды до структуры с департаментами.',
-      why: 'Работа разнесена по сервисам: обсуждение в чате, задача в трекере, согласование по почте. Через месяц невозможно показать, где принято решение и чем оно завершилось.',
-      how: 'Разговор, встреча, решение, задача и результат связаны в одну цепочку. Права проверяет сервер, а не интерфейс. Запись встречи начинается только с согласия всех участников, итоги ссылаются на таймкоды, задачу создаёт человек после подтверждения.'
+      why: 'Каждый сервис хранит свой кусок решения, и целиком его не собрать. Через месяц невозможно показать, где оно принято и чем завершилось.',
+      how: 'Разговор, встреча, решение, задача и результат связаны в одну цепочку. Права проверяет сервер, а не интерфейс. Запись и создание задач всегда проходят через согласие человека.'
     },
     en: {
       collab: [{ k: 'Early access', v: 'A company moves part of its work into ChatX and sets feature priorities.' }, { k: 'Rollout', v: 'A partner who deploys the product in client companies and supports the transition.' }, { k: 'On request', v: 'A demo and architecture walkthrough under an NDA.' }],
@@ -1747,15 +1893,15 @@ export const PROJECTS = [
         next: ['A pilot inside a client company', 'Slack and Teams adapters', 'Automations: “if X, suggest Y” rules with a log'],
         seeking: 'Companies ready to move part of their work into ChatX, and an implementation partner.'
       },
-      investor: { note: 'Formats under consideration: equity investment, sponsorship, acquisition of the business or a stake, marketing partnership, integration with other products. Substantive discussions begin once the first pilot is under way.' },
+      investor: { note: 'The participation formats are the same as for Syntha: equity, sponsorship, acquisition, marketing partnership, integration. Substantive discussions begin once the first pilot is under way.' },
       roadmap: [{ label: 'Prototype', state: 'done' }, { label: 'Working prototype', state: 'current' }, { label: 'Pilot and launch', state: 'next' }],
       tagline: 'A workplace messenger: conversations, tasks, calls and a calendar in one workspace',
       stage: 'Working prototype',
       card: 'A company messenger: conversations, tasks, calls with consented recording, a calendar, a wiki, an org structure and roles. Working prototype; a pilot is next.',
-      what: 'A messenger for companies: channels, groups and direct messages, voice notes, files and permission-aware search. Tasks, a calendar, audio and video calls, meeting transcription. An org structure with roles, a company wiki, an in-chat AI assistant, webhooks and API keys.',
+      what: 'Conversation: channels, groups and direct messages, voice notes, files and permission-aware search. Work: tasks, a calendar, audio and video calls, meeting transcription. Management: an org structure with roles, a company wiki, an in-chat AI assistant, webhooks and API keys.',
       who: 'Companies that need a governed workspace of their own rather than threads in a public messenger, from a small team to a multi-department structure.',
-      why: 'Work is split across services: discussion in chat, the task in a tracker, approval by email. A month later no one can show where a decision was taken or how it ended.',
-      how: 'Conversation, meeting, decision, task and outcome form one chain. The server enforces permissions, not the interface. A meeting is recorded only with every participant’s consent, summaries link to timecodes, and a task is created only once a person confirms it.'
+      why: 'Each service holds its own piece of a decision, and no one can assemble the whole. A month later no one can show where it was taken or how it ended.',
+      how: 'Conversation, meeting, decision, task and outcome form one chain. The server enforces permissions, not the interface. Recording and task creation always go through a person’s consent.'
     }
   },
   {
@@ -1770,17 +1916,17 @@ export const PROJECTS = [
         done: ['Смета по нормам с версиями и сравнением плана с фактом', 'Этапы работ: сдача и приёмка, фотофиксация, технадзор, гарантийные заявки', 'Платежи по этапам: планы оплат, подтверждение с доказательствами, споры, счета на допработы', 'Роли заказчика, мастера и гостя по ссылке; чаты по объекту и этапу; центр уведомлений', 'Управление участниками проекта, конвертация заявки в проект', 'Закупки и материалы с ценами, документы, офлайн-режим с очередью действий', 'Проверка чеков и статуса самозанятого через ФНС: код и тесты готовы, боевая проверка ожидает ключей'],
         now: ['Подготовка сборки для TestFlight: релизная конфигурация и окружение', 'Завершение сценария независимого исполнителя', 'Идемпотентный повтор действий из очереди при потере связи', 'Аудит экранов и исправление найденных дефектов'],
         next: ['Развёртывание на сервере, закрытый тест на реальных объектах', 'Боевые платежи и «Мой налог» (OAuth)', 'Push-уведомления на устройствах', 'Публикация в App Store после юридической подготовки'],
-        seeking: 'Мастеров, бригады и заказчиков, готовых вести в приложении реальный объект.'
+        seeking: 'Мастеров, бригады и заказчиков для закрытого теста на реальном объекте. А также инвесторов и партнёров, с которыми можно развивать продукт дальше: от закрытого теста до выхода на рынок.'
       },
-      investor: { note: 'Рассматриваю форматы участия: долевые инвестиции, спонсорство, приобретение бизнеса или доли, маркетинговое партнёрство, интеграцию с другими продуктами. Отдельной подготовки к внешнему финансированию не проводил; готов к разговору на стадии MVP.' },
+      investor: { note: 'Форматы участия те же, что у Syntha и ChatX. Отдельной подготовки к внешнему финансированию не проводил; готов к разговору на стадии MVP.' },
       roadmap: [{ label: 'MVP', state: 'done' }, { label: 'Подготовка к закрытому тесту', state: 'current' }, { label: 'Закрытый тест и запуск', state: 'next' }],
       tagline: 'Ремонт под контролем',
       stage: 'MVP, подготовка к закрытому тесту',
       card: 'Управление ремонтом в одном приложении: смета по нормам, этапы с приёмкой, платежи за принятые этапы, чаты, закупки и документы. MVP собран, готовится закрытый тест.',
-      what: 'Мобильное приложение (в первую очередь для iPhone), в котором заказчик ведёт ремонт целиком: смета с версиями, этапы с приёмкой, платежи, материалы, документы. Переписка с исполнителями привязана к этапу.',
+      what: 'Мобильное приложение (в первую очередь для iPhone): заказчик ведёт ремонт от сметы до приёмки последнего этапа. Переписка с исполнителями привязана к этапу, материалы и документы лежат там же.',
       who: 'Собственникам, делающим ремонт, и исполнителям: мастерам и бригадам. У каждой роли свой экран и своя зона ответственности.',
       why: 'Ремонт ведут в переписке и по сохранённым чекам. Смета расходится с фактом, перерасход выявляется в конце, ответственного нет, статус исполнителя ничем не подтверждён.',
-      how: 'Каждое действие пересчитывает цифры. Оплата привязана к принятому этапу. Проверка чеков и статуса самозанятого через ФНС реализована и покрыта тестами; боевая проверка ожидает ключей. Заказчик видит, сколько потрачено, что в работе и что дальше.'
+      how: 'Любая правка сметы, этапа или платежа сразу меняет итоговые цифры. Оплата привязана к принятому этапу, а статус исполнителя проверяется через ФНС. Заказчик видит, сколько потрачено, что в работе и что дальше.'
     },
     en: {
       collab: [{ k: 'Client', v: 'Manage your own renovation in the app and tell me which features are missing.' }, { k: 'Contractor or crew', v: 'Work on a live site: estimates, schedules, handover and acceptance.' }, { k: 'Renovation company', v: 'Test the approach across a portfolio of sites rather than a single one.' }, { k: 'On request', v: 'A demonstration and the findings from this project.' }],
@@ -1788,69 +1934,73 @@ export const PROJECTS = [
         done: ['Norm-based estimates with versions and plan-versus-actual comparison', 'Work stages: handover and acceptance, photo evidence, technical supervision, warranty claims', 'Stage payments: payment plans, confirmation with evidence, disputes, invoices for extra work', 'Client, contractor and link-based guest roles; chats per project and stage; a notification centre', 'Project participant management and conversion of a lead into a project', 'Purchasing and materials with prices, documents, an offline mode with an action queue', 'Receipt and self-employed status checks via the Federal Tax Service: code and tests are ready, live verification awaits keys'],
         now: ['Preparing the TestFlight build: release configuration and environment', 'Completing the independent contractor flow', 'Idempotent replay of queued actions after a connection loss', 'A screen audit and fixes for the defects it finds'],
         next: ['Server deployment and a closed test on real projects', 'Live payments and tax-service OAuth', 'Push notifications on devices', 'App Store publication after legal preparation'],
-        seeking: 'Contractors, crews and clients ready to run a real project in the app.'
+        seeking: 'Contractors, crews and clients for a closed test on a real site — and investors and partners to develop the product with me, from the closed test to market launch.'
       },
-      investor: { note: 'Open to several formats: equity investment, sponsorship, acquisition of the business or a stake, marketing partnerships and integration with other products. I have not prepared separately for outside financing; I am open to a conversation at the MVP stage.' },
+      investor: { note: 'The participation formats are the same as for Syntha and ChatX. I have not prepared separately for outside financing; I am open to a conversation at the MVP stage.' },
       roadmap: [{ label: 'MVP', state: 'done' }, { label: 'Preparing a closed test', state: 'current' }, { label: 'Closed test and launch', state: 'next' }],
       tagline: 'Renovation under control',
       stage: 'MVP, preparing a closed test',
       card: 'Renovation management in one app: norm-based estimates, stages with acceptance, payments for accepted stages, chats, purchasing and documents. The MVP is built; a closed test is next.',
-      what: 'An iPhone-first app in which the client runs a whole renovation: versioned estimates, stages with acceptance, payments, materials and documents. Conversations with contractors are tied to the stage.',
+      what: 'An iPhone-first app: the client runs a renovation from the estimate to acceptance of the last stage. Conversations with contractors are tied to the stage, and materials and documents sit alongside.',
       who: 'Owners renovating their property, and the contractors and crews who do the work. Each role has its own screen and its own responsibilities.',
       why: 'Renovations are run through chat threads and saved receipts. The estimate drifts from actual costs, overspend surfaces only at the end, no one is accountable, and the contractor’s status is unverified.',
-      how: 'Every action recalculates the figures. Payment is tied to an accepted stage. Receipt and self-employed status checks via the Federal Tax Service are implemented and covered by tests; live checks await keys. The client sees what has been spent, what is under way and what comes next.'
+      how: 'Any change to an estimate, stage or payment immediately changes the totals. Payment is tied to an accepted stage, and the contractor’s status is verified through the Federal Tax Service (the live check awaits keys). The client sees what has been spent, what is under way and what comes next.'
     }
   },
   {
     id: 'mfw',
     name: 'MFW+BFS',
     device: 'iphone',
-    shots: ['/assets/shots/mfw-3.jpg', '/assets/shots/mfw-4.jpg', '/assets/shots/bfs-4.jpg', '/assets/shots/bfs-5.jpg'],
+    shots: ['/assets/shots/mfw-hero.jpg', '/assets/shots/mfw-open.jpg', '/assets/shots/bfs-hero.jpg', '/assets/shots/bfs-program.jpg'],
     ru: {
       roadmap: [{ label: 'MVP', state: 'done' }, { label: 'Демонстрация организаторам', state: 'current' }, { label: 'Использование на мероприятиях', state: 'next' }],
       tagline: 'Неделя моды в Москве и BRICS+ Fashion Summit на одной платформе: два события, одна аудитория, один аккаунт',
-      stage: 'MVP, готов к демонстрации',
-      card: 'Один аккаунт и отдельный цифровой пропуск на каждое событие: Неделя моды в Москве и BRICS+ Fashion Summit. Личная программа, B2B-встречи BFS, кампании брендов с QR-вознаграждениями, сводная аналитика. MVP готов к демонстрации.',
-      what: 'Я разработал MVP платформы для Недели моды в Москве (MFW) и BRICS+ Fashion Summit (BFS). У каждого события свой интерфейс, регистрация и пропуск; аккаунт, программа, лояльность и аналитика общие. Бренды получают профиль Brand 365, подписчиков, сегменты аудитории, конструктор кампаний и одноразовые QR-вознаграждения. Организатору и владельцу доступны сводная аналитика и Owner Control Tower.',
-      who: 'Организаторы получают единую витрину и сводные показатели по обоим событиям. Бренды и дизайнеры — профиль, подписчиков и аудиторию, которая сохраняется после показа. Гости — один аккаунт, персональную программу и цифровой пропуск на каждое событие.',
-      why: 'Сегодня у гостя два расписания, бренду приходится заново собирать аудиторию для каждого события, а у индустрии нет общей картины. Платформа заменяет разрозненные PDF и чаты единым пространством: интерес накапливается от показа к показу, а не теряется на выходе из зала.',
-      how: 'Общая основа, два интерфейса. MFW ведёт зрителя: бренд, дизайнер, показ, коллекция, LIVE и повтор, подписка, вознаграждение. BFS ведёт делегата: организация, спикер, сессия, тема, встреча, подписка, лид. Аккаунт один, пропуск на каждое событие отдельный.'
+      stage: 'MVP, который можно показать организаторам',
+      card: 'Событие длится несколько дней, аудитория — годы. Один аккаунт и отдельный пропуск на Неделю моды в Москве и BRICS+ Fashion Summit, личная программа, B2B-встречи, кампании брендов и сводная аналитика. Ищу организаторов и партнёров.',
+      what: 'Платформа сохраняет аудиторию события после его окончания. Неделя моды в Москве (MFW) и BRICS+ Fashion Summit (BFS) получают общий аккаунт, личную программу, лояльность и аналитику, но остаются каждая со своим интерфейсом, регистрацией и пропуском. Бренд видит аудиторию как в собственном магазине: профиль Brand 365, подписчики, сегменты, кампании, одноразовые QR-вознаграждения. Организатору и владельцу — сводная картина в Owner Control Tower. MVP я собрал сам.',
+      who: 'Организаторам — единая витрина и сводные цифры по обоим событиям. Брендам и дизайнерам — аудитория, которая остаётся после показа. Площадкам и партнёрам — заметный вклад и путь от встречи к лиду. Гостям — один аккаунт, личная программа и цифровой пропуск. Та же основа подходит другим городам, форматам и отраслям, где событие — ядро бизнеса.',
+      why: 'Событие собирает людей на несколько дней, потом аудитория расходится: бренд снова ищет зрителей, организатор не видит, что происходило между сезонами, у гостя два расписания. Цифровой слой превращает разовый интерес в накопленный: от показа к показу растут подписки, лояльность и данные, а с ними — ценность для партнёров и спонсоров.',
+      how: 'Общая основа, два интерфейса. MFW ведёт зрителя: бренд, дизайнер, показ, коллекция, LIVE и повтор, подписка, вознаграждение. BFS ведёт делегата: организация, спикер, сессия, тема, встреча, подписка, лид. Аккаунт один, пропуск на каждое событие отдельный.',
+      seeking: 'Ищу организаторов и партнёров для MFW и BFS. Платформа может подойти и формату Made in Moscow, и другим событиям — я намерен предложить её и им.'
     },
     en: {
       roadmap: [{ label: 'MVP', state: 'done' }, { label: 'Demo to organisers', state: 'current' }, { label: 'Use at the events', state: 'next' }],
       tagline: 'Moscow Fashion Week and the BRICS+ Fashion Summit on one platform: two events, one audience, one account',
-      stage: 'MVP, ready to demo',
-      card: 'One account and a separate digital pass for each event: Moscow Fashion Week and the BRICS+ Fashion Summit. Personal programme, BFS B2B meetings, brand campaigns with QR rewards, consolidated analytics. The MVP is ready to demonstrate.',
-      what: 'I have built an MVP for Moscow Fashion Week (MFW) and the BRICS+ Fashion Summit (BFS). Each event has its own interface, registration and pass; the account, programme, loyalty and analytics are shared. Brands receive a Brand 365 profile, followers, audience segments, a campaign builder and one-time QR rewards. Organisers and the owner have cross-event analytics and an Owner Control Tower.',
-      who: 'Organisers get a single showcase and consolidated figures for both events. Brands and designers get a profile, followers and an audience that persists beyond the show. Guests get one account, a personal programme and a digital pass for each event.',
-      why: 'Today a guest follows two schedules, a brand has to rebuild its audience for each event, and the industry has no shared view. The platform replaces scattered PDFs and chats with a single space in which interest accumulates from show to show instead of being lost at the exit.',
-      how: 'One foundation, two interfaces. MFW guides the visitor: brand, designer, show, collection, LIVE and replay, follow, reward. BFS guides the delegate: organisation, speaker, session, topic, meeting, follow, lead. One account; a separate pass for each event.'
+      stage: 'MVP that can be shown to organisers',
+      card: 'An event lasts days; its audience lasts years. One account and a separate pass for Moscow Fashion Week and the BRICS+ Fashion Summit, a personal programme, B2B meetings, brand campaigns and consolidated analytics. I am looking for organisers and partners.',
+      what: 'The platform keeps an event’s audience after the event ends. Moscow Fashion Week (MFW) and the BRICS+ Fashion Summit (BFS) share an account, a personal programme, loyalty and analytics, yet each keeps its own interface, registration and pass. A brand sees its audience as it would in its own shop: a Brand 365 profile, followers, segments, campaigns and one-time QR rewards. Organisers and the owner get a consolidated view in the Owner Control Tower. I built the MVP myself.',
+      who: 'Organisers get a single showcase and joint figures for both events. Brands and designers get an audience that outlasts the show. Venues and partners get a visible contribution and a traceable path from meeting to lead. Guests get one account, a personal programme and a digital pass. The same foundation suits other cities, formats and industries where an event is the core of the business.',
+      why: 'An event gathers people for a few days, then the audience disperses: the brand hunts for viewers again, the organiser cannot see what happened between seasons, the guest juggles two schedules. A digital layer turns one-off interest into accumulated interest: follows, loyalty and data grow from show to show, and with them the value to partners and sponsors.',
+      how: 'One foundation, two interfaces. MFW guides the visitor: brand, designer, show, collection, LIVE and replay, follow, reward. BFS guides the delegate: organisation, speaker, session, topic, meeting, follow, lead. One account; a separate pass for each event.',
+      seeking: 'I am looking for partners and organisers for MFW and BFS. The platform could also suit the Made in Moscow format and other events, and I intend to offer it to them as well.'
     }
   },
   {
     id: 'promomed',
     name: 'Promomed + Состояние',
     device: 'iphone',
-    shots: ['/assets/shots/promomed-3.jpg', '/assets/shots/promomed-4.jpg'],
+    shots: ['/assets/shots/promomed-home.jpg', '/assets/shots/promomed-events.jpg'],
     ru: {
       tagline: '«СОСТОЯНИЕ» — комьюнити и ежегодная конференция о здоровье и красоте: один маршрут на весь год',
       roadmap: [{ label: 'Рабочий прототип', state: 'done' }, { label: 'Демонстрация Promomed', state: 'current' }, { label: 'Разработка и запуск', state: 'next' }],
-      stage: 'Рабочий прототип, готов к демонстрации',
-      card: 'Конференция, которая продолжается после закрытия зала: персональный маршрут, паспорт участия, встречи с партнёрами, операционный центр. Прототип на 42 сессии в 7 залах готов к демонстрации «Промомед».',
-      what: 'Я разработал рабочий прототип «СОСТОЯНИЯ». Вместо общей программы — персональный маршрут. Smart Route формирует расписание по интересам участника. Moment Mode на запрос «есть 20 минут» предлагает наиболее подходящий следующий шаг. «Паспорт СОСТОЯНИЯ» — не рейтинг, а личная история участия: знания, событие, диалог, практика. После конференции паспорт открывает материалы и темы по интересам, поэтому сообщество развивается и между конференциями.',
-      who: '«Промомед» получает постоянную связь с клиентами и партнёрами и конференцию, показатели которой видны в реальном времени. Участники — персональный маршрут и материалы по интересам. Партнёры — понятную ценность участия и контакты, передаваемые только с согласия.',
-      why: 'Рассылки и соцсети, регистрация и программа существуют раздельно. Работа с аудиторией в течение года не усиливает конференцию, а участник уходит с набором материалов вместо персонального маршрута.',
-      how: 'Я разрабатываю «СОСТОЯНИЕ» для «Промомед» как одну платформу: сообщество работает и между конференциями, а конференция опирается на накопленную связь с клиентами и партнёрами. Прототип готов: экраны и сценарии показывают, что получают компания, партнёры и участники. Данные демонстрации (программа, партнёры, показатели) иллюстративны.'
+      stage: 'Рабочий прототип, который можно показать',
+      card: 'Конференция раз в год, сообщество круглый год. Персональный маршрут, паспорт участия, встречи с партнёрами и операционный центр; прототип на 42 сессии в 7 залах. Ищу партнёров для проекта.',
+      what: 'Вокруг ежегодной конференции «Промомед» строится сообщество, которое не расходится вместе с залом. Вместо общей программы — персональный маршрут: Smart Route собирает расписание по интересам, Moment Mode на запрос «есть 20 минут» подсказывает следующий шаг. «Паспорт СОСТОЯНИЯ» — не рейтинг, а личная история участия: знания, событие, диалог, практика. После конференции он открывает материалы по интересам. Рабочий прототип этого сценария я собрал сам.',
+      who: '«Промомед» получает постоянную связь с клиентами и партнёрами и конференцию, цифры которой видны в реальном времени. Участники — маршрут и материалы по интересам. Партнёры — понятную ценность участия и контакты только с согласия человека. Та же модель подходит другим отраслям, где конференция — ядро отношений с аудиторией.',
+      why: 'Конференция бывает раз в год, интерес к ней живёт круглый год. Но рассылки, соцсети, регистрация и программа существуют порознь: накопленная связь не усиливает событие, а участник уходит с папкой материалов вместо собственного маршрута. Платформа соединяет всё в один путь, который не обрывается на выходе из зала.',
+      how: 'Одна платформа для сообщества и конференции: сообщество работает между событиями, а конференция опирается на накопленную связь с клиентами и партнёрами. Экраны и сценарии прототипа показывают, что получают компания, партнёры и участники. Данные демонстрации (программа, партнёры, показатели) иллюстративны.',
+      seeking: 'Ищу партнёров для «СОСТОЯНИЯ»: экспертов, компании и организаторов, которым интересно собрать сообщество вокруг конференции.'
     },
     en: {
       roadmap: [{ label: 'Working prototype', state: 'done' }, { label: 'Demo to Promomed', state: 'current' }, { label: 'Build and launch', state: 'next' }],
       tagline: '“SOSTOYANIE” — a health and beauty community and annual conference: one route for the whole year',
-      stage: 'Working prototype, ready to demo',
-      card: 'A conference that continues after the hall closes: a personal route, a participation passport, partner meetings and an operations centre. A prototype with 42 sessions in 7 halls, ready to demonstrate to Promomed.',
-      what: 'I have built a working prototype of “SOSTOYANIE”. A personal route replaces a single programme for all. Smart Route builds a schedule around each participant’s interests. Moment Mode answers “I have 20 minutes” with the most suitable next step. The “SOSTOYANIE Passport” is not a leaderboard but a personal record of participation: knowledge, event, dialogue, practice. After the conference it opens materials and topics matched to the participant’s interests, so the community continues to develop between events.',
-      who: 'Promomed gains a standing link with clients and partners, and a conference whose figures are visible in real time. Participants get a personal route and materials matched to their interests. Partners get a clear return on attendance, and leads are shared only with consent.',
-      why: 'Newsletters and social media run separately from registration and programme. A year of work with the audience does not strengthen the conference, and participants leave with a pack of handouts instead of a route of their own.',
-      how: 'I am building “SOSTOYANIE” for Promomed as a single platform: the community stays active between conferences, and the conference builds on accumulated ties with clients and partners. The prototype is complete: its screens and flows show what the company, its partners and participants receive. Demo data (programme, partners, figures) is illustrative.'
+      stage: 'Working prototype that can be shown',
+      card: 'A conference once a year, a community all year round. A personal route, a participation passport, partner meetings and an operations centre; a prototype with 42 sessions in 7 halls. I am looking for partners for the project.',
+      what: 'Around Promomed’s annual conference grows a community that does not disperse with the hall. A personal route replaces one programme for all: Smart Route builds a schedule around each participant’s interests, and Moment Mode answers “I have 20 minutes” with a next step. The “SOSTOYANIE Passport” is not a leaderboard but a personal record of participation: knowledge, event, dialogue, practice. Afterwards it opens materials matched to the participant’s interests. I built the working prototype of this journey myself.',
+      who: 'Promomed gains a standing link with clients and partners, and a conference whose figures are visible in real time. Participants get a route and materials matched to their interests. Partners get a clear return on attendance, with leads shared only by consent. The same model suits other industries where a conference is the core of the relationship with the audience.',
+      why: 'A conference happens once a year, but interest in it lives all year. Newsletters, social media, registration and programme run separately, so the relationship built does not strengthen the event, and participants leave with a folder of handouts instead of a route of their own. The platform joins these into one journey that does not end at the exit.',
+      how: 'One platform for the community and the conference: the community stays active between events, and the conference builds on accumulated ties with clients and partners. The prototype’s screens and flows show what the company, its partners and participants receive. Demo data (programme, partners, figures) is illustrative.',
+      seeking: 'I am looking for partners for “SOSTOYANIE”: experts, companies and organisers who would like to build a community around a conference.'
     }
   }
 

@@ -15,9 +15,9 @@
 <link rel="canonical" href="https://syntha.pro/en/renova">
 <meta property="og:url" content="https://syntha.pro/en/renova">
 <meta property="og:site_name" content="Petr Fedin">
-<link rel="stylesheet" href="/assets/styles.css?v=202610040040">
-<script src="/assets/track.js?v=202610040040" defer></script>
-<script src="/assets/guard.js?v=202610040040" defer></script>
+<link rel="stylesheet" href="/assets/styles.css?v=202610040200">
+<script src="/assets/track.js?v=202610040200" defer></script>
+<script src="/assets/guard.js?v=202610040200" defer></script>
 <!--SEO:START-->
 <link rel="alternate" hreflang="ru" href="https://syntha.pro/renova">
 <link rel="alternate" hreflang="en" href="https://syntha.pro/en/renova">
@@ -71,11 +71,9 @@
     <h1>Renovation under control</h1>
     <p class="doc-lead">Estimate, stages, payments and a chat with the crew in one app. Payment is tied to a signed-off stage.</p>
     <p class="doc-stage"><span class="stage">MVP, preparing a closed test</span></p>
-    <p class="doc-state">Built: versioned estimates, stages with sign-off and photo evidence,
-      stage payments, disputes and variation orders, chats and a notification centre, client,
-      contractor and guest roles, project participant management, an offline mode with an action queue.
-      Receipt and self-employed status checks via the Federal Tax Service are built and covered by tests;
-      live verification awaits keys. Scope of work: <a href="#s07">section 07</a>.</p>
+    <p class="doc-state">Built: the estimate, stages with sign-off, payments, chats and an offline mode.
+      Receipt and self-employed status checks via the Federal Tax Service are ready in code and tests;
+      live verification awaits keys. Full scope of work: <a href="#s07">section 07</a>.</p>
   </header>
 
   <section class="summary" aria-label="Summary">
@@ -83,11 +81,10 @@
     <ol class="summary-list">
       <li>The estimate drifts from actual costs, and overspend surfaces only at the end.</li>
       <li>The contractor’s status goes unchecked, and no one is accountable for the result.</li>
-      <li>Renova brings together the estimate, stages, payments and chat. Every action recalculates the figures instead of relying on what each side remembers.</li>
+      <li>Renova pulls everything into one flow: a gap between estimate, actuals and payment shows at the moment it appears.</li>
     </ol>
     <p class="doc-cta">
-      <a class="btn btn-primary" href="/en/?topic=investors&amp;project=renova#contact">Discuss involvement</a>
-      <a class="btn" href="/en/#contact">Request a demo</a>
+      <a class="btn btn-primary" href="/en/?topic=renova#contact">Contact</a>
     </p>
   </section>
 
@@ -114,7 +111,7 @@
     <ol class="findings">
       <li>
         <h3>The estimate drifts from actual costs</h3>
-        <p>The estimate is kept apart from purchasing and payments. The gap builds up unnoticed and comes to light at the end.</p>
+        <p>The estimate lives in a file; purchasing and payments sit elsewhere. Every small difference piles up unseen until it becomes an overspend.</p>
       </li>
       <li>
         <h3>Payment is not tied to results</h3>
@@ -154,7 +151,7 @@
       </li>
       <li>
         <h3>Checks go to official sources</h3>
-        <p>Receipts and self-employed status are checked via the Federal Tax Service, not on the contractor’s word. The check is built and tested; live mode awaits keys.</p>
+        <p>Receipts and self-employed status are matched against Federal Tax Service data, not accepted on the contractor’s word. The result decides whether this contractor can be paid.</p>
       </li>
     </ol>
   </section>
@@ -218,8 +215,8 @@
   <section class="doc-block" id="s04">
     <p class="sec-no">04 — Scope</p>
     <h2><span>From estimate to signed-off result</span></h2>
-    <p class="doc-lead-in">Each step builds on the last: a stage payment cannot be
-      confirmed before sign-off, and the estimate cannot be changed unnoticed.</p>
+    <p class="doc-lead-in">The system holds the order of steps: until a stage is signed off, its payment cannot
+      be confirmed, and every change to the estimate leaves a trace.</p>
 
     <ol class="flow" aria-label="The renovation path">
       <li>Estimate</li>
@@ -256,7 +253,7 @@
             <small>Stage payments, receipts, self-employed status via the Federal Tax Service</small></div>
           <div class="gt-cell" data-label="Decision supported">Whether it is safe to pay
             for this stage and this contractor</div>
-          <div class="gt-cell" data-label="Effect">Payment is tied to a signed-off stage, and the contractor’s status is open to checking</div>
+          <div class="gt-cell" data-label="Effect">Before paying, you can see whether the stage is signed off and the contractor checked</div>
         </div>
         <div class="gt-row">
           <div class="gt-cell" data-label="Module"><b>Conversation</b>
@@ -285,7 +282,7 @@
       </li>
       <li>
         <h3>Renovation company</h3>
-        <p>Tests the approach across a portfolio of sites: several estimates and crews in parallel.</p>
+        <p>Runs several sites at once and sees the estimate, stages and payments for each.</p>
       </li>
     </ol>
 
@@ -333,15 +330,15 @@
     <div class="grid-table cols-2 parts">
       <div class="gt-row">
         <div class="gt-cell" data-label="Role"><b>Client</b></div>
-        <div class="gt-cell" data-label="Terms">You run your own renovation in the app and tell me what is missing: on a real site, not in a demo.</div>
+        <div class="gt-cell" data-label="Terms">You run your own renovation through the app: estimate, stages and payments on a real site, not in a demo. You tell me what is missing as you go.</div>
       </div>
       <div class="gt-row">
         <div class="gt-cell" data-label="Role"><b>Contractor or crew</b></div>
-        <div class="gt-cell" data-label="Terms">You run a live site: estimates, schedules, sign-off. You pass on feedback as the work goes.</div>
+        <div class="gt-cell" data-label="Terms">You photograph stages and request sign-off on your own site; you pass on comments straight away, not at the end.</div>
       </div>
       <div class="gt-row">
         <div class="gt-cell" data-label="Role"><b>Renovation company</b></div>
-        <div class="gt-cell" data-label="Terms">You run a portfolio of sites: several crews and estimates in parallel.</div>
+        <div class="gt-cell" data-label="Terms">You put a stream of sites through the app, not just one renovation.</div>
       </div>
     </div>
 
@@ -354,11 +351,11 @@
     <dl class="faq">
       <div>
         <dt>How does this differ from a spreadsheet and a messenger chat?</dt>
-        <dd>It links the estimate, the stage and the payment. Payment is tied to a signed-off stage, and the estimate changes through versions.</dd>
+        <dd>The estimate, stage and payment are connected: the crew requests sign-off from the app, the client signs off the stage from the photos, and only then does payment go through. In a spreadsheet or a chat, that chain rests on a verbal agreement.</dd>
       </div>
       <div>
         <dt>How is the contractor’s legal status checked?</dt>
-        <dd>Via the Federal Tax Service: the receipt and self-employed status are checked at the official source, not on the contractor’s word. The code and tests are ready; live verification awaits keys.</dd>
+        <dd>By the system, not by the client: the contractor sends nothing, and the check runs before payment. The code and tests are ready; live verification awaits keys.</dd>
       </div>
       <div>
         <dt>Do I have to move the whole renovation into the app at once?</dt>
@@ -367,10 +364,6 @@
       <div>
         <dt>What happens if the connection is lost on site?</dt>
         <dd>Actions go into an offline queue and are sent once the connection returns; stage sign-off and stage photos, among others, work this way. Idempotent replay after a lost server response is still being finished.</dd>
-      </div>
-      <div>
-        <dt>How is Renova related to Syntha and ChatX?</dt>
-        <dd>It is not directly related: Renova is a separate product outside the fashion industry. The principle is the same: decisions rest on data, not on memory.</dd>
       </div>
       <div>
         <dt>Who pays for the app, the client or the contractor?</dt>
@@ -391,7 +384,7 @@
     <h2><span>Contact</span></h2>
     <p>Tell me who you are: a client, a contractor or crew, or a renovation company. I reply personally.</p>
     <p class="doc-cta doc-cta-end">
-      <a class="btn btn-primary" href="/en/?topic=renova#contact">Write to me</a>
+      <a class="btn btn-primary" href="/en/?topic=renova#contact">Contact</a>
       <a class="btn" href="/en/#projects">Other projects</a>
     </p>
   </section>
@@ -421,6 +414,6 @@
   <p class="year">© <span id="year"></span></p>
 </footer>
 
-<script type="module" src="/assets/project-page.js?v=202610040040" data-project="renova"></script>
+<script type="module" src="/assets/project-page.js?v=202610040200" data-project="renova"></script>
 </body>
 </html>

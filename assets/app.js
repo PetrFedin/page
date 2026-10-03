@@ -1,9 +1,9 @@
-import { T, PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610040040';
-import { DECK } from './deck.js?v=202610040040';
-import { LOGOS } from './logos.js?v=202610040040';
+import { T, PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610040200';
+import { DECK } from './deck.js?v=202610040200';
+import { LOGOS } from './logos.js?v=202610040200';
 import { createViewer } from './viewer.js?v=202609301526';
-import { syncSnaps } from './snap.js?v=202610040040';
-import { NEWS } from './news.js?v=202610040040';
+import { syncSnaps } from './snap.js?v=202610040200';
+import { NEWS } from './news.js?v=202610040200';
 
 /* Сайт — витрина: показываем отобранные материалы. Канал получает весь поток.
    Лента идёт от свежего к старому по дате публикации — «Показать ещё» раскрывает
@@ -151,36 +151,38 @@ if (!T[lang]) lang = 'ru';
 let projectsExpanded = false;
 const PROJECTS_FIRST = 3;
 
-/* Раздел «Инвесторам и партнёрам»: только то, что уже есть в карточках проектов, — стадия, путь, кого ищу. */
+/* Раздел «Инвесторам и партнёрам»: форматы сотрудничества, а не пересказ проектов.
+   Проекты здесь только как ссылки «где это можно применить». */
 function renderInvestors() {
-  const t = T[lang], iv = t.investors;
+  const iv = T[lang].investors, lb = iv.labels;
+  const base = lang === 'en' ? '/en/' : '/';
   $('#investors-title').textContent = iv.title;
   $('#investors-sub').textContent = iv.sub;
-  $('#investors-list').innerHTML = PROJECTS.map((p) => {
-    const c = p[lang];
-    const seeking = c.status?.seeking;
-    return `
-    <article class="inv-row" data-inv="${p.id}">
-      <div class="inv-head"><span class="card-logo">${LOGOS[p.id]}</span><span class="stage">${c.stage}</span></div>
-      <p class="inv-tag">${c.tagline}</p>
-      <ol class="inv-path" aria-label="${iv.path}">${(c.roadmap ?? []).map((r) => `<li class="${r.state}">${r.label}</li>`).join('')}</ol>
-      ${seeking ? `<p class="inv-seek"><b>${iv.seeking}</b>${seeking}</p>` : ''}
-      <div class="inv-foot">
-        <button class="btn btn-sm" type="button" data-open="${p.id}">${iv.open}</button>
-        <button class="btn btn-sm btn-primary" type="button" data-inv-talk="${p.id}">${iv.talk}</button>
-      </div>
-    </article>`;
-  }).join('');
-  const note = PROJECTS.find((p) => p[lang].investor)?.[lang].investor.note;
-  $('#investors-note').innerHTML = note ? `<b>${iv.noteTitle}</b>${note}` : '';
+  $('#investors-lead').textContent = iv.lead;
+  $('#investors-list').className = 'inv-list snap snap-fit';
+  $('#investors-list').innerHTML = iv.formats.map((f, i) => `
+    <article class="inv-card" id="inv-${f.id}">
+      <span class="svc-n">${String(i + 1).padStart(2, '0')}</span>
+      <h3>${f.title}</h3>
+      <p class="inv-tag">${f.tagline}</p>
+      <p class="inv-what">${f.what}</p>
+      <dl class="inv-gets">
+        <div><dt>${lb.partner}</dt><dd>${f.partner}</dd></div>
+        <div><dt>${lb.project}</dt><dd>${f.project}</dd></div>
+      </dl>
+      <p class="inv-fit"><b>${lb.fit}</b>${f.fit}</p>
+      <p class="inv-start"><b>${lb.start}</b>${f.start}</p>
+      <div class="inv-foot"><button class="btn btn-sm btn-primary" type="button" data-inv-talk="${f.id}">${lb.talk}</button></div>
+    </article>`).join('');
+  $('#investors-projects').innerHTML = `<span class="inv-projects-label">${lb.projects}</span>`
+    + PROJECTS.map((p) => `<a class="inv-chip" href="${base}${p.id}"><span class="card-logo">${LOGOS[p.id]}</span></a>`).join('');
+  $('#investors-note').textContent = lb.nda;
 }
 $('#investors-list').addEventListener('click', (e) => {
-  const o = e.target.closest('[data-open]');
-  if (o) return go(o.dataset.open);
   const b = e.target.closest('[data-inv-talk]');
   if (!b) return;
-  const p = PROJECTS.find((x) => x.id === b.dataset.invTalk);
-  startContact({ topic: 'investors', message: T[lang].investors.prefill.replace('{name}', p.name) });
+  const iv = T[lang].investors;
+  startContact({ topic: 'investors', message: iv.contactMessages[b.dataset.invTalk] ?? '' });
 });
 
 function renderCards() {
@@ -2161,7 +2163,7 @@ function consumeContactParams() {
   const topic = q.get('topic');
   if (!topic || !T[lang].contact.topics[topic]) return;
   const proj = PROJECTS.find((p) => p.id === q.get('project') || p.id === topic);
-  const message = proj ? (topic === 'investors' ? T[lang].investors.prefill : T[lang].contact.prefillProject).replace('{name}', proj.name) : '';
+  const message = proj ? (topic === 'investors' ? (T[lang].contact.prefillProject) : T[lang].contact.prefillProject).replace('{name}', proj.name) : '';
   history.replaceState(null, '', location.pathname + location.hash);
   $('#topic').value = topic;
   syncTopicOther();

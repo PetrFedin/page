@@ -5,7 +5,7 @@ export const DECK = {
   ru: {
     kicker: 'Фэшн-консалтинг для брендов',
     title: 'Стратегия, экономика и трансформация фэшн-бизнеса',
-    lead: 'Помогаю собственникам оценить экономику решения до того, как оно обернётся закупкой, непроданным запасом, обязательством или потраченным капиталом. Работаю со стратегией, коммерцией, продуктом, данными, финансами и исполнением.',
+    lead: 'Помогаю собственникам фэшн-брендов выбрать рынок, объём закупки и размер капитала, пока решение ещё можно изменить: до заказа поставщику, до непроданного запаса, до потраченных денег.',
     tagline: 'Рост • трансформация • стабилизация',
     chainTitle: 'От рынка до денег',
     chain: ['Рынок', 'Клиент', 'Бренд', 'Коллекция', 'Продукт', 'Закупка и производство', 'Запас', 'Канал и продажа', 'Деньги'],
@@ -22,24 +22,24 @@ export const DECK = {
       ['BI', 'аналитическая отчётность и панели управления'],
       ['SKU', 'товарная позиция']
     ],
-    footnote: 'Названия клиентов и конфиденциальные данные не раскрываю. Конфиденциальность — базовое правило работы.',
+    footnote: 'Названия клиентов и конфиденциальные данные не раскрываю.',
     blocks: [
       {
         id: 'directions',
         title: 'Направления работы',
         note: 'Деньги теряются на стыках функций: рынок, клиент, продукт, операции и капитал нельзя оценивать по отдельности.',
         items: [
-          { eyebrow: '01', title: 'Стратегический выбор', body: 'Рынки России, СНГ и отдельных стран Азии; позиционирование; категории; адаптация продукта и коммерческой модели.', decision: 'Куда выходить, что масштабировать и какой капитал потребуется.' },
-          { eyebrow: '02', title: 'Коммерческая модель', body: 'Клиенты, цены, маркетинг, розница, интернет-магазин, опт и маркетплейсы.', decision: 'Где бренд действительно зарабатывает: по клиентам и каналам.' },
-          { eyebrow: '03', title: 'Продукт и товарное планирование', body: 'Коллекция, SKU, прогноз спроса, закупка, распределение, пополнение и уценка.', decision: 'Что покупать, производить, переоценивать и развивать.' },
-          { eyebrow: '04', title: 'Операции, управление и системы', body: 'Процессы, роли, показатели; PLM, ERP, CRM, WMS, BI; производство, склад и логистика.', decision: 'Как управлять в едином ритме и на одной версии данных.' },
-          { eyebrow: '05', title: 'Капитал, инвестиции и устойчивость', body: 'Денежный поток, оборотный капитал, оценка бизнеса, потребность в финансировании, сделки и стабилизация.', decision: 'Сколько нужно капитала, чем его обосновать и готов ли бизнес к росту или сделке.' }
+          { eyebrow: '01', title: 'Стратегический выбор', body: 'Выбор рынков России, СНГ и Азии и то, как под них перестроить категории, продукт и коммерческую модель.', decision: 'Выбор рынка, объёма масштабирования и размера капитала.' },
+          { eyebrow: '02', title: 'Коммерческая модель', body: 'От клиента и цены до канала: розница, интернет-магазин, опт, маркетплейсы и маркетинг.', decision: 'Прибыль по каждому клиенту и каналу, а не по выручке в среднем.' },
+          { eyebrow: '03', title: 'Продукт и товарное планирование', body: 'Весь путь товара: коллекция и SKU, прогноз спроса, закупка, распределение, пополнение, уценка.', decision: 'Решение по каждой категории: покупать, производить, переоценивать или развивать.' },
+          { eyebrow: '04', title: 'Операции, управление и системы', body: 'Как устроены процессы, роли и показатели, какие системы нужны (PLM, ERP, CRM, WMS, BI) и как связаны производство, склад и логистика.', decision: 'Единый ритм управления и общие цифры во всех отделах.' },
+          { eyebrow: '05', title: 'Капитал, инвестиции и устойчивость', body: 'Денежный поток и оборотный капитал, оценка бизнеса, расчёт потребности в финансировании, сделки и стабилизация.', decision: 'Размер капитала, его обоснование и готовность бизнеса к росту или сделке.' }
         ]
       },
       {
         id: 'requests',
         title: 'С чем приходят собственники',
-        note: 'Собственники приходят за решением, а не за отчётом. Каждая задача сводится к действию: куда расти, что остановить, что стабилизировать, что профинансировать.',
+        note: 'Запросы разные, но каждый заканчивается действием: куда расти, что остановить, что стабилизировать, что профинансировать.',
         items: [
           { eyebrow: 'Рост', title: 'Новый рынок', decision: 'Выбрать рынок, модель входа, ассортимент и цену.' },
           { eyebrow: 'Рост', title: 'Расширение категорий', decision: 'Понять, где бренд может расширяться.' },
@@ -58,7 +58,7 @@ export const DECK = {
           { eyebrow: 'Капитал и управление', title: 'Решения принимаются слишком поздно', decision: 'Ввести сигналы, цикл управления и контроль.' },
           { eyebrow: 'Капитал и управление', title: 'Роли и полномочия размыты', decision: 'Закрепить ответственность и права решений.' }
         ],
-        after: 'Цель — решить раньше, чем ошибка станет запасом, кассовым разрывом, потерянным сезоном или неверной инвестицией.'
+        after: 'Критерий успеха — ошибка найдена в расчёте, а не в запасе, кассовом разрыве, потерянном сезоне или неверной инвестиции.'
       },
       {
         id: 'flow',
@@ -74,7 +74,7 @@ export const DECK = {
       {
         id: 'digital',
         title: 'Данные, аналитика и PLM',
-        note: 'Строю не «ещё одну систему», а цепочку: продукт → продажи → запасы → деньги → решение.',
+        note: 'Шесть направлений работы с данными: от карточки изделия до сигнала для закупки.',
         items: [
           { title: 'PLM-контур продукта', body: 'Карточка изделия, материалы, образцы, спецификации, себестоимость, версии, согласования и календарь коллекции.' },
           { title: 'Аналитика и BI', body: 'Одна версия цифр: продажи, маржа, запасы, клиенты, каналы, закупки, производство, деньги.' },
@@ -83,12 +83,12 @@ export const DECK = {
           { title: 'Товарное планирование', body: 'Прогноз, лимит закупки, размерность, распределение, пополнение, перемещения и доступность товара.' },
           { title: 'Контроль внедрения', body: 'Требования, тестирование процессов, обучение и переход от таблиц к регулярному управлению.' }
         ],
-        after: 'Результат: целевая архитектура, бизнес-требования, модель данных, прототип панели и план внедрения. Принцип: сначала бизнес-логика, данные и ответственность, потом система и автоматизация.'
+        after: 'Что остаётся у вас, описано в формате «Данные, аналитика и PLM». Принцип: сначала бизнес-логика, данные и ответственность, потом система и автоматизация.'
       },
       {
         id: 'outcome',
         title: 'Что остаётся внутри компании',
-        note: 'Клиент получает не презентацию, а решения и рабочий ритм: модели, правила, показатели, роли и регулярный контроль.',
+        note: 'В компании остаются модели, правила, показатели, роли и регулярный контроль.',
         items: [
           {
             title: 'Решения собственника',
@@ -118,7 +118,7 @@ export const DECK = {
             ]
           }
         ],
-        after: 'Роль может расшириться от советника собственника до руководителя программы стабилизации: приоритеты, координация функций, контроль исполнения, сложные переговоры.'
+        after: 'При необходимости роль растёт от советника собственника до руководителя программы стабилизации — это форматы «Советник собственника» и «Руководство программой».'
       },
       {
         id: 'experience',
@@ -137,7 +137,7 @@ export const DECK = {
   en: {
     kicker: 'Fashion advisory for brands',
     title: 'Strategy, economics and transformation for fashion businesses',
-    lead: 'I help owners establish what a decision will cost before it becomes a purchase order, unsold stock, a liability or spent capital. I work across strategy, commerce, product, data, finance and execution.',
+    lead: 'I help fashion-brand owners choose a market, a buying volume and a capital figure while the decision can still be changed: before the supplier order, before unsold stock, before the money is spent.',
     tagline: 'Growth • transformation • turnaround',
     chainTitle: 'From market to cash',
     chain: ['Market', 'Customer', 'Brand', 'Collection', 'Product', 'Buying & production', 'Inventory', 'Channel & sales', 'Cash'],
@@ -154,24 +154,24 @@ export const DECK = {
       ['BI', 'business intelligence: dashboards and reporting'],
       ['SKU', 'stock-keeping unit']
     ],
-    footnote: 'I do not disclose client names or confidential data. Confidentiality is a core principle of my work.',
+    footnote: 'I do not disclose client names or confidential data.',
     blocks: [
       {
         id: 'directions',
         title: 'Areas of work',
         note: 'Money is made or lost where functions meet. Market, customer, product, operations and capital have to be planned together.',
         items: [
-          { eyebrow: '01', title: 'Strategic choice', body: 'Russia, CIS and selected Asian markets; positioning; categories; product and commercial model fit.', decision: 'Which market to enter, what to scale and how much capital it takes.' },
-          { eyebrow: '02', title: 'Commercial model', body: 'Customers, pricing, marketing, retail, e-commerce, wholesale and marketplaces.', decision: 'Where the brand makes its money, by customer and by channel.' },
-          { eyebrow: '03', title: 'Product & merchandise planning', body: 'Collection, SKU, demand forecast, open-to-buy, allocation, replenishment and markdown.', decision: 'What to buy, produce, reprice and grow.' },
-          { eyebrow: '04', title: 'Operations, management & systems', body: 'Processes, roles and KPIs; PLM, ERP, CRM, WMS, BI; production, warehouse and logistics.', decision: 'How to run the business on a steady cadence and one set of numbers.' },
-          { eyebrow: '05', title: 'Capital, investment & resilience', body: 'Cash flow, working capital, valuation, funding needs, transactions and turnaround.', decision: 'How much capital you need, how to justify it, and whether the business is ready to grow or do a deal.' }
+          { eyebrow: '01', title: 'Strategic choice', body: 'Choosing markets in Russia, the CIS and Asia, and how to rebuild categories, product and commercial model for them.', decision: 'The choice of market, the scale of expansion and the size of the capital.' },
+          { eyebrow: '02', title: 'Commercial model', body: 'From customer and price to channel: retail, e-commerce, wholesale, marketplaces and marketing.', decision: 'Profit by customer and channel, not revenue on average.' },
+          { eyebrow: '03', title: 'Product & merchandise planning', body: 'The whole path of a product: collection and SKU, demand forecast, open-to-buy, allocation, replenishment, markdown.', decision: 'A call on each category: buy, produce, reprice or develop.' },
+          { eyebrow: '04', title: 'Operations, management & systems', body: 'How processes, roles and KPIs are set up, which systems are needed (PLM, ERP, CRM, WMS, BI) and how production, warehouse and logistics connect.', decision: 'One management rhythm and one set of numbers across every department.' },
+          { eyebrow: '05', title: 'Capital, investment & resilience', body: 'Cash flow and working capital, valuation, a calculated funding need, transactions and turnaround.', decision: 'The size of the capital, the case for it, and whether the business is ready to grow or to do a deal.' }
         ]
       },
       {
         id: 'requests',
         title: 'What owners come with',
-        note: 'Owners come for a decision, not a report. Each problem ends in an action: where to grow, what to stop, what to stabilise, what to fund.',
+        note: 'The requests vary, but each ends in an action: where to grow, what to stop, what to stabilise, what to fund.',
         items: [
           { eyebrow: 'Growth', title: 'New market', decision: 'Choose the priority market, entry model, assortment and pricing.' },
           { eyebrow: 'Growth', title: 'Category expansion', decision: 'Work out where the brand can credibly expand.' },
@@ -190,7 +190,7 @@ export const DECK = {
           { eyebrow: 'Capital & management', title: 'Decisions are made too late', decision: 'Introduce early-warning indicators, a management cycle and controls.' },
           { eyebrow: 'Capital & management', title: 'Roles and decision rights are blurred', decision: 'Define accountability and decision rights.' }
         ],
-        after: 'The aim is to decide before a mistake turns into dead stock, a cash gap, a lost season or a bad investment.'
+        after: 'The test of success: the mistake is caught in the calculation, not in dead stock, a cash gap, a lost season or a bad investment.'
       },
       {
         id: 'flow',
@@ -206,7 +206,7 @@ export const DECK = {
       {
         id: 'digital',
         title: 'Data, analytics and PLM',
-        note: 'I build a chain, not “one more system”: product → sales → inventory → cash → decision.',
+        note: 'Six areas of data work: from the style record to a buying signal.',
         items: [
           { title: 'PLM for product development', body: 'Style record, materials, samples, specifications, cost, versions, approvals and the collection calendar.' },
           { title: 'Analytics and BI', body: 'One version of sales, margin, inventory, customers, channels, buying, production and cash.' },
@@ -215,12 +215,12 @@ export const DECK = {
           { title: 'Merchandise planning', body: 'Forecast, open-to-buy, size curves, allocation, replenishment, transfers and product availability.' },
           { title: 'Implementation control', body: 'Requirements, process testing, training and the move from spreadsheets to routine management.' }
         ],
-        after: 'Deliverables: target architecture, business requirements, a data model, a dashboard prototype and an implementation plan. Principle: business logic, data and accountability first; systems and automation second.'
+        after: 'What you are left with is set out in the “Data, analytics and PLM” format. Principle: business logic, data and accountability first; systems and automation second.'
       },
       {
         id: 'outcome',
         title: 'What stays inside the company',
-        note: 'You get decisions and a working rhythm, not a deck: models, rules, metrics, roles and regular control.',
+        note: 'Models, rules, metrics, roles and regular control stay in the company.',
         items: [
           {
             title: 'Owner decisions',
@@ -250,7 +250,7 @@ export const DECK = {
             ]
           }
         ],
-        after: 'My role can extend from adviser to the owner to head of the turnaround programme: setting priorities, coordinating functions, controlling delivery and leading difficult negotiations.'
+        after: 'Where needed, my role grows from adviser to the owner to head of the turnaround programme: these are the “Owner’s advisor” and “Programme lead” formats.'
       },
       {
         id: 'experience',
