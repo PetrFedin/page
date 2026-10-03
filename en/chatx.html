@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ChatX — a workplace messenger: chat, tasks, calls, calendar</title>
+<meta name="description" content="A company messenger: conversations, tasks, calls with consented recording, a calendar, a wiki, an org structure and roles. Working prototype; a pilot is next.">
+<meta name="color-scheme" content="light dark">
+<meta property="og:title" content="ChatX — a workplace messenger: chat, tasks, calls, calendar">
+<meta property="og:description" content="Conversations, tasks, calls with consented recording, a calendar and a wiki in one workspace, with an org structure and roles.">
+<meta property="og:type" content="website">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="canonical" href="https://syntha.pro/en/chatx">
+<meta property="og:url" content="https://syntha.pro/en/chatx">
+<meta property="og:site_name" content="Petr Fedin">
+<link rel="stylesheet" href="/assets/styles.css?v=202610040010">
+<script src="/assets/track.js?v=202610040010" defer></script>
+<script src="/assets/guard.js?v=202610040010" defer></script>
+<!--SEO:START-->
+<link rel="alternate" hreflang="ru" href="https://syntha.pro/chatx">
+<link rel="alternate" hreflang="en" href="https://syntha.pro/en/chatx">
+<link rel="alternate" hreflang="x-default" href="https://syntha.pro/chatx">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://syntha.pro/assets/og/chatx-en.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="ChatX — a workplace messenger: chat, tasks, calls, calendar">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ChatX — a workplace messenger: chat, tasks, calls, calendar">
+<meta name="twitter:description" content="A company messenger: conversations, tasks, calls with consented recording, a calendar, a wiki, an org structure and roles. Working prototype; a pilot is next.">
+<meta name="twitter:image" content="https://syntha.pro/assets/og/chatx-en.jpg">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","@id":"https://syntha.pro/en/chatx#app","name":"ChatX","url":"https://syntha.pro/en/chatx","description":"A company messenger: conversations, tasks, calls with consented recording, a calendar, a wiki, an org structure and roles. Working prototype; a pilot is next.","inLanguage":"en","applicationCategory":"CommunicationApplication","operatingSystem":"Web","image":"https://syntha.pro/assets/og/chatx-en.jpg","creator":{"@type":"Person","@id":"https://syntha.pro/#person","name":"Petr Fedin","url":"https://syntha.pro/"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Petr Fedin","item":"https://syntha.pro/en/"},{"@type":"ListItem","position":2,"name":"Projects","item":"https://syntha.pro/en/#projects"},{"@type":"ListItem","position":3,"name":"ChatX","item":"https://syntha.pro/en/chatx"}]}]}</script>
+<!--SEO:END-->
+</head>
+<body class="doc-page">
+
+<header class="topbar">
+  <nav class="nav" id="nav">
+    <a href="/en/#experience">Experience</a>
+    <a href="/en/#consulting">Advisory</a>
+    <a href="/en/#projects">Projects</a>
+    <a href="/en/#news">Feed</a>
+    <a href="/en/#contact">Contact</a>
+  </nav>
+  <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="nav" aria-label="Menu">
+    <span></span><span></span>
+  </button>
+  <div class="switches">
+    <a class="lang" href="/chatx" hreflang="ru" lang="ru" aria-label="Русская версия">RU</a>
+    <button class="theme" id="theme-toggle" type="button" aria-label="Theme">
+      <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" fill="currentColor"/></svg>
+    </button>
+    <button class="theme text-size" id="text-size-toggle" type="button">
+      <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M5 17L9.5 6h1L15 17M6.3 13h7.4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M17 17v-6l-2 1.3" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <a class="theme home" href="/stats" aria-label="Owner dashboard" title="Owner dashboard">
+      <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 11.2 12 4l8 7.2V19a1 1 0 0 1-1 1h-4.5v-5h-5v5H5a1 1 0 0 1-1-1z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+</header>
+
+<main class="doc">
+
+  <p class="doc-back"><a href="/en/#projects">← All projects</a>
+    <time class="doc-date" id="doc-date" datetime=""></time></p>
+
+  <header class="doc-head">
+    <span class="doc-logo" id="doc-logo"></span>
+    <h1>A workplace messenger: conversations, tasks, calls and a calendar in one workspace</h1>
+    <p class="doc-lead">A task links back to the message it came from. A meeting summary points to a timecode in the recording. A month on, you can see who decided what.</p>
+    <p class="doc-stage"><span class="stage">Working prototype</span></p>
+    <p class="doc-state">Working today: channels and messaging, tasks, a calendar and files, calls
+      with consented recording, meeting transcripts and summaries tied to timecodes,
+      an org structure with delegated management, and outbound webhooks with a log. Next:
+      checks with real providers and a pilot inside a company. Scope of work: <a href="#s07">section 07</a>.</p>
+  </header>
+
+  <section class="summary" aria-label="Summary">
+    <p class="summary-label">Summary</p>
+    <ol class="summary-list">
+      <li>Discussion happens in chat, the task sits in a tracker, approval goes by email. One decision is spread across three systems.</li>
+      <li>A month later, no one can show where it was taken or how it ended.</li>
+      <li>ChatX links the conversation, meeting, decision, task and outcome: each step refers back to the one before.</li>
+    </ol>
+    <p class="doc-cta">
+      <a class="btn btn-primary" href="/en/?topic=investors&amp;project=chatx#contact">Discuss participation</a>
+      <a class="btn" href="/en/#contact">Request a demo</a>
+    </p>
+  </section>
+
+  <nav class="doc-toc" aria-label="Contents">
+    <p class="summary-label">Contents</p>
+    <ol>
+      <li><a href="#s01">Diagnosis</a></li>
+      <li><a href="#s02">Approach</a></li>
+      <li><a href="#s03">System class</a></li>
+      <li><a href="#s04">Scope</a></li>
+      <li><a href="#s05">Org structure</a></li>
+      <li><a href="#s06">Interface</a></li>
+      <li><a href="#s07">Stage</a></li>
+      <li><a href="#s08">Participation</a></li>
+      <li><a href="#s09">FAQ</a></li>
+    </ol>
+  </nav>
+
+  <section class="doc-block" id="s01">
+    <p class="sec-no">01 — Diagnosis</p>
+    <h2><span>The decision lives in the conversation; the task answers for it</span></h2>
+    <p class="doc-lead-in">Work runs across three or four services. Each does its own job, and nothing connects them.</p>
+
+    <ol class="findings">
+      <li>
+        <h3>A gap between conversation and task</h3>
+        <p>The decision is taken in discussion and logged separately in the tracker. Only the person who created the task knows the link.</p>
+      </li>
+      <li>
+        <h3>A meeting leaves no trace</h3>
+        <p>Agreements stay in participants’ memories. A month later, a dispute over the wording of a decision cannot be settled.</p>
+      </li>
+      <li>
+        <h3>Access follows chats, not structure</h3>
+        <p>Access depends on which chats a person has been added to. The company’s structure changes; access stays the same.</p>
+      </li>
+    </ol>
+
+    <aside class="case">
+      <p class="case-label">A typical case</p>
+      <p>A deadline change was agreed in a chat on Friday. On Monday someone else
+        updated the task in the tracker with a different date. The assignee worked
+        from the tracker; the client waited on the chat.</p>
+      <p class="case-out">The mismatch surfaced on the delivery day. No one was at fault:
+        both systems showed what had been entered in them.</p>
+    </aside>
+
+    <p class="doc-out">Result: the company cannot reconstruct how a decision was reached, and repeats the mistake in the next cycle.</p>
+  </section>
+
+  <section class="doc-block" id="s02">
+    <p class="sec-no">02 — Approach</p>
+    <h2><span>One graph instead of four services</span></h2>
+
+    <ol class="principles">
+      <li>
+        <h3>A link, not a copy</h3>
+        <p>A task is created from a message and keeps a link to it. A meeting summary leads
+          to the exact second of the recording. Nothing is carried over by retelling.</p>
+      </li>
+      <li>
+        <h3>The server checks permissions</h3>
+        <p>Access is set by a person’s role in the company structure, not by who is in a chat.
+          The interface does not decide what to show.</p>
+      </li>
+      <li>
+        <h3>Consent and human confirmation</h3>
+        <p>Recording starts only with every participant’s consent. No task is created
+          automatically: the system suggests, and a person decides.</p>
+      </li>
+    </ol>
+  </section>
+
+  <section class="doc-block" id="s03">
+    <p class="sec-no">03 — System class</p>
+    <h2><span>Between a messenger and a task tracker</span></h2>
+    <p class="doc-lead-in">Today, teams stitch their work together from three classes of product: messengers (Slack, Telegram), task trackers (Jira, Asana, Linear) and meeting-recording services (Otter, Fireflies, Zoom AI Companion). Each covers its own part and is not connected to the others.</p>
+
+    <figure class="exhibit">
+      <figcaption>Exhibit 1. Coverage of functional areas by system class</figcaption>
+      <div class="grid-table cols-5 coverage">
+        <div class="gt-head" role="presentation">
+          <span>Functional area</span>
+          <span>Messengers</span>
+          <span>Task trackers</span>
+          <span>Meeting services</span>
+          <span>ChatX</span>
+        </div>
+        <div class="gt-row">
+          <div class="gt-cell" data-label="Area"><b>Messaging, channels, search</b></div>
+          <div class="gt-cell" data-label="Messengers"><i class="mark yes">yes</i></div>
+          <div class="gt-cell" data-label="Trackers"><i class="mark no">no</i></div>
+          <div class="gt-cell" data-label="Meetings"><i class="mark no">no</i></div>
+          <div class="gt-cell own" data-label="ChatX"><i class="mark yes">yes</i></div>
+        </div>
+        <div class="gt-row">
+          <div class="gt-cell" data-label="Area"><b>Tasks, commitments, deadlines</b></div>
+          <div class="gt-cell" data-label="Messengers"><i class="mark no">no</i></div>
+          <div class="gt-cell" data-label="Trackers"><i class="mark yes">yes</i></div>
+          <div class="gt-cell" data-label="Meetings"><i class="mark no">no</i></div>
+          <div class="gt-cell own" data-label="ChatX"><i class="mark yes">yes</i></div>
+        </div>
+        <div class="gt-row">
+          <div class="gt-cell" data-label="Area"><b>Calls, recording, transcription</b></div>
+          <div class="gt-cell" data-label="Messengers"><i class="mark part">partly</i></div>
+          <div class="gt-cell" data-label="Trackers"><i class="mark no">no</i></div>
+          <div class="gt-cell" data-label="Meetings"><i class="mark yes">yes</i></div>
+          <div class="gt-cell own" data-label="ChatX"><i class="mark yes">yes</i></div>
+        </div>
+        <div class="gt-row">
+          <div class="gt-cell" data-label="Area"><b>Decision linked to task and recording</b></div>
+          <div class="gt-cell" data-label="Messengers"><i class="mark no">no</i></div>
+          <div class="gt-cell" data-label="Trackers"><i class="mark no">no</i></div>
+          <div class="gt-cell" data-label="Meetings"><i class="mark no">no</i></div>
+          <div class="gt-cell own" data-label="ChatX"><i class="mark yes">yes</i></div>
+        </div>
+        <div class="gt-row">
+          <div class="gt-cell" data-label="Area"><b>Org structure and role-based permissions</b></div>
+          <div class="gt-cell" data-label="Messengers"><i class="mark no">no</i></div>
+          <div class="gt-cell" data-label="Trackers"><i class="mark part">partly</i></div>
+          <div class="gt-cell" data-label="Meetings"><i class="mark no">no</i></div>
+          <div class="gt-cell own" data-label="ChatX"><i class="mark yes">yes</i></div>
+        </div>
+      </div>
+    </figure>
+
+    <p class="doc-note">The ChatX column shows the intended scope; readiness is in <a href="#s07">section 07</a>. Linking a decision to its task and recording is the reason the product exists: none of the three classes covers it.</p>
+  </section>
+
+  <section class="doc-block" id="s04">
+    <p class="sec-no">04 — Scope</p>
+    <h2><span>From decision to accepted outcome</span></h2>
+    <p class="doc-lead-in">Each step refers to the previous one, so the chain can be walked back from the outcome to the conversation.</p>
+
+    <ol class="flow" aria-label="Decision path">
+      <li>Conversation</li>
+      <li>Meeting and recording</li>
+      <li>Decision</li>
+      <li>Task</li>
+      <li>Execution</li>
+      <li>Confirmation</li>
+      <li>Acceptance of the outcome</li>
+    </ol>
+
+    <figure class="exhibit">
+      <figcaption>Exhibit 2. System areas and the decisions they cover</figcaption>
+      <div class="grid-table cols-3">
+        <div class="gt-head" role="presentation">
+          <span>Area</span><span>Management decision</span><span>Effect</span>
+        </div>
+        <div class="gt-row">
+          <div class="gt-cell" data-label="Area"><b>Communication</b>
+            <small>Channels, groups and direct messages, threads, reactions, mentions, search
+              across messages and files, a company wiki, an AI assistant</small></div>
+          <div class="gt-cell" data-label="Management decision">Where an issue is discussed
+            and who is admitted to it</div>
+          <div class="gt-cell" data-label="Effect">Discussion stays inside the company, not in a public messenger</div>
+        </div>
+        <div class="gt-row">
+          <div class="gt-cell" data-label="Area"><b>Work</b>
+            <small>Tasks, commitments, deadlines, owners, time tracking, a dashboard</small></div>
+          <div class="gt-cell" data-label="Management decision">Which of the things said became
+            a commitment, and who owns it</div>
+          <div class="gt-cell" data-label="Effect">A task keeps a link to the message
+            it came from</div>
+        </div>
+        <div class="gt-row">
+          <div class="gt-cell" data-label="Area"><b>Meetings</b>
+            <small>Calendar, audio and video calls, consented recording, transcript,
+              summaries and decisions</small></div>
+          <div class="gt-cell" data-label="Management decision">What was decided at the meeting
+            and on what grounds</div>
+          <div class="gt-cell" data-label="Effect">The summary points to a timecode, so the wording can be checked against the source</div>
+        </div>
+        <div class="gt-row">
+          <div class="gt-cell" data-label="Area"><b>Structure and access</b>
+            <small>The company as a tree, roles, permissions, delegated management</small></div>
+          <div class="gt-cell" data-label="Management decision">Who is responsible for what
+            and who can change what</div>
+          <div class="gt-cell" data-label="Effect">Permissions come from role and department,
+            not from chat membership</div>
+        </div>
+        <div class="gt-row">
+          <div class="gt-cell" data-label="Area"><b>Links to external systems</b>
+            <small>Notifications, outbound webhooks, integrations</small></div>
+          <div class="gt-cell" data-label="Management decision">What comes into the system
+            and what goes out</div>
+          <div class="gt-cell" data-label="Effect">Events reach adjacent systems without manual re-entry</div>
+        </div>
+      </div>
+    </figure>
+  </section>
+
+  <section class="doc-block" id="s05">
+    <p class="sec-no">05 — Org structure</p>
+    <h2><span>The company is a tree, not a staff list</span></h2>
+    <p class="doc-lead-in">In most services, job title and department are text fields in a profile and have no effect on permissions.</p>
+
+    <ol class="findings">
+      <li>
+        <h3>Departments as objects</h3>
+        <p>Company, department, division and team are nodes in a tree up to six levels deep, not a caption under a name.</p>
+      </li>
+      <li>
+        <h3>Responsibility is assigned</h3>
+        <p>Every node has an owner and someone who changes its membership. Delegation is a separate permission.</p>
+      </li>
+      <li>
+        <h3>Structure sets visibility</h3>
+        <p>A closed department is visible only to its members; the membership of a branch is changed by the assigned manager or a delegate.</p>
+      </li>
+    </ol>
+  </section>
+
+  <section class="doc-block" id="s06">
+    <p class="sec-no">06 — Interface</p>
+    <h2><span>What it looks like</span></h2>
+    <p class="doc-lead-in">The screenshots come from the current build. Phone comes first; on a computer the same flow appears in a denser layout.</p>
+
+    <figure class="exhibit shots">
+      <div class="shot-row">
+        <video controls playsinline preload="none" poster="/assets/shots/chatx-1.webp"
+               aria-label="Video overview of ChatX sections">
+          <source src="/assets/video/chatx.mp4" type="video/mp4">
+          <source src="/assets/video/chatx.webm" type="video/webm">
+        </video>
+        <img src="/assets/shots/chatx-1.webp" alt="ChatX messaging screen" loading="lazy"
+             width="1500" height="3252">
+        <img src="/assets/shots/chatx-2.webp" alt="ChatX tasks screen" loading="lazy"
+             width="1500" height="3252">
+        <img src="/assets/shots/chatx-3.webp" alt="ChatX meetings screen" loading="lazy"
+             width="1500" height="3252">
+      </div>
+      <p class="doc-note shot-hint">Tap a screenshot to open it full screen
+        and flick through the rest.</p>
+    </figure>
+  </section>
+
+  <section class="doc-block" id="s07">
+    <p class="sec-no">07 — Stage</p>
+    <h2><span>Working prototype, preparing for a pilot</span></h2>
+    <div class="status-grid" id="doc-status"></div>
+  </section>
+
+  <section class="doc-block" id="s08">
+    <p class="sec-no">08 — Participation</p>
+    <h2><span>Three ways to take part</span></h2>
+
+    <div class="grid-table cols-2 parts">
+      <div class="gt-row">
+        <div class="gt-cell" data-label="Format"><b>Early access</b></div>
+        <div class="gt-cell" data-label="Terms">
+          <p><span class="tag-in">I provide</span> access to the system, migration of structure and data, and priority in the development queue.</p>
+          <p><span class="tag-in">I expect</span> part of your real work to run in the system, and feedback as you go rather than at the end.</p>
+        </div>
+      </div>
+      <div class="gt-row">
+        <div class="gt-cell" data-label="Format"><b>Rollout</b></div>
+        <div class="gt-cell" data-label="Terms">A partnership with someone who deploys the product in companies and supports the transition.</div>
+      </div>
+      <div class="gt-row">
+        <div class="gt-cell" data-label="Format"><b>Investment</b></div>
+        <div class="gt-cell" data-label="Terms">I discuss participation at the stage of preparing for market entry.</div>
+      </div>
+    </div>
+
+    <p class="doc-note">I show the system’s architecture and the roadmap in person, under a non-disclosure agreement.</p>
+  </section>
+
+  <section class="doc-block" id="s09">
+    <p class="sec-no">09 — FAQ</p>
+    <h2><span>Frequently asked questions</span></h2>
+    <dl class="faq">
+      <div>
+        <dt>How is this different from a messenger plus a tracker?</dt>
+        <dd>The link. A task keeps a reference to the original message, and a meeting summary points to a timecode in the recording. A pair of separate services has no such link.</dd>
+      </div>
+      <div>
+        <dt>How does consent to record meetings work?</dt>
+        <dd>Recording starts only with every participant’s consent. Summaries and decisions are drawn from the transcript; a task is created only after a person confirms it.</dd>
+      </div>
+      <div>
+        <dt>Do we have to move all our work at once?</dt>
+        <dd>No. You can start with one department or project; the rest of the work stays in your existing systems.</dd>
+      </div>
+      <div>
+        <dt>What about integrations?</dt>
+        <dd>Built: outbound webhooks (signed, with retries and a log), API keys, a Telegram bridge and a one-way calendar subscription (.ics). The Telegram bridge has been tested against a simulated API, not yet on a real bot. Slack and Teams adapters and two-way calendar sync come next; we agree the order of connection to suit your company.</dd>
+      </div>
+      <div>
+        <dt>How is ChatX related to Syntha?</dt>
+        <dd>ChatX is a standalone product with its own codebase, data and users. The two systems are independent.</dd>
+      </div>
+      <div>
+        <dt>What does the in-chat AI assistant do?</dt>
+        <dd>It condenses the latest messages of a conversation into a short overview and suggests up to three replies. A suggestion goes only into the input field and is never sent without a person’s decision. It has not yet been tested with a real AI provider.</dd>
+      </div>
+      <div>
+        <dt>Can I see a demo?</dt>
+        <dd>Yes, on the current build of the prototype.</dd>
+      </div>
+    </dl>
+  </section>
+
+  <section class="doc-block doc-end">
+    <h2><span>Contact</span></h2>
+    <p>Tell me which format interests you: early access, rollout or investment. I reply personally.</p>
+    <p class="doc-cta doc-cta-end">
+      <a class="btn btn-primary" href="/en/?topic=chatx#contact">Get in touch</a>
+      <a class="btn" href="/en/#projects">Other projects</a>
+    </p>
+  </section>
+
+</main>
+
+<dialog class="photo-modal" id="photo-modal">
+  <button class="modal-close" id="photo-close" type="button" aria-label="Close">
+    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>
+  </button>
+  <img id="photo-big" src="" alt="">
+  <video id="photo-video" playsinline controls hidden></video>
+  <button class="photo-nav prev" id="photo-prev" type="button" hidden>
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <button class="photo-nav next" id="photo-next" type="button" hidden>
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <div class="photo-bar" id="photo-bar" hidden>
+    <span class="photo-count" id="photo-count"></span>
+    <button class="btn btn-sm" id="photo-zoom" type="button"></button>
+  </div>
+</dialog>
+
+<footer class="footer">
+  <p><a href="/privacy.html">Privacy policy</a></p>
+  <p class="year">© <span id="year"></span></p>
+</footer>
+
+<script type="module" src="/assets/project-page.js?v=202610040010" data-project="chatx"></script>
+</body>
+</html>

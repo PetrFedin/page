@@ -2,7 +2,18 @@
   "version": 1,
   "include": [
     "/api/*",
-    "/stats"
+    "/stats",
+    "/",
+    "/en/",
+    "/en/*",
+    "/syntha",
+    "/chatx",
+    "/renova",
+    "/mfw",
+    "/promomed",
+    "/robots.txt",
+    "/sitemap.xml",
+    "/llms.txt"
   ],
   "exclude": []
 }

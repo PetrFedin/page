@@ -10,11 +10,10 @@ const SITE = 'https://syntha.pro';
 const pages = [
   { url: '/', file: 'index.html', pair: true },
   { url: '/en/', file: 'en/index.html', pair: true },
-  { url: '/syntha', file: 'syntha.html' },
-  { url: '/chatx', file: 'chatx.html' },
-  { url: '/renova', file: 'renova.html' },
-  { url: '/mfw', file: 'mfw.html' },
-  { url: '/promomed', file: 'promomed.html' }
+  ...['syntha', 'chatx', 'renova', 'mfw', 'promomed'].flatMap((id) => [
+    { url: `/${id}`, file: `${id}.html`, ru: `/${id}`, en: `/en/${id}` },
+    { url: `/en/${id}`, file: `en/${id}.html`, ru: `/${id}`, en: `/en/${id}` }
+  ])
 ];
 
 const lastmod = (file) => {
@@ -23,13 +22,17 @@ const lastmod = (file) => {
   } catch { return ''; }
 };
 
+const altFor = (ru, en) => `    <xhtml:link rel="alternate" hreflang="ru" href="${SITE}${ru}"/>
+    <xhtml:link rel="alternate" hreflang="en" href="${SITE}${en}"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="${SITE}${ru}"/>
+`;
 const alt = `    <xhtml:link rel="alternate" hreflang="ru" href="${SITE}/"/>
     <xhtml:link rel="alternate" hreflang="en" href="${SITE}/en/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="${SITE}/"/>
 `;
 const body = pages.map((p) => {
   const d = lastmod(p.file);
-  return `  <url>\n    <loc>${SITE}${p.url}</loc>\n${d ? `    <lastmod>${d}</lastmod>\n` : ''}${p.pair ? alt : ''}  </url>`;
+  return `  <url>\n    <loc>${SITE}${p.url}</loc>\n${d ? `    <lastmod>${d}</lastmod>\n` : ''}${p.pair ? alt : p.ru ? altFor(p.ru, p.en) : ''}  </url>`;
 }).join('\n');
 
 writeFileSync(join(root, 'sitemap.xml'),

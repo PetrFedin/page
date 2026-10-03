@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Renova — Renovation Under Control</title>
+<meta name="description" content="A renovation management app: versioned estimates, stages with sign-off and photo evidence, stage payments, chats and documents. The problem, the principle behind the solution, project stage and ways to get involved.">
+<meta name="color-scheme" content="light dark">
+<meta property="og:title" content="Renova — Renovation Under Control">
+<meta property="og:description" content="Estimate, work stages, payments and contractor conversations in one app: the client sees the full economics of the renovation.">
+<meta property="og:type" content="website">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="canonical" href="https://syntha.pro/en/renova">
+<meta property="og:url" content="https://syntha.pro/en/renova">
+<meta property="og:site_name" content="Petr Fedin">
+<link rel="stylesheet" href="/assets/styles.css?v=202610040010">
+<script src="/assets/track.js?v=202610040010" defer></script>
+<script src="/assets/guard.js?v=202610040010" defer></script>
+<!--SEO:START-->
+<link rel="alternate" hreflang="ru" href="https://syntha.pro/renova">
+<link rel="alternate" hreflang="en" href="https://syntha.pro/en/renova">
+<link rel="alternate" hreflang="x-default" href="https://syntha.pro/renova">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://syntha.pro/assets/og/renova-en.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Renova — Renovation Under Control">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Renova — Renovation Under Control">
+<meta name="twitter:description" content="A renovation management app: versioned estimates, stages with sign-off and photo evidence, stage payments, chats and documents. The problem, the principle behind the solution, project stage and ways to get involved.">
+<meta name="twitter:image" content="https://syntha.pro/assets/og/renova-en.jpg">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","@id":"https://syntha.pro/en/renova#app","name":"Renova","url":"https://syntha.pro/en/renova","description":"A renovation management app: versioned estimates, stages with sign-off and photo evidence, stage payments, chats and documents. The problem, the principle behind the solution, project stage and ways to get involved.","inLanguage":"en","applicationCategory":"BusinessApplication","operatingSystem":"iOS","image":"https://syntha.pro/assets/og/renova-en.jpg","creator":{"@type":"Person","@id":"https://syntha.pro/#person","name":"Petr Fedin","url":"https://syntha.pro/"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Petr Fedin","item":"https://syntha.pro/en/"},{"@type":"ListItem","position":2,"name":"Projects","item":"https://syntha.pro/en/#projects"},{"@type":"ListItem","position":3,"name":"Renova","item":"https://syntha.pro/en/renova"}]}]}</script>
+<!--SEO:END-->
+</head>
+<body class="doc-page">
+
+<header class="topbar">
+  <nav class="nav" id="nav">
+    <a href="/en/#experience">Experience</a>
+    <a href="/en/#consulting">Advisory</a>
+    <a href="/en/#projects">Projects</a>
+    <a href="/en/#news">Feed</a>
+    <a href="/en/#contact">Contact</a>
+  </nav>
+  <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="nav" aria-label="Menu">
+    <span></span><span></span>
+  </button>
+  <div class="switches">
+    <a class="lang" href="/renova" hreflang="ru" lang="ru" aria-label="Русская версия">RU</a>
+    <button class="theme" id="theme-toggle" type="button" aria-label="Theme">
+      <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" fill="currentColor"/></svg>
+    </button>
+    <button class="theme text-size" id="text-size-toggle" type="button">
+      <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M5 17L9.5 6h1L15 17M6.3 13h7.4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M17 17v-6l-2 1.3" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <a class="theme home" href="/stats" aria-label="Owner dashboard" title="Owner dashboard">
+      <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 11.2 12 4l8 7.2V19a1 1 0 0 1-1 1h-4.5v-5h-5v5H5a1 1 0 0 1-1-1z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+</header>
+
+<main class="doc">
+
+  <p class="doc-back"><a href="/en/#projects">← All projects</a>
+    <time class="doc-date" id="doc-date" datetime=""></time></p>
+
+  <header class="doc-head">
+    <span class="doc-logo" id="doc-logo"></span>
+    <h1>Renovation under control</h1>
+    <p class="doc-lead">Estimate, stages, payments and a chat with the crew in one app. Payment is tied to a signed-off stage.</p>
+    <p class="doc-stage"><span class="stage">MVP, preparing a closed test</span></p>
+    <p class="doc-state">Built: versioned estimates, stages with sign-off and photo evidence,
+      stage payments, disputes and variation orders, chats and a notification centre, client,
+      contractor and guest roles, project participant management, an offline mode with an action queue.
+      Receipt and self-employed status checks via the Federal Tax Service are built and covered by tests;
+      live verification awaits keys. Scope of work: <a href="#s07">section 07</a>.</p>
+  </header>
+
+  <section class="summary" aria-label="Summary">
+    <p class="summary-label">Summary</p>
+    <ol class="summary-list">
+      <li>The estimate drifts from actual costs, and overspend surfaces only at the end.</li>
+      <li>The contractor’s status goes unchecked, and no one is accountable for the result.</li>
+      <li>Renova brings together the estimate, stages, payments and chat. Every action recalculates the figures instead of relying on what each side remembers.</li>
+    </ol>
+    <p class="doc-cta">
+      <a class="btn btn-primary" href="/en/?topic=investors&amp;project=renova#contact">Discuss involvement</a>
+      <a class="btn" href="/en/#contact">Request a demo</a>
+    </p>
+  </section>
+
+  <nav class="doc-toc" aria-label="Contents">
+    <p class="summary-label">Contents</p>
+    <ol>
+      <li><a href="#s01">The problem</a></li>
+      <li><a href="#s02">The principle</a></li>
+      <li><a href="#s03">System class</a></li>
+      <li><a href="#s04">Scope</a></li>
+      <li><a href="#s05">Roles</a></li>
+      <li><a href="#s06">Interface</a></li>
+      <li><a href="#s07">Stage</a></li>
+      <li><a href="#s08">Involvement</a></li>
+      <li><a href="#s09">FAQ</a></li>
+    </ol>
+  </nav>
+
+  <section class="doc-block" id="s01">
+    <p class="sec-no">01 — The problem</p>
+    <h2><span>Renovations run on chat threads, and no one is accountable</span></h2>
+    <p class="doc-lead-in">The economics of a renovation are never in one place: the estimate in a file, the conversation in a messenger, the receipts in a pile.</p>
+
+    <ol class="findings">
+      <li>
+        <h3>The estimate drifts from actual costs</h3>
+        <p>The estimate is kept apart from purchasing and payments. The gap builds up unnoticed and comes to light at the end.</p>
+      </li>
+      <li>
+        <h3>Payment is not tied to results</h3>
+        <p>Payment follows a verbal agreement rather than a signed-off stage. What exactly was paid for cannot be checked later.</p>
+      </li>
+      <li>
+        <h3>The contractor’s legal status is unconfirmed</h3>
+        <p>Self-employed or sole-trader status is taken on trust and, as a rule, not checked at the time of payment.</p>
+      </li>
+      <li>
+        <h3>Whether a stage is finished is a matter of trust, not fact</h3>
+        <p>The crew and the client mean different things by “done”, and there is no shared confirmation. Photos, if any, stay in a phone gallery, not linked to a stage or date.</p>
+      </li>
+    </ol>
+
+    <aside class="case">
+      <p class="case-label">Typical scenario</p>
+      <p>The crew asked for an advance on materials, and the client sent it to a phone number. The materials cost less than estimated and the difference was never discussed: there was no reporting.</p>
+      <p class="case-out">By handover the budget was over the estimate, and it was impossible to tell which stage caused the overspend.</p>
+    </aside>
+
+    <p class="doc-out">Outcome: the client learns the real cost of the renovation only after the money has been spent.</p>
+  </section>
+
+  <section class="doc-block" id="s02">
+    <p class="sec-no">02 — The principle</p>
+    <h2><span>Every action recalculates the figures</span></h2>
+
+    <ol class="principles">
+      <li>
+        <h3>The estimate is a state, not a document</h3>
+        <p>Every change to the estimate is saved as a new version. You can see what changed, when, and why the plan departed from actual costs.</p>
+      </li>
+      <li>
+        <h3>Payment is tied to sign-off</h3>
+        <p>A stage payment is confirmed only after sign-off, with photo evidence and confirmation from both sides.</p>
+      </li>
+      <li>
+        <h3>Checks go to official sources</h3>
+        <p>Receipts and self-employed status are checked via the Federal Tax Service, not on the contractor’s word. The check is built and tested; live mode awaits keys.</p>
+      </li>
+    </ol>
+  </section>
+
+  <section class="doc-block" id="s03">
+    <p class="sec-no">03 — System class</p>
+    <h2><span>A place between the group chat and the contractor’s accounting system</span></h2>
+    <p class="doc-lead-in">Private renovations are run in one of three ways: a spreadsheet with receipts, a group chat with no single version of the estimate, or the contractor’s own accounting system (1C, a site manager’s software), closed to the client. None of them shows the client the full economics of the project.</p>
+
+    <figure class="exhibit">
+      <figcaption>Exhibit 1. Coverage of functional areas by the way a renovation is run</figcaption>
+      <div class="grid-table cols-5 coverage">
+        <div class="gt-head" role="presentation">
+          <span>Functional area</span>
+          <span>Spreadsheet and receipts</span>
+          <span>Group chat</span>
+          <span>Contractor’s system</span>
+          <span>Renova</span>
+        </div>
+        <div class="gt-row">
+          <div class="gt-cell" data-label="Area"><b>Estimate and its versions</b></div>
+          <div class="gt-cell" data-label="Spreadsheet"><i class="mark part">partial</i></div>
+          <div class="gt-cell" data-label="Chat"><i class="mark no">no</i></div>
+          <div class="gt-cell" data-label="Contractor’s system"><i class="mark yes">yes</i></div>
+          <div class="gt-cell own" data-label="Renova"><i class="mark yes">yes</i></div>
+        </div>
+        <div class="gt-row">
+          <div class="gt-cell" data-label="Area"><b>Stages, sign-off, photo evidence</b></div>
+          <div class="gt-cell" data-label="Spreadsheet"><i class="mark no">no</i></div>
+          <div class="gt-cell" data-label="Chat"><i class="mark part">partial</i></div>
+          <div class="gt-cell" data-label="Contractor’s system"><i class="mark part">partial</i></div>
+          <div class="gt-cell own" data-label="Renova"><i class="mark yes">yes</i></div>
+        </div>
+        <div class="gt-row">
+          <div class="gt-cell" data-label="Area"><b>Payment tied to a stage</b></div>
+          <div class="gt-cell" data-label="Spreadsheet"><i class="mark no">no</i></div>
+          <div class="gt-cell" data-label="Chat"><i class="mark no">no</i></div>
+          <div class="gt-cell" data-label="Contractor’s system"><i class="mark part">partial</i></div>
+          <div class="gt-cell own" data-label="Renova"><i class="mark yes">yes</i></div>
+        </div>
+        <div class="gt-row">
+          <div class="gt-cell" data-label="Area"><b>Receipt and contractor status checks</b></div>
+          <div class="gt-cell" data-label="Spreadsheet"><i class="mark no">no</i></div>
+          <div class="gt-cell" data-label="Chat"><i class="mark no">no</i></div>
+          <div class="gt-cell" data-label="Contractor’s system"><i class="mark no">no</i></div>
+          <div class="gt-cell own" data-label="Renova"><i class="mark yes">yes</i></div>
+        </div>
+        <div class="gt-row">
+          <div class="gt-cell" data-label="Area"><b>Visibility for the client</b></div>
+          <div class="gt-cell" data-label="Spreadsheet"><i class="mark part">partial</i></div>
+          <div class="gt-cell" data-label="Chat"><i class="mark part">partial</i></div>
+          <div class="gt-cell" data-label="Contractor’s system"><i class="mark no">no</i></div>
+          <div class="gt-cell own" data-label="Renova"><i class="mark yes">yes</i></div>
+        </div>
+      </div>
+    </figure>
+
+    <p class="doc-note">The Renova column shows the intended scope; readiness is described in <a href="#s07">section 07</a>. None of the three usual methods checks the receipt or the contractor’s status.</p>
+  </section>
+
+  <section class="doc-block" id="s04">
+    <p class="sec-no">04 — Scope</p>
+    <h2><span>From estimate to signed-off result</span></h2>
+    <p class="doc-lead-in">Each step builds on the last: a stage payment cannot be
+      confirmed before sign-off, and the estimate cannot be changed unnoticed.</p>
+
+    <ol class="flow" aria-label="The renovation path">
+      <li>Estimate</li>
+      <li>Version approval</li>
+      <li>Work on the stage</li>
+      <li>Photo evidence</li>
+      <li>Sign-off</li>
+      <li>Payment</li>
+      <li>Next stage</li>
+    </ol>
+
+    <figure class="exhibit">
+      <figcaption>Exhibit 2. System modules and the decisions they cover</figcaption>
+      <div class="grid-table cols-3">
+        <div class="gt-head" role="presentation">
+          <span>Module</span><span>Decision supported</span><span>Effect</span>
+        </div>
+        <div class="gt-row">
+          <div class="gt-cell" data-label="Module"><b>Estimate</b>
+            <small>Norm-based line items, versions, plan-versus-actual comparison</small></div>
+          <div class="gt-cell" data-label="Decision supported">What the renovation should
+            cost and what it includes</div>
+          <div class="gt-cell" data-label="Effect">Changes to the estimate show at once, not after an overspend</div>
+        </div>
+        <div class="gt-row">
+          <div class="gt-cell" data-label="Module"><b>Work stages</b>
+            <small>Sign-off, photo evidence, links to estimate line items</small></div>
+          <div class="gt-cell" data-label="Decision supported">What is done and has been
+            signed off by the client so far</div>
+          <div class="gt-cell" data-label="Effect">A dated photo settles a dispute over completion, not one word against another</div>
+        </div>
+        <div class="gt-row">
+          <div class="gt-cell" data-label="Module"><b>Money</b>
+            <small>Stage payments, receipts, self-employed status via the Federal Tax Service</small></div>
+          <div class="gt-cell" data-label="Decision supported">Whether it is safe to pay
+            for this stage and this contractor</div>
+          <div class="gt-cell" data-label="Effect">Payment is tied to a signed-off stage, and the contractor’s status is open to checking</div>
+        </div>
+        <div class="gt-row">
+          <div class="gt-cell" data-label="Module"><b>Conversation</b>
+            <small>Discussion tied to a specific stage rather than a general chat</small></div>
+          <div class="gt-cell" data-label="Decision supported">Which stage
+            the conversation is about</div>
+          <div class="gt-cell" data-label="Effect">Conversations do not drown in a general feed or drift from the work actually done</div>
+        </div>
+      </div>
+    </figure>
+  </section>
+
+  <section class="doc-block" id="s05">
+    <p class="sec-no">05 — Roles</p>
+    <h2><span>Client and contractor each get their own screens</span></h2>
+    <p class="doc-lead-in">The client and the contractor see the same site, but each sees their own part.</p>
+
+    <ol class="findings">
+      <li>
+        <h3>Client</h3>
+        <p>Sees the whole estimate, its versions and deviations, stage status and payment history. Signs off a stage or rejects it with a comment.</p>
+      </li>
+      <li>
+        <h3>Contractor or crew</h3>
+        <p>Runs their own area: photographs the stage, requests sign-off and confirms receipt of payment.</p>
+      </li>
+      <li>
+        <h3>Renovation company</h3>
+        <p>Tests the approach across a portfolio of sites: several estimates and crews in parallel.</p>
+      </li>
+    </ol>
+
+    <aside class="case">
+      <p class="case-label">Typical scenario</p>
+      <p>The client went away for two weeks while the finishing stage was under way. The crew sent photos and a sign-off request from the app. The client checked the stage on their phone and signed it off with one snagging comment, without visiting the site.</p>
+      <p class="case-out">Payment was confirmed the same day: no phone calls and no downtime because of the trip.</p>
+    </aside>
+  </section>
+
+  <section class="doc-block" id="s06">
+    <p class="sec-no">06 — Interface</p>
+    <h2><span>What it looks like</span></h2>
+    <p class="doc-lead-in">The screens are captured from a working build. The phone comes first: renovations are run on site, not at a desk.</p>
+
+    <figure class="exhibit shots">
+      <div class="shot-row">
+        <video controls playsinline preload="none" poster="/assets/shots/renova-1.webp"
+               aria-label="Video overview of Renova sections">
+          <source src="/assets/video/renova.mp4" type="video/mp4">
+          <source src="/assets/video/renova.webm" type="video/webm">
+        </video>
+        <img src="/assets/shots/renova-1.webp" alt="The “Estimate” screen in the Renova app" loading="lazy"
+             width="1500" height="3252">
+        <img src="/assets/shots/renova-2.webp" alt="The “Work stages” screen in the Renova app" loading="lazy"
+             width="1500" height="3252">
+        <img src="/assets/shots/renova-3.webp" alt="The “Payments” screen in the Renova app" loading="lazy"
+             width="1500" height="3252">
+      </div>
+      <p class="doc-note shot-hint">Tap a screenshot to open it full screen
+        and swipe through the others.</p>
+    </figure>
+  </section>
+
+  <section class="doc-block" id="s07">
+    <p class="sec-no">07 — Stage</p>
+    <h2><span>The MVP is built; a closed test is next</span></h2>
+    <div class="status-grid" id="doc-status"></div>
+  </section>
+
+  <section class="doc-block" id="s08">
+    <p class="sec-no">08 — Involvement</p>
+    <h2><span>Ways to get involved</span></h2>
+
+    <div class="grid-table cols-2 parts">
+      <div class="gt-row">
+        <div class="gt-cell" data-label="Role"><b>Client</b></div>
+        <div class="gt-cell" data-label="Terms">You run your own renovation in the app and tell me what is missing: on a real site, not in a demo.</div>
+      </div>
+      <div class="gt-row">
+        <div class="gt-cell" data-label="Role"><b>Contractor or crew</b></div>
+        <div class="gt-cell" data-label="Terms">You run a live site: estimates, schedules, sign-off. You pass on feedback as the work goes.</div>
+      </div>
+      <div class="gt-row">
+        <div class="gt-cell" data-label="Role"><b>Renovation company</b></div>
+        <div class="gt-cell" data-label="Terms">You run a portfolio of sites: several crews and estimates in parallel.</div>
+      </div>
+    </div>
+
+    <p class="doc-note">I show the system design and the roadmap in person, once a non-disclosure agreement is signed.</p>
+  </section>
+
+  <section class="doc-block" id="s09">
+    <p class="sec-no">09 — FAQ</p>
+    <h2><span>Frequently asked questions</span></h2>
+    <dl class="faq">
+      <div>
+        <dt>How does this differ from a spreadsheet and a messenger chat?</dt>
+        <dd>It links the estimate, the stage and the payment. Payment is tied to a signed-off stage, and the estimate changes through versions.</dd>
+      </div>
+      <div>
+        <dt>How is the contractor’s legal status checked?</dt>
+        <dd>Via the Federal Tax Service: the receipt and self-employed status are checked at the official source, not on the contractor’s word. The code and tests are ready; live verification awaits keys.</dd>
+      </div>
+      <div>
+        <dt>Do I have to move the whole renovation into the app at once?</dt>
+        <dd>No. Start with one stage or one estimate and run the rest as you usually do.</dd>
+      </div>
+      <div>
+        <dt>What happens if the connection is lost on site?</dt>
+        <dd>Actions go into an offline queue and are sent once the connection returns; stage sign-off and stage photos, among others, work this way. Idempotent replay after a lost server response is still being finished.</dd>
+      </div>
+      <div>
+        <dt>How is Renova related to Syntha and ChatX?</dt>
+        <dd>It is not directly related: Renova is a separate product outside the fashion industry. The principle is the same: decisions rest on data, not on memory.</dd>
+      </div>
+      <div>
+        <dt>Who pays for the app, the client or the contractor?</dt>
+        <dd>I will set the payment model after the pilots: the side that gains more on site should pay.</dd>
+      </div>
+      <div>
+        <dt>Can the client change the estimate alone, without the contractor’s agreement?</dt>
+        <dd>Once a contractor is appointed, the estimate is locked on the contractor’s proposal with the client’s confirmation. After that, changes are raised as variation orders that both sides agree; every version is visible to both.</dd>
+      </div>
+      <div>
+        <dt>Is a demo possible?</dt>
+        <dd>Yes, on the working build.</dd>
+      </div>
+    </dl>
+  </section>
+
+  <section class="doc-block doc-end">
+    <h2><span>Contact</span></h2>
+    <p>Tell me who you are: a client, a contractor or crew, or a renovation company. I reply personally.</p>
+    <p class="doc-cta doc-cta-end">
+      <a class="btn btn-primary" href="/en/?topic=renova#contact">Write to me</a>
+      <a class="btn" href="/en/#projects">Other projects</a>
+    </p>
+  </section>
+
+</main>
+
+<dialog class="photo-modal" id="photo-modal">
+  <button class="modal-close" id="photo-close" type="button" aria-label="Close">
+    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>
+  </button>
+  <img id="photo-big" src="" alt="">
+  <video id="photo-video" playsinline controls hidden></video>
+  <button class="photo-nav prev" id="photo-prev" type="button" hidden>
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <button class="photo-nav next" id="photo-next" type="button" hidden>
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+  <div class="photo-bar" id="photo-bar" hidden>
+    <span class="photo-count" id="photo-count"></span>
+    <button class="btn btn-sm" id="photo-zoom" type="button"></button>
+  </div>
+</dialog>
+
+<footer class="footer">
+  <p><a href="/privacy.html">Privacy policy</a></p>
+  <p class="year">© <span id="year"></span></p>
+</footer>
+
+<script type="module" src="/assets/project-page.js?v=202610040010" data-project="renova"></script>
+</body>
+</html>

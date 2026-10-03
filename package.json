@@ -6,6 +6,11 @@
     "build:en": "node scripts/build-en.mjs",
     "sitemap": "node scripts/make-sitemap.mjs",
     "serve": "python3 -m http.server 4321",
-    "check:links": "npx --yes linkinator http://localhost:4321 --recurse --skip 'dash.cloudflare.com|t.me|wa.me|linkedin' --timeout 15000"
+    "check:links": "npx --yes linkinator http://localhost:4321 --recurse --skip 'dash.cloudflare.com|t.me|wa.me|linkedin' --timeout 15000",
+    "og": "node scripts/make-og.mjs",
+    "seo": "node scripts/seo-pages.mjs",
+    "prerender": "node scripts/prerender.mjs",
+    "build": "node scripts/build-en.mjs && node scripts/seo-pages.mjs && node scripts/prerender.mjs && node scripts/make-sitemap.mjs",
+    "indexnow": "node scripts/indexnow.mjs"
   }
 }

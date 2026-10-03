@@ -131,6 +131,57 @@ table.t td{padding:8px;border-bottom:1px solid var(--line);vertical-align:top}
 .feed small{color:var(--muted);display:block}
 .h3s{margin:14px 0 0;font-size:13px;color:var(--muted);font-weight:600}
 .err{padding:20px;border:1px dashed var(--bad);border-radius:14px;color:var(--bad)}
+
+a.btn{text-decoration:none;color:inherit;display:inline-block}
+.cal-head{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;margin-bottom:12px}
+.cal-head h2{margin:0;font-size:18px;min-width:150px;}
+.cal{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.cal .dow{background:var(--bg);padding:6px 8px;font-size:12px;color:var(--muted);text-align:center}
+.cal .day{background:var(--panel);min-height:96px;padding:6px 6px 8px;cursor:pointer;display:flex;flex-direction:column;gap:3px;min-width:0}
+.cal .day:hover{background:color-mix(in srgb,var(--soft) 55%,var(--panel))}
+.cal .day.out{background:color-mix(in srgb,var(--bg) 60%,var(--panel));color:var(--muted)}
+.cal .day.today .num{background:var(--accent);color:#fff;border-radius:999px;padding:0 7px}
+.cal .num{font-size:12.5px;align-self:flex-start}
+.pc{font-size:11.5px;line-height:1.3;border-radius:6px;padding:2px 6px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;cursor:pointer;border:1px solid transparent}
+.pc.draft{background:var(--line);color:var(--muted)}
+.pc.scheduled{background:#dbe9f7;color:#1f5d99}
+.pc.published{background:#dcefe3;color:#1f6b42}
+.pc.failed{background:#f9dedb;color:#a3261e}
+.pc.publishing{background:#fff3cf;color:#8a6100}
+.pc.static{background:transparent;border-color:var(--line);color:var(--muted)}
+@media (prefers-color-scheme:dark){.pc.scheduled{background:#1b2b3d;color:#8cbcf0}.pc.published{background:#18301f;color:#7fd29d}.pc.failed{background:#3a1b19;color:#f2a49e}.pc.publishing{background:#3a2f10;color:#e6c46a}}
+.lgd{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12.5px;color:var(--muted);margin:10px 0 14px}
+.lgd .pc{cursor:default}
+.mbg{position:fixed;inset:0;background:rgba(10,10,12,.55);z-index:50;display:flex;align-items:flex-start;justify-content:center;overflow:auto;padding:24px 14px}
+.sheet{background:var(--panel);border-radius:18px;max-width:760px;width:100%;padding:20px 22px;box-shadow:0 20px 60px rgba(0,0,0,.35)}
+.sheet h2{margin:0 0 12px;font-size:18px}
+.fld{display:grid;gap:5px;margin-bottom:12px}
+.fld>span{font-size:13px;color:var(--muted)}
+.chk input{width:auto;margin:0}
+.fld input,.fld select,.fld textarea{border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:8px 11px;width:100%;outline:none;font:inherit;color:inherit}
+.fld textarea{min-height:150px;resize:vertical;line-height:1.5}
+.fld .chk input{width:auto}
+.fld input:focus,.fld select:focus,.fld textarea:focus{border-color:var(--accent)}
+.frow{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.chk{display:inline-flex;gap:7px;align-items:center;margin-right:16px;font-size:14px}
+.acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;align-items:center}
+.btn.pri{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.btn.bad{color:var(--bad);border-color:var(--bad)}
+.tools{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6px}
+.tools button{font-size:12px;padding:3px 9px;border-radius:8px;border:1px solid var(--line);background:var(--bg);cursor:pointer}
+.note{padding:11px 14px;border-radius:12px;background:var(--soft);font-size:14px;margin-bottom:12px}
+.note.warn{background:#fff3cf;color:#6e4d00}
+@media (prefers-color-scheme:dark){.note.warn{background:#3a2f10;color:#e6c46a}}
+.ok{color:var(--ok)}.no{color:var(--bad)}
+.score{display:inline-block;min-width:44px;text-align:center;border-radius:999px;padding:1px 9px;font-weight:600;font-size:13px}
+.score.g{background:#dcefe3;color:#1f6b42}.score.y{background:#fff3cf;color:#8a6100}.score.r{background:#f9dedb;color:#a3261e}
+.stp{border:1px solid var(--line);border-radius:14px;margin-bottom:10px;background:var(--panel)}
+.stp summary{list-style:none;cursor:pointer;display:flex;gap:10px;align-items:center;padding:12px 14px}
+.stp summary::-webkit-details-marker{display:none}
+.stp .body{padding:0 16px 14px 44px;font-size:14.5px}
+.stp .body ol{margin:6px 0;padding-left:18px}.stp .body li{margin:4px 0}
+.stp input[type=checkbox]{width:18px;height:18px;accent-color:var(--accent)}
+@media(max-width:640px){.cal .day{min-height:64px;padding:4px}.pc{font-size:10.5px;padding:1px 4px}.cal-head h2{min-width:0}}
 @media(max-width:640px){.seg button{padding:6px 10px}.bar{padding:10px 14px}main{padding:16px 14px 70px}.step{grid-template-columns:104px minmax(0,1fr) 70px}.meta{display:none}.kpi .v{font-size:26px}.grid{grid-template-columns:minmax(0,1fr)}}
 </style>
 </head>
@@ -160,7 +211,7 @@ function client() {
 
   const SEC = { hero: 'Первый экран', about: 'Обо мне', consulting: 'Консалтинг', experience: 'Опыт', projects: 'Проекты', news: 'Лента', media: 'Публикации', contact: 'Форма связи', now: 'Сейчас' };
   const secName = (id) => SEC[id] || (/^s\d+/.test(id) ? 'Раздел ' + id.toUpperCase() : id);
-  const TABS = [['overview', 'Обзор'], ['sections', 'Что смотрят'], ['people', 'Люди'], ['leads', 'Заявки'], ['forms', 'Форма и квиз'], ['tech', 'Техника']];
+  const TABS = [['overview', 'Обзор'], ['sections', 'Что смотрят'], ['people', 'Люди'], ['leads', 'Заявки'], ['forms', 'Форма и квиз'], ['calendar', 'Календарь'], ['seo', 'Поиск и ИИ'], ['tech', 'Техника']];
   const RANGES = [[1, 'Сегодня'], [7, '7 дней'], [30, '30 дней'], [90, '90 дней'], [365, 'Год']];
   const KIND = { messenger: 'Мессенджер', outbound: 'Внешняя ссылка', phone: 'Телефон', email: 'Почта', link: 'Переход по сайту' };
   const DEV = { phone: 'Телефон', desktop: 'Компьютер', tablet: 'Планшет' };
@@ -199,6 +250,7 @@ function client() {
   const SOURCE = [
     ['Прямые заходы', (h) => !h, '#7d8a99'],
     ['Telegram и мессенджеры', (h) => /(^|\.)(t\.me|telegram\.(org|me)|wa\.me|whatsapp\.com)$/.test(h), '#3a8fd0'],
+    ['ИИ-ассистенты', (h) => /(chatgpt|openai|perplexity|claude\.ai|anthropic|gemini\.google|copilot\.microsoft|you\.com|phind|kagi|brave)/.test(h), '#7a5bd0'],
     ['Поиск', (h) => /(google|yandex|bing|duckduckgo|ya\.ru|mail\.ru|baidu)/.test(h), '#2d7a4f'],
     ['Соцсети', (h) => /(facebook|instagram|vk\.com|linkedin|twitter|x\.com|youtube|dzen|ok\.ru)/.test(h), '#a8432a'],
     ['Другие сайты', () => true, '#c89b3c']
@@ -223,11 +275,12 @@ function client() {
   };
 
   /* ---------- загрузка ---------- */
-  async function api(qs) {
-    const r = await fetch('/api/stats?' + qs, { credentials: 'same-origin', cache: 'no-store' });
+  async function api(qs, path = '/api/stats', init) {
+    const r = await fetch(path + (qs ? '?' + qs : ''), { credentials: 'same-origin', cache: 'no-store', ...init });
     if (!r.ok) throw new Error(String(r.status));
     return r.json();
   }
+  const post = (path, body) => api('', path, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) });
   async function load(silent) {
     if (!silent) $('#app').innerHTML = '<p class="empty">Загрузка…</p>';
     try { data = await api('days=' + days); draw(); }
@@ -498,6 +551,155 @@ function client() {
       + (data.abandons.length ? '<table class="t"><tr><th>Когда</th><th>Откуда</th><th>Что успели заполнить</th></tr>' + data.abandons.map((a) => '<tr><td>' + esc(when(a.ts)) + '</td><td>' + esc(place(a)) + '</td><td>' + esc(a.label || '—') + '</td></tr>').join('') + '</table>' : '<p class="hint">Таких нет.</p>') + '</div>';
   }
 
+
+  /* ---------- «Календарь» публикаций ---------- */
+  const STATUS = { draft: 'Черновик', scheduled: 'Запланирован', publishing: 'Публикуется', published: 'Опубликован', failed: 'Не вышел' };
+  const TAGS = [['analysis', 'Разбор'], ['market', 'Рынок'], ['product', 'Продукт'], ['syntha', 'Syntha'], ['chatx', 'ChatX'], ['renova', 'Renova'], ['mfw', 'MFW+BFS'], ['promomed', 'Promomed'], ['mission', 'Позиция'], ['investors', 'Инвесторам'], ['press', 'Пресса']];
+  const cal = { y: new Date().getFullYear(), m: new Date().getMonth(), posts: null, statics: [], channelReady: true, cronKey: false, edit: null, busy: false };
+  const pad = (n) => String(n).padStart(2, '0');
+  const ymd = (d) => d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+  const localInput = (ms) => { const d = new Date(ms); return ymd(d) + 'T' + pad(d.getHours()) + ':' + pad(d.getMinutes()); };
+
+  async function loadCal() {
+    try {
+      const r = await api('all=1', '/api/posts');
+      cal.posts = r.posts || []; cal.channelReady = r.channelReady; cal.cronKey = r.cronKey;
+    } catch (e) { cal.posts = []; cal.error = e.message; }
+    if (!cal.statics.length) {
+      try { const m = await import('/assets/news.js'); cal.statics = m.NEWS.map((p) => ({ date: p.date, title: p.ru.title, tag: p.tag })); } catch { /* не критично */ }
+    }
+    if (tab === 'calendar') draw();
+  }
+
+  function calendar() {
+    if (!cal.posts) { loadCal(); return '<p class="empty">Загрузка календаря…</p>'; }
+    const first = new Date(cal.y, cal.m, 1);
+    const lead = (first.getDay() + 6) % 7;
+    const start = new Date(cal.y, cal.m, 1 - lead);
+    const todayKey = ymd(new Date());
+    const byDay = {};
+    cal.posts.forEach((p) => { const k = ymd(new Date(p.publish_at)); (byDay[k] = byDay[k] || []).push({ kind: 'dyn', p }); });
+    cal.statics.forEach((p) => { (byDay[p.date] = byDay[p.date] || []).push({ kind: 'static', p }); });
+    let cells = '';
+    for (let i = 0; i < 42; i++) {
+      const d = new Date(start); d.setDate(start.getDate() + i);
+      const k = ymd(d);
+      const items = (byDay[k] || []).map((x) => x.kind === 'dyn'
+        ? '<div class="pc ' + x.p.status + '" data-edit="' + x.p.id + '" title="' + esc(x.p.ru_title) + '">' + fmtTime(x.p.publish_at) + ' ' + esc(x.p.ru_title || 'Без названия') + '</div>'
+        : '<div class="pc static" title="Уже на сайте: ' + esc(x.p.title) + '">' + esc(x.p.title) + '</div>').join('');
+      cells += '<div class="day' + (d.getMonth() !== cal.m ? ' out' : '') + (k === todayKey ? ' today' : '') + '" data-newday="' + k + '"><span class="num">' + d.getDate() + '</span>' + items + '</div>';
+    }
+    const mn = first.toLocaleDateString('ru-RU', { month: 'long', year: 'numeric' }).replace(' г.', '');
+    const monthName = mn.charAt(0).toUpperCase() + mn.slice(1);
+    const upcoming = cal.posts.filter((p) => p.status === 'scheduled').sort((a, b) => a.publish_at - b.publish_at);
+    const warn = [];
+    if (!cal.channelReady) warn.push('Telegram-канал ещё не подключён: посты с галочкой «Telegram» не уйдут, пока не заданы секреты CHANNEL_BOT_TOKEN и TELEGRAM_CHANNEL.');
+    if (!cal.cronKey) warn.push('Автоматический таймер ещё не включён: запланированные посты выйдут при ближайшем визите на сайт или когда вы откроете этот календарь. Чтобы они выходили точно по времени, подключите таймер.');
+    return (warn.length ? '<div class="note warn">' + warn.map(esc).join('<br>') + '</div>' : '')
+      + '<div class="cal-head"><button class="btn" data-calnav="-1">←</button><h2>' + esc(monthName) + '</h2><button class="btn" data-calnav="1">→</button><button class="btn" data-calnav="0">Сегодня</button><div class="grow"></div><button class="btn pri" data-newday="' + todayKey + '">+ Новая публикация</button></div>'
+      + '<div class="cal">' + ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'].map((d) => '<div class="dow">' + d + '</div>').join('') + cells + '</div>'
+      + '<div class="lgd"><span class="pc draft">Черновик</span><span class="pc scheduled">Запланирован</span><span class="pc published">Опубликован</span><span class="pc failed">Не вышел</span><span class="pc static">Уже на сайте</span></div>'
+      + '<div class="box"><h2>Ближайшие публикации</h2><p class="sub">Выходят автоматически в назначенное время: в ленту сайта и/или в Telegram-канал</p>'
+      + (upcoming.length ? upcoming.map((p) => '<div class="row" style="cursor:pointer" data-edit="' + p.id + '"><span class="n"><b>' + esc(p.ru_title) + '</b> · ' + (p.site ? 'сайт ' : '') + (p.tg ? 'Telegram' : '') + '</span><span class="c">' + esc(when(p.publish_at)) + '</span></div>').join('') : '<p class="hint">Ничего не запланировано. Нажмите на день в календаре, чтобы добавить пост.</p>') + '</div>'
+      + (cal.edit ? editorHtml() : '');
+  }
+
+  function editorHtml() {
+    const p = cal.edit, pub = p.status === 'published';
+    const v = (k) => esc(p[k] ?? '');
+    const tags = (k) => { try { return esc(JSON.parse(p[k] || '[]').join(', ')); } catch { return ''; } };
+    const src = (() => { try { return p.source ? JSON.parse(p.source) : {}; } catch { return {}; } })();
+    const labels = ['О чём материал:', 'Разбор:', 'Мнение аналитика:', 'Выводы:', 'Что изменилось:', 'Что это даёт:'];
+    return '<div class="mbg" id="mbg"><form class="sheet" id="edform"><h2>' + (p.id ? 'Публикация' : 'Новая публикация') + (p.id ? ' <span class="pc ' + p.status + '" style="display:inline-block;vertical-align:2px">' + STATUS[p.status] + '</span>' : '') + '</h2>'
+      + (p.error ? '<div class="note warn">Не вышло: ' + esc(p.error) + '. Исправьте и нажмите «Опубликовать сейчас».</div>' : '')
+      + (pub ? '<div class="note">Пост уже опубликован' + (p.post_date ? ': <a href="/#post-' + esc(p.post_date) + '" target="_blank">открыть на сайте</a>' : '') + '. Изменить его нельзя, можно только удалить с сайта (в Telegram он останется).</div>' : '')
+      + '<div class="frow"><label class="fld"><span>Дата и время выхода (ваше время)</span><input type="datetime-local" name="when" value="' + localInput(p.publish_at) + '"' + (pub ? ' disabled' : '') + '></label>'
+      + '<label class="fld"><span>Рубрика</span><select name="tag"' + (pub ? ' disabled' : '') + '>' + TAGS.map(([k, l]) => '<option value="' + k + '"' + (p.tag === k ? ' selected' : '') + '>' + l + '</option>').join('') + '</select></label></div>'
+      + '<div class="fld"><span>Куда публикуем</span><div><label class="chk"><input type="checkbox" name="site"' + (p.site ? ' checked' : '') + '> Лента на сайте syntha.pro</label><label class="chk"><input type="checkbox" name="tg"' + (p.tg ? ' checked' : '') + '> Telegram-канал @syntha_pro</label></div></div>'
+      + '<label class="fld"><span>Заголовок (русский)</span><input name="ru_title" value="' + v('ru_title') + '" maxlength="300"' + (pub ? ' disabled' : '') + '></label>'
+      + '<div class="fld"><span>Текст (русский)</span><div class="tools">' + labels.map((l) => '<button type="button" data-ins="' + esc(l) + '">' + esc(l.replace(':', '')) + '</button>').join('') + '<button type="button" data-ins="• ">• пункт</button></div><textarea name="ru_body"' + (pub ? ' disabled' : '') + '>' + v('ru_body') + '</textarea></div>'
+      + '<label class="fld"><span>Теги через запятую (без #)</span><input name="ru_tags" value="' + tags('ru_tags') + '"' + (pub ? ' disabled' : '') + '></label>'
+      + '<details' + (p.en_title ? ' open' : '') + '><summary style="cursor:pointer;margin-bottom:10px">Английская версия (без неё пост не покажется в английской ленте)</summary>'
+      + '<label class="fld"><span>Title (English)</span><input name="en_title" value="' + v('en_title') + '"' + (pub ? ' disabled' : '') + '></label>'
+      + '<label class="fld"><span>Text (English)</span><textarea name="en_body"' + (pub ? ' disabled' : '') + '>' + v('en_body') + '</textarea></label>'
+      + '<label class="fld"><span>Tags</span><input name="en_tags" value="' + tags('en_tags') + '"' + (pub ? ' disabled' : '') + '></label></details>'
+      + '<details' + (src.outlet ? ' open' : '') + '><summary style="cursor:pointer;margin-bottom:10px">Источник (для разборов чужих материалов)</summary><div class="frow">'
+      + '<label class="fld"><span>Издание</span><input name="s_outlet" value="' + esc(src.outlet || '') + '"></label><label class="fld"><span>Оригинальное название</span><input name="s_original" value="' + esc(src.original || '') + '"></label></div></details>'
+      + '<div class="acts">' + (pub ? '' : '<button class="btn" type="button" data-save="draft">Сохранить черновик</button><button class="btn pri" type="button" data-save="schedule">Запланировать</button><button class="btn" type="button" data-save="now">Опубликовать сейчас</button>')
+      + (p.id ? '<button class="btn bad" type="button" data-save="delete">Удалить</button>' : '') + '<div class="grow"></div><button class="btn" type="button" data-save="close">Закрыть</button></div></form></div>';
+  }
+
+  function newPost(dateKey) {
+    const [y, m, d] = dateKey.split('-').map(Number);
+    const at = new Date(y, m - 1, d, 10, 0).getTime();
+    cal.edit = { id: 0, publish_at: Math.max(at, Date.now() + 60000), status: 'draft', site: 1, tg: cal.channelReady ? 1 : 0, tag: 'analysis', ru_title: '', ru_body: '', ru_tags: '[]', en_title: '', en_body: '', en_tags: '[]', source: '' };
+    draw();
+  }
+
+  async function savePost(action) {
+    const f = document.getElementById('edform');
+    if (!f || cal.busy) return;
+    if (action === 'close') { cal.edit = null; draw(); return; }
+    if (action === 'delete') {
+      if (!confirm('Удалить публикацию? Из Telegram она не пропадёт.')) return;
+      cal.busy = true; await post('/api/posts', { action: 'delete', id: cal.edit.id }); cal.busy = false; cal.edit = null; cal.posts = null; draw(); return;
+    }
+    const fd = new FormData(f);
+    const body = {
+      action, id: cal.edit.id, publish_at: new Date(fd.get('when')).getTime() || Date.now(), tag: fd.get('tag'),
+      site: fd.get('site') === 'on', tg: fd.get('tg') === 'on',
+      ru_title: fd.get('ru_title'), ru_body: fd.get('ru_body'), ru_tags: fd.get('ru_tags'),
+      en_title: fd.get('en_title'), en_body: fd.get('en_body'), en_tags: fd.get('en_tags'),
+      source: { outlet: fd.get('s_outlet'), original: fd.get('s_original') }
+    };
+    if ((action === 'schedule' || action === 'now') && (!String(body.ru_title).trim() || !String(body.ru_body).trim())) { alert('Заполните русский заголовок и текст.'); return; }
+    if (!body.site && !body.tg && action !== 'draft') { alert('Выберите, куда публиковать: сайт, Telegram или оба.'); return; }
+    if (action === 'now' && !confirm('Опубликовать прямо сейчас?')) return;
+    cal.busy = true;
+    try { await post('/api/posts', body); cal.edit = null; cal.posts = null; } catch (e) { alert('Не удалось сохранить: ' + e.message); }
+    cal.busy = false; draw();
+  }
+
+  /* ---------- «Поиск и ИИ» ---------- */
+  const seoState = { data: null, loading: false };
+  async function loadSeo() {
+    if (seoState.loading) return; seoState.loading = true;
+    try { seoState.data = await api('', '/api/seo'); } catch (e) { seoState.error = e.message; }
+    seoState.loading = false; if (tab === 'seo') draw();
+  }
+  const scoreCls = (n) => n >= 85 ? 'g' : n >= 60 ? 'y' : 'r';
+
+  function seo() {
+    const d = seoState.data;
+    if (!d) { if (!seoState.loading) loadSeo(); return seoState.error ? '<div class="err">Не удалось проверить сайт (' + esc(seoState.error) + ')</div>' : '<p class="empty">Проверяю страницы сайта, это занимает несколько секунд…</p>'; }
+    const avg = Math.round(d.pages.reduce((a, p) => a + p.score, 0) / Math.max(d.pages.length, 1));
+    const siteOk = d.site.filter((c) => c.ok).length;
+    const q = 'site%3Asyntha.pro';
+    const bad = [];
+    d.site.filter((c) => !c.ok).forEach((c) => bad.push('Сайт: ' + c.name));
+    d.pages.forEach((p) => p.checks.filter((c) => !c.ok).forEach((c) => bad.push(p.path + ' — ' + c.name + (c.note ? ' (' + c.note + ')' : ''))));
+    const groups = {}; d.steps.forEach((s) => { (groups[s.group] = groups[s.group] || []).push(s); });
+    const doneN = d.steps.filter((s) => s.auto || d.done[s.id]).length;
+    const crawlRows = d.crawls.length ? '<table class="t"><tr><th>Робот</th><th>Тип</th><th>Заходов за 90 дней</th><th>Последний раз</th></tr>' + d.crawls.map((c) => '<tr><td>' + esc(c.bot) + '</td><td>' + ({ search: 'Поисковик', ai: 'ИИ', social: 'Превью ссылок' }[c.kind] || c.kind) + '</td><td>' + c.n + '</td><td>' + esc(when(c.last)) + '</td></tr>').join('') + '</table>' : '<p class="hint">Роботы пока не заходили. Это нормально для нового сайта: после подтверждения в Search Console и Яндекс Вебмастере они начнут появляться здесь.</p>';
+    return '<div class="kpis">'
+      + '<div class="kpi"><div class="l">Готовность страниц</div><div class="v">' + avg + '%</div><span class="d">среднее по ' + d.pages.length + ' страницам</span></div>'
+      + '<div class="kpi"><div class="l">Проверки сайта</div><div class="v">' + siteOk + ' из ' + d.site.length + '</div><span class="d">robots, sitemap, ИИ-файлы</span></div>'
+      + '<div class="kpi"><div class="l">Шаги из списка</div><div class="v">' + doneN + ' из ' + d.steps.length + '</div><span class="d">что вы уже сделали</span></div>'
+      + '<div class="kpi"><div class="l">Заходы роботов</div><div class="v">' + num(d.crawls.reduce((a, c) => a + c.n, 0)) + '</div><span class="d">за 90 дней</span></div></div>'
+      + '<div class="box"><h2>Есть ли сайт в поиске</h2><p class="sub">Нажмите — откроется выдача по запросу site:syntha.pro. Если результатов нет, сайт ещё не проиндексирован.</p><div class="acts" style="margin:0">'
+      + '<a class="btn" target="_blank" rel="noopener" href="https://www.google.com/search?q=' + q + '">Google</a><a class="btn" target="_blank" rel="noopener" href="https://yandex.ru/search/?text=' + q + '">Яндекс</a><a class="btn" target="_blank" rel="noopener" href="https://www.bing.com/search?q=' + q + '">Bing</a><a class="btn" target="_blank" rel="noopener" href="https://search.brave.com/search?q=' + q + '">Brave</a>'
+      + '<a class="btn" target="_blank" rel="noopener" href="https://www.google.com/search?q=%22%D0%9F%D0%B5%D1%82%D1%80+%D0%A4%D0%B5%D0%B4%D0%B8%D0%BD%22+%D1%84%D1%8D%D1%88%D0%BD">Google: «Пётр Федин фэшн»</a></div></div>'
+      + '<div class="box" style="margin-top:14px"><h2>Что нужно исправить</h2><p class="sub">Собрано автоматически из проверок ниже</p>'
+      + (bad.length ? '<ul class="insights">' + bad.slice(0, 12).map((x) => '<li>' + esc(x) + '</li>').join('') + '</ul>' + (bad.length > 12 ? '<p class="hint">…и ещё ' + (bad.length - 12) + '</p>' : '') : '<p class="ok">Замечаний нет: всё, что можно проверить автоматически, в порядке.</p>') + '</div>'
+      + '<div class="box"><h2>Что делать, чтобы вас находили</h2><p class="sub">Пошагово. Отмечайте сделанное — галочки сохраняются.</p>'
+      + Object.entries(groups).map(([g, list]) => '<p class="h3s">' + esc(g) + '</p>' + list.map((s) => '<details class="stp"><summary><input type="checkbox" data-step="' + s.id + '"' + (s.auto || d.done[s.id] ? ' checked' : '') + (s.auto ? ' disabled' : '') + '><b>' + esc(s.title) + '</b></summary><div class="body"><ol>' + s.how.map((h) => '<li>' + esc(h) + '</li>').join('') + '</ol>' + (s.url ? '<a class="btn" target="_blank" rel="noopener" href="' + esc(s.url) + '">Открыть</a>' : '') + '</div></details>').join('')).join('') + '</div>'
+      + '<div class="grid"><div class="box"><h2>Проверки сайта</h2>' + d.site.map((c) => '<div class="row"><span class="n">' + (c.ok ? '<span class="ok">✓</span>' : '<span class="no">✗</span>') + ' ' + esc(c.name) + '</span><span class="c">' + esc(c.note || '') + '</span></div>').join('') + '</div>'
+      + '<div class="box"><h2>Кто читал сайт: роботы</h2><p class="sub">Поисковики, ИИ-ассистенты и мессенджеры, которые открывали страницы</p>' + crawlRows + '</div></div>'
+      + '<div class="box" style="margin-top:14px"><h2>Страницы</h2><p class="sub">Проверка так, как страницу видит робот — без выполнения скриптов</p><table class="t"><tr><th>Страница</th><th>Язык</th><th>Слов</th><th>Готовность</th><th>Не хватает</th></tr>'
+      + d.pages.map((p) => '<tr><td>' + esc(p.path) + '</td><td>' + p.lang.toUpperCase() + '</td><td>' + p.words + '</td><td><span class="score ' + scoreCls(p.score) + '">' + p.score + '%</span></td><td>' + (p.checks.filter((c) => !c.ok).map((c) => esc(c.name)).join('; ') || '—') + '</td></tr>').join('') + '</table>'
+      + '<p class="hint">Проверено ' + esc(when(d.generated)) + '. <button class="btn" id="seo-again">Проверить заново</button></p></div>';
+  }
+
   /* ---------- «Техника» ---------- */
   function tech() {
     const names = { device: 'Устройство', browser: 'Браузер', os: 'Система', lang: 'Язык сайта' };
@@ -512,7 +714,7 @@ function client() {
     $('#range').innerHTML = RANGES.map(([d, l]) => '<button data-d="' + d + '" class="' + (d === days ? 'on' : '') + '">' + l + '</button>').join('');
     $('#tabs').innerHTML = TABS.map(([k, l]) => '<button class="tab' + (k === tab ? ' on' : '') + '" data-t="' + k + '">' + l + (k === 'leads' && data && data.leadsCount ? '<span class="badge">' + data.leadsCount + '</span>' : '') + '</button>').join('');
     if (!data) return;
-    $('#app').innerHTML = ({ overview, sections, people, leads, forms, tech })[tab]();
+    $('#app').innerHTML = ({ overview, sections, people, leads, forms, calendar, seo, tech })[tab]();
     wireChart();
     const s = document.getElementById('psearch');
     if (s) s.addEventListener('input', () => { ui.people.q = s.value; const pos = s.selectionStart; draw(); const n = document.getElementById('psearch'); n.focus(); n.setSelectionRange(pos, pos); });
@@ -535,6 +737,18 @@ function client() {
   document.addEventListener('click', (e) => {
     const t = e.target.closest('[data-t]'); if (t) { tab = t.dataset.t; store.set('statsTab', tab); draw(); window.scrollTo(0, 0); return; }
     const d = e.target.closest('[data-d]'); if (d) { days = +d.dataset.d; store.set('statsDays', String(days)); load(); return; }
+    const ed = e.target.closest('[data-edit]');
+    if (ed && cal.posts) { cal.edit = { ...cal.posts.find((p) => p.id === +ed.dataset.edit) }; draw(); return; }
+    const nd = e.target.closest('[data-newday]'); if (nd && tab === 'calendar') { newPost(nd.dataset.newday); return; }
+    const cn = e.target.closest('[data-calnav]');
+    if (cn) { const k = +cn.dataset.calnav; if (k === 0) { cal.y = new Date().getFullYear(); cal.m = new Date().getMonth(); } else { cal.m += k; if (cal.m < 0) { cal.m = 11; cal.y--; } if (cal.m > 11) { cal.m = 0; cal.y++; } } draw(); return; }
+    const sv = e.target.closest('[data-save]'); if (sv) { savePost(sv.dataset.save); return; }
+    if (e.target.id === 'mbg') { cal.edit = null; draw(); return; }
+    const ins = e.target.closest('[data-ins]');
+    if (ins) { const ta = document.querySelector('textarea[name=ru_body]'); if (ta) { const t = ins.dataset.ins, pos = ta.selectionStart; const pre = ta.value.slice(0, pos), post2 = ta.value.slice(pos); const sep = t.startsWith('•') ? (pre.endsWith('\n') || !pre ? '' : '\n') : (pre.trim() ? (pre.endsWith('\n\n') ? '' : '\n\n') : ''); ta.value = pre + sep + t + (t.startsWith('•') ? '' : ' ') + post2; ta.focus(); } return; }
+    const stp = e.target.closest('[data-step]');
+    if (stp && stp.tagName === 'INPUT') { post('/api/seo', { id: stp.dataset.step, done: stp.checked }).then((r) => { if (seoState.data) seoState.data.done = r.done; }).catch(() => {}); return; }
+    if (e.target.id === 'seo-again') { seoState.data = null; draw(); return; }
     const pf = e.target.closest('[data-pf]'); if (pf) { ui.people.f = pf.dataset.pf; draw(); return; }
     const lf = e.target.closest('[data-lf]'); if (lf) { ui.leads.f = lf.dataset.lf; draw(); return; }
     const top = e.target.closest('.person .top'); if (top) { togglePerson(top.dataset.vid); return; }

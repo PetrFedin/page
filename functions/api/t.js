@@ -16,7 +16,9 @@ function ua(s) {
   return { device, browser, os };
 }
 
-export async function onRequestPost({ request, env }) {
+import { publishDue } from './_lib.js';
+
+export async function onRequestPost({ request, env, waitUntil }) {
   const done = () => new Response(null, { status: 204 });
   if (!env.DB) return done();
 
@@ -57,5 +59,7 @@ export async function onRequestPost({ request, env }) {
   /* Статистика хранится не дольше года: изредка чистим старое. */
   if (Math.random() < 0.01) rows.push(env.DB.prepare('DELETE FROM events WHERE ts < ?').bind(now - 365 * 864e5));
   try { await env.DB.batch(rows); } catch (err) { console.error('t insert failed', String(err)); }
+  /* Посты, у которых подошло время, выходят при ближайшем визите — отдельный таймер не обязателен. */
+  try { waitUntil?.(publishDue(env)); } catch { /* не критично */ }
   return done();
 }

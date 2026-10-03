@@ -1,9 +1,9 @@
-import { T, PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610032330';
-import { DECK } from './deck.js?v=202610032330';
-import { LOGOS } from './logos.js?v=202610032330';
+import { T, PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610040010';
+import { DECK } from './deck.js?v=202610040010';
+import { LOGOS } from './logos.js?v=202610040010';
 import { createViewer } from './viewer.js?v=202609301526';
-import { syncSnaps } from './snap.js?v=202610032330';
-import { NEWS } from './news.js?v=202610032330';
+import { syncSnaps } from './snap.js?v=202610040010';
+import { NEWS } from './news.js?v=202610040010';
 
 /* Сайт — витрина: показываем отобранные материалы. Канал получает весь поток.
    Лента идёт от свежего к старому по дате публикации — «Показать ещё» раскрывает
@@ -408,10 +408,12 @@ function render() {
   if (compareModal.open) openCompare(compareModal.dataset.project);
 }
 
+/* Язык — это адрес: русская страница «/», английская «/en/». Переключатель ведёт на двойника,
+   чтобы ссылка, которой делятся, и заголовок страницы совпадали с тем, что видит человек. */
 $('#lang-toggle').addEventListener('click', () => {
-  lang = lang === 'ru' ? 'en' : 'ru';
-  store.set('lang', lang);
-  render();
+  const next = lang === 'ru' ? 'en' : 'ru';
+  store.set('lang', next);
+  location.href = (next === 'en' ? '/en/' : '/') + location.hash;
 });
 
 /* ---------- часы в шапке: день недели, дата и время идут в часовом поясе посетителя ---------- */
@@ -2174,6 +2176,22 @@ if (location.hash) {
   const target = document.getElementById(decodeURIComponent(location.hash.slice(1)));
   if (target?.matches('section')) requestAnimationFrame(() => requestAnimationFrame(() => target.scrollIntoView()));
 }
+
+/* Посты из календаря кабинета: подмешиваем вышедшие в общую ленту, не дожидаясь пересборки сайта. */
+fetch('/api/posts').then((r) => (r.ok ? r.json() : [])).then((list) => {
+  if (!Array.isArray(list)) return;
+  let added = false;
+  for (const p of list) {
+    if (!p?.date || SITE_NEWS.some((x) => x.date === p.date)) continue;
+    SITE_NEWS.push(p);
+    added = true;
+  }
+  if (!added) return;
+  SITE_NEWS.sort((a, b) => b.date.localeCompare(a.date));
+  renderNews();
+  renderCards();
+  if (location.hash.startsWith('#post-')) applyHash();
+}).catch(() => { /* лента останется статической */ });
 
 /* Нижняя кнопка «Написать» на телефоне: пока не открыта сама форма. */
 (() => {

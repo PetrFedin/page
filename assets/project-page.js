@@ -6,12 +6,14 @@
 
    Какой это проект, страница сообщает атрибутом data-project на своём
    теге script: иначе пришлось бы держать две почти одинаковые копии. */
-import { PROJECTS, T } from './content.js?v=202610032330';
-import { LOGOS } from './logos.js?v=202610032330';
+import { PROJECTS, T } from './content.js?v=202610040010';
+import { LOGOS } from './logos.js?v=202610040010';
 import { createViewer } from './viewer.js?v=202609301526';
-import { syncSnaps } from './snap.js?v=202610032330';
+import { syncSnaps } from './snap.js?v=202610040010';
 
 const $ = (sel) => document.querySelector(sel);
+/* Язык страницы задаёт <html lang>: у английских копий он en. */
+const lang = document.documentElement.lang === 'en' ? 'en' : 'ru';
 const id = document.currentScript?.dataset.project
   ?? document.querySelector('script[data-project]')?.dataset.project;
 
@@ -20,8 +22,8 @@ if (проект) $('#doc-logo').innerHTML = LOGOS[проект.id];
 
 /* Стадия читается из общих данных: иначе после правки в карточке проекта
    страница начнёт показывать устаревшее. */
-const s = T.ru.projects.status;
-const st = проект?.ru.status;
+const s = T[lang].projects.status;
+const st = проект?.[lang]?.status;
 if (st) {
   $('#doc-status').innerHTML = [['done', st.done], ['now', st.now], ['next', st.next]]
     .map(([k, list]) => `
@@ -38,8 +40,8 @@ $('#year').textContent = new Date().getFullYear();
    Берём день последнего изменения файла, чтобы не править её руками. */
 const изменён = new Date(document.lastModified);
 $('#doc-date').dateTime = изменён.toISOString().slice(0, 10);
-$('#doc-date').textContent = 'Обновлено '
-  + изменён.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
+$('#doc-date').textContent = (lang === 'en' ? 'Updated ' : 'Обновлено ')
+  + изменён.toLocaleDateString(lang === 'en' ? 'en-GB' : 'ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
 
 /* ---------- тема и бургер: то же поведение, что на главной ---------- */
 const store = {
@@ -64,7 +66,7 @@ const TEXT_SIZES = ['xl', 'lg', 'normal'];
 function applyTextSize(size) {
   if (size === 'normal') delete document.documentElement.dataset.textSize;
   else document.documentElement.dataset.textSize = size;
-  const label = T.ru.nav.textSize?.[size] ?? 'Text size';
+  const label = T[lang].nav.textSize?.[size] ?? 'Text size';
   $('#text-size-toggle').setAttribute('aria-label', label);
   $('#text-size-toggle').title = label;
 }
@@ -89,7 +91,7 @@ nav.addEventListener('mouseleave', () => setMenu(false));
 nav.addEventListener('click', () => setMenu(false));
 
 /* ---------- снимки и видео открываются во весь экран и листаются вместе ---------- */
-const viewer = createViewer({ labels: () => T.ru.projects.viewer });
+const viewer = createViewer({ labels: () => T[lang].projects.viewer });
 const shotRow = document.querySelector('.shot-row');
 const rowVideo = shotRow?.querySelector('video');
 const shots = [];
@@ -106,7 +108,7 @@ function addExpandButton(wrap, onOpen) {
   const expand = document.createElement('button');
   expand.type = 'button';
   expand.className = 'shot-expand';
-  expand.setAttribute('aria-label', T.ru.projects.viewer.zoomIn);
+  expand.setAttribute('aria-label', T[lang].projects.viewer.zoomIn);
   expand.innerHTML = '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">'
     + '<path d="M9 4H4v5M15 4h5v5M9 20H4v-5M15 20h5v-5" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   expand.addEventListener('click', onOpen);
@@ -134,7 +136,7 @@ if (rowVideo) {
 }
 
 /* ---------- заголовок раздела держится сверху, стрелка возвращает к началу ---------- */
-const up = T.ru.nav.toTop;
+const up = T[lang].nav.toTop;
 document.querySelectorAll('.doc-block > h2').forEach((h) => {
   const btn = document.createElement('button');
   btn.type = 'button';
