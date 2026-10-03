@@ -28,8 +28,10 @@
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <script src="/assets/track.js?v=202610032300" defer></script>
 <script src="/assets/guard.js?v=202610032300" defer></script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Person","@id":"https://syntha.pro/#person","name":"Пётр Федин","alternateName":"Petr Fedin","url":"https://syntha.pro/","jobTitle":"Консультант по фэшн-бизнесу, основатель IT-продуктов","image":"https://syntha.pro/assets/photo/petr-portrait.webp","sameAs":["https://t.me/sheqel","https://t.me/syntha_pro"],"knowsAbout":["Закупка и ассортимент","Продукт и производство в фэшн","Рынки и финансы фэшн-бизнеса","Фэшн-ритейл","IT-продукты для фэшн-индустрии"]},{"@type":"WebSite","@id":"https://syntha.pro/#site","url":"https://syntha.pro/","name":"Пётр Федин","inLanguage":["ru","en"],"publisher":{"@id":"https://syntha.pro/#person"}},{"@type":"ProfessionalService","name":"Пётр Федин — фэшн-консалтинг","url":"https://syntha.pro/","provider":{"@id":"https://syntha.pro/#person"},"serviceType":"Консалтинг для фэшн-бизнеса"}]}</script>
 </head>
 <body>
+<a class="skip-link" href="#top" id="skip-link">К содержанию</a>
 
 <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
 
@@ -38,6 +40,7 @@
     <a href="#experience" data-nav="experience"></a>
     <a href="#consulting" data-nav="consulting"></a>
     <a href="#projects" data-nav="projects"></a>
+    <a href="#investors" data-nav="investors"></a>
     <a href="#news" data-nav="news"></a>
     <a href="#media" data-nav="media"></a>
     <a href="#contact" data-nav="contact"></a>
@@ -57,6 +60,7 @@
   </div>
 </header>
 
+<noscript><div class="noscript"><h1>Пётр Федин</h1><p>Консультирую фэшн-бренды и разрабатываю собственные IT-продукты: Syntha, ChatX, Renova, MFW+BFS, Promomed.</p><p>Для работы сайта нужен JavaScript. Контакты: Telegram <a href="https://t.me/sheqel">@sheqel</a>, WhatsApp +7 977 578 16 85. Проекты: <a href="/syntha">Syntha</a>, <a href="/chatx">ChatX</a>, <a href="/renova">Renova</a>, <a href="/mfw">MFW+BFS</a>, <a href="/promomed">Promomed</a>.</p></div></noscript>
 <main id="top">
 
   <section class="hero">
@@ -128,6 +132,15 @@
     <div class="cards" id="cards"></div>
     <button class="btn" id="projects-more" type="button" hidden></button>
     <div class="formats project-launch" id="project-launch"></div>
+  </section>
+
+  <section class="section" id="investors">
+    <div class="section-head">
+      <h2 id="investors-title"></h2>
+      <p class="sub" id="investors-sub"></p>
+    </div>
+    <div class="inv-list" id="investors-list"></div>
+    <p class="investor-note" id="investors-note"></p>
   </section>
 
   <section class="section" id="news">
@@ -265,6 +278,7 @@
     <div class="press-grid" id="press-body"></div>
   </section>
 </main>
+<div class="cta-bar" id="cta-bar"><a class="btn btn-primary" href="#contact"></a></div>
 
 <footer class="footer">
   <p id="privacy"></p>

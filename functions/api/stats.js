@@ -51,7 +51,7 @@ export async function onRequestGet({ request, env }) {
   /* Путь одного человека по сайту. */
   const vid = url.searchParams.get('vid');
   if (vid) {
-    const events = await q(`SELECT ts, type, path, target, label, data FROM events WHERE vid = ? ORDER BY ts LIMIT 600`, vid);
+    const events = await q(`SELECT ts, sid, type, path, target, label, data FROM events WHERE vid = ? ORDER BY ts LIMIT 600`, vid);
     const subs = await q(`SELECT ts, name, email, telegram, phone, entity, topic, message, ok FROM submissions WHERE vid = ? ORDER BY ts`, vid);
     return new Response(JSON.stringify({ events, subs }), { headers: HEAD });
   }
@@ -61,6 +61,22 @@ export async function onRequestGet({ request, env }) {
 
   const [totals] = await q(`SELECT COUNT(DISTINCT vid) visitors, COUNT(DISTINCT sid) sessions,
       SUM(type='pageview') views FROM events WHERE ts >= ?`, since);
+  /* Предыдущий период такой же длины — для сравнения «стало лучше или хуже». */
+  const prevSince = since - days * 864e5;
+  const [prev] = await q(`SELECT COUNT(DISTINCT vid) visitors, COUNT(DISTINCT sid) sessions,
+      SUM(type='pageview') views, COUNT(DISTINCT CASE WHEN type='form_sent' THEN sid END) sent
+      FROM events WHERE ts >= ? AND ts < ?`, prevSince, since);
+  const [now5] = await q(`SELECT COUNT(DISTINCT vid) n FROM events WHERE ts >= ?`, Date.now() - 5 * 60e3);
+  const [now30] = await q(`SELECT COUNT(DISTINCT vid) n FROM events WHERE ts >= ?`, Date.now() - 30 * 60e3);
+  const [ret] = await q(`SELECT COUNT(DISTINCT e.vid) n FROM events e WHERE e.ts >= ?
+      AND EXISTS (SELECT 1 FROM events o WHERE o.vid = e.vid AND o.ts < ?)`, since, since);
+  const hours = await q(`SELECT CAST(strftime('%H', ts/1000 + ${MSK}, 'unixepoch') AS INTEGER) h, COUNT(DISTINCT sid) n
+      FROM events WHERE type='pageview' AND ts >= ? GROUP BY h`, since);
+  const weekdays = await q(`SELECT CAST(strftime('%w', ts/1000 + ${MSK}, 'unixepoch') AS INTEGER) d, COUNT(DISTINCT sid) n
+      FROM events WHERE type='pageview' AND ts >= ? GROUP BY d`, since);
+  const live = await q(`SELECT ts, vid, type, path, target, label, data, country, city, device FROM events
+      WHERE type NOT IN ('scroll','leave','section','vitals','form_field') ORDER BY ts DESC LIMIT 15`);
+  const subCount = await q(`SELECT COUNT(*) n FROM submissions WHERE ts >= ?`, since);
   const [dur] = await q(`SELECT AVG(CAST(json_extract(data,'$.sec') AS REAL)) sec FROM events
       WHERE type='leave' AND ts >= ? AND CAST(json_extract(data,'$.sec') AS REAL) BETWEEN 1 AND 3600`, since);
   const daily = await q(`SELECT strftime('%Y-%m-%d', ts/1000 + ${MSK}, 'unixepoch') d,
@@ -103,7 +119,7 @@ export async function onRequestGet({ request, env }) {
   const names = await q(`SELECT vid, name FROM submissions WHERE vid != '' AND ts >= ?`, since);
 
   return new Response(JSON.stringify({
-    days, totals, avgSec: dur?.sec ?? null, daily, pages, sections, depth, clicks, modals, views, refs, geo, tech,
+    days, totals, prev, online: { m5: now5?.n ?? 0, m30: now30?.n ?? 0 }, returning: ret?.n ?? 0, hours, weekdays, live, leadsCount: subCount[0]?.n ?? 0, generated: Date.now(), avgSec: dur?.sec ?? null, daily, pages, sections, depth, clicks, modals, views, refs, geo, tech,
     funnel: fun, vitals, fields, errors, abandons, quiz, submissions, visitors, names
   }), { headers: HEAD });
 }

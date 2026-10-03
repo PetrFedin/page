@@ -151,6 +151,38 @@ if (!T[lang]) lang = 'ru';
 let projectsExpanded = false;
 const PROJECTS_FIRST = 3;
 
+/* Раздел «Инвесторам и партнёрам»: только то, что уже есть в карточках проектов, — стадия, путь, кого ищу. */
+function renderInvestors() {
+  const t = T[lang], iv = t.investors;
+  $('#investors-title').textContent = iv.title;
+  $('#investors-sub').textContent = iv.sub;
+  $('#investors-list').innerHTML = PROJECTS.map((p) => {
+    const c = p[lang];
+    const seeking = c.status?.seeking;
+    return `
+    <article class="inv-row" data-inv="${p.id}">
+      <div class="inv-head"><span class="card-logo">${LOGOS[p.id]}</span><span class="stage">${c.stage}</span></div>
+      <p class="inv-tag">${c.tagline}</p>
+      <ol class="inv-path" aria-label="${iv.path}">${(c.roadmap ?? []).map((r) => `<li class="${r.state}">${r.label}</li>`).join('')}</ol>
+      ${seeking ? `<p class="inv-seek"><b>${iv.seeking}</b>${seeking}</p>` : ''}
+      <div class="inv-foot">
+        <button class="btn btn-sm" type="button" data-open="${p.id}">${iv.open}</button>
+        <button class="btn btn-sm btn-primary" type="button" data-inv-talk="${p.id}">${iv.talk}</button>
+      </div>
+    </article>`;
+  }).join('');
+  const note = PROJECTS.find((p) => p[lang].investor)?.[lang].investor.note;
+  $('#investors-note').innerHTML = note ? `<b>${iv.noteTitle}</b>${note}` : '';
+}
+$('#investors-list').addEventListener('click', (e) => {
+  const o = e.target.closest('[data-open]');
+  if (o) return go(o.dataset.open);
+  const b = e.target.closest('[data-inv-talk]');
+  if (!b) return;
+  const p = PROJECTS.find((x) => x.id === b.dataset.invTalk);
+  startContact({ topic: 'investors', message: T[lang].investors.prefill.replace('{name}', p.name) });
+});
+
 function renderCards() {
   const t = T[lang];
   $('#cards').className = "cards snap snap-fit";
@@ -191,6 +223,8 @@ function render() {
   applyTextSize(document.documentElement.dataset.textSize || 'normal');
   renderClock();
   document.querySelectorAll('[data-nav]').forEach((a) => { a.textContent = t.nav[a.dataset.nav]; });
+  $('#skip-link').textContent = t.nav.skip;
+  $('#cta-bar a').textContent = t.nav.ctaBar;
 
   $('#hero-eyebrow').textContent = t.hero.eyebrow;
   $('#hero-name').textContent = t.hero.name;
@@ -303,6 +337,7 @@ function render() {
   $('#projects-title').textContent = t.projects.title;
   $('#projects-sub').textContent = t.projects.subtitle;
   renderCards();
+  renderInvestors();
 
   /* Продуктовые проекты выше — доказательство, а не витрина: тем, кто
      досмотрел до конца раздела, предлагаем тот же путь для своей задачи. */
@@ -1927,10 +1962,11 @@ $('#form').addEventListener('submit', async (e) => {
     syncSubmit();
     /* токен Turnstile одноразовый — без сброса повторная отправка уйдёт с протухшим */
     window.turnstile?.reset();
-  } catch {
+  } catch (err) {
     window.track?.('form_error', '', 'сбой отправки');
     note.className = 'form-note';
-    note.textContent = t.contact.fail;
+    const blocked = String(err?.message) === '400';
+    note.innerHTML = `${blocked ? t.contact.failCaptcha : t.contact.fail} <a href="https://t.me/sheqel" target="_blank" rel="noopener">Telegram</a> · <a href="https://wa.me/79775781685" target="_blank" rel="noopener">WhatsApp</a>`;
   } finally {
     btn.disabled = false;
     btn.textContent = t.contact.send;
@@ -2076,4 +2112,36 @@ syncIconTitles();
 
 render();
 syncSnaps();
+
+/* Ссылки со страниц проектов приходят как /?topic=…&project=…#contact: подставляем тему и начало сообщения. */
+function consumeContactParams() {
+  const q = new URLSearchParams(location.search);
+  const topic = q.get('topic');
+  if (!topic || !T[lang].contact.topics[topic]) return;
+  const proj = PROJECTS.find((p) => p.id === q.get('project') || p.id === topic);
+  const message = proj ? (topic === 'investors' ? T[lang].investors.prefill : T[lang].contact.prefillProject).replace('{name}', proj.name) : '';
+  history.replaceState(null, '', location.pathname + location.hash);
+  $('#topic').value = topic;
+  syncTopicOther();
+  const msgEl = $('#form [name="message"]');
+  if (msgEl && message && !msgEl.value.trim()) msgEl.value = message;
+  syncSubmit?.();
+}
+consumeContactParams();
+
+/* Страница собирается скриптом, поэтому браузер не знает высоты к моменту перехода по #раздел — докручиваем сами. */
+if (location.hash) {
+  const target = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+  if (target?.matches('section')) requestAnimationFrame(() => requestAnimationFrame(() => target.scrollIntoView()));
+}
+
+/* Нижняя кнопка «Написать» на телефоне: пока не открыта сама форма. */
+(() => {
+  const bar = $('#cta-bar');
+  const form = $('#contact');
+  if (!bar || !form || !('IntersectionObserver' in window)) return;
+  new IntersectionObserver(([en]) => bar.classList.toggle('hide', en.isIntersecting), { threshold: 0.15 }).observe(form);
+  bar.querySelector('a').addEventListener('click', (e) => { e.preventDefault(); $('#contact').scrollIntoView({ behavior: 'smooth' }); });
+})();
+
 applyHash();
