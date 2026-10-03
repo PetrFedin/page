@@ -4,7 +4,6 @@
     "/api/*",
     "/stats",
     "/",
-    "/en/",
     "/en/*",
     "/syntha",
     "/chatx",
