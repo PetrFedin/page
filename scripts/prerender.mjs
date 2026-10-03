@@ -81,7 +81,7 @@ for (const [file, url] of targets) {
   if (!src.includes('<!--PR:START-->') || !src.includes('<!--PR:END-->')) { console.error(`${file}: нет меток PR`); failed = true; continue; }
   await send('Page.navigate', { url: `${base}${url}?prerender=1` });
   await sleep(4500);
-  const ready = await evaluate(`document.querySelectorAll('#cards .card').length > 0 && document.querySelectorAll('#investors-list .inv-row').length > 0`);
+  const ready = await evaluate(`document.querySelectorAll('#cards .card').length > 0 && document.querySelectorAll('#investors-list .inv-card').length > 0`);
   if (!ready) { console.error(`${file}: страница не наполнилась`); failed = true; continue; }
   const html = await evaluate(EXTRACT);
   const next = src.replace(/<!--PR:START-->[\s\S]*?<!--PR:END-->/, () => `<!--PR:START-->\n${html}\n<!--PR:END-->`);
