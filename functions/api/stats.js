@@ -79,6 +79,10 @@ export async function onRequestGet({ request, env }) {
   for (const col of ['device', 'browser', 'os', 'lang']) {
     tech[col] = await q(`SELECT ${col} k, COUNT(DISTINCT vid) n FROM events WHERE ts >= ? AND ${col} != '' GROUP BY ${col} ORDER BY n DESC LIMIT 12`, since);
   }
+  const vrows = await q(`SELECT json_extract(data,'$.lcp') lcp, json_extract(data,'$.cls') cls, json_extract(data,'$.inp') inp, device
+      FROM events WHERE type='vitals' AND ts >= ? LIMIT 5000`, since);
+  const p75 = (arr) => { const a = arr.filter((x) => x != null).sort((x, y) => x - y); return a.length ? a[Math.min(a.length - 1, Math.floor(a.length * 0.75))] : null; };
+  const vitals = { n: vrows.length, lcp: p75(vrows.map((r) => r.lcp)), cls: p75(vrows.map((r) => r.cls)), inp: p75(vrows.map((r) => r.inp)) };
   const [fun] = await q(`SELECT
       COUNT(DISTINCT CASE WHEN type='pageview' THEN sid END) visit,
       COUNT(DISTINCT CASE WHEN type='section' AND target='contact' THEN sid END) saw_form,
@@ -100,6 +104,6 @@ export async function onRequestGet({ request, env }) {
 
   return new Response(JSON.stringify({
     days, totals, avgSec: dur?.sec ?? null, daily, pages, sections, depth, clicks, modals, views, refs, geo, tech,
-    funnel: fun, fields, errors, abandons, quiz, submissions, visitors, names
+    funnel: fun, vitals, fields, errors, abandons, quiz, submissions, visitors, names
   }), { headers: HEAD });
 }

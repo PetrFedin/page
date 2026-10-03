@@ -1,9 +1,9 @@
-import { T, PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610030100';
-import { DECK } from './deck.js?v=202610030100';
-import { LOGOS } from './logos.js?v=202610030100';
+import { T, PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610032300';
+import { DECK } from './deck.js?v=202610032300';
+import { LOGOS } from './logos.js?v=202610032300';
 import { createViewer } from './viewer.js?v=202609301526';
-import { syncSnaps } from './snap.js?v=202610030100';
-import { NEWS } from './news.js?v=202610030100';
+import { syncSnaps } from './snap.js?v=202610032300';
+import { NEWS } from './news.js?v=202610032300';
 
 /* Сайт — витрина: показываем отобранные материалы. Канал получает весь поток.
    Лента идёт от свежего к старому по дате публикации — «Показать ещё» раскрывает
@@ -267,15 +267,15 @@ function render() {
   $('#press-sub').textContent = t.press.subtitle;
   $('#press-body').innerHTML = `
     <div class="press-bio">
-      <div class="press-item"><h4>${t.press.shortLabel}</h4><p id="bio-short">${t.press.short}</p>
+      <div class="press-item"><h3>${t.press.shortLabel}</h3><p id="bio-short">${t.press.short}</p>
         <button class="btn btn-sm" type="button" data-copy="bio-short">${t.press.copy}</button></div>
-      <div class="press-item"><h4>${t.press.longLabel}</h4><p id="bio-long">${t.press.long}</p>
+      <div class="press-item"><h3>${t.press.longLabel}</h3><p id="bio-long">${t.press.long}</p>
         <button class="btn btn-sm" type="button" data-copy="bio-long">${t.press.copy}</button></div>
-      <div class="press-item"><h4>${t.press.photoLabel}</h4>
+      <div class="press-item"><h3>${t.press.photoLabel}</h3>
         <a class="btn btn-sm" href="/assets/photo/${lang === 'en' ? 'petr-ny' : 'petr-formal'}.jpg" download>${t.press.photoBtn}</a></div>
     </div>
     <div class="press-side">
-      <h4>${t.press.topicsLabel}</h4>
+      <h3>${t.press.topicsLabel}</h3>
       <ul>${t.press.topics.map((x) => `<li>${x}</li>`).join('')}</ul>
     </div>`;
 

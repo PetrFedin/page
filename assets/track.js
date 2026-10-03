@@ -112,11 +112,23 @@
   });
   window.addEventListener('track:form-sent', () => { formSent = true; });
 
+  /* ---- скорость у настоящих посетителей (LCP, INP, CLS): три числа, без профилей ---- */
+  const vit = { lcp: null, cls: 0, inp: null };
+  try {
+    new PerformanceObserver((l) => { const e = l.getEntries().pop(); if (e) vit.lcp = Math.round(e.startTime); })
+      .observe({ type: 'largest-contentful-paint', buffered: true });
+    new PerformanceObserver((l) => { l.getEntries().forEach((e) => { if (!e.hadRecentInput) vit.cls += e.value; }); })
+      .observe({ type: 'layout-shift', buffered: true });
+    new PerformanceObserver((l) => { l.getEntries().forEach((e) => { vit.inp = Math.max(vit.inp || 0, Math.round(e.duration)); }); })
+      .observe({ type: 'event', durationThreshold: 40, buffered: true });
+  } catch { /* браузер не умеет — просто без замеров */ }
+
   /* ---- уход со страницы ---- */
   let left = false;
   const leave = () => {
     if (left) return; left = true;
     if (formStarted && !formSent) track('form_abandon', '', [...touched].join(','));
+    if (vit.lcp != null) track('vitals', '', '', { lcp: vit.lcp, cls: Math.round(vit.cls * 1000) / 1000, inp: vit.inp });
     track('leave', '', '', { sec: Math.round((Date.now() - started) / 1000), depth: maxDepth });
     flush();
   };

@@ -55,7 +55,7 @@ Cloudflare Pages, корень проекта — эта папка, build comma
 4. В Cloudflare Pages → Settings → Environment variables добавить:
    - `TELEGRAM_BOT_TOKEN` — токен из шага 1
    - `TELEGRAM_CHAT_ID` — число из шага 3
-5. Передеплоить проект. Заявка приходит за секунду и нигде не сохраняется.
+5. Передеплоить проект. Заявка приходит за секунду; её копия сохраняется в закрытой базе статистики (D1), см. раздел «Статистика».
 
 Проверка локально: `npx wrangler pages dev . --binding TELEGRAM_BOT_TOKEN=... TELEGRAM_CHAT_ID=...`
 
@@ -149,8 +149,7 @@ launchctl load   ~/Library/LaunchAgents/pro.syntha.channel.plist   # запус�
   Выберите — добавлю отправку письма из той же функции по ключу в переменных окружения.
 - **Отдельные адреса для английской версии и `hreflang`.** Делается после решения по домену:
   нужен путь `/en/` с предустановленным языком, каноническими ссылками и `sitemap.xml`.
-- **Аналитика.** Cloudflare Web Analytics подключается одной строкой, но токен выдаётся
-  в панели Cloudflare после привязки домена.
+- **Аналитика.** Собственная статистика уже работает: `assets/track.js` → `/api/t` → D1, страница `/stats` под логином и паролем (секреты `STATS_USER`, `STATS_PASSWORD`, привязка базы `DB`). Схема — `scripts/stats-schema.sql`.
 - **Одностраничники по проектам для инвесторов** — обсуждаем отдельно.
 
 ## Незакрытые пункты
@@ -177,7 +176,7 @@ launchctl load   ~/Library/LaunchAgents/pro.syntha.channel.plist   # запус�
 3. Переменные окружения: `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID` — их читает
    `functions/api/contact.js`.
 4. Custom domains: `syntha.pro` и `www.syntha.pro`.
-5. Web Analytics включается в панели Cloudflare, менять страницу не нужно.
+5. Статистика: база D1 `syntha-stats` с привязкой `DB`, секреты `STATS_USER` и `STATS_PASSWORD`; свои визиты отключаются кнопкой на `/stats` или `?notrack`.
 
 `_headers` задаёт кэш и заголовки безопасности, `_routes.json` пускает через
 Functions только `/api/*` — остальное отдаётся статикой.

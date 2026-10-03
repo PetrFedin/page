@@ -14,8 +14,7 @@ const pages = [
   { url: '/chatx', file: 'chatx.html' },
   { url: '/renova', file: 'renova.html' },
   { url: '/mfw', file: 'mfw.html' },
-  { url: '/promomed', file: 'promomed.html' },
-  { url: '/privacy', file: 'privacy.html' }
+  { url: '/promomed', file: 'promomed.html' }
 ];
 
 const lastmod = (file) => {

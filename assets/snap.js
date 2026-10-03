@@ -36,6 +36,8 @@ function buildDots(track) {
   if (!isPhone()) fitHeight(track);
   if (!isPhone() && !листается) { dots.hidden = true; return; }
   dots.hidden = false;
+  /* дорожка листается — до неё можно добраться с клавиатуры */
+  if (листается || isPhone()) track.tabIndex = 0;
   /* Невидимые дети — например, шапка таблицы, скрытая на телефоне, —
      слайдами не считаются: иначе появляется лишняя пустая точка. */
   const слайды = [...track.children].filter((el) => el.getClientRects().length);

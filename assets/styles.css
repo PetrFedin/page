@@ -534,7 +534,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 .status-bar .sb-done{background:var(--accent)}
 .status-bar .sb-now{background:color-mix(in srgb, var(--accent) 45%, var(--line))}
 .status-grid{display:grid; gap:22px}
-.status-col h4{
+.status-col h4, .status-col h3{
   font-size:11px; letter-spacing:.1em; text-transform:uppercase; font-family:var(--sans);
   font-weight:500; color:var(--muted); margin:0 0 9px; padding-bottom:7px; border-bottom:1px solid var(--line);
 }
@@ -543,7 +543,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 .status-col li::before{
   content:''; position:absolute; left:0; top:7px; width:7px; height:7px; border-radius:50%;
 }
-.status-done h4{color:var(--accent); border-color:var(--accent)}
+.status-done h4, .status-done h3{color:var(--accent); border-color:var(--accent)}
 .status-done ul{color:var(--ink)}
 .status-done li::before{background:var(--accent)}
 .status-now li::before{background:var(--accent); animation:status-pulse 1.8s ease-in-out infinite}
@@ -803,7 +803,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 /* ---------- пресса ---------- */
 .press-grid{display:grid; gap:24px}
 .press-item{margin-bottom:20px}
-.press-item h4, .press-side h4{
+.press-item h4, .press-side h4, .press-item h3, .press-side h3{
   font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted);
   font-family:var(--sans); font-weight:500; margin:0 0 8px;
 }
@@ -1393,7 +1393,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
   font-style:normal; font-size:12px; letter-spacing:.06em; text-transform:uppercase;
 }
 .mark.yes{color:var(--accent)}
-.mark.no{color:var(--line)}
+.mark.no{color:var(--muted)}
 .mark.part{color:var(--muted)}
 .coverage .own{background:color-mix(in srgb, var(--accent) 6%, transparent)}
 
@@ -1639,3 +1639,5 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
   .news-filters::-webkit-scrollbar{display:none}
   .news-filter{flex:0 0 auto; white-space:nowrap}
 }
+
+.doc a{color:var(--accent)}

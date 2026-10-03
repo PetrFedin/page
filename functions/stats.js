@@ -133,13 +133,23 @@ function chart(daily) {
     + '<p class="hint">Тёмный столбец — люди, светлый — просмотры страниц. Пик: '+max+' просмотров за день.</p>';
 }
 
+function vitalsBox() {
+  const v = data.vitals || {};
+  if (!v.n) return '';
+  const rate = (x, good, poor) => x == null ? '—' : x <= good ? '<span style="color:var(--ok)">хорошо</span>' : x <= poor ? 'допустимо' : '<span style="color:var(--bad)">медленно</span>';
+  return '<div class="box" style="margin-bottom:12px"><h2>Скорость у посетителей (75% людей быстрее этого)</h2><div class="cards" style="margin:0">'
+    + '<div class="card"><b>' + (v.lcp != null ? (v.lcp/1000).toFixed(1) + ' с' : '—') + '</b><span>LCP, главный блок · ' + rate(v.lcp, 2500, 4000) + '</span></div>'
+    + '<div class="card"><b>' + (v.inp != null ? v.inp + ' мс' : '—') + '</b><span>INP, отклик на нажатие · ' + rate(v.inp, 200, 500) + '</span></div>'
+    + '<div class="card"><b>' + (v.cls != null ? v.cls : '—') + '</b><span>CLS, прыжки макета · ' + rate(v.cls, 0.1, 0.25) + '</span></div>'
+    + '<div class="card"><b>' + v.n + '</b><span>замеров</span></div></div></div>';
+}
 function overview() {
   const t = data.totals || {}, f = data.funnel || {};
   const pct = (a, b) => b ? Math.round(a / b * 100) + '%' : '—';
   return '<div class="cards">'
     + [[t.visitors,'человек'],[t.sessions,'визитов'],[t.views,'просмотров страниц'],[dur(data.avgSec),'на сайте в среднем'],[f.sent||0,'заявок отправлено'],[pct(f.sent||0, f.visit||0),'визит → заявка']]
       .map(([a,b]) => '<div class="card"><b>'+(typeof a==='number'?nf.format(a):a??0)+'</b><span>'+b+'</span></div>').join('')
-    + '</div><div class="box" style="margin-bottom:12px"><h2>По дням</h2>'+chart(data.daily)+'</div>'
+    + '</div>' + vitalsBox() + '<div class="box" style="margin-bottom:12px"><h2>По дням</h2>'+chart(data.daily)+'</div>'
     + '<div class="grid">'
     + '<div class="box"><h2>Откуда пришли</h2>'+bars(data.refs, (r) => esc(refName(r.ref)), (r) => r.n)+'</div>'
     + '<div class="box"><h2>Где живут</h2>'+bars(data.geo, (r) => esc(place(r)), (r) => r.n)+'</div>'
@@ -175,7 +185,7 @@ function people() {
 }
 
 function evText(e) {
-  const m = { pageview:'Открыл страницу', section:'Дошёл до раздела', click:'Нажал', download:'Скачал', modal:'Открыл окно', view:'Перешёл к', scroll:'Прокрутил до', leave:'Ушёл', form_start:'Начал заполнять форму', form_field:'Заполняет поле', form_abandon:'Бросил форму', form_error:'Ошибка в форме', form_sent:'Отправил заявку', form_failed:'Заявка не ушла', quiz_step:'Квиз: ответ', quiz_result:'Квиз: результат', form_try:'Нажал «Отправить»' };
+  const m = { pageview:'Открыл страницу', section:'Дошёл до раздела', click:'Нажал', download:'Скачал', modal:'Открыл окно', view:'Перешёл к', scroll:'Прокрутил до', leave:'Ушёл', form_start:'Начал заполнять форму', form_field:'Заполняет поле', form_abandon:'Бросил форму', form_error:'Ошибка в форме', form_sent:'Отправил заявку', form_failed:'Заявка не ушла', quiz_step:'Квиз: ответ', quiz_result:'Квиз: результат', form_try:'Нажал «Отправить»', vitals:'Замер скорости' };
   let d = {}; try { d = e.data ? JSON.parse(e.data) : {}; } catch {}
   let extra = e.type==='leave' ? dur(d.sec)+', глубина '+(d.depth||0)+'%' : e.type==='scroll' ? e.target+'%' : e.type==='section' ? secName(e.target) : e.label || e.target;
   if (e.type==='pageview') extra = (e.path||'/')+(d.vp?' · '+d.vp:'');

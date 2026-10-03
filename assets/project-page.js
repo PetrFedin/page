@@ -6,10 +6,10 @@
 
    Какой это проект, страница сообщает атрибутом data-project на своём
    теге script: иначе пришлось бы держать две почти одинаковые копии. */
-import { PROJECTS, T } from './content.js?v=202610030100';
-import { LOGOS } from './logos.js?v=202610030100';
+import { PROJECTS, T } from './content.js?v=202610032300';
+import { LOGOS } from './logos.js?v=202610032300';
 import { createViewer } from './viewer.js?v=202609301526';
-import { syncSnaps } from './snap.js?v=202610030100';
+import { syncSnaps } from './snap.js?v=202610032300';
 
 const $ = (sel) => document.querySelector(sel);
 const id = document.currentScript?.dataset.project
@@ -26,7 +26,7 @@ if (st) {
   $('#doc-status').innerHTML = [['done', st.done], ['now', st.now], ['next', st.next]]
     .map(([k, list]) => `
       <div class="status-col status-${k}">
-        <h4>${s[k]}</h4>
+        <h3>${s[k]}</h3>
         <ul>${list.map((i) => `<li>${i}</li>`).join('')}</ul>
       </div>`).join('')
     + (st.seeking ? `<p class="seeking"><b>${s.seeking}</b>${st.seeking}</p>` : '');
