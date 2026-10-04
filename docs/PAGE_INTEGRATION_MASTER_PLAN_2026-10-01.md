@@ -601,3 +601,111 @@ Do not track individual recipients more deeply than consent/purpose requires.
 Сделано: карта сайта и hreflang (`scripts/make-sitemap.mjs`), OG-карточки проектов (`scripts/make-og.mjs`), Turnstile с проверкой на сервере, RSS и JSON Feed (`scripts/make-feed.mjs`), Speculation Rules, структурированные данные (JSON-LD), политика CSP и кэширование в `_headers`, проверка внутренних ссылок (ошибок нет), контроль единства оформления по RU/EN и светлой/тёмной темам.
 Отложено по правилу «без тяжёлых инструментов, пока нет измеренной потребности»: Lighthouse CI, Playwright, Sharp, Workbox, Pagefind, Decap, GrowthBook, сборка CSS/JS, Web Vitals, страницы-предложения (Pitch Rooms).
 Следующий шаг при необходимости: Lighthouse CI и html-validate как проверка при сборке, затем минимальная телеметрия Web Vitals.
+
+## Premium enterprise wave — Trust Center and technical due-diligence room
+
+This wave turns the portfolio into a stronger sales/due-diligence asset for enterprise buyers and investors.
+
+### Trust Center Registry — ADOPT
+
+Create build-time structured data for publishable trust facts:
+
+- project;
+- architecture summary;
+- authentication model;
+- data authority;
+- encryption/storage notes;
+- audit/evidence capability;
+- backup/recovery state;
+- privacy posture;
+- deployment/provider state;
+- last verified date;
+- proof/evidence link;
+- disclosure/publication status.
+
+Never publish secrets, credentials, internal endpoints or unsupported compliance claims.
+
+### Project Readiness Matrix — ADOPT
+
+For each project expose only verified categories such as:
+
+- prototype;
+- controlled demo;
+- pilot-ready;
+- field-tested;
+- production;
+- external-provider dependency;
+- database/state mode;
+- tested device/platform.
+
+Definitions must be consistent across projects.
+
+### Technical Due-diligence Room — ADOPT
+
+Generate a focused buyer/investor route with:
+
+- architecture diagram;
+- authority boundaries;
+- key integrations;
+- security/privacy controls;
+- release/deployment proof;
+- test/E2E evidence;
+- known dependencies/risks;
+- roadmap;
+- selected repository/document links.
+
+Use the existing Proof Manifest as source.
+
+### Capability Graph — ADOPT
+
+Show reusable portfolio capabilities across products:
+
+- identity/auth;
+- PostgreSQL state;
+- evidence/audit;
+- AI governance;
+- media/AR/3D;
+- event/CRM;
+- commerce/payments;
+- analytics;
+- integrations.
+
+This demonstrates platform/IP reuse without pretending projects share one database/codebase when they do not.
+
+### Compliance Claim Boundary — REQUIRED
+
+Do not claim:
+
+- SOC 2;
+- ISO certification;
+- HIPAA compliance;
+- PCI certification;
+- GDPR compliance as a blanket statement;
+
+unless an actual scoped assessment/certification exists.
+
+Instead state concrete controls that are actually implemented/verified.
+
+### Exportable Due-diligence Snapshot — ADOPT
+
+Generate a versioned print/PDF-friendly snapshot:
+
+- source Git SHA;
+- proof registry version;
+- generated_at;
+- project statuses;
+- selected technical evidence.
+
+### Additional acceptance
+
+- every public trust claim has source/proof/verified date;
+- stale/unverified claims are not presented as current;
+- secrets/private architecture data stay out of public build;
+- readiness terms use one shared definition;
+- due-diligence room works on mobile/desktop and static fallback;
+- exported snapshot identifies exact source version.
+
+**Sequencing:** Proof Manifest + Pitch Rooms -> Trust Registry -> Readiness Matrix -> Due-diligence Room -> Capability Graph/export.
+
+**Commercial framing:** enterprise buyers can evaluate technical maturity and risk without relying only on marketing language, which increases credibility and sales value.
+
