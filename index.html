@@ -27,10 +27,10 @@
 <script type="speculationrules">{"prefetch":[{"urls":["/syntha","/chatx","/renova","/mfw","/promomed"],"eagerness":"moderate"}]}</script>
 <meta property="og:site_name" content="Пётр Федин">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="stylesheet" href="/assets/styles.css?v=202610041830">
+<link rel="stylesheet" href="/assets/styles.css?v=202610041910">
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-<script src="/assets/track.js?v=202610041830" defer></script>
-<script src="/assets/guard.js?v=202610041830" defer></script>
+<script src="/assets/track.js?v=202610041910" defer></script>
+<script src="/assets/guard.js?v=202610041910" defer></script>
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Person","@id":"https://syntha.pro/#person","name":"Пётр Федин","alternateName":"Petr Fedin","url":"https://syntha.pro/","jobTitle":"Консультант по фэшн-бизнесу, основатель IT-продуктов","image":"https://syntha.pro/assets/photo/petr-portrait.webp","sameAs":["https://t.me/sheqel","https://t.me/syntha_pro"],"knowsAbout":["Закупка и ассортимент","Продукт и производство в фэшн","Рынки и финансы фэшн-бизнеса","Фэшн-ритейл","IT-продукты для фэшн-индустрии"]},{"@type":"WebSite","@id":"https://syntha.pro/#site","url":"https://syntha.pro/","name":"Пётр Федин","inLanguage":["ru","en"],"publisher":{"@id":"https://syntha.pro/#person"}},{"@type":"ProfessionalService","name":"Пётр Федин — фэшн-консалтинг","url":"https://syntha.pro/","provider":{"@id":"https://syntha.pro/#person"},"serviceType":"Консалтинг для фэшн-бизнеса"}]}</script>
 </head>
 <body>
@@ -53,6 +53,7 @@
   <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="nav" aria-label="Menu" title="Меню">
     <span></span><span></span>
   </button>
+  <a class="top-news" id="top-news" href="#news" data-date="2026-10-02" title="Syntha ведёт сделки через разные юридические лица"><span class="top-news-date">2 окт</span><span class="top-news-title">Syntha ведёт сделки через разные юридические лица</span></a>
   <div class="switches">
     <span class="clock" id="clock" aria-hidden="true"></span>
     <button class="lang" id="lang-toggle" type="button" aria-label="EN — switch to English" title="Language">EN</button>
@@ -95,31 +96,6 @@
     </figure>
   </section>
 
-  <section class="now-band" id="now">
-    <p class="now-label" id="now-label">Сейчас</p>
-    <div class="now-body">
-      <ul class="now-projects" id="now-projects">
-    <li><button type="button" class="now-project" data-goto-project="syntha">
-      <span class="now-dot" aria-hidden="true"></span><b>Syntha</b><span>Готовится к пилоту</span>
-    </button></li>
-    <li><button type="button" class="now-project" data-goto-project="chatx">
-      <span class="now-dot" aria-hidden="true"></span><b>ChatX</b><span>Рабочий прототип</span>
-    </button></li>
-    <li><button type="button" class="now-project" data-goto-project="renova">
-      <span class="now-dot" aria-hidden="true"></span><b>Renova</b><span>MVP, закрытый тест впереди</span>
-    </button></li>
-    <li><button type="button" class="now-project" data-goto-project="mfw">
-      <span class="now-dot" aria-hidden="true"></span><b>MFW+BFS+Made in Moscow</b><span>MVP, показ организаторам</span>
-    </button></li>
-    <li><button type="button" class="now-project" data-goto-project="promomed">
-      <span class="now-dot" aria-hidden="true"></span><b>Promomed + Состояние</b><span>Прототип, демо для Promomed</span>
-    </button></li></ul>
-      <a class="now-post" id="now-post" href="#news" data-date="2026-10-02"><span class="now-post-label">Новости в ленте · 1/6</span>
-      <span class="now-post-title">Syntha ведёт сделки через разные юридические лица</span>
-      <span class="now-post-date">2 октября · Читать →</span></a>
-    </div>
-  </section>
-
   <section class="section" id="experience">
     <div class="section-head">
       <h2 id="experience-title">Релевантный опыт</h2>
@@ -130,7 +106,7 @@
       <b><button class="fact-open" type="button" data-area="buying">Закупка и ассортимент</button></b>
       <span class="fact-l">Мультибрендовая розница: бюджет закупки, матрица, прогноз спроса, распределение, уценка</span>
       <div class="format-foot">
-        <span class="format-more">Читать целиком →</span>
+        <span class="format-more">Подробнее →</span>
         <button type="button" class="btn btn-sm" data-area-contact="buying">Связаться</button>
       </div>
     </li>
@@ -139,7 +115,7 @@
       <b><button class="fact-open" type="button" data-area="product">Продукт и производство</button></b>
       <span class="fact-l">Премиальный сегмент: себестоимость, спецификации, размещение заказа, сроки поставщиков</span>
       <div class="format-foot">
-        <span class="format-more">Читать целиком →</span>
+        <span class="format-more">Подробнее →</span>
         <button type="button" class="btn btn-sm" data-area-contact="product">Связаться</button>
       </div>
     </li>
@@ -148,7 +124,7 @@
       <b><button class="fact-open" type="button" data-area="capital">Рынки и финансы</button></b>
       <span class="fact-l">Оценка рынка и конкурентов, финансовая модель, потребность в деньгах, материалы для инвестора</span>
       <div class="format-foot">
-        <span class="format-more">Читать целиком →</span>
+        <span class="format-more">Подробнее →</span>
         <button type="button" class="btn btn-sm" data-area-contact="capital">Связаться</button>
       </div>
     </li>
@@ -157,7 +133,7 @@
       <b><button class="fact-open" type="button" data-area="turnaround">Стабилизация</button></b>
       <span class="fact-l">Ликвидность, приоритеты, процессы и роли, контроль плана и факта, возврат к росту</span>
       <div class="format-foot">
-        <span class="format-more">Читать целиком →</span>
+        <span class="format-more">Подробнее →</span>
         <button type="button" class="btn btn-sm" data-area-contact="turnaround">Связаться</button>
       </div>
     </li></ul><div class="snap-dots" hidden=""></div>
@@ -233,7 +209,7 @@
         <span class="format-term">проект, 4–6 недель</span>
         <p>Показываю, где заморожен капитал, что тормозит рост и какие цифры не сходятся.</p>
         <div class="format-foot">
-          <span class="format-more">Читать целиком →</span>
+          <span class="format-more">Подробнее →</span>
           <button type="button" class="btn btn-sm" data-format-card-contact="01">Связаться</button>
         </div>
       </article>
@@ -243,7 +219,7 @@
         <span class="format-term">сопровождение, от 3 месяцев</span>
         <p>Помогаю принимать решения по закупке, ассортименту, каналам и капиталу — до того, как они приняты, а не после.</p>
         <div class="format-foot">
-          <span class="format-more">Читать целиком →</span>
+          <span class="format-more">Подробнее →</span>
           <button type="button" class="btn btn-sm" data-format-card-contact="02">Связаться</button>
         </div>
       </article>
@@ -253,7 +229,7 @@
         <span class="format-term">проект, 4–6 месяцев</span>
         <p>Беру на себя приоритеты, координацию функций и сложные переговоры, когда бизнес теряет управляемость.</p>
         <div class="format-foot">
-          <span class="format-more">Читать целиком →</span>
+          <span class="format-more">Подробнее →</span>
           <button type="button" class="btn btn-sm" data-format-card-contact="03">Связаться</button>
         </div>
       </article>
@@ -263,7 +239,7 @@
         <span class="format-term">проект, 3–6 месяцев</span>
         <p>Проектирую путь данных: от источников до панели, по которой принимают решения.</p>
         <div class="format-foot">
-          <span class="format-more">Читать целиком →</span>
+          <span class="format-more">Подробнее →</span>
           <button type="button" class="btn btn-sm" data-format-card-contact="04">Связаться</button>
         </div>
       </article></div><div class="snap-dots" hidden=""></div>
@@ -324,7 +300,7 @@
       </div>
       
     </article></div><div class="snap-dots" hidden=""></div>
-    <button class="btn" id="projects-more" type="button" aria-expanded="false">Показать ещё (2)</button>
+    <button class="btn" id="projects-more" type="button" aria-expanded="false">Показать ещё</button>
     <div class="formats project-launch" id="project-launch">
     <div class="formats-head">
       <h3>Запустить проект</h3><p class="sub">Запустим продукт в любом подходящем формате: от идеи до работающего решения.</p>
@@ -336,7 +312,7 @@
         <span class="format-term">проект, 4–8 недель</span>
         <p>Есть гипотеза, но нет ни продукта, ни команды. Собираю концепцию, проверяю цифрами, довожу до работающего MVP.</p>
         <div class="format-foot">
-          <span class="format-more">Читать целиком →</span>
+          <span class="format-more">Подробнее →</span>
           <button type="button" class="btn btn-sm" data-launch-contact="idea">Связаться</button>
         </div>
       </article>
@@ -346,7 +322,7 @@
         <span class="format-term">проект, 8–12 недель</span>
         <p>Подбираю готовое решение и встраиваю в ваши процессы. Пишу с нуля только то, чего нет на рынке.</p>
         <div class="format-foot">
-          <span class="format-more">Читать целиком →</span>
+          <span class="format-more">Подробнее →</span>
           <button type="button" class="btn btn-sm" data-launch-contact="audit">Связаться</button>
         </div>
       </article>
@@ -356,7 +332,7 @@
         <span class="format-term">проект, 12–16 недель</span>
         <p>Продукт или процесс есть, но не успевает за бизнесом. Пересобираю архитектуру под фактическую работу компании.</p>
         <div class="format-foot">
-          <span class="format-more">Читать целиком →</span>
+          <span class="format-more">Подробнее →</span>
           <button type="button" class="btn btn-sm" data-launch-contact="transform">Связаться</button>
         </div>
       </article>
@@ -366,7 +342,7 @@
         <span class="format-term">проект, 36–48 недель</span>
         <p>Беру продукт целиком: концепция, проектирование, разработка, тестирование, запуск, передача. Один ответственный от гипотезы до пользователей.</p>
         <div class="format-foot">
-          <span class="format-more">Читать целиком →</span>
+          <span class="format-more">Подробнее →</span>
           <button type="button" class="btn btn-sm" data-launch-contact="full">Связаться</button>
         </div>
       </article></div><div class="snap-dots" hidden=""></div>
@@ -386,7 +362,7 @@
       <p class="inv-tag">Капитал на следующий этап развития</p>
       <p class="inv-what">Вы входите долей в один из продуктов или в новую идею. Деньги идут на пилот, доработку и выход на рынок по плану, который мы согласуем.</p>
       <div class="inv-foot">
-        <button class="inv-read" type="button" data-coop-open="0">Читать целиком →</button>
+        <button class="inv-read" type="button" data-coop-open="0">Подробнее →</button>
         <button class="btn btn-sm" type="button" data-inv-talk="equity">Связаться</button>
       </div>
     </article>
@@ -396,7 +372,7 @@
       <p class="inv-tag">Ваш бизнес как первая площадка</p>
       <p class="inv-what">Бренд, ритейлер или компания становится пилотным заказчиком. Вы работаете в продукте на реальных задачах, а они определяют, что я делаю в первую очередь.</p>
       <div class="inv-foot">
-        <button class="inv-read" type="button" data-coop-open="1">Читать целиком →</button>
+        <button class="inv-read" type="button" data-coop-open="1">Подробнее →</button>
         <button class="btn btn-sm" type="button" data-inv-talk="strategic">Связаться</button>
       </div>
     </article>
@@ -406,7 +382,7 @@
       <p class="inv-tag">Не конкуренты, а части одного сценария</p>
       <p class="inv-what">Соединяю мой продукт с вашим: общий обмен данными, единый сценарий для пользователя или модуль, закрывающий чужой пробел. Это отдельный проект с понятной границей.</p>
       <div class="inv-foot">
-        <button class="inv-read" type="button" data-coop-open="2">Читать целиком →</button>
+        <button class="inv-read" type="button" data-coop-open="2">Подробнее →</button>
         <button class="btn btn-sm" type="button" data-inv-talk="codev">Связаться</button>
       </div>
     </article>
@@ -416,7 +392,7 @@
       <p class="inv-tag">Ваш канал, мой продукт</p>
       <p class="inv-what">Вы выводите продукт к своей аудитории: через клиентскую базу, сообщество, медиа или команду внедрения. Я отвечаю за продукт и за его работу у ваших клиентов.</p>
       <div class="inv-foot">
-        <button class="inv-read" type="button" data-coop-open="3">Читать целиком →</button>
+        <button class="inv-read" type="button" data-coop-open="3">Подробнее →</button>
         <button class="btn btn-sm" type="button" data-inv-talk="distribution">Связаться</button>
       </div>
     </article>
@@ -426,7 +402,7 @@
       <p class="inv-tag">Платформа для вашего мероприятия</p>
       <p class="inv-what">Платформа для недель моды, форумов и конференций: программа, регистрация, встречи, кабинеты партнёров. На реальном событии её ещё не использовали, поэтому ищу первого организатора. Спонсор или организатор участвует в запуске.</p>
       <div class="inv-foot">
-        <button class="inv-read" type="button" data-coop-open="4">Читать целиком →</button>
+        <button class="inv-read" type="button" data-coop-open="4">Подробнее →</button>
         <button class="btn btn-sm" type="button" data-inv-talk="events">Связаться</button>
       </div>
     </article>
@@ -436,7 +412,7 @@
       <p class="inv-tag">Продукт под вашим управлением</p>
       <p class="inv-what">Вы покупаете продукт целиком или долю в нём. Рассматриваю и частичную передачу, и полную, если вы готовы вести продукт дальше.</p>
       <div class="inv-foot">
-        <button class="inv-read" type="button" data-coop-open="5">Читать целиком →</button>
+        <button class="inv-read" type="button" data-coop-open="5">Подробнее →</button>
         <button class="btn btn-sm" type="button" data-inv-talk="acquisition">Связаться</button>
       </div>
     </article></div><div class="snap-dots" hidden=""></div>
@@ -477,7 +453,7 @@
 • Партнёр в другой юрисдикции работает в той же системе, что и остальные.
 • Реквизиты российских и иностранных юрлиц хранятся в одном реестре.</p>
       <div class="post-chips"><span class="post-chip">Syntha</span><span class="post-chip">юрлица</span><span class="post-chip">продукт</span></div>
-      <span class="post-read">Читать целиком →</span>
+      <span class="post-read">Подробнее →</span>
     </li>
     <li class="post" id="post-2026-10-01" data-post="2026-10-01">
       <div class="post-meta">
@@ -501,7 +477,7 @@
 • Данные о том, кто ведёт объект, не теряются на стыке лида и проекта.
 • Два человека работают с одним проектом одновременно без расхождений.</p>
       <div class="post-chips"><span class="post-chip">Renova</span><span class="post-chip">продукт</span><span class="post-chip">участники</span></div>
-      <span class="post-read">Читать целиком →</span>
+      <span class="post-read">Подробнее →</span>
     </li>
     <li class="post" id="post-2026-09-30" data-post="2026-09-30">
       <div class="post-meta">
@@ -525,9 +501,10 @@
 • Знания не привязаны к конкретному человеку.
 • Любую правку можно откатить.</p>
       <div class="post-chips"><span class="post-chip">ChatX</span><span class="post-chip">вики</span><span class="post-chip">продукт</span></div>
-      <span class="post-read">Читать целиком →</span>
+      <span class="post-read">Подробнее →</span>
     </li></ol><div class="snap-dots" hidden=""></div>
-    <button class="btn" id="news-more" type="button" data-expanded="false">Показать ещё (15)</button>
+    <button class="btn" id="news-more" type="button" data-expanded="false">Показать ещё</button>
+    <button class="btn" id="news-contact" type="button">Связаться</button>
   </section>
 
   <section class="section" id="contact">
@@ -623,7 +600,7 @@
           <input type="checkbox" id="consent" name="consent">
           <span><span id="consent-text">Согласен на обработку персональных данных</span> · <a href="/privacy" target="_blank" rel="noopener" id="consent-link">Политика конфиденциальности</a></span>
         </label>
-        <div class="cf-turnstile" id="turnstile-widget" data-sitekey="0x4AAAAAAFLPJq7ON4sQDgaA" data-theme="auto" data-language="auto"><div><div></div><input type="hidden" name="cf-turnstile-response" id="cf-chl-widget-3yx1x_response" value=""></div><div><div></div><input type="hidden" name="cf-turnstile-response" id="cf-chl-widget-8rp3o_response" value=""></div><div><div></div><input type="hidden" name="cf-turnstile-response" id="cf-chl-widget-14ppv_response" value=""></div><div><div></div><input type="hidden" name="cf-turnstile-response" id="cf-chl-widget-jntmc_response" value=""></div><div><div></div><input type="hidden" name="cf-turnstile-response" id="cf-chl-widget-q16ew_response" value=""></div><div><div></div><input type="hidden" name="cf-turnstile-response" id="cf-chl-widget-fx69q_response"></div><div><div></div><input type="hidden" name="cf-turnstile-response" id="cf-chl-widget-y7tp3_response" value=""></div><div><div></div><input type="hidden" name="cf-turnstile-response" id="cf-chl-widget-del86_response" value=""></div></div>
+        <div class="cf-turnstile" id="turnstile-widget" data-sitekey="0x4AAAAAAFLPJq7ON4sQDgaA" data-theme="auto" data-language="auto"><div><div></div><input type="hidden" name="cf-turnstile-response" id="cf-chl-widget-3yx1x_response" value=""></div><div><div></div><input type="hidden" name="cf-turnstile-response" id="cf-chl-widget-8rp3o_response" value=""></div><div><div></div><input type="hidden" name="cf-turnstile-response" id="cf-chl-widget-14ppv_response" value=""></div><div><div></div><input type="hidden" name="cf-turnstile-response" id="cf-chl-widget-jntmc_response" value=""></div><div><div></div><input type="hidden" name="cf-turnstile-response" id="cf-chl-widget-q16ew_response" value=""></div><div><div></div><input type="hidden" name="cf-turnstile-response" id="cf-chl-widget-fx69q_response"></div><div><div></div><input type="hidden" name="cf-turnstile-response" id="cf-chl-widget-y7tp3_response" value=""></div><div><div></div><input type="hidden" name="cf-turnstile-response" id="cf-chl-widget-del86_response" value=""></div><div><div></div><input type="hidden" name="cf-turnstile-response" id="cf-chl-widget-qo8kx_response" value=""></div></div>
         <p class="form-missing" id="form-missing" aria-live="polite"></p>
         <button class="btn btn-primary" type="submit" id="submit" disabled="">Отправить</button>
         <p class="form-note" id="form-note" role="status" aria-live="polite"></p>
@@ -943,6 +920,6 @@
   </div>
 </dialog>
 
-<script type="module" src="/assets/app.js?v=202610041830"></script>
+<script type="module" src="/assets/app.js?v=202610041910"></script>
 </body>
 </html>

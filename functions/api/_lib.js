@@ -48,7 +48,7 @@ export function tgText(p) {
   const cut = body.slice(0, room);
   const para = cut.lastIndexOf('\n\n');
   body = cut.slice(0, para > room * 0.5 ? para : room);
-  return `${head}${esc(body)}\n\n<a href="${link}">Читать целиком</a>${tail}`;
+  return `${head}${esc(body)}\n\n<a href="${link}">Подробнее</a>${tail}`;
 }
 
 export async function sendTg(env, text) {

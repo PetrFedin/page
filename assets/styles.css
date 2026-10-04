@@ -88,14 +88,14 @@ img{max-width:100%; display:block}
 .burger{
   width:40px; height:36px; border:1px solid var(--line); border-radius:10px;
   background:var(--panel); cursor:pointer; display:flex; flex-direction:column;
-  align-items:center; justify-content:center; gap:5px; margin-right:auto; padding:0;
+  align-items:center; justify-content:center; gap:5px; padding:0; flex:0 0 auto;
 }
 .burger span{display:block; width:17px; height:1.6px; background:var(--ink); border-radius:2px; transition:transform .2s ease, opacity .2s ease}
 .burger[aria-expanded="true"] span:first-child{transform:translateY(3.3px) rotate(45deg)}
 .burger[aria-expanded="true"] span:last-child{transform:translateY(-3.3px) rotate(-45deg)}
 .nav a{color:var(--muted); text-decoration:none; font-size:14px}
 .nav a:hover{color:var(--ink)}
-.switches{display:flex; align-items:center; gap:8px; margin-left:auto}
+.switches{display:flex; align-items:center; gap:8px; margin-left:auto; flex:0 0 auto}
 .clock{
   display:none; font-size:12px; letter-spacing:.02em; color:var(--muted);
   white-space:nowrap;
@@ -883,36 +883,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 .media-item .btn{justify-self:start}
 
 /* ---------- «Сейчас»: статусы трёх проектов и последний пост ---------- */
-.now-band{border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:var(--panel)}
-.now-label{
-  max-width:var(--maxw); margin:0 auto; padding:16px 16px 0;
-  font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted);
-}
-.now-body{
-  max-width:var(--maxw); margin:0 auto; padding:10px 16px 16px;
-  display:flex; flex-wrap:wrap; align-items:baseline; gap:12px 28px;
-}
-.now-projects{list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:14px 18px; width:100%}
-.now-projects li{display:flex; font-size:13.5px; color:var(--muted)}
-.now-project{
-  display:grid; grid-template-columns:auto 1fr; column-gap:8px; row-gap:2px; align-items:center; text-align:left;
-  border:none; background:none; padding:0; font:inherit; color:inherit; cursor:pointer;
-}
-.now-project .now-dot{grid-row:1; grid-column:1}
-.now-project b{grid-row:1; grid-column:2}
-.now-project > span:last-child{grid-row:2; grid-column:2; font-size:12.5px; line-height:1.35}
-.now-project:hover b{text-decoration:underline}
-.now-projects b{color:var(--ink); font-weight:500; font-size:14.5px}
-.now-dot{width:6px; height:6px; border-radius:50%; background:var(--accent); flex:0 0 auto}
-.now-post{
-  display:flex; flex-wrap:wrap; align-items:baseline; gap:4px 8px; max-width:100%;
-  text-decoration:none; color:inherit; font-size:13.5px;
-}
-.now-post[hidden]{display:none}
-.now-post-label{color:var(--muted)}
-.now-post-title{color:var(--ink); font-weight:500}
-.now-post-date{color:var(--accent); white-space:nowrap}
-.now-post:hover .now-post-title{text-decoration:underline}
+
 
 /* ---------- «Где утекают деньги сезона»: раскрывается внутри карточки Syntha ----------
    Единственное место на сайте с вертикальным scroll-эффектом: пять шагов сезона,
@@ -1680,7 +1651,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 
 /* ---------- кнопка «Написать» (телефон): круглая иконка справа снизу ---------- */
 .cta-bar{display:none}
-@media (max-width:759px){
+@media (min-width:0px){
   .cta-bar{
     display:block; position:fixed; right:16px; bottom:calc(16px + env(safe-area-inset-bottom)); z-index:90;
     transition:transform .2s ease, opacity .2s ease;
@@ -1761,9 +1732,17 @@ a.lang{display:inline-flex; align-items:center; justify-content:center; text-dec
 .card{overflow-wrap:anywhere}
 #coop-modal .inv-fit,#coop-modal .inv-start{margin-top:14px}
 
-#now-post{transition:opacity .22s ease}
-#now-post.swap{opacity:0}
-@media (prefers-reduced-motion:reduce){ #now-post{transition:none} }
+.top-news{
+  flex:1 1 auto; min-width:0; margin:0 12px; display:flex; align-items:baseline; gap:8px;
+  font-size:13px; line-height:1.3; text-decoration:none; color:var(--ink); transition:opacity .22s ease;
+}
+.top-news[hidden]{display:none}
+.top-news.swap{opacity:0}
+.top-news-date{color:var(--accent); white-space:nowrap; font-size:12px; flex:0 0 auto}
+.top-news-title{overflow:hidden; text-overflow:ellipsis; white-space:nowrap; min-width:0}
+.top-news:hover .top-news-title{text-decoration:underline}
+@media (max-width:420px){ .top-news-date{display:none} .top-news{margin:0 8px} }
+@media (prefers-reduced-motion:reduce){ .top-news{transition:none} }
 
 .inv-testrow{margin:26px 0 0}
 .inv-card.mini{cursor:pointer; transition:border-color .2s ease, box-shadow .2s ease}
@@ -1794,4 +1773,11 @@ a.lang{display:inline-flex; align-items:center; justify-content:center; text-dec
 :root[data-theme="dark"] .cta-fab{background:var(--panel); color:var(--ink); border:1px solid var(--ink)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .cta-fab{background:var(--panel); color:var(--ink); border:1px solid var(--ink)}}
 .qr-trigger{border-radius:50%}
-.photo-modal .modal-close{width:44px; height:44px}
+/* круглые кнопки-иконки внутри страницы и окон — один размер */
+.to-top,.post-share,.qr-trigger,.modal-close,.modal-icon-btn,.photo-modal .modal-close{width:40px; height:40px}
+.deck-block > h3 .to-top{flex:0 0 40px; width:40px; height:40px}
+.top-news + .switches{margin-left:0}
+#news-contact{margin-left:10px}
+@media (max-width:759px){
+  .top-news-title{white-space:normal; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; font-size:12px; line-height:1.25}
+}

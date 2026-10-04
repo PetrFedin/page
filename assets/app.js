@@ -1,9 +1,9 @@
-import { T, PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610041830';
-import { DECK } from './deck.js?v=202610041830';
-import { LOGOS } from './logos.js?v=202610041830';
+import { T, PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610041910';
+import { DECK } from './deck.js?v=202610041910';
+import { LOGOS } from './logos.js?v=202610041910';
 import { createViewer } from './viewer.js?v=202609301526';
-import { syncSnaps } from './snap.js?v=202610041830';
-import { NEWS } from './news.js?v=202610041830';
+import { syncSnaps } from './snap.js?v=202610041910';
+import { NEWS } from './news.js?v=202610041910';
 
 /* Сайт — витрина: показываем отобранные материалы. Канал получает весь поток.
    Лента идёт от свежего к старому по дате публикации — «Показать ещё» раскрывает
@@ -155,7 +155,7 @@ const PROJECTS_FIRST = 3;
 const needModal = $('#need-modal');
 let needId = null, needAnswers = [];
 const COOP_L = {
-  ru: { read: 'Читать целиком', contact: 'Связаться', prev: '← Предыдущий', next: 'Следующий →', of: 'из', close: 'Закрыть' },
+  ru: { read: 'Подробнее', contact: 'Связаться', prev: '← Предыдущий', next: 'Следующий →', of: 'из', close: 'Закрыть' },
   en: { read: 'Read more', contact: 'Contact', prev: '← Previous', next: 'Next →', of: 'of', close: 'Close' }
 };
 function renderInvestors() {
@@ -236,7 +236,7 @@ let ctActive = false;
 function renderCoopTest() {
   const iv = T[lang].investors, ts = iv.test;
   ctActive = true;
-  $('#need-logo').innerHTML = '';
+  $('#need-logo').innerHTML = `<p class="eyebrow">${ts.label}</p>`;
   $('#need-title').textContent = ts.title;
   $('#need-subtitle').textContent = ts.subtitle;
   const body = $('#need-body');
@@ -340,7 +340,7 @@ function renderCards() {
   if (flowOpen) renderSeasonFlow();
   const pm = $('#projects-more');
   pm.hidden = PROJECTS.length <= PROJECTS_FIRST;
-  pm.textContent = projectsExpanded ? t.projects.collapse : `${t.projects.more} (${PROJECTS.length - PROJECTS_FIRST})`;
+  pm.textContent = projectsExpanded ? t.projects.collapse : t.projects.more;
   pm.setAttribute('aria-expanded', String(projectsExpanded));
 }
 
@@ -810,25 +810,6 @@ gallery.addEventListener('click', (e) => {
   v.play().then(() => frame.classList.add('playing')).catch(() => {});
 });
 
-/* «Сейчас»: клик по проекту в статус-строке ведёт к его карточке и подсвечивает её */
-$('#now-projects').addEventListener('click', (e) => {
-  const b = e.target.closest('[data-goto-project]');
-  if (!b) return;
-  let card = document.querySelector(`.card[data-project="${b.dataset.gotoProject}"]`);
-  if (!card && !projectsExpanded) {
-    projectsExpanded = true;
-    renderCards();
-    syncSnaps();
-    card = document.querySelector(`.card[data-project="${b.dataset.gotoProject}"]`);
-  }
-  if (!card) return;
-  card.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
-  card.classList.remove('card-highlight');
-  void card.offsetWidth;
-  card.classList.add('card-highlight');
-  card.addEventListener('animationend', () => card.classList.remove('card-highlight'), { once: true });
-});
-
 $('#projects-more').addEventListener('click', () => {
   projectsExpanded = !projectsExpanded;
   renderCards();
@@ -844,29 +825,21 @@ $('#modal-cta').addEventListener('click', () => {
   setTimeout(() => $('#form [name="name"]').focus(), 400);
 });
 
-/* ---------- «Сейчас»: статусы проектов и последний пост ---------- */
+/* ---------- новости в верхней панели: свежие публикации сменяют друг друга ---------- */
 function renderNow() {
-  const t = T[lang];
-  $('#now-label').textContent = t.now.label;
-  $('#now-projects').innerHTML = PROJECTS.map((p) => `
-    <li><button type="button" class="now-project" data-goto-project="${p.id}">
-      <span class="now-dot" aria-hidden="true"></span><b>${p.name}</b><span>${p[lang].stage}</span>
-    </button></li>`).join('');
-
-  /* Новости в ленте: свежие публикации сменяют друг друга каждые 10 секунд. */
-  const recent = SITE_NEWS.filter(hasLang).slice(0, 6);
-  const post = $('#now-post');
+  const post = $('#top-news');
   clearInterval(nowTimer);
+  const recent = SITE_NEWS.filter(hasLang).slice(0, 6);
   if (!recent.length) { post.hidden = true; return; }
   post.hidden = false;
-  const fmt = new Intl.DateTimeFormat(lang === 'ru' ? 'ru-RU' : 'en-GB', { day: 'numeric', month: 'long', timeZone: 'UTC' });
+  const fmt = new Intl.DateTimeFormat(lang === 'ru' ? 'ru-RU' : 'en-GB', { day: 'numeric', month: 'short', timeZone: 'UTC' });
   let idx = 0;
   const paint = () => {
     const p = recent[idx];
     post.dataset.date = p.date;
-    post.innerHTML = `<span class="now-post-label">${t.now.latest}${recent.length > 1 ? ` · ${idx + 1}/${recent.length}` : ''}</span>
-      <span class="now-post-title">${postText(p).title}</span>
-      <span class="now-post-date">${fmt.format(new Date(p.date))} · ${t.now.readMore}</span>`;
+    post.title = postText(p).title;
+    post.querySelector('.top-news-date').textContent = fmt.format(new Date(p.date)).replace('.', '');
+    post.querySelector('.top-news-title').textContent = postText(p).title;
   };
   paint();
   if (recent.length > 1) {
@@ -877,12 +850,12 @@ function renderNow() {
       if (paused || document.hidden) return;
       post.classList.add('swap');
       setTimeout(() => { idx = (idx + 1) % recent.length; paint(); post.classList.remove('swap'); }, 220);
-    }, 10000);
+    }, 12000);
   }
 }
 let nowTimer;
 /* Переход по ссылке-якорю не вызывает applyHash — используем свой роутинг. */
-$('#now-post').addEventListener('click', (e) => {
+$('#top-news').addEventListener('click', (e) => {
   e.preventDefault();
   const date = e.currentTarget.dataset.date;
   if (date) go(`post-${date}`);
@@ -1271,10 +1244,11 @@ function renderNews() {
     </li>`;
   }).join('');
 
+  $('#news-contact').textContent = T[lang].contact.cta ?? (lang === 'en' ? 'Contact' : 'Связаться');
   const more = $('#news-more');
   const expanded = newsShown >= list.length;
   more.hidden = list.length <= newsFirst();
-  more.textContent = expanded ? t.collapse : `${t.more} (${list.length - newsShown})`;
+  more.textContent = expanded ? t.collapse : t.more;
   more.dataset.expanded = String(expanded);
   /* точки под лентой должны соответствовать числу показанных постов, а не прежней выборке */
   syncSnaps();
@@ -2446,3 +2420,5 @@ fetch('/api/posts').then((r) => (r.ok ? r.json() : [])).then((list) => {
 })();
 
 applyHash();
+
+$('#news-contact').addEventListener('click', () => { $('#contact').scrollIntoView({ behavior: 'smooth' }); });
