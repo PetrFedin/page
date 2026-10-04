@@ -1,9 +1,9 @@
-import { T, PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610041740';
-import { DECK } from './deck.js?v=202610041740';
-import { LOGOS } from './logos.js?v=202610041740';
+import { T, PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610041830';
+import { DECK } from './deck.js?v=202610041830';
+import { LOGOS } from './logos.js?v=202610041830';
 import { createViewer } from './viewer.js?v=202609301526';
-import { syncSnaps } from './snap.js?v=202610041740';
-import { NEWS } from './news.js?v=202610041740';
+import { syncSnaps } from './snap.js?v=202610041830';
+import { NEWS } from './news.js?v=202610041830';
 
 /* Сайт — витрина: показываем отобранные материалы. Канал получает весь поток.
    Лента идёт от свежего к старому по дате публикации — «Показать ещё» раскрывает
@@ -173,7 +173,7 @@ function renderInvestors() {
       <p class="inv-what">${f.what}</p>
       <div class="inv-foot">
         <button class="inv-read" type="button" data-coop-open="${i}">${L.read} →</button>
-        <button class="btn btn-sm btn-primary" type="button" data-inv-talk="${f.id}">${L.contact}</button>
+        <button class="btn btn-sm" type="button" data-inv-talk="${f.id}">${L.contact}</button>
       </div>
     </article>`).join('');
   $('#investors-projects').innerHTML = '';
@@ -354,7 +354,7 @@ function render() {
   renderClock();
   document.querySelectorAll('[data-nav]').forEach((a) => { a.textContent = t.nav[a.dataset.nav]; });
   $('#skip-link').textContent = t.nav.skip;
-  $('#cta-bar a').textContent = t.nav.ctaBar;
+  $('#cta-bar a').setAttribute('aria-label', t.nav.ctaBar); $('#cta-bar a').title = t.nav.ctaBar;
 
   $('#hero-eyebrow').textContent = t.hero.eyebrow;
   $('#hero-name').textContent = t.hero.name;

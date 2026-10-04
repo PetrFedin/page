@@ -594,7 +594,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 .fact:hover .fact-more{color:var(--accent)}
 .facts-bar b{font-family:var(--serif); font-size:20px; font-weight:400; letter-spacing:0; text-transform:none; color:var(--ink)}
 .facts-bar .fact-l{font-size:15px; color:var(--muted); line-height:1.5}
-.cv-row{display:flex; flex-wrap:wrap; gap:10px; margin:22px 0 0; padding:0}
+.cv-row{margin:32px 0 0; padding:0}
 /* ---------- лента новостей ---------- */
 .news-filters{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px}
 .news-filter{
@@ -1678,18 +1678,18 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 .inv-chip .card-logo svg{height:22px; width:auto}
 #investors-note{margin-top:16px; max-width:none; color:var(--muted); font-size:14px}
 
-/* ---------- нижняя кнопка «Написать» (телефон) ---------- */
+/* ---------- кнопка «Написать» (телефон): круглая иконка справа снизу ---------- */
 .cta-bar{display:none}
 @media (max-width:759px){
   .cta-bar{
-    display:block; position:fixed; left:0; right:0; bottom:0; z-index:90;
-    padding:10px 16px calc(10px + env(safe-area-inset-bottom));
-    background:linear-gradient(to top, var(--bg) 70%, transparent);
+    display:block; position:fixed; right:16px; bottom:calc(16px + env(safe-area-inset-bottom)); z-index:90;
     transition:transform .2s ease, opacity .2s ease;
   }
-  .cta-bar .btn{width:100%; justify-content:center; box-shadow:0 6px 20px rgba(0,0,0,.18)}
-  .cta-bar.hide{transform:translateY(120%); opacity:0; pointer-events:none}
-  body{padding-bottom:72px}
+  .cta-fab{
+    display:flex; align-items:center; justify-content:center; width:52px; height:52px; border-radius:50%;
+    background:var(--ink); color:var(--bg); box-shadow:0 6px 20px rgba(0,0,0,.22); text-decoration:none;
+  }
+  .cta-bar.hide{transform:translateY(140%); opacity:0; pointer-events:none}
   .hero-cta{display:flex}
   .hero-cta .btn:not(#cta-consulting):not(#cta-projects):not(#cta-investors){display:none}
 }
@@ -1765,7 +1765,7 @@ a.lang{display:inline-flex; align-items:center; justify-content:center; text-dec
 #now-post.swap{opacity:0}
 @media (prefers-reduced-motion:reduce){ #now-post{transition:none} }
 
-.inv-testrow{margin:0 0 18px}
+.inv-testrow{margin:26px 0 0}
 .inv-card.mini{cursor:pointer; transition:border-color .2s ease, box-shadow .2s ease}
 .inv-card.mini:hover{border-color:var(--ink)}
 .inv-card.mini:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
@@ -1776,3 +1776,22 @@ a.lang{display:inline-flex; align-items:center; justify-content:center; text-dec
   .section > .section-head > h2{font-size:20px; line-height:1.2; padding-top:7px; padding-bottom:7px}
   .section > .section-head > h2 .to-top{flex-basis:28px; width:28px; height:28px}
 }
+
+/* ---------- единая шкала элементов (аудит оформления) ---------- */
+.news-filter,.persona-chip,.file-btn,.opt{font:inherit; font-size:13px; line-height:1.2}
+.news-filter,.persona-chip{padding:8px 13px}
+.post-tag{font:inherit; font-size:11px; font-weight:500; letter-spacing:.09em; line-height:1.3}
+.direct a.btn{font-size:15px}
+.direct a.btn-sm{font-size:13.5px}
+.burger{border-radius:999px}
+.format .stage{justify-self:start; align-self:start}
+.format-more{white-space:nowrap}
+.format-foot{flex-wrap:wrap; row-gap:8px}
+.inv-card h3{font-size:19px}
+.seeking{color:#5d5b57}
+:root[data-theme="dark"] .seeking{color:var(--muted)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .seeking{color:var(--muted)}}
+:root[data-theme="dark"] .cta-fab{background:var(--panel); color:var(--ink); border:1px solid var(--ink)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .cta-fab{background:var(--panel); color:var(--ink); border:1px solid var(--ink)}}
+.qr-trigger{border-radius:50%}
+.photo-modal .modal-close{width:44px; height:44px}

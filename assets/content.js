@@ -3,7 +3,7 @@
 export const T = {
   ru: {
     langName: 'RU',
-    nav: { experience: 'Опыт', consulting: 'Консалтинг', projects: 'Проекты', investors: 'Партнёрство', skip: 'К содержанию', ctaBar: 'Написать', news: 'Лента', media: 'Публикации', contact: 'Связаться', toTop: 'Наверх', close: 'Закрыть',
+    nav: { home: 'Главная', experience: 'Опыт', consulting: 'Консалтинг', projects: 'Проекты', investors: 'Партнёрство', skip: 'К содержанию', ctaBar: 'Написать', news: 'Лента', media: 'Публикации', contact: 'Связаться', toTop: 'Наверх', close: 'Закрыть',
       textSize: { xl: 'Уменьшить текст', lg: 'Обычный размер', normal: 'Увеличить текст' } },
     hero: {
       eyebrow: 'Фэшн-консалтинг и собственные IT-продукты',
@@ -1071,11 +1071,11 @@ export const T = {
       "test": {
       "label": "Подобрать формат сотрудничества",
       "title": "Какой формат сотрудничества вам подходит",
-      "subtitle": "Пять коротких вопросов. В конце — один из шести форматов, который подходит вам больше всего.",
+      "subtitle": "Семь коротких вопросов. В конце — один из шести форматов, который подходит вам больше всего.",
       "progress": "Вопрос {i} из {n}",
       "back": "Назад",
       "resultLabel": "Вам ближе всего",
-      "resultNote": "Это ориентир по пяти ответам, а не решение: детали обсудим в разговоре.",
+      "resultNote": "Это ориентир по семи ответам, а не решение: детали обсудим в разговоре.",
       "read": "Читать формат",
       "contact": "Связаться",
       "retake": "Пройти заново",
@@ -1184,7 +1184,7 @@ export const T = {
               "f": "events"
             }
           ]
-        }
+        },{"q": "Как вы будете принимать решение?", "options": [{"t": "Через долю и участие в управлении", "f": "equity"}, {"t": "По цифрам и результатам пилота", "f": "strategic"}, {"t": "Через совместную работу команд", "f": "codev"}, {"t": "После показа работающего продукта", "f": "acquisition"}]},{"q": "Что вы можете принести, кроме денег?", "options": [{"t": "Данные и процессы для пилота", "f": "strategic"}, {"t": "Технологии и разработчиков", "f": "codev"}, {"t": "Клиентов и каналы продаж", "f": "distribution"}, {"t": "Площадку и аудиторию события", "f": "events"}]}
       ]
     },
     "labels": {
@@ -1417,7 +1417,7 @@ export const T = {
 
   en: {
     langName: 'EN',
-    nav: { experience: 'Experience', consulting: 'Advisory', projects: 'Projects', investors: 'Partnership', skip: 'Skip to content', ctaBar: 'Write to me', news: 'Feed', media: 'Press', contact: 'Contact', toTop: 'Back to top', close: 'Close',
+    nav: { home: 'Home', experience: 'Experience', consulting: 'Advisory', projects: 'Projects', investors: 'Partnership', skip: 'Skip to content', ctaBar: 'Write to me', news: 'Feed', media: 'Press', contact: 'Contact', toTop: 'Back to top', close: 'Close',
       textSize: { xl: 'Smaller text', lg: 'Normal size', normal: 'Larger text' } },
     hero: {
       eyebrow: 'Fashion advisory and my own IT products',
@@ -2329,11 +2329,11 @@ export const T = {
       "test": {
       "label": "Find a cooperation format",
       "title": "Which cooperation format suits you",
-      "subtitle": "Five short questions. At the end, the one of six formats that fits you best.",
+      "subtitle": "Seven short questions. At the end, the one of six formats that fits you best.",
       "progress": "Question {i} of {n}",
       "back": "Back",
       "resultLabel": "Closest to you",
-      "resultNote": "This is a guide from five answers, not a decision: we will settle the details in conversation.",
+      "resultNote": "This is a guide from seven answers, not a decision: we will settle the details in conversation.",
       "read": "Read the format",
       "contact": "Contact",
       "retake": "Take it again",
@@ -2442,7 +2442,7 @@ export const T = {
               "f": "events"
             }
           ]
-        }
+        },{"q": "How will you make the decision?", "options": [{"t": "Through a stake and a say in management", "f": "equity"}, {"t": "On figures and pilot results", "f": "strategic"}, {"t": "Through teams working together", "f": "codev"}, {"t": "After seeing a working product", "f": "acquisition"}]},{"q": "What can you bring besides money?", "options": [{"t": "Data and processes for a pilot", "f": "strategic"}, {"t": "Technology and developers", "f": "codev"}, {"t": "Customers and sales channels", "f": "distribution"}, {"t": "A venue and the audience of an event", "f": "events"}]}
       ]
     },
     "labels": {
@@ -2809,7 +2809,7 @@ export const PROJECTS = [
     id: 'mfw',
     name: 'MFW+BFS+Made in Moscow',
     device: 'iphone',
-    shots: ['/assets/shots/mfw-hero.jpg', '/assets/shots/mfw-open.jpg', '/assets/shots/bfs-hero.jpg', '/assets/shots/bfs-program.jpg', '/assets/shots/mim-hero.jpg', '/assets/shots/mim-brands.jpg'],
+    shots: ['/assets/shots/mfw-hero.jpg', '/assets/shots/mfw-open.jpg', '/assets/shots/bfs-hero.jpg', '/assets/shots/bfs-program.jpg', '/assets/shots/made-hero.jpg', '/assets/shots/made-brands.jpg'],
     ru: {
       roadmap: [{ label: 'MVP', state: 'done' }, { label: 'Демонстрация организаторам', state: 'current' }, { label: 'Использование на мероприятиях', state: 'next' }],
       tagline: 'Неделя моды в Москве, BRICS+ Fashion Summit и «Сделано в Москве» на одной платформе: два события, витрина брендов на весь год, один аккаунт',
