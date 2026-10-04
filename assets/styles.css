@@ -1738,10 +1738,10 @@ a.lang{display:inline-flex; align-items:center; justify-content:center; text-dec
 }
 .top-news[hidden]{display:none}
 .top-news.swap{opacity:0}
-.top-news-date{color:var(--accent); white-space:nowrap; font-size:12px; flex:0 0 auto}
+.top-news-date{color:var(--accent); white-space:nowrap; font-size:12px; flex:0 0 auto; font-weight:500}
 .top-news-title{overflow:hidden; text-overflow:ellipsis; white-space:nowrap; min-width:0}
 .top-news:hover .top-news-title{text-decoration:underline}
-@media (max-width:420px){ .top-news-date{display:none} .top-news{margin:0 8px} }
+@media (max-width:420px){ .top-news{margin:0 8px; gap:5px} }
 @media (prefers-reduced-motion:reduce){ .top-news{transition:none} }
 
 .inv-testrow{margin:26px 0 0}

@@ -1,9 +1,9 @@
-import { T, PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610041910';
-import { DECK } from './deck.js?v=202610041910';
-import { LOGOS } from './logos.js?v=202610041910';
+import { T, PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610041935';
+import { DECK } from './deck.js?v=202610041935';
+import { LOGOS } from './logos.js?v=202610041935';
 import { createViewer } from './viewer.js?v=202609301526';
-import { syncSnaps } from './snap.js?v=202610041910';
-import { NEWS } from './news.js?v=202610041910';
+import { syncSnaps } from './snap.js?v=202610041935';
+import { NEWS } from './news.js?v=202610041935';
 
 /* Сайт — витрина: показываем отобранные материалы. Канал получает весь поток.
    Лента идёт от свежего к старому по дате публикации — «Показать ещё» раскрывает
@@ -832,13 +832,12 @@ function renderNow() {
   const recent = SITE_NEWS.filter(hasLang).slice(0, 6);
   if (!recent.length) { post.hidden = true; return; }
   post.hidden = false;
-  const fmt = new Intl.DateTimeFormat(lang === 'ru' ? 'ru-RU' : 'en-GB', { day: 'numeric', month: 'short', timeZone: 'UTC' });
   let idx = 0;
   const paint = () => {
     const p = recent[idx];
     post.dataset.date = p.date;
     post.title = postText(p).title;
-    post.querySelector('.top-news-date').textContent = fmt.format(new Date(p.date)).replace('.', '');
+    post.querySelector('.top-news-date').textContent = `${T[lang].nav.news}:`;
     post.querySelector('.top-news-title').textContent = postText(p).title;
   };
   paint();
