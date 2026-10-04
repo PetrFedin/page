@@ -68,7 +68,7 @@ for (const [id, name, category] of PROJECTS) {
 <link rel="alternate" hreflang="ru" href="${SITE}/${id}">
 <link rel="alternate" hreflang="en" href="${SITE}/en/${id}">
 <link rel="alternate" hreflang="x-default" href="${SITE}/${id}">
-<meta property="og:locale" content="${lang === 'ru' ? 'ru_RU' : 'en_US'}">
+<meta property="og:locale" content="${lang === 'ru' ? 'ru_RU' : 'en_GB'}">
 <meta property="og:image" content="${image}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">

@@ -138,9 +138,9 @@ export const DECK = {
     kicker: 'Fashion advisory for brands',
     title: 'Strategy, economics and transformation for fashion businesses',
     lead: 'I help fashion-brand owners choose a market, a buying volume and a capital figure while the decision can still be changed: before the supplier order, before unsold stock, before the money is spent.',
-    tagline: 'Growth • transformation • turnaround',
+    tagline: 'Growth • transformation • stabilisation',
     chainTitle: 'From market to cash',
-    chain: ['Market', 'Customer', 'Brand', 'Collection', 'Product', 'Buying & production', 'Inventory', 'Channel & sales', 'Cash'],
+    chain: ['Market', 'Customer', 'Brand', 'Collection', 'Product', 'Buying and production', 'Inventory', 'Channel and sales', 'Cash'],
     chainTo: [0, 1, 0, 2, 2, 3, 3, 1, 4],
     chainHint: 'Choose a stage to open the area of work that covers it.',
     decisionLabel: 'Decision',
@@ -163,9 +163,9 @@ export const DECK = {
         items: [
           { eyebrow: '01', title: 'Strategic choice', body: 'Choosing markets in Russia, the CIS and Asia, and how to rebuild categories, product and commercial model for them.', decision: 'The choice of market, the scale of expansion and the size of the capital.' },
           { eyebrow: '02', title: 'Commercial model', body: 'From customer and price to channel: retail, e-commerce, wholesale, marketplaces and marketing.', decision: 'Profit by customer and channel, not revenue on average.' },
-          { eyebrow: '03', title: 'Product & merchandise planning', body: 'The whole path of a product: collection and SKU, demand forecast, open-to-buy, allocation, replenishment, markdown.', decision: 'A call on each category: buy, produce, reprice or develop.' },
-          { eyebrow: '04', title: 'Operations, management & systems', body: 'How processes, roles and KPIs are set up, which systems are needed (PLM, ERP, CRM, WMS, BI) and how production, warehouse and logistics connect.', decision: 'One management rhythm and one set of numbers across every department.' },
-          { eyebrow: '05', title: 'Capital, investment & resilience', body: 'Cash flow and working capital, valuation, a calculated funding need, transactions and turnaround.', decision: 'The size of the capital, the case for it, and whether the business is ready to grow or to do a deal.' }
+          { eyebrow: '03', title: 'Product and merchandise planning', body: 'The whole path of a product: collection and SKU, demand forecast, open-to-buy, allocation, replenishment, markdown.', decision: 'A call on each category: buy, produce, reprice or develop.' },
+          { eyebrow: '04', title: 'Operations, management and systems', body: 'How processes, roles and KPIs are set up, which systems are needed (PLM, ERP, CRM, WMS, BI) and how production, warehouse and logistics connect.', decision: 'One management rhythm and one set of numbers across every department.' },
+          { eyebrow: '05', title: 'Capital, investment and resilience', body: 'Cash flow and working capital, valuation, a calculated funding need, transactions and stabilisation.', decision: 'The size of the capital, the case for it, and whether the business is ready to grow or to do a deal.' }
         ]
       },
       {
@@ -181,14 +181,14 @@ export const DECK = {
           { eyebrow: 'Commercial', title: 'Channels generate revenue', decision: 'Measure contribution and reset terms.' },
           { eyebrow: 'Commercial', title: 'Customer acquisition cost is rising', decision: 'Rework pricing, marketing and repeat sales.' },
           { eyebrow: 'Commercial', title: 'Markdowns erode margin', decision: 'Redesign discounts, inventory and exit rules.' },
-          { eyebrow: 'Product & operations', title: 'The assortment keeps growing', decision: 'Decide what to develop, cut or reprice.' },
-          { eyebrow: 'Product & operations', title: 'Inventory is unmanaged', decision: 'Set allocation, replenishment and transfers.' },
-          { eyebrow: 'Product & operations', title: 'Production slows growth', decision: 'Adjust capacity, lead times, quality and suppliers.' },
-          { eyebrow: 'Product & operations', title: 'Product development and data are disconnected', decision: 'Design the PLM, BI and automation set-up.' },
-          { eyebrow: 'Capital & management', title: 'Profit does not convert into cash', decision: 'Connect profit, cash and working capital.' },
-          { eyebrow: 'Capital & management', title: 'Capital need or transaction', decision: 'Prepare the model, the funding need and the materials.' },
-          { eyebrow: 'Capital & management', title: 'Decisions are made too late', decision: 'Introduce early-warning indicators, a management cycle and controls.' },
-          { eyebrow: 'Capital & management', title: 'Roles and decision rights are blurred', decision: 'Define accountability and decision rights.' }
+          { eyebrow: 'Product and operations', title: 'The assortment keeps growing', decision: 'Decide what to develop, cut or reprice.' },
+          { eyebrow: 'Product and operations', title: 'Inventory is unmanaged', decision: 'Set allocation, replenishment and transfers.' },
+          { eyebrow: 'Product and operations', title: 'Production slows growth', decision: 'Adjust capacity, lead times, quality and suppliers.' },
+          { eyebrow: 'Product and operations', title: 'Product development and data are disconnected', decision: 'Design the PLM, BI and automation set-up.' },
+          { eyebrow: 'Capital and management', title: 'Profit does not convert into cash', decision: 'Connect profit, cash and working capital.' },
+          { eyebrow: 'Capital and management', title: 'Capital need or transaction', decision: 'Prepare the model, the funding need and the materials.' },
+          { eyebrow: 'Capital and management', title: 'Decisions are made too late', decision: 'Introduce early-warning indicators, a management cycle and controls.' },
+          { eyebrow: 'Capital and management', title: 'Roles and decision rights are blurred', decision: 'Define accountability and decision rights.' }
         ],
         after: 'The test of success: the mistake is caught in the calculation, not in dead stock, a cash gap, a lost season or a bad investment.'
       },
@@ -228,7 +228,7 @@ export const DECK = {
               'Where to invest and which new market to enter',
               'What to buy, produce, mark down and scale',
               'Which channel, customer and category make a real contribution',
-              'How much capital growth, a deal or a turnaround requires'
+              'How much capital growth, a deal or stabilisation requires'
             ]
           },
           {
@@ -241,7 +241,7 @@ export const DECK = {
             ]
           },
           {
-            title: 'Turnaround mode',
+            title: 'Stabilisation mode',
             list: [
               'Planning: cash, constraints, priorities',
               'Organisation: processes, roles, accountability',
@@ -250,7 +250,7 @@ export const DECK = {
             ]
           }
         ],
-        after: 'Where needed, my role grows from adviser to the owner to head of the turnaround programme: these are the “Owner’s advisor” and “Programme lead” formats.'
+        after: 'Where needed, my role grows from adviser to the owner to head of the stabilisation programme: these are the “Owner’s adviser” and “Programme lead” formats.'
       },
       {
         id: 'experience',
@@ -260,7 +260,7 @@ export const DECK = {
           { eyebrow: 'Management experience', title: 'Large multi-brand fashion retail', body: '500+ brands, 30,000+ SKUs: buying, assortment, margin, stock turn, merchandise analytics and decision automation.' },
           { eyebrow: 'Operational diagnostics', title: 'Premium segment: development and production', body: 'Finance → product → production → inventory → management. From order economics and capital to production and the management model.' },
           { eyebrow: 'Strategy and finance', title: 'Growth strategy, markets and capital', body: 'Market → financial model → capital → negotiations. Geography, competitors, funding needs and materials for the owner’s decision.' },
-          { eyebrow: 'Turnaround', title: 'Rebuilding management in volatile conditions', body: 'Liquidity → priorities → accountability → control. Restoring control and returning the business to growth.' }
+          { eyebrow: 'Stabilisation', title: 'Rebuilding management in volatile conditions', body: 'Liquidity → priorities → accountability → control. Restoring control and returning the business to growth.' }
         ]
       }
     ]

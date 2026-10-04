@@ -15,14 +15,14 @@
 <link rel="canonical" href="https://syntha.pro/en/syntha">
 <meta property="og:url" content="https://syntha.pro/en/syntha">
 <meta property="og:site_name" content="Petr Fedin">
-<link rel="stylesheet" href="/assets/styles.css?v=202610040200">
-<script src="/assets/track.js?v=202610040200" defer></script>
-<script src="/assets/guard.js?v=202610040200" defer></script>
+<link rel="stylesheet" href="/assets/styles.css?v=202610040500">
+<script src="/assets/track.js?v=202610040500" defer></script>
+<script src="/assets/guard.js?v=202610040500" defer></script>
 <!--SEO:START-->
 <link rel="alternate" hreflang="ru" href="https://syntha.pro/syntha">
 <link rel="alternate" hreflang="en" href="https://syntha.pro/en/syntha">
 <link rel="alternate" hreflang="x-default" href="https://syntha.pro/syntha">
-<meta property="og:locale" content="en_US">
+<meta property="og:locale" content="en_GB">
 <meta property="og:image" content="https://syntha.pro/assets/og/syntha-en.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -71,7 +71,7 @@
     <h1>The operating platform for a fashion brand</h1>
     <p class="doc-lead">Collection, cost, production and sales on one data model, from specification to actual margin.</p>
     <p class="doc-stage"><span class="stage">Preparing for a pilot</span></p>
-    <p class="doc-state">Working now: the chain from showroom to margin, and the production module. Next: a check of the whole chain on a live environment, then a pilot with a first brand. Full scope of work: <a href="#s10">section 10</a>.</p>
+    <p class="doc-state">Built: the showroom, two-sided order confirmation, production and margin per SKU. I am finishing the end-to-end check on a live environment, plus shipping and receiving. Next, a pilot with a first brand. Full scope of work: <a href="#s10">section 10</a>.</p>
   </header>
 
   <section class="summary" aria-label="Summary">
@@ -151,7 +151,7 @@
       </li>
       <li>
         <h3>Symmetry between parties</h3>
-        <p>Brand and buyer work in a shared deal space and see one order. They do not exchange versions.</p>
+        <p>Brand and buyer work in one deal record and see one order. They do not exchange versions.</p>
       </li>
     </ol>
   </section>
@@ -165,8 +165,8 @@
 
     <figure class="exhibit">
       <figcaption>Exhibit 1. Functional coverage by system class.
-        The Syntha column shows the designed scope; current readiness by area is
-        in section 10</figcaption>
+        The Syntha column shows the designed scope, not readiness: “partial” marks work still in progress.
+        What is built and what is under way: section 10</figcaption>
       <div class="grid-table cols-5 coverage">
         <div class="gt-head" role="presentation">
           <span>Functional area</span>
@@ -213,7 +213,7 @@
           <div class="gt-cell" data-label="PLM"><i class="mark no">no</i></div>
           <div class="gt-cell" data-label="Wholesale platforms"><i class="mark yes">yes</i></div>
           <div class="gt-cell" data-label="Accounting systems"><i class="mark no">no</i></div>
-          <div class="gt-cell own" data-label="Syntha"><i class="mark yes">yes</i></div>
+          <div class="gt-cell own" data-label="Syntha"><i class="mark part">partial</i></div>
         </div>
 
         <div class="gt-row">
@@ -229,7 +229,7 @@
           <div class="gt-cell" data-label="PLM"><i class="mark no">no</i></div>
           <div class="gt-cell" data-label="Wholesale platforms"><i class="mark no">no</i></div>
           <div class="gt-cell" data-label="Accounting systems"><i class="mark part">partial</i></div>
-          <div class="gt-cell own" data-label="Syntha"><i class="mark yes">yes</i></div>
+          <div class="gt-cell own" data-label="Syntha"><i class="mark part">partial</i></div>
         </div>
       </div>
     </figure>
@@ -296,7 +296,7 @@
           <div class="gt-cell" data-label="Area">
             <b>Commerce and deal</b>
             <small>Digital showroom, line sheets and assortments, buyer selections,
-              order, confirmation, order amendments, deal space</small>
+              order, confirmation, order amendments, deal record</small>
           </div>
           <div class="gt-cell" data-label="Management decision">Confirmed commitments and free stock, at any moment</div>
           <div class="gt-cell" data-label="Impact">Price lists, reservations and confirmations are not sent as documents</div>
@@ -383,7 +383,7 @@
   <section class="doc-block" id="s06">
     <p class="sec-no">06 — Parties</p>
     <h2><span>What each party in the chain gets</span></h2>
-    <p class="doc-lead-in">Brand, retailer and distributor work in the system. The investor looks in from outside. What the system gives each of them is set out by role below.</p>
+    <p class="doc-lead-in">Brand, retailer and distributor work in the system. What it gives each of them is set out by role below; the investor has a separate block.</p>
 
     <div class="audiences">
       <article>
@@ -425,11 +425,11 @@
 
       <article>
         <h3>Investor</h3>
-        <p class="aud-lead">Enters a niche where demand arrived before supply.</p>
+        <p class="aud-lead">Can check the product, not a presentation.</p>
         <ul>
-          <li>The product occupies ground that two classes of system share today, and competes head-on with neither.</li>
-          <li>The niche is protected by how the product is built, not by speed of development: section 11.</li>
-          <li>Engineering discipline can be checked from the figures in section 11.</li>
+          <li>Nearest analogues: JOOR, NuORDER, Centric. How Syntha differs from them is set out in section 03.</li>
+          <li>You can check the product structure and change log, the automated tests and a demo on a live build: section 11.</li>
+          <li>What is built, what is under way and what comes next: section 10.</li>
           <li>The industry reference is managed data, so new categories are added without rewriting the core.</li>
         </ul>
       </article>
@@ -552,11 +552,11 @@
     <ol class="findings">
       <li>
         <h3>Market timing</h3>
-        <p>Russian brands have grown in turnover, assortment and number of channels, while their tools have stayed the same. Demand for control arrived before supply.</p>
+        <p>Russian brands have grown in turnover, assortment and number of channels, while their tools have stayed the same.</p>
       </li>
       <li>
         <h3>Engineering maturity</h3>
-        <p>The current build passes over 1,700 automated tests, some of which run on PostgreSQL in CI. A change is accepted only together with an update to the specification: the change log holds more than 170 dated entries, and the specification itself is the single source of truth. Knowledge of the product does not depend on one developer.</p>
+        <p>Development runs on tests (over 1,700; some run on PostgreSQL in CI) and a change log (more than 170 dated entries). A change is accepted only together with an update to the specification. This is not a pilot and not production use. One person builds the product, so I keep the specification and the log in a state that lets another developer carry on.</p>
       </li>
       <li>
         <h3>Barrier to replication</h3>
@@ -584,7 +584,7 @@
       </li>
       <li>
         <h3>“What if the project stops?”</h3>
-        <p>The risk of an early-stage product is real. I address it through the way the project is built (section 11), not through promises: the specification can be read without me, and we agree the terms of data access and export before work begins.</p>
+        <p>The risk of an early-stage product is real. I address it with documentation, not promises: the specification, change log and tests (section 11) let someone continue the work without me. We agree the terms of data access and export before work begins.</p>
       </li>
     </ol>
   </section>
@@ -597,8 +597,7 @@
       <div class="gt-row">
         <div class="gt-cell" data-label="Format"><b>Pilot</b></div>
         <div class="gt-cell" data-label="Terms">
-          <p><span class="tag-in">I provide</span> work in the system across a full season
-            cycle, priority in the development queue, and migration and structuring of the brand’s data.</p>
+          <p><span class="tag-in">I provide</span> a full season in the system, priority in the development queue, and migration and structuring of the brand’s data.</p>
           <p><span class="tag-in">I expect</span> one live season and a dedicated member of the brand’s staff for the whole cycle.</p>
         </div>
       </div>
@@ -608,7 +607,7 @@
       </div>
       <div class="gt-row">
         <div class="gt-cell" data-label="Format"><b>Investment</b></div>
-        <div class="gt-cell" data-label="Terms">Entry before the first pilot; what is already built is shown in section 10.</div>
+        <div class="gt-cell" data-label="Terms">You can join before the first pilot; what is built is shown in section 10. I fix exact terms against agreed pilot metrics.</div>
       </div>
       <div class="gt-row">
         <div class="gt-cell" data-label="Format"><b>Integration</b></div>
@@ -740,10 +739,10 @@
 </dialog>
 
 <footer class="footer">
-  <p><a href="/privacy.html">Privacy policy</a></p>
+  <p><a href="/en/privacy">Privacy policy</a></p>
   <p class="year">© <span id="year"></span></p>
 </footer>
 
-<script type="module" src="/assets/project-page.js?v=202610040200" data-project="syntha"></script>
+<script type="module" src="/assets/project-page.js?v=202610040500" data-project="syntha"></script>
 </body>
 </html>

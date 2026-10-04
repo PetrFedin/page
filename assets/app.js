@@ -1,9 +1,9 @@
-import { T, PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610040200';
-import { DECK } from './deck.js?v=202610040200';
-import { LOGOS } from './logos.js?v=202610040200';
+import { T, PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610040500';
+import { DECK } from './deck.js?v=202610040500';
+import { LOGOS } from './logos.js?v=202610040500';
 import { createViewer } from './viewer.js?v=202609301526';
-import { syncSnaps } from './snap.js?v=202610040200';
-import { NEWS } from './news.js?v=202610040200';
+import { syncSnaps } from './snap.js?v=202610040500';
+import { NEWS } from './news.js?v=202610040500';
 
 /* Сайт — витрина: показываем отобранные материалы. Канал получает весь поток.
    Лента идёт от свежего к старому по дате публикации — «Показать ещё» раскрывает
@@ -139,46 +139,79 @@ document.addEventListener('click', (e) => {
 addEventListener('keydown', (e) => { if (e.key === 'Escape') closeNav(); });
 
 /* ---------- язык ---------- */
-const browserRu = (navigator.language || '').toLowerCase().startsWith('ru');
 /* Язык задаёт адрес: /en/ — это отдельная страница для поиска, и она
    должна открываться по-английски независимо от прошлого выбора. */
 const urlLang = location.pathname.startsWith('/en') ? 'en'
   : new URLSearchParams(location.search).get('lang');
-let lang = (urlLang === 'ru' || urlLang === 'en') ? urlLang
-  : store.get('lang') || (browserRu ? 'ru' : 'en');
+/* Адрес «/» всегда русский, «/en/» всегда английский: так ссылка, которой делятся, и страница совпадают.
+   Другой язык открывается переключателем или параметром ?lang=. */
+let lang = (urlLang === 'ru' || urlLang === 'en') ? urlLang : 'ru';
 if (!T[lang]) lang = 'ru';
 
 let projectsExpanded = false;
 const PROJECTS_FIRST = 3;
 
-/* Раздел «Инвесторам и партнёрам»: форматы сотрудничества, а не пересказ проектов.
-   Проекты здесь только как ссылки «где это можно применить». */
+/* Раздел «Сотрудничество»: шесть мини-карточек форматов; полный текст формата — в окне с листанием. */
+const COOP_L = {
+  ru: { read: 'Читать целиком', contact: 'Связаться', prev: '← Предыдущий', next: 'Следующий →', of: 'из', close: 'Закрыть' },
+  en: { read: 'Read more', contact: 'Contact', prev: '← Previous', next: 'Next →', of: 'of', close: 'Close' }
+};
 function renderInvestors() {
-  const iv = T[lang].investors, lb = iv.labels;
+  const iv = T[lang].investors, lb = iv.labels, L = COOP_L[lang];
   const base = lang === 'en' ? '/en/' : '/';
   $('#investors-title').textContent = iv.title;
   $('#investors-sub').textContent = iv.sub;
   $('#investors-lead').textContent = iv.lead;
   $('#investors-list').className = 'inv-list snap snap-fit';
   $('#investors-list').innerHTML = iv.formats.map((f, i) => `
-    <article class="inv-card" id="inv-${f.id}">
+    <article class="inv-card mini" id="inv-${f.id}">
       <span class="svc-n">${String(i + 1).padStart(2, '0')}</span>
       <h3>${f.title}</h3>
       <p class="inv-tag">${f.tagline}</p>
       <p class="inv-what">${f.what}</p>
-      <dl class="inv-gets">
-        <div><dt>${lb.partner}</dt><dd>${f.partner}</dd></div>
-        <div><dt>${lb.project}</dt><dd>${f.project}</dd></div>
-      </dl>
-      <p class="inv-fit"><b>${lb.fit}</b>${f.fit}</p>
-      <p class="inv-start"><b>${lb.start}</b>${f.start}</p>
-      <div class="inv-foot"><button class="btn btn-sm btn-primary" type="button" data-inv-talk="${f.id}">${lb.talk}</button></div>
+      <div class="inv-foot">
+        <button class="inv-read" type="button" data-coop-open="${i}">${L.read} →</button>
+        <button class="btn btn-sm btn-primary" type="button" data-inv-talk="${f.id}">${L.contact}</button>
+      </div>
     </article>`).join('');
   $('#investors-projects').innerHTML = `<span class="inv-projects-label">${lb.projects}</span>`
     + PROJECTS.map((p) => `<a class="inv-chip" href="${base}${p.id}"><span class="card-logo">${LOGOS[p.id]}</span></a>`).join('');
-  $('#investors-note').textContent = lb.nda;
+  $('#investors-note').textContent = lb.nda ?? '';
+  $('#investors-note').hidden = !lb.nda;
 }
+const coopModal = $('#coop-modal');
+let coopIdx = 0;
+function openCoop(i) {
+  const iv = T[lang].investors, lb = iv.labels, L = COOP_L[lang], n = iv.formats.length;
+  coopIdx = (i + n) % n;
+  const f = iv.formats[coopIdx];
+  $('#coop-count').textContent = `${coopIdx + 1} ${L.of} ${n}`;
+  $('#coop-title').textContent = f.title;
+  $('#coop-tag').textContent = f.tagline;
+  $('#coop-what').textContent = f.what;
+  $('#coop-gets').innerHTML = `<div><dt>${lb.partner}</dt><dd>${f.partner}</dd></div><div><dt>${lb.project}</dt><dd>${f.project}</dd></div>`;
+  $('#coop-fit').innerHTML = `<b>${lb.fit}</b>${f.fit}`;
+  $('#coop-start').innerHTML = `<b>${lb.start}</b>${f.start}`;
+  $('#coop-prev').textContent = L.prev;
+  $('#coop-next').textContent = L.next;
+  $('#coop-talk').textContent = L.contact;
+  $('#coop-close').setAttribute('aria-label', L.close);
+  if (!coopModal.open) coopModal.showModal();
+  coopModal.querySelector('.modal-body').scrollTop = 0;
+}
+$('#coop-close').addEventListener('click', () => coopModal.close());
+coopModal.addEventListener('click', (e) => { if (e.target === coopModal) coopModal.close(); });
+$('#coop-prev').addEventListener('click', () => openCoop(coopIdx - 1));
+$('#coop-next').addEventListener('click', () => openCoop(coopIdx + 1));
+$('#coop-talk').addEventListener('click', () => {
+  const iv = T[lang].investors;
+  const id = iv.formats[coopIdx].id;
+  coopModal.close();
+  startContact({ topic: 'investors', message: iv.contactMessages[id] ?? '' });
+});
 $('#investors-list').addEventListener('click', (e) => {
+  const o = e.target.closest('[data-coop-open]');
+  if (o) return openCoop(+o.dataset.coopOpen);
   const b = e.target.closest('[data-inv-talk]');
   if (!b) return;
   const iv = T[lang].investors;
@@ -205,6 +238,7 @@ function renderCards() {
         ${COMPARE[p.id] && lang === 'ru' ? `<button class="btn btn-sm" type="button" data-compare="${p.id}">${t.projects.compareBtn}</button>` : ''}
         ${p.id === 'syntha' ? `<button class="btn btn-sm flow-toggle" type="button" data-flow-toggle aria-expanded="false">${t.flow.eyebrow}</button>` : ''}
         ${p.id === 'syntha' ? `<button class="btn btn-sm" type="button" data-leak-open>${t.leakQuiz.label}</button>` : ''}
+        ${t.needCheck?.[p.id] ? `<button class="btn btn-sm" type="button" data-need-open="${p.id}">${t.needCheck[p.id].label}</button>` : ''}
       </div>
       ${p.id === 'syntha' ? '<div class="flow-embed" id="flow-embed" hidden></div>' : ''}
     </article>`;
@@ -288,7 +322,7 @@ function render() {
   $('#media-sub').textContent = t.media.subtitle;
   $('#media-list').innerHTML = t.media.items.map((m) => {
     const d = new Intl.DateTimeFormat(lang === 'ru' ? 'ru-RU' : 'en-GB',
-      { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(m.date));
+      { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(m.date));
     return `<article class="media-item">
       <div class="media-meta"><span class="media-outlet">${m.outlet}</span><time datetime="${m.date}">${d}</time></div>
       <h3>${m.title}</h3>
@@ -317,6 +351,11 @@ function render() {
 
   $('#consent-text').textContent = t.contact.consent;
   $('#consent-link').textContent = t.contact.consentLink;
+  $('#consent-link').href = lang === 'en' ? '/en/privacy' : '/privacy';
+  const fp = $('#footer-privacy');
+  if (fp) { fp.textContent = t.contact.consentLink; fp.href = lang === 'en' ? '/en/privacy' : '/privacy'; }
+  const ci = $('#cta-investors');
+  if (ci) ci.textContent = lang === 'en' ? 'Partnership' : 'Партнёрство';
   $('#vcard').textContent = t.contact.vcard;
   $('#share-contact').textContent = t.contact.shareContact;
   syncSubmit?.();
@@ -415,7 +454,7 @@ function render() {
 $('#lang-toggle').addEventListener('click', () => {
   const next = lang === 'ru' ? 'en' : 'ru';
   store.set('lang', next);
-  location.href = (next === 'en' ? '/en/' : '/') + location.hash;
+  location.href = (next === 'en' ? '/en/' : '/') + location.search + location.hash;
 });
 
 /* ---------- часы в шапке: день недели, дата и время идут в часовом поясе посетителя ---------- */
@@ -566,9 +605,10 @@ function openProject(id, anchor) {
   /* Подробный разбор проекта есть у Syntha, ChatX и Renova, и только по-русски. */
   const more = $('#modal-more');
   if (more) {
-    const есть = ['syntha', 'chatx', 'renova', 'mfw', 'promomed'].includes(id) && lang === 'ru';
+    const есть = ['syntha', 'chatx', 'renova', 'mfw', 'promomed'].includes(id);
     more.hidden = !есть;
-    if (есть) more.href = `/${id}.html`;
+    if (есть) more.href = lang === 'en' ? `/en/${id}` : `/${id}`;
+    more.textContent = t.projects.more_about ?? more.textContent;
   }
 
   $('#modal-cta').textContent = t.projects.discuss;
@@ -622,6 +662,8 @@ $('#cards').addEventListener('click', (e) => {
   const compareBtn = e.target.closest('[data-compare]');
   if (compareBtn) return go(`${compareBtn.dataset.compare}-compare`);
   if (e.target.closest('[data-leak-open]')) { leakAnswers = []; return go('leak-quiz'); }
+  const needBtn = e.target.closest('[data-need-open]');
+  if (needBtn) return go(`need-${needBtn.dataset.needOpen}`);
   const open = e.target.closest('[data-open]');
   if (open) return go(open.dataset.open);
   const card = e.target.closest('[data-project]');
@@ -1091,7 +1133,7 @@ function renderNews() {
   renderNewsFilters();
 
   const fmt = new Intl.DateTimeFormat(lang === 'ru' ? 'ru-RU' : 'en-GB',
-    { day: 'numeric', month: 'long', year: 'numeric' });
+    { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
 
   const list = filteredNews();
   $('#feed').className = 'feed snap snap-fit';
@@ -1173,6 +1215,91 @@ function renderPostBody(text) {
   }).join('');
 }
 
+/* ---------- «Проверить потребность»: короткий тест по ChatX и Renova ---------- */
+const NEED_L = {
+  ru: { step: 'Вопрос {i} из {n}', back: 'Назад', result: 'Что продукт может закрыть у вас', closes: 'Что закрывает', how: 'Как закрывает внутри', stage: 'Что уже есть и что впереди', partner: 'Что это значит для партнёра и инвестора', more: 'О проекте целиком' },
+  en: { step: 'Question {i} of {n}', back: 'Back', result: 'What the product can close for you', closes: 'What it closes', how: 'How it works inside', stage: 'What exists and what is ahead', partner: 'What this means for a partner or investor', more: 'The full project page' }
+};
+const needModal = $('#need-modal');
+let needId = null, needAnswers = [];
+function renderNeed() {
+  const nc = T[lang].needCheck[needId], L = NEED_L[lang];
+  $('#need-logo').innerHTML = LOGOS[needId];
+  $('#need-title').textContent = nc.title;
+  $('#need-subtitle').textContent = nc.subtitle;
+  const body = $('#need-body');
+  const step = needAnswers.length;
+  if (step < nc.questions.length) {
+    const q = nc.questions[step];
+    body.innerHTML = `
+      <div class="diag-progress">
+        <span>${L.step.replace('{i}', step + 1).replace('{n}', nc.questions.length)}</span>
+        <div class="diag-bar"><span style="width:${Math.round((step / nc.questions.length) * 100)}%"></span></div>
+      </div>
+      <h3 class="diag-q">${q.q}</h3>
+      <div class="diag-options">${q.options.map((o, i) => `<button type="button" class="diag-opt" data-need-opt="${i}">${o.t}</button>`).join('')}</div>
+      ${step > 0 ? `<button type="button" class="diag-back" data-need-back>${L.back}</button>` : ''}`;
+    return;
+  }
+  const count = {};
+  needAnswers.forEach((id) => { count[id] = (count[id] || 0) + 1; });
+  const ranked = Object.entries(count).sort((a, b) => b[1] - a[1]).slice(0, 2).map(([id]) => id);
+  const base = lang === 'en' ? '/en/' : '/';
+  body.innerHTML = `
+    <div class="diag-result">
+      <p class="diag-result-label">${nc.resultLabel}</p>
+      ${ranked.map((id) => { const n = nc.needs[id]; return `
+        <section class="need-res">
+          <h3>${n.title}</h3>
+          <dl class="inv-gets">
+            <div><dt>${L.closes}</dt><dd>${n.closes}</dd></div>
+            <div><dt>${L.how}</dt><dd>${n.how}</dd></div>
+            <div><dt>${L.stage}</dt><dd>${n.stage}</dd></div>
+            <div><dt>${L.partner}</dt><dd>${n.partner}</dd></div>
+          </dl>
+        </section>`; }).join('')}
+      <p class="diag-note">${nc.resultNote}</p>
+      <div class="diag-actions">
+        <button type="button" class="btn btn-primary" data-need-contact>${nc.ctaContact}</button>
+        <a class="btn" href="${base}${needId}">${L.more}</a>
+      </div>
+      <button type="button" class="diag-retake" data-need-retake>${nc.retake}</button>
+    </div>`;
+  body.dataset.top = ranked.join(',');
+}
+function openNeed(id) {
+  needId = id; needAnswers = [];
+  renderNeed();
+  if (!needModal.open) needModal.showModal();
+  needModal.querySelector('.modal-body').scrollTop = 0;
+}
+$('#need-close').addEventListener('click', () => leaveAll());
+needModal.addEventListener('close', () => { if (location.hash.startsWith('#need-')) history.replaceState(null, '', location.pathname + location.search); });
+needModal.addEventListener('click', (e) => { if (e.target === needModal) leaveAll(); });
+$('#need-body').addEventListener('click', (e) => {
+  const nc = T[lang].needCheck?.[needId];
+  if (!nc) return;
+  const opt = e.target.closest('[data-need-opt]');
+  if (opt) {
+    const q = nc.questions[needAnswers.length];
+    window.track?.('quiz_step', `${needId}-${needAnswers.length + 1}`, q.options[+opt.dataset.needOpt].t);
+    needAnswers.push(q.options[+opt.dataset.needOpt].need);
+    if (needAnswers.length === nc.questions.length) {
+      const c = {}; needAnswers.forEach((n) => { c[n] = (c[n] || 0) + 1; });
+      window.track?.('quiz_result', needId, nc.needs[Object.entries(c).sort((a, b) => b[1] - a[1])[0][0]].title);
+    }
+    return renderNeed();
+  }
+  if (e.target.closest('[data-need-back]')) { needAnswers.pop(); return renderNeed(); }
+  if (e.target.closest('[data-need-retake]')) { needAnswers = []; return renderNeed(); }
+  if (e.target.closest('[data-need-contact]')) {
+    const top = ($('#need-body').dataset.top || '').split(',').filter(Boolean).map((id) => nc.needs[id].title).join('; ');
+    const name = PROJECTS.find((p) => p.id === needId)?.name ?? needId;
+    leaveAll();
+    startContact({ topic: needId, message: lang === 'en' ? `I took the “${name}” need check. Result: ${top}. ` : `Прошёл проверку потребности «${name}». Результат: ${top}. ` });
+  }
+});
+
 const postModal = $('#post-modal');
 function openPostModal(date) {
   const p = SITE_NEWS.find((x) => x.date === date);
@@ -1180,7 +1307,7 @@ function openPostModal(date) {
   const t = T[lang].news;
   const { text, href } = splitBodyLink(postText(p).body);
   const fmt = new Intl.DateTimeFormat(lang === 'ru' ? 'ru-RU' : 'en-GB',
-    { day: 'numeric', month: 'long', year: 'numeric' });
+    { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
   const dateEl = $('#post-modal-date');
   dateEl.textContent = fmt.format(new Date(p.date));
   dateEl.dateTime = p.date;
@@ -1250,6 +1377,7 @@ function openPostModal(date) {
   $('#post-count').textContent = many ? `${idx + 1} / ${projList.length}` : '';
 
   if (!postModal.open) postModal.showModal();
+  { const pb = postModal.querySelector('.modal-body'); if (pb) { pb.tabIndex = -1; pb.focus({ preventScroll: true }); } }
   postModal.querySelector('.modal-body').scrollTop = 0;
   return true;
 }
@@ -1388,7 +1516,7 @@ function openProjectNews(id) {
   const t = T[lang];
   const posts = SITE_NEWS.filter((n) => n.tag === id && hasLang(n));
   const fmt = new Intl.DateTimeFormat(lang === 'ru' ? 'ru-RU' : 'en-GB',
-    { day: 'numeric', month: 'long', year: 'numeric' });
+    { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
 
   pnModal.dataset.project = id;
   $('#pn-logo').innerHTML = LOGOS[id];
@@ -1743,6 +1871,8 @@ function closeModals() {
   if (pnModal.open) pnModal.close(true);
   if (infoModal.open) infoModal.close(true);
   if (compareModal.open) compareModal.close(true);
+  if (needModal.open) needModal.close(true);
+  if (coopModal.open) coopModal.close(true);
   if (qrModal.open) qrModal.close(true);
 }
 
@@ -1757,6 +1887,7 @@ function applyHash() {
   if (h === 'diagnostic') return openDiagnosticModal();
   if (h === 'launch-diagnostic') return openLaunchDiagModal();
   if (h === 'leak-quiz') return openLeakModal();
+  if (h.startsWith('need-') && T[lang].needCheck?.[h.slice(5)]) return openNeed(h.slice(5));
   if (h.endsWith('-compare')) {
     const cid = h.slice(0, -'-compare'.length);
     if (COMPARE[cid]) return openCompare(cid);
@@ -1792,7 +1923,7 @@ function go(hash) {
 
 function leave() {
   if (history.state?.modal) history.back();
-  else history.replaceState(null, '', location.pathname + location.search);
+  else leaveAll();
 }
 
 /* Выход из всей цепочки окон разом — не на шаг назад (leave()), а полностью:
@@ -1813,7 +1944,7 @@ const MAX_FILE = 20 * 1024 * 1024;   // Telegram принимает до 50 МБ
 
 function showFile() {
   const f = $('#attach').files?.[0];
-  $('#file-name').textContent = f ? `${f.name} · ${(f.size / 1048576).toFixed(1)} МБ` : '';
+  $('#file-name').textContent = f ? `${f.name} · ${(f.size / 1048576).toFixed(1)} ${lang === 'en' ? 'MB' : 'МБ'}` : '';
   $('#file-clear').hidden = !f;
 }
 
@@ -2130,7 +2261,7 @@ $('#services').addEventListener('click', (e) => {
 });
 
 /* Esc закрывает окно — адрес возвращаем тем же путём, что и кнопка. */
-[modal, deckModal, diagModal, leakModal, postModal, pnModal, infoModal, compareModal].forEach((d) => d.addEventListener('cancel', (e) => { e.preventDefault(); leaveAll(); }));
+[modal, deckModal, diagModal, launchDiagModal, leakModal, postModal, pnModal, infoModal, compareModal, needModal, coopModal].forEach((d) => d.addEventListener('cancel', (e) => { e.preventDefault(); leaveAll(); }));
 
 /* Подсказка при наведении на иконки: там, где уже есть aria-label,
    зеркалим его в title — один источник подписи, без ручного дублирования

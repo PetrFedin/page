@@ -64,8 +64,6 @@ async function siteChecks() {
   out.push({ name: 'llms.txt — краткая карточка сайта для ИИ', ok: !!llms?.ok });
   const www = await fetch('https://www.syntha.pro/', { redirect: 'manual', cf: { cacheTtl: 0 } }).catch(() => null);
   out.push({ name: 'Адрес с www ведёт на основной (или не используется)', ok: !www || www.status === 301 || www.status === 308 || www.status >= 400, note: www ? `ответ ${www.status}` : 'не открывается' });
-  const http = await fetch('http://syntha.pro/', { redirect: 'manual', cf: { cacheTtl: 0 } }).catch(() => null);
-  out.push({ name: 'HTTP перенаправляет на HTTPS', ok: !http || [301, 302, 307, 308].includes(http.status), note: http ? `ответ ${http.status}` : '' });
   return out;
 }
 

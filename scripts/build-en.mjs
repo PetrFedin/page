@@ -21,8 +21,11 @@ const ЗАМЕНЫ = [
    '<meta property="og:url" content="https://syntha.pro/en/">'],
   ['content="Пётр Федин — фэшн-консалтинг и проекты"',
    'content="Petr Fedin — fashion advisory and projects"'],
-  ['<meta property="og:locale" content="ru_RU">', '<meta property="og:locale" content="en_US">'],
+  ['<meta property="og:locale" content="ru_RU">', '<meta property="og:locale" content="en_GB">'],
   ['alt="Пётр Федин"', 'alt="Petr Fedin"'],
+  ['<meta property="og:site_name" content="Пётр Федин">', '<meta property="og:site_name" content="Petr Fedin">'],
+  ['>К содержанию</a>', '>Skip to content</a>'],
+  ['>Подробно о проекте</a>', '>Project page</a>'],
   ['alt="QR-код"', 'alt="QR code"'],
   ['<link rel="canonical" href="https://syntha.pro/">',
    '<link rel="canonical" href="https://syntha.pro/en/">'],
@@ -36,5 +39,15 @@ for (const [из, в] of ЗАМЕНЫ) {
   }
   html = html.replaceAll(из, в);
 }
+/* разметка schema.org для английской страницы */
+const LD = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    { '@type': 'Person', '@id': 'https://syntha.pro/#person', name: 'Petr Fedin', alternateName: 'Пётр Федин', url: 'https://syntha.pro/en/', jobTitle: 'Fashion-business consultant and founder of IT products', image: 'https://syntha.pro/assets/photo/petr-ny.webp', sameAs: ['https://t.me/sheqel', 'https://t.me/syntha_pro'], knowsAbout: ['Buying and assortment', 'Product and production in fashion', 'Markets and finance for fashion businesses', 'Fashion retail', 'IT products for the fashion industry'] },
+    { '@type': 'WebSite', '@id': 'https://syntha.pro/#site', url: 'https://syntha.pro/en/', name: 'Petr Fedin', inLanguage: ['en', 'ru'], publisher: { '@id': 'https://syntha.pro/#person' } },
+    { '@type': 'ProfessionalService', name: 'Petr Fedin — fashion advisory', url: 'https://syntha.pro/en/', provider: { '@id': 'https://syntha.pro/#person' }, serviceType: 'Advisory for fashion businesses' }
+  ]
+};
+html = html.replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>/, () => `<script type="application/ld+json">${JSON.stringify(LD)}</script>`);
 writeFileSync(join(root, 'en', 'index.html'), html);
 console.log('en/index.html пересобран');

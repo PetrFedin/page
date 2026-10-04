@@ -1656,8 +1656,8 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
 
 /* ---------- Инвесторам и партнёрам ---------- */
 .inv-lead{max-width:none; font-size:clamp(16px,1.5vw,18.5px); line-height:1.65; color:var(--ink); margin:0 0 26px; padding:18px 22px; border-left:3px solid var(--accent); background:var(--panel); border-radius:0 14px 14px 0}
-.inv-list{display:grid; gap:14px}
-@media (min-width:760px){ .inv-list{grid-template-columns:repeat(2,minmax(0,1fr))} }
+.inv-list{gap:14px}
+@media (min-width:760px){ .inv-list{display:grid; grid-template-columns:repeat(2,minmax(0,1fr))} }
 @media (min-width:1180px){ .inv-list{grid-template-columns:repeat(3,minmax(0,1fr))} }
 .inv-card{background:var(--panel); border:1px solid var(--line); border-radius:16px; padding:20px 20px 18px; display:grid; gap:10px; align-content:start; position:relative}
 .inv-card h3{font-family:var(--serif); font-weight:500; font-size:21px; margin:0; line-height:1.2; padding-right:34px}
@@ -1691,7 +1691,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--accent); outline
   .cta-bar.hide{transform:translateY(120%); opacity:0; pointer-events:none}
   body{padding-bottom:72px}
   .hero-cta{display:flex}
-  .hero-cta .btn:not(#cta-consulting):not(#cta-projects){display:none}
+  .hero-cta .btn:not(#cta-consulting):not(#cta-projects):not(#cta-investors){display:none}
 }
 
 .inv-head .stage{white-space:normal; max-width:100%}
@@ -1703,3 +1703,60 @@ a.theme.home{display:inline-flex; align-items:center; justify-content:center; te
 
 a.lang{display:inline-flex; align-items:center; justify-content:center; text-decoration:none; color:inherit}
 @media (max-width:759px){ .inv-lead{padding:14px 16px; font-size:16px; line-height:1.6} .inv-card{padding:18px 16px 16px} }
+
+/* ---------- правки по результатам проверки ---------- */
+.doc .stage, .doc-stage .stage{white-space:normal; max-width:100%; line-height:1.35}
+.doc{overflow-x:clip}
+.footer a{color:var(--muted); text-decoration:underline; text-underline-offset:3px}
+.footer a:hover{color:var(--ink)}
+@media (min-width:1000px){
+  .doc-lead,.doc-state,.doc-block p,.doc-note,.case p{max-width:110ch}
+  .faq dd{max-width:96ch}
+  .summary-list li,.doc-lead-in{max-width:110ch}
+}
+.snap-dots button{background-color:color-mix(in srgb, var(--muted) 42%, transparent)}
+.snap-dots button[aria-current="true"]{background-color:var(--accent)}
+@media (max-width:759px){
+  .snap-dots[data-first="true"] button:not([aria-current="true"]){animation-iteration-count:2}
+}
+.inv-card{display:flex; flex-direction:column}
+.inv-foot{margin-top:auto; padding-top:8px}
+.inv-gets dd,.inv-fit,.inv-start{color:var(--muted)}
+.inv-fit b,.inv-start b,.inv-gets dt{color:var(--muted)}
+#news-more,#projects-more{margin-top:16px}
+.status-next li::before{border-color:var(--muted)}
+
+/* ---------- меню разделов: кнопка слева на любой ширине, пункты раскрываются панелью ---------- */
+.nav:not(.open){display:none !important}
+.burger{display:flex !important}
+.nav.open{
+  display:flex; flex-direction:column; gap:0; position:absolute; left:0; right:0; top:100%;
+  background:var(--panel); border-bottom:1px solid var(--line); box-shadow:var(--shadow); padding:6px 0;
+}
+.nav.open a{padding:13px 16px; font-size:16px; color:var(--ink); border-bottom:1px solid var(--line); text-decoration:none}
+.nav.open a:last-child{border-bottom:none}
+@media (min-width:760px){
+  .nav.open{left:16px; right:auto; width:min(340px,92vw); top:calc(100% + 6px); border:1px solid var(--line); border-radius:14px; padding:6px 0}
+  .nav.open a{padding:11px 18px}
+}
+
+/* ---------- сотрудничество: мини-карточки и окно формата ---------- */
+.inv-card.mini{gap:8px; padding:18px 18px 16px}
+.inv-card.mini .inv-what{display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; color:var(--muted)}
+.inv-card.mini .inv-foot{display:flex; flex-wrap:wrap; gap:8px; align-items:center; justify-content:space-between}
+.inv-read{background:none; border:none; padding:6px 0; color:var(--muted); cursor:pointer; font-size:14px}
+.inv-read:hover{color:var(--accent)}
+#coop-modal .modal-body{padding-top:30px}
+.coop-count{font-size:12px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin:0 0 8px}
+#coop-modal h2{font-family:var(--serif); font-weight:500; margin:0 0 6px; padding-right:44px}
+#coop-modal .inv-what{display:block; -webkit-line-clamp:unset; color:var(--ink); font-size:16px; line-height:1.6; margin:12px 0}
+#coop-modal .inv-gets{margin:14px 0}
+.coop-nav{display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-top:22px; padding-top:18px; border-top:1px solid var(--line)}
+.coop-nav .grow{flex:1}
+
+.need-res{margin:0 0 18px; padding:16px 18px; border:1px solid var(--line); border-radius:14px; background:var(--panel)}
+.need-res h3{font-family:var(--serif); font-weight:500; font-size:20px; margin:0 0 10px}
+
+.cards > .card, .cards .card *{min-width:0}
+.card{overflow-wrap:anywhere}
+#coop-modal .inv-fit,#coop-modal .inv-start{margin-top:14px}

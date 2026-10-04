@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Renova — Renovation Under Control</title>
+<title>Renova — renovation under control</title>
 <meta name="description" content="A renovation management app: versioned estimates, stages with sign-off and photo evidence, stage payments, chats and documents.">
 <meta name="color-scheme" content="light dark">
-<meta property="og:title" content="Renova — Renovation Under Control">
+<meta property="og:title" content="Renova — renovation under control">
 <meta property="og:description" content="Estimate, work stages, payments and contractor conversations in one app: the client sees the full economics of the renovation.">
 <meta property="og:type" content="website">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
@@ -15,20 +15,20 @@
 <link rel="canonical" href="https://syntha.pro/en/renova">
 <meta property="og:url" content="https://syntha.pro/en/renova">
 <meta property="og:site_name" content="Petr Fedin">
-<link rel="stylesheet" href="/assets/styles.css?v=202610040200">
-<script src="/assets/track.js?v=202610040200" defer></script>
-<script src="/assets/guard.js?v=202610040200" defer></script>
+<link rel="stylesheet" href="/assets/styles.css?v=202610040500">
+<script src="/assets/track.js?v=202610040500" defer></script>
+<script src="/assets/guard.js?v=202610040500" defer></script>
 <!--SEO:START-->
 <link rel="alternate" hreflang="ru" href="https://syntha.pro/renova">
 <link rel="alternate" hreflang="en" href="https://syntha.pro/en/renova">
 <link rel="alternate" hreflang="x-default" href="https://syntha.pro/renova">
-<meta property="og:locale" content="en_US">
+<meta property="og:locale" content="en_GB">
 <meta property="og:image" content="https://syntha.pro/assets/og/renova-en.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Renova — Renovation Under Control">
+<meta property="og:image:alt" content="Renova — renovation under control">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Renova — Renovation Under Control">
+<meta name="twitter:title" content="Renova — renovation under control">
 <meta name="twitter:description" content="A renovation management app: versioned estimates, stages with sign-off and photo evidence, stage payments, chats and documents.">
 <meta name="twitter:image" content="https://syntha.pro/assets/og/renova-en.jpg">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"SoftwareApplication","@id":"https://syntha.pro/en/renova#app","name":"Renova","url":"https://syntha.pro/en/renova","description":"A renovation management app: versioned estimates, stages with sign-off and photo evidence, stage payments, chats and documents.","inLanguage":"en","applicationCategory":"BusinessApplication","operatingSystem":"iOS","image":"https://syntha.pro/assets/og/renova-en.jpg","creator":{"@type":"Person","@id":"https://syntha.pro/#person","name":"Petr Fedin","url":"https://syntha.pro/"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Petr Fedin","item":"https://syntha.pro/en/"},{"@type":"ListItem","position":2,"name":"Projects","item":"https://syntha.pro/en/#projects"},{"@type":"ListItem","position":3,"name":"Renova","item":"https://syntha.pro/en/renova"}]}]}</script>
@@ -70,7 +70,7 @@
     <span class="doc-logo" id="doc-logo"></span>
     <h1>Renovation under control</h1>
     <p class="doc-lead">Estimate, stages, payments and a chat with the crew in one app. Payment is tied to a signed-off stage.</p>
-    <p class="doc-stage"><span class="stage">MVP, preparing a closed test</span></p>
+    <p class="doc-stage"><span class="stage">MVP, closed test ahead</span></p>
     <p class="doc-state">Built: the estimate, stages with sign-off, payments, chats and an offline mode.
       Receipt and self-employed status checks via the Federal Tax Service are ready in code and tests;
       live verification awaits keys. Full scope of work: <a href="#s07">section 07</a>.</p>
@@ -85,6 +85,7 @@
     </ol>
     <p class="doc-cta">
       <a class="btn btn-primary" href="/en/?topic=renova#contact">Contact</a>
+      <a class="btn" href="/en/#need-renova">Check your need</a>
     </p>
   </section>
 
@@ -128,7 +129,7 @@
     </ol>
 
     <aside class="case">
-      <p class="case-label">Typical scenario</p>
+      <p class="case-label">A typical case</p>
       <p>The crew asked for an advance on materials, and the client sent it to a phone number. The materials cost less than estimated and the difference was never discussed: there was no reporting.</p>
       <p class="case-out">By handover the budget was over the estimate, and it was impossible to tell which stage caused the overspend.</p>
     </aside>
@@ -151,7 +152,7 @@
       </li>
       <li>
         <h3>Checks go to official sources</h3>
-        <p>Receipts and self-employed status are matched against Federal Tax Service data, not accepted on the contractor’s word. The result decides whether this contractor can be paid.</p>
+        <p>Receipts and self-employed status are matched against Federal Tax Service data, not accepted on the contractor’s word. The result decides whether this contractor can be paid. The code and tests are ready; I will switch on the live check once I have the Federal Tax Service keys.</p>
       </li>
     </ol>
   </section>
@@ -287,7 +288,7 @@
     </ol>
 
     <aside class="case">
-      <p class="case-label">Typical scenario</p>
+      <p class="case-label">A typical case</p>
       <p>The client went away for two weeks while the finishing stage was under way. The crew sent photos and a sign-off request from the app. The client checked the stage on their phone and signed it off with one snagging comment, without visiting the site.</p>
       <p class="case-out">Payment was confirmed the same day: no phone calls and no downtime because of the trip.</p>
     </aside>
@@ -363,7 +364,7 @@
       </div>
       <div>
         <dt>What happens if the connection is lost on site?</dt>
-        <dd>Actions go into an offline queue and are sent once the connection returns; stage sign-off and stage photos, among others, work this way. Idempotent replay after a lost server response is still being finished.</dd>
+        <dd>Actions go into an offline queue and are sent once the connection returns; stage sign-off and stage photos, among others, work this way. Making sure a resent action is never applied twice after a lost server response is still being finished.</dd>
       </div>
       <div>
         <dt>Who pays for the app, the client or the contractor?</dt>
@@ -374,7 +375,7 @@
         <dd>Once a contractor is appointed, the estimate is locked on the contractor’s proposal with the client’s confirmation. After that, changes are raised as variation orders that both sides agree; every version is visible to both.</dd>
       </div>
       <div>
-        <dt>Is a demo possible?</dt>
+        <dt>Can I see a demo?</dt>
         <dd>Yes, on the working build.</dd>
       </div>
     </dl>
@@ -385,6 +386,7 @@
     <p>Tell me who you are: a client, a contractor or crew, or a renovation company. I reply personally.</p>
     <p class="doc-cta doc-cta-end">
       <a class="btn btn-primary" href="/en/?topic=renova#contact">Contact</a>
+      <a class="btn" href="/en/#need-renova">Check your need</a>
       <a class="btn" href="/en/#projects">Other projects</a>
     </p>
   </section>
@@ -410,10 +412,10 @@
 </dialog>
 
 <footer class="footer">
-  <p><a href="/privacy.html">Privacy policy</a></p>
+  <p><a href="/en/privacy">Privacy policy</a></p>
   <p class="year">© <span id="year"></span></p>
 </footer>
 
-<script type="module" src="/assets/project-page.js?v=202610040200" data-project="renova"></script>
+<script type="module" src="/assets/project-page.js?v=202610040500" data-project="renova"></script>
 </body>
 </html>
