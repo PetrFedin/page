@@ -596,3 +596,8 @@ Do not track individual recipients more deeply than consent/purpose requires.
 
 **Commercial framing:** one codebase can generate tailored, evidence-backed proposals for a client or investor in minutes while preserving truth and visual quality.
 
+
+## Статус на 2026-10-04
+Сделано: карта сайта и hreflang (`scripts/make-sitemap.mjs`), OG-карточки проектов (`scripts/make-og.mjs`), Turnstile с проверкой на сервере, RSS и JSON Feed (`scripts/make-feed.mjs`), Speculation Rules, структурированные данные (JSON-LD), политика CSP и кэширование в `_headers`, проверка внутренних ссылок (ошибок нет), контроль единства оформления по RU/EN и светлой/тёмной темам.
+Отложено по правилу «без тяжёлых инструментов, пока нет измеренной потребности»: Lighthouse CI, Playwright, Sharp, Workbox, Pagefind, Decap, GrowthBook, сборка CSS/JS, Web Vitals, страницы-предложения (Pitch Rooms).
+Следующий шаг при необходимости: Lighthouse CI и html-validate как проверка при сборке, затем минимальная телеметрия Web Vitals.
