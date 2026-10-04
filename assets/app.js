@@ -1,9 +1,9 @@
-import { T, PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610041935';
-import { DECK } from './deck.js?v=202610041935';
-import { LOGOS } from './logos.js?v=202610041935';
+import { T, PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610041955';
+import { DECK } from './deck.js?v=202610041955';
+import { LOGOS } from './logos.js?v=202610041955';
 import { createViewer } from './viewer.js?v=202609301526';
-import { syncSnaps } from './snap.js?v=202610041935';
-import { NEWS } from './news.js?v=202610041935';
+import { syncSnaps } from './snap.js?v=202610041955';
+import { NEWS } from './news.js?v=202610041955';
 
 /* Сайт — витрина: показываем отобранные материалы. Канал получает весь поток.
    Лента идёт от свежего к старому по дате публикации — «Показать ещё» раскрывает
@@ -1243,7 +1243,6 @@ function renderNews() {
     </li>`;
   }).join('');
 
-  $('#news-contact').textContent = T[lang].contact.cta ?? (lang === 'en' ? 'Contact' : 'Связаться');
   const more = $('#news-more');
   const expanded = newsShown >= list.length;
   more.hidden = list.length <= newsFirst();
@@ -2420,4 +2419,3 @@ fetch('/api/posts').then((r) => (r.ok ? r.json() : [])).then((list) => {
 
 applyHash();
 
-$('#news-contact').addEventListener('click', () => { $('#contact').scrollIntoView({ behavior: 'smooth' }); });
