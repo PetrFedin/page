@@ -1,9 +1,9 @@
-import { T, PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610040500';
-import { DECK } from './deck.js?v=202610040500';
-import { LOGOS } from './logos.js?v=202610040500';
+import { T, PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610041740';
+import { DECK } from './deck.js?v=202610041740';
+import { LOGOS } from './logos.js?v=202610041740';
 import { createViewer } from './viewer.js?v=202609301526';
-import { syncSnaps } from './snap.js?v=202610040500';
-import { NEWS } from './news.js?v=202610040500';
+import { syncSnaps } from './snap.js?v=202610041740';
+import { NEWS } from './news.js?v=202610041740';
 
 /* Сайт — витрина: показываем отобранные материалы. Канал получает весь поток.
    Лента идёт от свежего к старому по дате публикации — «Показать ещё» раскрывает
@@ -152,6 +152,8 @@ let projectsExpanded = false;
 const PROJECTS_FIRST = 3;
 
 /* Раздел «Сотрудничество»: шесть мини-карточек форматов; полный текст формата — в окне с листанием. */
+const needModal = $('#need-modal');
+let needId = null, needAnswers = [];
 const COOP_L = {
   ru: { read: 'Читать целиком', contact: 'Связаться', prev: '← Предыдущий', next: 'Следующий →', of: 'из', close: 'Закрыть' },
   en: { read: 'Read more', contact: 'Contact', prev: '← Previous', next: 'Next →', of: 'of', close: 'Close' }
@@ -164,7 +166,7 @@ function renderInvestors() {
   $('#investors-lead').textContent = iv.lead;
   $('#investors-list').className = 'inv-list snap snap-fit';
   $('#investors-list').innerHTML = iv.formats.map((f, i) => `
-    <article class="inv-card mini" id="inv-${f.id}">
+    <article class="inv-card mini" id="inv-${f.id}" data-idx="${i}" tabindex="0" role="button" aria-label="${f.title}">
       <span class="svc-n">${String(i + 1).padStart(2, '0')}</span>
       <h3>${f.title}</h3>
       <p class="inv-tag">${f.tagline}</p>
@@ -174,8 +176,11 @@ function renderInvestors() {
         <button class="btn btn-sm btn-primary" type="button" data-inv-talk="${f.id}">${L.contact}</button>
       </div>
     </article>`).join('');
-  $('#investors-projects').innerHTML = `<span class="inv-projects-label">${lb.projects}</span>`
-    + PROJECTS.map((p) => `<a class="inv-chip" href="${base}${p.id}"><span class="card-logo">${LOGOS[p.id]}</span></a>`).join('');
+  $('#investors-projects').innerHTML = '';
+  $('#investors-projects').hidden = true;
+  const testBtn = `<button type="button" class="btn" id="coop-test-open">${iv.test.label}</button>`;
+  $('#investors-lead').insertAdjacentHTML('afterend', '');
+  $('#investors-testrow').innerHTML = testBtn;
   $('#investors-note').textContent = lb.nda ?? '';
   $('#investors-note').hidden = !lb.nda;
 }
@@ -210,12 +215,101 @@ $('#coop-talk').addEventListener('click', () => {
   startContact({ topic: 'investors', message: iv.contactMessages[id] ?? '' });
 });
 $('#investors-list').addEventListener('click', (e) => {
-  const o = e.target.closest('[data-coop-open]');
-  if (o) return openCoop(+o.dataset.coopOpen);
   const b = e.target.closest('[data-inv-talk]');
-  if (!b) return;
-  const iv = T[lang].investors;
-  startContact({ topic: 'investors', message: iv.contactMessages[b.dataset.invTalk] ?? '' });
+  if (b) {
+    const iv = T[lang].investors;
+    return startContact({ topic: 'investors', message: iv.contactMessages[b.dataset.invTalk] ?? '' });
+  }
+  /* карточка целиком открывает формат; кнопки внутри делают своё */
+  const card = e.target.closest('.inv-card');
+  if (card) openCoop(+card.dataset.idx);
+});
+$('#investors-list').addEventListener('keydown', (e) => {
+  if (e.key !== 'Enter' && e.key !== ' ') return;
+  const card = e.target.closest('.inv-card');
+  if (card && e.target === card) { e.preventDefault(); openCoop(+card.dataset.idx); }
+});
+
+/* ---------- «Подобрать формат сотрудничества»: тест на шесть форматов ---------- */
+let ctAnswers = [];
+let ctActive = false;
+function renderCoopTest() {
+  const iv = T[lang].investors, ts = iv.test;
+  ctActive = true;
+  $('#need-logo').innerHTML = '';
+  $('#need-title').textContent = ts.title;
+  $('#need-subtitle').textContent = ts.subtitle;
+  const body = $('#need-body');
+  const step = ctAnswers.length;
+  if (step < ts.questions.length) {
+    const q = ts.questions[step];
+    body.innerHTML = `
+      <div class="diag-progress">
+        <span>${ts.progress.replace('{i}', step + 1).replace('{n}', ts.questions.length)}</span>
+        <div class="diag-bar"><span style="width:${Math.round((step / ts.questions.length) * 100)}%"></span></div>
+      </div>
+      <h3 class="diag-q">${q.q}</h3>
+      <div class="diag-options">${q.options.map((o, i) => `<button type="button" class="diag-opt" data-ct-opt="${i}">${o.t}</button>`).join('')}</div>
+      ${step > 0 ? `<button type="button" class="diag-back" data-ct-back>${ts.back}</button>` : ''}`;
+    return;
+  }
+  const count = {};
+  ctAnswers.forEach((f) => { count[f] = (count[f] || 0) + 1; });
+  const order = iv.formats.map((f) => f.id);
+  const best = Object.entries(count).sort((a, b) => b[1] - a[1] || order.indexOf(a[0]) - order.indexOf(b[0]))[0][0];
+  const f = iv.formats.find((x) => x.id === best);
+  body.dataset.best = best;
+  body.innerHTML = `
+    <div class="diag-result">
+      <p class="diag-result-label">${ts.resultLabel}</p>
+      <h3>${f.title}</h3>
+      <p class="inv-tag">${f.tagline}</p>
+      <p class="diag-result-body">${f.what}</p>
+      <p class="inv-fit"><b>${iv.labels.fit}</b>${f.fit}</p>
+      <p class="diag-note">${ts.resultNote}</p>
+      <div class="diag-actions">
+        <button type="button" class="btn btn-primary" data-ct-contact>${ts.contact}</button>
+        <button type="button" class="btn" data-ct-read>${ts.read}</button>
+      </div>
+      <button type="button" class="diag-retake" data-ct-retake>${ts.retake}</button>
+    </div>`;
+  document.querySelectorAll('.inv-card.inv-match').forEach((c) => c.classList.remove('inv-match'));
+  $(`#inv-${best}`)?.classList.add('inv-match');
+}
+function openCoopTest() {
+  ctAnswers = [];
+  needId = null;
+  renderCoopTest();
+  if (!needModal.open) needModal.showModal();
+  needModal.querySelector('.modal-body').scrollTop = 0;
+}
+document.addEventListener('click', (e) => { if (e.target.closest('#coop-test-open')) openCoopTest(); });
+needModal.addEventListener('close', () => {
+  if (ctActive && $('#need-body').dataset.best) $('#inv-' + $('#need-body').dataset.best)?.scrollIntoView({ block: 'center', behavior: 'smooth' });
+  ctActive = false;
+});
+$('#need-body').addEventListener('click', (e) => {
+  if (!ctActive) return;
+  const iv = T[lang].investors, ts = iv.test;
+  const opt = e.target.closest('[data-ct-opt]');
+  if (opt) {
+    const q = ts.questions[ctAnswers.length];
+    window.track?.('quiz_step', `coop-${ctAnswers.length + 1}`, q.options[+opt.dataset.ctOpt].t);
+    ctAnswers.push(q.options[+opt.dataset.ctOpt].f);
+    if (ctAnswers.length === ts.questions.length) window.track?.('quiz_result', 'coop', 'format');
+    return renderCoopTest();
+  }
+  if (e.target.closest('[data-ct-back]')) { ctAnswers.pop(); return renderCoopTest(); }
+  if (e.target.closest('[data-ct-retake]')) { ctAnswers = []; document.querySelectorAll('.inv-card.inv-match').forEach((c) => c.classList.remove('inv-match')); return renderCoopTest(); }
+  const best = $('#need-body').dataset.best;
+  if (e.target.closest('[data-ct-read]')) {
+    const i = iv.formats.findIndex((f) => f.id === best);
+    ctActive = false; needModal.close(); return openCoop(i);
+  }
+  if (e.target.closest('[data-ct-contact]')) {
+    ctActive = false; needModal.close();
+    startContact({ topic: 'investors', message: iv.contactMessages[best] ?? '' });
+  }
 });
 
 function renderCards() {
@@ -298,7 +392,6 @@ function render() {
 
   $('#consulting-title').textContent = t.consulting.title;
   $('#consulting-sub').textContent = t.consulting.noteLabel;
-  $('#diag-open').textContent = t.diagnostic.label;
   $('#formats').innerHTML = `
     <div class="formats-head"><h3>${t.formats.title}</h3><p class="sub">${t.formats.subtitle}</p></div>
     <div class="formats-grid snap snap-fit">${t.formats.items.map((f) => `
@@ -311,7 +404,8 @@ function render() {
           <span class="format-more">${t.formats.more}</span>
           <button type="button" class="btn btn-sm" data-format-card-contact="${f.n}">${t.formats.contactCta}</button>
         </div>
-      </article>`).join('')}</div>`;
+      </article>`).join('')}</div>
+    <p class="launch-diag-row"><button type="button" class="btn" id="diag-open">${t.diagnostic.label}</button></p>`;
 
   /* Раздел «Публикации» имеет смысл только когда их больше одной —
      иначе множественное число в заголовке расходится с содержимым. */
@@ -759,18 +853,34 @@ function renderNow() {
       <span class="now-dot" aria-hidden="true"></span><b>${p.name}</b><span>${p[lang].stage}</span>
     </button></li>`).join('');
 
-  const latest = SITE_NEWS.filter(hasLang)[0];
+  /* Новости в ленте: свежие публикации сменяют друг друга каждые 10 секунд. */
+  const recent = SITE_NEWS.filter(hasLang).slice(0, 6);
   const post = $('#now-post');
-  if (!latest) { post.hidden = true; }
-  else {
-    post.hidden = false;
-    post.dataset.date = latest.date;
-    const fmt = new Intl.DateTimeFormat(lang === 'ru' ? 'ru-RU' : 'en-GB', { day: 'numeric', month: 'long' });
-    post.innerHTML = `<span class="now-post-label">${t.now.latest}</span>
-      <span class="now-post-title">${postText(latest).title}</span>
-      <span class="now-post-date">${fmt.format(new Date(latest.date))} · ${t.now.readMore}</span>`;
+  clearInterval(nowTimer);
+  if (!recent.length) { post.hidden = true; return; }
+  post.hidden = false;
+  const fmt = new Intl.DateTimeFormat(lang === 'ru' ? 'ru-RU' : 'en-GB', { day: 'numeric', month: 'long', timeZone: 'UTC' });
+  let idx = 0;
+  const paint = () => {
+    const p = recent[idx];
+    post.dataset.date = p.date;
+    post.innerHTML = `<span class="now-post-label">${t.now.latest}${recent.length > 1 ? ` · ${idx + 1}/${recent.length}` : ''}</span>
+      <span class="now-post-title">${postText(p).title}</span>
+      <span class="now-post-date">${fmt.format(new Date(p.date))} · ${t.now.readMore}</span>`;
+  };
+  paint();
+  if (recent.length > 1) {
+    let paused = false;
+    post.onmouseenter = post.onfocus = () => { paused = true; };
+    post.onmouseleave = post.onblur = () => { paused = false; };
+    nowTimer = setInterval(() => {
+      if (paused || document.hidden) return;
+      post.classList.add('swap');
+      setTimeout(() => { idx = (idx + 1) % recent.length; paint(); post.classList.remove('swap'); }, 220);
+    }, 10000);
   }
 }
+let nowTimer;
 /* Переход по ссылке-якорю не вызывает applyHash — используем свой роутинг. */
 $('#now-post').addEventListener('click', (e) => {
   e.preventDefault();
@@ -919,7 +1029,7 @@ function openDiagnosticModal() {
   if (!diagModal.open) diagModal.showModal();
   diagModal.querySelector('.modal-body').scrollTop = 0;
 }
-$('#diag-open').addEventListener('click', () => { diagAnswers = []; go('diagnostic'); });
+document.addEventListener('click', (e) => { if (e.target.closest('#diag-open')) { diagAnswers = []; go('diagnostic'); } });
 $('#diag-close').addEventListener('click', () => leaveAll());
 diagModal.addEventListener('click', (e) => { if (e.target === diagModal) leaveAll(); });
 
@@ -1220,8 +1330,6 @@ const NEED_L = {
   ru: { step: 'Вопрос {i} из {n}', back: 'Назад', result: 'Что продукт может закрыть у вас', closes: 'Что закрывает', how: 'Как закрывает внутри', stage: 'Что уже есть и что впереди', partner: 'Что это значит для партнёра и инвестора', more: 'О проекте целиком' },
   en: { step: 'Question {i} of {n}', back: 'Back', result: 'What the product can close for you', closes: 'What it closes', how: 'How it works inside', stage: 'What exists and what is ahead', partner: 'What this means for a partner or investor', more: 'The full project page' }
 };
-const needModal = $('#need-modal');
-let needId = null, needAnswers = [];
 function renderNeed() {
   const nc = T[lang].needCheck[needId], L = NEED_L[lang];
   $('#need-logo').innerHTML = LOGOS[needId];
@@ -1268,6 +1376,7 @@ function renderNeed() {
   body.dataset.top = ranked.join(',');
 }
 function openNeed(id) {
+  ctActive = false;
   needId = id; needAnswers = [];
   renderNeed();
   if (!needModal.open) needModal.showModal();
@@ -1277,6 +1386,7 @@ $('#need-close').addEventListener('click', () => leaveAll());
 needModal.addEventListener('close', () => { if (location.hash.startsWith('#need-')) history.replaceState(null, '', location.pathname + location.search); });
 needModal.addEventListener('click', (e) => { if (e.target === needModal) leaveAll(); });
 $('#need-body').addEventListener('click', (e) => {
+  if (ctActive) return;
   const nc = T[lang].needCheck?.[needId];
   if (!nc) return;
   const opt = e.target.closest('[data-need-opt]');

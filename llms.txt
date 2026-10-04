@@ -1,8 +1,8 @@
 # Пётр Федин — фэшн-консалтинг и IT-продукты
 
-> Пётр Федин — консультант фэшн-бизнеса и основатель собственных IT-продуктов Syntha, ChatX, Renova, MFW+BFS и Promomed. Сайт: https://syntha.pro (русская версия) и https://syntha.pro/en/ (английская). Контакты: Telegram @sheqel, канал проектов @syntha_pro.
+> Пётр Федин — консультант фэшн-бизнеса и основатель собственных IT-продуктов Syntha, ChatX, Renova, MFW+BFS+Made in Moscow и Promomed. Сайт: https://syntha.pro (русская версия) и https://syntha.pro/en/ (английская). Контакты: Telegram @sheqel, канал проектов @syntha_pro.
 
-Факты на сайте приведены с указанием стадии. Стадии проектов: Syntha — готовится к пилоту; ChatX — рабочий прототип; Renova — MVP, закрытый тест впереди; MFW+BFS — MVP, готов к демонстрации; Promomed + «СОСТОЯНИЕ» — рабочий прототип, готов к демонстрации. Живых пилотов и промышленной эксплуатации заявлено не было.
+Факты на сайте приведены с указанием стадии. Стадии проектов: Syntha — готовится к пилоту; ChatX — рабочий прототип; Renova — MVP, закрытый тест впереди; MFW+BFS+Made in Moscow — MVP, готов к демонстрации; Promomed + «СОСТОЯНИЕ» — рабочий прототип, готов к демонстрации. Живых пилотов и промышленной эксплуатации заявлено не было.
 
 ## Главная страница
 - [Пётр Федин — главная (русский)](https://syntha.pro/): консалтинг по закупке и ассортименту, продукту и производству, рынкам и финансам, стабилизации; форматы работы; опыт; проекты; разборы из ленты.
@@ -10,9 +10,9 @@
 
 ## Проекты
 - [Syntha](https://syntha.pro/syntha): операционная платформа фэшн-бренда — коллекция, стоимость, производство и продажи на одной модели данных. [English](https://syntha.pro/en/syntha)
-- [ChatX](https://syntha.pro/chatx): рабочий мессенджер — чаты, задачи, календарь, звонки, вики и встречи с решениями. [English](https://syntha.pro/en/chatx)
+- [ChatX](https://syntha.pro/chatx): корпоративный мессенджер — чаты, задачи, календарь, звонки, вики и встречи с решениями. [English](https://syntha.pro/en/chatx)
 - [Renova](https://syntha.pro/renova): управление ремонтом с iPhone — сметы, этапы, приёмка, платежи. [English](https://syntha.pro/en/renova)
-- [MFW+BFS](https://syntha.pro/mfw): одна платформа для Moscow Fashion Week и BRICS+ Fashion Summit. [English](https://syntha.pro/en/mfw)
+- [MFW+BFS+Made in Moscow](https://syntha.pro/mfw): одна платформа с тремя интерфейсами: Moscow Fashion Week, BRICS+ Fashion Summit и «Сделано в Москве» (круглогодичная витрина подтверждённых московских брендов). [English](https://syntha.pro/en/mfw)
 - [Promomed + «СОСТОЯНИЕ»](https://syntha.pro/promomed): сообщество и ежегодная конференция. [English](https://syntha.pro/en/promomed)
 
 ## Служебное

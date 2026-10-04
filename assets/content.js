@@ -3,7 +3,7 @@
 export const T = {
   ru: {
     langName: 'RU',
-    nav: { experience: 'Опыт', consulting: 'Консалтинг', projects: 'Проекты', investors: 'Сотрудничество', skip: 'К содержанию', ctaBar: 'Написать', news: 'Лента', media: 'Публикации', contact: 'Связаться', toTop: 'Наверх', close: 'Закрыть',
+    nav: { experience: 'Опыт', consulting: 'Консалтинг', projects: 'Проекты', investors: 'Партнёрство', skip: 'К содержанию', ctaBar: 'Написать', news: 'Лента', media: 'Публикации', contact: 'Связаться', toTop: 'Наверх', close: 'Закрыть',
       textSize: { xl: 'Уменьшить текст', lg: 'Обычный размер', normal: 'Увеличить текст' } },
     hero: {
       eyebrow: 'Фэшн-консалтинг и собственные IT-продукты',
@@ -14,7 +14,7 @@ export const T = {
       ctaProjects: 'Проекты',
       ctaFeed: 'Лента',
       ctaContact: 'Связаться',
-      bio: 'Управлял закупками и ассортиментом в мультибрендовой рознице: 500+ брендов, 30 000+ SKU. Работаю с себестоимостью, финансами и данными: всё это сходится в одну цифру, маржу. Параллельно строю пять собственных IT-продуктов.',
+      bio: 'Управлял закупками и ассортиментом в мультибрендовой рознице: 500+ брендов, 30 000+ SKU. Работаю с себестоимостью, финансами и данными: всё это сходится в одну цифру, маржу. Параллельно строю собственные IT-продукты в fashion и других сферах.',
       factsTitle: 'Релевантный опыт',
       facts: [
         {
@@ -137,9 +137,9 @@ export const T = {
         }
       ],
       photoAlt: 'Пётр Федин',
-      cvLabel: 'Запросить профиль',
-      cvShort: 'Профиль',
-      cvMessage: 'Здравствуйте! Пришлите, пожалуйста, ваш профиль.'
+      cvLabel: 'Запросить резюме',
+      cvShort: 'Резюме',
+      cvMessage: 'Здравствуйте! Пришлите, пожалуйста, резюме.'
     },
     consulting: {
       title: 'Консалтинг',
@@ -199,7 +199,7 @@ export const T = {
       marks: { yes: 'есть', no: 'нет', part: 'частично' },
       launch: {
         title: 'Запустить проект',
-        subtitle: 'Четыре продукта довёл до работающей версии сам: Syntha, ChatX, Renova, MFW+BFS. Выберите формат или подберите его тестом за 15 секунд.',
+        subtitle: 'Запустим продукт в любом подходящем формате: от идеи до работающего решения.',
         cta: 'Обсудить формат',
         contactMessage: 'Интересует формат «{title}» для нашего проекта.',
         more: 'Читать целиком →',
@@ -416,7 +416,7 @@ export const T = {
     },
     formats: {
       title: 'Форматы работы',
-      subtitle: 'Направление — о чём работа. Формат — как она устроена: срок, состав работ, результат. Форматов четыре.',
+      subtitle: 'Направление — о чём работа. Формат — как она устроена: срок, состав работ, результат.',
       more: 'Читать целиком →',
       stepsLabel: 'Как идёт работа',
       includesLabel: 'Что входит',
@@ -582,14 +582,14 @@ export const T = {
       ]
     },
     roles: {
-      introLabel: 'Готов к роли в компании',
-      hubTitle: 'Роль в компании — вместе с консалтингом или вместо него',
-      hubNote: 'Три роли, в которых я готов работать в штате. Откройте любую: компетенции и зона ответственности.',
+      introLabel: 'Открыт к предложениям',
+      hubTitle: 'Роли, которые я готов рассмотреть',
+      hubNote: 'Три направления — откройте каждое, чтобы увидеть компетенции и зону ответственности.',
       competenciesLabel: 'Компетенции',
       whyFitLabel: 'Почему подхожу',
       contactCta: 'Связаться',
       contactMessage: 'Интересует роль «{title}» ({abbr}).',
-      contactTopicOther: 'Роль в компании',
+      contactTopicOther: 'HR',
       items: [
         { n: '01', title: 'Коммерческий директор', abbr: 'CCO', term: 'Рынок, каналы, выручка, экономика сделки',
           body: 'Отвечаю за коммерческую модель целиком: рынок, каналы, цены и экономику сделки. Выход на рынок и сделку предлагаю только с расчётом на руках.',
@@ -1003,8 +1003,8 @@ export const T = {
       }
     },
     investors: {
-      "title": "Сотрудничество и инвестиции",
-      "sub": "Открыт к партнёрству и инвестициям в собственные IT-продукты, новые идеи и их реализацию в совместных проектах — в fashion и за его пределами. Ниже шесть форматов, с которых можно начать.",
+      "title": "Партнёрство и инвестиции",
+      "sub": "Партнёрство и инвестиции в собственные IT-продукты и совместные проекты — в fashion и за его пределами.",
       "lead": "Часть продуктов уже работает как прототипы и MVP, часть ещё в разработке, и её предстоит довести до реализации. Круг не ограничен fashion: те же принципы я применяю и в других отраслях. Ищу партнёров и инвесторов, с которыми продукты и идеи можно превратить в совместные бизнес-проекты: доделать недостающее, проверить на практике, вывести на рынок. Условия обсуждаю лично, доходности не обещаю.",
       "formats": [
         {
@@ -1054,7 +1054,7 @@ export const T = {
           "what": "Платформа для недель моды, форумов и конференций: программа, регистрация, встречи, кабинеты партнёров. На реальном событии её ещё не использовали, поэтому ищу первого организатора. Спонсор или организатор участвует в запуске.",
           "partner": "Организатору — программа, регистрация и кабинеты для гостей и партнёров в одной системе. Спонсору — заметное место в продукте и у его аудитории.",
           "project": "Площадка и участники, на которых систему проверят вживую. Для платформы это будет первое реальное событие.",
-          "fit": "Организатору события, отраслевой ассоциации или бренду-спонсору. Формат Made in Moscow рассматриваю: это намерение, не договорённость.",
+          "fit": "Организатору события, отраслевой ассоциации или бренду-спонсору. Для «Сделано в Москве», круглогодичной витрины брендов, ищу бренды и организаторов.",
           "start": "Демонстрация организаторам на материалах вашего события, затем согласование того, что из платформы нужно именно вам."
         },
         {
@@ -1068,7 +1068,126 @@ export const T = {
           "start": "Предварительный разговор под NDA: что именно вас интересует и в какой форме. Условия обсуждаем после знакомства с продуктом."
         }
       ],
-      "labels": {
+      "test": {
+      "label": "Подобрать формат сотрудничества",
+      "title": "Какой формат сотрудничества вам подходит",
+      "subtitle": "Пять коротких вопросов. В конце — один из шести форматов, который подходит вам больше всего.",
+      "progress": "Вопрос {i} из {n}",
+      "back": "Назад",
+      "resultLabel": "Вам ближе всего",
+      "resultNote": "Это ориентир по пяти ответам, а не решение: детали обсудим в разговоре.",
+      "read": "Читать формат",
+      "contact": "Связаться",
+      "retake": "Пройти заново",
+      "questions": [
+        {
+          "q": "Кто вы в этом разговоре?",
+          "options": [
+            {
+              "t": "Частный инвестор или фонд",
+              "f": "equity"
+            },
+            {
+              "t": "Бренд или компания с конкретной задачей",
+              "f": "strategic"
+            },
+            {
+              "t": "Владелец продукта или команда разработки",
+              "f": "codev"
+            },
+            {
+              "t": "Организатор события или площадка",
+              "f": "events"
+            }
+          ]
+        },
+        {
+          "q": "Что вы хотите получить в результате?",
+          "options": [
+            {
+              "t": "Долю в продукте и рост его стоимости",
+              "f": "equity"
+            },
+            {
+              "t": "Продукт, настроенный под мои процессы",
+              "f": "strategic"
+            },
+            {
+              "t": "Продукт целиком под моим управлением",
+              "f": "acquisition"
+            },
+            {
+              "t": "Новый канал для моей аудитории",
+              "f": "distribution"
+            }
+          ]
+        },
+        {
+          "q": "Чем вы готовы участвовать?",
+          "options": [
+            {
+              "t": "Капиталом",
+              "f": "equity"
+            },
+            {
+              "t": "Своим бизнесом как пилотной площадкой",
+              "f": "strategic"
+            },
+            {
+              "t": "Своим продуктом или командой разработки",
+              "f": "codev"
+            },
+            {
+              "t": "Каналом продаж и клиентской базой",
+              "f": "distribution"
+            }
+          ]
+        },
+        {
+          "q": "Как вы видите срок и глубину?",
+          "options": [
+            {
+              "t": "Надолго: вместе растить продукт",
+              "f": "equity"
+            },
+            {
+              "t": "Быстрый пилот с понятным объёмом",
+              "f": "strategic"
+            },
+            {
+              "t": "Передача продукта под моё управление",
+              "f": "acquisition"
+            },
+            {
+              "t": "Участие в конкретном событии или сезоне",
+              "f": "events"
+            }
+          ]
+        },
+        {
+          "q": "Что для вас важнее всего?",
+          "options": [
+            {
+              "t": "Прозрачность и голос в решениях",
+              "f": "equity"
+            },
+            {
+              "t": "Полный контроль над продуктом",
+              "f": "acquisition"
+            },
+            {
+              "t": "Возможность встроить продукт в свой",
+              "f": "codev"
+            },
+            {
+              "t": "Доступ к аудитории и партнёрам события",
+              "f": "events"
+            }
+          ]
+        }
+      ]
+    },
+    "labels": {
         "partner": "Что вы получаете",
         "project": "Что нужно от вас",
         "fit": "Кому подходит",
@@ -1102,7 +1221,7 @@ export const T = {
       entityAddress: 'Адрес',
       entitySite: 'Сайт',
       topic: 'Тема',
-      topics: { consulting: 'Консалтинг', launch: 'Запуск продукта', investors: 'Инвестиции', partnership: 'Партнёрство', syntha: 'Syntha', renova: 'Renova', chatx: 'ChatX', mfw: 'MFW+BFS', promomed: 'Promomed и «СОСТОЯНИЕ»', press: 'Пресса и комментарий', event: 'Выступление или участие в мероприятии', other: 'Другое' },
+      topics: { consulting: 'Консалтинг', launch: 'Запуск продукта', investors: 'Инвестиции', partnership: 'Партнёрство', syntha: 'Syntha', renova: 'Renova', chatx: 'ChatX', mfw: 'MFW+BFS+Made in Moscow', promomed: 'Promomed и «СОСТОЯНИЕ»', press: 'Пресса и комментарий', event: 'Выступление или участие в мероприятии', other: 'Другое' },
       topicOther: 'Напишите тему',
       personaLabel: 'Пишу как',
       personas: [
@@ -1142,12 +1261,12 @@ export const T = {
     },
     now: {
       label: 'Сейчас',
-      latest: 'Последний пост в ленте',
+      latest: 'Новости в ленте',
       readMore: 'Читать →'
     },
     diagnostic: {
-      label: 'Подобрать формат консалтинга',
-      title: 'Какой формат консалтинга вам подходит',
+      label: 'Подобрать формат работы',
+      title: 'Какой формат работы вам подходит',
       subtitle: 'Пять вопросов, тридцать секунд. В итоге — конкретный формат, а не общий совет.',
       progress: 'Вопрос {i} из {n}',
       back: 'Назад',
@@ -1298,7 +1417,7 @@ export const T = {
 
   en: {
     langName: 'EN',
-    nav: { experience: 'Experience', consulting: 'Advisory', projects: 'Projects', investors: 'Cooperation', skip: 'Skip to content', ctaBar: 'Write to me', news: 'Feed', media: 'Press', contact: 'Contact', toTop: 'Back to top', close: 'Close',
+    nav: { experience: 'Experience', consulting: 'Advisory', projects: 'Projects', investors: 'Partnership', skip: 'Skip to content', ctaBar: 'Write to me', news: 'Feed', media: 'Press', contact: 'Contact', toTop: 'Back to top', close: 'Close',
       textSize: { xl: 'Smaller text', lg: 'Normal size', normal: 'Larger text' } },
     hero: {
       eyebrow: 'Fashion advisory and my own IT products',
@@ -1309,7 +1428,7 @@ export const T = {
       ctaProjects: 'Projects',
       ctaFeed: 'Feed',
       ctaContact: 'Contact',
-      bio: 'I ran buying and assortment in multi-brand retail: 500+ brands and 30,000+ SKUs. I work on cost, finance and data, which all meet in one figure: margin. Alongside advisory, I build five IT products of my own.',
+      bio: 'I ran buying and assortment in multi-brand retail: 500+ brands and 30,000+ SKUs. I work on cost, finance and data, which all meet in one figure: margin. Alongside advisory, I build my own IT products in fashion and other fields.',
       factsTitle: 'Relevant experience',
       facts: [
         { id: 'buying', n: 'Buying and assortment',
@@ -1338,9 +1457,9 @@ export const T = {
           results: ['Payments organised into a cash calendar weeks ahead', 'An agreed and executed list of what gets stopped', 'Decision rights documented, ending disputes over authority', 'The plan → actual → action cycle shortened to a week', 'Decisions made in the meeting, not in chat threads', 'A defined criterion for leaving stabilisation mode'] }
       ],
       photoAlt: 'Petr Fedin',
-      cvLabel: 'Request my profile',
-      cvShort: 'Profile',
-      cvMessage: 'Hello! Please send me your profile.'
+      cvLabel: 'Request CV',
+      cvShort: 'CV',
+      cvMessage: 'Please send me your CV.'
     },
     consulting: {
       title: 'Advisory',
@@ -1400,7 +1519,7 @@ export const T = {
       marks: { yes: 'yes', no: 'no', part: 'partial' },
       launch: {
         title: 'Launch a project',
-        subtitle: 'I took four products to a working version myself: Syntha, ChatX, Renova and MFW+BFS. Choose a format or find yours with the 15-second test.',
+        subtitle: 'We can launch a product in whichever format suits: from an idea to a working solution.',
         cta: 'Discuss this format',
         contactMessage: 'Interested in the “{title}” format for our project.',
         more: 'Read in full →',
@@ -1617,7 +1736,7 @@ export const T = {
     },
     formats: {
       title: 'Ways to work together',
-      subtitle: 'An area says what the work is about. A format says how it runs: term, scope and outcome. There are four formats.',
+      subtitle: 'An area says what the work is about. A format says how it runs: term, scope and outcome.',
       more: 'Read in full →',
       stepsLabel: 'How the work proceeds',
       includesLabel: 'What it includes',
@@ -1738,14 +1857,14 @@ export const T = {
       ]
     },
     roles: {
-      introLabel: 'Open to an in-house role',
-      hubTitle: 'An in-house role, alongside advisory or instead of it',
-      hubNote: 'Three roles I am ready to take on as a member of staff. Open any one for the competencies and scope of responsibility.',
+      introLabel: 'Open to offers',
+      hubTitle: 'Roles I would consider',
+      hubNote: 'Three directions. Open each for the competencies and scope of responsibility.',
       competenciesLabel: 'Key competencies',
       whyFitLabel: 'Why I fit',
       contactCta: 'Get in touch',
       contactMessage: 'Interested in the “{title}” role ({abbr}).',
-      contactTopicOther: 'In-house role',
+      contactTopicOther: 'HR',
       items: [
         { n: '01', title: 'Chief Commercial Officer', abbr: 'CCO', term: 'Market, channels, revenue, deal economics',
           body: 'I own the whole commercial model: market, channels, pricing and deal economics. I propose a market entry or a deal only with the numbers in hand.',
@@ -2142,8 +2261,8 @@ export const T = {
       }
     },
     investors: {
-      "title": "Cooperation and investment",
-      "sub": "Open to partnership and investment in my own IT products, new ideas and their delivery as joint business projects — in fashion and beyond. Six ways to begin are below.",
+      "title": "Partnership and investment",
+      "sub": "Partnership and investment in my own IT products and joint projects — in fashion and beyond.",
       "lead": "Some products already run as prototypes and MVPs; others are still in development and need to be brought to delivery. The scope is not limited to fashion: I apply the same principles in other industries. I am looking for partners and investors to turn these products and ideas into joint business projects: finish what is missing, test it in practice, bring it to market. I discuss terms in person and promise no returns.",
       "formats": [
         {
@@ -2193,7 +2312,7 @@ export const T = {
           "what": "A platform for fashion weeks, forums and conferences: programme, registration, meetings and partner accounts. It has not yet been used at a real event, so I am looking for a first organiser. A sponsor or an organiser takes part in the launch.",
           "partner": "For an organiser: programme, registration and partner accounts for guests and partners in one system. For a sponsor: a visible place in the product and in front of its audience.",
           "project": "A venue and attendees to test the system live. For the platform, this would be its first real event.",
-          "fit": "An event organiser, a trade association or a sponsoring brand. I am considering Made in Moscow, a Moscow fashion event format; that is an intention, not an agreement.",
+          "fit": "An event organiser, a trade association or a sponsoring brand. For Made in Moscow, a year-round showcase of Moscow brands, I am looking for brands and organisers.",
           "start": "A demo for organisers using your event’s material, then agreeing which parts of the platform you need."
         },
         {
@@ -2207,7 +2326,126 @@ export const T = {
           "start": "A preliminary conversation under NDA on what interests you and in what form. Terms follow once you have seen the product."
         }
       ],
-      "labels": {
+      "test": {
+      "label": "Find a cooperation format",
+      "title": "Which cooperation format suits you",
+      "subtitle": "Five short questions. At the end, the one of six formats that fits you best.",
+      "progress": "Question {i} of {n}",
+      "back": "Back",
+      "resultLabel": "Closest to you",
+      "resultNote": "This is a guide from five answers, not a decision: we will settle the details in conversation.",
+      "read": "Read the format",
+      "contact": "Contact",
+      "retake": "Take it again",
+      "questions": [
+        {
+          "q": "Who are you in this conversation?",
+          "options": [
+            {
+              "t": "A private investor or a fund",
+              "f": "equity"
+            },
+            {
+              "t": "A brand or company with a specific task",
+              "f": "strategic"
+            },
+            {
+              "t": "A product owner or a development team",
+              "f": "codev"
+            },
+            {
+              "t": "An event organiser or a venue",
+              "f": "events"
+            }
+          ]
+        },
+        {
+          "q": "What do you want to end up with?",
+          "options": [
+            {
+              "t": "A stake in a product and growth in its value",
+              "f": "equity"
+            },
+            {
+              "t": "A product tailored to my processes",
+              "f": "strategic"
+            },
+            {
+              "t": "A whole product under my management",
+              "f": "acquisition"
+            },
+            {
+              "t": "A new channel to my audience",
+              "f": "distribution"
+            }
+          ]
+        },
+        {
+          "q": "What can you bring to it?",
+          "options": [
+            {
+              "t": "Capital",
+              "f": "equity"
+            },
+            {
+              "t": "My business as a pilot site",
+              "f": "strategic"
+            },
+            {
+              "t": "My own product or development team",
+              "f": "codev"
+            },
+            {
+              "t": "A sales channel and a client base",
+              "f": "distribution"
+            }
+          ]
+        },
+        {
+          "q": "How do you see the term and depth?",
+          "options": [
+            {
+              "t": "Long term: growing the product together",
+              "f": "equity"
+            },
+            {
+              "t": "A quick pilot of a clear scope",
+              "f": "strategic"
+            },
+            {
+              "t": "A hand-over of the product to my management",
+              "f": "acquisition"
+            },
+            {
+              "t": "Taking part in a specific event or season",
+              "f": "events"
+            }
+          ]
+        },
+        {
+          "q": "What matters most to you?",
+          "options": [
+            {
+              "t": "Transparency and a say in decisions",
+              "f": "equity"
+            },
+            {
+              "t": "Full control of the product",
+              "f": "acquisition"
+            },
+            {
+              "t": "Being able to build the product into my own",
+              "f": "codev"
+            },
+            {
+              "t": "Access to the event's audience and partners",
+              "f": "events"
+            }
+          ]
+        }
+      ]
+    },
+    "labels": {
         "partner": "What you get",
         "project": "What I need from you",
         "fit": "Who it suits",
@@ -2241,7 +2479,7 @@ export const T = {
       entityAddress: 'Address',
       entitySite: 'Website',
       topic: 'Topic',
-      topics: { consulting: 'Advisory', launch: 'Product launch', investors: 'Investment', partnership: 'Partnership', syntha: 'Syntha', renova: 'Renova', chatx: 'ChatX', mfw: 'MFW+BFS', promomed: 'Promomed and “SOSTOYANIE”', press: 'Press and comment', event: 'Speaking or event participation', other: 'Other' },
+      topics: { consulting: 'Advisory', launch: 'Product launch', investors: 'Investment', partnership: 'Partnership', syntha: 'Syntha', renova: 'Renova', chatx: 'ChatX', mfw: 'MFW+BFS+Made in Moscow', promomed: 'Promomed and “SOSTOYANIE”', press: 'Press and comment', event: 'Speaking or event participation', other: 'Other' },
       topicOther: 'Describe the topic',
       personaLabel: 'Writing as',
       personas: [
@@ -2281,12 +2519,12 @@ export const T = {
     },
     now: {
       label: 'Right now',
-      latest: 'Latest post in the feed',
+      latest: 'News in the feed',
       readMore: 'Read →'
     },
     diagnostic: {
-      label: 'Find an advisory format',
-      title: 'Which advisory format fits you?',
+      label: 'Find a working format',
+      title: 'Which working format fits you?',
       subtitle: 'Five questions, thirty seconds. You receive a specific format, not generic advice.',
       progress: 'Question {i} of {n}',
       back: 'Back',
@@ -2497,7 +2735,7 @@ export const PROJECTS = [
       },
       investor: { note: 'Форматы участия те же, что у Syntha: доля, спонсорство, покупка, маркетинговое партнёрство, интеграция. Разговор возможен уже сейчас; условия фиксирую по метрикам пилота.' },
       roadmap: [{ label: 'Прототип', state: 'done' }, { label: 'Рабочий прототип', state: 'current' }, { label: 'Пилот и запуск', state: 'next' }],
-      tagline: 'Рабочий мессенджер: переписка, задачи, звонки и календарь в одном пространстве',
+      tagline: 'Корпоративный мессенджер: вся работа команды в одном пространстве — от разговора до результата',
       stage: 'Рабочий прототип',
       card: 'Мессенджер для компании: переписка, задачи, звонки с записью по согласию, календарь, вики, оргструктура и роли. Рабочий прототип, готовится пилот.',
       what: 'Переписка: каналы, группы и личные сообщения, голосовые, файлы, поиск с учётом прав. Работа: задачи, календарь, аудио- и видеозвонки, расшифровка встреч. Управление: оргструктура с ролями, вики компании, ИИ-помощник в чате, вебхуки и ключи API.',
@@ -2515,7 +2753,7 @@ export const PROJECTS = [
       },
       investor: { note: 'The participation formats are the same as for Syntha: equity, sponsorship, acquisition, marketing partnership, integration. We can talk now; I fix terms against the pilot metrics.' },
       roadmap: [{ label: 'Prototype', state: 'done' }, { label: 'Working prototype', state: 'current' }, { label: 'Pilot and launch', state: 'next' }],
-      tagline: 'A workplace messenger: conversations, tasks, calls and a calendar in one workspace',
+      tagline: 'A corporate messenger: your team’s whole workflow in one space, from conversation to result',
       stage: 'Working prototype',
       card: 'A company messenger: conversations, tasks, calls with consented recording, a calendar, a wiki, an org structure and roles. Working prototype; a pilot is next.',
       what: 'Conversation: channels, groups and direct messages, voice notes, files and permission-aware search. Work: tasks, a calendar, audio and video calls, meeting transcription. Management: an org structure with roles, a company wiki, an in-chat AI assistant, webhooks and API keys.',
@@ -2569,30 +2807,30 @@ export const PROJECTS = [
   },
   {
     id: 'mfw',
-    name: 'MFW+BFS',
+    name: 'MFW+BFS+Made in Moscow',
     device: 'iphone',
-    shots: ['/assets/shots/mfw-hero.jpg', '/assets/shots/mfw-open.jpg', '/assets/shots/bfs-hero.jpg', '/assets/shots/bfs-program.jpg'],
+    shots: ['/assets/shots/mfw-hero.jpg', '/assets/shots/mfw-open.jpg', '/assets/shots/bfs-hero.jpg', '/assets/shots/bfs-program.jpg', '/assets/shots/mim-hero.jpg', '/assets/shots/mim-brands.jpg'],
     ru: {
       roadmap: [{ label: 'MVP', state: 'done' }, { label: 'Демонстрация организаторам', state: 'current' }, { label: 'Использование на мероприятиях', state: 'next' }],
-      tagline: 'Неделя моды в Москве и BRICS+ Fashion Summit на одной платформе: два события, одна аудитория, один аккаунт',
+      tagline: 'Неделя моды в Москве, BRICS+ Fashion Summit и «Сделано в Москве» на одной платформе: два события, витрина брендов на весь год, один аккаунт',
       stage: 'MVP, показ организаторам',
-      card: 'Событие длится несколько дней, аудитория — годы. Один аккаунт и отдельный пропуск на Неделю моды в Москве и BRICS+ Fashion Summit, личная программа, B2B-встречи, кампании брендов и сводная аналитика. Ищу организаторов и партнёров.',
-      what: 'Платформа сохраняет аудиторию события после его окончания. Неделя моды в Москве (MFW) и BRICS+ Fashion Summit (BFS) получают общий аккаунт, личную программу, лояльность и аналитику, но остаются каждая со своим интерфейсом, регистрацией и пропуском. Бренд видит аудиторию как в собственном магазине: профиль Brand 365, подписчики, сегменты, кампании, одноразовые QR-вознаграждения. Организатору и владельцу — сводная картина в Owner Control Tower. MVP я собрал сам.',
-      who: 'Организаторам — единая витрина и сводные цифры по обоим событиям. Брендам и дизайнерам — аудитория, которая остаётся после показа. Площадкам и партнёрам — заметный вклад и путь от встречи к лиду. Гостям — один аккаунт, личная программа и цифровой пропуск. Та же основа подходит другим городам, форматам и отраслям, где событие — ядро бизнеса.',
+      card: 'Событие длится несколько дней, аудитория — годы. Три интерфейса на одной платформе: Неделя моды в Москве, BRICS+ Fashion Summit и круглогодичная витрина «Сделано в Москве». Один аккаунт, отдельный пропуск на каждое событие, личная программа, B2B-встречи, кампании брендов. Ищу организаторов, бренды и партнёров.',
+      what: 'Платформа сохраняет аудиторию события после его окончания. У неё три фирменных интерфейса и один аккаунт. Неделя моды в Москве (MFW) и BRICS+ Fashion Summit (BFS) получают общую личную программу, лояльность и аналитику, но остаются со своей регистрацией и пропуском. «Сделано в Москве» работает круглый год: подтверждённые бренды, цифровой шоурум, интерес байера, измеримый эффект. Бренд видит аудиторию как в собственном магазине: профиль Brand 365, подписчики, сегменты, кампании, одноразовые QR-вознаграждения. Организатору и владельцу — сводная картина в Owner Control Tower. MVP я собрал сам. На реальном событии его не использовали, данные в демо иллюстративные.',
+      who: 'Организаторам — единая витрина и сводные цифры по обоим событиям. Брендам и дизайнерам — аудитория, которая остаётся после показа, и подтверждённый профиль в «Сделано в Москве». Площадкам и партнёрам — заметный вклад и путь от встречи к лиду. Гостям — один аккаунт, личная программа и цифровой пропуск. Та же основа подходит другим городам, форматам и отраслям, где событие — ядро бизнеса.',
       why: 'Событие собирает людей на несколько дней, потом аудитория расходится: бренд снова ищет зрителей, организатор не видит, что происходило между сезонами, у гостя два расписания. Цифровой слой превращает разовый интерес в накопленный: от показа к показу растут подписки, лояльность и данные, а с ними — ценность для партнёров и спонсоров.',
-      how: 'Общая основа, два интерфейса. MFW ведёт зрителя: бренд, дизайнер, показ, коллекция, LIVE и повтор, подписка, вознаграждение. BFS ведёт делегата: организация, спикер, сессия, тема, встреча, подписка, лид. Аккаунт один, пропуск на каждое событие отдельный.',
-      seeking: 'Ищу организаторов и партнёров для MFW и BFS. Платформа может подойти и формату Made in Moscow, и другим событиям — я намерен предложить её и им.'
+      how: 'Общая основа, три интерфейса. MFW ведёт зрителя: бренд, дизайнер, показ, коллекция, LIVE и повтор, подписка, вознаграждение. BFS ведёт делегата: организация, спикер, сессия, тема, встреча, подписка, лид. «Сделано в Москве» работает весь год: подтверждённый бренд, цифровой шоурум, интерес байера, Brand 365, эффект. В каталоге — фильтры «Только подтверждённые» и «Готовы к байерам». Аккаунт один, пропуск на каждое событие отдельный.',
+      seeking: 'Ищу организаторов и партнёров для MFW и BFS, а также бренды и организаторов для «Сделано в Москве». Платформа может подойти и другим событиям — я намерен предложить её и им.'
     },
     en: {
       roadmap: [{ label: 'MVP', state: 'done' }, { label: 'Demo to organisers', state: 'current' }, { label: 'Use at the events', state: 'next' }],
-      tagline: 'Moscow Fashion Week and the BRICS+ Fashion Summit on one platform: two events, one audience, one account',
+      tagline: 'Moscow Fashion Week, the BRICS+ Fashion Summit and Made in Moscow on one platform: two events, a year-round brand showcase, one account',
       stage: 'MVP, demo for organisers',
-      card: 'An event lasts days; its audience lasts years. One account and a separate pass for Moscow Fashion Week and the BRICS+ Fashion Summit, a personal programme, B2B meetings, brand campaigns and consolidated analytics. I am looking for organisers and partners.',
-      what: 'The platform keeps an event’s audience after the event ends. Moscow Fashion Week (MFW) and the BRICS+ Fashion Summit (BFS) share an account, a personal programme, loyalty and analytics, yet each keeps its own interface, registration and pass. A brand sees its audience as it would in its own shop: a Brand 365 profile, followers, segments, campaigns and one-time QR rewards. Organisers and the owner get a consolidated view in the Owner Control Tower. I built the MVP myself.',
-      who: 'Organisers get a single showcase and joint figures for both events. Brands and designers get an audience that outlasts the show. Venues and partners get a visible contribution and a traceable path from meeting to lead. Guests get one account, a personal programme and a digital pass. The same foundation suits other cities, formats and industries where an event is the core of the business.',
+      card: 'An event lasts days; its audience lasts years. Three interfaces on one platform: Moscow Fashion Week, the BRICS+ Fashion Summit and Made in Moscow, a year-round brand showcase. One account, a separate pass for each event, a personal programme, B2B meetings and brand campaigns. I am looking for organisers, brands and partners.',
+      what: 'The platform keeps an event’s audience after the event ends. It has three branded interfaces and one account. Moscow Fashion Week (MFW) and the BRICS+ Fashion Summit (BFS) share a personal programme, loyalty and analytics, yet keep their own registration and pass. Made in Moscow runs all year: verified brands, a digital showroom, buyer intent and measurable effect. A brand sees its audience as it would in its own shop: a Brand 365 profile, followers, segments, campaigns and one-time QR rewards. Organisers and the owner get a consolidated view in the Owner Control Tower. I built the MVP myself. It has not been used at a real event, and the demo data is illustrative.',
+      who: 'Organisers get a single showcase and joint figures for both events. Brands and designers get an audience that outlasts the show, and a verified profile in Made in Moscow. Venues and partners get a visible contribution and a traceable path from meeting to lead. Guests get one account, a personal programme and a digital pass. The same foundation suits other cities, formats and industries where an event is the core of the business.',
       why: 'An event gathers people for a few days, then the audience disperses: the brand hunts for viewers again, the organiser cannot see what happened between seasons, the guest juggles two schedules. A digital layer turns one-off interest into accumulated interest: follows, loyalty and data grow from show to show, and with them the value to partners and sponsors.',
-      how: 'One foundation, two interfaces. MFW guides the visitor: brand, designer, show, collection, LIVE and replay, follow, reward. BFS guides the delegate: organisation, speaker, session, topic, meeting, follow, lead. One account; a separate pass for each event.',
-      seeking: 'I am looking for partners and organisers for MFW and BFS. The platform could also suit Made in Moscow, a Moscow fashion event format, and other events. I intend to offer it to them; it is not an agreement.'
+      how: 'One foundation, three interfaces. MFW guides the visitor: brand, designer, show, collection, LIVE and replay, follow, reward. BFS guides the delegate: organisation, speaker, session, topic, meeting, follow, lead. Made in Moscow runs all year: verified brand, digital showroom, buyer intent, Brand 365, effect. Its directory has “Verified only” and “Buyer ready” filters. One account; a separate pass for each event.',
+      seeking: 'I am looking for partners and organisers for MFW and BFS, and for brands and organisers for Made in Moscow. The platform could also suit other events. I intend to offer it to them; it is not an agreement.'
     }
   },
   {

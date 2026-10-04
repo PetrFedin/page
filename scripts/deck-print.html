@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Deck</title>
+<style>
+@page{size:A4; margin:16mm 15mm 18mm}
+*{box-sizing:border-box}
+html{font:11.2pt/1.5 "Iowan Old Style","Palatino Linotype",Georgia,serif; color:#17171a; -webkit-print-color-adjust:exact; print-color-adjust:exact}
+body{margin:0}
+h1,h2,h3,h4{font-weight:500; margin:0}
+.cover{min-height:255mm; display:flex; flex-direction:column; justify-content:space-between; page-break-after:always}
+.kicker{font:600 9.5pt/1.4 -apple-system,Helvetica,Arial,sans-serif; letter-spacing:.14em; text-transform:uppercase; color:#a8432a}
+.cover h1{font-size:34pt; line-height:1.12; margin:10mm 0 8mm; letter-spacing:-.01em}
+.lead{font-size:14pt; line-height:1.5; max-width:150mm; color:#3c3a37}
+.tagline{font-size:12pt; color:#6c6a66; margin-top:8mm; max-width:140mm}
+.me{font:10pt/1.5 -apple-system,Helvetica,Arial,sans-serif; color:#3c3a37; border-top:1px solid #d9d4cb; padding-top:6mm}
+.me b{display:block; font-size:13pt; font-family:"Iowan Old Style",Georgia,serif; font-weight:500; margin-bottom:1mm}
+.chain{page-break-after:always}
+.chain h2{font-size:20pt; margin-bottom:4mm}
+.chain p.hint{color:#6c6a66; margin:0 0 6mm}
+.chain ol{display:flex; flex-wrap:wrap; gap:2.5mm; padding:0; margin:0; list-style:none}
+.chain li{border:1px solid #cfc9bf; border-radius:99px; padding:2mm 5mm; font:9.5pt -apple-system,Helvetica,Arial,sans-serif}
+.block{margin:0 0 10mm}
+.block h2{font-size:19pt; margin:0 0 2.5mm; padding-bottom:2.5mm; border-bottom:1.5px solid #17171a}
+.block .note{color:#6c6a66; margin:0 0 5mm}
+.grid{display:grid; grid-template-columns:1fr 1fr; gap:4mm}
+.grid.one{grid-template-columns:1fr}
+.item{border:1px solid #e1dcd3; border-radius:3mm; padding:4mm 4.5mm; break-inside:avoid; background:#fffefc}
+.eyebrow{display:block; font:600 8pt/1.3 -apple-system,Helvetica,Arial,sans-serif; letter-spacing:.12em; text-transform:uppercase; color:#a8432a; margin-bottom:1.5mm}
+.item h3{font-size:12.5pt; line-height:1.25; margin-bottom:1.5mm}
+.item p{margin:0 0 1.5mm; font-size:10.3pt; color:#3c3a37}
+.item ul{margin:1mm 0 0; padding-left:4.5mm; font-size:10.3pt; color:#3c3a37}
+.decision{border-top:1px dashed #d9d4cb; padding-top:1.5mm; margin-top:2mm!important}
+.decision b{display:block; font:600 8pt -apple-system,Helvetica,Arial,sans-serif; letter-spacing:.1em; text-transform:uppercase; color:#a8432a}
+.gloss{break-inside:avoid; margin-top:6mm}
+.gloss h2{font-size:15pt; margin-bottom:3mm}
+.gloss dl{display:grid; grid-template-columns:34mm 1fr; gap:1.5mm 5mm; margin:0; font-size:10pt}
+.gloss dt{font-weight:600; font-family:-apple-system,Helvetica,Arial,sans-serif}
+.gloss dd{margin:0; color:#3c3a37}
+.foot{margin-top:8mm; padding-top:4mm; border-top:1px solid #d9d4cb; font:9pt/1.5 -apple-system,Helvetica,Arial,sans-serif; color:#6c6a66}
+</style>
+</head>
+<body>
+<script type="module">
+import { DECK } from '/assets/deck.js';
+import { CONTACTS } from '/assets/content.js';
+const lang = new URLSearchParams(location.search).get('lang') === 'en' ? 'en' : 'ru';
+document.documentElement.lang = lang;
+const d = DECK[lang];
+const name = lang === 'en' ? 'Petr Fedin' : 'Пётр Федин';
+const role = lang === 'en' ? 'Fashion advisory and IT products' : 'Фэшн-консалтинг и собственные IT-продукты';
+const contacts = CONTACTS.map((c) => `${c.label[lang]}: ${c.value}`).join(' · ');
+const block = (b) => `
+  <section class="block">
+    <h2>${b.title}</h2>
+    ${b.note ? `<p class="note">${b.note}</p>` : ''}
+    <div class="grid${b.items.length < 3 || b.id === 'requests' ? '' : ''}${b.id === 'outcome' ? ' one' : ''}">
+      ${b.items.map((it) => `
+        <article class="item">
+          ${it.eyebrow ? `<span class="eyebrow">${it.eyebrow}</span>` : ''}
+          <h3>${it.title}</h3>
+          ${it.body ? `<p>${it.body}</p>` : ''}
+          ${it.list ? `<ul>${it.list.map((l) => `<li>${l}</li>`).join('')}</ul>` : ''}
+          ${it.decision ? `<p class="decision"><b>${d.decisionLabel}</b>${it.decision}</p>` : ''}
+        </article>`).join('')}
+    </div>
+    ${b.after ? `<p class="note" style="margin-top:4mm">${b.after}</p>` : ''}
+  </section>`;
+document.body.innerHTML = `
+  <section class="cover">
+    <div>
+      <div class="kicker">${d.kicker}</div>
+      <h1>${d.title}</h1>
+      <p class="lead">${d.lead}</p>
+      <p class="tagline">${d.tagline}</p>
+    </div>
+    <div class="me"><b>${name}</b>${role}<br>${contacts}<br>syntha.pro</div>
+  </section>
+  <section class="chain">
+    <h2>${d.chainTitle}</h2>
+    ${d.chainHint ? `<p class="hint">${d.chainHint}</p>` : ''}
+    <ol>${d.chain.map((c) => `<li>${c}</li>`).join('')}</ol>
+  </section>
+  ${d.blocks.map(block).join('')}
+  ${d.glossary ? `<section class="gloss"><h2>${d.glossaryTitle}</h2><dl>${d.glossary.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('')}</dl></section>` : ''}
+  <p class="foot">${d.footnote} · ${name} · syntha.pro</p>`;
+document.documentElement.dataset.ready = '1';
+</script>
+</body>
+</html>

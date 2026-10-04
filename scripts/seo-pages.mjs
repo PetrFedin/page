@@ -16,7 +16,7 @@ const PROJECTS = [
   ['syntha', 'Syntha', 'BusinessApplication'],
   ['chatx', 'ChatX', 'CommunicationApplication'],
   ['renova', 'Renova', 'BusinessApplication'],
-  ['mfw', 'MFW+BFS', 'BusinessApplication'],
+  ['mfw', 'MFW+BFS+Made in Moscow', 'BusinessApplication'],
   ['promomed', 'Promomed + «СОСТОЯНИЕ»', 'BusinessApplication']
 ];
 const attr = (html, re) => (html.match(re) || [])[1] || '';
