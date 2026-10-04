@@ -709,3 +709,126 @@ Generate a versioned print/PDF-friendly snapshot:
 
 **Commercial framing:** enterprise buyers can evaluate technical maturity and risk without relying only on marketing language, which increases credibility and sales value.
 
+## Moat wave — RFP and security-questionnaire response engine
+
+This wave turns the Trust Center, Proof Manifest and project registry into a sales-operations engine that can materially reduce enterprise procurement friction.
+
+### Canonical Answer Registry — ADOPT
+
+Create structured, versioned answers for recurring topics:
+
+- architecture;
+- hosting;
+- authentication;
+- data storage;
+- encryption;
+- backup/recovery;
+- incident handling;
+- privacy;
+- AI governance;
+- integrations;
+- accessibility;
+- support;
+- deployment;
+- product status;
+- commercial scope.
+
+Each answer stores:
+
+- question/topic key;
+- approved text;
+- applicable projects;
+- evidence/proof links;
+- owner;
+- verified date;
+- expiry/review date;
+- confidentiality level.
+
+### RFP / Questionnaire Intake — ADOPT
+
+Accept:
+
+- XLSX;
+- CSV;
+- DOCX/PDF extraction;
+- structured form;
+- pasted questions.
+
+Flow:
+
+document -> question extraction -> dedup/topic mapping -> candidate answer -> evidence links -> reviewer -> approved response -> export
+
+No generated answer can be marked final without evidence/review.
+
+### Evidence-grounded Drafting — ADAPT
+
+Use the same source hierarchy as Trust Center:
+
+canonical registry -> project proof -> approved technical docs -> draft answer
+
+AI may rewrite for question wording, but cannot invent certifications, production state or provider support.
+
+### OSCAL-inspired Control Mapping — ADAPT/REFERENCE
+
+Reference:
+
+https://github.com/usnistgov/OSCAL
+
+Use OSCAL concepts as inspiration for structured control/evidence mapping where useful:
+
+control/topic -> implementation statement -> evidence -> status -> responsible project/system
+
+Do not claim NIST/OSCAL compliance merely because the schema concepts are used.
+
+### Answer Reuse / Drift Detection — ADOPT
+
+When project facts change:
+
+source proof changed -> affected approved answers -> review queue
+
+This prevents old procurement answers from surviving after architecture/deployment changes.
+
+### Proposal / RFP Export — ADOPT
+
+Generate:
+
+- completed spreadsheet;
+- response document;
+- technical annex;
+- evidence appendix;
+- source/version manifest.
+
+Every export records:
+
+- request ID/version;
+- registry version;
+- source Git SHA;
+- generated_at;
+- reviewer.
+
+### Bid / No-bid Intelligence — ADOPT
+
+Before investing in a response, classify explicit requirement gaps:
+
+- supported;
+- supported with configuration;
+- roadmap;
+- unsupported;
+- requires paid/external integration;
+- prohibited/unsafe claim.
+
+This is a transparent requirement matrix, not an AI win-probability score.
+
+### Additional acceptance
+
+- answers link to current proof/evidence;
+- unsupported certifications are never fabricated;
+- stale source triggers answer review;
+- confidential answers are excluded from public Page build;
+- exported response is reproducible from registry/version;
+- human approval remains mandatory for external submission.
+
+**Sequencing:** Proof Manifest + Trust Center -> answer registry -> questionnaire intake -> evidence-grounded drafting -> drift detection -> export.
+
+**Commercial framing:** reduces enterprise sales cycle and turns technical maturity into a repeatable procurement advantage.
+
