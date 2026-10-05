@@ -244,6 +244,60 @@ function createFollowUp(productId=''){
   const p=state.products.find(x=>x.id===productId);state.followUps.unshift({id:'FU-'+Date.now().toString().slice(-6),buyer:state.buyerProfile?.name||'Buyer',productId,reason:p?'Replenishment signal: '+p.name:'Buyer follow-up',due:new Date(Date.now()+86400000).toISOString().slice(0,10),status:'open'});save();toast(t('createFollowUp'));if(state.page==='admin')renderAdmin()
 }
 function completeFollowUp(id){const x=state.followUps.find(x=>x.id===id);if(x){x.status='done';x.doneAt=new Date().toISOString();save();toast(t('taskDone'));renderAdmin()}}
+function invoiceForOrder(orderId){return(state.invoices||[]).find(x=>x.orderId===orderId)}
+function shipmentForOrder(orderId){return(state.shipments||[]).find(x=>x.orderId===orderId)}
+function createFollowUpForOrder(order,reason){
+  if(!order)return;
+  state.followUps=state.followUps||[];
+  if(state.followUps.some(x=>x.orderId===order.id&&x.status==='open'&&x.reason===reason))return;
+  state.followUps.unshift({id:'FU-'+Date.now().toString().slice(-6),orderId:order.id,buyer:order.client,reason,due:new Date(Date.now()+86400000).toISOString().slice(0,10),status:'open'})
+}
+function approveOrderCycle(id){
+  const o=state.orders.find(x=>x.id===id);if(!o)return;
+  o.approvedAt=new Date().toISOString();o.status='confirmed';o.updated=o.approvedAt;
+  o.messages.push({from:'brand',text:'Order approved for commercial processing.',at:o.updated});o.unread=true;
+  createFollowUpForOrder(o,'Deposit payment follow-up');save();toast('Order approved');renderOrders();if(state.page==='admin')renderAdmin()
+}
+function markDepositPaidForOrder(id){
+  const o=state.orders.find(x=>x.id===id),inv=invoiceForOrder(id);if(!o||!inv)return;
+  inv.status='paid';inv.paidAt=new Date().toISOString();o.depositPaidAt=inv.paidAt;
+  if(['submitted','inReview','confirmed'].includes(o.status))o.status='inProduction';
+  o.updated=inv.paidAt;o.messages.push({from:'brand',text:'Deposit received. Order released to production.',at:o.updated});o.unread=true;
+  createFollowUpForOrder(o,'Shipment planning');save();toast('Deposit paid');renderOrders();if(state.page==='portal')renderPortal()
+}
+function createShipmentForOrder(id){
+  const o=state.orders.find(x=>x.id===id);if(!o)return;
+  let sh=shipmentForOrder(id);
+  if(!sh){
+    sh={id:'SHP-'+Date.now().toString().slice(-6),orderId:id,carrier:'DHL Express · Demo',tracking:'MP'+Date.now().toString().slice(-9),created:new Date().toISOString(),status:'shipped'};
+    state.shipments.unshift(sh)
+  }
+  o.status='shipped';o.shippedAt=sh.created;o.updated=sh.created;
+  o.messages.push({from:'brand',text:'Shipment created · '+sh.tracking,at:o.updated});o.unread=true;
+  createFollowUpForOrder(o,'Post-delivery sell-through check');save();toast('Shipment created');renderOrders()
+}
+function reorderFromOrder(id){
+  const o=state.orders.find(x=>x.id===id);if(!o)return;
+  state.draft={};
+  for(const l of o.lines){
+    const p=state.products.find(x=>x.id===l.productId);if(!p)continue;
+    const mult=sellThroughFor(p.id)>=75?1.25:1;
+    const q=Math.max(1,Math.round(l.qty*mult));
+    state.draft[l.productId]??={};state.draft[l.productId][l.color]??={};state.draft[l.productId][l.color][l.size]=q
+  }
+  state.draftMeta={delivery:'',notes:'Reorder cycle from '+o.id+' · sell-through adjusted',client:o.client};
+  delete state.draftOrderId;recordIntent('reorderCycle','',orderValue(o));save();toast('Reorder prepared');setRole('buyer');go('quick')
+}
+function cycleState(o){
+  const r=reservationTotals(o.id),inv=invoiceForOrder(o.id),sh=shipmentForOrder(o.id);
+  return{
+    submitted:true,
+    reserved:r.total>0&&r.shortfall===0,
+    approved:!!o.approvedAt||['confirmed','inProduction','shipped','completed'].includes(o.status),
+    deposit:inv?.status==='paid'||!!o.depositPaidAt,
+    shipment:!!sh||['shipped','completed'].includes(o.status)
+  }
+}
 function load(){try{const s=JSON.parse(localStorage.getItem('mpShowroomV5'));return s?{...defaultState(),...s}:defaultState()}catch(e){return defaultState()}}
 function save(){localStorage.setItem('mpShowroomV5',JSON.stringify(state))}
 function money(v){return new Intl.NumberFormat(state.lang==='it'?'it-IT':state.lang==='ru'?'ru-RU':'en-GB',{style:'currency',currency:'EUR',maximumFractionDigits:0}).format(v||0)}
