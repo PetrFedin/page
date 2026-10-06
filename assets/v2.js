@@ -328,8 +328,8 @@ function renderStakeholderLens(lang, $, projects) {
     ? 'Decision economics. Working products. A verifiable next step.'
     : 'Экономика решений. Рабочие продукты. Проверяемый следующий шаг.';
   $('#hero-lead').textContent = en
-    ? 'Advisory for business decisions and a portfolio of products that can be examined by maturity, pilot path and evidence — before a larger commitment is made.'
-    : 'Консалтинг для бизнес-решений и портфель продуктов, которые можно оценить по зрелости, пути к пилоту и подтверждениям — до крупного обязательства.';
+    ? 'I work at the intersection of commercial analytics, operating models and product development: from margin, inventory and working capital to a digital product, pilot and rollout.'
+    : 'Работаю на стыке коммерческой аналитики, операционной модели и разработки: от маржи, запасов и оборотного капитала до цифрового продукта, пилота и внедрения.';
 
   let proof = $('#v2-proofbar');
   if (!proof) {
@@ -506,7 +506,7 @@ export function renderV2(lang, projects = []) {
     ['02','For your product','Products & development','Own products, working prototypes and formats for building together.','Explore the portfolio','#projects'],
     ['03','For a shared opportunity','Partnership','Pilots, strategic collaboration and investment discussions.','Explore ways to work together','#investors']
   ] : [
-    ['01','Для вашего бизнеса','Консалтинг','Закупка, прибыльность, оборотный капитал и управленческие решения.','Выбрать формат работы','#consulting'],
+    ['01','Для бизнеса','Консалтинг','Маржа, закупка, запасы, оборотный капитал и решения, которые можно проверить на данных.','Выбрать формат работы','#consulting'],
     ['02','Для продукта','Продукты и разработка','Собственные цифровые продукты: от рабочего прототипа до пилота, внедрения и партнёрской модели.','Посмотреть портфель','#v2-portfolio'],
     ['03','Для совместного развития','Партнёрство','Пилоты, совместный выход на рынок, стратегическое сотрудничество и инвестиционный диалог.','Посмотреть варианты участия','#investors']
   ];
