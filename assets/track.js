@@ -24,10 +24,29 @@
   window.__vid = vid; window.__sid = sid;
 
   const cut = (v, n) => String(v ?? '').replace(/\s+/g, ' ').trim().slice(0, n);
+
+  /* Последняя открытая публикация — контекст атрибуции внутри текущей сессии.
+     Это не доказывает причинность: мы фиксируем только последовательность
+     «читал материал → затем сделал действие». */
+  let contentContext = null;
+  try { contentContext = JSON.parse(sessionStorage.getItem('editorial_ctx') || 'null'); } catch { contentContext = null; }
+  window.setContentContext = (ctx) => {
+    if (!ctx?.date) { contentContext = null; try { sessionStorage.removeItem('editorial_ctx'); } catch {} return; }
+    contentContext = {
+      date: cut(ctx.date, 10),
+      tag: cut(ctx.tag, 32),
+      source: cut(ctx.source, 120),
+      title: cut(ctx.title, 160)
+    };
+    try { sessionStorage.setItem('editorial_ctx', JSON.stringify(contentContext)); } catch {}
+  };
+
   let queue = [];
   const started = Date.now();
   const track = (type, target = '', label = '', data = null) => {
-    queue.push({ t: Date.now(), type, path: location.pathname + location.hash, target: cut(target, 120), label: cut(label, 200), data });
+    let payload = data && typeof data === 'object' && !Array.isArray(data) ? { ...data } : (data == null ? null : { value: data });
+    if (contentContext?.date) payload = { ...(payload || {}), content: contentContext };
+    queue.push({ t: Date.now(), type, path: location.pathname + location.hash, target: cut(target, 120), label: cut(label, 200), data: payload });
     if (queue.length >= 15) flush();
   };
   function flush() {
