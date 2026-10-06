@@ -805,3 +805,154 @@ Examples:
 
 **Strategic outcome:** partners can build trust with the portfolio over time, but each product preserves the domain-specific meaning of that trust. This creates a networked ecosystem without creating a dangerous or meaningless global reputation system.
 
+
+
+## 22. Institutional Distribution and Portfolio Commercial Fabric
+
+The portfolio now needs a common commercial/distribution layer that helps institutions adopt multiple products without collapsing their domain authorities.
+
+### 22.1 Enterprise Account Graph — ADOPT
+
+Maintain a portfolio-level commercial graph:
+
+`organisation -> contacts -> products considered -> pilots -> integrations -> credentials -> contracts -> renewals -> expansion`
+
+This is commercial relationship data only. Domain product data remains in the owning application.
+
+### 22.2 Cross-product Solution Bundles — ADOPT
+
+Package combinations only where there is a credible buyer journey, for example:
+
+- Fashion Operations: Synth-v2 + MFW professional network + Page trust/verification;
+- Cultural Infrastructure: Antiqua + Moscow destination distribution;
+- Enterprise Evidence: ChatX receipts + Digital Legal readiness + Page verification;
+- Physical-Digital Commerce: FLASHIN + IGRA partner distribution;
+- Property Trust: Renova + Page trust/verification.
+
+Bundles share commercial packaging and SSO/integration where appropriate, not databases.
+
+### 22.3 Institutional Procurement Pack — ADOPT
+
+For each product/bundle provide a standard procurement surface:
+
+- product scope;
+- deployment model;
+- security/privacy summary;
+- API/integration model;
+- evidence/standard registry;
+- implementation plan;
+- SLA/support model;
+- pricing unit;
+- pilot acceptance criteria;
+- reference architecture;
+- data exit/export path.
+
+### 22.4 Pilot-to-Scale Contract — ADOPT
+
+Every enterprise pilot should define before launch:
+
+- buyer problem;
+- scope;
+- users/data;
+- integration;
+- success metrics;
+- acceptance evidence;
+- go/no-go date;
+- scale conditions;
+- commercial conversion path.
+
+This prevents "successful demo" from being mistaken for a successful enterprise pilot.
+
+### 22.5 Reference Architecture Library — ADOPT
+
+Publish approved patterns for:
+
+- standalone SaaS;
+- private/enterprise deployment;
+- embedded/OEM;
+- API-only;
+- white-label;
+- partner marketplace;
+- federated data contribution.
+
+Each pattern specifies authority boundaries and data flows.
+
+### 22.6 Partner Programme — ADOPT
+
+Portfolio-level partner classes:
+
+- implementation partner;
+- integration partner;
+- data/content partner;
+- distribution/referral partner;
+- institutional publisher;
+- certified tool/provider.
+
+Product-side certification still defines technical/domain eligibility.
+
+### 22.7 Marketplace / Revenue-share Governance — ADOPT
+
+Where products use revenue share, define common controls:
+
+- partner identity;
+- contract/version;
+- attribution source;
+- transaction basis;
+- refund/reversal handling;
+- statement;
+- dispute;
+- payout status.
+
+The Fabric does not calculate domain transaction truth; it standardizes governance around it.
+
+### 22.8 Portfolio Usage / Expansion Intelligence — ADOPT
+
+Track institution-level commercial signals such as:
+
+- activated product;
+- active integration;
+- credential status;
+- API usage band;
+- pilot completion;
+- renewal state;
+- cross-product opportunity.
+
+Do not centralize sensitive domain events just to build a portfolio dashboard.
+
+### 22.9 Institutional Reference Programme — CONDITIONAL
+
+With customer permission, create reference tiers:
+
+- private reference;
+- reference call;
+- public case study;
+- verified integration reference.
+
+No customer/logo claim without explicit consent.
+
+### 22.10 Data Exit and Anti-hostage Principle — REQUIRED
+
+Every enterprise product must document:
+
+- exportable business data;
+- evidence/credential export;
+- retention after termination;
+- verification of historical records;
+- deletion policy where applicable.
+
+The portfolio should create high switching cost through accumulated value and integrations, not by trapping customer data.
+
+### 22.11 Active portfolio scope
+
+Current strategic development scope excludes legacy/non-priority repositories explicitly set aside by portfolio governance. Cross-product Fabric documents should reference only products that are actively maintained for this strategy cycle.
+
+### 22.12 Acceptance
+
+- portfolio commercial graph never becomes domain source-of-truth;
+- bundle packaging does not imply shared database;
+- pilot acceptance is measurable before implementation;
+- partner status cannot exceed product-side certification scope;
+- every enterprise product has a documented exit/export path;
+- public references require customer consent.
+
+**Strategic outcome:** the portfolio becomes easier to buy, pilot, integrate and expand across institutions while each product preserves its own authority, moat and product identity.
