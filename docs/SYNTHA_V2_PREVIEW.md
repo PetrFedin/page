@@ -224,3 +224,36 @@ Current working commercial hypotheses:
 - Renova: consumer access, B2B licence and service/transaction mechanics remain hypotheses until a real closed test.
 - MFW/BFS/Made in Moscow: event/season licence + implementation/operations + annual layer; brand modules and white-label remain hypotheses until a real event pilot.
 - Promomed/SOSTOYANIE: event licence + implementation/support; year-round community, partner modules and white-label remain hypotheses until pilot validation.
+
+
+## Commercial Proof / Investor Readiness v2.8
+
+Each published product now separates:
+- what is evidenced now;
+- what is not yet evidenced;
+- the primary commercial/operating risk;
+- how the next pilot should reduce that risk;
+- what measurable evidence the pilot must produce;
+- the decision gate after the pilot: SCALE / REVISE / STOP.
+
+This is intentionally stricter than a marketing page. A product does not become
+"ready" merely because features exist; the next external pilot has to produce
+evidence that supports a concrete continuation decision.
+
+## Editorial publishing SLA
+
+The publication system now uses the D1 posts calendar as the authoritative
+publishing path for new scheduled content. The editorial minimum is:
+
+- at least 1 project/business article per day;
+- at least 1 external press analysis per day;
+- both scheduled to website and Telegram;
+- an analysis only counts if it includes a named source and a real source URL.
+
+The public feed reads published D1 posts via /api/posts. The previous local
+LaunchAgent queue is legacy and should remain disabled to avoid duplicate
+Telegram publication.
+
+Source-level checks:
+- npm run check:v2
+- npm run check:editorial
