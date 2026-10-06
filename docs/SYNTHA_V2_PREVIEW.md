@@ -49,3 +49,26 @@ No merge into main or domain switch is performed by this change.
 
 Baseline V1 commit: `9e2dca0e0c0e681e82a8c8bdae4720fedc84c018`.
 No production rollback is needed while production remains on this baseline.
+
+
+## Decision layer v2.1
+
+The preview now includes an isolated decision layer between the initial route cards
+and the contact form. It supports four concrete commercial scenarios:
+
+- advisory / economics and management;
+- product pilot / one measurable Golden Path;
+- partnership / shared asset and commercial model;
+- investment / milestone-capital-evidence discussion.
+
+Each scenario shows: best-fit conditions, minimum inputs, expected outputs and a
+direct "prepare enquiry" action. That action preselects the relevant contact topic,
+adds a concise browser-side message prompt and scrolls to the form.
+
+A new browser-only text brief download is available from the contact form. It does
+not send or persist data; it only exports the currently entered preview fields as a
+local .txt file. This keeps V2 safe to demonstrate without production bindings.
+
+The original portfolio, consulting, partnership, news, contact and project
+sections are still present. V2 remains additive: no production V1 route or domain
+is changed by this iteration.
