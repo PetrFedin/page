@@ -555,7 +555,7 @@ function client() {
   /* ---------- «Календарь» публикаций ---------- */
   const STATUS = { draft: 'Черновик', scheduled: 'Запланирован', publishing: 'Публикуется', published: 'Опубликован', failed: 'Не вышел' };
   const TAGS = [['analysis', 'Разбор'], ['market', 'Рынок'], ['product', 'Продукт'], ['syntha', 'Syntha'], ['chatx', 'ChatX'], ['renova', 'Renova'], ['mfw', 'MFW+BFS'], ['promomed', 'Promomed'], ['mission', 'Позиция'], ['investors', 'Инвесторам'], ['press', 'Пресса']];
-  const cal = { y: new Date().getFullYear(), m: new Date().getMonth(), posts: null, statics: [], channelReady: true, cronKey: false, edit: null, busy: false };
+  const cal = { y: new Date().getFullYear(), m: new Date().getMonth(), posts: null, statics: [], coverage: [], policy: null, channelReady: true, cronKey: false, edit: null, busy: false };
   const pad = (n) => String(n).padStart(2, '0');
   const ymd = (d) => d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
   const localInput = (ms) => { const d = new Date(ms); return ymd(d) + 'T' + pad(d.getHours()) + ':' + pad(d.getMinutes()); };
@@ -563,7 +563,7 @@ function client() {
   async function loadCal() {
     try {
       const r = await api('all=1', '/api/posts');
-      cal.posts = r.posts || []; cal.channelReady = r.channelReady; cal.cronKey = r.cronKey;
+      cal.posts = r.posts || []; cal.coverage = r.editorialCoverage || []; cal.policy = r.editorialPolicy || null; cal.channelReady = r.channelReady; cal.cronKey = r.cronKey;
     } catch (e) { cal.posts = []; cal.error = e.message; }
     if (!cal.statics.length) {
       try { const m = await import('/assets/news.js'); cal.statics = m.NEWS.map((p) => ({ date: p.date, title: p.ru.title, tag: p.tag })); } catch { /* не критично */ }
@@ -592,10 +592,18 @@ function client() {
     const mn = first.toLocaleDateString('ru-RU', { month: 'long', year: 'numeric' }).replace(' г.', '');
     const monthName = mn.charAt(0).toUpperCase() + mn.slice(1);
     const upcoming = cal.posts.filter((p) => p.status === 'scheduled').sort((a, b) => a.publish_at - b.publish_at);
+    const coverageByDay = Object.fromEntries((cal.coverage || []).map((x) => [x.date, x]));
+    const todayCoverage = coverageByDay[todayKey] || { project: 0, analysis: 0, synced: 0, total: 0, complete: false, missing: ['project','analysis','site+telegram'] };
+    const sla = '<div class="box"><h2>Редакционный минимум на день</h2><p class="sub">Не меньше двух материалов: один о проекте и один подробный разбор статьи из российской или мировой прессы. Оба должны выйти на сайте и в @syntha_pro.</p>'
+      + '<div class="lgd"><span class="pc ' + (todayCoverage.project ? 'published' : 'failed') + '">Проект ' + (todayCoverage.project ? '✓' : '—') + '</span>'
+      + '<span class="pc ' + (todayCoverage.analysis ? 'published' : 'failed') + '">Аналитика ' + (todayCoverage.analysis ? '✓' : '—') + '</span>'
+      + '<span class="pc ' + (todayCoverage.synced >= 2 ? 'published' : 'failed') + '">Сайт + Telegram ' + (todayCoverage.synced >= 2 ? '✓' : '—') + '</span></div>'
+      + '<p class="hint">' + (todayCoverage.complete ? 'Минимум на сегодня закрыт.' : 'Сегодня минимум ещё не закрыт. Отсутствует: ' + esc((todayCoverage.missing || []).map((x) => ({project:'публикация о проекте',analysis:'разбор внешней статьи','site+telegram':'две синхронные публикации сайт + Telegram'}[x] || x)).join(', ')) + '.') + '</p></div>';
     const warn = [];
     if (!cal.channelReady) warn.push('Telegram-канал ещё не подключён: посты с галочкой «Telegram» не уйдут, пока не заданы секреты CHANNEL_BOT_TOKEN и TELEGRAM_CHANNEL.');
     if (!cal.cronKey) warn.push('Автоматический таймер ещё не включён: запланированные посты выйдут при ближайшем визите на сайт или когда вы откроете этот календарь. Чтобы они выходили точно по времени, подключите таймер.');
     return (warn.length ? '<div class="note warn">' + warn.map(esc).join('<br>') + '</div>' : '')
+      + sla
       + '<div class="cal-head"><button class="btn" data-calnav="-1">←</button><h2>' + esc(monthName) + '</h2><button class="btn" data-calnav="1">→</button><button class="btn" data-calnav="0">Сегодня</button><div class="grow"></div><button class="btn pri" data-newday="' + todayKey + '">+ Новая публикация</button></div>'
       + '<div class="cal">' + ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'].map((d) => '<div class="dow">' + d + '</div>').join('') + cells + '</div>'
       + '<div class="lgd"><span class="pc draft">Черновик</span><span class="pc scheduled">Запланирован</span><span class="pc published">Опубликован</span><span class="pc failed">Не вышел</span><span class="pc static">Уже на сайте</span></div>'
@@ -624,7 +632,8 @@ function client() {
       + '<label class="fld"><span>Text (English)</span><textarea name="en_body"' + (pub ? ' disabled' : '') + '>' + v('en_body') + '</textarea></label>'
       + '<label class="fld"><span>Tags</span><input name="en_tags" value="' + tags('en_tags') + '"' + (pub ? ' disabled' : '') + '></label></details>'
       + '<details' + (src.outlet ? ' open' : '') + '><summary style="cursor:pointer;margin-bottom:10px">Источник (для разборов чужих материалов)</summary><div class="frow">'
-      + '<label class="fld"><span>Издание</span><input name="s_outlet" value="' + esc(src.outlet || '') + '"></label><label class="fld"><span>Оригинальное название</span><input name="s_original" value="' + esc(src.original || '') + '"></label></div></details>'
+      + '<label class="fld"><span>Издание</span><input name="s_outlet" value="' + esc(src.outlet || '') + '"></label><label class="fld"><span>Оригинальное название</span><input name="s_original" value="' + esc(src.original || '') + '"></label></div>'
+      + '<label class="fld"><span>Ссылка на исходный материал</span><input type="url" name="s_url" value="' + esc(src.url || '') + '" placeholder="https://…"></label></details>'
       + '<div class="acts">' + (pub ? '' : '<button class="btn" type="button" data-save="draft">Сохранить черновик</button><button class="btn pri" type="button" data-save="schedule">Запланировать</button><button class="btn" type="button" data-save="now">Опубликовать сейчас</button>')
       + (p.id ? '<button class="btn bad" type="button" data-save="delete">Удалить</button>' : '') + '<div class="grow"></div><button class="btn" type="button" data-save="close">Закрыть</button></div></form></div>';
   }
@@ -650,7 +659,7 @@ function client() {
       site: fd.get('site') === 'on', tg: fd.get('tg') === 'on',
       ru_title: fd.get('ru_title'), ru_body: fd.get('ru_body'), ru_tags: fd.get('ru_tags'),
       en_title: fd.get('en_title'), en_body: fd.get('en_body'), en_tags: fd.get('en_tags'),
-      source: { outlet: fd.get('s_outlet'), original: fd.get('s_original') }
+      source: { outlet: fd.get('s_outlet'), original: fd.get('s_original'), url: fd.get('s_url') }
     };
     if ((action === 'schedule' || action === 'now') && (!String(body.ru_title).trim() || !String(body.ru_body).trim())) { alert('Заполните русский заголовок и текст.'); return; }
     if (!body.site && !body.tg && action !== 'draft') { alert('Выберите, куда публиковать: сайт, Telegram или оба.'); return; }
