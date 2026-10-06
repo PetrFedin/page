@@ -542,7 +542,7 @@ function render() {
   if (pnModal.open) openProjectNews(pnModal.dataset.project);
   if (infoModal.open) showInfo(infoModal.dataset.view ?? '');
   if (compareModal.open) openCompare(compareModal.dataset.project);
-  renderV2(lang);
+  renderV2(lang, PROJECTS);
 }
 
 /* Язык — это адрес: русская страница «/», английская «/en/». Переключатель ведёт на двойника,
