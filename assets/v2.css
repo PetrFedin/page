@@ -1,0 +1,31 @@
+/* V2 keeps the original palette, serif typography, photographs and sections. */
+#v2-banner{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:9px 24px;background:var(--accent-soft);color:var(--ink);font-size:12px;border-bottom:1px solid var(--line)}
+#v2-banner a{color:inherit;text-underline-offset:3px}
+html[data-preview="v2"] #clock,html[data-preview="v2"] .switches .home{display:none}
+html[data-preview="v2"] .hero{padding-top:52px;gap:40px}
+html[data-preview="v2"] #hero-name{font-size:clamp(25px,2.6vw,38px);margin-bottom:14px}
+#v2-headline{font-size:clamp(32px,4.1vw,58px);line-height:1.08;max-width:17ch;margin:0 0 24px;letter-spacing:-.035em}
+html[data-preview="v2"] .hero .lead{font-size:18px;line-height:1.6;max-width:54ch}
+html[data-preview="v2"] .hero .bio{font-size:14px;line-height:1.7;margin-top:20px}
+html[data-preview="v2"] .hero-cta{gap:9px;margin-top:26px}
+html[data-preview="v2"] .hero-cta #cta-contact{display:inline-flex;order:-1;background:var(--ink);color:var(--bg)}
+html[data-preview="v2"] .hero-cta #cta-investors{display:none}
+html[data-preview="v2"] .hero-cta .btn{font-size:14px;min-height:46px}
+.v2-routes{padding-top:8px;padding-bottom:42px}
+.v2-routes>.eyebrow{margin-bottom:16px}
+.v2-route-grid,.v2-step-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.v2-route{display:flex;flex-direction:column;gap:12px;padding:24px;border:1px solid var(--line);border-radius:var(--radius);color:var(--ink);text-decoration:none;background:var(--panel);transition:border-color .2s}
+.v2-route:hover{border-color:var(--accent)}
+.v2-route:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+.v2-route h3{font-size:25px}.v2-route p{font-size:15px;line-height:1.65;color:var(--muted)}
+.v2-route-meta{font-size:11px;color:var(--accent);text-transform:uppercase;letter-spacing:.08em}
+.v2-route-action{font-size:13px;color:var(--accent);margin-top:auto;padding-top:10px}
+.v2-steps{padding-top:35px;padding-bottom:40px}.v2-step-grid article{padding:20px 0;border-top:1px solid var(--line)}
+.v2-step-grid h3{font-size:23px;margin:10px 0}.v2-step-grid p{color:var(--muted);font-size:15px}
+.v2-preview-note{padding:14px;background:var(--accent-soft);border-radius:10px;font-size:13px;line-height:1.6;margin-bottom:16px}
+html[data-preview="v2"] .cta-fab{width:auto;border-radius:999px;padding:0 20px;font-size:14px;min-height:48px}
+html[data-preview="v2"] .top-news{display:none}
+@media(min-width:1100px){html[data-preview="v2"] .nav:not(.open){display:flex!important;position:static;gap:18px;flex:1}html[data-preview="v2"] .nav a{font-size:13px;white-space:nowrap}html[data-preview="v2"] .burger{display:none!important}html[data-preview="v2"] .nav [data-nav="home"],html[data-preview="v2"] .nav [data-nav="media"]{display:none}}
+@media(max-width:759px){html[data-preview="v2"] .hero{padding-top:28px;gap:16px}#v2-headline{font-size:34px;max-width:20ch;margin-top:12px}html[data-preview="v2"] .hero .lead{font-size:17px}html[data-preview="v2"] #hero-name{font-size:29px}.v2-route-grid,.v2-step-grid{grid-template-columns:1fr;gap:12px}.v2-route{padding:20px}.v2-route h3{font-size:25px}.v2-routes{padding-bottom:25px}#v2-banner{padding:8px 16px;font-size:11px}.v2-steps{padding-top:20px}.v2-step-grid article{padding:14px 0}html[data-preview="v2"] .hero-cta #cta-contact{flex-basis:100%;justify-content:center}html[data-preview="v2"] .switches{margin-left:auto}}
+@media(prefers-reduced-motion:reduce){.v2-route{transition:none}}
+html[data-preview="v2"] .opt-row[hidden] { display: none !important; }
