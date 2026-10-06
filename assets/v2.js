@@ -402,6 +402,65 @@ function renderStakeholderLens(lang, $, projects) {
   renderRole(data.some((x)=>x.id===saved)?saved:'client');
 }
 
+
+/* V2.4 executive evidence layer */
+const V2_EVIDENCE = {"syntha":{"ru":{"problem":"Разрозненные данные о продукте, заказе, производстве и марже требуют ручной сверки и тормозят решения.","product":"Операционная система бренда: продукт, showroom, заказ, производство, себестоимость и маржа на одной модели данных.","evidence":"Рабочая система; ключевые контуры собраны. Публично заявлена подготовка end-to-end проверки перед пилотом.","next":"Завершить сквозную проверку и запустить пилот с первым брендом на реальном сезоне.","path":"Пилот → зафиксированные метрики → условия внедрения / go-to-market.","ask":"Бренд или магазин для пилота; партнёр по выходу на рынок."},"en":{"problem":"Product, order, production and margin data are fragmented and require manual reconciliation.","product":"An operating system for brands: product, showroom, orders, production, cost and margin on one data model.","evidence":"A working system is built; the key flows exist. The public dossier states that end-to-end verification is being completed before a pilot.","next":"Finish end-to-end verification and run a first real-season pilot with a brand.","path":"Pilot → agreed metrics → rollout / go-to-market terms.","ask":"A brand or retailer for the pilot; a go-to-market partner."}},"chatx":{"ru":{"problem":"Решения, задачи, встречи и знания распределены по разным сервисам и теряют контекст.","product":"Корпоративная рабочая среда: коммуникация, задачи, календарь, звонки, вики, оргструктура и интеграции.","evidence":"Рабочий прототип: основные модули собраны; в работе — проверки реальных провайдеров и подготовка пилота.","next":"Пилот внутри компании-заказчика и проверка реальных интеграций.","path":"Пилот компании → подтверждение сценариев → условия внедрения.","ask":"Компания для пилота; партнёр по внедрению."},"en":{"problem":"Decisions, tasks, meetings and knowledge are split across services and lose context.","product":"A company workspace for communication, tasks, calendar, calls, wiki, org structure and integrations.","evidence":"Working prototype; core modules are built. Real-provider verification and a company pilot are the next steps.","next":"Run a company pilot and complete real integration checks.","path":"Company pilot → validated workflows → rollout terms.","ask":"A company for the pilot; an implementation partner."}},"renova":{"ru":{"problem":"Ремонт ведут через переписку и чеки; смета, этапы, платежи и ответственность расходятся.","product":"Мобильное управление ремонтом: смета, этапы с приёмкой, платежи, закупки, документы и роли сторон.","evidence":"MVP собран; публично указана подготовка закрытого теста и последующих боевых платежей.","next":"Закрытый тест на реальных объектах.","path":"Закрытый тест → доказательство сценария → модель выхода на рынок.","ask":"Заказчики, мастера и бригады для теста; партнёры для развития."},"en":{"problem":"Renovations run through chats and receipts, while estimates, stages, payments and accountability drift apart.","product":"A mobile renovation workflow with estimates, signed stages, payments, purchasing, documents and role-based views.","evidence":"The MVP is built; the public dossier says a closed test is being prepared before live payments and launch work.","next":"Run a closed test on real renovation projects.","path":"Closed test → validated workflow → market model.","ask":"Clients, contractors and crews for testing; partners for growth."}},"mfw":{"ru":{"problem":"Событие заканчивается, а аудитория, контакты брендов и накопленная ценность распадаются между сезонами.","product":"Одна платформа для MFW, BFS и Made in Moscow: аккаунт, программа, pass, B2B, loyalty, Brand 365 и аналитика.","evidence":"MVP собран; публично обозначена демонстрация организаторам. Реальное событийное использование ещё не подтверждено.","next":"Демо организаторам и пилот на реальном событии.","path":"Организаторский пилот → метрики вовлечения / лидов → партнёрская модель.","ask":"Организаторы, бренды и партнёры для пилота."},"en":{"problem":"Events end, while audience, brand relationships and accumulated value disperse between seasons.","product":"One platform for MFW, BFS and Made in Moscow: account, programme, pass, B2B, loyalty, Brand 365 and analytics.","evidence":"The MVP is built and positioned for organiser demos. Real-event production use is not yet evidenced publicly.","next":"Demo to organisers and pilot at a real event.","path":"Organiser pilot → engagement / lead metrics → partnership model.","ask":"Organisers, brands and partners for a pilot."}},"promomed":{"ru":{"problem":"Конференция даёт короткий всплеск контакта, но ценность для участников, партнёров и организатора плохо накапливается после события.","product":"«СОСТОЯНИЕ»: контент, программа, live venue, бронирования, QR wallet, партнёрский кабинет и post-event journey.","evidence":"Прототип подготовлен для демонстрации Promomed; коммерческая эксплуатация публично не подтверждена.","next":"Демо заказчику и согласование пилотного контура.","path":"Демо → пилот → согласованный коммерческий формат.","ask":"Заказчик / стратегический партнёр для пилота и дальнейшего запуска."},"en":{"problem":"A conference creates a short contact spike, but value for attendees, partners and organisers is poorly accumulated after the event.","product":"SOSTOYANIE: content, programme, live venue, booking, QR wallet, partner workspace and post-event journey.","evidence":"A prototype is prepared for a Promomed demo; commercial production use is not publicly evidenced.","next":"Client demo and agreement on a pilot scope.","path":"Demo → pilot → agreed commercial format.","ask":"Client / strategic partner for a pilot and launch."}}};
+function installExecutiveEvidence(lang, $, projects) {
+  const en = lang === 'en';
+  const data = V2_EVIDENCE;
+  const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (ch) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+  const portfolio = $('#v2-portfolio');
+  if (!portfolio || portfolio.dataset.evidenceInstalled === '1') return;
+  portfolio.dataset.evidenceInstalled = '1';
+
+  const attach = () => {
+    portfolio.querySelectorAll('.v2-product').forEach((card) => {
+      const id = card.dataset.v2Product;
+      if (!id || card.querySelector('[data-v2-evidence]')) return;
+      const p = (projects || []).find((x)=>x.id===id);
+      const d = data[id]?.[en ? 'en' : 'ru'];
+      if (!p || !d) return;
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'btn btn-sm v2-evidence-toggle';
+      btn.dataset.v2Evidence = id;
+      btn.setAttribute('aria-expanded','false');
+      btn.textContent = en ? 'Executive brief' : 'Executive brief';
+      const actions = card.querySelector('.v2-product-actions');
+      actions?.append(btn);
+
+      const panel = document.createElement('div');
+      panel.className = 'v2-evidence-panel';
+      panel.hidden = true;
+      panel.innerHTML = `
+        <div><span>${en?'Problem':'Problem'}</span><p>${esc(d.problem)}</p></div>
+        <div><span>${en?'Product':'Product'}</span><p>${esc(d.product)}</p></div>
+        <div><span>${en?'Evidence':'Evidence'}</span><p>${esc(d.evidence)}</p></div>
+        <div><span>${en?'Current maturity':'Current maturity'}</span><p>${esc(p[lang].stage)}</p></div>
+        <div><span>${en?'Next milestone':'Next milestone'}</span><p>${esc(d.next)}</p></div>
+        <div><span>${en?'Commercial path':'Commercial path'}</span><p>${esc(d.path)}</p></div>
+        <div><span>${en?'Capital / partner ask':'Capital / partner ask'}</span><p>${esc(d.ask)}</p></div>`;
+      card.append(panel);
+    });
+  };
+
+  const observer = new MutationObserver(attach);
+  observer.observe(portfolio,{childList:true,subtree:true});
+  attach();
+
+  portfolio.addEventListener('click',(e)=>{
+    const btn=e.target.closest('[data-v2-evidence]');
+    if(!btn) return;
+    const card=btn.closest('.v2-product');
+    const panel=card?.querySelector('.v2-evidence-panel');
+    if(!panel) return;
+    const open=panel.hidden;
+    panel.hidden=!open;
+    btn.setAttribute('aria-expanded',String(open));
+    btn.textContent=open ? (en?'Hide brief':'Свернуть brief') : 'Executive brief';
+  });
+}
+
 export function renderV2(lang, projects = []) {
   const en = lang === 'en';
   document.documentElement.dataset.preview = 'v2';
@@ -436,6 +495,7 @@ export function renderV2(lang, projects = []) {
   installDecisionLayer(lang, $);
   renderPortfolioIntelligence(lang, $, projects);
   renderStakeholderLens(lang, $, projects);
+  installExecutiveEvidence(lang, $, projects);
   if (!$('#v2-steps')) {
     const section = document.createElement('section'); section.id = 'v2-steps'; section.className = 'section v2-steps';
     $('#contact').before(section);
