@@ -198,3 +198,29 @@ remain available below it.
 
 This preserves depth while reducing the time a CEO, partner or investor needs
 to understand whether the project is relevant.
+
+
+## Commercial Clarity v2.7
+
+Each published project now has an explicit commercial-clarity layer built around
+the questions a buyer, partner or investor needs answered before discussing terms:
+
+Buyer → What they pay for → First sellable pilot → What we measure →
+Pilot-to-contract gate → Possible revenue mechanics.
+
+The layer is intentionally conservative. It does not invent pricing, ARR, margin,
+traction or conversion figures. Where a revenue mechanism is not yet validated,
+the UI labels it as a working commercial hypothesis and ties validation to the
+pilot.
+
+The same commercial model is visible both in Portfolio Intelligence and inside
+the project modal, alongside the existing decision dossier. This gives a short
+commercial view without removing the deeper status, evidence, screenshots,
+participation formats or full project pages.
+
+Current working commercial hypotheses:
+- Syntha: recurring access/licence + implementation/integration + enterprise support + go-to-market partnership.
+- ChatX: per-user or organisation licence/subscription + migration/rollout + integrations + enterprise support.
+- Renova: consumer access, B2B licence and service/transaction mechanics remain hypotheses until a real closed test.
+- MFW/BFS/Made in Moscow: event/season licence + implementation/operations + annual layer; brand modules and white-label remain hypotheses until a real event pilot.
+- Promomed/SOSTOYANIE: event licence + implementation/support; year-round community, partner modules and white-label remain hypotheses until pilot validation.
