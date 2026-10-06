@@ -7,6 +7,36 @@ const J = (data, status = 200, extra = {}) => new Response(JSON.stringify(data),
 });
 const clean = (v, n) => String(v ?? '').slice(0, n);
 const TAGS = ['analysis', 'market', 'product', 'syntha', 'chatx', 'renova', 'mfw', 'promomed', 'mission', 'investors', 'press'];
+const PROJECT_TAGS = new Set(['syntha', 'chatx', 'renova', 'mfw', 'promomed']);
+const ANALYSIS_TAGS = new Set(['analysis', 'market', 'press']);
+
+function dayKey(ms) {
+  const d = new Date(Number(ms) || Date.now());
+  const p = new Intl.DateTimeFormat('en-CA', { timeZone: 'Europe/Moscow', year: 'numeric', month: '2-digit', day: '2-digit' }).formatToParts(d);
+  const o = Object.fromEntries(p.map((x) => [x.type, x.value]));
+  return `${o.year}-${o.month}-${o.day}`;
+}
+function editorialCoverage(rows) {
+  const days = {};
+  for (const p of rows) {
+    if (!['scheduled','publishing','published'].includes(p.status)) continue;
+    const day = p.post_date || dayKey(p.publish_at);
+    const d = days[day] ||= { project: 0, analysis: 0, synced: 0, total: 0 };
+    d.total += 1;
+    if (PROJECT_TAGS.has(p.tag)) d.project += 1;
+    if (ANALYSIS_TAGS.has(p.tag) && p.source) d.analysis += 1;
+    if (p.site && p.tg) d.synced += 1;
+  }
+  return Object.entries(days).sort(([a],[b]) => a.localeCompare(b)).map(([date,d]) => ({
+    date, ...d,
+    complete: d.project >= 1 && d.analysis >= 1 && d.synced >= 2,
+    missing: [
+      ...(d.project < 1 ? ['project'] : []),
+      ...(d.analysis < 1 ? ['analysis'] : []),
+      ...(d.synced < 2 ? ['site+telegram'] : [])
+    ]
+  }));
+}
 
 export async function onRequestGet({ request, env }) {
   const url = new URL(request.url);
@@ -22,7 +52,19 @@ export async function onRequestGet({ request, env }) {
   /* заодно публикуем то, что подошло по времени */
   await publishDue(env);
   const rows = (await env.DB.prepare(`SELECT * FROM posts ORDER BY publish_at DESC LIMIT 500`).all()).results;
-  return J({ posts: rows, now: Date.now(), channelReady: !!((env.CHANNEL_BOT_TOKEN || env.TELEGRAM_BOT_TOKEN) && env.TELEGRAM_CHANNEL), cronKey: !!env.CRON_KEY });
+  return J({
+    posts: rows,
+    editorialCoverage: editorialCoverage(rows),
+    editorialPolicy: {
+      minimumPerDay: 2,
+      required: ['project', 'analysis'],
+      destinations: ['site', 'telegram'],
+      timezone: 'Europe/Moscow'
+    },
+    now: Date.now(),
+    channelReady: !!((env.CHANNEL_BOT_TOKEN || env.TELEGRAM_BOT_TOKEN) && env.TELEGRAM_CHANNEL),
+    cronKey: !!env.CRON_KEY
+  });
 }
 
 export async function onRequestPost({ request, env }) {
