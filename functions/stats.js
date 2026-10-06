@@ -718,6 +718,37 @@ function client() {
       + '<div class="box"><h2>Страницы</h2><p class="sub">Сколько раз открывали каждую страницу сайта</p>' + bars(data.pages, (r) => esc(r.p || '/'), (r) => r.n, (r) => r.n + ' · ' + r.u + ' чел.') + '</div>';
   }
 
+  /* ---------- Editorial Intelligence ---------- */
+  function editorial() {
+    const rows = data.editorial || [];
+    const topics = data.editorialTopics || [];
+    const sources = data.editorialSources || [];
+    const pct = (a,b) => b ? Math.round(a / b * 100) + '%' : '—';
+
+    const materials = rows.length
+      ? '<table class="t"><tr><th>Материал</th><th>Читатели</th><th>В проект</th><th>Форма</th><th>Обращения</th><th>Переход</th></tr>'
+        + rows.map((r) => '<tr><td><b>' + esc(r.title || r.post_date || 'Публикация') + '</b><br><span class="sub">' + esc([r.post_date,r.tag,r.source].filter(Boolean).join(' · ')) + '</span></td><td>' + num(r.readers) + '</td><td>' + num(r.to_project) + '</td><td>' + num(r.form_starts) + '</td><td>' + num(r.leads) + '</td><td>' + pct(r.to_project,r.readers) + '</td></tr>').join('')
+        + '</table>'
+      : '<p class="hint">Данные появятся после открытия публикаций посетителями.</p>';
+
+    const topicRows = topics.length
+      ? '<table class="t"><tr><th>Рубрика</th><th>Читатели</th><th>В проект</th><th>Обращения</th></tr>'
+        + topics.map((r) => '<tr><td>' + esc(r.tag || '—') + '</td><td>' + num(r.readers) + '</td><td>' + num(r.to_project) + '</td><td>' + num(r.leads) + '</td></tr>').join('')
+        + '</table>'
+      : '<p class="hint">Пока нет данных по рубрикам.</p>';
+
+    const sourceRows = sources.length
+      ? '<table class="t"><tr><th>Источник</th><th>Читатели</th><th>В проект</th><th>Обращения</th></tr>'
+        + sources.map((r) => '<tr><td>' + esc(r.source || '—') + '</td><td>' + num(r.readers) + '</td><td>' + num(r.to_project) + '</td><td>' + num(r.leads) + '</td></tr>').join('')
+        + '</table>'
+      : '<p class="hint">Пока нет данных по внешним источникам.</p>';
+
+    return '<div class="note">Показывается наблюдаемая последовательность действий в одной сессии: открытие материала, затем переход в проект, начало формы или обращение. Это атрибуция, а не доказательство причинного эффекта.</div>'
+      + '<div class="box"><h2>Материалы</h2><p class="sub">Что читают и какие действия происходят после чтения</p>' + materials + '</div>'
+      + '<div class="grid"><div class="box"><h2>Темы</h2><p class="sub">Фактическое вовлечение по рубрикам</p>' + topicRows + '</div>'
+      + '<div class="box"><h2>Источники</h2><p class="sub">Сравнение по наблюдаемому интересу аудитории</p>' + sourceRows + '</div></div>';
+  }
+
   /* ---------- отрисовка ---------- */
   function draw() {
     $('#range').innerHTML = RANGES.map(([d, l]) => '<button data-d="' + d + '" class="' + (d === days ? 'on' : '') + '">' + l + '</button>').join('');
