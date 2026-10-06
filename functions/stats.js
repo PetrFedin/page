@@ -555,7 +555,7 @@ function client() {
   /* ---------- «Календарь» публикаций ---------- */
   const STATUS = { draft: 'Черновик', scheduled: 'Запланирован', publishing: 'Публикуется', published: 'Опубликован', failed: 'Не вышел' };
   const TAGS = [['analysis', 'Разбор'], ['market', 'Рынок'], ['product', 'Продукт'], ['syntha', 'Syntha'], ['chatx', 'ChatX'], ['renova', 'Renova'], ['mfw', 'MFW+BFS'], ['promomed', 'Promomed'], ['mission', 'Позиция'], ['investors', 'Инвесторам'], ['press', 'Пресса']];
-  const cal = { y: new Date().getFullYear(), m: new Date().getMonth(), posts: null, statics: [], coverage: [], policy: null, channelReady: true, cronKey: false, edit: null, busy: false };
+  const cal = { y: new Date().getFullYear(), m: new Date().getMonth(), posts: null, statics: [], coverage: [], policy: null, plan: null, channelReady: true, cronKey: false, edit: null, busy: false };
   const pad = (n) => String(n).padStart(2, '0');
   const ymd = (d) => d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
   const localInput = (ms) => { const d = new Date(ms); return ymd(d) + 'T' + pad(d.getHours()) + ':' + pad(d.getMinutes()); };
