@@ -629,6 +629,84 @@ function installCommercialClarity(lang, $, projects) {
   }
 }
 
+
+/* V2.8 commercial proof and investor readiness */
+const V2_PROOF = {"syntha":{"ru":{"proven":["рабочая система и ключевые продуктово-коммерческие контуры собраны","серверная логика цены, доступности, подтверждения заказа, себестоимости и маржи реализована","сквозная проверка перед пилотом уже является текущей стадией проекта"],"unproven":["ежедневное использование внешним брендом на реальном сезоне","стоимость и сложность внедрения в конкретный учётный контур","готовность клиента платить по устойчивой регулярной модели"],"risk":"Главный риск — не функциональная полнота сама по себе, а стоимость интеграции и способность команды клиента реально перевести сезонный цикл в систему.","derisk":"Пилот с одним брендом должен проверить сквозной сезон, интеграционный объём, дисциплину пользователей и реальное сокращение ручной сверки.","data":["доля сценариев, завершённых без внешних таблиц и ручной сверки","время и число ручных действий на подготовку и подтверждение заказа","расхождения по цене, доступности, себестоимости и марже","активность ролей и объём поддержки, необходимый для устойчивой работы"],"scale":"масштабировать, если ключевой сезонный контур проходит стабильно, пользователи работают в нём регулярно, а объём интеграции экономически приемлем","revise":"пересобрать границы продукта или внедрения, если ценность подтверждается, но интеграционная или пользовательская нагрузка слишком высока","stop":"остановить выбранный коммерческий сценарий, если пилот не снижает ручную сверку и не создаёт проверяемого преимущества перед текущим процессом"},"en":{"proven":["a working system and core product-to-commerce flows are built","server-side pricing, availability, order confirmation, cost and margin logic exist","end-to-end verification before pilot is already the current project stage"],"unproven":["daily use by an external brand across a real season","implementation cost and complexity in a real ERP/accounting environment","willingness to pay under a sustainable recurring model"],"risk":"The primary risk is not feature completeness alone, but integration cost and whether a client team can move a real seasonal workflow into the system.","derisk":"A one-brand pilot should test the end-to-end season, integration scope, user discipline and actual reduction in manual reconciliation.","data":["share of workflows completed without external spreadsheets or manual reconciliation","time and manual actions required to prepare and confirm an order","price, availability, cost and margin discrepancies","role activity and support effort required for stable operation"],"scale":"scale if the core seasonal flow is stable, users work in it consistently and integration effort is economically acceptable","revise":"revise product or rollout scope if value is visible but integration or adoption friction is too high","stop":"stop the chosen commercial path if the pilot does not reduce manual reconciliation or produce a verifiable advantage over the current process"}},"chatx":{"ru":{"proven":["рабочий прототип объединяет коммуникации, задачи, встречи, вики, оргструктуру и права","связь решения с задачей и исходным контекстом реализована как продуктовая логика","ключевые корпоративные сценарии уже доступны для пилота"],"unproven":["устойчивое ежедневное использование внутри внешней компании","готовность команды отказаться от параллельной работы в нескольких сервисах","надёжность реальных внешних провайдеров и интеграций в корпоративном контуре"],"risk":"Главный риск — организационное внедрение: продукт может быть технически готов, но не стать местом, где команда действительно принимает решения и ведёт работу.","derisk":"Пилот на одном департаменте должен проверить ежедневную активность, переход разговор → решение → задача → результат и работу критичных интеграций.","data":["активные пользователи и частота возвращения в рабочий контур","доля решений и задач, прослеживаемых до исходного контекста","доля работы, которая всё ещё дублируется во внешних сервисах","инциденты и ошибки интеграций, администрирования и прав"],"scale":"масштабировать, если команда использует ChatX как основной рабочий контур, а критичные интеграции и управление правами проходят приёмку","revise":"пересобрать внедрение, набор модулей или интеграции, если использование есть, но команда сохраняет значимый параллельный процесс","stop":"остановить внедрение, если продукт не становится частью ежедневной работы и не сокращает разрыв между коммуникацией и исполнением"},"en":{"proven":["the working prototype combines communication, tasks, meetings, wiki, org structure and permissions","decision-to-task traceability is implemented as core product logic","key company workflows are available for a pilot"],"unproven":["sustained daily use inside an external company","whether teams will stop duplicating work across multiple services","reliability of real external providers and integrations in a company environment"],"risk":"The primary risk is organisational adoption: the product can be technically ready without becoming the place where a team actually makes decisions and runs work.","derisk":"A department pilot should test daily activity, conversation → decision → task → outcome traceability and critical integrations.","data":["active users and return frequency","share of decisions and tasks traceable to source context","share of work still duplicated in external tools","integration, administration and permission incidents"],"scale":"scale if the team uses ChatX as its primary working layer and critical integrations and governance pass acceptance","revise":"revise rollout, module scope or integrations if usage is real but material parallel work remains","stop":"stop the rollout if the product does not enter daily work or reduce the gap between communication and execution"}},"renova":{"ru":{"proven":["MVP собран вокруг сметы, этапов, приёмки, платежей, закупок и документов","история изменений и привязка оплаты к принятому этапу заложены в основной сценарий","проверка статуса исполнителя через ФНС технически подготовлена"],"unproven":["работа заказчика и исполнителя на одном реальном объекте без возврата к параллельным чатам и таблицам","реальный платёжный контур","платёжеспособный спрос и наиболее жизнеспособная модель монетизации"],"risk":"Главный риск — двустороннее принятие процесса: если хотя бы одна сторона продолжает вести критичные договорённости вне системы, ценность единой истории резко падает.","derisk":"Закрытый тест на реальном объекте должен проверить, ведут ли обе стороны смету, этапы, приёмку и документы в одном контуре и можно ли безопасно подключать платежи.","data":["полнота истории изменений сметы и этапов","доля этапов, прошедших формальную сдачу и приёмку","момент обнаружения отклонения бюджета от плана","доля критичных договорённостей, оставшихся вне системы","ошибки и спорные состояния перед включением платежей"],"scale":"масштабировать после подтверждения двустороннего использования и готовности платёжного контура","revise":"пересобрать роли, UX или коммерческую модель, если система полезна одной стороне, но не удерживает вторую","stop":"не переходить к платежам и масштабированию, если реальный объект по-прежнему требует параллельного ручного учёта"},"en":{"proven":["the MVP covers estimates, stages, acceptance, payments, purchasing and documents","change history and payment tied to accepted work are core workflow concepts","contractor-status verification through the tax authority is technically prepared"],"unproven":["client and contractor using one real project without falling back to parallel chats and spreadsheets","the live payment flow","willingness to pay and the most viable monetisation model"],"risk":"The primary risk is two-sided adoption: if either side keeps critical agreements outside the system, the value of a single project history falls sharply.","derisk":"A closed test on a real project should prove whether both sides run estimates, stages, acceptance and documents in one workflow and whether live payments can be activated safely.","data":["completeness of estimate and stage change history","share of stages completed through formal handover and acceptance","how early budget variance becomes visible","share of critical agreements still outside the system","errors and dispute states before payment activation"],"scale":"scale after two-sided usage and payment-flow readiness are evidenced","revise":"revise roles, UX or commercial model if one side gets value but the other does not stay in the workflow","stop":"do not activate payments or scale if a real project still requires parallel manual tracking"}},"mfw":{"ru":{"proven":["MVP объединяет три интерфейса вокруг одного аккаунта и общей платформы","программа, пропуска, B2B, брендовый контур и аналитика собраны в демонстрационный сценарий","платформа уже показывает непрерывность между событием и круглогодичной работой с брендами"],"unproven":["работа под реальной нагрузкой события","фактическая ценность для организатора, брендов и партнёров","повторное взаимодействие аудитории между событиями и коммерческая готовность модулей"],"risk":"Главный риск — операционный: система должна выдержать пик события и одновременно дать измеримую ценность после него, иначе она останется красивым цифровым дополнением.","derisk":"Пилот на одном реальном событии должен проверить пропуска, программу, B2B, брендовые взаимодействия, аналитику и устойчивость под нагрузкой.","data":["активация зарегистрированных участников и использование пропуска","сохранённые события программы и фактическое посещение","назначенные B2B-встречи и подтверждённые лиды","подписки на бренды и повторные действия после события","ошибки и производительность в периоды пиковой нагрузки"],"scale":"масштабировать, если операционный контур выдерживает событие, а организатор и партнёры получают измеримые результаты","revise":"пересобрать модульный состав и коммерческую модель, если основная событийная функция работает, но послесобытийная ценность не подтверждается","stop":"не масштабировать формат, если пилот не проходит операционную надёжность или не создаёт измеримого результата для организатора и партнёров"},"en":{"proven":["the MVP combines three interfaces around one account and platform","programme, passes, B2B, brand workflows and analytics are built into the demo journey","the platform already demonstrates continuity between the event and year-round brand activity"],"unproven":["operation under real event load","actual value to organisers, brands and partners","between-event re-engagement and commercial readiness of modules"],"risk":"The primary risk is operational: the system must survive event peaks and create measurable post-event value, or it remains a polished digital add-on.","derisk":"A pilot at one real event should test passes, programme, B2B, brand engagement, analytics and peak-load stability.","data":["registered-user activation and pass usage","programme saves versus actual attendance","scheduled B2B meetings and verified leads","brand follows and post-event actions","errors and performance during peak load"],"scale":"scale if the operating layer survives the event and organisers and partners receive measurable outcomes","revise":"revise module scope and commercial model if the event-day utility works but post-event value is weak","stop":"do not scale if the pilot fails operational reliability or does not create measurable value for organisers and partners"}},"promomed":{"ru":{"proven":["рабочий прототип показывает путь участника до, во время и после конференции","персональный маршрут, работа площадки, бронирования, партнёрский кабинет и последующий контур собраны в единую концепцию","демонстрационные данные отделены от фактических результатов"],"unproven":["работа на реальной конференции","фактическое использование персонального маршрута и партнёрского кабинета","ценность круглогодичного сообщества и коммерческий формат"],"risk":"Главный риск — доказать, что цифровой слой нужен не только в день события, но и улучшает отношения с участником и партнёром после конференции.","derisk":"Пилот должен проверить операционную работу площадки, персональную программу, партнёрский сценарий и последующее взаимодействие на одном реальном событии.","data":["регистрация → посещение","использование персонального маршрута и бронирований","контакты партнёров, полученные с согласием участника","возврат к материалам и взаимодействию после события","ошибки и задержки операционного контура в день конференции"],"scale":"масштабировать, если день события проходит устойчиво и после него остаётся измеримое взаимодействие с участниками и партнёрами","revise":"пересобрать годовой контур или партнёрские функции, если событие работает, но последующая активность не подтверждается","stop":"не масштабировать круглогодичную модель, если после события не возникает подтверждаемой дополнительной ценности"},"en":{"proven":["the working prototype shows the participant journey before, during and after the conference","personal route, venue operations, booking, partner workspace and follow-up are assembled into one concept","demo data is separated from actual results"],"unproven":["operation at a real conference","actual use of the personal route and partner workspace","value of the year-round community layer and commercial format"],"risk":"The primary risk is proving that the digital layer matters beyond event day and improves the participant and partner relationship afterwards.","derisk":"The pilot should test venue operations, personal programme, partner workflow and follow-up at one real event.","data":["registration → attendance","use of personal route and bookings","partner contacts captured with attendee consent","return to materials and engagement after the event","event-day operating errors and delays"],"scale":"scale if event day is stable and measurable participant and partner engagement remains afterwards","revise":"revise the year-round layer or partner functions if event-day utility works but follow-up activity is weak","stop":"do not scale the year-round model if no verifiable additional value exists after the event"}}};
+function installCommercialProof(lang, $, projects) {
+  const en = lang === 'en';
+  const data = V2_PROOF;
+  const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (ch) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+  const list = (arr) => `<ul>${(arr||[]).map((x)=>`<li>${esc(x)}</li>`).join('')}</ul>`;
+  const panel = (id) => {
+    const d=data[id]?.[en?'en':'ru'];
+    if(!d) return '';
+    return `
+      <div class="v2-proof-grid">
+        <div class="v2-proof-good"><span>${en?'Evidenced now':'Что уже доказано'}</span>${list(d.proven)}</div>
+        <div><span>${en?'Not evidenced yet':'Что ещё не доказано'}</span>${list(d.unproven)}</div>
+        <div><span>${en?'Primary risk':'Главный риск'}</span><p>${esc(d.risk)}</p></div>
+        <div><span>${en?'How the next pilot de-risks it':'Как следующий пилот снимает риск'}</span><p>${esc(d.derisk)}</p></div>
+        <div class="v2-proof-data"><span>${en?'Evidence expected from pilot':'Какие данные должны появиться'}</span>${list(d.data)}</div>
+      </div>
+      <div class="v2-proof-decisions">
+        <div><b>${en?'SCALE':'МАСШТАБИРОВАТЬ'}</b><p>${esc(d.scale)}</p></div>
+        <div><b>${en?'REVISE':'ПЕРЕСОБРАТЬ'}</b><p>${esc(d.revise)}</p></div>
+        <div><b>${en?'STOP':'ОСТАНОВИТЬ'}</b><p>${esc(d.stop)}</p></div>
+      </div>`;
+  };
+
+  const portfolio=$('#v2-portfolio');
+  const attach=()=>{
+    portfolio?.querySelectorAll('.v2-product').forEach((card)=>{
+      const id=card.dataset.v2Product;
+      if(!id || !data[id] || card.querySelector('[data-v2-proof]')) return;
+      const actions=card.querySelector('.v2-product-actions');
+      if(!actions) return;
+      const btn=document.createElement('button');
+      btn.type='button'; btn.className='btn btn-sm v2-proof-toggle'; btn.dataset.v2Proof=id;
+      btn.setAttribute('aria-expanded','false');
+      btn.textContent=en?'Investor readiness':'Доказательства и риски';
+      actions.append(btn);
+      const sec=document.createElement('section');
+      sec.className='v2-proof-panel'; sec.hidden=true; sec.innerHTML=panel(id); card.append(sec);
+    });
+  };
+  if(portfolio && !portfolio.dataset.proofBound){
+    portfolio.dataset.proofBound='1';
+    new MutationObserver(attach).observe(portfolio,{childList:true,subtree:true});
+    portfolio.addEventListener('click',(e)=>{
+      const btn=e.target.closest('[data-v2-proof]');
+      if(!btn) return;
+      const sec=btn.closest('.v2-product')?.querySelector('.v2-proof-panel');
+      if(!sec) return;
+      const open=sec.hidden; sec.hidden=!open; btn.setAttribute('aria-expanded',String(open));
+      btn.textContent=open ? (en?'Hide investor readiness':'Свернуть доказательства') : (en?'Investor readiness':'Доказательства и риски');
+    });
+    attach();
+  }
+
+  const modal=$('#modal');
+  if(modal){
+    let sec=$('#v2-proof-dossier');
+    if(!sec){
+      sec=document.createElement('section');
+      sec.id='v2-proof-dossier'; sec.className='v2-proof-dossier';
+      $('#status')?.before(sec);
+    }
+    const paint=()=>{
+      const id=modal.dataset.project;
+      if(!modal.open || !data[id]){sec.hidden=true;return;}
+      sec.hidden=false;
+      sec.innerHTML=`<div class="v2-proof-head"><p class="eyebrow">${en?'Investor readiness':'Инвестиционная готовность'}</p><h3>${en?'What is proven, what is still at risk, and what the pilot must decide':'Что доказано, что остаётся риском и какое решение должен дать пилот'}</h3></div>${panel(id)}`;
+    };
+    if(!modal.dataset.v2ProofBound){
+      modal.dataset.v2ProofBound='1';
+      new MutationObserver(paint).observe(modal,{attributes:true,attributeFilter:['open','data-project']});
+    }
+    paint();
+  }
+}
+
 export function renderV2(lang, projects = []) {
   const en = lang === 'en';
   document.documentElement.dataset.preview = 'v2';
@@ -666,6 +744,7 @@ export function renderV2(lang, projects = []) {
   installExecutiveEvidence(lang, $, projects);
   installProjectDecisionDossier(lang, $, projects);
   installCommercialClarity(lang, $, projects);
+  installCommercialProof(lang, $, projects);
   if (!$('#v2-steps')) {
     const section = document.createElement('section'); section.id = 'v2-steps'; section.className = 'section v2-steps';
     $('#contact').before(section);
