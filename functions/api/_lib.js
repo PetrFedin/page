@@ -108,7 +108,7 @@ export async function sitePosts(env) {
     });
     const post = { date: p.post_date, tag: p.tag, dynamic: true, ru: side('ru') };
     if (p.en_title && p.en_body) post.en = side('en');
-    if (src?.outlet) post.source = { outlet: src.outlet, author: src.author || null, original: src.original || null };
+    if (src?.outlet) post.source = { outlet: src.outlet, author: src.author || null, original: src.original || null, url: src.url || null };
     return post;
   });
 }
