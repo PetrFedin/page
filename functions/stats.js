@@ -754,7 +754,7 @@ function client() {
     $('#range').innerHTML = RANGES.map(([d, l]) => '<button data-d="' + d + '" class="' + (d === days ? 'on' : '') + '">' + l + '</button>').join('');
     $('#tabs').innerHTML = TABS.map(([k, l]) => '<button class="tab' + (k === tab ? ' on' : '') + '" data-t="' + k + '">' + l + (k === 'leads' && data && data.leadsCount ? '<span class="badge">' + data.leadsCount + '</span>' : '') + '</button>').join('');
     if (!data) return;
-    $('#app').innerHTML = ({ overview, sections, people, leads, forms, calendar, seo, tech })[tab]();
+    $('#app').innerHTML = ({ overview, sections, people, leads, forms, calendar, editorial, seo, tech })[tab]();
     wireChart();
     const s = document.getElementById('psearch');
     if (s) s.addEventListener('input', () => { ui.people.q = s.value; const pos = s.selectionStart; draw(); const n = document.getElementById('psearch'); n.focus(); n.setSelectionRange(pos, pos); });
