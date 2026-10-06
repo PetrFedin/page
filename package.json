@@ -12,6 +12,7 @@
     "prerender": "node scripts/prerender.mjs",
     "build": "node scripts/build-en.mjs && node scripts/seo-pages.mjs && node scripts/prerender.mjs && node scripts/make-sitemap.mjs",
     "indexnow": "node scripts/indexnow.mjs",
-    "check:v2": "node scripts/check-v2-contract.mjs"
+    "check:v2": "node scripts/check-v2-contract.mjs",
+    "check:editorial": "node scripts/check-editorial-sla.mjs"
   }
 }
