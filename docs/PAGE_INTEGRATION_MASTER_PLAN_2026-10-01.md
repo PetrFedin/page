@@ -963,3 +963,10 @@ Actual license terms require legal/commercial approval.
 
 **Commercial framing:** Page becomes a productization layer for the whole portfolio, enabling one technology base to generate multiple enterprise offers rather than selling repositories one by one.
 
+## Portfolio-level platform overlay
+
+Cross-product API/SDK, partner onboarding, certification, metering, developer portal and solution-marketplace architecture is defined in:
+
+- [PORTFOLIO_PLATFORM_FABRIC_2026-10-06.md](./PORTFOLIO_PLATFORM_FABRIC_2026-10-06.md)
+
+This overlay must **not** merge product databases or domain authorities. Product-specific master plans remain authoritative for implementation sequencing inside each application.
