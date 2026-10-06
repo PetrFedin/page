@@ -211,7 +211,7 @@ function client() {
 
   const SEC = { hero: 'Первый экран', about: 'Обо мне', consulting: 'Консалтинг', experience: 'Опыт', projects: 'Проекты', news: 'Лента', media: 'Публикации', contact: 'Форма связи', now: 'Сейчас' };
   const secName = (id) => SEC[id] || (/^s\d+/.test(id) ? 'Раздел ' + id.toUpperCase() : id);
-  const TABS = [['overview', 'Обзор'], ['sections', 'Что смотрят'], ['people', 'Люди'], ['leads', 'Заявки'], ['forms', 'Форма и квиз'], ['calendar', 'Календарь'], ['seo', 'Поиск и ИИ'], ['tech', 'Техника']];
+  const TABS = [['overview', 'Обзор'], ['sections', 'Что смотрят'], ['people', 'Люди'], ['leads', 'Заявки'], ['forms', 'Форма и квиз'], ['calendar', 'Календарь'], ['editorial', 'Редакция'], ['seo', 'Поиск и ИИ'], ['tech', 'Техника']];
   const RANGES = [[1, 'Сегодня'], [7, '7 дней'], [30, '30 дней'], [90, '90 дней'], [365, 'Год']];
   const KIND = { messenger: 'Мессенджер', outbound: 'Внешняя ссылка', phone: 'Телефон', email: 'Почта', link: 'Переход по сайту' };
   const DEV = { phone: 'Телефон', desktop: 'Компьютер', tablet: 'Планшет' };
