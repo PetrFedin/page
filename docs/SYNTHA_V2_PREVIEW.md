@@ -98,3 +98,24 @@ models where the current public project dossier does not provide them. It descri
 the next commercial validation path instead.
 
 The original detailed cards remain below this layer unchanged.
+
+
+## Stakeholder Lens v2.3
+
+The first screen now reflects both sides of the site: advisory work and the product
+portfolio. It no longer frames the whole page primarily as fashion consulting.
+
+A new stakeholder lens lets a visitor choose one of four perspectives before
+reading the full site:
+- Client;
+- CEO / owner;
+- Investor;
+- Strategic partner.
+
+Each perspective changes the questions highlighted on the page and routes the
+visitor to the most relevant evidence: experience, decision layer, portfolio
+maturity or partnership/investment path.
+
+The hero now includes a compact proof bar derived from the published PROJECTS
+registry. It reports only currently published project and maturity counts; it does
+not introduce financial or traction claims that are absent from the source data.
