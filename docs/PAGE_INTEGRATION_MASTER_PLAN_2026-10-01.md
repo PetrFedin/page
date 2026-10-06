@@ -970,3 +970,109 @@ Cross-product API/SDK, partner onboarding, certification, metering, developer po
 - [PORTFOLIO_PLATFORM_FABRIC_2026-10-06.md](./PORTFOLIO_PLATFORM_FABRIC_2026-10-06.md)
 
 This overlay must **not** merge product databases or domain authorities. Product-specific master plans remain authoritative for implementation sequencing inside each application.
+
+## Defensibility wave — Portfolio Trust Registry and integration-partner credentials
+
+This wave turns Page/Trust Center into the public verification surface for the portfolio's standards, partner status and certification artefacts.
+
+### Portfolio Trust Registry — ADOPT
+
+Maintain public/non-public records for:
+
+- product capability;
+- API/SDK version;
+- integration certification;
+- partner status;
+- product readiness;
+- trust/evidence standard;
+- credential issuer;
+- credential/status endpoint;
+- certification evidence hash;
+- issued/reviewed/expired/superseded state.
+
+The registry references product authorities; it does not issue domain facts on their behalf unless explicitly designated as issuer.
+
+### Standard Registry — ADOPT
+
+List proprietary/versioned standards such as:
+
+- MFW Network Trust Passport standard;
+- Promomed Evidence Governance Standard;
+- Renova Verified Execution Record;
+- Synth-v2 Supplier Trust Credential profile;
+- Legal Case Readiness Standard;
+- ChatX Execution Receipt Standard;
+- Moscow Destination Package Standard;
+- IGRA Content Certification profile;
+- ASTRA Qualification profile.
+
+Every standard includes:
+
+- scope;
+- version;
+- owner;
+- required evidence;
+- current status;
+- changelog;
+- deprecation/supersession policy.
+
+### Integration Partner Credential — ADAPT
+
+Use verifiable credentials where beneficial to state narrow facts:
+
+- API Integration Verified;
+- SDK Integration Verified;
+- Certified Content Publisher;
+- Qualified Adapter;
+- Evidence Syndication Partner.
+
+Credential cannot exceed the underlying product certification scope.
+
+### Public Verification Page — ADOPT
+
+A buyer can verify:
+
+- credential/status ID;
+- issuer;
+- product/capability;
+- version;
+- issue/expiry;
+- current status;
+- evidence scope;
+- superseded/revoked state.
+
+No private implementation evidence is exposed unnecessarily.
+
+### Partner Trust Graph — ADOPT
+
+Internal commercial graph:
+
+partner -> products -> integrations -> certification -> support/incidents -> renewal/usage
+
+This supports relationship management and prioritisation.
+
+It is not a universal moral/reputation score.
+
+### Trust Center Integration — REUSE
+
+Trust Center surfaces:
+
+- current standards;
+- technical evidence;
+- certification status;
+- deprecated versions;
+- supported deployment/integration modes.
+
+### Additional acceptance
+
+- every public credential/status maps to a real product-side record;
+- expired/revoked status is immediately visible;
+- registry never claims regulatory certification by implication;
+- partner graph does not expose confidential commercial terms publicly;
+- standard version history is immutable;
+- product team remains authority for its own certification evidence.
+
+**Sequencing:** product standards/credentials -> Portfolio Platform Fabric certification registry -> Trust Registry -> public verification -> partner graph.
+
+**Moat:** standards and integration credentials make the portfolio easier to trust, integrate and procure while increasing switching costs for certified partners.
+
