@@ -230,3 +230,11 @@ npm run indexnow   # сообщить Bing/Яндексу об обновлен�
 * Публикации по расписанию: таймер `workers/cron` (Cloudflare Worker, раз в 5 минут) вызывает
   `/api/cron?key=…`; секрет `CRON_KEY` задан и у воркера, и у проекта Pages.
   Для канала нужны секреты `CHANNEL_BOT_TOKEN` и `TELEGRAM_CHANNEL`.
+
+## Portfolio Platform Fabric
+
+Cross-product platformization plan:
+
+- [docs/PORTFOLIO_PLATFORM_FABRIC_2026-10-06.md](./docs/PORTFOLIO_PLATFORM_FABRIC_2026-10-06.md)
+
+It defines the common API/SDK, partner, sandbox, certification, metering and solution-marketplace layer across the portfolio without merging product data authorities.
