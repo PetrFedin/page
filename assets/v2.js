@@ -1,4 +1,140 @@
 /* Isolated V2 presentation; original content and project registry are preserved. */
+const V2_PATHS = {"ru":[{"id":"consulting","n":"01","tab":"Консалтинг","kicker":"Экономика и управление","title":"Нужно улучшить прибыль, запасы или управляемость бизнеса","body":"Разбираем экономику решения, товарный цикл, каналы, оборотный капитал и управленческие ограничения. Результат — решение, которое можно внедрять, а не отчёт на полке.","when":["маржа или денежный поток не сходятся","остатки и закупка требуют пересборки","решение нужно принять на данных"],"need":["управленческие данные и ограничения","контекст решения и сроки","критерий, по которому задача считается решённой"],"gets":["диагностика и приоритеты","модель решения и экономика","план внедрения с контрольными точками"],"topic":"consulting","prompt":"Коротко опишите бизнес-задачу, что сейчас не устраивает и какой результат нужен."},{"id":"pilot","n":"02","tab":"Пилот продукта","kicker":"Продукт и разработка","title":"Нужно проверить цифровой продукт на реальном бизнес-сценарии","body":"Выбираем один измеримый Golden Path, ограничиваем объём пилота и заранее фиксируем критерии PASS / FAIL. Так продукт проверяется в работе, а не только на демо.","when":["есть процесс, который можно оцифровать","гипотезу нужно проверить до большого внедрения","важен измеримый результат пилота"],"need":["описание текущего процесса","владелец процесса и тестовый контур","данные или примеры для одного Golden Path"],"gets":["границы пилота и критерии приёмки","рабочий сценарий / прототип","evidence результата и решение о следующем этапе"],"topic":"launch","prompt":"Опишите процесс или задачу, которую хотите проверить в пилоте, и что должно измениться после него."},{"id":"partnership","n":"03","tab":"Партнёрство","kicker":"Совместный рост","title":"Есть актив, компетенция или рынок, которые можно соединить","body":"Сначала определяем взаимный вклад, коммерческую механику и ответственность сторон. Затем — ограниченный совместный кейс, где ценность можно подтвердить цифрами.","when":["есть доступ к клиентам, данным или инфраструктуре","нужна совместная коммерческая модель","интересен co-development или distribution"],"need":["что каждая сторона реально вносит","какой клиентский сценарий создаём вместе","как измеряется общий результат"],"gets":["карта ролей и вкладов","модель value / revenue sharing","план первого совместного кейса"],"topic":"partnership","prompt":"Опишите, что вы предлагаете как партнёр и какой совместный результат считаете ценным."},{"id":"investment","n":"04","tab":"Инвестиции","kicker":"Капитал и масштабирование","title":"Нужно обсудить инвестиции в конкретный продукт или портфель","body":"Разговор строится вокруг продукта, стадии готовности, модели монетизации, следующего de-risking milestone и того, на что именно нужен капитал.","when":["интересен один из действующих проектов","нужен понятный путь от капитала к milestone","важны экономика, риски и evidence"],"need":["интересующий продукт или направление","инвестиционный горизонт и формат участия","ключевые требования к риску и доходности"],"gets":["структурированный инвестиционный диалог","карта milestone → капитал → evidence","следующий шаг по diligence / пилоту / партнёрству"],"topic":"investors","prompt":"Укажите проект или направление, формат интереса и что вы хотите проверить перед следующим шагом."}],"en":[{"id":"consulting","n":"01","tab":"Advisory","kicker":"Economics & management","title":"Improve profit, inventory or management visibility","body":"We connect the economics of the decision with merchandise, channels, working capital and operating constraints. The output is an implementable decision, not a report that sits on a shelf.","when":["margin or cash conversion is under pressure","buying and inventory need to be redesigned","the decision must be grounded in data"],"need":["management data and constraints","decision context and timeline","a clear acceptance criterion"],"gets":["diagnosis and priorities","decision model and economics","implementation plan with control points"],"topic":"consulting","prompt":"Briefly describe the business problem, what is not working today and the outcome you need."},{"id":"pilot","n":"02","tab":"Product pilot","kicker":"Product & development","title":"Test a digital product on a real business workflow","body":"We select one measurable Golden Path, limit the pilot scope and define PASS / FAIL criteria upfront. The product is tested in operation, not only in a demo.","when":["a workflow can be digitised","a hypothesis should be tested before a large rollout","the pilot needs a measurable outcome"],"need":["current workflow description","a process owner and test environment","sample data for one Golden Path"],"gets":["pilot scope and acceptance criteria","working workflow / prototype","result evidence and a go / no-go decision"],"topic":"launch","prompt":"Describe the workflow you want to test and what should improve after the pilot."},{"id":"partnership","n":"03","tab":"Partnership","kicker":"Joint growth","title":"Combine assets, capabilities or market access","body":"We first define each side’s contribution, commercial mechanics and accountability. Then we structure a limited joint case where value can be proven with evidence.","when":["you bring clients, data or infrastructure","a joint commercial model is needed","co-development or distribution is relevant"],"need":["what each side contributes","the customer workflow we create together","how joint value will be measured"],"gets":["roles and contribution map","value / revenue-sharing model","plan for the first joint case"],"topic":"partnership","prompt":"Describe what you bring as a partner and the joint outcome you would consider valuable."},{"id":"investment","n":"04","tab":"Investment","kicker":"Capital & scale","title":"Discuss capital for a specific product or portfolio","body":"The discussion is structured around the product, maturity, monetisation, the next de-risking milestone and the exact use of capital.","when":["one of the active products is relevant","capital must map to a measurable milestone","economics, risk and evidence matter"],"need":["product or area of interest","investment horizon and participation format","key risk / return requirements"],"gets":["structured investment dialogue","milestone → capital → evidence map","next diligence / pilot / partnership step"],"topic":"investors","prompt":"Name the product or area, your preferred format and what you need to verify before the next step."}]};
+
+/* V2 decision layer */
+function installDecisionLayer(lang, $) {
+  const en = lang === 'en';
+  const paths = V2_PATHS[en ? 'en' : 'ru'];
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const routes = $('#v2-routes');
+  if (!routes) return;
+
+  $('#hero-lead').textContent = en
+    ? 'I help fashion businesses connect buying, products, sales and cash — then turn the findings into operating decisions, pilots and digital tools.'
+    : 'Помогаю фэшн-бизнесу связать закупку, продукт, продажи и деньги — и перевести выводы в управленческие решения, пилоты и цифровые инструменты.';
+  $('#cta-contact').textContent = en ? 'Choose a way to work' : 'Выбрать формат работы';
+  $('#cta-contact').setAttribute('href', '#v2-decision');
+
+  let section = $('#v2-decision');
+  if (!section) {
+    section = document.createElement('section');
+    section.id = 'v2-decision';
+    section.className = 'section v2-decision';
+    routes.after(section);
+  }
+  section.innerHTML = `
+    <div class="section-head compact">
+      <p class="eyebrow">${en ? 'Decision layer' : 'Маршрутизатор решения'}</p>
+      <h2>${en ? 'See the format before you contact me' : 'Поймите формат до первого контакта'}</h2>
+      <p class="sub">${en ? 'Choose the closest scenario. You will immediately see the minimum input, expected output and practical next step.' : 'Выберите ближайший сценарий. Сразу видны входные данные, ожидаемый результат и практический следующий шаг.'}</p>
+    </div>
+    <div class="v2-path-tabs" role="tablist" aria-label="${en ? 'Ways to work' : 'Форматы работы'}">
+      ${paths.map((p,i)=>`<button type="button" role="tab" class="v2-path-tab${i===0?' active':''}" aria-selected="${i===0}" data-v2-path="${p.id}"><span>${p.n}</span>${esc(p.tab)}</button>`).join('')}
+    </div>
+    <article class="v2-path-panel" id="v2-path-panel" aria-live="polite"></article>`;
+
+  const renderPath = (id, scroll = false) => {
+    const path = paths.find((p) => p.id === id) || paths[0];
+    section.querySelectorAll('.v2-path-tab').forEach((b) => {
+      const active = b.dataset.v2Path === path.id;
+      b.classList.toggle('active', active);
+      b.setAttribute('aria-selected', String(active));
+    });
+    $('#v2-path-panel').innerHTML = `
+      <div class="v2-path-copy">
+        <span class="v2-route-meta">${path.n} / ${esc(path.kicker)}</span>
+        <h3>${esc(path.title)}</h3>
+        <p>${esc(path.body)}</p>
+        <button class="btn btn-primary" type="button" data-v2-prepare="${path.id}">${en ? 'Prepare an enquiry' : 'Подготовить обращение'} →</button>
+      </div>
+      <div class="v2-path-columns">
+        <section><h4>${en ? 'Best fit when' : 'Когда подходит'}</h4><ul>${path.when.map((x)=>`<li>${esc(x)}</li>`).join('')}</ul></section>
+        <section><h4>${en ? 'Minimum input' : 'Что понадобится'}</h4><ul>${path.need.map((x)=>`<li>${esc(x)}</li>`).join('')}</ul></section>
+        <section><h4>${en ? 'What you get' : 'Что получите'}</h4><ul>${path.gets.map((x)=>`<li>${esc(x)}</li>`).join('')}</ul></section>
+      </div>`;
+    try { sessionStorage.setItem('syntha_v2_path', path.id); } catch {}
+    if (scroll) section.scrollIntoView({behavior:'smooth',block:'start'});
+  };
+
+  if (!section.dataset.bound) {
+    section.dataset.bound = '1';
+    section.addEventListener('click', (e) => {
+      const tab = e.target.closest('.v2-path-tab');
+      if (tab) renderPath(tab.dataset.v2Path);
+      const prepare = e.target.closest('[data-v2-prepare]');
+      if (!prepare) return;
+      const path = paths.find((p) => p.id === prepare.dataset.v2Prepare) || paths[0];
+      const topic = $('#topic');
+      if (topic && [...topic.options].some((o) => o.value === path.topic)) {
+        topic.value = path.topic;
+        topic.dispatchEvent(new Event('change', {bubbles:true}));
+      }
+      const message = $('#form [name="message"]');
+      if (message && !message.value.trim()) message.value = path.prompt;
+      $('#form')?.dispatchEvent(new Event('input', {bubbles:true}));
+      $('#contact')?.scrollIntoView({behavior:'smooth',block:'start'});
+      setTimeout(() => $('#form [name="name"]')?.focus({preventScroll:true}), 450);
+    });
+  }
+
+  if (!routes.dataset.decisionBound) {
+    routes.dataset.decisionBound = '1';
+    routes.addEventListener('click', (e) => {
+      const card = e.target.closest('.v2-route');
+      if (!card) return;
+      const cards = [...routes.querySelectorAll('.v2-route')];
+      const idx = cards.indexOf(card);
+      const id = idx === 0 ? 'consulting' : idx === 1 ? 'pilot' : 'partnership';
+      e.preventDefault();
+      renderPath(id, true);
+    });
+  }
+
+  let remembered = null;
+  try { remembered = sessionStorage.getItem('syntha_v2_path'); } catch {}
+  renderPath(paths.some((p)=>p.id===remembered) ? remembered : paths[0].id);
+
+  if (!$('#v2-draft')) {
+    const draft = document.createElement('button');
+    draft.type = 'button';
+    draft.className = 'btn v2-draft';
+    draft.id = 'v2-draft';
+    $('#submit')?.after(draft);
+    draft.addEventListener('click', () => {
+      const form = $('#form');
+      if (!form) return;
+      const data = new FormData(form);
+      const selected = paths.find((p)=>p.topic===String(data.get('topic')||''));
+      const method = $('#v2-contact-method')?.value || 'email';
+      const value = method === 'email' ? data.get('email') : method === 'telegram' ? data.get('telegram') : data.get('phone');
+      const lines = en ? [
+        'SYNTHA.PRO · V2 ENQUIRY DRAFT',
+        `Scenario: ${selected?.tab || data.get('topic') || '—'}`,
+        `Name: ${data.get('name') || '—'}`,
+        `Contact (${method}): ${value || '—'}`,
+        `Message: ${data.get('message') || '—'}`,
+        '',
+        'Preview only: this file was generated in the browser and was not sent.'
+      ] : [
+        'SYNTHA.PRO · ЧЕРНОВИК ОБРАЩЕНИЯ V2',
+        `Сценарий: ${selected?.tab || data.get('topic') || '—'}`,
+        `Имя: ${data.get('name') || '—'}`,
+        `Контакт (${method}): ${value || '—'}`,
+        `Сообщение: ${data.get('message') || '—'}`,
+        '',
+        'Только режим просмотра: файл сформирован в браузере и никуда не отправлен.'
+      ];
+      const blob = new Blob([lines.join('\n')], {type:'text/plain;charset=utf-8'});
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = en ? 'syntha-v2-enquiry.txt' : 'syntha-v2-brief.txt';
+      a.click();
+      setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    });
+  }
+  $('#v2-draft').textContent = en ? 'Download text brief' : 'Скачать текстовый бриф';
+}
+
 export function renderV2(lang) {
   const en = lang === 'en';
   document.documentElement.dataset.preview = 'v2';
@@ -30,6 +166,7 @@ export function renderV2(lang) {
     ['03','Для совместного развития','Партнёрство','Пилоты, стратегическое сотрудничество и обсуждение инвестиций.','Посмотреть варианты участия','#investors']
   ];
   $('#v2-routes').innerHTML = `<p class="eyebrow">${en ? 'Where shall we start?' : 'С чего начнём?'}</p><div class="v2-route-grid">${routes.map(r=>`<a class="v2-route" href="${r[5]}"><span class="v2-route-meta">${r[0]} / ${r[1]}</span><h3>${r[2]}</h3><p>${r[3]}</p><span class="v2-route-action">${r[4]} →</span></a>`).join('')}</div>`;
+  installDecisionLayer(lang, $);
   if (!$('#v2-steps')) {
     const section = document.createElement('section'); section.id = 'v2-steps'; section.className = 'section v2-steps';
     $('#contact').before(section);
