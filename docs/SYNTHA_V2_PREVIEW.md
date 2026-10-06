@@ -172,3 +172,29 @@ npm run check:v2
 It verifies the two-card portfolio reveal, legacy project/news reveal controls,
 RU terminology, stakeholder routes, executive evidence fields, contact anchors,
 RU/EN entry pages and the V2 project-registry binding.
+
+
+## Project dossiers v2.6
+
+Project copy was rewritten as decision material rather than promotional copy.
+For each published product the Russian dossier now separates:
+- product;
+- audience;
+- problem;
+- operating logic;
+- evidenced stage;
+- next verifiable milestone;
+- what is needed now.
+
+The shared project vocabulary is also more precise:
+"Открыть досье", "Обсудить следующий шаг", "Проблема", "Продукт",
+"Стадия и следующий проверяемый этап", "Что требуется сейчас".
+
+The V2 project modal now adds a compact "Досье для решения" before the long
+status and participation sections. It surfaces Problem, Evidence now,
+Next milestone, Commercial path and What is needed now. The existing detailed
+status, screenshots, participation options, comparisons and full project pages
+remain available below it.
+
+This preserves depth while reducing the time a CEO, partner or investor needs
+to understand whether the project is relevant.
