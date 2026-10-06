@@ -832,3 +832,134 @@ This is a transparent requirement matrix, not an AI win-probability score.
 
 **Commercial framing:** reduces enterprise sales cycle and turns technical maturity into a repeatable procurement advantage.
 
+## Platform economics wave — Solution Configurator and capability licensing
+
+This wave makes Page the commercial control surface for packaging reusable technology from the portfolio into client-specific solutions.
+
+### Capability Registry — ADOPT
+
+Create structured capabilities such as:
+
+- identity/RBAC;
+- evidence/audit;
+- AI governance;
+- event/agenda;
+- B2B matchmaking;
+- commerce/order;
+- CRM/clienteling;
+- AR/3D;
+- itinerary/routing;
+- scientific evidence;
+- legal workflow;
+- analytics/intelligence;
+- partner APIs/SDKs.
+
+Each capability links to:
+
+- source project;
+- maturity/readiness;
+- dependencies;
+- proof;
+- reusable/embedded status;
+- delivery constraints;
+- supported deployment model.
+
+### Solution Bundle Definition — ADOPT
+
+Define packages such as:
+
+- Fashion Event & B2B Network;
+- Luxury Clienteling;
+- Fashion PLM & Supplier Network;
+- AI Work OS;
+- City/Destination Platform;
+- Evidence-backed Medical Platform;
+- Legal Resolution Platform;
+- Spatial/AR Education Platform.
+
+A bundle is generated from real capabilities, not marketing-only text.
+
+### Interactive Solution Configurator — ADOPT
+
+Visitor/client selects:
+
+- industry;
+- audience;
+- required modules;
+- integrations;
+- deployment preference;
+- languages;
+- AI/3D/AR needs;
+- pilot scale.
+
+Output:
+
+- recommended capability bundle;
+- source projects/components;
+- dependencies;
+- what exists now;
+- what requires integration/customization;
+- suggested pilot path;
+- relevant proof cards.
+
+Do not generate a binding price or delivery promise without commercial review.
+
+### Reusable Component / License Map — ADOPT
+
+For internal sales/delivery expose:
+
+- reusable proprietary module;
+- open-source dependency;
+- license constraints;
+- project-specific code;
+- extraction/refactor needed;
+- partner/provider dependency.
+
+This prevents selling "reusable platform" where only a bespoke demo exists.
+
+### Commercial Package Authority — ADOPT
+
+Version:
+
+- package name;
+- included capabilities;
+- optional modules;
+- support tier;
+- commercial model;
+- deployment assumptions;
+- validity period.
+
+Pricing can remain private/internal.
+
+### Proposal Generation — REUSE
+
+Feed Solution Configurator into existing Pitch Rooms and RFP engine:
+
+configured solution -> selected proof -> technical annex -> proposal microsite -> procurement answers
+
+### Capability Licensing / OEM — CONDITIONAL
+
+For mature reusable modules, support commercial models:
+
+- SaaS;
+- white-label;
+- embedded API/SDK;
+- OEM;
+- annual platform license;
+- implementation + support.
+
+Actual license terms require legal/commercial approval.
+
+### Additional acceptance
+
+- every capability links to real source project/proof;
+- readiness is not inflated;
+- dependencies/licensing are visible;
+- configuration cannot promise unsupported integration;
+- proposal uses exact selected capability version/status;
+- public site does not expose confidential pricing/legal terms.
+
+**Sequencing:** Proof/Trust/RFP registries -> Capability Registry -> bundles -> Configurator -> proposal generation -> licensing/OEM map.
+
+**Commercial framing:** Page becomes a productization layer for the whole portfolio, enabling one technology base to generate multiple enterprise offers rather than selling repositories one by one.
+
