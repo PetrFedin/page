@@ -211,7 +211,7 @@ function client() {
 
   const SEC = { hero: 'Первый экран', about: 'Обо мне', consulting: 'Консалтинг', experience: 'Опыт', projects: 'Проекты', news: 'Лента', media: 'Публикации', contact: 'Форма связи', now: 'Сейчас' };
   const secName = (id) => SEC[id] || (/^s\d+/.test(id) ? 'Раздел ' + id.toUpperCase() : id);
-  const TABS = [['overview', 'Обзор'], ['sections', 'Что смотрят'], ['people', 'Люди'], ['leads', 'Заявки'], ['forms', 'Форма и квиз'], ['calendar', 'Календарь'], ['seo', 'Поиск и ИИ'], ['tech', 'Техника']];
+  const TABS = [['overview', 'Обзор'], ['sections', 'Что смотрят'], ['people', 'Люди'], ['leads', 'Заявки'], ['forms', 'Форма и квиз'], ['calendar', 'Календарь'], ['editorial', 'Редакция'], ['seo', 'Поиск и ИИ'], ['tech', 'Техника']];
   const RANGES = [[1, 'Сегодня'], [7, '7 дней'], [30, '30 дней'], [90, '90 дней'], [365, 'Год']];
   const KIND = { messenger: 'Мессенджер', outbound: 'Внешняя ссылка', phone: 'Телефон', email: 'Почта', link: 'Переход по сайту' };
   const DEV = { phone: 'Телефон', desktop: 'Компьютер', tablet: 'Планшет' };
@@ -555,7 +555,7 @@ function client() {
   /* ---------- «Календарь» публикаций ---------- */
   const STATUS = { draft: 'Черновик', scheduled: 'Запланирован', publishing: 'Публикуется', published: 'Опубликован', failed: 'Не вышел' };
   const TAGS = [['analysis', 'Разбор'], ['market', 'Рынок'], ['product', 'Продукт'], ['syntha', 'Syntha'], ['chatx', 'ChatX'], ['renova', 'Renova'], ['mfw', 'MFW+BFS'], ['promomed', 'Promomed'], ['mission', 'Позиция'], ['investors', 'Инвесторам'], ['press', 'Пресса']];
-  const cal = { y: new Date().getFullYear(), m: new Date().getMonth(), posts: null, statics: [], coverage: [], policy: null, channelReady: true, cronKey: false, edit: null, busy: false };
+  const cal = { y: new Date().getFullYear(), m: new Date().getMonth(), posts: null, statics: [], coverage: [], policy: null, plan: null, channelReady: true, cronKey: false, edit: null, busy: false };
   const pad = (n) => String(n).padStart(2, '0');
   const ymd = (d) => d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
   const localInput = (ms) => { const d = new Date(ms); return ymd(d) + 'T' + pad(d.getHours()) + ':' + pad(d.getMinutes()); };
@@ -563,7 +563,7 @@ function client() {
   async function loadCal() {
     try {
       const r = await api('all=1', '/api/posts');
-      cal.posts = r.posts || []; cal.coverage = r.editorialCoverage || []; cal.policy = r.editorialPolicy || null; cal.channelReady = r.channelReady; cal.cronKey = r.cronKey;
+      cal.posts = r.posts || []; cal.coverage = r.editorialCoverage || []; cal.policy = r.editorialPolicy || null; cal.plan = r.editorialPlan || null; cal.channelReady = r.channelReady; cal.cronKey = r.cronKey;
     } catch (e) { cal.posts = []; cal.error = e.message; }
     if (!cal.statics.length) {
       try { const m = await import('/assets/news.js'); cal.statics = m.NEWS.map((p) => ({ date: p.date, title: p.ru.title, tag: p.tag })); } catch { /* не критично */ }
@@ -599,11 +599,18 @@ function client() {
       + '<span class="pc ' + (todayCoverage.analysis ? 'published' : 'failed') + '">Аналитика ' + (todayCoverage.analysis ? '✓' : '—') + '</span>'
       + '<span class="pc ' + (todayCoverage.synced >= 2 ? 'published' : 'failed') + '">Сайт + Telegram ' + (todayCoverage.synced >= 2 ? '✓' : '—') + '</span></div>'
       + '<p class="hint">' + (todayCoverage.complete ? 'Минимум на сегодня закрыт.' : 'Сегодня минимум ещё не закрыт. Отсутствует: ' + esc((todayCoverage.missing || []).map((x) => ({project:'публикация о проекте',analysis:'разбор внешней статьи','site+telegram':'две синхронные публикации сайт + Telegram'}[x] || x)).join(', ')) + '.') + '</p></div>';
+    const plan = cal.plan;
+    const planning = !plan ? '' : '<div class="box"><h2>Редакционный планировщик</h2>'
+      + '<p class="sub">Следующий проект по ротации: <b>' + esc(plan.suggestedProject || '—') + '</b>. Основание — только история публикаций: когда проект выходил последний раз и сколько материалов уже было.</p>'
+      + ((plan.projectRotation || []).length ? '<div class="lgd">' + plan.projectRotation.map((x) => '<span class="pc static">' + esc(x.tag) + ' · ' + x.count + (x.last ? ' · ' + esc(x.last) : ' · ещё не публиковался') + '</span>').join('') + '</div>' : '')
+      + ((plan.sourceFrequency || []).length ? '<p class="hint">Частота источников: ' + plan.sourceFrequency.slice(0, 6).map((x) => esc(x.outlet) + ' (' + x.count + ')').join(', ') + '. Частота нужна для диверсификации, а не для оценки качества издания.</p>' : '')
+      + '</div>';
     const warn = [];
     if (!cal.channelReady) warn.push('Telegram-канал ещё не подключён: посты с галочкой «Telegram» не уйдут, пока не заданы секреты CHANNEL_BOT_TOKEN и TELEGRAM_CHANNEL.');
     if (!cal.cronKey) warn.push('Автоматический таймер ещё не включён: запланированные посты выйдут при ближайшем визите на сайт или когда вы откроете этот календарь. Чтобы они выходили точно по времени, подключите таймер.');
     return (warn.length ? '<div class="note warn">' + warn.map(esc).join('<br>') + '</div>' : '')
       + sla
+      + planning
       + '<div class="cal-head"><button class="btn" data-calnav="-1">←</button><h2>' + esc(monthName) + '</h2><button class="btn" data-calnav="1">→</button><button class="btn" data-calnav="0">Сегодня</button><div class="grow"></div><button class="btn pri" data-newday="' + todayKey + '">+ Новая публикация</button></div>'
       + '<div class="cal">' + ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'].map((d) => '<div class="dow">' + d + '</div>').join('') + cells + '</div>'
       + '<div class="lgd"><span class="pc draft">Черновик</span><span class="pc scheduled">Запланирован</span><span class="pc published">Опубликован</span><span class="pc failed">Не вышел</span><span class="pc static">Уже на сайте</span></div>'
@@ -718,12 +725,43 @@ function client() {
       + '<div class="box"><h2>Страницы</h2><p class="sub">Сколько раз открывали каждую страницу сайта</p>' + bars(data.pages, (r) => esc(r.p || '/'), (r) => r.n, (r) => r.n + ' · ' + r.u + ' чел.') + '</div>';
   }
 
+  /* ---------- Editorial Intelligence ---------- */
+  function editorial() {
+    const rows = data.editorial || [];
+    const topics = data.editorialTopics || [];
+    const sources = data.editorialSources || [];
+    const pct = (a,b) => b ? Math.round(a / b * 100) + '%' : '—';
+
+    const materials = rows.length
+      ? '<table class="t"><tr><th>Материал</th><th>Читатели</th><th>В проект</th><th>Форма</th><th>Обращения</th><th>Переход</th></tr>'
+        + rows.map((r) => '<tr><td><b>' + esc(r.title || r.post_date || 'Публикация') + '</b><br><span class="sub">' + esc([r.post_date,r.tag,r.source].filter(Boolean).join(' · ')) + '</span></td><td>' + num(r.readers) + '</td><td>' + num(r.to_project) + '</td><td>' + num(r.form_starts) + '</td><td>' + num(r.leads) + '</td><td>' + pct(r.to_project,r.readers) + '</td></tr>').join('')
+        + '</table>'
+      : '<p class="hint">Данные появятся после открытия публикаций посетителями.</p>';
+
+    const topicRows = topics.length
+      ? '<table class="t"><tr><th>Рубрика</th><th>Читатели</th><th>В проект</th><th>Обращения</th></tr>'
+        + topics.map((r) => '<tr><td>' + esc(r.tag || '—') + '</td><td>' + num(r.readers) + '</td><td>' + num(r.to_project) + '</td><td>' + num(r.leads) + '</td></tr>').join('')
+        + '</table>'
+      : '<p class="hint">Пока нет данных по рубрикам.</p>';
+
+    const sourceRows = sources.length
+      ? '<table class="t"><tr><th>Источник</th><th>Читатели</th><th>В проект</th><th>Обращения</th></tr>'
+        + sources.map((r) => '<tr><td>' + esc(r.source || '—') + '</td><td>' + num(r.readers) + '</td><td>' + num(r.to_project) + '</td><td>' + num(r.leads) + '</td></tr>').join('')
+        + '</table>'
+      : '<p class="hint">Пока нет данных по внешним источникам.</p>';
+
+    return '<div class="note">Показывается наблюдаемая последовательность действий в одной сессии: открытие материала, затем переход в проект, начало формы или обращение. Это атрибуция, а не доказательство причинного эффекта.</div>'
+      + '<div class="box"><h2>Материалы</h2><p class="sub">Что читают и какие действия происходят после чтения</p>' + materials + '</div>'
+      + '<div class="grid"><div class="box"><h2>Темы</h2><p class="sub">Фактическое вовлечение по рубрикам</p>' + topicRows + '</div>'
+      + '<div class="box"><h2>Источники</h2><p class="sub">Сравнение по наблюдаемому интересу аудитории</p>' + sourceRows + '</div></div>';
+  }
+
   /* ---------- отрисовка ---------- */
   function draw() {
     $('#range').innerHTML = RANGES.map(([d, l]) => '<button data-d="' + d + '" class="' + (d === days ? 'on' : '') + '">' + l + '</button>').join('');
     $('#tabs').innerHTML = TABS.map(([k, l]) => '<button class="tab' + (k === tab ? ' on' : '') + '" data-t="' + k + '">' + l + (k === 'leads' && data && data.leadsCount ? '<span class="badge">' + data.leadsCount + '</span>' : '') + '</button>').join('');
     if (!data) return;
-    $('#app').innerHTML = ({ overview, sections, people, leads, forms, calendar, seo, tech })[tab]();
+    $('#app').innerHTML = ({ overview, sections, people, leads, forms, calendar, editorial, seo, tech })[tab]();
     wireChart();
     const s = document.getElementById('psearch');
     if (s) s.addEventListener('input', () => { ui.people.q = s.value; const pos = s.selectionStart; draw(); const n = document.getElementById('psearch'); n.focus(); n.setSelectionRange(pos, pos); });
