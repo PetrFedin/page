@@ -214,3 +214,17 @@ html[data-preview="v2"] .opt-row[hidden] { display: none !important; }
 .v2-public-status em{font-size:12px;font-style:normal;color:var(--muted);justify-self:end}
 .v2-public-status small{grid-column:1/-1;font-size:12px;color:var(--muted)}
 @media(max-width:640px){.v2-public-status{grid-template-columns:1fr}.v2-public-status em{justify-self:start}.v2-public-status small{grid-column:auto}}
+
+
+/* V2.12 confidentiality layer */
+.v2-confidentiality{display:grid;grid-template-columns:1fr auto;gap:22px;align-items:center;margin:16px 0 24px;padding:18px 20px;border:1px solid var(--line);border-radius:16px;background:var(--panel)}
+.v2-confidentiality[hidden]{display:none!important}
+.v2-confidentiality h3{margin:6px 0 8px;font-size:20px;line-height:1.2}
+.v2-confidentiality p{margin:0;color:var(--muted);font-size:13px;line-height:1.6;max-width:760px}
+.v2-confidentiality-actions{display:grid;gap:8px;justify-items:end;min-width:220px}
+.v2-confidentiality-actions span{font-size:11px;color:var(--muted);text-align:right}
+@media(max-width:759px){
+ .v2-confidentiality{grid-template-columns:1fr}
+ .v2-confidentiality-actions{justify-items:stretch;min-width:0}
+ .v2-confidentiality-actions span{text-align:left}
+}
