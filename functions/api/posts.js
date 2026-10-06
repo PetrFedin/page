@@ -24,7 +24,7 @@ function editorialCoverage(rows) {
     const d = days[day] ||= { project: 0, analysis: 0, synced: 0, total: 0 };
     d.total += 1;
     if (PROJECT_TAGS.has(p.tag)) d.project += 1;
-    if (ANALYSIS_TAGS.has(p.tag) && p.source) d.analysis += 1;
+    if (ANALYSIS_TAGS.has(p.tag) && (() => { try { const s = JSON.parse(p.source || '{}'); return !!(s.outlet && s.url); } catch { return false; } })()) d.analysis += 1;
     if (p.site && p.tg) d.synced += 1;
   }
   return Object.entries(days).sort(([a],[b]) => a.localeCompare(b)).map(([date,d]) => ({
@@ -85,9 +85,17 @@ export async function onRequestPost({ request, env }) {
   const publishAt = Number(b.publish_at) || now;
   const tag = TAGS.includes(b.tag) ? b.tag : 'analysis';
   const tags = (arr) => JSON.stringify((Array.isArray(arr) ? arr : String(arr || '').split(',')).map((t) => clean(t, 40).trim()).filter(Boolean).slice(0, 8));
-  const src = b.source && (b.source.outlet || b.source.original) ? JSON.stringify({ outlet: clean(b.source.outlet, 120), author: clean(b.source.author, 160), original: clean(b.source.original, 300) }) : '';
+  const src = b.source && (b.source.outlet || b.source.original || b.source.url) ? JSON.stringify({
+    outlet: clean(b.source.outlet, 120),
+    author: clean(b.source.author, 160),
+    original: clean(b.source.original, 300),
+    url: clean(b.source.url, 1000)
+  }) : '';
   const status = action === 'schedule' ? 'scheduled' : action === 'draft' ? 'draft' : (b.status === 'scheduled' ? 'scheduled' : 'draft');
-  const vals = [publishAt, status, b.site ? 1 : 0, b.tg ? 1 : 0, tag,
+  const editorialRequired = PROJECT_TAGS.has(tag) || ANALYSIS_TAGS.has(tag);
+  const site = editorialRequired && (action === 'schedule' || action === 'now') ? 1 : (b.site ? 1 : 0);
+  const tg = editorialRequired && (action === 'schedule' || action === 'now') ? 1 : (b.tg ? 1 : 0);
+  const vals = [publishAt, status, site, tg, tag,
     clean(b.ru_title, 300), clean(b.ru_body, 12000), tags(b.ru_tags),
     clean(b.en_title, 300), clean(b.en_body, 12000), tags(b.en_tags), src, now];
 
