@@ -822,6 +822,74 @@ function installConfidentialityLayer(lang, $, projects) {
   paint();
 }
 
+
+/* V2.13 controlled disclosure ladder */
+function installDisclosureLadder(lang, $, projects) {
+  const en = lang === 'en';
+  const modal = $('#modal');
+  if (!modal) return;
+  let sec = $('#v2-disclosure-ladder');
+  if (!sec) {
+    sec = document.createElement('section');
+    sec.id = 'v2-disclosure-ladder';
+    sec.className = 'v2-disclosure-ladder';
+    $('#v2-confidentiality')?.after(sec);
+  }
+  const paint = () => {
+    const id = modal.dataset.project;
+    const p = (projects || []).find((x)=>x.id===id);
+    if(!modal.open || !p){sec.hidden=true;return;}
+    sec.hidden=false;
+    const steps = en ? [
+      ['01','Public view','Problem, value, maturity, commercial path and the next verifiable milestone.'],
+      ['02','Qualified demo','Deeper product walkthrough, user flows, pilot scope and questions relevant to your role.'],
+      ['03','NDA / diligence','Selected implementation detail, evidence, integration discussion and diligence materials when justified.']
+    ] : [
+      ['01','Публично','Проблема, ценность, зрелость, коммерческий путь и следующий проверяемый этап.'],
+      ['02','Закрытое демо','Более глубокий разбор продукта, пользовательских сценариев, границ пилота и вопросов под вашу роль.'],
+      ['03','NDA / diligence','Выборочные детали реализации, доказательства, интеграционный диалог и материалы для проверки — когда это обосновано.']
+    ];
+    sec.innerHTML = `
+      <div class="v2-disclosure-head">
+        <p class="eyebrow">${en?'Controlled disclosure':'Уровни доступа'}</p>
+        <h3>${en?'More detail only when the conversation earns it':'Больше деталей — только когда это действительно нужно'}</h3>
+      </div>
+      <div class="v2-disclosure-grid">
+        ${steps.map((s)=>`<article><span>${s[0]}</span><h4>${s[1]}</h4><p>${s[2]}</p></article>`).join('')}
+      </div>
+      <div class="v2-disclosure-cta">
+        <button type="button" class="btn btn-primary" data-v2-disclosure-demo>${en?'Request a qualified demo':'Запросить закрытое демо'}</button>
+        <button type="button" class="btn" data-v2-disclosure-diligence>${en?'Discuss NDA / diligence':'Обсудить NDA / проверку'}</button>
+      </div>`;
+  };
+  if(!modal.dataset.v2DisclosureBound){
+    modal.dataset.v2DisclosureBound='1';
+    modal.addEventListener('click',(e)=>{
+      const p=(projects||[]).find((x)=>x.id===modal.dataset.project);
+      const demo=e.target.closest('[data-v2-disclosure-demo]');
+      const diligence=e.target.closest('[data-v2-disclosure-diligence]');
+      if(!demo && !diligence) return;
+      const topic=$('#topic');
+      if(topic) topic.value=diligence?'investors':'product';
+      const details=$('#details');
+      if(details){
+        details.value = diligence
+          ? (en
+            ? `I would like to discuss NDA / diligence for ${p?.name || modal.dataset.project}: current maturity, pilot evidence and the appropriate level of controlled disclosure.`
+            : `Хочу обсудить NDA / проверку по ${p?.name || modal.dataset.project}: текущую зрелость, подтверждения по пилоту и допустимую глубину закрытого раскрытия.`)
+          : (en
+            ? `I would like a qualified demo of ${p?.name || modal.dataset.project}: product value, user journey and pilot scope.`
+            : `Хочу закрытое демо ${p?.name || modal.dataset.project}: ценность продукта, пользовательский путь и границы пилота.`);
+      }
+      modal.close();
+      $('#contact')?.scrollIntoView({behavior:'smooth',block:'start'});
+      $('#form')?.dispatchEvent(new Event('input'));
+    });
+    new MutationObserver(paint).observe(modal,{attributes:true,attributeFilter:['open','data-project']});
+  }
+  paint();
+}
+
 export function renderV2(lang, projects = []) {
   const en = lang === 'en';
   document.documentElement.dataset.preview = 'v2';
@@ -863,6 +931,7 @@ export function renderV2(lang, projects = []) {
   installStrategicHorizon(lang, $, projects);
   installPublicStatusStamp(lang, $, projects);
   installConfidentialityLayer(lang, $, projects);
+  installDisclosureLadder(lang, $, projects);
   if (!$('#v2-steps')) {
     const section = document.createElement('section'); section.id = 'v2-steps'; section.className = 'section v2-steps';
     $('#contact').before(section);
