@@ -293,6 +293,115 @@ function renderPortfolioIntelligence(lang, $, projects) {
     : 'Ниже сохранены полные карточки: стадия, логика продукта, варианты участия и подробности по каждому проекту.';
 }
 
+
+/* V2.3 stakeholder lens */
+const V2_STAKEHOLDERS = {"ru":[{"id":"client","label":"Клиент","kicker":"Бизнес-задача","title":"Нужно улучшить экономику или управляемость бизнеса","body":"Смотрите опыт, формат консалтинга и критерии результата. Первый разговор должен закончиться не «идеями вообще», а понятной рамкой задачи и следующим решением.","questions":["Что сейчас стоит денег или тормозит решение?","Какие данные доступны для проверки?","По какому показателю поймём, что стало лучше?"],"route":"consulting","primary":"К формату работы","secondary":"Посмотреть опыт"},{"id":"ceo","label":"CEO / собственник","kicker":"Приоритет и запуск","title":"Нужно быстро понять, что реально можно запускать","body":"Смотрите не количество функций, а зрелость, следующий milestone, владельца результата и критерии приёмки. Portfolio Intelligence показывает это до погружения в детали.","questions":["Какой бизнес-результат должен измениться?","Что уже собрано, а что ещё требует проверки?","Как выглядит ограниченный пилот вместо большого внедрения?"],"route":"portfolio","primary":"Открыть Portfolio Intelligence","secondary":"Как начинается работа"},{"id":"investor","label":"Инвестор","kicker":"Зрелость и de-risking","title":"Нужно отделить рабочую стадию от красивой презентации","body":"Портфель показывает опубликованную зрелость и следующий путь коммерческой проверки. Там, где подтверждённой монетизации ещё нет, V2 прямо это обозначает и не подменяет гипотезу фактом.","questions":["Какая стадия подтверждена сейчас?","Какой следующий de-risking milestone?","Какой evidence должен появиться после капитала или пилота?"],"route":"investment","primary":"Смотреть инвестиционный маршрут","secondary":"Открыть портфель"},{"id":"partner","label":"Стратегический партнёр","kicker":"Совместная ценность","title":"Нужно понять, что каждая сторона реально привносит","body":"Партнёрский маршрут начинается с вклада, клиентского сценария и коммерческой механики. Затем — один ограниченный совместный кейс с измеримым результатом.","questions":["Какой актив или канал есть у каждой стороны?","Какой клиентский сценарий строим вместе?","Что станет основанием масштабировать партнёрство?"],"route":"partnership","primary":"К партнёрскому маршруту","secondary":"Смотреть проекты"}],"en":[{"id":"client","label":"Client","kicker":"Business problem","title":"Improve the economics or manageability of the business","body":"Start with experience, advisory format and acceptance criteria. The first conversation should end with a defined problem frame and a next decision, not a cloud of generic ideas.","questions":["What is currently costing money or slowing decisions?","What data can be used to test the problem?","Which metric tells us the result improved?"],"route":"consulting","primary":"See the working format","secondary":"Review experience"},{"id":"ceo","label":"CEO / owner","kicker":"Priority & launch","title":"See quickly what can actually be launched","body":"Look past the feature count: maturity, next milestone, accountable owner and acceptance criteria matter more. Portfolio Intelligence surfaces those before the detailed dossiers.","questions":["Which business outcome must change?","What is already built versus still unverified?","What would a bounded pilot look like instead of a large rollout?"],"route":"portfolio","primary":"Open Portfolio Intelligence","secondary":"How the work starts"},{"id":"investor","label":"Investor","kicker":"Maturity & de-risking","title":"Separate working maturity from presentation quality","body":"The portfolio shows published maturity and the next commercial validation path. Where monetisation is not yet validated, V2 says so explicitly rather than presenting a hypothesis as fact.","questions":["What maturity is evidenced today?","What is the next de-risking milestone?","What evidence should exist after capital or a pilot?"],"route":"investment","primary":"Open investment route","secondary":"Review portfolio"},{"id":"partner","label":"Strategic partner","kicker":"Shared value","title":"Make each side’s contribution explicit","body":"The partnership route starts with contribution, customer workflow and commercial mechanics, then narrows to one joint case with a measurable result.","questions":["What asset or channel does each side bring?","Which customer workflow are we building together?","What evidence would justify scaling the partnership?"],"route":"partnership","primary":"Open partnership route","secondary":"Review products"}]};
+function renderStakeholderLens(lang, $, projects) {
+  const en = lang === 'en';
+  const data = V2_STAKEHOLDERS[en ? 'en' : 'ru'];
+  const items = Array.isArray(projects) ? projects.filter((p) => p?.id && p?.[lang]) : [];
+  const metas = items.map((p) => V2_PORTFOLIO_META[p.id]).filter(Boolean);
+  const sectorCount = new Set(metas.flatMap((m) => m.cats)).size;
+  const maturityCount = metas.reduce((acc,m)=>{acc[m.maturity]=(acc[m.maturity]||0)+1;return acc;},{});
+  const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (ch) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+
+  $('#v2-headline').textContent = en
+    ? 'Decision economics. Working products. A verifiable next step.'
+    : 'Экономика решений. Рабочие продукты. Проверяемый следующий шаг.';
+  $('#hero-lead').textContent = en
+    ? 'Advisory for business decisions and a portfolio of products that can be examined by maturity, pilot path and evidence — before a larger commitment is made.'
+    : 'Консалтинг для бизнес-решений и портфель продуктов, которые можно оценить по зрелости, пути к пилоту и evidence — до крупного обязательства.';
+
+  let proof = $('#v2-proofbar');
+  if (!proof) {
+    proof = document.createElement('div');
+    proof.id = 'v2-proofbar';
+    proof.className = 'v2-proofbar';
+    $('.hero-cta')?.after(proof);
+  }
+  const chips = [
+    [String(items.length), en ? 'published products' : 'опубликованных проектов'],
+    [String(sectorCount), en ? 'active sectors' : 'активных направлений'],
+    [String(maturityCount.mvp || 0), 'MVP'],
+    [String(maturityCount.pilot || 0), 'Pilot-ready']
+  ];
+  proof.innerHTML = chips.map(([n,l])=>`<span><strong>${esc(n)}</strong>${esc(l)}</span>`).join('');
+
+  let section = $('#v2-stakeholders');
+  const routes = $('#v2-routes');
+  if (!section) {
+    section = document.createElement('section');
+    section.id = 'v2-stakeholders';
+    section.className = 'section v2-stakeholders';
+    routes?.before(section);
+  }
+  if (!section) return;
+
+  section.innerHTML = `
+    <div class="v2-stakeholder-head">
+      <div>
+        <p class="eyebrow">${en ? 'Choose your lens' : 'Выберите свою роль'}</p>
+        <h2>${en ? 'The same portfolio answers different questions' : 'Один портфель — разные вопросы'}</h2>
+      </div>
+      <p>${en
+        ? 'Switch perspective first. The page then points you to the evidence and action that matter for that role.'
+        : 'Сначала выберите перспективу. Дальше страница покажет именно тот evidence и действие, которые важны для этой роли.'}</p>
+    </div>
+    <div class="v2-stakeholder-tabs" role="tablist" aria-label="${en ? 'Visitor role' : 'Роль посетителя'}">
+      ${data.map((r,i)=>`<button type="button" role="tab" class="v2-stakeholder-tab${i===0?' active':''}" aria-selected="${i===0}" data-v2-stakeholder="${r.id}">${esc(r.label)}</button>`).join('')}
+    </div>
+    <article class="v2-stakeholder-panel" id="v2-stakeholder-panel"></article>`;
+
+  const renderRole = (id) => {
+    const role = data.find((x)=>x.id===id) || data[0];
+    section.querySelectorAll('.v2-stakeholder-tab').forEach((b)=>{
+      const active=b.dataset.v2Stakeholder===role.id;
+      b.classList.toggle('active',active);
+      b.setAttribute('aria-selected',String(active));
+    });
+    $('#v2-stakeholder-panel').innerHTML = `
+      <div class="v2-stakeholder-main">
+        <span class="v2-route-meta">${esc(role.kicker)}</span>
+        <h3>${esc(role.title)}</h3>
+        <p>${esc(role.body)}</p>
+      </div>
+      <div class="v2-stakeholder-questions">
+        <h4>${en ? 'Questions to resolve' : 'Какие вопросы надо закрыть'}</h4>
+        <ol>${role.questions.map((q)=>`<li>${esc(q)}</li>`).join('')}</ol>
+      </div>
+      <div class="v2-stakeholder-actions">
+        <button type="button" class="btn btn-primary" data-v2-role-primary="${role.route}">${esc(role.primary)} →</button>
+        <button type="button" class="btn" data-v2-role-secondary="${role.id}">${esc(role.secondary)}</button>
+      </div>`;
+    try { sessionStorage.setItem('syntha_v2_stakeholder',role.id); } catch {}
+  };
+
+  if (!section.dataset.boundStakeholder) {
+    section.dataset.boundStakeholder='1';
+    section.addEventListener('click',(e)=>{
+      const tab=e.target.closest('[data-v2-stakeholder]');
+      if(tab){ renderRole(tab.dataset.v2Stakeholder); return; }
+      const primary=e.target.closest('[data-v2-role-primary]');
+      if(primary){
+        const route=primary.dataset.v2RolePrimary;
+        if(route==='portfolio'){ $('#v2-portfolio')?.scrollIntoView({behavior:'smooth',block:'start'}); return; }
+        const decisionTab=document.querySelector(`#v2-decision [data-v2-path="${CSS.escape(route)}"]`);
+        if(decisionTab){ decisionTab.click(); $('#v2-decision')?.scrollIntoView({behavior:'smooth',block:'start'}); }
+        return;
+      }
+      const secondary=e.target.closest('[data-v2-role-secondary]');
+      if(!secondary) return;
+      const role=secondary.dataset.v2RoleSecondary;
+      const target=role==='client' ? $('#experience') : role==='ceo' ? $('#v2-steps') : $('#v2-portfolio');
+      target?.scrollIntoView({behavior:'smooth',block:'start'});
+    });
+  }
+
+  let saved='client';
+  try { saved=sessionStorage.getItem('syntha_v2_stakeholder')||'client'; } catch {}
+  renderRole(data.some((x)=>x.id===saved)?saved:'client');
+}
+
 export function renderV2(lang, projects = []) {
   const en = lang === 'en';
   document.documentElement.dataset.preview = 'v2';
@@ -326,6 +435,7 @@ export function renderV2(lang, projects = []) {
   $('#v2-routes').innerHTML = `<p class="eyebrow">${en ? 'Where shall we start?' : 'С чего начнём?'}</p><div class="v2-route-grid">${routes.map(r=>`<a class="v2-route" href="${r[5]}"><span class="v2-route-meta">${r[0]} / ${r[1]}</span><h3>${r[2]}</h3><p>${r[3]}</p><span class="v2-route-action">${r[4]} →</span></a>`).join('')}</div>`;
   installDecisionLayer(lang, $);
   renderPortfolioIntelligence(lang, $, projects);
+  renderStakeholderLens(lang, $, projects);
   if (!$('#v2-steps')) {
     const section = document.createElement('section'); section.id = 'v2-steps'; section.className = 'section v2-steps';
     $('#contact').before(section);
