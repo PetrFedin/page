@@ -149,7 +149,7 @@ const urlLang = location.pathname.startsWith('/en') ? 'en'
 let lang = (urlLang === 'ru' || urlLang === 'en') ? urlLang : 'ru';
 if (!T[lang]) lang = 'ru';
 
-let projectsExpanded = true;
+let projectsExpanded = false;
 const PROJECTS_FIRST = 3;
 
 /* Раздел «Сотрудничество»: шесть мини-карточек форматов; полный текст формата — в окне с листанием. */
