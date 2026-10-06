@@ -72,3 +72,29 @@ local .txt file. This keeps V2 safe to demonstrate without production bindings.
 The original portfolio, consulting, partnership, news, contact and project
 sections are still present. V2 remains additive: no production V1 route or domain
 is changed by this iteration.
+
+
+## Portfolio Intelligence v2.2
+
+V2 now adds an intelligence layer above the detailed project cards. It reads the
+same published PROJECTS registry used by the existing site and therefore does not
+invent portfolio entries that are not present in the public showcase.
+
+Published projects are grouped into the currently evidenced sectors:
+Fashion, Enterprise, Events and Consumer. Fintech, Art and Infrastructure remain
+visible as intentionally unpublished sectors with zero entries until matching
+projects are formally added to this repository's public portfolio.
+
+Each project summary exposes:
+- sector;
+- normalized maturity (Concept / MVP / Pilot-ready / Production);
+- current stage from the existing project content;
+- published audience description;
+- a conservative commercial-path statement;
+- direct actions for product detail, pilot, partnership and investment discussion.
+
+The monetisation field intentionally does not claim validated pricing or revenue
+models where the current public project dossier does not provide them. It describes
+the next commercial validation path instead.
+
+The original detailed cards remain below this layer unchanged.
