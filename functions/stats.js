@@ -632,7 +632,8 @@ function client() {
       + '<label class="fld"><span>Text (English)</span><textarea name="en_body"' + (pub ? ' disabled' : '') + '>' + v('en_body') + '</textarea></label>'
       + '<label class="fld"><span>Tags</span><input name="en_tags" value="' + tags('en_tags') + '"' + (pub ? ' disabled' : '') + '></label></details>'
       + '<details' + (src.outlet ? ' open' : '') + '><summary style="cursor:pointer;margin-bottom:10px">Источник (для разборов чужих материалов)</summary><div class="frow">'
-      + '<label class="fld"><span>Издание</span><input name="s_outlet" value="' + esc(src.outlet || '') + '"></label><label class="fld"><span>Оригинальное название</span><input name="s_original" value="' + esc(src.original || '') + '"></label></div></details>'
+      + '<label class="fld"><span>Издание</span><input name="s_outlet" value="' + esc(src.outlet || '') + '"></label><label class="fld"><span>Оригинальное название</span><input name="s_original" value="' + esc(src.original || '') + '"></label></div>'
+      + '<label class="fld"><span>Ссылка на исходный материал</span><input type="url" name="s_url" value="' + esc(src.url || '') + '" placeholder="https://…"></label></details>'
       + '<div class="acts">' + (pub ? '' : '<button class="btn" type="button" data-save="draft">Сохранить черновик</button><button class="btn pri" type="button" data-save="schedule">Запланировать</button><button class="btn" type="button" data-save="now">Опубликовать сейчас</button>')
       + (p.id ? '<button class="btn bad" type="button" data-save="delete">Удалить</button>' : '') + '<div class="grow"></div><button class="btn" type="button" data-save="close">Закрыть</button></div></form></div>';
   }
@@ -658,7 +659,7 @@ function client() {
       site: fd.get('site') === 'on', tg: fd.get('tg') === 'on',
       ru_title: fd.get('ru_title'), ru_body: fd.get('ru_body'), ru_tags: fd.get('ru_tags'),
       en_title: fd.get('en_title'), en_body: fd.get('en_body'), en_tags: fd.get('en_tags'),
-      source: { outlet: fd.get('s_outlet'), original: fd.get('s_original') }
+      source: { outlet: fd.get('s_outlet'), original: fd.get('s_original'), url: fd.get('s_url') }
     };
     if ((action === 'schedule' || action === 'now') && (!String(body.ru_title).trim() || !String(body.ru_body).trim())) { alert('Заполните русский заголовок и текст.'); return; }
     if (!body.site && !body.tg && action !== 'draft') { alert('Выберите, куда публиковать: сайт, Telegram или оба.'); return; }
