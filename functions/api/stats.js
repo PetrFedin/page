@@ -117,9 +117,38 @@ export async function onRequestGet({ request, env }) {
       SUM(type='pageview') views, MAX(CASE WHEN type='pageview' THEN ref END) ref
       FROM events WHERE ts >= ? GROUP BY vid ORDER BY last DESC LIMIT 80`, since);
   const names = await q(`SELECT vid, name FROM submissions WHERE vid != '' AND ts >= ?`, since);
+  const editorial = await q(`
+    SELECT json_extract(data,'$.content.date') post_date,
+      MAX(json_extract(data,'$.content.title')) title,
+      MAX(json_extract(data,'$.content.tag')) tag,
+      MAX(json_extract(data,'$.content.source')) source,
+      COUNT(DISTINCT CASE WHEN type='content_open' THEN sid END) readers,
+      COUNT(CASE WHEN type='content_open' THEN 1 END) opens,
+      COUNT(DISTINCT CASE WHEN type='content_to_project' THEN sid END) to_project,
+      COUNT(DISTINCT CASE WHEN type='form_start' THEN sid END) form_starts,
+      COUNT(DISTINCT CASE WHEN type='form_sent' THEN sid END) leads
+    FROM events
+    WHERE ts >= ? AND json_extract(data,'$.content.date') IS NOT NULL
+    GROUP BY post_date ORDER BY readers DESC, opens DESC LIMIT 200`, since);
+  const editorialSources = await q(`
+    SELECT json_extract(data,'$.content.source') source,
+      COUNT(DISTINCT CASE WHEN type='content_open' THEN sid END) readers,
+      COUNT(DISTINCT CASE WHEN type='content_to_project' THEN sid END) to_project,
+      COUNT(DISTINCT CASE WHEN type='form_sent' THEN sid END) leads
+    FROM events
+    WHERE ts >= ? AND COALESCE(json_extract(data,'$.content.source'),'') != ''
+    GROUP BY source ORDER BY readers DESC LIMIT 80`, since);
+  const editorialTopics = await q(`
+    SELECT json_extract(data,'$.content.tag') tag,
+      COUNT(DISTINCT CASE WHEN type='content_open' THEN sid END) readers,
+      COUNT(DISTINCT CASE WHEN type='content_to_project' THEN sid END) to_project,
+      COUNT(DISTINCT CASE WHEN type='form_sent' THEN sid END) leads
+    FROM events
+    WHERE ts >= ? AND COALESCE(json_extract(data,'$.content.tag'),'') != ''
+    GROUP BY tag ORDER BY readers DESC LIMIT 40`, since);
 
   return new Response(JSON.stringify({
     days, totals, prev, online: { m5: now5?.n ?? 0, m30: now30?.n ?? 0 }, returning: ret?.n ?? 0, hours, weekdays, live, leadsCount: subCount[0]?.n ?? 0, generated: Date.now(), avgSec: dur?.sec ?? null, daily, pages, sections, depth, clicks, modals, views, refs, geo, tech,
-    funnel: fun, vitals, fields, errors, abandons, quiz, submissions, visitors, names
+    funnel: fun, vitals, fields, errors, abandons, quiz, submissions, visitors, names, editorial, editorialSources, editorialTopics
   }), { headers: HEAD });
 }
