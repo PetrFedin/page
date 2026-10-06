@@ -2746,8 +2746,8 @@ export const PROJECTS = [
     en: {
       collab: [{ k: 'Early access', v: 'A company moves part of its work into ChatX and sets feature priorities.' }, { k: 'Rollout', v: 'A partner who deploys the product in client companies and supports the transition.' }, { k: 'On request', v: 'A demo and architecture walkthrough under an NDA.' }],
       status: {
-        done: ['Channels, groups, direct messages, voice notes, files, tasks, calendar and permission-aware search', 'LiveKit-backed calls with consent-gated recording and evidence-first Meeting Intelligence', 'Timecoded transcripts, summaries, decisions/actions/risks/questions with source citations; AI actions require human confirmation', 'Organisation tree, roles, staffing positions, delegated management and server-side RBAC', 'Signed webhooks, API keys, durable worker/outbox, audit log, PWA and RU/EN', 'Structured Requests and Approvals with versioned templates, role/person approval chains, amount thresholds, needs-info loop, task creation and queue metrics'],
-        now: ['Validation with real external providers for email, calls, transcription, AI and push', 'Telegram bridge validation on a real bot', 'Preparing a bounded company pilot; current evidence is repository/local/CI rather than external production'], 
+        done: ['Channels, groups, direct messages, files, tasks, calendar and permission-aware search', 'Audio and video meetings with governed recording', 'Meeting transcripts, summaries, decisions and actions linked back to source context', 'Organisation structure, roles and delegated management', 'Integration layer, audit, mobile-friendly web experience and RU/EN', 'Structured requests and approvals with transparent execution status'],
+        now: ['Validating key external integrations', 'Preparing a bounded company pilot', 'Completing rollout and administration scenarios for pilot use'], 
         next: ['Pilot inside a client company', 'Two-way Google/Outlook calendar integration', 'Slack/Teams adapters and a governed automation/rules layer'],
         seeking: 'Companies ready to move part of their work into ChatX, and an implementation partner.'
       },
@@ -2850,7 +2850,7 @@ export const PROJECTS = [
       seeking: 'Нужны заказчик и стратегические партнёры для согласования пилотного контура: программа, площадка, партнёрский кабинет и работа с участником после события.'
     },
     en: {
-      roadmap: [{ label: 'Live v1.4', state: 'done' }, { label: 'Controlled-pilot readiness', state: 'current' }, { label: 'Production admission', state: 'next' }],
+      roadmap: [{ label: 'Live v1.4', state: 'done' }, { label: 'Controlled-pilot readiness', state: 'current' }, { label: 'Controlled pilot', state: 'next' }],
       tagline: '“SOSTOYANIE” — a year-round health-media and conference operating platform',
       stage: 'Live v1.4, controlled-pilot readiness',
       card: 'SOSTOYANIE already combines year-round content, a multi-track conference, personalised participant journeys, event operations, partner workflows and analytics. The next milestone is a controlled pilot with real users and processes.',
