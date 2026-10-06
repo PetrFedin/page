@@ -222,7 +222,7 @@ function renderPortfolioIntelligence(lang, $, projects) {
           <div><dt>${en ? 'Monetisation' : 'Монетизация'}</dt><dd>${esc(m.commercial[en ? 'en' : 'ru'])}</dd></div>
         </dl>
         <div class="v2-product-actions">
-          <button type="button" class="btn btn-sm btn-primary" data-v2-open="${esc(p.id)}">${en ? 'Open product' : 'Открыть проект'}</button>
+          <button type="button" class="btn btn-sm btn-primary" data-v2-open="${esc(p.id)}">${en ? 'Open dossier' : 'Открыть досье'}</button>
           <button type="button" class="btn btn-sm" data-v2-talk="launch" data-v2-id="${esc(p.id)}">${en ? 'Discuss pilot' : 'Обсудить пилот'}</button>
           <button type="button" class="btn btn-sm" data-v2-talk="partnership" data-v2-id="${esc(p.id)}">${en ? 'Partnership' : 'Партнёрство'}</button>
           <button type="button" class="btn btn-sm" data-v2-talk="investors" data-v2-id="${esc(p.id)}">${en ? 'Investment' : 'Инвестиции'}</button>
@@ -480,6 +480,63 @@ function installExecutiveEvidence(lang, $, projects) {
   });
 }
 
+
+/* V2.6 project decision dossier */
+function installProjectDecisionDossier(lang, $, projects) {
+  const en = lang === 'en';
+  const modal = $('#modal');
+  const status = $('#status');
+  if (!modal || !status) return;
+  const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (ch) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+
+  let section = $('#v2-project-dossier');
+  if (!section) {
+    section = document.createElement('section');
+    section.id = 'v2-project-dossier';
+    section.className = 'v2-project-dossier';
+    status.before(section);
+  }
+
+  const paint = () => {
+    const id = modal.dataset.project;
+    const p = (projects || []).find((x) => x.id === id);
+    const d = V2_EVIDENCE[id]?.[en ? 'en' : 'ru'];
+    if (!p || !d || !modal.open) {
+      section.hidden = true;
+      return;
+    }
+    section.hidden = false;
+    section.innerHTML = `
+      <div class="v2-dossier-head">
+        <p class="eyebrow">${en ? 'Decision dossier' : 'Досье для решения'}</p>
+        <h3>${en ? 'What matters before the next commitment' : 'Что важно до следующего решения'}</h3>
+      </div>
+      <div class="v2-dossier-grid">
+        <div><span>${en ? 'Problem' : 'Проблема'}</span><p>${esc(d.problem)}</p></div>
+        <div><span>${en ? 'Evidence now' : 'Что подтверждено сейчас'}</span><p>${esc(d.evidence)}</p></div>
+        <div><span>${en ? 'Next milestone' : 'Следующий проверяемый этап'}</span><p>${esc(d.next)}</p></div>
+        <div><span>${en ? 'Commercial path' : 'Коммерческий путь'}</span><p>${esc(d.path)}</p></div>
+        <div class="v2-dossier-ask"><span>${en ? 'What is needed now' : 'Что требуется сейчас'}</span><p>${esc(d.ask)}</p></div>
+      </div>`;
+    const primary = $('#modal-cta');
+    if (primary) primary.textContent = en ? 'Discuss next step' : 'Обсудить следующий шаг';
+    const more = $('#modal-more');
+    if (more && !more.hidden) more.textContent = en ? 'Open full dossier' : 'Открыть полное досье';
+  };
+
+  if (!modal.dataset.v2DossierBound) {
+    modal.dataset.v2DossierBound = '1';
+    new MutationObserver(paint).observe(modal, {attributes:true,attributeFilter:['open','data-project']});
+    modal.addEventListener('click', (e) => {
+      if (e.target.closest('[data-v2-dossier-invest]')) {
+        $('#topic').value = 'investors';
+        $('#contact')?.scrollIntoView({behavior:'smooth',block:'start'});
+      }
+    });
+  }
+  paint();
+}
+
 export function renderV2(lang, projects = []) {
   const en = lang === 'en';
   document.documentElement.dataset.preview = 'v2';
@@ -515,6 +572,7 @@ export function renderV2(lang, projects = []) {
   renderPortfolioIntelligence(lang, $, projects);
   renderStakeholderLens(lang, $, projects);
   installExecutiveEvidence(lang, $, projects);
+  installProjectDecisionDossier(lang, $, projects);
   if (!$('#v2-steps')) {
     const section = document.createElement('section'); section.id = 'v2-steps'; section.className = 'section v2-steps';
     $('#contact').before(section);
