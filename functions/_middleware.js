@@ -1,6 +1,7 @@
 /* Учёт заходов поисковых и ИИ-роботов на публичные страницы: видно, кто и когда читал сайт.
    Людей здесь не считаем (их считает track.js), страницы не меняем. */
 import { ensureSchema } from './api/_lib.js';
+import { languageRedirect } from './_language.js';
 
 const BOTS = [
   [/googlebot|google-inspectiontool|adsbot-google|apis-google/i, 'Googlebot', 'search'],
@@ -23,6 +24,8 @@ const BOTS = [
 
 export async function onRequest(context) {
   const { request, env, next } = context;
+  const redirect = languageRedirect(request);
+  if (redirect) return redirect;
   const res = await next();
   try {
     const path = new URL(request.url).pathname;
