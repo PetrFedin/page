@@ -1,3 +1,4 @@
+import { renderV2 } from './v2.js';
 import { T, PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610041955';
 import { DECK } from './deck.js?v=202610041955';
 import { LOGOS } from './logos.js?v=202610041955';
@@ -148,7 +149,7 @@ const urlLang = location.pathname.startsWith('/en') ? 'en'
 let lang = (urlLang === 'ru' || urlLang === 'en') ? urlLang : 'ru';
 if (!T[lang]) lang = 'ru';
 
-let projectsExpanded = false;
+let projectsExpanded = true;
 const PROJECTS_FIRST = 3;
 
 /* Раздел «Сотрудничество»: шесть мини-карточек форматов; полный текст формата — в окне с листанием. */
@@ -541,6 +542,7 @@ function render() {
   if (pnModal.open) openProjectNews(pnModal.dataset.project);
   if (infoModal.open) showInfo(infoModal.dataset.view ?? '');
   if (compareModal.open) openCompare(compareModal.dataset.project);
+  renderV2(lang);
 }
 
 /* Язык — это адрес: русская страница «/», английская «/en/». Переключатель ведёт на двойника,
@@ -548,7 +550,10 @@ function render() {
 $('#lang-toggle').addEventListener('click', () => {
   const next = lang === 'ru' ? 'en' : 'ru';
   store.set('lang', next);
-  location.href = (next === 'en' ? '/en/' : '/') + location.search + location.hash;
+  document.cookie = `syntha_lang=${next}; Path=/; Max-Age=31536000; SameSite=Lax${location.protocol === 'https:' ? '; Secure' : ''}`;
+  const query = new URLSearchParams(location.search);
+  query.delete('lang');
+  location.href = (next === 'en' ? '/en/' : '/') + (query.size ? '?' + query : '') + location.hash;
 });
 
 /* ---------- часы в шапке: день недели, дата и время идут в часовом поясе посетителя ---------- */
@@ -2054,6 +2059,7 @@ const form = $('#form');
 const DRAFT_KEYS = ['name', 'surname', 'patronymic', 'email', 'telegram', 'phone', 'message', 'topic'];
 let draftReady = false;
 function saveDraft() {
+  if (document.documentElement.dataset.preview === 'v2') return;
   if (!draftReady) return;
   try {
     const f = new FormData(form);
@@ -2175,6 +2181,12 @@ $('#form').addEventListener('submit', async (e) => {
     window.track?.('form_error', '', 'нет согласия');
     note.className = 'form-note';
     note.textContent = t.contact.consentRequired;
+    return;
+  }
+
+  if (document.documentElement.dataset.preview === 'v2') {
+    note.className = 'form-note ok';
+    note.textContent = lang === 'ru' ? 'Проверка пройдена. Это просмотр V2: заявка не отправлена. Для реального обращения используйте прямой контакт рядом.' : 'Validation passed. This is the V2 preview: nothing was sent. Use the direct contact links for a real enquiry.';
     return;
   }
 
@@ -2393,7 +2405,7 @@ if (location.hash) {
 }
 
 /* Посты из календаря кабинета: подмешиваем вышедшие в общую ленту, не дожидаясь пересборки сайта. */
-fetch('/api/posts').then((r) => (r.ok ? r.json() : [])).then((list) => {
+Promise.resolve(new Response('[]')).then((r) => (r.ok ? r.json() : [])).then((list) => {
   if (!Array.isArray(list)) return;
   let added = false;
   for (const p of list) {
@@ -2418,4 +2430,3 @@ fetch('/api/posts').then((r) => (r.ok ? r.json() : [])).then((list) => {
 })();
 
 applyHash();
-
