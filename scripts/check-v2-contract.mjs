@@ -4,6 +4,7 @@ const read = (p) => fs.readFileSync(p, 'utf8');
 const app = read('assets/app.js');
 const v2 = read('assets/v2.js');
 const index = read('index.html');
+const content = read('assets/content.js');
 const en = read('en/index.html');
 
 const checks = [
@@ -19,6 +20,8 @@ const checks = [
   ['contact form anchors', ['id="contact"','id="form"','id="topic"','id="submit"'].every((x) => index.includes(x))],
   ['RU/EN pages exist', index.includes('assets/app.js') && en.includes('/assets/app.js')],
   ['V2 renderer receives project registry', app.includes('renderV2(lang, PROJECTS);')],
+  ['project decision dossier', v2.includes('Досье для решения') && v2.includes('Следующий проверяемый этап') && v2.includes('Обсудить следующий шаг')],
+  ['dossier CTA consistency', v2.includes("'Открыть досье'") && content.includes("open: 'Открыть досье'")],
 ];
 
 let failed = 0;
