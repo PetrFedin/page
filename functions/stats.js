@@ -563,7 +563,7 @@ function client() {
   async function loadCal() {
     try {
       const r = await api('all=1', '/api/posts');
-      cal.posts = r.posts || []; cal.coverage = r.editorialCoverage || []; cal.policy = r.editorialPolicy || null; cal.channelReady = r.channelReady; cal.cronKey = r.cronKey;
+      cal.posts = r.posts || []; cal.coverage = r.editorialCoverage || []; cal.policy = r.editorialPolicy || null; cal.plan = r.editorialPlan || null; cal.channelReady = r.channelReady; cal.cronKey = r.cronKey;
     } catch (e) { cal.posts = []; cal.error = e.message; }
     if (!cal.statics.length) {
       try { const m = await import('/assets/news.js'); cal.statics = m.NEWS.map((p) => ({ date: p.date, title: p.ru.title, tag: p.tag })); } catch { /* не критично */ }
@@ -599,11 +599,18 @@ function client() {
       + '<span class="pc ' + (todayCoverage.analysis ? 'published' : 'failed') + '">Аналитика ' + (todayCoverage.analysis ? '✓' : '—') + '</span>'
       + '<span class="pc ' + (todayCoverage.synced >= 2 ? 'published' : 'failed') + '">Сайт + Telegram ' + (todayCoverage.synced >= 2 ? '✓' : '—') + '</span></div>'
       + '<p class="hint">' + (todayCoverage.complete ? 'Минимум на сегодня закрыт.' : 'Сегодня минимум ещё не закрыт. Отсутствует: ' + esc((todayCoverage.missing || []).map((x) => ({project:'публикация о проекте',analysis:'разбор внешней статьи','site+telegram':'две синхронные публикации сайт + Telegram'}[x] || x)).join(', ')) + '.') + '</p></div>';
+    const plan = cal.plan;
+    const planning = !plan ? '' : '<div class="box"><h2>Редакционный планировщик</h2>'
+      + '<p class="sub">Следующий проект по ротации: <b>' + esc(plan.suggestedProject || '—') + '</b>. Основание — только история публикаций: когда проект выходил последний раз и сколько материалов уже было.</p>'
+      + ((plan.projectRotation || []).length ? '<div class="lgd">' + plan.projectRotation.map((x) => '<span class="pc static">' + esc(x.tag) + ' · ' + x.count + (x.last ? ' · ' + esc(x.last) : ' · ещё не публиковался') + '</span>').join('') + '</div>' : '')
+      + ((plan.sourceFrequency || []).length ? '<p class="hint">Частота источников: ' + plan.sourceFrequency.slice(0, 6).map((x) => esc(x.outlet) + ' (' + x.count + ')').join(', ') + '. Частота нужна для диверсификации, а не для оценки качества издания.</p>' : '')
+      + '</div>';
     const warn = [];
     if (!cal.channelReady) warn.push('Telegram-канал ещё не подключён: посты с галочкой «Telegram» не уйдут, пока не заданы секреты CHANNEL_BOT_TOKEN и TELEGRAM_CHANNEL.');
     if (!cal.cronKey) warn.push('Автоматический таймер ещё не включён: запланированные посты выйдут при ближайшем визите на сайт или когда вы откроете этот календарь. Чтобы они выходили точно по времени, подключите таймер.');
     return (warn.length ? '<div class="note warn">' + warn.map(esc).join('<br>') + '</div>' : '')
       + sla
+      + planning
       + '<div class="cal-head"><button class="btn" data-calnav="-1">←</button><h2>' + esc(monthName) + '</h2><button class="btn" data-calnav="1">→</button><button class="btn" data-calnav="0">Сегодня</button><div class="grow"></div><button class="btn pri" data-newday="' + todayKey + '">+ Новая публикация</button></div>'
       + '<div class="cal">' + ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'].map((d) => '<div class="dow">' + d + '</div>').join('') + cells + '</div>'
       + '<div class="lgd"><span class="pc draft">Черновик</span><span class="pc scheduled">Запланирован</span><span class="pc published">Опубликован</span><span class="pc failed">Не вышел</span><span class="pc static">Уже на сайте</span></div>'

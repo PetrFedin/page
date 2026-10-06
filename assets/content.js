@@ -2685,38 +2685,38 @@ export const PROJECTS = [
     ru: {
       collab: [{ k: 'Пилот', v: 'Бренд или магазин проводит в системе реальный сезон; его опыт определяет мои приоритеты в разработке.' }, { k: 'Выход на рынок', v: 'Партнёр с доступом к каналу, который берёт на себя продажи и внедрение.' }, { k: 'Интеграция', v: 'Подключение к учётной системе бренда выполняется отдельным проектом.' }, { k: 'По запросу', v: 'Демонстрация на ваших данных; сравнение функций с международными платформами.' }],
       status: {
-        done: ['Организации, роли и партнёрский доступ; отдельная роль службы качества; реестр юридических лиц', 'Цифровые шоурумы, серверные цены каталога, замороженная версия каталога байера; GTIN и цвет проходят до матрицы заказа', 'Атомарные резервы склада, контроль MOQ и доступности, двустороннее подтверждение заказа, поправки к заказу', 'Продукт: SKU и GTIN, спецификации (BOM), обмерные карты, образцы, техпаки; реестры сертификатов и документов соответствия', 'Производство и закупка: раскрой, производственные заказы, контроль качества по плану выборки (AQL), запросы цен и заказы на материалы', 'Экономика заказа: себестоимость по SKU, распределение затрат, маржа, закрытие периода; интерфейс на русском и английском'],
-        now: ['Сквозная проверка цепочки «продукт → коммерция → маржа» на действующем окружении', 'Прайс-листы по рынкам, срокам действия и налогам', 'Отгрузка, приёмка и претензии: проверка полного цикла', 'Дизайн-система: удаление оставшихся устаревших стилевых слоёв'],
-        next: ['Пилот с первым брендом на реальном сезоне', 'Интеграция с учётной системой бренда'],
+        done: ['Единый контур продукта, коллекций и коммерческой работы', 'Цифровое взаимодействие бренда с партнёрами и байерами', 'Управляемые заказы, подтверждения и изменения', 'Контуры разработки продукта, закупки и производства', 'Контроль качества и истории исполнения', 'Аналитика экономики продукта и заказа'],
+        now: ['Усиление работы с поставщиками и производственными партнёрами', 'Доведение сквозных пользовательских сценариев до пилотного уровня', 'Подготовка первого реального сезонного пилота и интеграционного контура клиента'],
+        next: ['Пилот с первым брендом на реальном сезоне', 'Интеграция с ERP / учётной системой бренда', 'Проверка коммерческой модели и стоимости внедрения на фактическом пилоте'],
         seeking: 'Нужен первый бренд для пилота на реальном сезоне и партнёр, который понимает продажи и внедрение отраслевых B2B-систем.'
       },
       investor: { note: 'Рассматриваю разные форматы: долевые инвестиции, спонсорство, покупку продукта или доли, маркетинговое партнёрство, интеграцию с другими продуктами. Разговор возможен уже сейчас; точные условия фиксирую по согласованным метрикам пилота.' },
       roadmap: [{ label: 'Прототип', state: 'done' }, { label: 'Рабочая система', state: 'done' }, { label: 'Готовится к пилоту', state: 'current' }, { label: 'Пилот и запуск', state: 'next' }],
       tagline: 'Операционная система бренда: от продукта и заказа до фактической маржи',
-      stage: 'Готовится к пилоту',
-      card: 'Одна модель данных связывает продукт, цифровой шоурум, заказ, производство, поставку и маржу по SKU. Основные контуры собраны; сейчас проверяется сквозная цепочка перед пилотом с первым брендом.',
-      what: 'Единая операционная система для продуктового и коммерческого цикла бренда. В одной цепочке живут коллекция, спецификации, образцы, производство, закупка материалов, цифровой шоурум, заказ, подтверждение, поставка, себестоимость и маржа.',
+      stage: 'Рабочая система, готовится к пилоту',
+      card: 'Ключевые продуктовые и коммерческие сценарии уже собраны в единой рабочей системе: от подготовки коллекции и работы с партнёрами до заказа, исполнения и контроля экономики. Следующий проверяемый рубеж — пилот на реальном сезоне.',
+      what: 'B2B-платформа для бренда и его партнёров, которая связывает разработку продукта, работу с коллекцией, продажи, исполнение заказа, производство и экономику в одном управляемом контуре.',
       who: 'Брендам и производствам, которым важно связать разработку продукта с продажей; розничным сетям, мультибрендовым байерам и дистрибьюторам, которым нужны подтверждённые цена, доступность, заказ и поставка.',
       why: 'Продукт, заказ, остаток, себестоимость и маржа часто живут в разных системах. Из-за этого подтверждение заказа, доступность товара и итоговая экономика сверяются вручную и становятся видны слишком поздно.',
-      how: 'Система ведёт продукт и коммерцию по общей модели данных. Цена и доступность рассчитываются на сервере, заказ подтверждают обе стороны, изменения сохраняют историю, а себестоимость и маржа замыкают цепочку уже по фактическому исполнению.'
+      how: 'Критичные бизнес-правила контролируются системой, а изменения сохраняют историю. Пользователь видит актуальный статус продукта, заказа и исполнения без необходимости вручную сводить несколько независимых источников.'
     },
     en: {
       collab: [{ k: 'Pilot', v: 'A brand or retailer runs a real season in the system, and its experience sets my development priorities.' }, { k: 'Go to market', v: 'A partner with channel access who takes on sales and rollout.' }, { k: 'Integration', v: 'Integration with the brand’s ERP is delivered as a separate project.' }, { k: 'On request', v: 'A demo on your own data, and a feature comparison with international platforms.' }],
       status: {
-        done: ['Organisations, roles and partner access, with a separate quality role; legal-entity registry', 'Digital showrooms, server-side catalogue pricing, a frozen buyer catalogue; GTIN and colour carried through to the order matrix', 'Atomic inventory reservations, MOQ and availability controls, two-sided order confirmation, order amendments', 'Product: SKU and GTIN, BOM, measurement charts, samples, tech packs; certification and compliance-document registries', 'Production and sourcing: cutting, production orders, AQL-based quality control, material RFQs and purchase orders', 'Order economics: cost per SKU, cost allocation, margin, period close-out; Russian and English interface'],
-        now: ['End-to-end check of the product → commerce → margin chain on a live environment', 'Price lists by market, validity period and tax', 'Shipping, receiving and claims: testing the full cycle', 'Design system: removing the remaining legacy style layers'],
+        done: ['Unified product, collection and commercial workflow', 'Digital collaboration between brand, retail partners and buyers', 'Governed orders, confirmations and change history', 'Product-development, sourcing and production workflows', 'Quality-control and execution history', 'Product and order economics analytics'],
+        now: ['Strengthening supplier and production-partner workflows', 'Completing end-to-end user journeys for pilot use', 'Preparing the first real-season pilot and client integration scope'],
         next: ['A pilot with a first brand across a real season', 'Integration with the brand’s ERP'],
         seeking: 'Seeking brands and retailers for a pilot, and a go-to-market partner.'
       },
       investor: { note: 'I will consider several formats: equity investment, sponsorship, buying the product or a stake, marketing partnerships and integration with other products. We can talk now; I fix exact terms against agreed pilot metrics.' },
       roadmap: [{ label: 'Prototype', state: 'done' }, { label: 'Working system', state: 'done' }, { label: 'Preparing for a pilot', state: 'current' }, { label: 'Pilot and launch', state: 'next' }],
-      tagline: 'The operating platform for a fashion brand',
-      stage: 'Preparing for a pilot',
-      card: 'Brand, retailer and buyer in one system, from tech pack and showroom to order and margin per SKU. The showroom, two-sided order confirmation, production and margin calculation are built. I am finishing the end-to-end check and goods receiving, then a pilot with a first brand.',
-      what: 'A brand’s product and commerce on one data model. Product: collection planning, specifications, samples, tech packs, production, quality control and materials sourcing. Commerce: digital showroom, buyer selections, order, confirmation and deal. Order economics closes the chain: cost, margin, close-out.',
+      tagline: 'An operating platform from product and wholesale order to verified commercial execution',
+      stage: 'Working system, preparing for a pilot',
+      card: 'Core product and commercial workflows are already connected in one working system, from collection preparation and partner collaboration to order execution and economics. The next verifiable milestone is a real-season pilot.',
+      what: 'A B2B operating platform for brands and their partners, connecting product development, collection work, sales, order execution, production and economics in one governed workflow.',
       who: 'Brands, retail chains, multi-brand buyers, distributors and manufacturers. Each has its own role and access rights.',
       why: 'Product data sits in one system, sales in another, stock in a third. The brand cannot see what is confirmed; the retailer cannot rely on delivery. Reconciliation is manual and after the fact.',
-      how: 'I build on established industry practice and add what it lacks. The server calculates price and availability, and both sides confirm the order. I walk through the architecture in a demo.'
+      how: 'Critical business rules are controlled by the system and changes retain history. Users see the current state of product, order and execution without manually reconciling several independent tools.'
     }
   },
   {
@@ -2728,38 +2728,38 @@ export const PROJECTS = [
     ru: {
       collab: [{ k: 'Ранний доступ', v: 'Компания переносит в ChatX часть рабочих процессов и задаёт приоритеты функций.' }, { k: 'Внедрение', v: 'Партнёр, который внедряет продукт в компаниях и сопровождает переход.' }, { k: 'По запросу', v: 'Демонстрация и разбор архитектуры под NDA.' }],
       status: {
-        done: ['Каналы, группы, личные сообщения, голосовые, файлы, задачи, календарь (RSVP, подписка .ics) и поиск с учётом прав', 'Аудио- и видеозвонки; запись встречи только с согласия всех участников', 'Расшифровка, итоги и решения с таймкодами; задача создаётся только после подтверждения человеком', 'Оргструктура: дерево подразделений до шести уровней, роли, штатные места, делегирование управления', 'Исходящие вебхуки с подписью, повторами и журналом; ключи API; мост с Telegram', 'Двухфакторная аутентификация, журнал аудита, события в реальном времени между серверами, PWA, RU/EN', 'Вики компании с историей правок; ИИ-помощник в чате (обзор беседы, варианты ответа); учёт времени по задачам и дашборд'],
-        now: ['Проверка с реальными провайдерами: почта, звонки, расшифровка, ИИ-помощник, push', 'Проверка Telegram-моста на реальном боте', 'Календарь: двусторонняя синхронизация с Google и Outlook (сейчас — односторонняя подписка .ics)'],
-        next: ['Пилот внутри компании-заказчика', 'Адаптеры Slack и Teams', 'Автоматизации: правила вида «если X, предложить Y» с журналом'],
+        done: ['Каналы, группы, личные сообщения, файлы, задачи, календарь и поиск с учётом прав', 'Аудио- и видеовстречи с управляемой записью', 'Расшифровка встреч, итоги, решения и действия с привязкой к исходному контексту', 'Оргструктура, роли и делегирование управления', 'Интеграционный контур, аудит, PWA и RU/EN', 'Структурированные запросы и согласования с прозрачным статусом исполнения'],
+        now: ['Проверка ключевых внешних интеграций', 'Подготовка ограниченного корпоративного пилота', 'Доведение сценариев внедрения и администрирования до пилотного уровня'],
+        next: ['Пилот внутри компании-заказчика', 'Двусторонняя интеграция календаря Google/Outlook', 'Slack/Teams и управляемый слой автоматизаций'],
         seeking: 'Нужна компания для ограниченного пилота на одном рабочем контуре и партнёр, способный сопровождать внедрение и миграцию процессов.'
       },
       investor: { note: 'Форматы участия те же, что у Syntha: доля, спонсорство, покупка, маркетинговое партнёрство, интеграция. Разговор возможен уже сейчас; условия фиксирую по метрикам пилота.' },
       roadmap: [{ label: 'Прототип', state: 'done' }, { label: 'Рабочий прототип', state: 'current' }, { label: 'Пилот и запуск', state: 'next' }],
       tagline: 'Рабочая среда компании: от разговора и решения до задачи и результата',
-      stage: 'Рабочий прототип',
-      card: 'Коммуникации, встречи, решения, задачи, календарь, вики и оргструктура связаны в одну рабочую среду. Основные модули собраны; следующий этап — пилот внутри компании и проверка реальных интеграций.',
-      what: 'Корпоративная рабочая среда, где коммуникация не отделена от исполнения. Каналы, личные сообщения, задачи, календарь, звонки, расшифровка, вики, оргструктура, роли, вебхуки и API работают в одном контуре.',
+      stage: 'Рабочая система, пилот с компанией впереди',
+      card: 'ChatX связывает коммуникацию, встречи, решения, задачи, календарь, документы, знания и структуру компании в одном рабочем контуре. Добавлены формализованные запросы и согласования; следующий доказательный этап — корпоративный пилот.',
+      what: 'Корпоративная рабочая среда, где разговор, встреча, решение, задача, документ и согласование сохраняют общий контекст. ИИ помогает подготовить результат, но значимые действия подтверждает человек.',
       who: 'Компаниям, которым важны управляемые права, история решений и единый рабочий контекст: от небольшой команды до структуры с несколькими департаментами и делегированным управлением.',
       why: 'Разговор остаётся в мессенджере, задача — в трекере, встреча — в отдельном сервисе, документ — ещё где-то. В результате теряется цепочка: где принято решение, кто взял обязательство и чем оно завершилось.',
-      how: 'Сообщение или встреча могут стать решением и задачей без потери источника. Права проверяются на сервере, запись встречи требует согласия участников, а действие ИИ становится рабочим объектом только после подтверждения человеком.'
+      how: 'Права и действия контролируются на уровне системы, а рабочие объекты сохраняют связь с исходным контекстом. Встречи могут превращаться в подтверждённые решения и задачи, а запросы — проходить прозрачный маршрут согласования.'
     },
     en: {
       collab: [{ k: 'Early access', v: 'A company moves part of its work into ChatX and sets feature priorities.' }, { k: 'Rollout', v: 'A partner who deploys the product in client companies and supports the transition.' }, { k: 'On request', v: 'A demo and architecture walkthrough under an NDA.' }],
       status: {
-        done: ['Channels, groups, direct messages, voice notes, files, tasks, a calendar (RSVP, .ics subscription) and permission-aware search', 'Audio and video calls; recording only with every participant’s consent', 'Transcript, summary and decisions with timecodes; a task is created only after a person confirms it', 'Org structure: a department tree up to six levels deep, roles, staffing positions, delegated management', 'Signed outbound webhooks with retries and a delivery log; API keys; a Telegram bridge', 'Two-factor authentication, an audit log, real-time events across servers, PWA, RU/EN', 'A company wiki with edit history; an in-chat AI assistant (conversation overview, reply suggestions); time tracking on tasks and a dashboard'],
-        now: ['Checks with real providers: email, calls, transcription, AI assistant, push', 'Telegram bridge: testing on a real bot', 'Calendar: two-way sync with Google and Outlook (currently a one-way .ics subscription)'],
-        next: ['A pilot inside a client company', 'Slack and Teams adapters', 'Automations: “if X, suggest Y” rules with a log'],
+        done: ['Channels, groups, direct messages, voice notes, files, tasks, calendar and permission-aware search', 'LiveKit-backed calls with consent-gated recording and evidence-first Meeting Intelligence', 'Timecoded transcripts, summaries, decisions/actions/risks/questions with source citations; AI actions require human confirmation', 'Organisation tree, roles, staffing positions, delegated management and server-side RBAC', 'Signed webhooks, API keys, durable worker/outbox, audit log, PWA and RU/EN', 'Structured Requests and Approvals with versioned templates, role/person approval chains, amount thresholds, needs-info loop, task creation and queue metrics'],
+        now: ['Validation with real external providers for email, calls, transcription, AI and push', 'Telegram bridge validation on a real bot', 'Preparing a bounded company pilot; current evidence is repository/local/CI rather than external production'], 
+        next: ['Pilot inside a client company', 'Two-way Google/Outlook calendar integration', 'Slack/Teams adapters and a governed automation/rules layer'],
         seeking: 'Companies ready to move part of their work into ChatX, and an implementation partner.'
       },
       investor: { note: 'The participation formats are the same as for Syntha: equity, sponsorship, acquisition, marketing partnership, integration. We can talk now; I fix terms against the pilot metrics.' },
       roadmap: [{ label: 'Prototype', state: 'done' }, { label: 'Working prototype', state: 'current' }, { label: 'Pilot and launch', state: 'next' }],
-      tagline: 'A corporate messenger: your team’s whole workflow in one space, from conversation to result',
-      stage: 'Working prototype',
-      card: 'A company messenger: conversations, tasks, calls with consented recording, a calendar, a wiki, an org structure and roles. Working prototype; a pilot is next.',
-      what: 'Conversation: channels, groups and direct messages, voice notes, files and permission-aware search. Work: tasks, a calendar, audio and video calls, meeting transcription. Management: an org structure with roles, a company wiki, an in-chat AI assistant, webhooks and API keys.',
+      tagline: 'A company work environment from conversation and decision to accountable execution',
+      stage: 'Working system, company pilot ahead',
+      card: 'ChatX connects communication, meetings, decisions, tasks, calendar, documents, knowledge and company structure in one work environment. Formal requests and approval workflows are in place; the next proof point is a company pilot.',
+      what: 'A company work environment where conversation, meetings, decisions, tasks, documents and approvals keep their shared context. AI can prepare outputs, but consequential actions remain human-confirmed.',
       who: 'Companies that need a governed workspace of their own rather than threads in a public messenger, from a small team to a multi-department structure.',
       why: 'Each service holds its own piece of a decision, and no one can assemble the whole. A month later no one can show where it was taken or how it ended.',
-      how: 'Conversation, meeting, decision, task and outcome form one chain. The server enforces permissions, not the interface. Recording and task creation always go through a person’s consent.'
+      how: 'Permissions and consequential actions are controlled by the system, while work objects retain their connection to source context. Meetings can become confirmed decisions and tasks, and requests can move through a transparent approval path.'
     }
   },
   {
@@ -2771,38 +2771,38 @@ export const PROJECTS = [
     ru: {
       collab: [{ k: 'Заказчик', v: 'Ведёте собственный ремонт в приложении и сообщаете, каких функций не хватает.' }, { k: 'Мастер или бригада', v: 'Ведёте реальный объект: сметы, сроки, приёмка работ.' }, { k: 'Ремонтная компания', v: 'Проверяете подход на потоке объектов, а не на одном.' }, { k: 'По запросу', v: 'Демонстрация и выводы, полученные в ходе работы над проектом.' }],
       status: {
-        done: ['Смета по нормам с версиями и сравнением плана с фактом', 'Этапы работ: сдача и приёмка, фотофиксация, технадзор, гарантийные заявки', 'Платежи по этапам: планы оплат, подтверждение с доказательствами, споры, счета на допработы', 'Роли заказчика, мастера и гостя по ссылке; чаты по объекту и этапу; центр уведомлений', 'Управление участниками проекта, конвертация заявки в проект', 'Закупки и материалы с ценами, документы, офлайн-режим с очередью действий', 'Проверка чеков и статуса самозанятого через ФНС: код и тесты готовы, боевая проверка ожидает ключей'],
-        now: ['Подготовка сборки для TestFlight: релизная конфигурация и окружение', 'Завершение сценария независимого исполнителя', 'Идемпотентный повтор действий из очереди при потере связи', 'Аудит экранов и исправление найденных дефектов'],
-        next: ['Развёртывание на сервере, закрытый тест на реальных объектах', 'Боевые платежи и «Мой налог» (OAuth)', 'Push-уведомления на устройствах', 'Публикация в App Store после юридической подготовки'],
+        done: ['Мобильный продукт для заказчика и исполнителя', 'Смета и бюджет с версиями и план–фактом; этапы, сдача/приёмка, фото и гарантийные сценарии', 'Платёжные состояния, споры и допработы; закупки, материалы, документы, роли и чаты', 'Офлайн-сценарии и история критичных действий', 'Подготовленный контур подключения внешних сервисов', 'Повторяемый демонстрационный сценарий для пилота и инвесторского показа'],
+        now: ['Закрытие внешних условий для пилота и дальнейшего запуска', 'Подготовка закрытого пилота на реальных объектах', 'Проверка платежных и сервисных интеграций только после получения реальных доступов'],
+        next: ['Постоянный staging/production-контур и закрытый пилот', 'Боевые платежи и провайдеры с сохранённым evidence', 'App Store / Google Play после legal, security и store gates'],
         seeking: 'Нужны заказчик и исполнитель для закрытого теста на реальном объекте; после подтверждения сценария — партнёр или инвестор для перехода к реальным платежам и масштабированию.'
       },
       investor: { note: 'Форматы участия те же, что у Syntha и ChatX. Отдельной подготовки к внешнему финансированию не проводил; готов к разговору на стадии MVP.' },
       roadmap: [{ label: 'MVP', state: 'done' }, { label: 'Подготовка к закрытому тесту', state: 'current' }, { label: 'Закрытый тест и запуск', state: 'next' }],
       tagline: 'Ремонт как управляемый проект: смета, этапы, приёмка и деньги',
-      stage: 'MVP, закрытый тест впереди',
-      card: 'Смета, этапы, приёмка, платежи, закупки и документы собраны вокруг одного объекта. MVP готов; следующий этап — закрытый тест на реальном ремонте до подключения реальных платежей.',
-      what: 'Мобильная система управления ремонтом от первой версии сметы до приёмки последнего этапа. Переписка, фото, материалы, документы и платежи привязаны к конкретному этапу и остаются частью истории объекта.',
+      stage: 'MVP и production-hardening, закрытый пилот впереди',
+      card: 'Renova объединяет смету, график, этапы, приёмку, платежные сценарии, закупки, документы и историю объекта в одном мобильном продукте. Техническая подготовка к пилоту существенно продвинулась; следующий этап — закрытая проверка на реальном ремонте.',
+      what: 'Мобильная система управления ремонтом для заказчика и исполнителя: объект, смета, договорённости, график, этапы, фото, приёмка, бюджет, закупки, документы и платежные состояния связаны в одну понятную историю.',
       who: 'Собственникам, которые хотят видеть стоимость и ход работ до того, как возникает перерасход; мастерам, бригадам и ремонтным компаниям, которым нужен прозрачный процесс сдачи и оплаты этапов.',
       why: 'Смета, договорённости, фотографии и чеки обычно разбросаны по чатам и таблицам. Отклонение от бюджета становится заметно постфактум, а при споре трудно восстановить, что было согласовано и за что уже заплачено.',
-      how: 'Каждое изменение сметы, этапа или платежа пересчитывает план и факт. Этап закрывается через сдачу и приёмку, оплата привязана к принятой работе, а проверка статуса исполнителя через ФНС подготовлена технически и ожидает рабочего доступа.'
+      how: 'Изменения сметы и этапов сохраняются в истории, работы проходят сдачу и приёмку, а финансовые действия привязываются к подтверждённому состоянию объекта. Внешние сервисы подключаются только после отдельной проверки.'
     },
     en: {
       collab: [{ k: 'Client', v: 'Manage your own renovation in the app and tell me which features are missing.' }, { k: 'Contractor or crew', v: 'Work on a live site: estimates, schedules, handover and sign-off.' }, { k: 'Renovation company', v: 'Test the approach across a portfolio of sites rather than a single one.' }, { k: 'On request', v: 'A demonstration and the findings from this project.' }],
       status: {
-        done: ['Norm-based estimates with versions and plan-versus-actual comparison', 'Work stages: handover and sign-off, photo evidence, technical supervision, warranty claims', 'Stage payments: payment plans, confirmation with evidence, disputes, invoices for extra work', 'Client, contractor and link-based guest roles; chats per project and stage; a notification centre', 'Project participant management and conversion of a lead into a project', 'Purchasing and materials with prices, documents, an offline mode with an action queue', 'Receipt and self-employed status checks via the Federal Tax Service: code and tests are ready, live verification awaits keys'],
-        now: ['Preparing the TestFlight build: release configuration and environment', 'Completing the independent contractor flow', 'Safe resending of queued actions after a dropped connection, with no duplicates', 'A screen audit and fixes for the defects it finds'],
-        next: ['Server deployment and a closed test on real projects', 'Live payments and tax-service OAuth', 'Push notifications on devices', 'App Store publication after legal preparation'],
+        done: ['Mobile product for clients and contractors', 'Versioned estimates and budget plan-vs-actual; stages, handover/acceptance, photo evidence and warranty workflows', 'Payment states, disputes and change work; purchasing, materials, documents, roles and chat', 'Offline scenarios and history of critical actions', 'Prepared boundaries for connecting external services', 'Repeatable demo journey for pilot and investor presentations'],
+        now: ['Closing the external conditions required for pilot and launch', 'Preparing a closed pilot on real renovation projects', 'Validating payment and service integrations only after real access is available'],
+        next: ['Persistent staging/production environment and closed pilot', 'Live providers and payments with stored evidence', 'App Store / Google Play after legal, security and store gates'],
         seeking: 'Contractors, crews and clients for a closed test on a real site — and investors and partners to develop the product with me, from the closed test to market launch.'
       },
       investor: { note: 'The participation formats are the same as for Syntha and ChatX. I have not prepared separately for outside financing; I am open to a conversation at the MVP stage.' },
       roadmap: [{ label: 'MVP', state: 'done' }, { label: 'Preparing a closed test', state: 'current' }, { label: 'Closed test and launch', state: 'next' }],
-      tagline: 'Renovation under control',
-      stage: 'MVP, closed test ahead',
-      card: 'Renovation in one app: norm-based estimates, stages with sign-off, stage payments, chats, purchasing and documents. Live payments go on after the closed test. The MVP is built; I am preparing the closed test.',
-      what: 'An iPhone-first app: the client runs a renovation from the estimate to sign-off of the last stage. Conversations with contractors are tied to the stage, and materials and documents sit alongside.',
+      tagline: 'Renovation as a governed project: budget, stages, acceptance and money',
+      stage: 'MVP with production hardening; closed pilot ahead',
+      card: 'Renova connects estimates, schedule, stages, acceptance, payment workflows, purchasing, documents and project history in one mobile product. Preparation for a pilot has advanced materially; the next step is a closed test on a real renovation project.',
+      what: 'A mobile renovation system for clients and contractors: property, estimate, agreements, schedule, stages, photos, acceptance, budget, purchasing, documents and payment states form one understandable project history.',
       who: 'Owners renovating their property, and the contractors and crews who do the work. Each role has its own screen and its own responsibilities.',
       why: 'Renovations are run through chat threads and saved receipts. The estimate drifts from actual costs, overspend surfaces only at the end, no one is accountable, and the contractor’s status is unverified.',
-      how: 'Any change to an estimate, stage or payment immediately changes the totals. Payment is tied to a signed-off stage, and the contractor’s status is verified through the Federal Tax Service (the code is ready; the live check awaits keys). The client sees what has been spent, what is under way and what comes next.'
+      how: 'Estimate and stage changes retain history, work moves through handover and acceptance, and financial actions are tied to confirmed project state. External services are connected only after separate validation.'
     }
   },
   {
@@ -2813,23 +2813,23 @@ export const PROJECTS = [
     ru: {
       roadmap: [{ label: 'MVP', state: 'done' }, { label: 'Демонстрация организаторам', state: 'current' }, { label: 'Использование на мероприятиях', state: 'next' }],
       tagline: 'Единая цифровая платформа для Недели моды в Москве, BRICS+ Fashion Summit и «Сделано в Москве»',
-      stage: 'MVP, показ организаторам',
-      card: 'Один аккаунт связывает два события и круглогодичную витрину брендов: личная программа, пропуска, B2B-встречи, подписки, кампании и аналитика. MVP готов к демонстрации организаторам; следующий шаг — пилот на реальном событии.',
-      what: 'Платформа сохраняет аудиторию события после его окончания. У неё три фирменных интерфейса и один аккаунт. Неделя моды в Москве (MFW) и BRICS+ Fashion Summit (BFS) получают общую личную программу, лояльность и аналитику, но остаются со своей регистрацией и пропуском. «Сделано в Москве» работает круглый год: подтверждённые бренды, цифровой шоурум, интерес байера, измеримый эффект. Бренд видит аудиторию как в собственном магазине: профиль Brand 365, подписчики, сегменты, кампании, одноразовые QR-вознаграждения. Организатору и владельцу — сводная картина в Owner Control Tower. MVP я собрал сам. На реальном событии его не использовали, данные в демо иллюстративные.',
+      stage: 'Расширенный MVP / pilot-ready preview',
+      card: 'MFW, BFS и «Сделано в Москве» объединены в одну fashion-экосистему с общим аккаунтом, персональным маршрутом, взаимодействием с брендами, B2B-сценариями и аналитикой. Следующий рубеж — пилот на реальном событии и проверка ценности между сезонами.',
+      what: 'Цифровая экосистема вокруг MFW, BRICS+ Fashion Summit и «Сделано в Москве». Один аккаунт связывает программу, личный маршрут, взаимодействие с брендами, B2B и работу с аудиторией между событиями.',
       who: 'Организаторам — единая витрина и сводные цифры по обоим событиям. Брендам и дизайнерам — аудитория, которая остаётся после показа, и подтверждённый профиль в «Сделано в Москве». Площадкам и партнёрам — заметный вклад и путь от встречи к лиду. Гостям — один аккаунт, личная программа и цифровой пропуск. Та же основа подходит другим городам, форматам и отраслям, где событие — ядро бизнеса.',
       why: 'У события есть регистрация, программа и пропуск, но после финального дня связь с аудиторией быстро обнуляется. Бренд снова начинает поиск внимания, а организатор теряет историю интереса, встреч и взаимодействий между сезонами.',
-      how: 'Общая основа обслуживает три разных сценария. Неделя моды ведёт зрителя от программы к бренду и коллекции; Summit — делегата от сессии к B2B-встрече; «Сделано в Москве» сохраняет подтверждённые бренды, цифровой шоурум и интерес байеров между событиями. Аккаунт общий, пропуски и правила доступа остаются отдельными.',
+      how: 'Три направления сохраняют собственные сценарии, но используют общий пользовательский контур. До события система помогает планировать, во время — ориентироваться и взаимодействовать, после — продолжать отношения с брендами, участниками и партнёрами.',
       seeking: 'Нужны организатор или стратегический партнёр для пилота на реальном событии, а также бренды для проверки круглогодичного сценария «Сделано в Москве».'
     },
     en: {
-      roadmap: [{ label: 'MVP', state: 'done' }, { label: 'Demo to organisers', state: 'current' }, { label: 'Use at the events', state: 'next' }],
-      tagline: 'Moscow Fashion Week, the BRICS+ Fashion Summit and Made in Moscow on one platform: two events, a year-round brand showcase, one account',
-      stage: 'MVP, demo for organisers',
-      card: 'An event lasts days; its audience lasts years. Three interfaces on one platform: Moscow Fashion Week, the BRICS+ Fashion Summit and Made in Moscow, a year-round brand showcase. One account, a separate pass for each event, a personal programme, B2B meetings and brand campaigns. I am looking for organisers, brands and partners.',
-      what: 'The platform keeps an event’s audience after the event ends. It has three branded interfaces and one account. Moscow Fashion Week (MFW) and the BRICS+ Fashion Summit (BFS) share a personal programme, loyalty and analytics, yet keep their own registration and pass. Made in Moscow runs all year: verified brands, a digital showroom, buyer intent and measurable effect. A brand sees its audience as it would in its own shop: a Brand 365 profile, followers, segments, campaigns and one-time QR rewards. Organisers and the owner get a consolidated view in the Owner Control Tower. I built the MVP myself. It has not been used at a real event, and the demo data is illustrative.',
+      roadmap: [{ label: 'Expanded MVP', state: 'done' }, { label: 'Pilot-ready preview', state: 'current' }, { label: 'Real-event pilot', state: 'next' }],
+      tagline: 'One digital platform for Moscow Fashion Week, BRICS+ Fashion Summit and Made in Moscow',
+      stage: 'Expanded MVP / pilot-ready preview',
+      card: 'MFW, BFS and Made in Moscow are connected in one fashion ecosystem with shared identity, personal journeys, brand interaction, B2B workflows and analytics. The next milestone is a real-event pilot and validation of value between seasons.',
+      what: 'A digital ecosystem around MFW, BRICS+ Fashion Summit and Made in Moscow. One account connects programme, personal agenda, brand interaction, B2B and audience continuity between events.',
       who: 'Organisers get a single showcase and joint figures for both events. Brands and designers get an audience that outlasts the show, and a verified profile in Made in Moscow. Venues and partners get a visible contribution and a traceable path from meeting to lead. Guests get one account, a personal programme and a digital pass. The same foundation suits other cities, formats and industries where an event is the core of the business.',
       why: 'An event gathers people for a few days, then the audience disperses: the brand hunts for viewers again, the organiser cannot see what happened between seasons, the guest juggles two schedules. A digital layer turns one-off interest into accumulated interest: follows, loyalty and data grow from show to show, and with them the value to partners and sponsors.',
-      how: 'One foundation, three interfaces. MFW guides the visitor: brand, designer, show, collection, LIVE and replay, follow, reward. BFS guides the delegate: organisation, speaker, session, topic, meeting, follow, lead. Made in Moscow runs all year: verified brand, digital showroom, buyer intent, Brand 365, effect. Its directory has “Verified only” and “Buyer ready” filters. One account; a separate pass for each event.',
+      how: 'The three directions keep their own user scenarios while sharing one account. Before the event the platform helps people plan, during it helps them navigate and connect, and afterwards it continues relationships with brands, participants and partners.',
       seeking: 'I am looking for partners and organisers for MFW and BFS, and for brands and organisers for Made in Moscow. The platform could also suit other events. I intend to offer it to them; it is not an agreement.'
     }
   },
@@ -2841,23 +2841,23 @@ export const PROJECTS = [
     ru: {
       tagline: '«СОСТОЯНИЕ» — сообщество и ежегодная конференция о здоровье и качестве жизни',
       roadmap: [{ label: 'Рабочий прототип', state: 'done' }, { label: 'Демонстрация Promomed', state: 'current' }, { label: 'Разработка и запуск', state: 'next' }],
-      stage: 'Прототип, демо для Promomed',
-      card: 'Платформа соединяет конференцию и работу с аудиторией между событиями: персональный маршрут, история участия, партнёрские взаимодействия и оперативная аналитика. Прототип готов к демонстрации Promomed.',
-      what: 'Цифровая среда вокруг ежегодной конференции: персональная программа, работа площадки в реальном времени, бронирования, история участия, материалы после события и кабинет партнёра. Прототип показывает полный пользовательский путь до, во время и после конференции.',
+      stage: 'Live v1.4, controlled-pilot readiness',
+      card: '«СОСТОЯНИЕ» уже объединяет круглогодичный контент, многопоточную конференцию, персональный маршрут участника, работу площадки, партнёрские сценарии и аналитический контур. Следующий рубеж — контролируемый пилот с реальными пользователями и процессами.',
+      what: 'Цифровая среда для круглогодичной работы с аудиторией и проведения конференции: контент, программа, персональный маршрут, бронирования, работа площадки, партнёрский кабинет, продолжение взаимодействия после события и аналитика.',
       who: 'Организатору — единый контур регистрации, программы, посещения и последующего взаимодействия. Участнику — персональный маршрут и материалы по интересам. Партнёру — прозрачный сценарий присутствия и контакты только с согласия человека.',
       why: 'Регистрация, программа, рассылки и партнёрские активности обычно существуют отдельно. Организатор видит событие как несколько несвязанных систем, а история интереса участника почти не используется после конференции.',
-      how: 'Одна платформа связывает подготовку, день события и работу после него. Персональная программа опирается на интересы участника, площадка получает оперативный статус, партнёры работают через собственный кабинет, а история участия становится основой следующего контакта. Данные демонстрации остаются иллюстративными.',
+      how: 'Для разных участников предусмотрены собственные сценарии и права. Персонализация не подменяет медицинское решение, а материалы, требующие проверки, проходят человеческий контроль до публикации.',
       seeking: 'Нужны заказчик и стратегические партнёры для согласования пилотного контура: программа, площадка, партнёрский кабинет и работа с участником после события.'
     },
     en: {
-      roadmap: [{ label: 'Working prototype', state: 'done' }, { label: 'Demo to Promomed', state: 'current' }, { label: 'Build and launch', state: 'next' }],
-      tagline: '“SOSTOYANIE” — a health and beauty community and annual conference: one route for the whole year',
-      stage: 'Prototype, demo for Promomed',
-      card: 'A conference once a year, a community all year round. A personal route, a participation passport, partner meetings and an operations centre; a prototype with 42 sessions in 7 halls. I am looking for partners for the project.',
-      what: 'Around Promomed’s annual conference grows a community that does not disperse with the hall. A personal route replaces one programme for all: Smart Route builds a schedule around each participant’s interests, and Moment Mode answers “I have 20 minutes” with a next step. The “SOSTOYANIE Passport” is not a leaderboard but a personal record of participation: knowledge, event, dialogue, practice. Afterwards it opens materials matched to the participant’s interests. I built the working prototype of this journey myself.',
+      roadmap: [{ label: 'Live v1.4', state: 'done' }, { label: 'Controlled-pilot readiness', state: 'current' }, { label: 'Production admission', state: 'next' }],
+      tagline: '“SOSTOYANIE” — a year-round health-media and conference operating platform',
+      stage: 'Live v1.4, controlled-pilot readiness',
+      card: 'SOSTOYANIE already combines year-round content, a multi-track conference, personalised participant journeys, event operations, partner workflows and analytics. The next milestone is a controlled pilot with real users and processes.',
+      what: 'A digital environment for year-round audience engagement and conference operations: content, programme, personal journey, booking, venue operations, partner workspace, post-event continuation and analytics.',
       who: 'Promomed gains a standing link with clients and partners, and a conference whose figures are visible in real time. Participants get a route and materials matched to their interests. Partners get a clear return on attendance, with leads shared only by consent. The same model suits other industries where a conference is the core of the relationship with the audience.',
       why: 'A conference happens once a year, but interest in it lives all year. Newsletters, social media, registration and programme run separately, so the relationship built does not strengthen the event, and participants leave with a folder of handouts instead of a route of their own. The platform joins these into one journey that does not end at the exit.',
-      how: 'One platform for the community and the conference: the community stays active between events, and the conference builds on accumulated ties with clients and partners. The prototype’s screens and flows show what the company, its partners and participants receive. Demo data (programme, partners, figures) is illustrative.',
+      how: 'Different participants receive different workflows and permissions. Personalisation does not replace medical judgement, and material requiring verification passes human review before publication.',
       seeking: 'I am looking for partners for “SOSTOYANIE”: experts, companies and organisers who would like to build a community around a conference.'
     }
   }

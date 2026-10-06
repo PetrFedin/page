@@ -1449,7 +1449,8 @@ function openPostModal(date) {
   } else projectEl.hidden = true;
 
   const src = $('#post-modal-source');
-  if (href) { src.href = href; src.hidden = false; src.textContent = t.source; }
+  const sourceHref = p.source?.url || href;
+  if (sourceHref) { src.href = sourceHref; src.hidden = false; src.textContent = t.source; }
   else src.hidden = true;
 
   /* Листание по публикациям того же проекта — тот же приём, что и в
