@@ -16,6 +16,41 @@ function dayKey(ms) {
   const o = Object.fromEntries(p.map((x) => [x.type, x.value]));
   return `${o.year}-${o.month}-${o.day}`;
 }
+function editorialPlan(rows) {
+  const active = rows.filter((p) => ['scheduled','publishing','published'].includes(p.status));
+  const project = [...PROJECT_TAGS].map((tag) => {
+    const items = active.filter((p) => p.tag === tag).sort((a,b) => (b.publish_at || 0) - (a.publish_at || 0));
+    return { tag, count: items.length, last: items[0]?.post_date || (items[0] ? dayKey(items[0].publish_at) : null) };
+  });
+  project.sort((a,b) => {
+    if (!a.last && b.last) return -1;
+    if (a.last && !b.last) return 1;
+    if (a.last !== b.last) return String(a.last || '').localeCompare(String(b.last || ''));
+    return a.count - b.count;
+  });
+  const sourceCounts = {};
+  for (const p of active) {
+    if (!ANALYSIS_TAGS.has(p.tag) || !p.source) continue;
+    try {
+      const s = JSON.parse(p.source);
+      if (s.outlet) sourceCounts[s.outlet] = (sourceCounts[s.outlet] || 0) + 1;
+    } catch {}
+  }
+  const sources = Object.entries(sourceCounts).map(([outlet,count]) => ({ outlet, count })).sort((a,b) => b.count - a.count);
+  const recent = active.slice().sort((a,b) => (b.publish_at || 0) - (a.publish_at || 0)).slice(0, 12).map((p) => ({
+    date: p.post_date || dayKey(p.publish_at),
+    tag: p.tag,
+    title: p.ru_title || '',
+    source: (() => { try { return JSON.parse(p.source || '{}').outlet || ''; } catch { return ''; } })()
+  }));
+  return {
+    suggestedProject: project[0]?.tag || null,
+    projectRotation: project,
+    sourceFrequency: sources,
+    recent
+  };
+}
+
 function editorialCoverage(rows) {
   const days = {};
   for (const p of rows) {
@@ -55,6 +90,7 @@ export async function onRequestGet({ request, env }) {
   return J({
     posts: rows,
     editorialCoverage: editorialCoverage(rows),
+    editorialPlan: editorialPlan(rows),
     editorialPolicy: {
       minimumPerDay: 2,
       required: ['project', 'analysis'],
