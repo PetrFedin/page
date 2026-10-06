@@ -228,3 +228,16 @@ html[data-preview="v2"] .opt-row[hidden] { display: none !important; }
  .v2-confidentiality-actions{justify-items:stretch;min-width:0}
  .v2-confidentiality-actions span{text-align:left}
 }
+
+
+/* V2.13 controlled disclosure ladder */
+.v2-disclosure-ladder{margin:16px 0 26px;padding:20px;border:1px solid var(--line);border-radius:16px;background:var(--panel)}
+.v2-disclosure-ladder[hidden]{display:none!important}
+.v2-disclosure-head h3{margin:6px 0 14px;font-size:22px;line-height:1.2}
+.v2-disclosure-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.v2-disclosure-grid article{padding:14px;border:1px solid var(--line);border-radius:12px}
+.v2-disclosure-grid article>span{font-size:10px;letter-spacing:.08em;color:var(--accent)}
+.v2-disclosure-grid h4{margin:6px 0 7px;font-size:15px}
+.v2-disclosure-grid p{margin:0;font-size:12px;line-height:1.55;color:var(--muted)}
+.v2-disclosure-cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+@media(max-width:759px){.v2-disclosure-grid{grid-template-columns:1fr}}
