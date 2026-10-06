@@ -560,3 +560,248 @@ The Portfolio Platform Fabric is successful when an external company can:
 8. add another product capability without rebuilding the relationship from zero.
 
 That is the point at which the portfolio behaves like a **technology platform ecosystem**, not a set of isolated applications.
+
+## 21. Federated Trust, Credential and Reputation Fabric
+
+This section defines the cross-product trust layer for the portfolio.
+
+The key rule is:
+
+**federate verification, not identity reputation.**
+
+There must be no universal hidden score for a person, customer, creator, supplier, contractor, lawyer, expert, stylist or partner across products.
+
+Each product owns its own scoped trust evidence and credentials.
+
+### 21.1 Scoped Credential Registry — ADOPT
+
+The Portfolio Fabric may index/verifiably reference credentials issued by product authorities such as:
+
+- MFW Verified Buyer / Brand / Organisation;
+- Promomed Evidence Governance / programme credential;
+- Renova Verified Execution / contractor capability credential;
+- Synth-v2 supplier/facility capability credential;
+- Legal Case Readiness / workflow credential;
+- FLASHIN Creator Programme / rights workflow credential;
+- ASTRA qualification credential;
+- MB16 clienteling/integration credential;
+- Antiqua scholarly/institutional role credential;
+- Moscow verifier/package credential;
+- ChatX extension/workflow credential;
+- IGRA publisher/content-package credential.
+
+Registry record:
+
+- credential ID;
+- issuer product;
+- subject type;
+- scope;
+- standard/profile version;
+- issued_at;
+- expiry/review date;
+- status;
+- revocation/supersession;
+- verification endpoint;
+- optional evidence hash/reference.
+
+The registry does not invent credentials; it references credentials issued by the relevant product.
+
+### 21.2 Verifiable Credential Compatibility — ADAPT
+
+Reference:
+
+https://github.com/w3c/vc-data-model
+
+Where useful, model portable attestations so an external verifier can confirm:
+
+- issuer;
+- subject;
+- claim/scope;
+- issuance/expiry;
+- credential status;
+- proof.
+
+VC compatibility is a transport/verifiability mechanism. It does not create authority that the issuer does not possess.
+
+### 21.3 Partner Trust Graph — ADOPT
+
+Maintain an internal B2B graph:
+
+partner organisation
+-> products enabled
+-> integrations
+-> certifications/qualifications
+-> incidents
+-> support/reliability history
+-> commercial relationship
+-> renewal/status
+
+Useful dimensions:
+
+- legal/domain identity verified;
+- integration certification current;
+- incident state;
+- credential expiry;
+- support response where explicitly measured;
+- production usage/current compatibility.
+
+No single universal trust score.
+
+### 21.4 Cross-product Credential Reuse — CONDITIONAL
+
+A credential issued by one product may reduce duplicated onboarding in another product only when the receiving product explicitly trusts that credential for a narrow purpose.
+
+Examples:
+
+- verified legal organisation identity may map to partner organisation identity;
+- verified enterprise domain may reduce duplicate domain verification;
+- certified API partner may reuse common webhook-signature onboarding.
+
+But:
+
+- MFW Verified Buyer does not imply Synth-v2 supplier approval;
+- Renova contractor credential does not imply legal counsel status;
+- Promomed expert role does not imply Antiqua expertise;
+- ChatX extension publisher verification does not imply marketplace trust elsewhere.
+
+Cross-product trust is always explicit, scoped and policy-driven.
+
+### 21.5 Certification Status API — ADOPT
+
+Provide a portfolio-level verification endpoint:
+
+- credential/certification ID;
+- issuer;
+- product;
+- scope;
+- current status;
+- version;
+- issue/expiry;
+- verification URL;
+- superseded/revoked state.
+
+This supports procurement and partner due diligence.
+
+### 21.6 Artefact Provenance — ADAPT
+
+Reference:
+
+https://github.com/sigstore/cosign
+
+For software/content artefacts where appropriate, support signatures/provenance for:
+
+- ChatX extension packages;
+- ASTRA qualified adapter builds;
+- IGRA certified content packages;
+- generated SDK releases;
+- selected product integration bundles.
+
+Keep software/content artefact identity separate from human/company credentials.
+
+### 21.7 Standards Registry — ADOPT
+
+The Fabric should maintain a catalogue of proprietary standards and profiles, including:
+
+- owner product;
+- standard/profile name;
+- version;
+- purpose;
+- machine-testable requirements;
+- evidence requirements;
+- changelog;
+- deprecation;
+- verification method;
+- public/private status.
+
+This turns product operating methods into reusable intellectual property rather than undocumented internal practice.
+
+### 21.8 Open / Closed Boundary — ADOPT
+
+For each standard decide deliberately:
+
+- fully public specification;
+- public core + proprietary certification;
+- private enterprise standard;
+- partner-only profile.
+
+A strong moat may come from publishing enough of a standard to encourage adoption while retaining valuable:
+
+- certification service;
+- marketplace;
+- trust graph;
+- network data;
+- tooling;
+- support;
+- commercial access.
+
+### 21.9 Reputation Rules — REQUIRED
+
+Across the portfolio:
+
+- never create hidden social-credit style scores;
+- never merge unrelated product histories into one personal reputation;
+- never infer protected/sensitive attributes;
+- always distinguish verified, self-declared, external and model-derived evidence;
+- expose denominator/period for performance metrics;
+- give new participants a neutral no-history state;
+- preserve incident/revocation history;
+- allow correction/appeal for factual errors where appropriate.
+
+### 21.10 Data Network Effects — ADOPT
+
+The Fabric can map which proprietary datasets compound over time without centralising raw data.
+
+Examples:
+
+- MFW longitudinal buyer/brand network;
+- Promomed claim/evidence/expert review graph;
+- Renova execution/provider history;
+- Synth-v2 supplier/facility production history;
+- Legal workflow/readiness patterns;
+- FLASHIN creator/commerce rights history;
+- ASTRA adapter/provider qualification history;
+- MB16 service/clienteling benchmark history;
+- Antiqua provenance/scholarly corpus;
+- Moscow field/accessibility verification;
+- ChatX extension/workflow execution evidence;
+- IGRA publisher/package/content network.
+
+The strategic goal is to grow **product-specific data moats** while the Fabric only describes/markets/verifies them.
+
+### 21.11 Marketplace Trust Loop — ADOPT
+
+For products with marketplaces:
+
+publisher/provider
+-> onboarding
+-> credential/certification
+-> marketplace participation
+-> real transactions/execution
+-> evidence/reliability history
+-> credential renewal/status
+-> improved discovery
+
+This creates a compounding trust loop.
+
+Examples:
+
+- FLASHIN creators;
+- Renova service providers;
+- Synth-v2 suppliers;
+- ChatX extension publishers;
+- IGRA content publishers;
+- Antiqua institutional contributors where marketplace/commercial workflows apply.
+
+### 21.12 Acceptance
+
+- no universal cross-product user reputation score exists;
+- every credential has issuer, scope, version and status;
+- cross-product reuse requires an explicit trust policy;
+- revocation/expiry is visible centrally;
+- artefact signatures are separate from human/organisation credentials;
+- raw private domain data remains in the owning product;
+- public verification reveals only the minimum information necessary;
+- standards can evolve without rewriting historical credentials.
+
+**Strategic outcome:** partners can build trust with the portfolio over time, but each product preserves the domain-specific meaning of that trust. This creates a networked ecosystem without creating a dangerous or meaningless global reputation system.
+
