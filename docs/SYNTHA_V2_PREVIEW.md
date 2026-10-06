@@ -139,3 +139,36 @@ established, the brief says so instead of inferring them.
 
 The brief is additive: the original project card, status modal, news, comparison
 and detailed project pages remain available.
+
+
+## Portfolio editorial and QA v2.5
+
+Portfolio Intelligence is now titled "Портфель как система" in Russian and
+"The portfolio as a system" in English.
+
+The intelligence grid uses progressive disclosure independently from the legacy
+project section:
+- first view: 2 portfolio cards;
+- Show more / Показать ещё: all matching cards;
+- Collapse / Свернуть: returns to 2 cards;
+- changing a sector filter resets the grid to its compact state.
+
+The detailed project section keeps its own existing 3-card progressive reveal,
+and the news feed keeps its own 3-item progressive reveal.
+
+Russian V2 copy now prefers Russian product and management terminology wherever
+the English term is not a proper name or established abbreviation. Examples:
+Portfolio Intelligence -> карта / портфель проектов, milestone -> этап,
+evidence -> подтверждение, de-risking -> снижение риска, Golden Path ->
+ключевой сценарий. Established abbreviations and product names such as CEO, MVP,
+B2B, MFW and BFS remain unchanged where appropriate.
+
+The hero positioning is also more concrete: commercial analytics, operating
+model, margin, inventory, working capital, digital product, pilot and rollout.
+
+A source-level V2 regression contract is available as:
+npm run check:v2
+
+It verifies the two-card portfolio reveal, legacy project/news reveal controls,
+RU terminology, stakeholder routes, executive evidence fields, contact anchors,
+RU/EN entry pages and the V2 project-registry binding.
