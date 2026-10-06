@@ -1401,6 +1401,8 @@ function openPostModal(date) {
   $('#post-modal-tag').textContent = t.tags[p.tag] ?? p.tag;
   $('#post-modal-tag').dataset.filterTag = p.tag;
   $('#post-modal-title').textContent = postText(p).title;
+  window.setContentContext?.({ date: p.date, tag: p.tag, source: p.source?.outlet || '', title: postText(p).title });
+  window.track?.('content_open', p.date, postText(p).title, { tag: p.tag, source: p.source?.outlet || '' });
 
   /* Источник, автор и оригинальное название — под заголовком, у своих
      постов о проектах их нет. */
@@ -1499,6 +1501,7 @@ $('#post-modal-tag').addEventListener('click', () => {
 });
 $('#post-modal-project').addEventListener('click', (e) => {
   const id = e.currentTarget.dataset.project;
+  window.track?.('content_to_project', id, PROJECTS.find((p) => p.id === id)?.name || id);
   postModal.close(true);
   go(id);
 });
