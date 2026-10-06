@@ -537,6 +537,98 @@ function installProjectDecisionDossier(lang, $, projects) {
   paint();
 }
 
+
+/* V2.7 commercial clarity layer */
+const V2_COMMERCIAL = {"syntha":{"ru":{"buyer":"Фэшн-бренд, производитель или розничная компания, которым нужен единый контур продукта, заказа и экономики.","pays":"За доступ к системе и управляемый рабочий контур; отдельно — за внедрение, интеграцию с учётной системой и настройку под процессы.","pilot":"Один бренд, один реальный сезон, ограниченный набор пользователей и сквозной сценарий от продукта и шоурума до подтверждённого заказа и маржи.","measure":["доля сценария, прошедшая без ручной сверки между системами","время подготовки и подтверждения заказа","расхождения по цене, доступности, себестоимости и марже","готовность интеграции и пользователей к ежедневной работе"],"contract":"Пилот проходит согласованные критерии приёмки, определён интеграционный контур, подтверждены роли и объём регулярного использования.","models":["регулярный доступ / лицензия","внедрение и интеграция","корпоративная поддержка","партнёрство по выходу на рынок"],"note":"Рабочая коммерческая гипотеза. Цена, единица тарификации и экономика масштабирования должны быть зафиксированы после пилота."},"en":{"buyer":"A fashion brand, manufacturer or retailer that needs one operating layer across product, order and economics.","pays":"For software access and a governed operating workflow; implementation, ERP integration and process configuration are separate scopes.","pilot":"One brand, one real season, a bounded user group and an end-to-end flow from product and showroom to confirmed order and margin.","measure":["share of the workflow completed without manual cross-system reconciliation","time to prepare and confirm an order","price, availability, cost and margin discrepancies","integration and user readiness for daily operation"],"contract":"The pilot meets agreed acceptance criteria, the integration scope is defined, roles are confirmed and recurring use is justified.","models":["recurring access / licence","implementation and integration","enterprise support","go-to-market partnership"],"note":"Working commercial hypothesis. Pricing, billing unit and scale economics should be fixed after the pilot."}},"chatx":{"ru":{"buyer":"Компания или отдельный бизнес-контур, которому нужна управляемая корпоративная среда вместо набора разрозненных сервисов.","pays":"За доступ сотрудников к рабочей среде; отдельно — за внедрение, миграцию, интеграции и корпоративную поддержку.","pilot":"Один департамент или кросс-функциональная команда переносит в ChatX ограниченный рабочий контур: коммуникацию, встречи, решения и задачи.","measure":["активное использование сотрудниками пилотной группы","доля решений, которые можно проследить до задачи и результата","надёжность календаря, звонков, расшифровки и интеграций","объём ручного переноса информации между сервисами"],"contract":"Пилот подтверждает устойчивое ежедневное использование, требования безопасности и администрирования, а критичные интеграции проходят приёмку.","models":["лицензия / подписка по пользователям или организации","внедрение и миграция","интеграции","корпоративная поддержка"],"note":"Коммерческая модель пока является гипотезой и должна быть проверена на первом корпоративном пилоте."},"en":{"buyer":"A company or business unit that needs a governed company workspace instead of a fragmented set of services.","pays":"For employee access to the workspace; rollout, migration, integrations and enterprise support are separate scopes.","pilot":"One department or cross-functional team moves a bounded workflow into ChatX: communication, meetings, decisions and tasks.","measure":["active use across the pilot group","share of decisions traceable to a task and outcome","reliability of calendar, calls, transcription and integrations","amount of manual information transfer between services"],"contract":"The pilot proves sustained daily use, security and administration requirements, and acceptance of critical integrations.","models":["per-user or organisation licence / subscription","rollout and migration","integrations","enterprise support"],"note":"The commercial model is still a hypothesis and should be validated in the first company pilot."}},"renova":{"ru":{"buyer":"На первом этапе — собственник ремонта или ремонтная компания, готовые вести реальный объект в системе.","pays":"Гипотеза: за управляемый контур ремонта, прозрачность сметы и этапов, документы и сервисные функции; для B2B — за управление потоком объектов.","pilot":"Один реальный объект от версии сметы до нескольких принятых и оплаченных этапов с фото, документами и историей изменений.","measure":["отклонение плановой сметы от факта и момент его обнаружения","доля этапов, закрытых через формальную сдачу и приёмку","полнота истории изменений, документов и оплат","удобство работы заказчика и исполнителя без параллельного ручного учёта"],"contract":"Закрытый тест подтверждает, что обе стороны ведут объект в системе, спорные состояния восстанавливаются из истории, а платежный сценарий можно безопасно подключать.","models":["платный доступ для частного клиента — гипотеза","B2B-лицензия для ремонтной компании — гипотеза","сервисные / транзакционные функции — после проверки платежного контура","партнёрские сервисы вокруг ремонта — после проверки спроса"],"note":"Монетизация Renova не подтверждена. До закрытого теста корректно рассматривать эти варианты только как коммерческие гипотезы."},"en":{"buyer":"Initially, a homeowner or renovation company willing to run a real project in the system.","pays":"Hypothesis: for a governed renovation workflow, estimate and stage transparency, documents and service functions; B2B buyers may pay for managing a portfolio of projects.","pilot":"One real renovation from an estimate version through several accepted and paid stages with photos, documents and change history.","measure":["budget variance and how early it becomes visible","share of stages closed through formal handover and acceptance","completeness of change, document and payment history","ability of client and contractor to work without parallel manual tracking"],"contract":"The closed test proves both sides can run the project in the system, disputes can be reconstructed from history and the payment flow is ready for safe activation.","models":["consumer paid access — hypothesis","B2B licence for renovation companies — hypothesis","service / transaction functions — after payment-flow validation","partner services around renovation — after demand validation"],"note":"Renova monetisation is not validated. These options should be treated as commercial hypotheses until the closed test."}},"mfw":{"ru":{"buyer":"Организатор события, городской оператор или владелец событийной платформы; отдельные платные контуры могут быть полезны брендам и партнёрам.","pays":"За развёртывание и эксплуатацию цифрового слоя события: регистрация, программа, пропуска, B2B, брендовый контур, аналитика и работа с аудиторией между сезонами.","pilot":"Одно реальное событие с ограниченным набором модулей и заранее зафиксированным контуром участников, брендов и партнёров.","measure":["активация зарегистрированных участников и использование цифрового пропуска","добавления в личную программу и фактическое посещение","назначенные B2B-встречи и подтверждённые лиды","подписки на бренды и повторное взаимодействие после события","стабильность операционного контура в дни пиковой нагрузки"],"contract":"Платформа проходит реальное событие без критических сбоев, организатор получает полезные данные, а бренды и партнёры видят измеримый результат своих активностей.","models":["лицензия на событие / сезон","внедрение и операционное сопровождение","годовой доступ к платформе между событиями","платные брендовые / партнёрские модули — гипотеза","white-label для других событий — гипотеза"],"note":"Публично подтверждён MVP, но коммерческая эксплуатация на реальном событии ещё не подтверждена. Коммерческие форматы требуют пилота."},"en":{"buyer":"An event organiser, city operator or event-platform owner; separate paid modules may also be relevant to brands and partners.","pays":"For deployment and operation of the event digital layer: registration, programme, passes, B2B, brand workflows, analytics and between-season audience continuity.","pilot":"One real event with a bounded module set and a predefined participant, brand and partner scope.","measure":["registered-user activation and digital-pass usage","personal-programme saves versus actual attendance","scheduled B2B meetings and verified leads","brand follows and post-event re-engagement","operational stability during peak event load"],"contract":"The platform operates through a real event without critical failure, organisers gain useful data, and brands and partners see measurable outcomes.","models":["event / season licence","implementation and operational support","annual between-event platform access","paid brand / partner modules — hypothesis","white-label for other events — hypothesis"],"note":"The MVP is public, but commercial production use at a real event is not yet evidenced. Commercial formats require a pilot."}},"promomed":{"ru":{"buyer":"Promomed или другой организатор отраслевой конференции, для которого событие — часть долгосрочной работы с клиентами, экспертами и партнёрами.","pays":"За цифровой контур конференции и сообщества: регистрация, персональная программа, работа площадки, бронирования, партнёрский кабинет, аналитика и продолжение взаимодействия после события.","pilot":"Одна конференция или ограниченный пилотный контур: программа, персональный маршрут, статус площадки, партнёрский кабинет и последующая коммуникация.","measure":["регистрация → фактическое посещение","использование персонального маршрута и бронирований","контакты и лиды партнёров, полученные с согласием участника","переход участников к материалам и следующему взаимодействию после события","надёжность операционного контура площадки"],"contract":"Пилот подтверждает стабильную работу в день события, понятную ценность для участника и партнёра и полезную аналитику для организатора.","models":["лицензия на событие","внедрение и сопровождение","годовой контур сообщества — гипотеза","расширенные партнёрские модули — гипотеза","white-label для других отраслевых конференций — гипотеза"],"note":"Коммерческий формат не подтверждён. До пилота корректно фиксировать только состав ценности и возможные модели, но не цену или прогноз выручки."},"en":{"buyer":"Promomed or another industry-conference organiser for whom the event is part of a long-term relationship with clients, experts and partners.","pays":"For the conference and community digital layer: registration, personal programme, venue operations, booking, partner workspace, analytics and post-event continuity.","pilot":"One conference or a bounded pilot scope: programme, personal route, venue status, partner workspace and follow-up communication.","measure":["registration to actual attendance","use of personal routes and bookings","partner contacts and leads captured with attendee consent","movement from the event into materials and subsequent engagement","reliability of the venue operating layer"],"contract":"The pilot proves stable operation on event day, clear participant and partner value, and useful organiser analytics.","models":["event licence","implementation and support","year-round community layer — hypothesis","extended partner modules — hypothesis","white-label for other industry conferences — hypothesis"],"note":"The commercial format is not validated. Before a pilot, it is appropriate to define value and possible models, not pricing or revenue forecasts."}}};
+function installCommercialClarity(lang, $, projects) {
+  const en = lang === 'en';
+  const data = V2_COMMERCIAL;
+  const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (ch) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+  const portfolio = $('#v2-portfolio');
+  const modal = $('#modal');
+
+  const renderPanel = (id) => {
+    const d = data[id]?.[en ? 'en' : 'ru'];
+    if (!d) return '';
+    return `
+      <div class="v2-commercial-grid">
+        <div><span>${en ? 'Buyer' : 'Кто покупатель'}</span><p>${esc(d.buyer)}</p></div>
+        <div><span>${en ? 'What they pay for' : 'За что платит'}</span><p>${esc(d.pays)}</p></div>
+        <div><span>${en ? 'First sellable pilot' : 'Первый продаваемый пилот'}</span><p>${esc(d.pilot)}</p></div>
+        <div><span>${en ? 'What we measure' : 'Что измеряем'}</span><ul>${d.measure.map((x)=>`<li>${esc(x)}</li>`).join('')}</ul></div>
+        <div><span>${en ? 'Pilot → contract gate' : 'Что превращает пилот в контракт'}</span><p>${esc(d.contract)}</p></div>
+        <div><span>${en ? 'Possible revenue mechanics' : 'Возможные модели выручки'}</span><ul>${d.models.map((x)=>`<li>${esc(x)}</li>`).join('')}</ul></div>
+      </div>
+      <p class="v2-commercial-note">${esc(d.note)}</p>`;
+  };
+
+  const attachPortfolio = () => {
+    if (!portfolio) return;
+    portfolio.querySelectorAll('.v2-product').forEach((card) => {
+      const id = card.dataset.v2Product;
+      if (!id || !data[id] || card.querySelector('[data-v2-commercial]')) return;
+      const actions = card.querySelector('.v2-product-actions');
+      if (!actions) return;
+      const btn = document.createElement('button');
+      btn.type='button';
+      btn.className='btn btn-sm v2-commercial-toggle';
+      btn.dataset.v2Commercial=id;
+      btn.setAttribute('aria-expanded','false');
+      btn.textContent=en ? 'Commercial model' : 'Коммерческая модель';
+      actions.append(btn);
+      const panel=document.createElement('section');
+      panel.className='v2-commercial-panel';
+      panel.hidden=true;
+      panel.innerHTML=renderPanel(id);
+      card.append(panel);
+    });
+  };
+
+  if (portfolio && !portfolio.dataset.commercialBound) {
+    portfolio.dataset.commercialBound='1';
+    new MutationObserver(attachPortfolio).observe(portfolio,{childList:true,subtree:true});
+    portfolio.addEventListener('click',(e)=>{
+      const btn=e.target.closest('[data-v2-commercial]');
+      if(!btn) return;
+      const panel=btn.closest('.v2-product')?.querySelector('.v2-commercial-panel');
+      if(!panel) return;
+      const open=panel.hidden;
+      panel.hidden=!open;
+      btn.setAttribute('aria-expanded',String(open));
+      btn.textContent=open ? (en?'Hide commercial model':'Свернуть коммерческую модель') : (en?'Commercial model':'Коммерческая модель');
+    });
+    attachPortfolio();
+  }
+
+  if (modal) {
+    let section=$('#v2-commercial-dossier');
+    if(!section){
+      section=document.createElement('section');
+      section.id='v2-commercial-dossier';
+      section.className='v2-commercial-dossier';
+      $('#status')?.before(section);
+    }
+    const paint=()=>{
+      const id=modal.dataset.project;
+      const d=data[id]?.[en?'en':'ru'];
+      if(!d || !modal.open){section.hidden=true;return;}
+      section.hidden=false;
+      section.innerHTML=`
+        <div class="v2-commercial-head">
+          <p class="eyebrow">${en?'Commercial clarity':'Коммерческая модель'}</p>
+          <h3>${en?'How the product can become a contract':'Как продукт может превратиться в контракт'}</h3>
+          <span>${en?'Working hypothesis · validate in pilot':'Рабочая гипотеза · подтверждается пилотом'}</span>
+        </div>
+        ${renderPanel(id)}`;
+    };
+    if(!modal.dataset.v2CommercialBound){
+      modal.dataset.v2CommercialBound='1';
+      new MutationObserver(paint).observe(modal,{attributes:true,attributeFilter:['open','data-project']});
+    }
+    paint();
+  }
+}
+
 export function renderV2(lang, projects = []) {
   const en = lang === 'en';
   document.documentElement.dataset.preview = 'v2';
@@ -573,6 +665,7 @@ export function renderV2(lang, projects = []) {
   renderStakeholderLens(lang, $, projects);
   installExecutiveEvidence(lang, $, projects);
   installProjectDecisionDossier(lang, $, projects);
+  installCommercialClarity(lang, $, projects);
   if (!$('#v2-steps')) {
     const section = document.createElement('section'); section.id = 'v2-steps'; section.className = 'section v2-steps';
     $('#contact').before(section);
