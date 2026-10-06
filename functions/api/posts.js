@@ -51,6 +51,19 @@ function editorialPlan(rows) {
   };
 }
 
+const PUBLIC_PROJECT_BLOCKERS = [
+  /\bpostgres(?:ql)?\b/i, /\bredis\b/i, /\bs3\b/i, /\brbac\b/i, /\boutbox\b/i,
+  /\bwebsocket\b/i, /\blivekit\b/i, /\bworker\b/i, /\bmigration\b/i, /\bschema\b/i,
+  /\bendpoint\b/i, /\bcommit\b/i, /\bbranch\b/i, /\bsha[- :]/i, /\bapi\s+(?:route|endpoint|contract)\b/i,
+  /acceptance[- ]gate/i, /fail[- ]closed/i, /production[- ]admission/i, /readiness/i,
+  /source[- ]of[- ]truth/i, /integration master plan/i, /internal architecture/i
+];
+
+function publicProjectCopyIssues(body) {
+  const text = [body.ru_title, body.ru_body, body.en_title, body.en_body].map((x) => String(x || '')).join('\n');
+  return PUBLIC_PROJECT_BLOCKERS.filter((rx) => rx.test(text)).map((rx) => rx.source).slice(0, 8);
+}
+
 function editorialCoverage(rows) {
   const days = {};
   for (const p of rows) {
@@ -95,7 +108,9 @@ export async function onRequestGet({ request, env }) {
       minimumPerDay: 2,
       required: ['project', 'analysis'],
       destinations: ['site', 'telegram'],
-      timezone: 'Europe/Moscow'
+      timezone: 'Europe/Moscow',
+      projectPublicity: 'product-value-stage-milestone-only',
+      confidentiality: 'internal architecture, infrastructure, implementation mechanics and unique technical details are excluded from project publications'
     },
     now: Date.now(),
     channelReady: !!((env.CHANNEL_BOT_TOKEN || env.TELEGRAM_BOT_TOKEN) && env.TELEGRAM_CHANNEL),
@@ -128,6 +143,15 @@ export async function onRequestPost({ request, env }) {
     url: clean(b.source.url, 1000)
   }) : '';
   const status = action === 'schedule' ? 'scheduled' : action === 'draft' ? 'draft' : (b.status === 'scheduled' ? 'scheduled' : 'draft');
+  const publishIntent = action === 'schedule' || action === 'now' || status === 'scheduled';
+  if (PROJECT_TAGS.has(tag) && publishIntent) {
+    const issues = publicProjectCopyIssues(b);
+    if (issues.length) return J({
+      error: 'public-project-copy-too-technical',
+      message: 'Project publication must stay at product/value/milestone level and omit internal implementation details.'
+    }, 422);
+  }
+
   const editorialRequired = PROJECT_TAGS.has(tag) || ANALYSIS_TAGS.has(tag);
   const site = editorialRequired && (action === 'schedule' || action === 'now') ? 1 : (b.site ? 1 : 0);
   const tg = editorialRequired && (action === 'schedule' || action === 'now') ? 1 : (b.tg ? 1 : 0);
