@@ -17,7 +17,7 @@ const checks = [
   ['executive evidence', ['Проблема','Продукт','Подтверждение','Текущая стадия','Следующий этап','Коммерческий путь','Что требуется от партнёра / инвестора'].every((x) => v2.includes(x))],
   ['project CTA paths', ['data-v2-open','data-v2-talk="launch"','data-v2-talk="partnership"','data-v2-talk="investors"'].every((x) => v2.includes(x))],
   ['contact form anchors', ['id="contact"','id="form"','id="topic"','id="submit"'].every((x) => index.includes(x))],
-  ['RU/EN pages exist', index.includes('assets/app.js') && en.includes('../assets/app.js')],
+  ['RU/EN pages exist', index.includes('assets/app.js') && en.includes('/assets/app.js')],
   ['V2 renderer receives project registry', app.includes('renderV2(lang, PROJECTS);')],
 ];
 
