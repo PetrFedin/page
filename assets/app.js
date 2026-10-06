@@ -2405,7 +2405,7 @@ if (location.hash) {
 }
 
 /* Посты из календаря кабинета: подмешиваем вышедшие в общую ленту, не дожидаясь пересборки сайта. */
-Promise.resolve(new Response('[]')).then((r) => (r.ok ? r.json() : [])).then((list) => {
+fetch('/api/posts', { cache: 'no-store' }).then((r) => (r.ok ? r.json() : [])).then((list) => {
   if (!Array.isArray(list)) return;
   let added = false;
   for (const p of list) {
