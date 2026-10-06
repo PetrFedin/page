@@ -135,7 +135,165 @@ function installDecisionLayer(lang, $) {
   $('#v2-draft').textContent = en ? 'Download text brief' : 'Скачать текстовый бриф';
 }
 
-export function renderV2(lang) {
+
+/* V2.2 portfolio intelligence */
+const V2_PORTFOLIO_META = {"syntha":{"cats":["fashion"],"maturity":"pilot","commercial":{"ru":"Пилот → коммерческая модель фиксируется по результатам валидации","en":"Pilot → commercial model fixed after validation"}},"chatx":{"cats":["enterprise"],"maturity":"mvp","commercial":{"ru":"Пилот в компании → условия внедрения после валидации","en":"Company pilot → rollout terms after validation"}},"renova":{"cats":["consumer"],"maturity":"mvp","commercial":{"ru":"Закрытый тест → модель выхода на рынок после валидации","en":"Closed test → market model after validation"}},"mfw":{"cats":["events","fashion"],"maturity":"mvp","commercial":{"ru":"Демо организаторам → пилот / партнёрская модель","en":"Organiser demo → pilot / partnership model"}},"promomed":{"cats":["events"],"maturity":"mvp","commercial":{"ru":"Демо заказчику → коммерческий формат после согласования пилота","en":"Client demo → commercial format after pilot agreement"}}};
+const V2_PORTFOLIO_CATEGORIES = {"ru":[["all","Все"],["fashion","Fashion"],["enterprise","Enterprise"],["events","Events"],["consumer","Consumer"],["fintech","Fintech"],["art","Art"],["infrastructure","Infrastructure"]],"en":[["all","All"],["fashion","Fashion"],["enterprise","Enterprise"],["events","Events"],["consumer","Consumer"],["fintech","Fintech"],["art","Art"],["infrastructure","Infrastructure"]]};
+const V2_MATURITY = {"ru":{"concept":"Concept","mvp":"MVP","pilot":"Pilot-ready","production":"Production"},"en":{"concept":"Concept","mvp":"MVP","pilot":"Pilot-ready","production":"Production"}};
+function renderPortfolioIntelligence(lang, $, projects) {
+  const en = lang === 'en';
+  const items = Array.isArray(projects) ? projects.filter((p) => p?.id && p?.[lang]) : [];
+  const meta = V2_PORTFOLIO_META;
+  const categories = V2_PORTFOLIO_CATEGORIES[en ? 'en' : 'ru'];
+  const maturityLabels = V2_MATURITY[en ? 'en' : 'ru'];
+  const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (ch) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+  const short = (s, max = 185) => {
+    const text = String(s ?? '').trim();
+    if (text.length <= max) return text;
+    const cut = text.slice(0, max);
+    return cut.slice(0, Math.max(cut.lastIndexOf(' '), 120)).trim() + '…';
+  };
+  const getMeta = (p) => meta[p.id] || { cats: [], maturity: 'concept', commercial: { ru: 'Коммерческая модель не опубликована', en: 'Commercial model not published' } };
+  const usedCategories = new Set(items.flatMap((p) => getMeta(p).cats));
+  const counts = Object.fromEntries(categories.map(([id]) => [id, id === 'all' ? items.length : items.filter((p) => getMeta(p).cats.includes(id)).length]));
+  const maturityCounts = ['concept','mvp','pilot','production'].map((id) => [id, items.filter((p) => getMeta(p).maturity === id).length]);
+
+  let section = $('#v2-portfolio');
+  const projectsSection = $('#projects');
+  if (!section) {
+    section = document.createElement('section');
+    section.id = 'v2-portfolio';
+    section.className = 'section v2-portfolio';
+    projectsSection?.before(section);
+  }
+  if (!section) return;
+
+  section.innerHTML = `
+    <div class="section-head">
+      <p class="eyebrow">${en ? 'Portfolio intelligence' : 'Portfolio Intelligence'}</p>
+      <h2>${en ? 'The portfolio as a system, not a list' : 'Портфель как система, а не длинный список'}</h2>
+      <p class="sub">${en
+        ? 'Filter by market, see maturity at a glance and move directly from a product to a pilot, partnership or investment conversation.'
+        : 'Фильтр по рынкам, зрелость с первого взгляда и прямой переход от проекта к пилоту, партнёрству или инвестиционному диалогу.'}</p>
+    </div>
+    <div class="v2-portfolio-summary" aria-label="${en ? 'Portfolio summary' : 'Сводка портфеля'}">
+      <div><strong>${items.length}</strong><span>${en ? 'published products' : 'проектов опубликовано'}</span></div>
+      <div><strong>${usedCategories.size}</strong><span>${en ? 'active sectors' : 'активных направления'}</span></div>
+      <div class="v2-maturity-strip">
+        ${maturityCounts.map(([id,count])=>`<span class="v2-maturity-point${count?' active':''}"><i>${count}</i>${maturityLabels[id]}</span>`).join('')}
+      </div>
+    </div>
+    <div class="v2-portfolio-filters" role="group" aria-label="${en ? 'Portfolio sectors' : 'Направления портфеля'}">
+      ${categories.map(([id,label],i)=>{
+        const count=counts[id]||0, disabled=id!=='all' && count===0;
+        return `<button type="button" class="v2-filter${i===0?' active':''}" data-v2-filter="${id}" aria-pressed="${i===0}" ${disabled?'disabled':''}>
+          <span>${esc(label)}</span><b>${count}</b>${disabled?`<small>${en?'not published':'не опубликовано'}</small>`:''}
+        </button>`;
+      }).join('')}
+    </div>
+    <div class="v2-portfolio-grid" id="v2-portfolio-grid"></div>
+    <p class="v2-portfolio-note">${en
+      ? 'Fintech, Art and Infrastructure are intentionally not populated here until those products are formally published in this showcase.'
+      : 'Fintech, Art и Infrastructure намеренно не заполнены: я не добавляю туда проекты, пока они формально не опубликованы в этой витрине.'}</p>`;
+
+  const renderGrid = (filter = 'all') => {
+    const visible = items.filter((p) => filter === 'all' || getMeta(p).cats.includes(filter));
+    const grid = $('#v2-portfolio-grid');
+    if (!grid) return;
+    grid.innerHTML = visible.map((p) => {
+      const d = p[lang], m = getMeta(p);
+      const catLabels = m.cats.map((id) => categories.find((x) => x[0] === id)?.[1] || id);
+      return `<article class="v2-product" data-v2-product="${esc(p.id)}">
+        <div class="v2-product-top">
+          <div>
+            <div class="v2-product-cats">${catLabels.map((x)=>`<span>${esc(x)}</span>`).join('')}</div>
+            <h3>${esc(p.name)}</h3>
+          </div>
+          <span class="v2-stage v2-stage-${esc(m.maturity)}">${esc(maturityLabels[m.maturity] || m.maturity)}</span>
+        </div>
+        <p class="v2-product-tag">${esc(d.tagline)}</p>
+        <dl class="v2-product-data">
+          <div><dt>${en ? 'Audience' : 'Аудитория'}</dt><dd>${esc(short(d.who, 210))}</dd></div>
+          <div><dt>${en ? 'Current stage' : 'Текущая стадия'}</dt><dd>${esc(d.stage)}</dd></div>
+          <div><dt>${en ? 'Monetisation' : 'Монетизация'}</dt><dd>${esc(m.commercial[en ? 'en' : 'ru'])}</dd></div>
+        </dl>
+        <div class="v2-product-actions">
+          <button type="button" class="btn btn-sm btn-primary" data-v2-open="${esc(p.id)}">${en ? 'Open product' : 'Открыть проект'}</button>
+          <button type="button" class="btn btn-sm" data-v2-talk="launch" data-v2-id="${esc(p.id)}">${en ? 'Discuss pilot' : 'Обсудить пилот'}</button>
+          <button type="button" class="btn btn-sm" data-v2-talk="partnership" data-v2-id="${esc(p.id)}">${en ? 'Partnership' : 'Партнёрство'}</button>
+          <button type="button" class="btn btn-sm" data-v2-talk="investors" data-v2-id="${esc(p.id)}">${en ? 'Investment' : 'Инвестиции'}</button>
+        </div>
+      </article>`;
+    }).join('');
+  };
+
+  if (!section.dataset.boundPortfolio) {
+    section.dataset.boundPortfolio = '1';
+    section.addEventListener('click', (e) => {
+      const filter = e.target.closest('[data-v2-filter]');
+      if (filter && !filter.disabled) {
+        section.querySelectorAll('[data-v2-filter]').forEach((b) => {
+          const active = b === filter;
+          b.classList.toggle('active', active);
+          b.setAttribute('aria-pressed', String(active));
+        });
+        renderGrid(filter.dataset.v2Filter);
+        try { sessionStorage.setItem('syntha_v2_portfolio_filter', filter.dataset.v2Filter); } catch {}
+        return;
+      }
+      const open = e.target.closest('[data-v2-open]');
+      if (open) {
+        const target = document.querySelector(`#cards [data-open="${CSS.escape(open.dataset.v2Open)}"]`);
+        if (target) target.click();
+        else {
+          const card = document.querySelector(`#cards [data-project="${CSS.escape(open.dataset.v2Open)}"]`);
+          card?.scrollIntoView({behavior:'smooth',block:'center'});
+        }
+        return;
+      }
+      const talk = e.target.closest('[data-v2-talk]');
+      if (!talk) return;
+      const p = items.find((x) => x.id === talk.dataset.v2Id);
+      const topic = $('#topic');
+      if (topic && [...topic.options].some((o) => o.value === talk.dataset.v2Talk)) {
+        topic.value = talk.dataset.v2Talk;
+        topic.dispatchEvent(new Event('change', {bubbles:true}));
+      }
+      const message = $('#form [name="message"]');
+      if (message && !message.value.trim() && p) {
+        const action = talk.dataset.v2Talk;
+        const text = en
+          ? action === 'launch' ? `I would like to discuss a pilot for ${p.name}: scope, acceptance criteria and next milestone.`
+          : action === 'partnership' ? `I would like to discuss a partnership around ${p.name}: contribution, commercial mechanics and first joint case.`
+          : `I would like to discuss investment in ${p.name}: current maturity, next de-risking milestone and use of capital.`
+          : action === 'launch' ? `Хочу обсудить пилот ${p.name}: границы, критерии приёмки и следующий milestone.`
+          : action === 'partnership' ? `Хочу обсудить партнёрство вокруг ${p.name}: вклад сторон, коммерческую механику и первый совместный кейс.`
+          : `Хочу обсудить инвестиции в ${p.name}: текущую зрелость, следующий de-risking milestone и использование капитала.`;
+        message.value = text;
+      }
+      $('#form')?.dispatchEvent(new Event('input', {bubbles:true}));
+      $('#contact')?.scrollIntoView({behavior:'smooth',block:'start'});
+    });
+  }
+
+  let saved = 'all';
+  try { saved = sessionStorage.getItem('syntha_v2_portfolio_filter') || 'all'; } catch {}
+  const savedBtn = section.querySelector(`[data-v2-filter="${CSS.escape(saved)}"]`);
+  if (!savedBtn || savedBtn.disabled) saved = 'all';
+  section.querySelectorAll('[data-v2-filter]').forEach((b) => {
+    const active = b.dataset.v2Filter === saved;
+    b.classList.toggle('active', active);
+    b.setAttribute('aria-pressed', String(active));
+  });
+  renderGrid(saved);
+
+  if ($('#projects-title')) $('#projects-title').textContent = en ? 'Detailed project dossiers' : 'Подробные карточки проектов';
+  if ($('#projects-sub')) $('#projects-sub').textContent = en
+    ? 'The full project descriptions remain below: status, product logic, participation formats and detailed evidence.'
+    : 'Ниже сохранены полные карточки: стадия, логика продукта, варианты участия и подробности по каждому проекту.';
+}
+
+export function renderV2(lang, projects = []) {
   const en = lang === 'en';
   document.documentElement.dataset.preview = 'v2';
   const $ = (s) => document.querySelector(s);
@@ -167,6 +325,7 @@ export function renderV2(lang) {
   ];
   $('#v2-routes').innerHTML = `<p class="eyebrow">${en ? 'Where shall we start?' : 'С чего начнём?'}</p><div class="v2-route-grid">${routes.map(r=>`<a class="v2-route" href="${r[5]}"><span class="v2-route-meta">${r[0]} / ${r[1]}</span><h3>${r[2]}</h3><p>${r[3]}</p><span class="v2-route-action">${r[4]} →</span></a>`).join('')}</div>`;
   installDecisionLayer(lang, $);
+  renderPortfolioIntelligence(lang, $, projects);
   if (!$('#v2-steps')) {
     const section = document.createElement('section'); section.id = 'v2-steps'; section.className = 'section v2-steps';
     $('#contact').before(section);
