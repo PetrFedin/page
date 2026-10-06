@@ -22,6 +22,8 @@ const checks = [
   ['V2 renderer receives project registry', app.includes('renderV2(lang, PROJECTS);')],
   ['project decision dossier', v2.includes('Досье для решения') && v2.includes('Следующий проверяемый этап') && v2.includes('Обсудить следующий шаг')],
   ['dossier CTA consistency', v2.includes("'Открыть досье'") && content.includes("open: 'Открыть досье'")],
+  ['commercial clarity layer', ['Кто покупатель','За что платит','Первый продаваемый пилот','Что измеряем','Что превращает пилот в контракт','Возможные модели выручки'].every((x) => v2.includes(x))],
+  ['commercial hypothesis labeling', v2.includes('Рабочая гипотеза · подтверждается пилотом') && v2.includes('Коммерческая модель')],
 ];
 
 let failed = 0;
