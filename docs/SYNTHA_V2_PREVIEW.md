@@ -119,3 +119,23 @@ maturity or partnership/investment path.
 The hero now includes a compact proof bar derived from the published PROJECTS
 registry. It reports only currently published project and maturity counts; it does
 not introduce financial or traction claims that are absent from the source data.
+
+
+## Executive Evidence Layer v2.4
+
+V2 restores the original progressive-reveal behaviour for the detailed projects:
+the page starts with three project cards, then "Show more", then "Collapse".
+The existing news feed keeps its own three-item "Show more / Collapse" behaviour.
+
+Portfolio Intelligence now adds an optional Executive brief to each published
+project. The brief is deliberately compact and follows one seven-part structure:
+
+Problem → Product → Evidence → Current maturity → Next milestone →
+Commercial path → Capital / partner ask.
+
+Evidence statements are derived from the existing public project dossier. Where
+real production use, validated monetisation, traction or revenue are not publicly
+established, the brief says so instead of inferring them.
+
+The brief is additive: the original project card, status modal, news, comparison
+and detailed project pages remain available.
