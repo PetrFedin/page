@@ -904,6 +904,160 @@ function installDisclosureLadder(lang, $, projects) {
 }
 
 
+
+/* V2.23 executive project dossier */
+function installExecutiveProjectDossierV2(lang, $, projects) {
+  const en = lang === 'en';
+  const modal = $('#modal');
+  const gallery = $('#gallery');
+  if (!modal || !gallery) return;
+  const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (ch) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+  const list = (arr, limit = 3) => '<ul>' + (arr || []).slice(0,limit).map((x)=>'<li>'+esc(x)+'</li>').join('') + '</ul>';
+
+  // Remove legacy V2 dossier blocks if renderV2 is re-run in the same page session.
+  ['v2-project-dossier','v2-commercial-dossier','v2-proof-dossier','v2-strategic-horizon','v2-public-status','v2-confidentiality','v2-disclosure-ladder']
+    .forEach((id)=>document.getElementById(id)?.remove());
+
+  let shell = $('#v2-executive-dossier');
+  if (!shell) {
+    shell = document.createElement('section');
+    shell.id = 'v2-executive-dossier';
+    shell.className = 'v2-executive-dossier';
+    gallery.before(shell);
+  }
+
+  const paint = () => {
+    const id = modal.dataset.project;
+    const p = (projects || []).find((x)=>x.id===id);
+    const e = V2_EVIDENCE[id]?.[en?'en':'ru'];
+    const commercial = V2_COMMERCIAL[id]?.[en?'en':'ru'];
+    const proof = V2_PROOF[id]?.[en?'en':'ru'];
+    const status = V2_PUBLIC_STATUS[id]?.[en?'en':'ru'];
+    const horizon = V2_HORIZONS[id]?.[en?'en':'ru'];
+    if (!modal.open || !p || !e || !commercial || !proof) { shell.hidden=true; return; }
+    shell.hidden=false;
+
+    const disclosure = en ? [
+      ['01','Public','Value, maturity and next milestone.'],
+      ['02','Qualified demo','Deeper product journey and pilot scope.'],
+      ['03','NDA / diligence','Selected implementation evidence under agreed scope.']
+    ] : [
+      ['01','Публично','Ценность, зрелость и следующий этап.'],
+      ['02','Закрытое демо','Более глубокий продуктовый путь и рамка пилота.'],
+      ['03','NDA / проверка','Выборочные подтверждения реализации в согласованных границах.']
+    ];
+
+    shell.innerHTML = `
+      <div class="v2-exec-head">
+        <div>
+          <p class="eyebrow">${en?'Executive dossier · 60 sec':'Досье для решения · 60 секунд'}</p>
+          <h3>${esc(p.name)}</h3>
+          <p class="v2-exec-product">${esc(e.product)}</p>
+        </div>
+        <div class="v2-exec-status">
+          <span>${en?'Current maturity':'Текущая стадия'}</span>
+          <b>${esc(p[lang].stage)}</b>
+          ${status ? `<small>${esc(status.checked)}</small>` : ''}
+        </div>
+      </div>
+
+      <div class="v2-exec-gate">
+        <span>${en?'Next decision':'Следующее решение'}</span>
+        <b>${esc(e.next)}</b>
+      </div>
+
+      <div class="v2-exec-snapshot">
+        <article><span>${en?'Problem':'Что решает'}</span><p>${esc(e.problem)}</p></article>
+        <article><span>${en?'Buyer':'Для кого'}</span><p>${esc(commercial.buyer)}</p></article>
+        <article><span>${en?'Evidence now':'Что подтверждено'}</span><p>${esc(e.evidence)}</p></article>
+        <article><span>${en?'Commercial path':'Коммерческий путь'}</span><p>${esc(e.path)}</p></article>
+        <article class="wide"><span>${en?'What is needed now':'Что требуется сейчас'}</span><p>${esc(e.ask)}</p></article>
+      </div>
+
+      <div class="v2-exec-actions">
+        <button type="button" class="btn btn-primary" data-v2-exec-start>${en?'Discuss the next step':'Обсудить следующий этап'} →</button>
+        <span>${en?'No confidential implementation detail is shown here.':'Закрытые детали реализации здесь не раскрываются.'}</span>
+      </div>
+
+      <details class="v2-exec-level">
+        <summary>
+          <span>02</span>
+          <div><b>${en?'Commercial & proof':'Коммерция и подтверждения'}</b><small>${en?'Buyer → pilot → contract → risk → decision':'Покупатель → пилот → контракт → риск → решение'}</small></div>
+          <i aria-hidden="true">+</i>
+        </summary>
+        <div class="v2-exec-level-body">
+          <div class="v2-exec-commercial">
+            <section><span>${en?'What they pay for':'За что платит'}</span><p>${esc(commercial.pays)}</p></section>
+            <section><span>${en?'First sellable pilot':'Первый продаваемый пилот'}</span><p>${esc(commercial.pilot)}</p></section>
+            <section><span>${en?'Pilot → contract gate':'Пилот → контракт'}</span><p>${esc(commercial.contract)}</p></section>
+            <section><span>${en?'Revenue mechanics':'Модели выручки'}</span>${list(commercial.models,4)}</section>
+          </div>
+          <div class="v2-exec-proof">
+            <section><span>${en?'Evidenced now':'Уже доказано'}</span>${list(proof.proven,3)}</section>
+            <section><span>${en?'Not evidenced yet':'Ещё не доказано'}</span>${list(proof.unproven,3)}</section>
+            <section><span>${en?'Primary risk':'Главный риск'}</span><p>${esc(proof.risk)}</p></section>
+            <section><span>${en?'How the next pilot de-risks it':'Как следующий пилот снимает риск'}</span><p>${esc(proof.derisk)}</p></section>
+          </div>
+          <div class="v2-exec-decision-triad">
+            <div><b>${en?'SCALE':'МАСШТАБИРОВАТЬ'}</b><p>${esc(proof.scale)}</p></div>
+            <div><b>${en?'REVISE':'ПЕРЕСОБРАТЬ'}</b><p>${esc(proof.revise)}</p></div>
+            <div><b>${en?'STOP':'ОСТАНОВИТЬ'}</b><p>${esc(proof.stop)}</p></div>
+          </div>
+          ${horizon ? `<div class="v2-exec-horizon"><span>${en?'Strategic horizon':'Стратегический горизонт'}</span><b>${esc(horizon.title)}</b><p>${esc(horizon.body)}</p><small>${esc(horizon.boundary)}</small></div>` : ''}
+          <p class="v2-exec-note">${esc(commercial.note)}</p>
+        </div>
+      </details>
+
+      <details class="v2-exec-level">
+        <summary>
+          <span>03</span>
+          <div><b>${en?'Access & diligence':'Доступ и проверка'}</b><small>${en?'Public → qualified demo → NDA / diligence':'Публично → закрытое демо → NDA / проверка'}</small></div>
+          <i aria-hidden="true">+</i>
+        </summary>
+        <div class="v2-exec-level-body">
+          <p class="v2-exec-confidentiality">${en
+            ? 'The public site explains business value, maturity and the next milestone. Architecture, implementation mechanics, internal controls and proprietary know-how remain protected.'
+            : 'Публичный сайт показывает бизнес-ценность, зрелость и следующий этап. Архитектура, внутренняя механика, контрольные процессы и собственное know-how остаются закрытыми.'}</p>
+          <div class="v2-exec-disclosure">
+            ${disclosure.map((s)=>`<article><span>${s[0]}</span><h4>${s[1]}</h4><p>${s[2]}</p></article>`).join('')}
+          </div>
+          <div class="v2-exec-access-actions">
+            <button type="button" class="btn btn-primary" data-v2-exec-demo>${en?'Request qualified demo':'Запросить закрытое демо'}</button>
+            <button type="button" class="btn" data-v2-exec-diligence>${en?'Discuss NDA / diligence':'Обсудить NDA / проверку'}</button>
+          </div>
+        </div>
+      </details>`;
+
+    const primary = $('#modal-cta');
+    if (primary) primary.textContent = en ? 'Discuss next step' : 'Обсудить следующий этап';
+    const more = $('#modal-more');
+    if (more && !more.hidden) more.textContent = en ? 'Open product page' : 'Открыть страницу проекта';
+  };
+
+  if (!modal.dataset.v2ExecutiveDossierBound) {
+    modal.dataset.v2ExecutiveDossierBound='1';
+    new MutationObserver(paint).observe(modal,{attributes:true,attributeFilter:['open','data-project']});
+    modal.addEventListener('toggle',(e)=>{
+      const details=e.target.closest?.('.v2-exec-level');
+      if(!details) return;
+      const mark=details.querySelector('summary i');
+      if(mark) mark.textContent=details.open?'−':'+';
+    }, true);
+    modal.addEventListener('click',(e)=>{
+      const start=e.target.closest('[data-v2-exec-start]');
+      const demo=e.target.closest('[data-v2-exec-demo]');
+      const diligence=e.target.closest('[data-v2-exec-diligence]');
+      if(!start && !demo && !diligence) return;
+      const id=modal.dataset.project;
+      const route=diligence?'diligence':demo?'pilot':'pilot';
+      modal.close();
+      window.synthaV2SetStartContext?.(route,id);
+      $('#v2-steps')?.scrollIntoView({behavior:'smooth',block:'start'});
+    });
+  }
+  paint();
+}
+
 /* V2.14 qualified lead routing */
 const V2_LEAD_ROUTES = {
   ru: {
@@ -1170,13 +1324,7 @@ export function renderV2(lang, projects = []) {
   renderPortfolioIntelligence(lang, $, projects);
   renderStakeholderLens(lang, $, projects);
   // Executive evidence remains in the project dossier; portfolio cards stay decision-light.
-  installProjectDecisionDossier(lang, $, projects);
-  installCommercialClarity(lang, $, projects);
-  installCommercialProof(lang, $, projects);
-  installStrategicHorizon(lang, $, projects);
-  installPublicStatusStamp(lang, $, projects);
-  installConfidentialityLayer(lang, $, projects);
-  installDisclosureLadder(lang, $, projects);
+  installExecutiveProjectDossierV2(lang, $, projects);
   installQualifiedLeadRouting(lang, $, projects);
   if (!$('#v2-steps')) {
     const section = document.createElement('section'); section.id = 'v2-steps'; section.className = 'section v2-steps';
