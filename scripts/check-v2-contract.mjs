@@ -28,7 +28,7 @@ const checks = [
   ['portfolio truth sync', ['fashionmgmt','furproduction','antiqua'].every((x) => content.includes(`id: '${x}'`)) && !content.includes("id: 'moscow'") && index.includes('8 опубликованных продуктов') && !index.includes('${items.length} опубликованных продуктов')],
   ['authority-backed dossiers', ['syntha','chatx','renova','mfw','promomed','fashionmgmt','furproduction','antiqua'].every((x) => v2.includes(`\"${x}\"`)) && !v2.includes('\"moscow\"') && ['v2-dossier-proof','v2-dossier-governance','v2-dossier-commercial','v2-dossier-risk','v2-dossier-next'].every((x) => v2.includes(x))],
   ['confidential fashion cases stay anonymised', ![content,v2,index,en].some((x) => /Yanina|MVST/i.test(x))],
-  ['CEO card decision strip', ['v2-card-decision','Proof','Governance','Next gate'].every((x) => v2.includes(x))],
+  ['investor first-screen priority', ['V2_INVESTOR_PRIORITY','v2-investor-priority','Why this matters','Why now','Economic change','What must be true next'].every((x) => v2.includes(x))],
 ];
 
 let failed = 0;
