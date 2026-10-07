@@ -1400,9 +1400,51 @@ export function renderV2(lang, projects = []) {
             <div><b>${en ? 'Meeting output' : 'Результат встречи'}</b><p>${esc(recommendation().outcome)}</p></div>
             <div><b>${en ? 'Next gate' : 'Следующий gate'}</b><p>${esc(recommendation().gate)}</p></div>
           </section>` : ''}
-          <button type="button" class="btn btn-primary v2-start-go" data-v2-start-go${briefComplete()?'':' disabled'}>${en ? 'Continue with this brief' : 'Продолжить с этим brief'} →</button>
-          <small>${briefComplete() ? (en?'Brief is ready to transfer.':'Brief готов к переносу.') : (en?'Answer the two short questions to continue.':'Ответьте на два коротких вопроса, чтобы продолжить.')}</small>
+          <div class="v2-brief-actions">
+            <button type="button" class="btn btn-primary v2-start-go" data-v2-start-go${briefComplete()?'':' disabled'}>${en ? 'Continue with this brief' : 'Продолжить с этим brief'} →</button>
+            <button type="button" class="btn" data-v2-meeting-room${briefComplete()?'':' disabled'}>${en ? 'Open meeting room' : 'Открыть комнату встречи'}</button>
+          </div>
+          <small>${briefComplete() ? (en?'Brief is ready to transfer or use in the first meeting.':'Brief готов к переносу или первой встрече.') : (en?'Answer the two short questions to continue.':'Ответьте на два коротких вопроса, чтобы продолжить.')}</small>
         </aside>
+      </div>`;
+  };
+
+  if (!$('#v2-meeting-room')) {
+    const dialog = document.createElement('dialog');
+    dialog.id = 'v2-meeting-room';
+    dialog.className = 'v2-meeting-room';
+    document.body.append(dialog);
+  }
+
+  const renderMeetingRoom = () => {
+    const dialog = $('#v2-meeting-room');
+    if (!dialog) return;
+    const r = recommendation();
+    const escLines = (items) => items.map((x)=>`<li>${esc(x)}</li>`).join('');
+    dialog.innerHTML = `
+      <div class="v2-meeting-room-inner">
+        <div class="v2-meeting-room-head">
+          <div><p class="eyebrow">${en ? 'Session-only meeting room' : 'Комната первой встречи · только эта сессия'}</p><h2>${projectLabel()}</h2></div>
+          <button type="button" class="modal-close" data-v2-meeting-close aria-label="${en?'Close':'Закрыть'}">×</button>
+        </div>
+        <div class="v2-meeting-summary">
+          <section><span>${en?'Route':'Цель'}</span><b>${esc(routeLabel())}</b></section>
+          <section><span>${en?'Timing':'Срок'}</span><b>${esc(startState.timing)}</b></section>
+          <section class="wide"><span>${en?'Recommended first format':'Рекомендуемый формат первой встречи'}</span><b>${esc(r.format)}</b></section>
+        </div>
+        <div class="v2-meeting-grid">
+          <section><h3>${en?'Brief':'Brief'}</h3><pre>${esc(briefText())}</pre></section>
+          <section><h3>${en?'Prepare':'Подготовить'}</h3><ul>${escLines(r.prepare)}</ul></section>
+          <section><h3>${en?'Who should join':'Кого подключить'}</h3><ul>${escLines(r.people)}</ul></section>
+          <section><h3>${en?'Expected output':'Результат встречи'}</h3><p>${esc(r.outcome)}</p></section>
+          <section class="wide"><h3>${en?'Next gate':'Следующий gate'}</h3><p>${esc(r.gate)}</p></section>
+        </div>
+        <p class="v2-meeting-safety">${en ? 'This room exists only in the current browser session and contains no protected technical materials.' : 'Эта комната существует только в текущей сессии браузера и не содержит закрытых технических материалов.'}</p>
+        <div class="v2-meeting-actions">
+          <button type="button" class="btn btn-primary" data-v2-meeting-use>${en?'Use this brief':'Использовать этот brief'}</button>
+          <button type="button" class="btn" data-v2-meeting-copy>${en?'Copy':'Скопировать'}</button>
+          <button type="button" class="btn" data-v2-meeting-print>${en?'Print / save PDF':'Печать / сохранить PDF'}</button>
+        </div>
       </div>`;
   };
 
@@ -1420,6 +1462,12 @@ export function renderV2(lang, projects = []) {
       if(project){startState.project=project.dataset.v2StartProject;renderStart();return;}
       const timing=e.target.closest('[data-v2-start-timing]');
       if(timing){startState.timing=timing.dataset.v2StartTiming;renderStart();return;}
+      if (e.target.closest('[data-v2-meeting-room]')) {
+        if (!briefComplete()) return;
+        renderMeetingRoom();
+        $('#v2-meeting-room')?.showModal();
+        return;
+      }
       if(!e.target.closest('[data-v2-start-go]')) return;
 
       window.synthaV2SetLeadRoute?.(startState.route,startState.project);
@@ -1463,7 +1511,35 @@ export function renderV2(lang, projects = []) {
       const route=startState.route;
       startState.answers[route] ||= {};
       startState.answers[route][field.dataset.v2BriefAnswer]=field.value;
-      renderStart();
+      const meetingRoom = $('#v2-meeting-room');
+  if (meetingRoom && !meetingRoom.dataset.bound) {
+    meetingRoom.dataset.bound='1';
+    meetingRoom.addEventListener('click', async (e)=>{
+      if (e.target.closest('[data-v2-meeting-close]')) { meetingRoom.close(); return; }
+      if (e.target === meetingRoom) { meetingRoom.close(); return; }
+      if (e.target.closest('[data-v2-meeting-use]')) {
+        meetingRoom.close();
+        $('#v2-steps [data-v2-start-go]')?.click();
+        return;
+      }
+      if (e.target.closest('[data-v2-meeting-copy]')) {
+        const r=recommendation();
+        const text = briefText() + '\n\n' + (en?'Recommended format: ':'Рекомендуемый формат: ') + r.format
+          + '\n' + (en?'Prepare: ':'Подготовить: ') + r.prepare.join('; ')
+          + '\n' + (en?'Invite: ':'Подключить: ') + r.people.join('; ')
+          + '\n' + (en?'Expected output: ':'Результат встречи: ') + r.outcome
+          + '\n' + (en?'Next gate: ':'Следующий gate: ') + r.gate;
+        try { await navigator.clipboard.writeText(text); } catch {}
+        return;
+      }
+      if (e.target.closest('[data-v2-meeting-print]')) {
+        document.documentElement.dataset.v2PrintMeeting='1';
+        window.print();
+        delete document.documentElement.dataset.v2PrintMeeting;
+      }
+    });
+  }
+  renderStart();
     });
     $('#v2-steps').addEventListener('change',(e)=>{
       const field=e.target.closest('[data-v2-brief-answer]');
