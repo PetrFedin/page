@@ -319,3 +319,11 @@ html[data-preview="v2"] .opt-row[hidden] { display: none !important; }
 .v2-brief-recommendation li,.v2-brief-recommendation p{font-size:11px;line-height:1.5;color:var(--muted);margin:0 0 4px}
 .v2-brief-recommendation p:last-child,.v2-brief-recommendation li:last-child{margin-bottom:0}
 #v2-steps{scroll-margin-top:92px}
+
+
+/* V2.19 start return */
+.v2-start-return{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:28px;align-items:center;padding-top:34px;padding-bottom:34px;border-top:1px solid var(--line)}
+.v2-start-return h2{margin:6px 0 8px;font-size:clamp(26px,3vw,40px);line-height:1.1}
+.v2-start-return p{margin:0;color:var(--muted);font-size:14px;line-height:1.6;max-width:760px}
+.v2-start-return .btn{min-height:46px;justify-content:center;white-space:nowrap}
+@media(max-width:700px){.v2-start-return{grid-template-columns:1fr;gap:16px}.v2-start-return .btn{width:100%}}
