@@ -12,8 +12,8 @@ function installDecisionLayer(lang, $) {
   $('#hero-lead').textContent = en
     ? 'I help fashion businesses connect buying, products, sales and cash — then turn the findings into operating decisions, pilots and digital tools.'
     : 'Помогаю фэшн-бизнесу связать закупку, продукт, продажи и деньги — и перевести выводы в управленческие решения, пилоты и цифровые инструменты.';
-  $('#cta-contact').textContent = en ? 'Choose a way to work' : 'Выбрать формат работы';
-  $('#cta-contact').setAttribute('href', '#v2-decision');
+  $('#cta-contact').textContent = en ? 'Start working together' : 'Начать работу';
+  $('#cta-contact').setAttribute('href', '#v2-steps');
 
   let section = $('#v2-decision');
   if (!section) {
@@ -64,16 +64,8 @@ function installDecisionLayer(lang, $) {
       const prepare = e.target.closest('[data-v2-prepare]');
       if (!prepare) return;
       const path = paths.find((p) => p.id === prepare.dataset.v2Prepare) || paths[0];
-      const topic = $('#topic');
-      if (topic && [...topic.options].some((o) => o.value === path.topic)) {
-        topic.value = path.topic;
-        topic.dispatchEvent(new Event('change', {bubbles:true}));
-      }
-      const message = $('#form [name="message"]');
-      if (message && !message.value.trim()) message.value = path.prompt;
-      $('#form')?.dispatchEvent(new Event('input', {bubbles:true}));
-      $('#contact')?.scrollIntoView({behavior:'smooth',block:'start'});
-      setTimeout(() => $('#form [name="name"]')?.focus({preventScroll:true}), 450);
+      window.synthaV2SetStartRoute?.(path.id);
+      $('#v2-steps')?.scrollIntoView({behavior:'smooth',block:'start'});
     });
   }
 
@@ -1144,15 +1136,17 @@ export function renderV2(lang, projects = []) {
   installQualifiedLeadRouting(lang, $, projects);
   if (!$('#v2-steps')) {
     const section = document.createElement('section'); section.id = 'v2-steps'; section.className = 'section v2-steps';
-    $('#contact').before(section);
+    ($('#v2-decision') || $('#v2-routes')).after(section);
   }
   const startProjects = (projects || []).filter((p)=>p?.id && p?.[lang]);
   const startRoutes = en ? [
+    ['consulting','Advisory','Frame a business problem and the decision it should improve'],
     ['pilot','Pilot','Validate the product in a real operating context'],
     ['partnership','Partnership','Build one concrete joint case'],
     ['investment','Investment','Discuss maturity, evidence and the next capital milestone'],
     ['diligence','NDA / diligence','Move to controlled disclosure for qualified review']
   ] : [
+    ['consulting','Консалтинг','Сформулировать бизнес-задачу и решение, которое должно измениться'],
     ['pilot','Пилот','Проверить продукт в реальном рабочем контуре'],
     ['partnership','Партнёрство','Собрать один конкретный совместный кейс'],
     ['investment','Инвестиции','Обсудить зрелость, подтверждения и следующий этап'],
@@ -1160,6 +1154,10 @@ export function renderV2(lang, projects = []) {
   ];
   const startTimings = en ? ['Within 1 month','1–3 months','3–6 months','Timing not defined yet'] : ['До 1 месяца','1–3 месяца','3–6 месяцев','Срок пока не определён'];
   const briefQuestions = en ? {
+    consulting: [
+      {key:'problem',label:'What business outcome should improve?',type:'text',placeholder:'Margin / inventory / cash / decision speed / other',lead:'leadGoal'},
+      {key:'context',label:'What context or data is available?',type:'text',placeholder:'Briefly: process, data, constraints',lead:'leadScope'}
+    ],
     pilot: [
       {key:'goal',label:'What should the pilot prove?',type:'select',options:['Economic impact','Operating workflow','User adoption','Commercial demand','Other'],lead:'leadGoal'},
       {key:'scope',label:'What real scope can you provide?',type:'text',placeholder:'One brand / team / event / property',lead:'leadScope'}
@@ -1177,6 +1175,10 @@ export function renderV2(lang, projects = []) {
       {key:'access',label:'What level is needed?',type:'select',options:['Qualified demo','NDA + selected materials','Diligence with agreed scope'],lead:'leadAccessLevel'}
     ]
   } : {
+    consulting: [
+      {key:'problem',label:'Какой бизнес-результат должен измениться?',type:'text',placeholder:'Маржа / запасы / деньги / скорость решений / другое',lead:'leadGoal'},
+      {key:'context',label:'Какой контекст или данные уже есть?',type:'text',placeholder:'Коротко: процесс, данные, ограничения',lead:'leadScope'}
+    ],
     pilot: [
       {key:'goal',label:'Что хотим доказать пилотом?',type:'select',options:['Экономический эффект','Рабочий процесс','Вовлечение пользователей','Коммерческий спрос','Другое'],lead:'leadGoal'},
       {key:'scope',label:'Какой реальный контур готовы дать?',type:'text',placeholder:'Один бренд / команда / событие / объект',lead:'leadScope'}
@@ -1194,7 +1196,7 @@ export function renderV2(lang, projects = []) {
       {key:'access',label:'Какой уровень нужен?',type:'select',options:['Закрытое демо','NDA + выборочные материалы','Diligence с согласованным scope'],lead:'leadAccessLevel'}
     ]
   };
-  let startState = { route:'pilot', project:startProjects[0]?.id || '', timing:startTimings[1], answers:{} };
+  let startState = { route:'consulting', project:startProjects[0]?.id || '', timing:startTimings[1], answers:{} };
 
   const routeLabel = () => startRoutes.find((r)=>r[0]===startState.route)?.[1] || startState.route;
   const projectLabel = () => startProjects.find((p)=>p.id===startState.project)?.name || (en ? 'Project not selected' : 'Проект не выбран');
@@ -1219,6 +1221,12 @@ export function renderV2(lang, projects = []) {
     return lines.join('\n');
   };
   const briefComplete = () => questionSet().every((q)=>questionAnswer(q.key));
+
+  window.synthaV2SetStartRoute = (route) => {
+    if (!startRoutes.some((r)=>r[0]===route)) return;
+    startState.route = route;
+    renderStart();
+  };
 
   const briefFieldHtml = (q) => {
     const value = questionAnswer(q.key);
@@ -1369,5 +1377,5 @@ export function renderV2(lang, projects = []) {
   $('#submit').textContent = en ? 'Check enquiry · preview' : 'Проверить заявку · просмотр';
   document.querySelectorAll('#turnstile-widget').forEach(el => el.replaceChildren());
   const barLink = $('#cta-bar a');
-  if (barLink) {barLink.textContent = en ? 'Discuss a challenge' : 'Обсудить задачу';}
+  if (barLink) {barLink.textContent = en ? 'Start' : 'Начать'; barLink.setAttribute('href','#v2-steps');}
 }
