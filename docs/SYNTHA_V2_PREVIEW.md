@@ -376,3 +376,25 @@ On continue:
 
 The Mini Brief and Qualification form are complementary:
 the Mini Brief removes repeated input and creates a useful first-call summary, while any remaining qualification fields can still be completed before submission.
+
+
+## Start-flow visibility and Recommendation Layer v2.18
+
+The “How we start” block was not removed, but previous iterations inserted it too low in the page hierarchy (before Contact), making it feel missing after the portfolio and diligence layers expanded.
+
+V2.18 fixes the information architecture:
+- the builder is inserted immediately after the Decision Layer;
+- the hero CTA is renamed to “Начать работу” / “Start working together” and anchors directly to the builder;
+- the floating CTA also anchors to the builder;
+- Decision Layer “Prepare an enquiry” actions now select the corresponding start route and open the builder instead of skipping directly to Contact;
+- Advisory / Consulting is now a first-class Mini Brief route alongside pilot, partnership, investment and diligence.
+
+Once the two brief questions are complete, a deterministic Recommendation Layer appears in the live brief:
+- recommended first meeting format;
+- what to prepare;
+- who should attend;
+- expected meeting output;
+- the next gate.
+
+Recommendations are rule-based by route and never use opaque AI scoring.
+They remain public-safe and do not request or expose confidential implementation detail.
