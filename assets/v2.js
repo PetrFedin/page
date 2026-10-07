@@ -204,6 +204,21 @@ function renderPortfolioIntelligence(lang, $, projects) {
       ? 'Fintech and Infrastructure remain empty until products are formally published there; Art is represented by Antiqua, while two additional fashion cases are published without client identification.'
       : 'Финтех и инфраструктура остаются пустыми до отдельной официальной публикации; искусство представлено Antiqua, а два новых fashion-кейса опубликованы без идентификации клиентов.'}</p>`;
 
+  const renderCardVisual = (p) => {
+    const shot = Array.isArray(p.shots) && p.shots[0] ? p.shots[0] : null;
+    if (shot) return `<div class="v2-card-visual v2-card-visual-shot"><img src="${esc(shot)}" alt="${esc(p.name)} interface preview" loading="lazy"></div>`;
+    const maps = {
+      antiqua: ['ARTWORK','ARTIST','COLLECTION'],
+      fashionmgmt: ['ORDER','PRODUCTION','COST'],
+      furproduction: ['LOT','STOCK','PRODUCT']
+    };
+    const nodes = maps[p.id];
+    if (!nodes) return '';
+    return `<div class="v2-card-visual v2-card-visual-map v2-map-${esc(p.id)}" aria-label="${en ? 'Product system map' : 'Схема продукта'}">
+      <div class="v2-map-frame">${nodes.map((x,i)=>`<span class="v2-map-node v2-map-node-${i+1}">${x}</span>`).join('<i>→</i>')}</div>
+    </div>`;
+  };
+
   const renderGrid = (filter = 'all') => {
     const matching = items.filter((p) => filter === 'all' || getMeta(p).cats.includes(filter));
     const visible = portfolioExpanded ? matching : matching.slice(0, PORTFOLIO_FIRST);
@@ -221,6 +236,7 @@ function renderPortfolioIntelligence(lang, $, projects) {
           </div>
           <span class="v2-stage v2-stage-${esc(m.maturity)}">${esc(maturityLabels[m.maturity] || m.maturity)}</span>
         </div>
+        ${renderCardVisual(p)}
         <p class="v2-product-tag">${esc(d.tagline)}</p>
         <dl class="v2-product-data">
           <div><dt>${en ? 'Audience' : 'Аудитория'}</dt><dd>${esc(short(d.who, 210))}</dd></div>
