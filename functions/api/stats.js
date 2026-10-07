@@ -208,10 +208,31 @@ export async function onRequestGet({ request, env }) {
     const d = parseJson(e.data);
     if (d.lead) leadBySid[e.sid] = d.lead;
   }
+  const leadOps = await q(`SELECT id, ts, target, label, data FROM events
+      WHERE type='lead_op' AND ts >= ? ORDER BY ts ASC LIMIT 3000`, since);
+  const opsBySubmission = {};
+  for (const op of leadOps) {
+    const id = Number(op.target);
+    if (!id) continue;
+    const d = parseJson(op.data);
+    (opsBySubmission[id] = opsBySubmission[id] || []).push({
+      id: op.id,
+      ts: op.ts,
+      status: op.label || d.status || 'new',
+      owner: d.owner || '',
+      nextAction: d.nextAction || '',
+      dueDate: d.dueDate || '',
+      note: d.note || ''
+    });
+  }
   for (const s of submissions) {
     const lead = leadBySid[s.sid] || {};
     s.lead = lead;
     s.qualification = qualifyLead(s, lead);
+    s.operations = opsBySubmission[s.id] || [];
+    s.operating = s.operations.length
+      ? s.operations[s.operations.length - 1]
+      : { status: 'new', owner: '', nextAction: s.qualification?.action || '', dueDate: '', note: '' };
   }
   const visitors = await q(`SELECT vid, MIN(ts) first, MAX(ts) last, COUNT(*) n, COUNT(DISTINCT sid) sessions,
       MAX(country) country, MAX(city) city, MAX(device) device, MAX(browser) browser, MAX(os) os, MAX(org) org, MAX(ip) ip,
