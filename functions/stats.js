@@ -219,7 +219,7 @@ function client() {
   try { regionNames = new Intl.DisplayNames(['ru'], { type: 'region' }); } catch { /* старый браузер */ }
 
   let tab = 'overview', days = 30, data = null;
-  const ui = { people: { q: '', f: 'all' }, leads: { f: 'all' }, open: {}, cache: {} };
+  const ui = { people: { q: '', f: 'all' }, leads: { f: 'all', p: 'all' }, open: {}, cache: {} };
 
   const store = {
     get(k) { try { return localStorage.getItem(k); } catch { return null; } },
@@ -506,11 +506,20 @@ function client() {
   /* ---------- «Заявки» ---------- */
   function leads() {
     const all = data.submissions, topics = [...new Set(all.map((s) => s.topic))];
-    const f = ui.leads.f;
-    const list = all.filter((s) => f === 'all' || s.topic === f);
+    const f = ui.leads.f, p = ui.leads.p;
+    const list = all
+      .filter((s) => f === 'all' || s.topic === f)
+      .filter((s) => p === 'all' || s.qualification?.priority === p)
+      .sort((a,b) => (b.qualification?.score || 0) - (a.qualification?.score || 0) || b.ts - a.ts);
     const chip = (k, l) => '<button class="chip' + (f === k ? ' on' : '') + '" data-lf="' + esc(k) + '">' + esc(l) + '</button>';
+    const pchip = (k, l) => '<button class="chip' + (p === k ? ' on' : '') + '" data-lp="' + esc(k) + '">' + esc(l) + '</button>';
     const tg = (v) => 'https://t.me/' + encodeURIComponent(String(v).replace(/^@/, '').replace(/^https?:\/\/t\.me\//, ''));
-    return '<div class="toolbar">' + chip('all', 'Все (' + all.length + ')') + topics.map((t) => chip(t, t)).join('') + '<div class="grow"></div><button class="btn" id="csv">Скачать таблицу (CSV)</button></div>'
+    const counts = Object.fromEntries(['A','B','C','D'].map((k) => [k, all.filter((s) => s.qualification?.priority === k).length]));
+    return '<div class="box"><h2>Прозрачная квалификация</h2><p class="sub">Это оценка готовности запроса к следующему действию, а не оценка человека. Формула видна в каждой заявке: тип запроса + конкретный проект + полнота ответов + заявленный срок + конкретность следующего шага.</p>'
+      + '<div class="legend"><span><b>A</b> — ответить первым / назначить действие</span><span><b>B</b> — квалифицировано, уточнить детали</span><span><b>C</b> — нужно уточнение</span><span><b>D</b> — ранний интерес / материалы</span></div></div>'
+      + '<div class="toolbar">' + chip('all', 'Все темы (' + all.length + ')') + topics.map((t) => chip(t, t)).join('')
+      + '<span style="width:100%"></span>' + pchip('all','Все приоритеты') + pchip('A','A · ' + counts.A) + pchip('B','B · ' + counts.B) + pchip('C','C · ' + counts.C) + pchip('D','D · ' + counts.D)
+      + '<div class="grow"></div><button class="btn" id="csv">Скачать таблицу (CSV)</button></div>'
       + (list.length ? list.map((s) => {
         let ent = null; try { ent = s.entity ? JSON.parse(s.entity) : null; } catch { /* не json */ }
         return '<div class="card"><div class="head"><h3>' + esc(s.name) + '</h3><span class="when">' + esc(when(s.ts)) + '</span><span class="tag">' + esc(s.topic) + '</span>'
