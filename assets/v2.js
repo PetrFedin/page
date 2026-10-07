@@ -1511,7 +1511,18 @@ export function renderV2(lang, projects = []) {
       const route=startState.route;
       startState.answers[route] ||= {};
       startState.answers[route][field.dataset.v2BriefAnswer]=field.value;
-      const meetingRoom = $('#v2-meeting-room');
+      renderStart();
+    });
+    $('#v2-steps').addEventListener('change',(e)=>{
+      const field=e.target.closest('[data-v2-brief-answer]');
+      if(!field) return;
+      const route=startState.route;
+      startState.answers[route] ||= {};
+      startState.answers[route][field.dataset.v2BriefAnswer]=field.value;
+      renderStart();
+    });
+  }
+  const meetingRoom = $('#v2-meeting-room');
   if (meetingRoom && !meetingRoom.dataset.bound) {
     meetingRoom.dataset.bound='1';
     meetingRoom.addEventListener('click', async (e)=>{
@@ -1537,17 +1548,6 @@ export function renderV2(lang, projects = []) {
         window.print();
         delete document.documentElement.dataset.v2PrintMeeting;
       }
-    });
-  }
-  renderStart();
-    });
-    $('#v2-steps').addEventListener('change',(e)=>{
-      const field=e.target.closest('[data-v2-brief-answer]');
-      if(!field) return;
-      const route=startState.route;
-      startState.answers[route] ||= {};
-      startState.answers[route][field.dataset.v2BriefAnswer]=field.value;
-      renderStart();
     });
   }
   renderStart();
