@@ -93,7 +93,8 @@ export async function onRequestPost({ request, env }) {
     nextStep: clean(body.leadNextStep, 300),
     diligencePurpose: clean(body.leadDiligencePurpose, 160),
     accessLevel: clean(body.leadAccessLevel, 160),
-    questions: clean(body.leadQuestions, 500)
+    questions: clean(body.leadQuestions, 500),
+    brief: clean(body.leadBrief, 1600)
   };
   const line = (cond, v) => (cond ? v : null);
   const text = [
