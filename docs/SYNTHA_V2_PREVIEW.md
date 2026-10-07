@@ -506,4 +506,12 @@ Level 03 — collapsed by default:
 
 The previous separate stacked V2 dossier blocks are no longer mounted into the modal. Their canonical data remains in the registry and is reused by the consolidated executive dossier.
 
+Product walkthrough is collapsed by default:
+- gallery / screenshots;
+- base facts;
+- status;
+- collaboration detail.
+
+A separate “Show product detail” control reveals those blocks only when the visitor deliberately wants a deeper product walkthrough.
+
 Public confidentiality rules remain unchanged: no repository internals, architecture or proprietary implementation detail are exposed.
