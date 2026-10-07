@@ -226,6 +226,7 @@ function renderPortfolioIntelligence(lang, $, projects) {
           <button type="button" class="btn btn-sm" data-v2-talk="launch" data-v2-id="${esc(p.id)}">${en ? 'Discuss pilot' : 'Обсудить пилот'}</button>
           <button type="button" class="btn btn-sm" data-v2-talk="partnership" data-v2-id="${esc(p.id)}">${en ? 'Partnership' : 'Партнёрство'}</button>
           <button type="button" class="btn btn-sm" data-v2-talk="investors" data-v2-id="${esc(p.id)}">${en ? 'Investment' : 'Инвестиции'}</button>
+          <button type="button" class="btn btn-sm" data-v2-talk="diligence" data-v2-id="${esc(p.id)}">${en ? 'NDA / diligence' : 'NDA / проверка'}</button>
         </div>
       </article>`;
     }).join('');
@@ -273,21 +274,25 @@ function renderPortfolioIntelligence(lang, $, projects) {
       const talk = e.target.closest('[data-v2-talk]');
       if (!talk) return;
       const p = items.find((x) => x.id === talk.dataset.v2Id);
+      const action = talk.dataset.v2Talk;
+      const topicValue = action === 'diligence' ? 'investors' : action;
       const topic = $('#topic');
-      if (topic && [...topic.options].some((o) => o.value === talk.dataset.v2Talk)) {
-        topic.value = talk.dataset.v2Talk;
+      if (topic && [...topic.options].some((o) => o.value === topicValue)) {
+        topic.value = topicValue;
         topic.dispatchEvent(new Event('change', {bubbles:true}));
       }
+      window.synthaV2SetLeadRoute?.(action === 'launch' ? 'pilot' : action === 'investors' ? 'investment' : action, p?.id || '');
       const message = $('#form [name="message"]');
       if (message && !message.value.trim() && p) {
-        const action = talk.dataset.v2Talk;
         const text = en
-          ? action === 'launch' ? `I would like to discuss a pilot for ${p.name}: scope, acceptance criteria and next milestone.`
-          : action === 'partnership' ? `I would like to discuss a partnership around ${p.name}: contribution, commercial mechanics and first joint case.`
-          : `I would like to discuss investment in ${p.name}: current maturity, next de-risking milestone and use of capital.`
-          : action === 'launch' ? `Хочу обсудить пилот ${p.name}: границы, критерии приёмки и следующий этап.`
+          ? action === 'launch' ? `I would like to discuss a pilot for ${p.name}: scope, success criteria and next milestone.`
+          : action === 'partnership' ? `I would like to discuss a partnership around ${p.name}: contribution, commercial mechanics and the first joint case.`
+          : action === 'diligence' ? `I would like to discuss NDA / diligence for ${p.name}: scope, current maturity and the appropriate level of controlled disclosure.`
+          : `I would like to discuss investment in ${p.name}: current maturity, next proof point and use of capital.`
+          : action === 'launch' ? `Хочу обсудить пилот ${p.name}: границы, критерии результата и следующий этап.`
           : action === 'partnership' ? `Хочу обсудить партнёрство вокруг ${p.name}: вклад сторон, коммерческую механику и первый совместный кейс.`
-          : `Хочу обсудить инвестиции в ${p.name}: текущую зрелость, следующий этап снижения риска и использование капитала.`;
+          : action === 'diligence' ? `Хочу обсудить NDA / проверку по ${p.name}: цель, текущую зрелость и допустимую глубину закрытого раскрытия.`
+          : `Хочу обсудить инвестиции в ${p.name}: текущую зрелость, следующий проверяемый этап и использование капитала.`;
         message.value = text;
       }
       $('#form')?.dispatchEvent(new Event('input', {bubbles:true}));
@@ -809,7 +814,7 @@ function installConfidentialityLayer(lang, $, projects) {
       const p = (projects || []).find((x)=>x.id===id);
       const topic = $('#topic');
       if (topic) topic.value = 'product';
-      const details = $('#details');
+      const details = $('#form [name="message"]');
       if (details) details.value = en
         ? `I would like a confidential demo of ${p?.name || id}: product scope, current stage and relevant implementation details under controlled access.`
         : `Хочу закрытое демо ${p?.name || id}: продукт, текущая стадия и релевантные детали реализации в ограниченном формате.`;
