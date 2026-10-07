@@ -79,6 +79,22 @@ export async function onRequestPost({ request, env }) {
   }
 
   const topic = clean(body.topicLabel || body.topic, 60) || '—';
+  const leadContext = {
+    route: clean(body.leadRoute, 40),
+    project: clean(body.leadProject, 40),
+    timing: clean(body.leadTiming, 80),
+    goal: clean(body.leadGoal, 160),
+    scope: clean(body.leadScope, 300),
+    contribution: clean(body.leadContribution, 160),
+    format: clean(body.leadFormat, 160),
+    firstCase: clean(body.leadFirstCase, 300),
+    investorType: clean(body.leadInvestorType, 160),
+    investorFocus: clean(body.leadInvestorFocus, 160),
+    nextStep: clean(body.leadNextStep, 300),
+    diligencePurpose: clean(body.leadDiligencePurpose, 160),
+    accessLevel: clean(body.leadAccessLevel, 160),
+    questions: clean(body.leadQuestions, 500)
+  };
   const line = (cond, v) => (cond ? v : null);
   const text = [
     '<b>Заявка с syntha.pro</b>',
@@ -92,6 +108,20 @@ export async function onRequestPost({ request, env }) {
     line(entity.address, `<b>Адрес:</b> ${esc(entity.address)}`),
     line(entity.site, `<b>Сайт:</b> ${esc(entity.site)}`),
     `<b>Язык:</b> ${esc(clean(body.lang, 4) || '—')}`,
+    line(leadContext.route, `<b>Маршрут:</b> ${esc(leadContext.route)}`),
+    line(leadContext.project, `<b>Проект:</b> ${esc(leadContext.project)}`),
+    line(leadContext.timing, `<b>Срок:</b> ${esc(leadContext.timing)}`),
+    line(leadContext.goal, `<b>Цель:</b> ${esc(leadContext.goal)}`),
+    line(leadContext.scope, `<b>Контур:</b> ${esc(leadContext.scope)}`),
+    line(leadContext.contribution, `<b>Вклад:</b> ${esc(leadContext.contribution)}`),
+    line(leadContext.format, `<b>Формат:</b> ${esc(leadContext.format)}`),
+    line(leadContext.firstCase, `<b>Первый кейс:</b> ${esc(leadContext.firstCase)}`),
+    line(leadContext.investorType, `<b>Инвестор:</b> ${esc(leadContext.investorType)}`),
+    line(leadContext.investorFocus, `<b>Фокус:</b> ${esc(leadContext.investorFocus)}`),
+    line(leadContext.nextStep, `<b>Следующий шаг:</b> ${esc(leadContext.nextStep)}`),
+    line(leadContext.diligencePurpose, `<b>Цель проверки:</b> ${esc(leadContext.diligencePurpose)}`),
+    line(leadContext.accessLevel, `<b>Уровень доступа:</b> ${esc(leadContext.accessLevel)}`),
+    line(leadContext.questions, `<b>Вопросы:</b> ${esc(leadContext.questions)}`),
     '',
     esc(message)
   ].filter((l) => l !== null).join('\n');
@@ -131,10 +161,10 @@ export async function onRequestPost({ request, env }) {
 
   if (!tg.ok) {
     console.error('telegram api error', tg.status, await tg.text());
-    await save(env, request, body, { name, email, telegram, phone, entity, topic, message, file, ok: 0 });
+    await save(env, request, body, { name, email, telegram, phone, entity, topic, message, file, leadContext, ok: 0 });
     return new Response('telegram failed', { status: 502 });
   }
-  await save(env, request, body, { name, email, telegram, phone, entity, topic, message, file, ok: 1 });
+  await save(env, request, body, { name, email, telegram, phone, entity, topic, message, file, leadContext, ok: 1 });
   return new Response('ok', { status: 200 });
 }
 
@@ -155,7 +185,7 @@ async function save(env, request, body, d) {
     await env.DB.prepare(
       `INSERT INTO events (ts, vid, sid, type, path, target, label, data, country, city) VALUES (?,?,?,?,?,?,?,?,?,?)`
     ).bind(Date.now(), clean(body.vid, 40), clean(body.sid, 40), d.ok ? 'form_sent' : 'form_failed', '/', 'contact-form',
-      d.topic, JSON.stringify({ file: d.file?.name ?? null }), cf.country ?? '', cf.city ?? '').run();
+      d.topic, JSON.stringify({ file: d.file?.name ?? null, lead: d.leadContext || null }), cf.country ?? '', cf.city ?? '').run();
   } catch (err) {
     console.error('stats save failed', String(err));
   }
