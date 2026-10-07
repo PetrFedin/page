@@ -1146,8 +1146,82 @@ export function renderV2(lang, projects = []) {
     const section = document.createElement('section'); section.id = 'v2-steps'; section.className = 'section v2-steps';
     $('#contact').before(section);
   }
-  const steps = en ? [['Your challenge','Describe the situation and the outcome you need.'],['Scope of work','We clarify the data, constraints, deliverables and terms.'],['A clear next step','Agree the format and acceptance criteria before starting.']] : [['Ваша задача','Расскажите о ситуации и результате, который вам нужен.'],['Границы работы','Уточним данные, ограничения, состав результата и условия.'],['Понятный следующий шаг','Согласуем формат и критерии результата до начала работы.']];
-  $('#v2-steps').innerHTML = `<div class="section-head"><h2>${en ? 'How we start' : 'Как начинается работа'}</h2></div><div class="v2-step-grid">${steps.map((s,i)=>`<article><span class="svc-n">0${i+1}</span><h3>${s[0]}</h3><p>${s[1]}</p></article>`).join('')}</div>`;
+  const startProjects = (projects || []).filter((p)=>p?.id && p?.[lang]);
+  const startRoutes = en ? [
+    ['pilot','Pilot','Validate the product in a real operating context'],
+    ['partnership','Partnership','Build one concrete joint case'],
+    ['investment','Investment','Discuss maturity, evidence and the next capital milestone'],
+    ['diligence','NDA / diligence','Move to controlled disclosure for qualified review']
+  ] : [
+    ['pilot','Пилот','Проверить продукт в реальном рабочем контуре'],
+    ['partnership','Партнёрство','Собрать один конкретный совместный кейс'],
+    ['investment','Инвестиции','Обсудить зрелость, подтверждения и следующий этап'],
+    ['diligence','NDA / проверка','Перейти к контролируемому раскрытию для предметной проверки']
+  ];
+  const startTimings = en ? ['Within 1 month','1–3 months','3–6 months','Timing not defined yet'] : ['До 1 месяца','1–3 месяца','3–6 месяцев','Срок пока не определён'];
+  let startState = { route:'pilot', project:startProjects[0]?.id || '', timing:startTimings[1] };
+
+  const renderStart = () => {
+    const root = $('#v2-steps');
+    if (!root) return;
+    root.innerHTML = `
+      <div class="section-head v2-start-head">
+        <div><p class="eyebrow">${en ? 'Start here' : 'Начать отсюда'}</p><h2>${en ? 'How we start' : 'Как начинается работа'}</h2></div>
+        <p>${en ? 'Choose three things here. They will be transferred into the enquiry so the next conversation starts with context.' : 'Выберите три вещи прямо здесь. Они перейдут в обращение, чтобы следующий разговор сразу начинался с контекста.'}</p>
+      </div>
+      <div class="v2-start-flow">
+        <section class="v2-start-step">
+          <span class="svc-n">01</span>
+          <h3>${en ? 'What are we starting?' : 'Что начинаем?'}</h3>
+          <div class="v2-start-options">
+            ${startRoutes.map((r)=>`<button type="button" class="${startState.route===r[0]?'active':''}" data-v2-start-route="${r[0]}"><b>${r[1]}</b><span>${r[2]}</span></button>`).join('')}
+          </div>
+        </section>
+        <section class="v2-start-step">
+          <span class="svc-n">02</span>
+          <h3>${en ? 'Which project?' : 'Какой проект?'}</h3>
+          <div class="v2-start-projects">
+            ${startProjects.map((p)=>`<button type="button" class="${startState.project===p.id?'active':''}" data-v2-start-project="${p.id}">${p.name}</button>`).join('')}
+          </div>
+        </section>
+        <section class="v2-start-step">
+          <span class="svc-n">03</span>
+          <h3>${en ? 'When is the next result needed?' : 'Когда нужен следующий результат?'}</h3>
+          <div class="v2-start-timing">
+            ${startTimings.map((t)=>`<button type="button" class="${startState.timing===t?'active':''}" data-v2-start-timing="${esc(t)}">${esc(t)}</button>`).join('')}
+          </div>
+          <button type="button" class="btn btn-primary v2-start-go" data-v2-start-go>${en ? 'Continue with this context' : 'Продолжить с этим контекстом'} →</button>
+        </section>
+      </div>`;
+  };
+
+  if (!$('#v2-steps').dataset.v2StartBound) {
+    $('#v2-steps').dataset.v2StartBound='1';
+    $('#v2-steps').addEventListener('click',(e)=>{
+      const route=e.target.closest('[data-v2-start-route]');
+      if(route){startState.route=route.dataset.v2StartRoute;renderStart();return;}
+      const project=e.target.closest('[data-v2-start-project]');
+      if(project){startState.project=project.dataset.v2StartProject;renderStart();return;}
+      const timing=e.target.closest('[data-v2-start-timing]');
+      if(timing){startState.timing=timing.dataset.v2StartTiming;renderStart();return;}
+      if(!e.target.closest('[data-v2-start-go]')) return;
+      window.synthaV2SetLeadRoute?.(startState.route,startState.project);
+      const timingField=$('#v2-qualified-route [name="leadTiming"]');
+      if(timingField){
+        const opt=[...timingField.options].find((o)=>o.value===startState.timing);
+        if(opt){timingField.value=startState.timing;timingField.dispatchEvent(new Event('change',{bubbles:true}));}
+      }
+      const msg=$('#form [name="message"]');
+      const p=startProjects.find((x)=>x.id===startState.project);
+      if(msg && !msg.value.trim()) msg.value=en
+        ? `I would like to discuss ${startState.route} for ${p?.name || 'the project'} within ${startState.timing}.`
+        : `Хочу обсудить ${startState.route==='pilot'?'пилот':startState.route==='partnership'?'партнёрство':startState.route==='investment'?'инвестиционный диалог':'NDA / проверку'} по ${p?.name || 'проекту'}; ориентир по сроку — ${startState.timing}.`;
+      $('#form')?.dispatchEvent(new Event('input',{bubbles:true}));
+      $('#contact')?.scrollIntoView({behavior:'smooth',block:'start'});
+      setTimeout(()=>$('#v2-qualified-route [data-v2-route-required]')?.focus({preventScroll:true}),450);
+    });
+  }
+  renderStart();
   $('#contact-sub').textContent = en ? 'Your name, one way to reach you and a few words about your challenge are enough to start.' : 'Для начала достаточно имени, одного способа связи и нескольких слов о задаче.';
   if (!$('#v2-contact-method')) {
     const label = document.createElement('label'); label.className = 'field'; label.id = 'v2-method-field';
