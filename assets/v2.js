@@ -1122,6 +1122,15 @@ export function renderV2(lang, projects = []) {
     document.body.prepend(bar);
   }
   $('#v2-banner').innerHTML = `<span>V2 · ${en ? 'Preview for comparison' : 'Версия для сравнения'}</span><a href="https://syntha.pro/${en ? 'en/' : ''}" target="_blank" rel="noopener">${en ? 'Open current version ↗' : 'Открыть текущую версию ↗'}</a>`;
+  const nav = $('#nav');
+  if (nav && !nav.querySelector('[data-v2-nav-start]')) {
+    const a = document.createElement('a');
+    a.href = '#v2-steps';
+    a.dataset.v2NavStart = '1';
+    a.textContent = en ? 'Start' : 'Начать работу';
+    const contactLink = nav.querySelector('[data-nav="contact"]');
+    nav.insertBefore(a, contactLink || null);
+  }
   if (!$('#v2-headline')) {
     const h = document.createElement('h2'); h.id = 'v2-headline';
     $('.hero-id').after(h);
@@ -1221,7 +1230,10 @@ export function renderV2(lang, projects = []) {
   let startState = { route:'consulting', project:startProjects[0]?.id || '', timing:startTimings[1], answers:{} };
 
   const routeLabel = () => startRoutes.find((r)=>r[0]===startState.route)?.[1] || startState.route;
-  const projectLabel = () => startProjects.find((p)=>p.id===startState.project)?.name || (en ? 'Project not selected' : 'Проект не выбран');
+  const projectLabel = () => {
+    if (startState.route === 'consulting' && !startState.project) return en ? 'Business task (no product selected)' : 'Бизнес-задача без привязки к проекту';
+    return startProjects.find((p)=>p.id===startState.project)?.name || (en ? 'Project not selected' : 'Проект не выбран');
+  };
   const questionSet = () => briefQuestions[startState.route] || [];
   const questionAnswer = (key) => String(startState.answers[startState.route]?.[key] || '').trim();
   const briefText = () => {
@@ -1322,6 +1334,8 @@ export function renderV2(lang, projects = []) {
   window.synthaV2SetStartRoute = (route) => {
     if (!startRoutes.some((r)=>r[0]===route)) return;
     startState.route = route;
+    if (route === 'consulting') startState.project = '';
+    else if (!startState.project) startState.project = startProjects[0]?.id || '';
     renderStart();
   };
 
@@ -1396,7 +1410,12 @@ export function renderV2(lang, projects = []) {
     $('#v2-steps').dataset.v2StartBound='1';
     $('#v2-steps').addEventListener('click',(e)=>{
       const route=e.target.closest('[data-v2-start-route]');
-      if(route){startState.route=route.dataset.v2StartRoute;renderStart();return;}
+      if(route){
+        startState.route=route.dataset.v2StartRoute;
+        if (startState.route === 'consulting') startState.project='';
+        else if (!startState.project) startState.project=startProjects[0]?.id || '';
+        renderStart();return;
+      }
       const project=e.target.closest('[data-v2-start-project]');
       if(project){startState.project=project.dataset.v2StartProject;renderStart();return;}
       const timing=e.target.closest('[data-v2-start-timing]');
