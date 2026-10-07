@@ -111,6 +111,13 @@ input.search:focus{border-color:var(--accent)}
 .tl li.key::before{background:var(--accent);box-shadow:0 0 0 3px var(--soft)}
 .tl time{color:var(--muted);font-size:12.5px}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px 18px;margin-bottom:12px;box-shadow:var(--shadow)}
+.leadq{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px 16px;align-items:start;margin:12px 0;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--soft)}
+.leadq-main{display:grid;gap:3px}.leadq-main>b{font-size:14px}.leadq-main>span{font-size:12px;color:var(--muted)}
+.leadq-score{text-align:right;white-space:nowrap}.leadq-score strong{display:block;font-size:24px;line-height:1}.leadq-score small{font-size:10px;color:var(--muted)}
+.leadq-break{grid-column:1/-1;display:flex;gap:6px;flex-wrap:wrap}.leadq-break span{font-size:11px;padding:3px 7px;border:1px solid var(--line);border-radius:999px;background:var(--panel)}
+.leadq details{grid-column:1/-1}.leadq summary{cursor:pointer;font-size:12px;color:var(--muted)}.leadq ul{margin:8px 0 0;padding-left:18px}.leadq li{font-size:12px;color:var(--muted);margin:3px 0}
+.leadq>p{grid-column:1/-1;margin:0;font-size:12px;color:var(--muted)}
+@media(max-width:620px){.leadq{grid-template-columns:1fr}.leadq-score{text-align:left}.leadq-break,.leadq details,.leadq>p{grid-column:auto}}
 .card .head{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:baseline;margin-bottom:6px}
 .card .head h3{margin:0;font-size:16px}
 .card .when{color:var(--muted);font-size:13px}
@@ -219,7 +226,7 @@ function client() {
   try { regionNames = new Intl.DisplayNames(['ru'], { type: 'region' }); } catch { /* старый браузер */ }
 
   let tab = 'overview', days = 30, data = null;
-  const ui = { people: { q: '', f: 'all' }, leads: { f: 'all' }, open: {}, cache: {} };
+  const ui = { people: { q: '', f: 'all' }, leads: { f: 'all', p: 'all' }, open: {}, cache: {} };
 
   const store = {
     get(k) { try { return localStorage.getItem(k); } catch { return null; } },
@@ -506,28 +513,49 @@ function client() {
   /* ---------- «Заявки» ---------- */
   function leads() {
     const all = data.submissions, topics = [...new Set(all.map((s) => s.topic))];
-    const f = ui.leads.f;
-    const list = all.filter((s) => f === 'all' || s.topic === f);
+    const f = ui.leads.f, p = ui.leads.p;
+    const list = all
+      .filter((s) => f === 'all' || s.topic === f)
+      .filter((s) => p === 'all' || s.qualification?.priority === p)
+      .sort((a,b) => (b.qualification?.score || 0) - (a.qualification?.score || 0) || b.ts - a.ts);
     const chip = (k, l) => '<button class="chip' + (f === k ? ' on' : '') + '" data-lf="' + esc(k) + '">' + esc(l) + '</button>';
+    const pchip = (k, l) => '<button class="chip' + (p === k ? ' on' : '') + '" data-lp="' + esc(k) + '">' + esc(l) + '</button>';
     const tg = (v) => 'https://t.me/' + encodeURIComponent(String(v).replace(/^@/, '').replace(/^https?:\/\/t\.me\//, ''));
-    return '<div class="toolbar">' + chip('all', 'Все (' + all.length + ')') + topics.map((t) => chip(t, t)).join('') + '<div class="grow"></div><button class="btn" id="csv">Скачать таблицу (CSV)</button></div>'
+    const counts = Object.fromEntries(['A','B','C','D'].map((k) => [k, all.filter((s) => s.qualification?.priority === k).length]));
+    return '<div class="box"><h2>Прозрачная квалификация</h2><p class="sub">Это оценка готовности запроса к следующему действию, а не оценка человека. Формула видна в каждой заявке: тип запроса + конкретный проект + полнота ответов + заявленный срок + конкретность следующего шага.</p>'
+      + '<div class="legend"><span><b>A</b> — ответить первым / назначить действие</span><span><b>B</b> — квалифицировано, уточнить детали</span><span><b>C</b> — нужно уточнение</span><span><b>D</b> — ранний интерес / материалы</span></div></div>'
+      + '<div class="toolbar">' + chip('all', 'Все темы (' + all.length + ')') + topics.map((t) => chip(t, t)).join('')
+      + '<span style="width:100%"></span>' + pchip('all','Все приоритеты') + pchip('A','A · ' + counts.A) + pchip('B','B · ' + counts.B) + pchip('C','C · ' + counts.C) + pchip('D','D · ' + counts.D)
+      + '<div class="grow"></div><button class="btn" id="csv">Скачать таблицу (CSV)</button></div>'
       + (list.length ? list.map((s) => {
-        let ent = null; try { ent = s.entity ? JSON.parse(s.entity) : null; } catch { /* не json */ }
+        let ent = null; try { ent = s.entity ? JSON.parse(s.entity) : null; } catch {}
+        const q = s.qualification || {};
+        const stageLabel = { ready:'Готов к действию', qualified:'Квалифицирован', clarify:'Нужно уточнение', early:'Ранний интерес', unclassified:'Не классифицировано' }[q.stage] || 'Не классифицировано';
+        const priorityClass = q.priority === 'A' ? 'ok' : q.priority === 'D' ? 'bad' : '';
+        const scoreLabel = q.score == null ? '—' : q.score + '/100';
+        const routeLabel = { pilot:'Пилот', partnership:'Партнёрство', investment:'Инвестиции', diligence:'NDA / проверка' }[q.route] || '—';
+        const breakdown = q.breakdown || {};
         return '<div class="card"><div class="head"><h3>' + esc(s.name) + '</h3><span class="when">' + esc(when(s.ts)) + '</span><span class="tag">' + esc(s.topic) + '</span>'
+          + '<span class="tag ' + priorityClass + '">Приоритет ' + esc(q.priority || '—') + '</span><span class="when">Готовность ' + esc(scoreLabel) + '</span>'
           + (s.ok ? '' : '<span class="tag bad">в Telegram не ушла</span>') + (s.country ? '<span class="when">' + esc(place(s)) + '</span>' : '') + '</div>'
           + '<div class="contacts">' + (s.email ? '<a href="mailto:' + esc(s.email) + '">' + esc(s.email) + '</a>' : '') + (s.telegram ? '<a href="' + tg(s.telegram) + '" target="_blank" rel="noopener">Telegram: ' + esc(s.telegram) + '</a>' : '') + (s.phone ? '<a href="tel:' + esc(s.phone.replace(/[^\d+]/g, '')) + '">' + esc(s.phone) + '</a>' : '') + '</div>'
           + (ent ? '<div class="when">Юрлицо: ' + esc([ent.name, ent.inn && 'ИНН ' + ent.inn, ent.address, ent.site].filter(Boolean).join(' · ')) + '</div>' : '')
+          + '<div class="leadq"><div class="leadq-main"><b>' + esc(q.action || 'Уточнить тип запроса') + '</b><span>' + esc(stageLabel) + ' · ' + esc(routeLabel) + (q.project ? ' · ' + esc(q.project) : '') + (q.timing ? ' · ' + esc(q.timing) : '') + '</span></div>'
+          + (q.score == null ? '<p>Новая квалификационная форма для этой заявки не применялась.</p>' : '<div class="leadq-score"><strong>' + esc(scoreLabel) + '</strong><small>готовность запроса</small></div>')
+          + (q.score == null ? '' : '<div class="leadq-break"><span>Тип +' + num(breakdown.intent) + '</span><span>Проект +' + num(breakdown.project) + '</span><span>Ответы +' + num(breakdown.completeness) + '</span><span>Срок +' + num(breakdown.timing) + '</span><span>Следующий шаг +' + num(breakdown.nextStep) + '</span></div>')
+          + (q.reasons?.length ? '<details><summary>Почему такой приоритет</summary><ul>' + q.reasons.map((r) => '<li>' + esc(r) + '</li>').join('') + '</ul></details>' : '') + '</div>'
           + '<div class="msg">' + esc(s.message) + '</div>' + (s.file_name ? '<div class="when">Файл: ' + esc(s.file_name) + '</div>' : '')
           + '<div class="act"><button class="btn" data-copy="' + esc([s.name, s.email, s.telegram, s.phone].filter(Boolean).join(', ')) + '">Скопировать контакты</button><button class="btn" data-lead-vid="' + esc(s.vid) + '">Путь по сайту</button></div><div class="detail" id="ld-' + esc(s.vid) + '" hidden style="margin-top:8px;border-radius:12px;border:1px solid var(--line)"></div></div>';
       }).join('') : '<div class="empty"><b>Заявок пока нет</b>Когда кто-то заполнит форму, она появится здесь с текстом и путём по сайту.</div>');
   }
 
   function exportCsv() {
-    const head = ['Дата', 'Имя', 'Email', 'Telegram', 'Телефон', 'Тема', 'Юрлицо', 'Сообщение', 'Страна', 'Город'];
+    const head = ['Дата', 'Имя', 'Email', 'Telegram', 'Телефон', 'Тема', 'Маршрут', 'Проект', 'Срок', 'Приоритет', 'Готовность', 'Стадия', 'Следующее действие', 'Юрлицо', 'Сообщение', 'Страна', 'Город'];
     const q = (v) => '"' + String(v ?? '').replace(/"/g, '""') + '"';
     const rows = data.submissions.map((s) => {
       let ent = ''; try { const e = s.entity ? JSON.parse(s.entity) : null; ent = e ? [e.name, e.inn, e.address, e.site].filter(Boolean).join('; ') : ''; } catch { /* не json */ }
-      return [new Date(s.ts).toLocaleString('ru-RU'), s.name, s.email, s.telegram, s.phone, s.topic, ent, s.message, s.country, s.city].map(q).join(';');
+      const l = s.lead || {}, z = s.qualification || {};
+      return [new Date(s.ts).toLocaleString('ru-RU'), s.name, s.email, s.telegram, s.phone, s.topic, l.route, l.project, l.timing, z.priority, z.score, z.stage, z.action, ent, s.message, s.country, s.city].map(q).join(';');
     });
     const blob = new Blob(['﻿' + [head.map(q).join(';'), ...rows].join('\r\n')], { type: 'text/csv;charset=utf-8' });
     const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'zayavki-' + new Date().toISOString().slice(0, 10) + '.csv'; a.click();
@@ -798,6 +826,7 @@ function client() {
     if (e.target.id === 'seo-again') { seoState.data = null; draw(); return; }
     const pf = e.target.closest('[data-pf]'); if (pf) { ui.people.f = pf.dataset.pf; draw(); return; }
     const lf = e.target.closest('[data-lf]'); if (lf) { ui.leads.f = lf.dataset.lf; draw(); return; }
+    const lp = e.target.closest('[data-lp]'); if (lp) { ui.leads.p = lp.dataset.lp; draw(); return; }
     const top = e.target.closest('.person .top'); if (top) { togglePerson(top.dataset.vid); return; }
     if (e.target.closest('#csv')) { exportCsv(); return; }
     const cp = e.target.closest('[data-copy]');
