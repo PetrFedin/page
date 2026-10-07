@@ -63,6 +63,12 @@ function timingPoints(v) {
 function qualifyLead(sub, lead = {}) {
   const route = String(lead.route || '').toLowerCase();
   const project = String(lead.project || '').toLowerCase();
+  if (!route) return {
+    route: '', project, timing: '', score: null, priority: '—', stage: 'unclassified',
+    action: 'Уточнить тип запроса',
+    breakdown: { intent: 0, project: 0, completeness: 0, timing: 0, nextStep: 0 },
+    reasons: ['заявка создана до введения квалификационной формы или маршрут не указан']
+  };
   const expected = LEAD_ROUTE_FIELDS[route] || [];
   const filled = expected.filter((k) => String(lead[k] || '').trim()).length;
   const completeness = expected.length ? Math.round(25 * filled / expected.length) : 0;
