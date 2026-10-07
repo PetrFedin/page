@@ -378,3 +378,121 @@ html[data-preview="v2"] .opt-row[hidden] { display: none !important; }
  .v2-stakeholder-collapsed .btn,.v2-primary-next-actions .btn{width:100%}
  .v2-primary-next-actions{display:grid;grid-template-columns:1fr}
 }
+
+
+/* V2.22 breakpoint QA */
+/* Hero: exactly two primary choices in V2 — start or inspect portfolio. */
+html[data-preview="v2"] .hero-cta #cta-contact,
+html[data-preview="v2"] .hero-cta #cta-consulting{display:inline-flex!important}
+html[data-preview="v2"] .hero-cta #cta-projects,
+html[data-preview="v2"] .hero-cta #cta-investors,
+html[data-preview="v2"] .hero-cta #cta-experience,
+html[data-preview="v2"] .hero-cta #cta-feed{display:none!important}
+
+/* Tablet topbar: switch to the burger before the full desktop nav becomes cramped. */
+@media (min-width:760px) and (max-width:1099px){
+  html[data-preview="v2"] .nav:not(.open){display:none!important}
+  html[data-preview="v2"] .burger{display:flex!important}
+  html[data-preview="v2"] .nav.open{
+    display:flex!important;
+    flex-direction:column;
+    gap:0;
+    position:absolute;
+    left:0;right:0;top:100%;
+    background:var(--panel);
+    border-bottom:1px solid var(--line);
+    box-shadow:var(--shadow);
+    padding:6px 0;
+    z-index:25
+  }
+  html[data-preview="v2"] .nav.open a{
+    display:block!important;
+    padding:13px 16px;
+    font-size:15px;
+    color:var(--ink);
+    border-bottom:1px solid var(--line)
+  }
+  html[data-preview="v2"] .nav.open a:last-child{border-bottom:0}
+}
+
+/* Sticky preview must never trap actions below a laptop viewport. */
+@media (min-width:981px){
+  .v2-brief-preview{
+    max-height:calc(100dvh - 108px);
+    overflow-y:auto;
+    overscroll-behavior:contain;
+    scrollbar-gutter:stable;
+  }
+}
+
+/* Long modal dossiers: contained scrolling, safe height and stable close control. */
+html[data-preview="v2"] .modal-body{
+  overscroll-behavior:contain;
+  scrollbar-gutter:stable;
+}
+@media (max-width:759px){
+  html[data-preview="v2"] .modal[open]{
+    padding:8px;
+    padding-top:max(8px,env(safe-area-inset-top));
+    padding-bottom:max(8px,env(safe-area-inset-bottom))
+  }
+  html[data-preview="v2"] .modal-body{
+    max-height:calc(100dvh - 16px);
+    border-radius:14px;
+    padding:22px 14px 24px
+  }
+}
+@media (max-width:560px){
+  html[data-preview="v2"] .modal-actions{display:grid;grid-template-columns:1fr}
+  html[data-preview="v2"] .modal-actions .btn{width:100%}
+  html[data-preview="v2"] .pair{grid-template-columns:1fr}
+  html[data-preview="v2"] .pair[data-n="3"]>:last-child{grid-column:auto}
+}
+
+/* First Meeting Room: scroll inside the room, never clip its bottom actions. */
+.v2-meeting-room{
+  max-height:calc(100dvh - 28px);
+  overflow:hidden
+}
+.v2-meeting-room-inner{
+  max-height:calc(100dvh - 28px);
+  overflow-y:auto;
+  overscroll-behavior:contain;
+  scrollbar-gutter:stable
+}
+.v2-meeting-room-head{
+  position:sticky;
+  top:0;
+  z-index:3;
+  background:var(--panel);
+  padding-bottom:12px;
+  border-bottom:1px solid var(--line)
+}
+@media(max-width:700px){
+  .v2-meeting-room{
+    width:calc(100vw - 16px);
+    max-height:calc(100dvh - 16px);
+    border-radius:14px
+  }
+  .v2-meeting-room-inner{
+    max-height:calc(100dvh - 16px);
+    padding:14px
+  }
+  .v2-meeting-room-head h2{font-size:24px}
+}
+
+/* Prevent long dossier/business strings from causing horizontal overflow. */
+.v2-product,.v2-product *,
+.v2-path-panel,.v2-path-panel *,
+.v2-brief-builder,.v2-brief-builder *,
+.v2-project-dossier,.v2-project-dossier *,
+.v2-commercial-dossier,.v2-commercial-dossier *,
+.v2-proof-dossier,.v2-proof-dossier *,
+.v2-disclosure-ladder,.v2-disclosure-ladder *{
+  min-width:0
+}
+.v2-product dd,.v2-product p,
+.v2-dossier-grid p,.v2-commercial-grid p,.v2-commercial-grid li,
+.v2-proof-grid p,.v2-proof-grid li,.v2-disclosure-grid p{
+  overflow-wrap:anywhere
+}
