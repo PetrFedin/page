@@ -901,7 +901,7 @@ const V2_LEAD_ROUTES = {
   ru: {
     pilot: {
       title: 'Пилот',
-      lead: 'Три коротких вопроса, чтобы первый разговор был о реальной проверке продукта, а не об общей презентации.',
+      lead: 'Короткие вопросы, чтобы первый разговор был о реальной проверке продукта, а не об общей презентации.',
       topic: 'launch',
       fields: [
         {name:'leadGoal',label:'Что хотим доказать пилотом?',type:'select',options:['Экономический эффект','Рабочий процесс','Вовлечение пользователей','Коммерческий спрос','Другое']},
@@ -916,7 +916,8 @@ const V2_LEAD_ROUTES = {
       fields: [
         {name:'leadContribution',label:'Что вы привносите?',type:'select',options:['Клиенты / канал продаж','Отраслевая экспертиза','Интеграция / технология','Операционный ресурс','Капитал','Другое']},
         {name:'leadFormat',label:'Какой формат интересен?',type:'select',options:['Совместный пилот','Совместный выход на рынок','White-label / лицензирование','Стратегическое партнёрство','Другое']},
-        {name:'leadFirstCase',label:'Какой первый совместный кейс имеет смысл проверить?',type:'text',placeholder:'Коротко: задача, клиент или сценарий'}
+        {name:'leadFirstCase',label:'Какой первый совместный кейс имеет смысл проверить?',type:'text',placeholder:'Коротко: задача, клиент или сценарий'},
+        {name:'leadTiming',label:'Когда хотите перейти к следующему шагу?',type:'select',options:['До 1 месяца','1–3 месяца','3–6 месяцев','Срок пока не определён']}
       ]
     },
     investment: {
@@ -926,7 +927,8 @@ const V2_LEAD_ROUTES = {
       fields: [
         {name:'leadInvestorType',label:'Тип интереса',type:'select',options:['Стратегический инвестор','Финансовый инвестор','CVC / корпоративный венчур','Family office / private capital','Другое']},
         {name:'leadInvestorFocus',label:'Что важно увидеть сначала?',type:'select',options:['Продукт и рынок','Пилот и подтверждения','Коммерческая модель','Стратегия роста','Команда / исполнение']},
-        {name:'leadNextStep',label:'Какой следующий шаг ожидаете?',type:'text',placeholder:'Например: intro call / demo / diligence'}
+        {name:'leadNextStep',label:'Какой следующий шаг ожидаете?',type:'text',placeholder:'Например: intro call / demo / diligence'},
+        {name:'leadTiming',label:'Когда хотите перейти к следующему шагу?',type:'select',options:['До 1 месяца','1–3 месяца','3–6 месяцев','Срок пока не определён']}
       ]
     },
     diligence: {
@@ -936,14 +938,15 @@ const V2_LEAD_ROUTES = {
       fields: [
         {name:'leadDiligencePurpose',label:'Цель проверки',type:'select',options:['Продуктовая','Коммерческая','Инвестиционная','Партнёрская','Техническая — ограниченный доступ','Security / compliance — ограниченный доступ']},
         {name:'leadAccessLevel',label:'Какой уровень нужен?',type:'select',options:['Закрытое демо','NDA + выборочные материалы','Diligence с согласованным scope']},
-        {name:'leadQuestions',label:'Какие вопросы нужно закрыть?',type:'text',placeholder:'2–3 ключевых вопроса достаточно'}
+        {name:'leadQuestions',label:'Какие вопросы нужно закрыть?',type:'text',placeholder:'2–3 ключевых вопроса достаточно'},
+        {name:'leadTiming',label:'Когда нужен следующий шаг?',type:'select',options:['До 1 месяца','1–3 месяца','3–6 месяцев','Срок пока не определён']}
       ]
     }
   },
   en: {
     pilot: {
       title: 'Pilot',
-      lead: 'Three short questions so the first conversation is about a real validation scope, not a generic presentation.',
+      lead: 'A few short questions so the first conversation is about a real validation scope, not a generic presentation.',
       topic: 'launch',
       fields: [
         {name:'leadGoal',label:'What should the pilot prove?',type:'select',options:['Economic impact','Operating workflow','User adoption','Commercial demand','Other']},
@@ -958,7 +961,8 @@ const V2_LEAD_ROUTES = {
       fields: [
         {name:'leadContribution',label:'What do you bring?',type:'select',options:['Clients / sales channel','Industry expertise','Integration / technology','Operating resource','Capital','Other']},
         {name:'leadFormat',label:'Which format is relevant?',type:'select',options:['Joint pilot','Joint go-to-market','White-label / licensing','Strategic partnership','Other']},
-        {name:'leadFirstCase',label:'What first joint case should we test?',type:'text',placeholder:'Short description of the client or workflow'}
+        {name:'leadFirstCase',label:'What first joint case should we test?',type:'text',placeholder:'Short description of the client or workflow'},
+        {name:'leadTiming',label:'When would you like to move to the next step?',type:'select',options:['Within 1 month','1–3 months','3–6 months','Timing not defined yet']}
       ]
     },
     investment: {
@@ -968,7 +972,8 @@ const V2_LEAD_ROUTES = {
       fields: [
         {name:'leadInvestorType',label:'Type of interest',type:'select',options:['Strategic investor','Financial investor','CVC / corporate venture','Family office / private capital','Other']},
         {name:'leadInvestorFocus',label:'What should we cover first?',type:'select',options:['Product and market','Pilot and evidence','Commercial model','Growth strategy','Team / execution']},
-        {name:'leadNextStep',label:'What next step do you expect?',type:'text',placeholder:'For example: intro call / demo / diligence'}
+        {name:'leadNextStep',label:'What next step do you expect?',type:'text',placeholder:'For example: intro call / demo / diligence'},
+        {name:'leadTiming',label:'When would you like to move to the next step?',type:'select',options:['Within 1 month','1–3 months','3–6 months','Timing not defined yet']}
       ]
     },
     diligence: {
@@ -978,7 +983,8 @@ const V2_LEAD_ROUTES = {
       fields: [
         {name:'leadDiligencePurpose',label:'Purpose of diligence',type:'select',options:['Product','Commercial','Investment','Partnership','Technical — controlled access','Security / compliance — controlled access']},
         {name:'leadAccessLevel',label:'What level is needed?',type:'select',options:['Qualified demo','NDA + selected materials','Diligence with agreed scope']},
-        {name:'leadQuestions',label:'Which questions need to be resolved?',type:'text',placeholder:'2–3 key questions are enough'}
+        {name:'leadQuestions',label:'Which questions need to be resolved?',type:'text',placeholder:'2–3 key questions are enough'},
+        {name:'leadTiming',label:'When is the next step needed?',type:'select',options:['Within 1 month','1–3 months','3–6 months','Timing not defined yet']}
       ]
     }
   }
