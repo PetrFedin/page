@@ -86,20 +86,12 @@ html[data-preview="v2"] .opt-row[hidden] { display: none !important; }
 .v2-product-data>div{display:grid;grid-template-columns:120px 1fr;gap:12px;padding-top:10px;border-top:1px solid var(--line)}
 .v2-product-data dt{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--accent)}
 .v2-product-data dd{margin:0;font-size:13px;line-height:1.55;color:var(--muted)}
-.v2-product-actions{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;margin-top:auto;align-items:stretch}
-.v2-product-actions .btn{width:100%;min-width:0;min-height:40px;margin:0;justify-content:center;text-align:center;white-space:normal;line-height:1.25}
-.v2-product-actions [data-v2-open],
-.v2-product-actions [data-v2-talk="launch"],
-.v2-product-actions [data-v2-talk="partnership"],
-.v2-product-actions [data-v2-talk="investors"],
-.v2-product-actions [data-v2-talk="diligence"],
-.v2-product-actions .v2-evidence-toggle{grid-column:span 2}
-.v2-product-actions .v2-commercial-toggle,
-.v2-product-actions .v2-proof-toggle{grid-column:span 3}
+.v2-product-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:auto;align-items:stretch}
+.v2-product-actions .btn{width:100%;min-width:0;min-height:42px;margin:0;justify-content:center;text-align:center;white-space:normal;line-height:1.25}
 .v2-portfolio-note{font-size:12px;line-height:1.55;color:var(--muted);margin:16px 0 0}
 @media(max-width:900px){.v2-portfolio-summary{grid-template-columns:1fr 1fr}.v2-maturity-strip{grid-column:1/-1}.v2-portfolio-grid{grid-template-columns:1fr}}
-@media(max-width:759px){.v2-portfolio{padding-top:20px}.v2-portfolio-summary{grid-template-columns:1fr 1fr}.v2-maturity-strip{grid-template-columns:1fr 1fr}.v2-product{padding:18px}.v2-product-top{display:block}.v2-stage{display:inline-flex;margin-top:12px}.v2-product-data>div{grid-template-columns:1fr;gap:4px}.v2-product-actions{grid-template-columns:repeat(2,minmax(0,1fr))}.v2-product-actions [data-v2-open]{grid-column:1/-1}.v2-product-actions [data-v2-talk="launch"],.v2-product-actions [data-v2-talk="partnership"],.v2-product-actions [data-v2-talk="investors"],.v2-product-actions [data-v2-talk="diligence"],.v2-product-actions .v2-evidence-toggle,.v2-product-actions .v2-commercial-toggle,.v2-product-actions .v2-proof-toggle{grid-column:span 1}}
-@media(max-width:520px){.v2-product-actions{grid-template-columns:1fr}.v2-product-actions [data-v2-open],.v2-product-actions [data-v2-talk],.v2-product-actions .v2-evidence-toggle,.v2-product-actions .v2-commercial-toggle,.v2-product-actions .v2-proof-toggle{grid-column:1/-1}}
+@media(max-width:759px){.v2-portfolio{padding-top:20px}.v2-portfolio-summary{grid-template-columns:1fr 1fr}.v2-maturity-strip{grid-template-columns:1fr 1fr}.v2-product{padding:18px}.v2-product-top{display:block}.v2-stage{display:inline-flex;margin-top:12px}.v2-product-data>div{grid-template-columns:1fr;gap:4px}.v2-product-actions{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.v2-product-actions{grid-template-columns:1fr}}
 
 
 /* V2.3 stakeholder lens styles */
@@ -359,3 +351,12 @@ html[data-preview="v2"] .opt-row[hidden] { display: none !important; }
   html[data-v2-print-meeting="1"] #v2-meeting-room .v2-meeting-actions,
   html[data-v2-print-meeting="1"] #v2-meeting-room .modal-close{display:none!important}
 }
+
+
+/* V2.21 journey simplification */
+#v2-routes[hidden]{display:none!important}
+.v2-stakeholders-secondary{margin-top:0;padding-top:18px;border-top:1px solid var(--line)}
+.v2-stakeholders-secondary .v2-stakeholder-head h2{font-size:clamp(24px,2.4vw,34px)}
+.v2-stakeholders-secondary .v2-stakeholder-panel{padding:18px}
+.v2-stakeholders-secondary .v2-stakeholder-main h3{font-size:clamp(22px,2.4vw,31px)}
+#v2-decision,#v2-steps,#v2-portfolio,#v2-stakeholders{scroll-margin-top:92px}
