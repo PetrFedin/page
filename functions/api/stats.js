@@ -77,7 +77,7 @@ function qualifyLead(sub, lead = {}) {
   const intent = route === 'consulting' || route === 'pilot' || route === 'diligence' ? 20
     : route === 'partnership' || route === 'investment' ? 15
     : 5;
-  const projectSpecificity = project ? 20 : 0;
+  const projectSpecificity = route === 'consulting' ? (lead.scope || lead.goal ? 20 : 0) : (project ? 20 : 0);
   const timing = timingPoints(lead.timing);
   const nextStep = route === 'diligence'
     ? (lead.accessLevel || lead.questions ? 10 : 0)
@@ -125,7 +125,7 @@ function qualifyLead(sub, lead = {}) {
     },
     reasons: [
       intent ? `тип запроса +${intent}` : '',
-      projectSpecificity ? 'конкретный проект +20' : 'проект не выбран +0',
+      projectSpecificity ? (route === 'consulting' ? 'контекст задачи конкретизирован +20' : 'конкретный проект +20') : (route === 'consulting' ? 'контекст задачи требует уточнения +0' : 'проект не выбран +0'),
       `полнота ответов ${filled}/${expected.length || 0} +${completeness}`,
       timing ? `заявленный срок +${timing}` : 'срок не определён +0',
       nextStep ? `следующий шаг конкретизирован +${nextStep}` : 'следующий шаг требует уточнения +0'
