@@ -7,7 +7,8 @@ function installDecisionLayer(lang, $) {
   const paths = V2_PATHS[en ? 'en' : 'ru'];
   const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const routes = $('#v2-routes');
-  if (!routes) return;
+  const decisionAnchor = routes || $('.hero');
+  if (!decisionAnchor) return;
 
   $('#hero-lead').textContent = en
     ? 'I help fashion businesses connect buying, products, sales and cash — then turn the findings into operating decisions, pilots and digital tools.'
@@ -20,7 +21,7 @@ function installDecisionLayer(lang, $) {
     section = document.createElement('section');
     section.id = 'v2-decision';
     section.className = 'section v2-decision';
-    routes.after(section);
+    decisionAnchor.after(section);
   }
   section.innerHTML = `
     <div class="section-head compact">
@@ -45,7 +46,7 @@ function installDecisionLayer(lang, $) {
         <span class="v2-route-meta">${path.n} / ${esc(path.kicker)}</span>
         <h3>${esc(path.title)}</h3>
         <p>${esc(path.body)}</p>
-        <button class="btn btn-primary" type="button" data-v2-prepare="${path.id}">${en ? 'Prepare an enquiry' : 'Подготовить обращение'} →</button>
+        <button class="btn btn-primary" type="button" data-v2-prepare="${path.id}">${en ? 'Build first-conversation brief' : 'Собрать brief первого разговора'} →</button>
       </div>
       <div class="v2-path-columns">
         <section><h4>${en ? 'Best fit when' : 'Когда подходит'}</h4><ul>${path.when.map((x)=>`<li>${esc(x)}</li>`).join('')}</ul></section>
@@ -69,7 +70,7 @@ function installDecisionLayer(lang, $) {
     });
   }
 
-  if (!routes.dataset.decisionBound) {
+  if (routes && !routes.dataset.decisionBound) {
     routes.dataset.decisionBound = '1';
     routes.addEventListener('click', (e) => {
       const card = e.target.closest('.v2-route');
@@ -215,10 +216,7 @@ function renderPortfolioIntelligence(lang, $, projects) {
         </dl>
         <div class="v2-product-actions">
           <button type="button" class="btn btn-sm btn-primary" data-v2-open="${esc(p.id)}">${en ? 'Open dossier' : 'Открыть досье'}</button>
-          <button type="button" class="btn btn-sm" data-v2-talk="launch" data-v2-id="${esc(p.id)}">${en ? 'Discuss pilot' : 'Обсудить пилот'}</button>
-          <button type="button" class="btn btn-sm" data-v2-talk="partnership" data-v2-id="${esc(p.id)}">${en ? 'Partnership' : 'Партнёрство'}</button>
-          <button type="button" class="btn btn-sm" data-v2-talk="investors" data-v2-id="${esc(p.id)}">${en ? 'Investment' : 'Инвестиции'}</button>
-          <button type="button" class="btn btn-sm" data-v2-talk="diligence" data-v2-id="${esc(p.id)}">${en ? 'NDA / diligence' : 'NDA / проверка'}</button>
+          <button type="button" class="btn btn-sm" data-v2-project-start="${esc(p.id)}">${en ? 'Start with this project' : 'Начать с этого проекта'}</button>
         </div>
       </article>`;
     }).join('');
@@ -261,6 +259,12 @@ function renderPortfolioIntelligence(lang, $, projects) {
           const card = document.querySelector(`#cards [data-project="${CSS.escape(open.dataset.v2Open)}"]`);
           card?.scrollIntoView({behavior:'smooth',block:'center'});
         }
+        return;
+      }
+      const projectStart = e.target.closest('[data-v2-project-start]');
+      if (projectStart) {
+        window.synthaV2SetStartContext?.('pilot', projectStart.dataset.v2ProjectStart);
+        $('#v2-steps')?.scrollIntoView({behavior:'smooth',block:'start'});
         return;
       }
       const talk = e.target.closest('[data-v2-talk]');
@@ -344,24 +348,24 @@ function renderStakeholderLens(lang, $, projects) {
   proof.innerHTML = chips.map(([n,l])=>`<span><strong>${esc(n)}</strong>${esc(l)}</span>`).join('');
 
   let section = $('#v2-stakeholders');
-  const routes = $('#v2-routes');
+  const portfolio = $('#v2-portfolio');
   if (!section) {
     section = document.createElement('section');
     section.id = 'v2-stakeholders';
-    section.className = 'section v2-stakeholders';
-    routes?.before(section);
+    section.className = 'section v2-stakeholders v2-stakeholders-secondary';
+    portfolio?.after(section);
   }
   if (!section) return;
 
   section.innerHTML = `
     <div class="v2-stakeholder-head">
       <div>
-        <p class="eyebrow">${en ? 'Choose your lens' : 'Выберите свою роль'}</p>
-        <h2>${en ? 'The same portfolio answers different questions' : 'Один портфель — разные вопросы'}</h2>
+        <p class="eyebrow">${en ? 'Optional perspective' : 'Дополнительный ракурс'}</p>
+        <h2>${en ? 'View the portfolio through your role' : 'Посмотреть портфель со своей стороны'}</h2>
       </div>
       <p>${en
-        ? 'Switch perspective first. The page then points you to the evidence and action that matter for that role.'
-        : 'Сначала выберите свою роль. Дальше страница покажет подтверждения и действия, которые важны именно для неё.'}</p>
+        ? 'Use this only if you want a role-specific reading of the portfolio. It is not required to start.'
+        : 'Используйте этот переключатель, только если нужен взгляд с позиции вашей роли. Для начала работы он не обязателен.'}</p>
     </div>
     <div class="v2-stakeholder-tabs" role="tablist" aria-label="${en ? 'Visitor role' : 'Роль посетителя'}">
       ${data.map((r,i)=>`<button type="button" role="tab" class="v2-stakeholder-tab${i===0?' active':''}" aria-selected="${i===0}" data-v2-stakeholder="${r.id}">${esc(r.label)}</button>`).join('')}
@@ -541,7 +545,7 @@ function installCommercialClarity(lang, $, projects) {
   const en = lang === 'en';
   const data = V2_COMMERCIAL;
   const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (ch) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
-  const portfolio = $('#v2-portfolio');
+  const portfolio = null;
   const modal = $('#modal');
 
   const renderPanel = (id) => {
@@ -652,7 +656,7 @@ function installCommercialProof(lang, $, projects) {
       </div>`;
   };
 
-  const portfolio=$('#v2-portfolio');
+  const portfolio=null;
   const attach=()=>{
     portfolio?.querySelectorAll('.v2-product').forEach((card)=>{
       const id=card.dataset.v2Product;
@@ -1137,26 +1141,23 @@ export function renderV2(lang, projects = []) {
   }
   $('#v2-headline').textContent = en ? 'Profit, inventory and growth. Decisions grounded in economics.' : 'Прибыль, запасы и рост. Решения на основе экономики.';
   $('#hero-lead').textContent = en ? 'I help fashion businesses connect buying, products, sales and cash — and turn the findings into working processes and digital tools.' : 'Помогаю фэшн-бизнесу связать закупку, продукт, продажи и деньги — и перевести выводы в рабочие процессы и цифровые инструменты.';
-  $('#cta-contact').textContent = en ? 'Discuss your challenge' : 'Обсудить задачу';
-  $('#cta-contact').classList.add('btn-primary'); $('#cta-consulting').classList.remove('btn-primary');
+  $('#cta-contact').textContent = en ? 'Start working together' : 'Начать работу';
+  $('#cta-contact').setAttribute('href','#v2-steps');
+  $('#cta-contact').classList.add('btn-primary');
+  $('#cta-consulting').classList.remove('btn-primary');
+  $('#cta-consulting').textContent = en ? 'View portfolio' : 'Посмотреть портфель';
+  $('#cta-consulting').setAttribute('href','#v2-portfolio');
   if (!$('#v2-routes')) {
     const section = document.createElement('section'); section.id = 'v2-routes'; section.className = 'section v2-routes';
     $('.hero').after(section);
   }
-  const routes = en ? [
-    ['01','For your business','Advisory','Buying, profitability, working capital and management decisions.','Explore services','#consulting'],
-    ['02','For your product','Products & development','Own products, working prototypes and formats for building together.','Explore the portfolio','#projects'],
-    ['03','For a shared opportunity','Partnership','Pilots, strategic collaboration and investment discussions.','Explore ways to work together','#investors']
-  ] : [
-    ['01','Для бизнеса','Консалтинг','Маржа, закупка, запасы, оборотный капитал и решения, которые можно проверить на данных.','Выбрать формат работы','#consulting'],
-    ['02','Для продукта','Продукты и разработка','Собственные цифровые продукты: от рабочего прототипа до пилота, внедрения и партнёрской модели.','Посмотреть портфель','#v2-portfolio'],
-    ['03','Для совместного развития','Партнёрство','Пилоты, совместный выход на рынок, стратегическое сотрудничество и инвестиционный диалог.','Посмотреть варианты участия','#investors']
-  ];
-  $('#v2-routes').innerHTML = `<p class="eyebrow">${en ? 'Where shall we start?' : 'С чего начнём?'}</p><div class="v2-route-grid">${routes.map(r=>`<a class="v2-route" href="${r[5]}"><span class="v2-route-meta">${r[0]} / ${r[1]}</span><h3>${r[2]}</h3><p>${r[3]}</p><span class="v2-route-action">${r[4]} →</span></a>`).join('')}</div>`;
+  $('#v2-routes').hidden = true;
+  $('#v2-routes').setAttribute('aria-hidden','true');
+  $('#v2-routes').replaceChildren();
   installDecisionLayer(lang, $);
   renderPortfolioIntelligence(lang, $, projects);
   renderStakeholderLens(lang, $, projects);
-  installExecutiveEvidence(lang, $, projects);
+  // Executive evidence remains in the project dossier; portfolio cards stay decision-light.
   installProjectDecisionDossier(lang, $, projects);
   installCommercialClarity(lang, $, projects);
   installCommercialProof(lang, $, projects);
@@ -1168,6 +1169,12 @@ export function renderV2(lang, projects = []) {
   if (!$('#v2-steps')) {
     const section = document.createElement('section'); section.id = 'v2-steps'; section.className = 'section v2-steps';
     ($('#v2-decision') || $('#v2-routes')).after(section);
+  }
+  if ($('#v2-portfolio') && $('#v2-portfolio').previousElementSibling !== $('#v2-steps')) {
+    $('#v2-steps').after($('#v2-portfolio'));
+  }
+  if ($('#v2-stakeholders') && $('#v2-stakeholders').previousElementSibling !== $('#v2-portfolio')) {
+    $('#v2-portfolio').after($('#v2-stakeholders'));
   }
   const startProjects = (projects || []).filter((p)=>p?.id && p?.[lang]);
   const startRoutes = en ? [
@@ -1331,13 +1338,15 @@ export function renderV2(lang, projects = []) {
   const recommendation = () => briefRecommendations[startState.route] || briefRecommendations.consulting;
 
 
-  window.synthaV2SetStartRoute = (route) => {
+  window.synthaV2SetStartContext = (route, project = null) => {
     if (!startRoutes.some((r)=>r[0]===route)) return;
     startState.route = route;
-    if (route === 'consulting') startState.project = '';
-    else if (!startState.project) startState.project = startProjects[0]?.id || '';
+    if (project !== null) startState.project = project;
+    if (route === 'consulting' && project === null) startState.project = '';
+    if (route !== 'consulting' && !startState.project) startState.project = startProjects[0]?.id || '';
     renderStart();
   };
+  window.synthaV2SetStartRoute = (route) => window.synthaV2SetStartContext(route, null);
 
   const briefFieldHtml = (q) => {
     const value = questionAnswer(q.key);
