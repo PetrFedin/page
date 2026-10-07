@@ -4,6 +4,8 @@ const read = (p) => fs.readFileSync(p, 'utf8');
 const app = read('assets/app.js');
 const v2 = read('assets/v2.js');
 const css = read('assets/v2.css');
+const statsApi = read('functions/api/stats.js');
+const statsUi = read('functions/stats.js');
 const index = read('index.html');
 const content = read('assets/content.js');
 const en = read('en/index.html');
