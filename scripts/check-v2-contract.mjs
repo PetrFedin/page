@@ -21,7 +21,7 @@ const checks = [
   ['RU portfolio terminology', ['Мода','Корпоративные','События','Потребительские','Финтех','Искусство','Инфраструктура','Готов к пилоту'].every((x) => v2.includes(x))],
   ['stakeholder routes', ['client','ceo','investor','partner'].every((x) => v2.includes(`id:"${x}"`) || v2.includes(`"id":"${x}"`))],
   ['executive evidence', ['Проблема','Продукт','Подтверждение','Текущая стадия','Следующий этап','Коммерческий путь','Что требуется от партнёра / инвестора'].every((x) => v2.includes(x))],
-  ['project CTA paths', ['data-v2-open','data-v2-talk="launch"','data-v2-talk="partnership"','data-v2-talk="investors"'].every((x) => v2.includes(x))],
+  ['project CTA paths', v2.includes('data-v2-open') && v2.includes('data-v2-project-start') && v2.includes("'Начать с этого проекта'")],
   ['contact form anchors', ['id="contact"','id="form"','id="topic"','id="submit"'].every((x) => index.includes(x))],
   ['RU/EN pages exist', index.includes('assets/app.js') && en.includes('/assets/app.js')],
   ['V2 renderer receives project registry', app.includes('renderV2(lang, PROJECTS);')],
@@ -35,6 +35,8 @@ const checks = [
   ['qualified lead routing', ['pilot','partnership','investment','diligence'].every((x) => v2.includes(x)) && v2.includes('Квалифицированное обращение') && v2.includes('leadTiming')],
   ['lead qualification model', statsApi.includes('function qualifyLead(') && statsUi.includes('Прозрачная квалификация') && statsUi.includes('Готовность')],
   ['interactive start flow', v2.includes('data-v2-start-route') && v2.includes('data-v2-start-project') && v2.includes('data-v2-start-timing')],
+  ['single primary journey', v2.includes("$('#v2-routes').hidden = true") && v2.includes("($('#v2-decision') || $('#v2-routes')).after(section)") && v2.includes("$('#v2-steps').after($('#v2-portfolio'))")],
+  ['role lens is secondary', v2.includes('v2-stakeholders-secondary') && v2.includes('data-v2-stakeholder-toggle') && v2.includes('Дополнительный ракурс')],
   ['mini brief builder', v2.includes('Mini Brief Builder') && v2.includes('data-v2-brief-answer') && v2.includes('leadBrief') && v2.includes('Brief первого разговора')],
   ['start flow visibility', v2.includes("$('#v2-decision') || $('#v2-routes')") && v2.includes("'Начать работу'") && v2.includes("'#v2-steps'")],
   ['recommendation layer', v2.includes('Recommended first step') && v2.includes('Рекомендуемый первый шаг') && v2.includes('Next gate') && v2.includes('Следующий gate')],
@@ -42,13 +44,13 @@ const checks = [
   ['start nav visibility', v2.includes('data.v2NavStart') || v2.includes('dataset.v2NavStart')],
   ['meeting room', v2.includes('Комната первой встречи · только эта сессия') && v2.includes('data-v2-meeting-copy') && v2.includes('data-v2-meeting-print')],
   ['meeting room print', css.includes('data-v2-print-meeting') && css.includes('.v2-meeting-room')],
-  ['bottom start return', v2.includes("id = 'v2-start-return'") && v2.includes('Соберите brief первого разговора за 2–3 минуты')],
+  ['clear primary next step', v2.includes("id = 'v2-primary-next'") && v2.includes('Перейти к обращению') && v2.includes('Изменить Mini Brief')],
   ['mini brief route questions', ['leadGoal','leadScope','leadContribution','leadFormat','leadInvestorFocus','leadNextStep','leadDiligencePurpose','leadAccessLevel'].every((x)=>v2.includes(x))],
   ['mini brief persisted', contact.includes('brief: clean(body.leadBrief') && statsUi.includes('Brief первого разговора') && statsUi.includes('leadBriefBox')],
   ['lead operating API', leadsApi.includes("type, path, target, label, data") && leadsApi.includes("'lead_op'") && leadsApi.includes("demo_scheduled")],
   ['lead operating queue', statsUi.includes('Lead Operating Queue') && statsUi.includes('Требует действия сегодня') && statsUi.includes('data-lead-save') && statsUi.includes("post('/api/leads'" )],
   ['lead history append-only', statsApi.includes("type='lead_op'") && statsApi.includes('s.operations') && statsApi.includes('s.operating')],
-  ['responsive portfolio CTA grid', css.includes('grid-template-columns:repeat(6,minmax(0,1fr))') && css.includes('data-v2-talk="diligence"')],
+  ['simplified portfolio CTA grid', css.includes('.v2-product-actions{display:grid;grid-template-columns:1fr 1fr') && !css.includes('grid-template-columns:repeat(6,minmax(0,1fr))')],
 
 ];
 
