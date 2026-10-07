@@ -2408,21 +2408,24 @@ if (location.hash) {
   if (target?.matches('section')) requestAnimationFrame(() => requestAnimationFrame(() => target.scrollIntoView()));
 }
 
-/* Посты из календаря кабинета: подмешиваем вышедшие в общую ленту, не дожидаясь пересборки сайта. */
-fetch('/api/posts', { cache: 'no-store' }).then((r) => (r.ok ? r.json() : [])).then((list) => {
-  if (!Array.isArray(list)) return;
-  let added = false;
-  for (const p of list) {
-    if (!p?.date || SITE_NEWS.some((x) => x.date === p.date)) continue;
-    SITE_NEWS.push(p);
-    added = true;
-  }
-  if (!added) return;
-  SITE_NEWS.sort((a, b) => b.date.localeCompare(a.date));
-  renderNews();
-  renderCards();
-  if (location.hash.startsWith('#post-')) applyHash();
-}).catch(() => { /* лента останется статической */ });
+/* Посты из production-календаря подмешиваются только в основной сайт.
+   V2 preview развёрнут отдельно и не должен шуметь 404 на Cloudflare-only API. */
+if (document.documentElement.dataset.preview !== 'v2') {
+  fetch('/api/posts', { cache: 'no-store' }).then((r) => (r.ok ? r.json() : [])).then((list) => {
+    if (!Array.isArray(list)) return;
+    let added = false;
+    for (const p of list) {
+      if (!p?.date || SITE_NEWS.some((x) => x.date === p.date)) continue;
+      SITE_NEWS.push(p);
+      added = true;
+    }
+    if (!added) return;
+    SITE_NEWS.sort((a, b) => b.date.localeCompare(a.date));
+    renderNews();
+    renderCards();
+    if (location.hash.startsWith('#post-')) applyHash();
+  }).catch(() => { /* лента останется статической */ });
+}
 
 /* Нижняя кнопка «Написать» на телефоне: пока не открыта сама форма. */
 (() => {
