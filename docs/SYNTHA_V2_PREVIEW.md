@@ -398,3 +398,31 @@ Once the two brief questions are complete, a deterministic Recommendation Layer 
 
 Recommendations are rule-based by route and never use opaque AI scoring.
 They remain public-safe and do not request or expose confidential implementation detail.
+
+
+## Start visibility and Meeting Room v2.20
+
+The start flow is now deliberately hard to miss:
+
+- hero CTA: “Начать работу” / “Start working together”;
+- top navigation: “Начать работу” / “Start”;
+- Decision Layer “Prepare an enquiry” opens the matching Mini Brief route;
+- the Mini Brief sits immediately after the Decision Layer;
+- a compact return CTA near the bottom of the page brings the visitor back to the Mini Brief.
+
+Advisory / Consulting is now a full end-to-end route:
+- Mini Brief;
+- Qualified Lead Routing;
+- transparent lead qualification;
+- Lead Operating Queue.
+It may start without selecting a product; in that case the request is qualified on business-problem/context specificity rather than product specificity.
+
+The master-plan Client Pitch Room idea is adopted in a safe, session-only form:
+- “Open meeting room” appears only after the Mini Brief is complete;
+- the room shows the brief, recommended meeting format, preparation checklist, attendees, expected output and next gate;
+- it can be copied or printed/saved as PDF from the browser;
+- it is not published at a client-specific URL;
+- it is not persisted in the public static repository;
+- it contains only public business context and no protected technical evidence.
+
+This is intentionally a first-meeting preparation room, not the confidential diligence room.
