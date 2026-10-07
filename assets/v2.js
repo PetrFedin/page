@@ -933,6 +933,27 @@ function installDisclosureLadder(lang, $, projects) {
   paint();
 }
 
+
+/* V2.15 deep public project dossiers for selected projects */
+const V2_DEEP_PROJECTS = {"antiqua":{"ru":{"summary":"Gallery-first art platform для живописи, рисунка, графики, гравюры и works on paper. Система соединяет произведение, автора, related works, коллекции, provenance, исследовательские материалы и персональное discovery — без сведения искусства к карточке товара.","users":["Коллекционер / ценитель: discovery, save, personal collection, Taste","Галерея / художник: качественная цифровая репрезентация и contextual publishing","Куратор / историк искусства: attribution, research context, related works","Институция / архив: governed publication, source links, provenance / rights boundaries"],"workflow":["Gallery discovery → Artwork","Artwork → Artist → Related Works","Save → Collection → Taste profile","Taste → personalised discovery / return journey","Learn → books / courses / events / research","Optional commerce layer только поверх authoritative art records"],"data":["Artwork: title, attribution, period, technique, materials, dimensions, media","Artist: biography, chronology, schools / movements, related works","Provenance / exhibition / bibliography / source references","Collections, saves, Taste signals, editorial curation","Rights / media source / publication authority separated from promotion"],"economics":["Потенциальный professional subscription для research / collection workflow","Institutional publishing and research services","Premium expert / research request formats","Commerce / auction commission только в явно admitted flows","Главный KPI до monetisation: repeat discovery, record quality, research utility"],"governance":["Artwork / Artist остаются authority objects","Editorial, expertise, provenance и paid promotion — разные сигналы","Экспертный статус не выводится из popularity score","Публичная сеть — projection поверх governed entities, а не generic social feed","Legacy antique/object wording не должно возвращаться в product framing"],"proof":["Gallery → Artwork → Artist → Related Works уже является основной consumer chain","Collections → Taste retention loop реализован","Machine-verifiable production admission и research trust stack присутствуют на main","Public concept очищен до paintings / works on paper focus"],"next":["Закрыть production PostgreSQL integrity / admission proof","Провести real-art pilot на реальной коллекции / галерее","Измерить completeness records, provenance coverage, Artwork→Artist continuation, Save→Collection, D7/D30 return","После evidence — развивать IIIF/media authority, institutional research and cultural graph"]},"en":{"summary":"A gallery-first art platform for painting, drawing, graphics, engraving and works on paper. It connects artwork, artist, related works, collections, provenance, research material and personalised discovery without reducing art to a product card.","users":["Collector / enthusiast: discovery, save, personal collection and Taste","Gallery / artist: high-quality digital representation and contextual publishing","Curator / art historian: attribution, research context and related works","Institution / archive: governed publication, source links and provenance / rights boundaries"],"workflow":["Gallery discovery → Artwork","Artwork → Artist → Related Works","Save → Collection → Taste profile","Taste → personalised discovery / return journey","Learn → books / courses / events / research","Optional commerce layer only over authoritative art records"],"data":["Artwork: title, attribution, period, technique, materials, dimensions and media","Artist: biography, chronology, schools / movements and related works","Provenance / exhibition / bibliography / source references","Collections, saves, Taste signals and editorial curation","Rights / media source / publication authority kept separate from promotion"],"economics":["Potential professional subscription for research / collection workflow","Institutional publishing and research services","Premium expert / research request formats","Commerce / auction commission only in explicitly admitted flows","Primary pre-monetisation KPI: repeat discovery, record quality and research utility"],"governance":["Artwork / Artist remain authority objects","Editorial, expertise, provenance and paid promotion are separate signals","Expert status is not inferred from popularity","Public network is a projection over governed entities, not a generic social feed","Legacy antique/object framing must not return"],"proof":["Gallery → Artwork → Artist → Related Works is the main consumer chain","Collections → Taste retention loop is implemented","Machine-verifiable production admission and research trust stack exist on main","Public concept is now focused on paintings / works on paper"],"next":["Close production PostgreSQL integrity / admission proof","Run a real-art pilot with a real collection / gallery","Measure record completeness, provenance coverage, Artwork→Artist continuation, Save→Collection and D7/D30 return","After evidence, expand IIIF/media authority, institutional research and cultural graph"]}},"fashionmgmt":{"ru":{"summary":"Confidential Fashion Management OS — единая операционная система для fashion house / atelier: от разработки модели и заказа до производства, себестоимости, мощностей, платежей, 13-недельной ликвидности и закрытия месяца.","users":["Собственник / CEO: экономика, cash, risk, capacity, month close","Операционный руководитель: заказ, сроки, bottlenecks, cross-function execution","Производство / цеха: назначенные операции, нормы, факт, статус","Закупка / материалы: потребность, availability, cost input","Финансы / бухгалтерия: платежи, cash plan, Plan/Fact/CTC/Forecast","Admin / technical role: система без автоматического бизнес-authority"],"workflow":["Model / catalogue master → commercial order","Order → operation template / production route","Materials / rates / operations → cost snapshot","WIP ageing → capacity / bottleneck / due-date signal","Payments → 13-week liquidity","Completion → frozen final-cost snapshot","Month close → evidence / benefits register / management review"],"data":["Product / model / variant / order / customer","Operation templates, workshop stages, standards and actuals","Materials, purchase inputs, rates and price snapshots","Plan / Fact / CTC / Forecast cost layers","WIP, capacity, allocation queue, due dates and blockers","Payments, liquidity, month-close evidence and audit events"],"economics":["Раньше видеть cost overrun и late-risk до финала заказа","Снижать manual reconciliation между производством, закупкой и финансами","Сокращать decision lead time по capacity / cost / payment","Закрывать месяц на frozen evidence вместо ручной реконструкции","Потенциальная модель: enterprise licence + implementation + integrations + support/SLA"],"governance":["Role-based permissions по реальной operating map","Snapshot ставок / цен в момент события, чтобы история не переписывалась","Frozen final-cost после закрытия заказа","Month close и benefits требуют owner / evidence","Audit trail для значимых действий","Safe update / rollback и controlled integrations"],"proof":["Working product/order/production core собран","Plan / Fact / CTC / Forecast и frozen final cost существуют","WIP / capacity / bottleneck / allocation logic реализованы","13-week liquidity, month close и benefits register присутствуют","Responsive monitor / tablet / phone QA ведётся на реальных ролях"],"next":["Закрыть live role × device QA","Довести operation templates, standards, due-date / capacity и cost calculator","Провести controlled rollout на реальном operating contour","Измерить spreadsheet escape rate, decision lead time, Plan/Fact/CTC variance, late-risk lead time и month-close duration"]},"en":{"summary":"A confidential Fashion Management OS — one operating system for a fashion house / atelier, from model development and orders to production, cost, capacity, payments, 13-week liquidity and month close.","users":["Owner / CEO: economics, cash, risk, capacity and month close","Operations lead: order, deadlines, bottlenecks and cross-function execution","Production / workshops: assigned operations, standards, actuals and status","Procurement / materials: demand, availability and cost input","Finance / accounting: payments, cash plan and Plan/Actual/CTC/Forecast","Admin / technical role: system access without automatic business authority"],"workflow":["Model / catalogue master → commercial order","Order → operation template / production route","Materials / rates / operations → cost snapshot","WIP ageing → capacity / bottleneck / due-date signal","Payments → 13-week liquidity","Completion → frozen final-cost snapshot","Month close → evidence / benefits register / management review"],"data":["Product / model / variant / order / customer","Operation templates, workshop stages, standards and actuals","Materials, purchase inputs, rates and price snapshots","Plan / Actual / CTC / Forecast cost layers","WIP, capacity, allocation queue, due dates and blockers","Payments, liquidity, month-close evidence and audit events"],"economics":["Expose cost overrun and late risk before order completion","Reduce manual reconciliation across production, procurement and finance","Shorten decision lead time on capacity / cost / payment","Close the month on frozen evidence instead of manual reconstruction","Potential model: enterprise licence + implementation + integrations + support/SLA"],"governance":["Role-based permissions mapped to real operating roles","Snapshot rates / prices at event time so history is not silently rewritten","Frozen final cost after order close","Month close and benefits require owner / evidence","Audit trail for significant actions","Safe update / rollback and controlled integrations"],"proof":["Working product/order/production core exists","Plan / Actual / CTC / Forecast and frozen final cost exist","WIP / capacity / bottleneck / allocation logic is implemented","13-week liquidity, month close and benefits register are present","Responsive monitor / tablet / phone QA is being run by real roles"],"next":["Close live role × device QA","Complete operation templates, standards, due-date / capacity logic and cost calculator","Run a controlled rollout on a real operating contour","Measure spreadsheet escape rate, decision lead time, Plan/Actual/CTC variance, late-risk lead time and month-close duration"]}},"furproduction":{"ru":{"summary":"Confidential FUR PRODUCTION OS — vertical ERP для дорогого неоднородного сырья, где критична traceability конкретной партии: закупка → landed cost → lot → склад → нормы → производство → списание → готовое изделие → платежи / документы → audit.","users":["Закупка: supplier / auction / purchase inputs / landed cost","Склад: конкретные lot identities, quantity remaining, movements","Технолог / производство: norms, BOM, lot-specific usage, production order","Руководитель: order cost, raw-material exposure, discrepancies","Финансы / accounting: payments, cost components, reconciliation","Контроль / audit: before-after history, corrections, backup / recovery"],"workflow":["Supplier / procurement → purchase cost components","Purchase → specific raw-material lot","Lot → warehouse movements / reserve / quantity remaining","Model / BOM / norm → production order","Production order → consume exact lot quantity","Correction → transactional return old quantity / consume new quantity","Finished goods → fitting / status / documents / payments","Reconciliation → audit / backup / recovery"],"data":["Supplier / purchase / currency / landed-cost components","Lot identity, origin, quantity, unit cost, remaining quantity","Warehouse movements, reservations and consumption","Model / BOM / norm / production order","Production expenses and finished-goods cost","Payments, documents, fittings and audit events"],"economics":["Specific-identification costing вместо скрытого average cost","Точнее inventory value и фактическая себестоимость конкретного изделия","Меньше потерь на ошибочном списании дорогого сырья","Быстрее reconciliation между реестром, складом и производством","Потенциальная модель: vertical ERP licence + migration/reconciliation + implementation + support"],"governance":["После использования партии critical purchase / lot fields не должны тихо переписываться","Корректировки проходят transactionally и сохраняют причинную историю","AuditLog хранит before / after","Role scope разделяет procurement, warehouse, technology, finance and management","Backup / restore и concurrent-write protection — часть authority, а не опция"],"proof":["Procurement → lot → warehouse → production → finished goods traceability работает","Specific-identification costing реализован","Norms/BOM, material usage и production expenses связаны","Payments, documents, fittings and audit history присутствуют","Backup / restore, transactional safety and concurrent overwrite protection реализованы"],"next":["Продолжить source reconciliation и operational QA","Закрыть discrepancy contour по quantity, identity, landed cost и order cost","Провести controlled production use как единый source of truth","Acceptance: inventory accuracy, lot-cost accuracy, order-cost reproducibility и recovery proof"]},"en":{"summary":"A confidential FUR PRODUCTION OS — a vertical ERP for expensive heterogeneous raw material where exact-lot traceability is critical: procurement → landed cost → lot → stock → norms → production → consumption → finished product → payments / documents → audit.","users":["Procurement: supplier / auction / purchase inputs / landed cost","Warehouse: exact lot identities, quantity remaining and movements","Technology / production: norms, BOM, lot-specific usage and production order","Management: order cost, raw-material exposure and discrepancies","Finance / accounting: payments, cost components and reconciliation","Control / audit: before-after history, corrections, backup / recovery"],"workflow":["Supplier / procurement → purchase cost components","Purchase → specific raw-material lot","Lot → warehouse movements / reserve / quantity remaining","Model / BOM / norm → production order","Production order → consume exact lot quantity","Correction → transactionally return old quantity / consume new quantity","Finished goods → fitting / status / documents / payments","Reconciliation → audit / backup / recovery"],"data":["Supplier / purchase / currency / landed-cost components","Lot identity, origin, quantity, unit cost and remaining quantity","Warehouse movements, reservations and consumption","Model / BOM / norm / production order","Production expenses and finished-goods cost","Payments, documents, fittings and audit events"],"economics":["Specific-identification costing instead of hidden average cost","More accurate inventory value and actual cost per finished product","Lower loss from wrong consumption of expensive material","Faster reconciliation across source register, warehouse and production","Potential model: vertical ERP licence + migration/reconciliation + implementation + support"],"governance":["Critical purchase / lot fields must not be silently rewritten after consumption","Corrections are transactional and preserve causal history","AuditLog retains before / after","Role scope separates procurement, warehouse, technology, finance and management","Backup / restore and concurrent-write protection are part of authority"],"proof":["Procurement → lot → warehouse → production → finished-goods traceability works","Specific-identification costing is implemented","Norms/BOM, material usage and production expenses are connected","Payments, documents, fittings and audit history exist","Backup / restore, transactional safety and concurrent overwrite protection are implemented"],"next":["Continue source reconciliation and operational QA","Close the discrepancy contour across quantity, identity, landed cost and order cost","Run controlled production use as the single source of truth","Acceptance: inventory accuracy, lot-cost accuracy, order-cost reproducibility and recovery proof"]}}};
+
+function installDeepProjectDossier(lang, $, projects) {
+  const en = lang === 'en';
+  const modal = $('#modal');
+  if (!modal) return;
+  let sec = $('#v2-deep-project');
+  if (!sec) { sec=document.createElement('section'); sec.id='v2-deep-project'; sec.className='v2-deep-project'; $('#v2-project-dossier')?.after(sec); }
+  const labels = en ? {title:'Product anatomy',summary:'What the system is',users:'Users & roles',workflow:'End-to-end workflow',data:'Data & authority',economics:'Economics & value',governance:'Governance / security',proof:'What is already real',next:'What is next'} : {title:'Анатомия проекта',summary:'Что это за система',users:'Пользователи и роли',workflow:'Сквозной процесс',data:'Данные и authority',economics:'Экономика и ценность',governance:'Governance / безопасность',proof:'Что уже реально работает',next:'Что развивается дальше'};
+  const list=(xs)=>`<ul>${xs.map(x=>`<li>${x}</li>`).join('')}</ul>`;
+  const paint=()=>{
+    const id=modal.dataset.project; const d=V2_DEEP_PROJECTS[id]?.[en?'en':'ru']; const p=(projects||[]).find(x=>x.id===id);
+    if(!modal.open||!d){sec.hidden=true;return;} sec.hidden=false;
+    sec.innerHTML=`<div class="v2-deep-head"><div><p class="eyebrow">${labels.title}</p><h3>${p?.name||id}</h3></div><p>${d.summary}</p></div><details class="v2-deep-details" open><summary>${labels.users}</summary>${list(d.users)}</details><details class="v2-deep-details" open><summary>${labels.workflow}</summary>${list(d.workflow)}</details><details class="v2-deep-details"><summary>${labels.data}</summary>${list(d.data)}</details><details class="v2-deep-details"><summary>${labels.economics}</summary>${list(d.economics)}</details><details class="v2-deep-details"><summary>${labels.governance}</summary>${list(d.governance)}</details><details class="v2-deep-details"><summary>${labels.proof}</summary>${list(d.proof)}</details><details class="v2-deep-details"><summary>${labels.next}</summary>${list(d.next)}</details>`;
+  };
+  if(!modal.__v2DeepProjectBound){modal.__v2DeepProjectBound=true; new MutationObserver(paint).observe(modal,{attributes:true,attributeFilter:['open','data-project']});}
+  paint();
+}
+
 export function renderV2(lang, projects = []) {
   const en = lang === 'en';
   document.documentElement.dataset.preview = 'v2';
@@ -969,6 +990,7 @@ export function renderV2(lang, projects = []) {
   renderStakeholderLens(lang, $, projects);
   installExecutiveEvidence(lang, $, projects);
   installProjectDecisionDossier(lang, $, projects);
+  installDeepProjectDossier(lang, $, projects);
   installCommercialClarity(lang, $, projects);
   installCommercialProof(lang, $, projects);
   installStrategicHorizon(lang, $, projects);
@@ -979,8 +1001,142 @@ export function renderV2(lang, projects = []) {
     const section = document.createElement('section'); section.id = 'v2-steps'; section.className = 'section v2-steps';
     $('#contact').before(section);
   }
-  const steps = en ? [['Your challenge','Describe the situation and the outcome you need.'],['Scope of work','We clarify the data, constraints, deliverables and terms.'],['A clear next step','Agree the format and acceptance criteria before starting.']] : [['Ваша задача','Расскажите о ситуации и результате, который вам нужен.'],['Границы работы','Уточним данные, ограничения, состав результата и условия.'],['Понятный следующий шаг','Согласуем формат и критерии результата до начала работы.']];
-  $('#v2-steps').innerHTML = `<div class="section-head"><h2>${en ? 'How we start' : 'Как начинается работа'}</h2></div><div class="v2-step-grid">${steps.map((s,i)=>`<article><span class="svc-n">0${i+1}</span><h3>${s[0]}</h3><p>${s[1]}</p></article>`).join('')}</div>`;
+  const startModes = en ? [
+    {
+      id:'consulting', label:'Business problem', title:'Improve economics or management quality',
+      copy:'Buying, margin, inventory, working capital, reporting or a management problem that needs to be tested on data.',
+      need:['Describe what is currently costing money or slowing a decision','Say what data or reports are available','Name the result or metric that should improve'],
+      outcome:'You leave the first step with a problem frame, a data/request list and a concrete next decision.',
+      topic:'consulting', route:'#consulting',
+      message:'I want to discuss a business problem. Current issue: …\nAvailable data: …\nResult I want to improve: …'
+    },
+    {
+      id:'product', label:'Digital product', title:'Build, rebuild or launch a working product',
+      copy:'A new system, internal tool, customer product, workflow automation or an existing product that needs stronger architecture and execution.',
+      need:['Describe the user and the workflow that should change','Show what already exists: files, product, process or prototype','Name the first bounded result that would make the project useful'],
+      outcome:'The next step is scoped around the smallest working release, evidence and acceptance criteria rather than a long feature list.',
+      topic:'launch', route:'#v2-portfolio',
+      message:'I want to discuss a digital product. User/workflow: …\nWhat already exists: …\nFirst useful result: …'
+    },
+    {
+      id:'partnership', label:'Pilot / partnership', title:'Test a project together before scaling',
+      copy:'A bounded pilot, strategic partnership, channel, data or operating contribution where both sides need a measurable reason to continue.',
+      need:['State what your side can contribute','Choose the customer/user scenario to test','Define what evidence would justify scaling'],
+      outcome:'We define a small joint case, responsibilities and the evidence required before a larger commitment.',
+      topic:'partnership', route:'#investors',
+      message:'I want to discuss a pilot/partnership. What we can contribute: …\nScenario to test: …\nEvidence required to scale: …'
+    },
+    {
+      id:'investment', label:'Investment', title:'Review maturity, risk and the next capital gate',
+      copy:'A discussion around one of the products, its current proof, remaining risks, pilot economics and what the next capital commitment must unlock.',
+      need:['Choose the product or thesis you want to discuss','State which risk or assumption matters most','Say what evidence you need before the next commitment'],
+      outcome:'The conversation starts from current proof and the next de-risking gate, not from a generic pitch.',
+      topic:'investors', route:'#investors',
+      message:'I want to discuss investment. Product/thesis: …\nMain risk or assumption: …\nEvidence I need before the next commitment: …'
+    }
+  ] : [
+    {
+      id:'consulting', label:'Бизнес-задача', title:'Улучшить экономику или управляемость бизнеса',
+      copy:'Закупка, маржа, запасы, оборотный капитал, отчётность или управленческая проблема, которую нужно проверить на данных.',
+      need:['Опишите, что сейчас стоит денег или тормозит решение','Укажите, какие данные или отчёты уже есть','Назовите результат или показатель, который должен измениться'],
+      outcome:'На первом шаге фиксируем рамку проблемы, список нужных данных и конкретное следующее решение.',
+      topic:'consulting', route:'#consulting',
+      message:'Хочу обсудить бизнес-задачу.\nЧто сейчас происходит: …\nКакие данные есть: …\nКакой результат хочу улучшить: …'
+    },
+    {
+      id:'product', label:'Цифровой продукт', title:'Создать, пересобрать или запустить рабочий продукт',
+      copy:'Новая система, внутренний инструмент, клиентский продукт, автоматизация процесса или существующий продукт, которому нужна более сильная архитектура и реализация.',
+      need:['Опишите пользователя и процесс, который должен измениться','Покажите, что уже есть: файлы, система, процесс или прототип','Назовите первый ограниченный результат, после которого продукт уже полезен'],
+      outcome:'Следующий шаг строится вокруг минимального рабочего релиза, evidence и критериев приёмки, а не вокруг бесконечного списка функций.',
+      topic:'launch', route:'#v2-portfolio',
+      message:'Хочу обсудить цифровой продукт.\nПользователь / процесс: …\nЧто уже есть: …\nПервый полезный результат: …'
+    },
+    {
+      id:'partnership', label:'Пилот / партнёрство', title:'Проверить совместный кейс до масштабирования',
+      copy:'Ограниченный пилот, стратегическое партнёрство, канал, данные или операционный вклад, где обеим сторонам нужен измеримый повод продолжать.',
+      need:['Опишите, что ваша сторона может привнести','Выберите клиентский или пользовательский сценарий для проверки','Определите, какое evidence станет основанием масштабировать'],
+      outcome:'Фиксируем небольшой совместный кейс, ответственность сторон и доказательства, которые нужны до более крупного обязательства.',
+      topic:'partnership', route:'#investors',
+      message:'Хочу обсудить пилот / партнёрство.\nЧто мы можем привнести: …\nКакой сценарий проверяем: …\nЧто должно быть доказано для масштабирования: …'
+    },
+    {
+      id:'investment', label:'Инвестиции', title:'Разобрать зрелость, риски и следующий capital gate',
+      copy:'Обсуждение конкретного продукта: что уже доказано, какие риски остаются, что должен показать пилот и что обязан разблокировать следующий капитал.',
+      need:['Выберите проект или инвестиционную гипотезу','Назовите главный риск или допущение','Укажите, какие подтверждения нужны до следующего обязательства'],
+      outcome:'Разговор начинается с текущего proof и следующего de-risking gate, а не с общего pitch.',
+      topic:'investors', route:'#investors',
+      message:'Хочу обсудить инвестиции.\nПроект / гипотеза: …\nГлавный риск или допущение: …\nКакие подтверждения нужны до следующего шага: …'
+    }
+  ];
+  $('#v2-steps').innerHTML = `
+    <div class="v2-start-head">
+      <div>
+        <p class="eyebrow">${en ? 'Start here' : 'Начните здесь'}</p>
+        <h2>${en ? 'How the work actually starts' : 'Как начинается работа'}</h2>
+      </div>
+      <p>${en ? 'Choose the closest situation. The block will show what to prepare and one clear action to continue.' : 'Выберите ближайшую ситуацию. Блок сразу покажет, что подготовить и куда нажать дальше.'}</p>
+    </div>
+    <div class="v2-start-choice" role="group" aria-label="${en ? 'Choose how to start' : 'Выберите, с чего начать'}">
+      ${startModes.map((m)=>`<button type="button" class="v2-start-mode" data-v2-start-mode="${m.id}" aria-pressed="false"><span>${m.label}</span><strong>${m.title}</strong><small>${m.copy}</small></button>`).join('')}
+    </div>
+    <div class="v2-start-panel" id="v2-start-panel">
+      <div class="v2-start-empty">
+        <span>01</span>
+        <div><strong>${en ? 'Choose one option above' : 'Выберите один вариант выше'}</strong><p>${en ? 'Then you will see exactly what is needed and a button to continue.' : 'После выбора здесь появится точный список того, что нужно, и кнопка для продолжения.'}</p></div>
+      </div>
+    </div>`;
+  const startSection = $('#v2-steps');
+  const paintStartMode = (id) => {
+    const mode = startModes.find((x)=>x.id===id);
+    if (!mode) return;
+    startSection.querySelectorAll('[data-v2-start-mode]').forEach((b)=>{
+      const active=b.dataset.v2StartMode===id;
+      b.classList.toggle('active',active);
+      b.setAttribute('aria-pressed',String(active));
+    });
+    $('#v2-start-panel').innerHTML = `
+      <div class="v2-start-selected">
+        <div class="v2-start-number">02</div>
+        <div class="v2-start-need">
+          <span class="eyebrow">${en ? 'What to prepare now' : 'Что подготовить сейчас'}</span>
+          <h3>${mode.title}</h3>
+          <ol>${mode.need.map((x)=>`<li>${x}</li>`).join('')}</ol>
+        </div>
+        <div class="v2-start-result">
+          <span class="eyebrow">${en ? 'What happens next' : 'Что будет дальше'}</span>
+          <p>${mode.outcome}</p>
+          <div class="v2-start-actions">
+            <button type="button" class="btn btn-primary" data-v2-start-continue="${mode.id}">${en ? 'Continue to the short form' : 'Перейти к короткой форме'} →</button>
+            <a class="btn" href="https://t.me/sheqel" target="_blank" rel="noopener">${en ? 'Message on Telegram' : 'Написать в Telegram'}</a>
+          </div>
+          <button type="button" class="v2-start-context" data-v2-start-context="${mode.id}">${en ? 'First review the relevant section' : 'Сначала посмотреть соответствующий раздел'} →</button>
+        </div>
+      </div>`;
+  };
+  if (!startSection.__v2StartBound) {
+    startSection.__v2StartBound = true;
+    startSection.addEventListener('click',(e)=>{
+      const modeBtn=e.target.closest('[data-v2-start-mode]');
+      if(modeBtn){ paintStartMode(modeBtn.dataset.v2StartMode); return; }
+      const continueBtn=e.target.closest('[data-v2-start-continue]');
+      if(continueBtn){
+        const mode=startModes.find((x)=>x.id===continueBtn.dataset.v2StartContinue);
+        if(!mode)return;
+        const topic=$('#topic');
+        if(topic){ topic.value=mode.topic; topic.dispatchEvent(new Event('change',{bubbles:true})); }
+        const message=$('#form [name="message"]');
+        if(message && !message.value.trim()) message.value=mode.message;
+        $('#contact')?.scrollIntoView({behavior:'smooth',block:'start'});
+        setTimeout(()=>$('#form [name="name"]')?.focus(),350);
+        return;
+      }
+      const contextBtn=e.target.closest('[data-v2-start-context]');
+      if(contextBtn){
+        const mode=startModes.find((x)=>x.id===contextBtn.dataset.v2StartContext);
+        document.querySelector(mode?.route)?.scrollIntoView({behavior:'smooth',block:'start'});
+      }
+    });
+  }
   $('#contact-sub').textContent = en ? 'Your name, one way to reach you and a few words about your challenge are enough to start.' : 'Для начала достаточно имени, одного способа связи и нескольких слов о задаче.';
   if (!$('#v2-contact-method')) {
     const label = document.createElement('label'); label.className = 'field'; label.id = 'v2-method-field';
