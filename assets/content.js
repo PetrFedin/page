@@ -2685,8 +2685,8 @@ export const PROJECTS = [
     ru: {
       collab: [{ k: 'Пилот', v: 'Бренд или магазин проводит в системе реальный сезон; его опыт определяет мои приоритеты в разработке.' }, { k: 'Выход на рынок', v: 'Партнёр с доступом к каналу, который берёт на себя продажи и внедрение.' }, { k: 'Интеграция', v: 'Подключение к учётной системе бренда выполняется отдельным проектом.' }, { k: 'По запросу', v: 'Демонстрация на ваших данных; сравнение функций с международными платформами.' }],
       status: {
-        done: ['Единый контур продукта, коллекций и коммерческой работы', 'Цифровое взаимодействие бренда с партнёрами и байерами', 'Управляемые заказы, подтверждения и изменения', 'Контуры разработки продукта, закупки и производства', 'Контроль качества и истории исполнения', 'Аналитика экономики продукта и заказа'],
-        now: ['Усиление работы с поставщиками и производственными партнёрами', 'Доведение сквозных пользовательских сценариев до пилотного уровня', 'Подготовка первого реального сезонного пилота и интеграционного контура клиента'],
+        done: ['Единый контур продукта, коллекций и коммерческой работы', 'Цифровое взаимодействие бренда с партнёрами и байерами', 'Управляемые заказы, подтверждения и изменения', 'Контуры разработки продукта, закупки и производства', 'Контроль качества и истории исполнения', 'Аналитика экономики продукта и заказа', 'Entity-linked operational threads и immutable Decision Ledger с PostgreSQL persistence'],
+        now: ['Доведение operational collaboration до пользовательского ODS-интерфейса', 'Следующий внутренний gate — Exception/SLA без создания второй task/calendar authority', 'Подготовка первого реального сезонного пилота и интеграционного контура клиента'],
         next: ['Пилот с первым брендом на реальном сезоне', 'Интеграция с ERP / учётной системой бренда', 'Проверка коммерческой модели и стоимости внедрения на фактическом пилоте'],
         seeking: 'Нужен первый бренд для пилота на реальном сезоне и партнёр, который понимает продажи и внедрение отраслевых B2B-систем.'
       },
@@ -2694,7 +2694,7 @@ export const PROJECTS = [
       roadmap: [{ label: 'Прототип', state: 'done' }, { label: 'Рабочая система', state: 'done' }, { label: 'Готовится к пилоту', state: 'current' }, { label: 'Пилот и запуск', state: 'next' }],
       tagline: 'Операционная система бренда: от продукта и заказа до фактической маржи',
       stage: 'Рабочая система, готовится к пилоту',
-      card: 'Ключевые продуктовые и коммерческие сценарии уже собраны в единой рабочей системе: от подготовки коллекции и работы с партнёрами до заказа, исполнения и контроля экономики. Следующий проверяемый рубеж — пилот на реальном сезоне.',
+      card: 'Ключевые продуктовые и коммерческие сценарии собраны в единой рабочей системе. На PostgreSQL уже доказаны entity-linked operational threads и immutable Decision Ledger; следующий внешний рубеж остаётся прежним — пилот с брендом на реальном сезоне.',
       what: 'B2B-платформа для бренда и его партнёров, которая связывает разработку продукта, работу с коллекцией, продажи, исполнение заказа, производство и экономику в одном управляемом контуре.',
       who: 'Брендам и производствам, которым важно связать разработку продукта с продажей; розничным сетям, мультибрендовым байерам и дистрибьюторам, которым нужны подтверждённые цена, доступность, заказ и поставка.',
       why: 'Продукт, заказ, остаток, себестоимость и маржа часто живут в разных системах. Из-за этого подтверждение заказа, доступность товара и итоговая экономика сверяются вручную и становятся видны слишком поздно.',
@@ -2703,8 +2703,8 @@ export const PROJECTS = [
     en: {
       collab: [{ k: 'Pilot', v: 'A brand or retailer runs a real season in the system, and its experience sets my development priorities.' }, { k: 'Go to market', v: 'A partner with channel access who takes on sales and rollout.' }, { k: 'Integration', v: 'Integration with the brand’s ERP is delivered as a separate project.' }, { k: 'On request', v: 'A demo on your own data, and a feature comparison with international platforms.' }],
       status: {
-        done: ['Unified product, collection and commercial workflow', 'Digital collaboration between brand, retail partners and buyers', 'Governed orders, confirmations and change history', 'Product-development, sourcing and production workflows', 'Quality-control and execution history', 'Product and order economics analytics'],
-        now: ['Strengthening supplier and production-partner workflows', 'Completing end-to-end user journeys for pilot use', 'Preparing the first real-season pilot and client integration scope'],
+        done: ['Unified product, collection and commercial workflow', 'Digital collaboration between brand, retail partners and buyers', 'Governed orders, confirmations and change history', 'Product-development, sourcing and production workflows', 'Quality-control and execution history', 'Product and order economics analytics', 'Entity-linked operational threads and immutable Decision Ledger proven on PostgreSQL'],
+        now: ['Bringing operational collaboration into the ODS user interface', 'Next internal gate: Exception/SLA without duplicating task or calendar authority', 'Preparing the first real-season pilot and client integration scope'],
         next: ['A pilot with a first brand across a real season', 'Integration with the brand’s ERP'],
         seeking: 'Seeking brands and retailers for a pilot, and a go-to-market partner.'
       },
@@ -2712,7 +2712,7 @@ export const PROJECTS = [
       roadmap: [{ label: 'Prototype', state: 'done' }, { label: 'Working system', state: 'done' }, { label: 'Preparing for a pilot', state: 'current' }, { label: 'Pilot and launch', state: 'next' }],
       tagline: 'An operating platform from product and wholesale order to verified commercial execution',
       stage: 'Working system, preparing for a pilot',
-      card: 'Core product and commercial workflows are already connected in one working system, from collection preparation and partner collaboration to order execution and economics. The next verifiable milestone is a real-season pilot.',
+      card: 'Core product and commercial workflows are connected in one working system. Entity-linked operational threads and an immutable Decision Ledger are now PostgreSQL-proven; the next external milestone remains a real-season brand pilot.',
       what: 'A B2B operating platform for brands and their partners, connecting product development, collection work, sales, order execution, production and economics in one governed workflow.',
       who: 'Brands, retail chains, multi-brand buyers, distributors and manufacturers. Each has its own role and access rights.',
       why: 'Product data sits in one system, sales in another, stock in a third. The brand cannot see what is confirmed; the retailer cannot rely on delivery. Reconciliation is manual and after the fact.',
@@ -2813,8 +2813,8 @@ export const PROJECTS = [
     ru: {
       roadmap: [{ label: 'MVP', state: 'done' }, { label: 'Демонстрация организаторам', state: 'current' }, { label: 'Использование на мероприятиях', state: 'next' }],
       tagline: 'Единая цифровая платформа для Недели моды в Москве, BRICS+ Fashion Summit и «Сделано в Москве»',
-      stage: 'Расширенный MVP / pilot-ready preview',
-      card: 'MFW, BFS и «Сделано в Москве» объединены в одну fashion-экосистему с общим аккаунтом, персональным маршрутом, взаимодействием с брендами, B2B-сценариями и аналитикой. Следующий рубеж — пилот на реальном событии и проверка ценности между сезонами.',
+      stage: 'Pilot-ready preview · production admission blocked',
+      card: 'MFW, BFS и «Сделано в Москве» объединены в одну fashion-экосистему. Интерфейс отдельно адаптирован под монитор, планшет и телефон; Capital Authority имеет fail-closed admission contract. Production admission всё ещё блокирует безопасная привязка PostgreSQL, после неё — реальный event pilot.',
       what: 'Цифровая экосистема вокруг MFW, BRICS+ Fashion Summit и «Сделано в Москве». Один аккаунт связывает программу, личный маршрут, взаимодействие с брендами, B2B и работу с аудиторией между событиями.',
       who: 'Организаторам — единая витрина и сводные цифры по обоим событиям. Брендам и дизайнерам — аудитория, которая остаётся после показа, и подтверждённый профиль в «Сделано в Москве». Площадкам и партнёрам — заметный вклад и путь от встречи к лиду. Гостям — один аккаунт, личная программа и цифровой пропуск. Та же основа подходит другим городам, форматам и отраслям, где событие — ядро бизнеса.',
       why: 'У события есть регистрация, программа и пропуск, но после финального дня связь с аудиторией быстро обнуляется. Бренд снова начинает поиск внимания, а организатор теряет историю интереса, встреч и взаимодействий между сезонами.',
@@ -2824,8 +2824,8 @@ export const PROJECTS = [
     en: {
       roadmap: [{ label: 'Expanded MVP', state: 'done' }, { label: 'Pilot-ready preview', state: 'current' }, { label: 'Real-event pilot', state: 'next' }],
       tagline: 'One digital platform for Moscow Fashion Week, BRICS+ Fashion Summit and Made in Moscow',
-      stage: 'Expanded MVP / pilot-ready preview',
-      card: 'MFW, BFS and Made in Moscow are connected in one fashion ecosystem with shared identity, personal journeys, brand interaction, B2B workflows and analytics. The next milestone is a real-event pilot and validation of value between seasons.',
+      stage: 'Pilot-ready preview · production admission blocked',
+      card: 'MFW, BFS and Made in Moscow are connected in one fashion ecosystem. Monitor, tablet and phone layouts are separately hardened, and Capital Authority has a fail-closed admission contract. Production admission still depends on secure PostgreSQL binding; then comes a real-event pilot.',
       what: 'A digital ecosystem around MFW, BRICS+ Fashion Summit and Made in Moscow. One account connects programme, personal agenda, brand interaction, B2B and audience continuity between events.',
       who: 'Organisers get a single showcase and joint figures for both events. Brands and designers get an audience that outlasts the show, and a verified profile in Made in Moscow. Venues and partners get a visible contribution and a traceable path from meeting to lead. Guests get one account, a personal programme and a digital pass. The same foundation suits other cities, formats and industries where an event is the core of the business.',
       why: 'An event gathers people for a few days, then the audience disperses: the brand hunts for viewers again, the organiser cannot see what happened between seasons, the guest juggles two schedules. A digital layer turns one-off interest into accumulated interest: follows, loyalty and data grow from show to show, and with them the value to partners and sponsors.',
@@ -2842,7 +2842,7 @@ export const PROJECTS = [
       tagline: '«СОСТОЯНИЕ» — сообщество и ежегодная конференция о здоровье и качестве жизни',
       roadmap: [{ label: 'Рабочий прототип', state: 'done' }, { label: 'Демонстрация Promomed', state: 'current' }, { label: 'Разработка и запуск', state: 'next' }],
       stage: 'Live v1.4, controlled-pilot readiness',
-      card: '«СОСТОЯНИЕ» уже объединяет круглогодичный контент, многопоточную конференцию, персональный маршрут участника, работу площадки, партнёрские сценарии и аналитический контур. Следующий рубеж — контролируемый пилот с реальными пользователями и процессами.',
+      card: '«СОСТОЯНИЕ» объединяет круглогодичный контент, конференцию, participant journey и аналитику. Слит External Verification Interoperability v1: issuer lifecycle, public-key verification, status lists и immutable signed evidence checkpoints. Следующий внешний рубеж — controlled pilot.',
       what: 'Цифровая среда для круглогодичной работы с аудиторией и проведения конференции: контент, программа, персональный маршрут, бронирования, работа площадки, партнёрский кабинет, продолжение взаимодействия после события и аналитика.',
       who: 'Организатору — единый контур регистрации, программы, посещения и последующего взаимодействия. Участнику — персональный маршрут и материалы по интересам. Партнёру — прозрачный сценарий присутствия и контакты только с согласия человека.',
       why: 'Регистрация, программа, рассылки и партнёрские активности обычно существуют отдельно. Организатор видит событие как несколько несвязанных систем, а история интереса участника почти не используется после конференции.',
@@ -2853,12 +2853,92 @@ export const PROJECTS = [
       roadmap: [{ label: 'Live v1.4', state: 'done' }, { label: 'Controlled-pilot readiness', state: 'current' }, { label: 'Controlled pilot', state: 'next' }],
       tagline: '“SOSTOYANIE” — a year-round health-media and conference operating platform',
       stage: 'Live v1.4, controlled-pilot readiness',
-      card: 'SOSTOYANIE already combines year-round content, a multi-track conference, personalised participant journeys, event operations, partner workflows and analytics. The next milestone is a controlled pilot with real users and processes.',
+      card: 'SOSTOYANIE connects year-round content, conference operations, participant journeys and analytics. External Verification Interoperability v1 is merged: issuer lifecycle, public-key verification, status lists and immutable signed evidence checkpoints. The next external milestone is a controlled pilot.',
       what: 'A digital environment for year-round audience engagement and conference operations: content, programme, personal journey, booking, venue operations, partner workspace, post-event continuation and analytics.',
       who: 'Promomed gains a standing link with clients and partners, and a conference whose figures are visible in real time. Participants get a route and materials matched to their interests. Partners get a clear return on attendance, with leads shared only by consent. The same model suits other industries where a conference is the core of the relationship with the audience.',
       why: 'A conference happens once a year, but interest in it lives all year. Newsletters, social media, registration and programme run separately, so the relationship built does not strengthen the event, and participants leave with a folder of handouts instead of a route of their own. The platform joins these into one journey that does not end at the exit.',
       how: 'Different participants receive different workflows and permissions. Personalisation does not replace medical judgement, and material requiring verification passes human review before publication.',
       seeking: 'I am looking for partners for “SOSTOYANIE”: experts, companies and organisers who would like to build a community around a conference.'
+    }
+  },
+  {
+    id: 'moscow',
+    name: 'Moscow',
+    device: 'iphone',
+    shots: [],
+    ru: {
+      roadmap: [{ label: 'Mobile MVP', state: 'done' }, { label: 'Proof / pilot readiness', state: 'current' }, { label: 'Field + supervised pilot', state: 'next' }],
+      tagline: 'Городской туристический слой: маршрут, история места и spatial experience',
+      stage: 'Mobile MVP / government-pilot readiness · field proof впереди',
+      card: 'Мобильный продукт для прогулки по Москве связывает карту, маршрут, provenance, исторический слой и 3D/AR/VR. Пилот Варварка — Зарядье собран как доказательный контур; следующий gate — реальный physical field proof и supervised user pilot.',
+      what: 'Мобильная destination-платформа для реального города: план дня и прогулка, исторический контекст, verified spatial packages, 3D/AR/VR, offline-safe маршрут и личная история посещений.',
+      who: 'Городу и destination-операторам — проверяемый цифровой слой туристического пути; музеям и культурным площадкам — управляемая публикация исторического контента; туристу — один маршрут от плана до фактического посещения.',
+      why: 'План, билеты, городская история и фактическое посещение обычно живут раздельно. Для spatial experience отдельно возникает риск красивой, но недоказанной реконструкции.',
+      how: 'Published Spatial Package связывает source/provenance, права, модель и field-verification state. Первый reference route — Варварка — Зарядье; Romanov и Old English Court используются для доказательства точности и повторяемости.',
+      seeking: 'Нужны city/pilot owners, доступ к площадке и согласованный evidence route для physical field proof и supervised pilot.',
+      status: {
+        done: ['iOS/Android React Native product и web QA из одной кодовой базы', 'Varvarka — Zaryadye traveler flow и destination package authority', 'Provenance + 3D/AR/VR spatial pipeline', 'Government/investor pilot and acceptance surfaces'],
+        now: ['Romanov physical field proof', 'Old English Court repeatability evidence', 'City Heritage Studio / evidence handoff readiness'],
+        next: ['Supervised visitor pilot', 'Provider/integration proof', 'Human scale decision only after field, governance and economics evidence'],
+        seeking: 'Пилотная площадка, named owners и формальный маршрут приёмки доказательств.'
+      }
+    },
+    en: {
+      roadmap: [{ label: 'Mobile MVP', state: 'done' }, { label: 'Proof / pilot readiness', state: 'current' }, { label: 'Field + supervised pilot', state: 'next' }],
+      tagline: 'A city journey layer connecting route, place history and spatial experience',
+      stage: 'Mobile MVP / government-pilot readiness · field proof pending',
+      card: 'The mobile Moscow product connects maps, journeys, provenance, historical context and 3D/AR/VR. The Varvarka — Zaryadye pilot is assembled as an evidence path; the next gate is real physical field proof and a supervised user pilot.',
+      what: 'A mobile destination platform for the real city: day planning and walking, historical context, verified spatial packages, 3D/AR/VR, offline-safe routes and a personal visit history.',
+      who: 'City and destination operators, museums and cultural venues, and travelers who need one governed journey from planning to verified place experience.',
+      why: 'Planning, tickets, city history and actual visits usually live in separate systems. Spatial experiences add another risk: persuasive reconstruction without field evidence.',
+      how: 'Published Spatial Packages bind source/provenance, rights, model and field-verification state. Varvarka — Zaryadye is the first reference route, with Romanov and Old English Court used to prove accuracy and repeatability.',
+      seeking: 'City/pilot owners, site access and an agreed evidence route for physical field proof and a supervised pilot.',
+      status: {
+        done: ['iOS/Android React Native product with web QA from the same codebase', 'Varvarka — Zaryadye traveler flow and destination package authority', 'Provenance + 3D/AR/VR spatial pipeline', 'Government/investor pilot and acceptance surfaces'],
+        now: ['Romanov physical field proof', 'Old English Court repeatability evidence', 'City Heritage Studio / evidence handoff readiness'],
+        next: ['Supervised visitor pilot', 'Provider/integration proof', 'Human scale decision only after field, governance and economics evidence'],
+        seeking: 'Pilot site, named owners and a formal evidence-acceptance route.'
+      }
+    }
+  },
+  {
+    id: 'antiqua',
+    name: 'Antiqua',
+    device: 'ipad',
+    shots: [],
+    ru: {
+      roadmap: [{ label: 'Gallery-first core', state: 'done' }, { label: 'Trust / production admission', state: 'current' }, { label: 'External art pilot', state: 'next' }],
+      tagline: 'Цифровая экосистема живописи, графики, гравюр и коллекций',
+      stage: 'Gallery-first MVP · machine-verifiable production admission',
+      card: 'Antiqua сфокусирована на картинах и работах на бумаге: Gallery → Artwork → Artist → Related Works → Collections/Taste. На main уже есть machine-verifiable production admission и research trust stack; следующий внешний рубеж — работа с реальными коллекциями и институциями.',
+      what: 'Gallery-first art platform для живописи, рисунка, графики, гравюры и printmaking: глубокая карточка Artwork, Artist, Related Works, curated Collections, Taste discovery и исследовательский контекст.',
+      who: 'Коллекционерам и ценителям искусства, галереям, художникам, кураторам, историкам искусства и исследователям — с разными privacy и authority boundaries.',
+      why: 'Работа искусства часто отделена от истории автора, provenance, related works, коллекции и исследовательского контекста; коммерческие каталоги обычно не решают эту задачу целиком.',
+      how: 'Artwork/Artist остаются authority-объектами, Collections feeds Taste, а public network строится как projection поверх проверяемых сущностей. Экспертность, provenance и promotion не смешиваются в один рейтинг.',
+      seeking: 'Нужны реальные коллекции, галереи и исследовательские партнёры для проверки gallery-first journey и доверительного контура.',
+      status: {
+        done: ['Gallery-first consumer art journey', 'Artwork → Artist → Related Works', 'Collections → Taste retention loop', 'Machine-verifiable production admission and research trust stack'],
+        now: ['Дальнейшая очистка legacy object/antique wording', 'Production PostgreSQL integrity/admission proof', 'Глубина gallery / artist / research surfaces'],
+        next: ['External collection/gallery pilot', 'Books/Courses/Events cultural graph', 'IIIF/media authority and provenance tooling only through explicit gates'],
+        seeking: 'Галерея, коллекционер или институция для пилота на реальных произведениях.'
+      }
+    },
+    en: {
+      roadmap: [{ label: 'Gallery-first core', state: 'done' }, { label: 'Trust / production admission', state: 'current' }, { label: 'External art pilot', state: 'next' }],
+      tagline: 'A digital ecosystem for painting, works on paper, prints and collections',
+      stage: 'Gallery-first MVP · machine-verifiable production admission',
+      card: 'Antiqua is focused on paintings and works on paper: Gallery → Artwork → Artist → Related Works → Collections/Taste. Main now includes machine-verifiable production admission and a research trust stack; the next external milestone is real collection and institution use.',
+      what: 'A gallery-first art platform for painting, drawing, graphics, engraving and printmaking: deep Artwork and Artist records, Related Works, curated Collections, Taste discovery and research context.',
+      who: 'Collectors and art enthusiasts, galleries, artists, curators, art historians and researchers, each with explicit privacy and authority boundaries.',
+      why: 'An artwork is often separated from artist history, provenance, related works, collections and research context; commerce-first catalogues rarely connect the full chain.',
+      how: 'Artwork and Artist remain authority objects, Collections feed Taste, and the public network is a projection over governed entities. Expertise, provenance and promotion remain separate signals.',
+      seeking: 'Real collections, galleries and research partners for a gallery-first and trust-model pilot.',
+      status: {
+        done: ['Gallery-first consumer art journey', 'Artwork → Artist → Related Works', 'Collections → Taste retention loop', 'Machine-verifiable production admission and research trust stack'],
+        now: ['Removing remaining legacy object/antique wording', 'Production PostgreSQL integrity/admission proof', 'Deeper gallery / artist / research surfaces'],
+        next: ['External collection/gallery pilot', 'Books/Courses/Events cultural graph', 'IIIF/media authority and provenance tooling only through explicit gates'],
+        seeking: 'A gallery, collector or institution for a pilot on real artworks.'
+      }
     }
   }
 

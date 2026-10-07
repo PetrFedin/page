@@ -11,12 +11,12 @@ import { fileURLToPath } from 'node:url';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const ЗАМЕНЫ = [
-  ['<html lang="ru">', '<html lang="en">'],
+  ['<html lang="ru" data-preview="v2">', '<html lang="en" data-preview="v2">'],
   ['/assets/photo/petr-portrait.webp', '/assets/photo/petr-ny.webp'],
   ['<title>Пётр Федин — фэшн-консалтинг и проекты</title>',
    '<title>Petr Fedin — fashion advisory and projects</title>'],
-  ['content="Консультирую фэшн-бренды и разрабатываю собственные IT-продукты: Syntha, ChatX, Renova, MFW+BFS+Made in Moscow, Promomed."',
-   'content="I advise fashion brands and build my own IT products: Syntha, ChatX, Renova, MFW+BFS+Made in Moscow, Promomed."'],
+  ['content="Консультирую фэшн-бренды и разрабатываю собственные IT-продукты: Syntha, ChatX, Renova, MFW+BFS+Made in Moscow, Promomed, Moscow и Antiqua."',
+   'content="I advise fashion brands and build my own IT products: Syntha, ChatX, Renova, MFW+BFS+Made in Moscow, Promomed, Moscow and Antiqua."'],
   ['<meta property="og:url" content="https://syntha.pro/">',
    '<meta property="og:url" content="https://syntha.pro/en/">'],
   ['content="Пётр Федин — фэшн-консалтинг и проекты"',
