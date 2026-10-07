@@ -891,6 +891,16 @@ function installDisclosureLadder(lang, $, projects) {
 /* V2.14 qualified lead routing */
 const V2_LEAD_ROUTES = {
   ru: {
+    consulting: {
+      title: 'Консалтинг',
+      lead: 'Коротко фиксируем бизнес-задачу, доступный контекст и срок, чтобы первый разговор сразу был предметным.',
+      topic: 'consulting',
+      fields: [
+        {name:'leadGoal',label:'Какой результат должен измениться?',type:'text',placeholder:'Маржа / запасы / деньги / скорость решений / другое'},
+        {name:'leadScope',label:'Какой контекст уже есть?',type:'text',placeholder:'Коротко: процесс, данные, ограничения'},
+        {name:'leadTiming',label:'Когда нужен первый результат?',type:'select',options:['До 1 месяца','1–3 месяца','3–6 месяцев','Срок пока не определён']}
+      ]
+    },
     pilot: {
       title: 'Пилот',
       lead: 'Короткие вопросы, чтобы первый разговор был о реальной проверке продукта, а не об общей презентации.',
@@ -936,6 +946,16 @@ const V2_LEAD_ROUTES = {
     }
   },
   en: {
+    consulting: {
+      title: 'Advisory',
+      lead: 'Capture the business problem, available context and timing so the first conversation starts with a decision frame.',
+      topic: 'consulting',
+      fields: [
+        {name:'leadGoal',label:'What outcome should improve?',type:'text',placeholder:'Margin / inventory / cash / decision speed / other'},
+        {name:'leadScope',label:'What context is already available?',type:'text',placeholder:'Briefly: process, data, constraints'},
+        {name:'leadTiming',label:'When is the first result needed?',type:'select',options:['Within 1 month','1–3 months','3–6 months','Timing not defined yet']}
+      ]
+    },
     pilot: {
       title: 'Pilot',
       lead: 'A few short questions so the first conversation is about a real validation scope, not a generic presentation.',
@@ -999,16 +1019,18 @@ function installQualifiedLeadRouting(lang, $, projects) {
     $('#topic-other-field')?.after(panel);
   }
 
-  const routeFromTopic = (value) => value === 'launch' ? 'pilot' : value === 'partnership' ? 'partnership' : value === 'investors' ? 'investment' : '';
+  const routeFromTopic = (value) => value === 'consulting' ? 'consulting' : value === 'launch' ? 'pilot' : value === 'partnership' ? 'partnership' : value === 'investors' ? 'investment' : '';
 
   const defaultMessage = (route, projectId) => {
     const p = (projects || []).find((x)=>x.id===projectId);
     const name = p?.name || (en ? 'the project' : 'проект');
     return en
-      ? route === 'pilot' ? `I would like to discuss a pilot for ${name}.`
+      ? route === 'consulting' ? 'I would like to discuss an advisory engagement around a concrete business problem.'
+      : route === 'pilot' ? `I would like to discuss a pilot for ${name}.`
       : route === 'partnership' ? `I would like to discuss a partnership around ${name}.`
       : route === 'diligence' ? `I would like to discuss NDA / diligence for ${name}.`
       : `I would like to discuss investment in ${name}.`
+      : route === 'consulting' ? 'Хочу обсудить консалтинг по конкретной бизнес-задаче.'
       : route === 'pilot' ? `Хочу обсудить пилот ${name}.`
       : route === 'partnership' ? `Хочу обсудить партнёрство вокруг ${name}.`
       : route === 'diligence' ? `Хочу обсудить NDA / проверку по ${name}.`
