@@ -117,6 +117,9 @@ input.search:focus{border-color:var(--accent)}
 .leadq-break{grid-column:1/-1;display:flex;gap:6px;flex-wrap:wrap}.leadq-break span{font-size:11px;padding:3px 7px;border:1px solid var(--line);border-radius:999px;background:var(--panel)}
 .leadq details{grid-column:1/-1}.leadq summary{cursor:pointer;font-size:12px;color:var(--muted)}.leadq ul{margin:8px 0 0;padding-left:18px}.leadq li{font-size:12px;color:var(--muted);margin:3px 0}
 .leadq>p{grid-column:1/-1;margin:0;font-size:12px;color:var(--muted)}
+.lead-brief{margin:12px 0;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
+.lead-brief .eyebrow{margin:0 0 6px}
+.lead-brief pre{margin:0;white-space:pre-wrap;font:inherit;font-size:12px;line-height:1.55;color:var(--ink)}
 .leadops{display:grid;grid-template-columns:1.15fr .8fr 1.6fr .8fr;gap:9px;margin:12px 0}
 .leadops label{display:grid;gap:4px;font-size:11px;color:var(--muted)}
 .leadops input,.leadops select{width:100%;border:1px solid var(--line);background:var(--panel);border-radius:9px;padding:8px 9px;font-size:13px;min-width:0}
@@ -584,6 +587,9 @@ function client() {
         const routeLabel = { pilot:'Пилот', partnership:'Партнёрство', investment:'Инвестиции', diligence:'NDA / проверка' }[q.route] || '—';
         const breakdown = q.breakdown || {};
         const history=(s.operations||[]).slice().reverse();
+        const leadBriefBox = s.lead?.brief
+          ? '<div class="lead-brief"><p class="eyebrow">Brief первого разговора</p><pre>' + esc(s.lead.brief) + '</pre></div>'
+          : '';
         return '<div class="card" id="lead-' + s.id + '"><div class="head"><h3>' + esc(s.name) + '</h3><span class="when">' + esc(when(s.ts)) + '</span><span class="tag">' + esc(s.topic) + '</span>'
           + '<span class="tag ' + priorityClass + '">Приоритет ' + esc(q.priority || '—') + '</span><span class="when">Готовность ' + esc(scoreLabel) + '</span>'
           + '<span class="tag">' + esc(STATUS[o.status] || 'New') + '</span>'
@@ -594,6 +600,7 @@ function client() {
           + (q.score == null ? '<p>Новая квалификационная форма для этой заявки не применялась.</p>' : '<div class="leadq-score"><strong>' + esc(scoreLabel) + '</strong><small>готовность запроса</small></div>')
           + (q.score == null ? '' : '<div class="leadq-break"><span>Тип +' + num(breakdown.intent) + '</span><span>Проект +' + num(breakdown.project) + '</span><span>Ответы +' + num(breakdown.completeness) + '</span><span>Срок +' + num(breakdown.timing) + '</span><span>Следующий шаг +' + num(breakdown.nextStep) + '</span></div>')
           + (q.reasons?.length ? '<details><summary>Почему такой приоритет</summary><ul>' + q.reasons.map((r) => '<li>' + esc(r) + '</li>').join('') + '</ul></details>' : '') + '</div>'
+          + leadBriefBox
           + '<div class="leadops" data-lead-op="' + s.id + '">'
           + '<label>Статус<select name="status">' + Object.entries(STATUS).map(([k,l])=>'<option value="' + k + '"' + (o.status===k?' selected':'') + '>' + l + '</option>').join('') + '</select></label>'
           + '<label>Ответственный<input name="owner" value="' + esc(o.owner || '') + '" placeholder="Пётр / команда"></label>'
