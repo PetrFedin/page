@@ -290,10 +290,16 @@ function renderPortfolioIntelligence(lang, $, projects) {
       }
       const open = e.target.closest('[data-v2-open]');
       if (open) {
-        const target = document.querySelector(`#cards [data-open="${CSS.escape(open.dataset.v2Open)}"]`);
+        const id = open.dataset.v2Open;
+        let target = document.querySelector(`#cards [data-open="${CSS.escape(id)}"]`);
+        if (!target) {
+          const legacyMore = document.querySelector('#projects-more');
+          if (legacyMore && !legacyMore.hidden) legacyMore.click();
+          target = document.querySelector(`#cards [data-open="${CSS.escape(id)}"]`);
+        }
         if (target) target.click();
         else {
-          const card = document.querySelector(`#cards [data-project="${CSS.escape(open.dataset.v2Open)}"]`);
+          const card = document.querySelector(`#cards [data-project="${CSS.escape(id)}"]`);
           card?.scrollIntoView({behavior:'smooth',block:'center'});
         }
         return;
