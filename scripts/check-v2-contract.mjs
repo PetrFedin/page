@@ -36,6 +36,8 @@ const checks = [
   ['lead qualification model', statsApi.includes('function qualifyLead(') && statsUi.includes('Прозрачная квалификация') && statsUi.includes('Готовность')],
   ['interactive start flow', v2.includes('data-v2-start-route') && v2.includes('data-v2-start-project') && v2.includes('data-v2-start-timing')],
   ['mini brief builder', v2.includes('Mini Brief Builder') && v2.includes('data-v2-brief-answer') && v2.includes('leadBrief') && v2.includes('Brief первого разговора')],
+  ['start flow visibility', v2.includes("$('#v2-decision') || $('#v2-routes')") && v2.includes("'Начать работу'") && v2.includes("'#v2-steps'")],
+  ['recommendation layer', v2.includes('Recommended first step') && v2.includes('Рекомендуемый первый шаг') && v2.includes('Next gate') && v2.includes('Следующий gate')],
   ['mini brief route questions', ['leadGoal','leadScope','leadContribution','leadFormat','leadInvestorFocus','leadNextStep','leadDiligencePurpose','leadAccessLevel'].every((x)=>v2.includes(x))],
   ['mini brief persisted', contact.includes('brief: clean(body.leadBrief') && statsUi.includes('Brief первого разговора') && statsUi.includes('leadBriefBox')],
   ['lead operating API', leadsApi.includes("type, path, target, label, data") && leadsApi.includes("'lead_op'") && leadsApi.includes("demo_scheduled")],
