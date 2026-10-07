@@ -251,3 +251,18 @@ html[data-preview="v2"] .opt-row[hidden] { display: none !important; }
 .v2-disclosure-grid p{margin:0;font-size:12px;line-height:1.55;color:var(--muted)}
 .v2-disclosure-cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
 @media(max-width:759px){.v2-disclosure-grid{grid-template-columns:1fr}}
+
+
+/* V2.14 qualified lead routing */
+.v2-qualified-route{margin:2px 0 16px;padding:18px;border:1px solid var(--line);border-radius:14px;background:var(--panel)}
+.v2-qualified-route[hidden]{display:none!important}
+.v2-qualified-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(240px,.8fr);gap:18px;align-items:end;margin-bottom:14px}
+.v2-qualified-head h3{margin:5px 0 0;font-size:20px;line-height:1.2}
+.v2-qualified-head>p{margin:0;font-size:12px;line-height:1.55;color:var(--muted)}
+.v2-qualified-fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.v2-qualified-fields .field{margin:0}
+.v2-qualified-fields .field span{font-size:11px}
+.v2-qualified-fields input,.v2-qualified-fields select{width:100%}
+.v2-qualified-note{margin:12px 0 0;font-size:11px;line-height:1.5;color:var(--muted)}
+@media(max-width:900px){.v2-qualified-fields{grid-template-columns:1fr 1fr}.v2-qualified-fields .field:last-child{grid-column:1/-1}}
+@media(max-width:620px){.v2-qualified-head,.v2-qualified-fields{grid-template-columns:1fr}.v2-qualified-fields .field:last-child{grid-column:auto}}
