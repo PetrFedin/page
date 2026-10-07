@@ -42,6 +42,7 @@ const MSK = 3 * 3600;
 
 
 const LEAD_ROUTE_FIELDS = {
+  consulting: ['goal','scope','timing'],
   pilot: ['goal','scope','timing'],
   partnership: ['contribution','format','firstCase','timing'],
   investment: ['investorType','investorFocus','nextStep','timing'],
@@ -73,7 +74,7 @@ function qualifyLead(sub, lead = {}) {
   const expected = LEAD_ROUTE_FIELDS[route] || [];
   const filled = expected.filter((k) => String(lead[k] || '').trim()).length;
   const completeness = expected.length ? Math.round(25 * filled / expected.length) : 0;
-  const intent = route === 'pilot' || route === 'diligence' ? 20
+  const intent = route === 'consulting' || route === 'pilot' || route === 'diligence' ? 20
     : route === 'partnership' || route === 'investment' ? 15
     : 5;
   const projectSpecificity = project ? 20 : 0;
@@ -93,6 +94,9 @@ function qualifyLead(sub, lead = {}) {
   const stage = score >= 75 ? 'ready' : score >= 55 ? 'qualified' : score >= 35 ? 'clarify' : 'early';
 
   let action = 'Отправить материалы и уточнить задачу';
+  if (route === 'consulting') action = stage === 'ready' ? 'Назначить диагностический разговор'
+    : stage === 'qualified' ? 'Уточнить задачу и доступные данные'
+    : 'Отправить формат работы и уточнить задачу';
   if (route === 'pilot') action = stage === 'ready' ? 'Назначить разговор о пилоте'
     : stage === 'qualified' ? 'Уточнить границы и критерии пилота'
     : 'Отправить материалы и уточнить задачу';
