@@ -894,3 +894,23 @@ is a concrete external client/investor case that justifies persistent or protect
 
 This implementation follows the Confidential disclosure override: public/static Page does
 not contain client confidential data or project technical due-diligence material.
+
+
+### Implementation note — V2.21 UX journey audit
+
+A full V2 conversion-path audit found that the page had accumulated three competing
+top-of-page routing mechanisms: stakeholder role, “Where shall we start?” cards, and the
+Decision Layer.
+
+Resolved:
+- Decision Layer is the single primary routing mechanism;
+- Mini Brief follows directly after it;
+- Portfolio Intelligence follows the Mini Brief;
+- Stakeholder Lens is secondary, below the portfolio, and collapsed by default;
+- project cards expose only “Open dossier” and “Start with this project”;
+- commercial/evidence/investor-readiness expansion is kept in the dossier;
+- a clear post-portfolio next step leads to Contact or back to the Mini Brief.
+
+This follows the master-plan principle of progressive disclosure: proof remains available,
+but the public sales journey does not require visitors to understand the site's internal
+information architecture before taking action.
