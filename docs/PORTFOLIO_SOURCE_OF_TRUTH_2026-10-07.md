@@ -94,7 +94,7 @@ Planned, not current:
 ## MFW / BFS / Made in Moscow
 
 Repository: `PetrFedin/MFW`
-Audited HEAD: `c36b59ba`
+Audited HEAD: `6f941b59`
 
 Current-state sources:
 - `CURRENT_STATE.md`
@@ -158,31 +158,43 @@ Planned, not current:
 - professional education credentials;
 - Scientific Evidence Distribution Network.
 
-## Moscow
+## Moscow — internal / not published in the public portfolio
 
-Repository: `PetrFedin/Moscow`
-Audited HEAD: `fcf89a73`
+The project remains in the internal project inventory, but as of 2026-10-07 it is intentionally **not published as a portfolio card**. Its government-pilot and field-verification materials must not be projected into the public landing until a separate publication decision is made.
 
-Current-state sources:
-- `README.md`
-- `docs/PRODUCT.md`
-- `docs/GOVERNMENT_PILOT_ACCEPTANCE.md`
-- `docs/GOVERNMENT_INVESTOR_DEMO_2026.md`
+## Confidential Fashion Management OS
 
-Strategic additions source:
-- `docs/MOSCOW_INTEGRATION_MASTER_PLAN_2026-10-01.md`
+Public identity: `Fashion Management OS`
+Source: confidential client implementation; client/brand name is intentionally excluded from the landing and from this registry.
+Audited implementation HEAD: `700c290a`
 
 Current evidence checked:
-- one React Native codebase for iOS/Android plus web QA;
-- Varvarka — Zaryadye reference journey and destination package authority;
-- provenance/rights-aware Published Spatial Package;
-- 3D / AR / VR pipeline and interaction-physics contract;
-- government/investor pilot and acceptance surfaces;
-- explicit fail-closed boundary: Romanov physical field proof and supervised user pilot are not yet claimed complete.
+- end-to-end model/catalogue → order → workshop operations → materials/payments flow;
+- Plan / Actual / CTC / Forecast cost engine with snapshot rates/prices and frozen final-cost close;
+- WIP, capacity, bottleneck and allocation queue;
+- 13-week liquidity, month close and benefits/evidence register;
+- role-scoped access, audit trail, safe update/rollback and responsive design work across monitor/tablet/phone.
 
-Current boundary:
-- not field-verified until physical release gates pass;
-- provider and city-pilot evidence must remain separate from demo claims.
+Public boundary:
+- do not expose client/brand identity, people, real orders, prices, payment/cash-flow data, contracts or internal documents;
+- describe only the product architecture, governance model and evidenced operating capabilities.
+
+## Confidential FUR PRODUCTION OS
+
+Public identity: `FUR PRODUCTION OS`
+Source: confidential client implementation; client/brand name is intentionally excluded from the landing and from this registry.
+Audited implementation HEAD: `72e4553a`
+
+Current evidence checked:
+- procurement → specific raw-material lot → stock → production → finished-goods traceability;
+- specific-identification costing rather than average-cost inventory;
+- landed-cost components, lot-level stock movements, norms/BOM and production consumption;
+- payments, documents, fittings, audit history and transactional corrections;
+- backup/restore and concurrent-write/data-integrity protections.
+
+Public boundary:
+- do not expose client/brand identity, suppliers, buyers, real lot/order identifiers, prices, payment details, source registers or uploaded documents;
+- public proof should stay at architecture, traceability, data-integrity and operational-control level.
 
 ## Antiqua
 
