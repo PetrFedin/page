@@ -96,7 +96,7 @@
       <img id="hero-photo" src="/assets/photo/petr-portrait.webp" alt="Пётр Федин" width="900" height="1200" fetchpriority="high">
       </button>
     </figure>
-  </section><section id="v2-stakeholders" class="section v2-stakeholders" data-bound-stakeholder="1">
+  </section><section id="v2-stakeholders" class="section v2-stakeholders">
     <div class="v2-stakeholder-head">
       <div>
         <p class="eyebrow">Выберите свою роль</p>
@@ -120,7 +120,7 @@
       <div class="v2-stakeholder-actions">
         <button type="button" class="btn btn-primary" data-v2-role-primary="consulting">К формату работы →</button>
         <button type="button" class="btn" data-v2-role-secondary="client">Посмотреть опыт</button>
-      </div></article></section><section id="v2-routes" class="section v2-routes" data-decision-bound="1"><p class="eyebrow">С чего начнём?</p><div class="v2-route-grid"><a class="v2-route" href="#consulting"><span class="v2-route-meta">01 / Для бизнеса</span><h3>Консалтинг</h3><p>Маржа, закупка, запасы, оборотный капитал и решения, которые можно проверить на данных.</p><span class="v2-route-action">Выбрать формат работы →</span></a><a class="v2-route" href="#v2-portfolio"><span class="v2-route-meta">02 / Для продукта</span><h3>Продукты и разработка</h3><p>Собственные цифровые продукты: от рабочего прототипа до пилота, внедрения и партнёрской модели.</p><span class="v2-route-action">Посмотреть портфель →</span></a><a class="v2-route" href="#investors"><span class="v2-route-meta">03 / Для совместного развития</span><h3>Партнёрство</h3><p>Пилоты, совместный выход на рынок, стратегическое сотрудничество и инвестиционный диалог.</p><span class="v2-route-action">Посмотреть варианты участия →</span></a></div></section><section id="v2-decision" class="section v2-decision" data-bound="1">
+      </div></article></section><section id="v2-routes" class="section v2-routes"><p class="eyebrow">С чего начнём?</p><div class="v2-route-grid"><a class="v2-route" href="#consulting"><span class="v2-route-meta">01 / Для бизнеса</span><h3>Консалтинг</h3><p>Маржа, закупка, запасы, оборотный капитал и решения, которые можно проверить на данных.</p><span class="v2-route-action">Выбрать формат работы →</span></a><a class="v2-route" href="#v2-portfolio"><span class="v2-route-meta">02 / Для продукта</span><h3>Продукты и разработка</h3><p>Собственные цифровые продукты: от рабочего прототипа до пилота, внедрения и партнёрской модели.</p><span class="v2-route-action">Посмотреть портфель →</span></a><a class="v2-route" href="#investors"><span class="v2-route-meta">03 / Для совместного развития</span><h3>Партнёрство</h3><p>Пилоты, совместный выход на рынок, стратегическое сотрудничество и инвестиционный диалог.</p><span class="v2-route-action">Посмотреть варианты участия →</span></a></div></section><section id="v2-decision" class="section v2-decision">
     <div class="section-head compact">
       <p class="eyebrow">Маршрутизатор решения</p>
       <h2>Поймите формат до первого контакта</h2>
@@ -292,7 +292,7 @@
     <p class="launch-diag-row"><button type="button" class="btn" id="diag-open">Подобрать формат работы</button></p></div>
   </section>
 
-  <section id="v2-portfolio" class="section v2-portfolio" data-bound-portfolio="1" data-evidence-installed="1" data-commercial-bound="1" data-proof-bound="1">
+  <section id="v2-portfolio" class="section v2-portfolio">
     <div class="section-head">
       <p class="eyebrow">Портфель проектов</p>
       <h2>Портфель как система</h2>
@@ -350,8 +350,36 @@
           <button type="button" class="btn btn-sm" data-v2-talk="launch" data-v2-id="syntha">Обсудить пилот</button>
           <button type="button" class="btn btn-sm" data-v2-talk="partnership" data-v2-id="syntha">Партнёрство</button>
           <button type="button" class="btn btn-sm" data-v2-talk="investors" data-v2-id="syntha">Инвестиции</button>
-        </div>
-      </article><article class="v2-product" data-v2-product="chatx">
+        <button type="button" class="btn btn-sm v2-evidence-toggle" data-v2-evidence="syntha" aria-expanded="false">Кратко для руководителя</button><button type="button" class="btn btn-sm v2-commercial-toggle" data-v2-commercial="syntha" aria-expanded="false">Коммерческая модель</button><button type="button" class="btn btn-sm v2-proof-toggle" data-v2-proof="syntha" aria-expanded="false">Доказательства и риски</button></div>
+      <div class="v2-evidence-panel" hidden="">
+        <div><span>Проблема</span><p>Разрозненные данные о продукте, заказах и исполнении требуют ручной сверки и замедляют решения.</p></div>
+        <div><span>Продукт</span><p>Операционная система для fashion-бизнеса, которая связывает продуктовый и коммерческий цикл в одном рабочем пространстве.</p></div>
+        <div><span>Подтверждение</span><p>Product/commercial core собран; на PostgreSQL доказаны entity-linked operational threads, immutable messages и Decision Ledger. Внешний сезонный пилот ещё не проведён.</p></div>
+        <div><span>Текущая стадия</span><p>Рабочая система, готовится к пилоту</p></div>
+        <div><span>Следующий этап</span><p>Провести пилот с первым брендом на реальном сезоне.</p></div>
+        <div><span>Коммерческий путь</span><p>Пилот → зафиксированные метрики → условия внедрения / выхода на рынок.</p></div>
+        <div><span>Что требуется от партнёра / инвестора</span><p>Бренд или магазин для пилота; партнёр по выходу на рынок.</p></div></div><section class="v2-commercial-panel" hidden="">
+      <div class="v2-commercial-grid">
+        <div><span>Кто покупатель</span><p>Фэшн-бренд, производитель или розничная компания, которым нужен единый контур продукта, заказа и экономики.</p></div>
+        <div><span>За что платит</span><p>За доступ к системе и управляемый рабочий контур; отдельно — за внедрение, интеграцию с учётной системой и настройку под процессы.</p></div>
+        <div><span>Первый продаваемый пилот</span><p>Один бренд, один реальный сезон, ограниченный набор пользователей и сквозной сценарий от продукта и шоурума до подтверждённого заказа и маржи.</p></div>
+        <div><span>Что измеряем</span><ul><li>доля сценария, прошедшая без ручной сверки между системами</li><li>время подготовки и подтверждения заказа</li><li>расхождения по цене, доступности, себестоимости и марже</li><li>готовность интеграции и пользователей к ежедневной работе</li></ul></div>
+        <div><span>Что превращает пилот в контракт</span><p>Пилот проходит согласованные критерии приёмки, определён интеграционный контур, подтверждены роли и объём регулярного использования.</p></div>
+        <div><span>Возможные модели выручки</span><ul><li>регулярный доступ / лицензия</li><li>внедрение и интеграция</li><li>корпоративная поддержка</li><li>партнёрство по выходу на рынок</li></ul></div>
+      </div>
+      <p class="v2-commercial-note">Рабочая коммерческая гипотеза. Цена, единица тарификации и экономика масштабирования должны быть зафиксированы после пилота.</p></section><section class="v2-proof-panel" hidden="">
+      <div class="v2-proof-grid">
+        <div class="v2-proof-good"><span>Что уже доказано</span><ul><li>единый продуктово-коммерческий контур уже собран</li><li>заказы, изменения и экономика продукта ведутся в одной рабочей логике</li><li>ключевые пользовательские сценарии готовы к проверке на реальном сезоне</li></ul></div>
+        <div><span>Что ещё не доказано</span><ul><li>устойчивое ежедневное использование внешним брендом</li><li>реальная стоимость внедрения в конкретной компании</li><li>готовность клиента платить по регулярной модели</li></ul></div>
+        <div><span>Главный риск</span><p>Главный риск — не наличие функций, а реальное внедрение: сможет ли команда бренда вести сезонный цикл в системе без возврата к ручной сверке.</p></div>
+        <div><span>Как следующий пилот снимает риск</span><p>Пилот с одним брендом должен показать, насколько система снижает ручную работу и помогает быстрее принимать коммерческие решения.</p></div>
+        <div class="v2-proof-data"><span>Какие данные должны появиться</span><ul><li>доля сценариев, которые проходят без внешних таблиц</li><li>время на подготовку и подтверждение заказа</li><li>число расхождений по цене, доступности и экономике</li><li>регулярность использования ключевыми ролями</li></ul></div>
+      </div>
+      <div class="v2-proof-decisions">
+        <div><b>МАСШТАБИРОВАТЬ</b><p>масштабировать, если основной сезонный сценарий работает стабильно и даёт измеримое сокращение ручной работы</p></div>
+        <div><b>ПЕРЕСОБРАТЬ</b><p>пересобрать объём внедрения, если ценность подтверждается, но использование остаётся слишком сложным</p></div>
+        <div><b>ОСТАНОВИТЬ</b><p>не масштабировать текущий коммерческий сценарий, если пилот не даёт измеримого преимущества перед существующим процессом</p></div>
+      </div></section></article><article class="v2-product" data-v2-product="chatx">
         <div class="v2-product-top">
           <div>
             <div class="v2-product-cats"><span>Корпоративные</span></div>
@@ -377,8 +405,36 @@
           <button type="button" class="btn btn-sm" data-v2-talk="launch" data-v2-id="chatx">Обсудить пилот</button>
           <button type="button" class="btn btn-sm" data-v2-talk="partnership" data-v2-id="chatx">Партнёрство</button>
           <button type="button" class="btn btn-sm" data-v2-talk="investors" data-v2-id="chatx">Инвестиции</button>
-        </div>
-      </article></div>
+        <button type="button" class="btn btn-sm v2-evidence-toggle" data-v2-evidence="chatx" aria-expanded="false">Кратко для руководителя</button><button type="button" class="btn btn-sm v2-commercial-toggle" data-v2-commercial="chatx" aria-expanded="false">Коммерческая модель</button><button type="button" class="btn btn-sm v2-proof-toggle" data-v2-proof="chatx" aria-expanded="false">Доказательства и риски</button></div>
+      <div class="v2-evidence-panel" hidden="">
+        <div><span>Проблема</span><p>Решения, задачи, встречи и знания распределены по разным сервисам и теряют контекст.</p></div>
+        <div><span>Продукт</span><p>Корпоративная рабочая среда, где коммуникация, решения, задачи, документы и согласования связаны между собой.</p></div>
+        <div><span>Подтверждение</span><p>Основные рабочие сценарии, включая встречи, запросы и согласования, собраны. Внешний корпоративный пилот ещё не проведён.</p></div>
+        <div><span>Текущая стадия</span><p>Рабочая система, пилот с компанией впереди</p></div>
+        <div><span>Следующий этап</span><p>Провести ограниченный пилот внутри компании-заказчика.</p></div>
+        <div><span>Коммерческий путь</span><p>Пилот компании → подтверждение сценариев → условия внедрения.</p></div>
+        <div><span>Что требуется от партнёра / инвестора</span><p>Компания для пилота; партнёр по внедрению.</p></div></div><section class="v2-commercial-panel" hidden="">
+      <div class="v2-commercial-grid">
+        <div><span>Кто покупатель</span><p>Компания или отдельный бизнес-контур, которому нужна управляемая корпоративная среда вместо набора разрозненных сервисов.</p></div>
+        <div><span>За что платит</span><p>За доступ сотрудников к рабочей среде; отдельно — за внедрение, миграцию, интеграции и корпоративную поддержку.</p></div>
+        <div><span>Первый продаваемый пилот</span><p>Один департамент или кросс-функциональная команда переносит в ChatX ограниченный рабочий контур: коммуникацию, встречи, решения и задачи.</p></div>
+        <div><span>Что измеряем</span><ul><li>активное использование сотрудниками пилотной группы</li><li>доля решений, которые можно проследить до задачи и результата</li><li>надёжность календаря, звонков, расшифровки и интеграций</li><li>объём ручного переноса информации между сервисами</li></ul></div>
+        <div><span>Что превращает пилот в контракт</span><p>Пилот подтверждает устойчивое ежедневное использование, требования безопасности и администрирования, а критичные интеграции проходят приёмку.</p></div>
+        <div><span>Возможные модели выручки</span><ul><li>лицензия / подписка по пользователям или организации</li><li>внедрение и миграция</li><li>интеграции</li><li>корпоративная поддержка</li></ul></div>
+      </div>
+      <p class="v2-commercial-note">Коммерческая модель пока является гипотезой и должна быть проверена на первом корпоративном пилоте.</p></section><section class="v2-proof-panel" hidden="">
+      <div class="v2-proof-grid">
+        <div class="v2-proof-good"><span>Что уже доказано</span><ul><li>коммуникации, встречи, задачи, документы и согласования связаны в одном рабочем контуре</li><li>решения сохраняют связь с исходным контекстом</li><li>ключевые корпоративные сценарии готовы к пилотной проверке</li></ul></div>
+        <div><span>Что ещё не доказано</span><ul><li>устойчивое ежедневное использование внутри внешней компании</li><li>готовность команды сократить параллельную работу в других сервисах</li><li>ценность для разных ролей при реальном внедрении</li></ul></div>
+        <div><span>Главный риск</span><p>Главный риск — организационное внедрение: продукт должен стать местом реальной работы, а не ещё одним параллельным сервисом.</p></div>
+        <div><span>Как следующий пилот снимает риск</span><p>Пилот в одном подразделении должен проверить ежедневное использование и связь разговор → решение → задача → результат.</p></div>
+        <div class="v2-proof-data"><span>Какие данные должны появиться</span><ul><li>активность пользователей</li><li>доля решений и задач, которые можно проследить до исходного контекста</li><li>доля работы, которая остаётся вне системы</li><li>объём ручного дублирования между сервисами</li></ul></div>
+      </div>
+      <div class="v2-proof-decisions">
+        <div><b>МАСШТАБИРОВАТЬ</b><p>масштабировать, если команда использует ChatX как основной рабочий контур</p></div>
+        <div><b>ПЕРЕСОБРАТЬ</b><p>пересобрать набор сценариев или внедрение, если использование есть, но значимая часть работы остаётся снаружи</p></div>
+        <div><b>ОСТАНОВИТЬ</b><p>не масштабировать, если продукт не становится частью ежедневной работы</p></div>
+      </div></section></article></div>
     <button type="button" class="btn v2-portfolio-more" id="v2-portfolio-more" aria-expanded="false">Показать ещё</button>
     <p class="v2-portfolio-note">Финтех и инфраструктура остаются пустыми до отдельной официальной публикации; искусство представлено Antiqua, а два новых fashion-кейса опубликованы без идентификации клиентов.</p></section><section class="section" id="projects">
     <div class="section-head">

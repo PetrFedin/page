@@ -29,6 +29,7 @@ const checks = [
   ['authority-backed dossiers', ['syntha','chatx','renova','mfw','promomed','fashionmgmt','furproduction','antiqua'].every((x) => v2.includes(`\"${x}\"`)) && !v2.includes('\"moscow\"') && ['v2-dossier-proof','v2-dossier-governance','v2-dossier-commercial','v2-dossier-risk','v2-dossier-next'].every((x) => v2.includes(x))],
   ['confidential fashion cases stay anonymised', ![content,v2,index,en].some((x) => /Yanina|MVST/i.test(x))],
   ['investor first-screen priority', ['V2_INVESTOR_PRIORITY','v2-investor-priority','Why this matters','Why now','Economic change','What must be true next'].every((x) => v2.includes(x))],
+  ['runtime bindings survive prerender', !/data-(?:decision-bound|bound(?:-portfolio|-stakeholder)?|commercial-bound|proof-bound|evidence-installed)=/.test(index + en) && !/dataset\.[A-Za-z0-9_]*(?:Bound|bound|Installed)/.test(v2)],
 ];
 
 let failed = 0;

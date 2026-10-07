@@ -96,7 +96,7 @@
       <img id="hero-photo" src="/assets/photo/petr-ny.webp" alt="Petr Fedin" width="900" height="1200" fetchpriority="high">
       </button>
     </figure>
-  </section><section id="v2-stakeholders" class="section v2-stakeholders" data-bound-stakeholder="1">
+  </section><section id="v2-stakeholders" class="section v2-stakeholders">
     <div class="v2-stakeholder-head">
       <div>
         <p class="eyebrow">Choose your lens</p>
@@ -120,7 +120,7 @@
       <div class="v2-stakeholder-actions">
         <button type="button" class="btn btn-primary" data-v2-role-primary="consulting">See the working format →</button>
         <button type="button" class="btn" data-v2-role-secondary="client">Review experience</button>
-      </div></article></section><section id="v2-routes" class="section v2-routes" data-decision-bound="1"><p class="eyebrow">Where shall we start?</p><div class="v2-route-grid"><a class="v2-route" href="#consulting"><span class="v2-route-meta">01 / For your business</span><h3>Advisory</h3><p>Buying, profitability, working capital and management decisions.</p><span class="v2-route-action">Explore services →</span></a><a class="v2-route" href="#projects"><span class="v2-route-meta">02 / For your product</span><h3>Products &amp; development</h3><p>Own products, working prototypes and formats for building together.</p><span class="v2-route-action">Explore the portfolio →</span></a><a class="v2-route" href="#investors"><span class="v2-route-meta">03 / For a shared opportunity</span><h3>Partnership</h3><p>Pilots, strategic collaboration and investment discussions.</p><span class="v2-route-action">Explore ways to work together →</span></a></div></section><section id="v2-decision" class="section v2-decision" data-bound="1">
+      </div></article></section><section id="v2-routes" class="section v2-routes"><p class="eyebrow">Where shall we start?</p><div class="v2-route-grid"><a class="v2-route" href="#consulting"><span class="v2-route-meta">01 / For your business</span><h3>Advisory</h3><p>Buying, profitability, working capital and management decisions.</p><span class="v2-route-action">Explore services →</span></a><a class="v2-route" href="#projects"><span class="v2-route-meta">02 / For your product</span><h3>Products &amp; development</h3><p>Own products, working prototypes and formats for building together.</p><span class="v2-route-action">Explore the portfolio →</span></a><a class="v2-route" href="#investors"><span class="v2-route-meta">03 / For a shared opportunity</span><h3>Partnership</h3><p>Pilots, strategic collaboration and investment discussions.</p><span class="v2-route-action">Explore ways to work together →</span></a></div></section><section id="v2-decision" class="section v2-decision">
     <div class="section-head compact">
       <p class="eyebrow">Decision layer</p>
       <h2>See the format before you contact me</h2>
@@ -292,7 +292,7 @@
     <p class="launch-diag-row"><button type="button" class="btn" id="diag-open">Find a working format</button></p></div>
   </section>
 
-  <section id="v2-portfolio" class="section v2-portfolio" data-bound-portfolio="1" data-evidence-installed="1" data-commercial-bound="1" data-proof-bound="1">
+  <section id="v2-portfolio" class="section v2-portfolio">
     <div class="section-head">
       <p class="eyebrow">Portfolio intelligence</p>
       <h2>The portfolio as a system</h2>
@@ -350,8 +350,36 @@
           <button type="button" class="btn btn-sm" data-v2-talk="launch" data-v2-id="syntha">Discuss pilot</button>
           <button type="button" class="btn btn-sm" data-v2-talk="partnership" data-v2-id="syntha">Partnership</button>
           <button type="button" class="btn btn-sm" data-v2-talk="investors" data-v2-id="syntha">Investment</button>
-        </div>
-      </article><article class="v2-product" data-v2-product="chatx">
+        <button type="button" class="btn btn-sm v2-evidence-toggle" data-v2-evidence="syntha" aria-expanded="false">Executive brief</button><button type="button" class="btn btn-sm v2-commercial-toggle" data-v2-commercial="syntha" aria-expanded="false">Commercial model</button><button type="button" class="btn btn-sm v2-proof-toggle" data-v2-proof="syntha" aria-expanded="false">Investor readiness</button></div>
+      <div class="v2-evidence-panel" hidden="">
+        <div><span>Problem</span><p>Fragmented product, order and execution data requires manual reconciliation and slows decisions.</p></div>
+        <div><span>Product</span><p>An operating system for fashion businesses that connects product and commercial workflows in one workspace.</p></div>
+        <div><span>Evidence</span><p>The product/commercial core is built; entity-linked operational threads, immutable messages and the Decision Ledger are PostgreSQL-proven. An external real-season pilot is still pending.</p></div>
+        <div><span>Current maturity</span><p>Working system, preparing for a pilot</p></div>
+        <div><span>Next milestone</span><p>Run a first real-season pilot with a brand.</p></div>
+        <div><span>Commercial path</span><p>Pilot → agreed metrics → rollout / go-to-market terms.</p></div>
+        <div><span>Capital / partner ask</span><p>A brand or retailer for the pilot; a go-to-market partner.</p></div></div><section class="v2-commercial-panel" hidden="">
+      <div class="v2-commercial-grid">
+        <div><span>Buyer</span><p>A fashion brand, manufacturer or retailer that needs one operating layer across product, order and economics.</p></div>
+        <div><span>What they pay for</span><p>For software access and a governed operating workflow; implementation, ERP integration and process configuration are separate scopes.</p></div>
+        <div><span>First sellable pilot</span><p>One brand, one real season, a bounded user group and an end-to-end flow from product and showroom to confirmed order and margin.</p></div>
+        <div><span>What we measure</span><ul><li>share of the workflow completed without manual cross-system reconciliation</li><li>time to prepare and confirm an order</li><li>price, availability, cost and margin discrepancies</li><li>integration and user readiness for daily operation</li></ul></div>
+        <div><span>Pilot → contract gate</span><p>The pilot meets agreed acceptance criteria, the integration scope is defined, roles are confirmed and recurring use is justified.</p></div>
+        <div><span>Possible revenue mechanics</span><ul><li>recurring access / licence</li><li>implementation and integration</li><li>enterprise support</li><li>go-to-market partnership</li></ul></div>
+      </div>
+      <p class="v2-commercial-note">Working commercial hypothesis. Pricing, billing unit and scale economics should be fixed after the pilot.</p></section><section class="v2-proof-panel" hidden="">
+      <div class="v2-proof-grid">
+        <div class="v2-proof-good"><span>Evidenced now</span><ul><li>the core product-to-commerce workflow is built</li><li>orders, changes and product economics are managed in one operating logic</li><li>key user journeys are ready for real-season validation</li></ul></div>
+        <div><span>Not evidenced yet</span><ul><li>sustained daily use by an external brand</li><li>real implementation cost in a client organisation</li><li>willingness to pay under a recurring model</li></ul></div>
+        <div><span>Primary risk</span><p>The primary risk is adoption rather than feature count: whether a brand team can run a real seasonal workflow without falling back to manual reconciliation.</p></div>
+        <div><span>How the next pilot de-risks it</span><p>A one-brand pilot should show whether the product reduces manual work and improves decision speed.</p></div>
+        <div class="v2-proof-data"><span>Evidence expected from pilot</span><ul><li>share of workflows completed without external spreadsheets</li><li>time to prepare and confirm an order</li><li>number of price, availability and economics discrepancies</li><li>regular use by key roles</li></ul></div>
+      </div>
+      <div class="v2-proof-decisions">
+        <div><b>SCALE</b><p>scale if the core seasonal workflow is stable and measurably reduces manual work</p></div>
+        <div><b>REVISE</b><p>revise rollout scope if value is visible but adoption remains too complex</p></div>
+        <div><b>STOP</b><p>do not scale the current commercial path if the pilot shows no measurable advantage over the existing process</p></div>
+      </div></section></article><article class="v2-product" data-v2-product="chatx">
         <div class="v2-product-top">
           <div>
             <div class="v2-product-cats"><span>Enterprise</span></div>
@@ -377,8 +405,36 @@
           <button type="button" class="btn btn-sm" data-v2-talk="launch" data-v2-id="chatx">Discuss pilot</button>
           <button type="button" class="btn btn-sm" data-v2-talk="partnership" data-v2-id="chatx">Partnership</button>
           <button type="button" class="btn btn-sm" data-v2-talk="investors" data-v2-id="chatx">Investment</button>
-        </div>
-      </article></div>
+        <button type="button" class="btn btn-sm v2-evidence-toggle" data-v2-evidence="chatx" aria-expanded="false">Executive brief</button><button type="button" class="btn btn-sm v2-commercial-toggle" data-v2-commercial="chatx" aria-expanded="false">Commercial model</button><button type="button" class="btn btn-sm v2-proof-toggle" data-v2-proof="chatx" aria-expanded="false">Investor readiness</button></div>
+      <div class="v2-evidence-panel" hidden="">
+        <div><span>Problem</span><p>Decisions, tasks, meetings and knowledge are split across services and lose context.</p></div>
+        <div><span>Product</span><p>A company work environment where communication, decisions, tasks, documents and approvals stay connected.</p></div>
+        <div><span>Evidence</span><p>Core work scenarios, including meetings, requests and approvals, are built. An external company pilot has not yet been completed.</p></div>
+        <div><span>Current maturity</span><p>Working system, company pilot ahead</p></div>
+        <div><span>Next milestone</span><p>Run a bounded pilot inside a client company.</p></div>
+        <div><span>Commercial path</span><p>Company pilot → validated workflows → rollout terms.</p></div>
+        <div><span>Capital / partner ask</span><p>A company for the pilot; an implementation partner.</p></div></div><section class="v2-commercial-panel" hidden="">
+      <div class="v2-commercial-grid">
+        <div><span>Buyer</span><p>A company or business unit that needs a governed company workspace instead of a fragmented set of services.</p></div>
+        <div><span>What they pay for</span><p>For employee access to the workspace; rollout, migration, integrations and enterprise support are separate scopes.</p></div>
+        <div><span>First sellable pilot</span><p>One department or cross-functional team moves a bounded workflow into ChatX: communication, meetings, decisions and tasks.</p></div>
+        <div><span>What we measure</span><ul><li>active use across the pilot group</li><li>share of decisions traceable to a task and outcome</li><li>reliability of calendar, calls, transcription and integrations</li><li>amount of manual information transfer between services</li></ul></div>
+        <div><span>Pilot → contract gate</span><p>The pilot proves sustained daily use, security and administration requirements, and acceptance of critical integrations.</p></div>
+        <div><span>Possible revenue mechanics</span><ul><li>per-user or organisation licence / subscription</li><li>rollout and migration</li><li>integrations</li><li>enterprise support</li></ul></div>
+      </div>
+      <p class="v2-commercial-note">The commercial model is still a hypothesis and should be validated in the first company pilot.</p></section><section class="v2-proof-panel" hidden="">
+      <div class="v2-proof-grid">
+        <div class="v2-proof-good"><span>Evidenced now</span><ul><li>communication, meetings, tasks, documents and approvals are connected in one work environment</li><li>decisions retain source context</li><li>key company workflows are ready for pilot validation</li></ul></div>
+        <div><span>Not evidenced yet</span><ul><li>sustained daily use inside an external company</li><li>whether teams reduce parallel work in other tools</li><li>value across different roles in a real rollout</li></ul></div>
+        <div><span>Primary risk</span><p>The primary risk is organisational adoption: the product must become the place where work happens, not another parallel service.</p></div>
+        <div><span>How the next pilot de-risks it</span><p>A pilot in one department should test daily use and conversation → decision → task → outcome continuity.</p></div>
+        <div class="v2-proof-data"><span>Evidence expected from pilot</span><ul><li>user activity</li><li>share of decisions and tasks traceable to source context</li><li>share of work still happening outside the system</li><li>manual duplication across tools</li></ul></div>
+      </div>
+      <div class="v2-proof-decisions">
+        <div><b>SCALE</b><p>scale if the team uses ChatX as its primary work environment</p></div>
+        <div><b>REVISE</b><p>revise scope or rollout if usage exists but material work remains outside</p></div>
+        <div><b>STOP</b><p>do not scale if the product does not become part of daily work</p></div>
+      </div></section></article></div>
     <button type="button" class="btn v2-portfolio-more" id="v2-portfolio-more" aria-expanded="false">Show more</button>
     <p class="v2-portfolio-note">Fintech and Infrastructure remain empty until products are formally published there; Art is represented by Antiqua, while two additional fashion cases are published without client identification.</p></section><section class="section" id="projects">
     <div class="section-head">

@@ -57,8 +57,8 @@ function installDecisionLayer(lang, $) {
     if (scroll) section.scrollIntoView({behavior:'smooth',block:'start'});
   };
 
-  if (!section.dataset.bound) {
-    section.dataset.bound = '1';
+  if (!section.__v2DecisionBound) {
+    section.__v2DecisionBound = '1';
     section.addEventListener('click', (e) => {
       const tab = e.target.closest('.v2-path-tab');
       if (tab) renderPath(tab.dataset.v2Path);
@@ -78,8 +78,8 @@ function installDecisionLayer(lang, $) {
     });
   }
 
-  if (!routes.dataset.decisionBound) {
-    routes.dataset.decisionBound = '1';
+  if (!routes.__v2DecisionRouteBound) {
+    routes.__v2DecisionRouteBound = '1';
     routes.addEventListener('click', (e) => {
       const card = e.target.closest('.v2-route');
       if (!card) return;
@@ -265,8 +265,8 @@ function renderPortfolioIntelligence(lang, $, projects) {
     }
   };
 
-  if (!section.dataset.boundPortfolio) {
-    section.dataset.boundPortfolio = '1';
+  if (!section.__v2PortfolioBound) {
+    section.__v2PortfolioBound = '1';
     section.addEventListener('click', (e) => {
       const filter = e.target.closest('[data-v2-filter]');
       if (filter && !filter.disabled) {
@@ -423,8 +423,8 @@ function renderStakeholderLens(lang, $, projects) {
     try { sessionStorage.setItem('syntha_v2_stakeholder',role.id); } catch {}
   };
 
-  if (!section.dataset.boundStakeholder) {
-    section.dataset.boundStakeholder='1';
+  if (!section.__v2StakeholderBound) {
+    section.__v2StakeholderBound='1';
     section.addEventListener('click',(e)=>{
       const tab=e.target.closest('[data-v2-stakeholder]');
       if(tab){ renderRole(tab.dataset.v2Stakeholder); return; }
@@ -457,8 +457,8 @@ function installExecutiveEvidence(lang, $, projects) {
   const data = V2_EVIDENCE;
   const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (ch) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
   const portfolio = $('#v2-portfolio');
-  if (!portfolio || portfolio.dataset.evidenceInstalled === '1') return;
-  portfolio.dataset.evidenceInstalled = '1';
+  if (!portfolio || portfolio.__v2EvidenceInstalled) return;
+  portfolio.__v2EvidenceInstalled = true;
 
   const attach = () => {
     portfolio.querySelectorAll('.v2-product').forEach((card) => {
@@ -568,8 +568,8 @@ function installProjectDecisionDossier(lang, $, projects) {
     if (more && !more.hidden) more.textContent = en ? 'Open full dossier' : 'Открыть полное досье';
   };
 
-  if (!modal.dataset.v2DossierBound) {
-    modal.dataset.v2DossierBound = '1';
+  if (!modal.__v2DossierBound) {
+    modal.__v2DossierBound = '1';
     new MutationObserver(paint).observe(modal, {attributes:true,attributeFilter:['open','data-project']});
   }
   paint();
@@ -621,8 +621,8 @@ function installCommercialClarity(lang, $, projects) {
     });
   };
 
-  if (portfolio && !portfolio.dataset.commercialBound) {
-    portfolio.dataset.commercialBound='1';
+  if (portfolio && !portfolio.__v2CommercialBound) {
+    portfolio.__v2CommercialBound='1';
     new MutationObserver(attachPortfolio).observe(portfolio,{childList:true,subtree:true});
     portfolio.addEventListener('click',(e)=>{
       const btn=e.target.closest('[data-v2-commercial]');
@@ -658,8 +658,8 @@ function installCommercialClarity(lang, $, projects) {
         </div>
         ${renderPanel(id)}`;
     };
-    if(!modal.dataset.v2CommercialBound){
-      modal.dataset.v2CommercialBound='1';
+    if(!modal.__v2CommercialBound){
+      modal.__v2CommercialBound='1';
       new MutationObserver(paint).observe(modal,{attributes:true,attributeFilter:['open','data-project']});
     }
     paint();
@@ -708,8 +708,8 @@ function installCommercialProof(lang, $, projects) {
       sec.className='v2-proof-panel'; sec.hidden=true; sec.innerHTML=panel(id); card.append(sec);
     });
   };
-  if(portfolio && !portfolio.dataset.proofBound){
-    portfolio.dataset.proofBound='1';
+  if(portfolio && !portfolio.__v2ProofBound){
+    portfolio.__v2ProofBound='1';
     new MutationObserver(attach).observe(portfolio,{childList:true,subtree:true});
     portfolio.addEventListener('click',(e)=>{
       const btn=e.target.closest('[data-v2-proof]');
@@ -736,8 +736,8 @@ function installCommercialProof(lang, $, projects) {
       sec.hidden=false;
       sec.innerHTML=`<div class="v2-proof-head"><p class="eyebrow">${en?'Investor readiness':'Инвестиционная готовность'}</p><h3>${en?'What is proven, what is still at risk, and what the pilot must decide':'Что доказано, что остаётся риском и какое решение должен дать пилот'}</h3></div>${panel(id)}`;
     };
-    if(!modal.dataset.v2ProofBound){
-      modal.dataset.v2ProofBound='1';
+    if(!modal.__v2ProofBound){
+      modal.__v2ProofBound='1';
       new MutationObserver(paint).observe(modal,{attributes:true,attributeFilter:['open','data-project']});
     }
     paint();
@@ -773,8 +773,8 @@ function installStrategicHorizon(lang, $, projects) {
       <ul>${d.items.map((x)=>`<li>${esc(x)}</li>`).join('')}</ul>
       <p class="v2-horizon-boundary">${esc(d.boundary)}</p>`;
   };
-  if (!modal.dataset.v2HorizonBound) {
-    modal.dataset.v2HorizonBound = '1';
+  if (!modal.__v2HorizonBound) {
+    modal.__v2HorizonBound = '1';
     new MutationObserver(paint).observe(modal,{attributes:true,attributeFilter:['open','data-project']});
   }
   paint();
@@ -802,8 +802,8 @@ function installPublicStatusStamp(lang, $, projects) {
     box.hidden = false;
     box.innerHTML = '<span>' + (en ? 'Project status' : 'Статус проекта') + '</span><b>' + d.checked + '</b><em>' + p[lang].stage + '</em><small>' + d.gate + '</small>';
   };
-  if (!modal.dataset.v2PublicStatusBound) {
-    modal.dataset.v2PublicStatusBound = '1';
+  if (!modal.__v2PublicStatusBound) {
+    modal.__v2PublicStatusBound = '1';
     new MutationObserver(paint).observe(modal,{attributes:true,attributeFilter:['open','data-project']});
   }
   paint();
@@ -838,8 +838,8 @@ function installConfidentialityLayer(lang, $, projects) {
         <span>${en ? 'NDA / controlled access where appropriate' : 'NDA / ограниченный доступ — при необходимости'}</span>
       </div>`;
   };
-  if (!modal.dataset.v2ConfidentialityBound) {
-    modal.dataset.v2ConfidentialityBound = '1';
+  if (!modal.__v2ConfidentialityBound) {
+    modal.__v2ConfidentialityBound = '1';
     modal.addEventListener('click', (e) => {
       if (!e.target.closest('[data-v2-confidential-demo]')) return;
       const id = modal.dataset.project;
@@ -899,8 +899,8 @@ function installDisclosureLadder(lang, $, projects) {
         <button type="button" class="btn" data-v2-disclosure-diligence>${en?'Discuss NDA / diligence':'Обсудить NDA / проверку'}</button>
       </div>`;
   };
-  if(!modal.dataset.v2DisclosureBound){
-    modal.dataset.v2DisclosureBound='1';
+  if(!modal.__v2DisclosureBound){
+    modal.__v2DisclosureBound='1';
     modal.addEventListener('click',(e)=>{
       const p=(projects||[]).find((x)=>x.id===modal.dataset.project);
       const demo=e.target.closest('[data-v2-disclosure-demo]');
