@@ -166,7 +166,7 @@ The project remains in the internal project inventory, but as of 2026-10-07 it i
 
 Public identity: `Fashion Management OS`
 Source: confidential client implementation; client/brand name is intentionally excluded from the landing and from this registry.
-Audited implementation HEAD: `700c290a`
+Audited implementation HEAD: `23f01751`
 
 Current evidence checked:
 - end-to-end model/catalogue → order → workshop operations → materials/payments flow;
@@ -183,7 +183,7 @@ Public boundary:
 
 Public identity: `FUR PRODUCTION OS`
 Source: confidential client implementation; client/brand name is intentionally excluded from the landing and from this registry.
-Audited implementation HEAD: `72e4553a`
+Audited implementation HEAD: `adab7c2c`
 
 Current evidence checked:
 - procurement → specific raw-material lot → stock → production → finished-goods traceability;
@@ -199,7 +199,7 @@ Public boundary:
 ## Antiqua
 
 Repository: `PetrFedin/antiqua`
-Audited HEAD: `dfef3116`
+Audited HEAD: `331ecbc9`
 
 Current-state sources:
 - gallery-first implementation commits (`f85af36e`, `174bc586`, `af34547f`);
@@ -212,7 +212,7 @@ Strategic additions source:
 Current evidence checked:
 - Gallery → Artwork → Artist → Related Works journey;
 - Collections → Taste retention loop;
-- explicit focus on painting, drawing, graphics, engraving/printmaking and works on paper;
+- explicit paintings-only scope: oil, acrylic, tempera, watercolor, gouache and pastel; standalone drawing, printmaking/prints, sculpture, decorative art and generic antiques are excluded from public ingestion/discovery;
 - Art Network design built around authoritative art entities rather than a generic social feed;
 - machine-verifiable production admission and research trust stack on current main.
 

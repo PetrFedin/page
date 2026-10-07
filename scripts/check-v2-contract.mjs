@@ -33,6 +33,8 @@ const checks = [
   ['actionable start flow', ['data-v2-start-mode','data-v2-start-continue','Перейти к короткой форме','Написать в Telegram'].every((x) => v2.includes(x))],
   ['deep new-project dossiers', ['V2_DEEP_PROJECTS','antiqua','fashionmgmt','furproduction','v2-deep-project'].every((x) => v2.includes(x))],
   ['executive portfolio ordering', v2.includes("['syntha','fashionmgmt','furproduction','mfw','promomed','chatx','antiqua','renova']") && v2.includes('v2-product-meta')],
+  ['full public case studies', ['V2_CASE_STUDIES','Architecture','Modules','User journeys','KPI / измерение','Integrations','Pilot scope','Acceptance criteria','Roadmap','v2-case-study'].every((x) => v2.includes(x))],
+  ['Antiqua paintings-only public scope', content.includes('только для живописи') && v2.includes('paintings-only') && !/drawing|printmaking|engraving|рисунк|гравюр/i.test(content + v2)],
 ];
 
 let failed = 0;
