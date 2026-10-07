@@ -327,3 +327,35 @@ html[data-preview="v2"] .opt-row[hidden] { display: none !important; }
 .v2-start-return p{margin:0;color:var(--muted);font-size:14px;line-height:1.6;max-width:760px}
 .v2-start-return .btn{min-height:46px;justify-content:center;white-space:nowrap}
 @media(max-width:700px){.v2-start-return{grid-template-columns:1fr;gap:16px}.v2-start-return .btn{width:100%}}
+
+
+/* V2.20 meeting room */
+.v2-brief-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+.v2-brief-actions .v2-start-go{margin-top:0}
+.v2-meeting-room{width:min(960px,calc(100vw - 28px));max-height:calc(100vh - 28px);border:0;border-radius:18px;padding:0;background:var(--panel);color:var(--ink);box-shadow:0 28px 80px rgba(0,0,0,.26)}
+.v2-meeting-room::backdrop{background:rgba(0,0,0,.5);backdrop-filter:blur(2px)}
+.v2-meeting-room-inner{padding:22px}
+.v2-meeting-room-head{display:flex;justify-content:space-between;gap:18px;align-items:start}
+.v2-meeting-room-head h2{margin:6px 0 0;font-size:30px;line-height:1.1}
+.v2-meeting-room-head .modal-close{position:static;flex:0 0 auto}
+.v2-meeting-summary{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0}
+.v2-meeting-summary section{display:grid;gap:5px;padding:12px;border:1px solid var(--line);border-radius:12px}
+.v2-meeting-summary section.wide{grid-column:1/-1}
+.v2-meeting-summary span{font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--accent)}
+.v2-meeting-summary b{font-size:13px;line-height:1.4}
+.v2-meeting-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.v2-meeting-grid section{padding:14px;border:1px solid var(--line);border-radius:12px}
+.v2-meeting-grid section.wide{grid-column:1/-1}
+.v2-meeting-grid h3{margin:0 0 9px;font-size:13px}
+.v2-meeting-grid p,.v2-meeting-grid li,.v2-meeting-grid pre{font-size:12px;line-height:1.55;color:var(--muted)}
+.v2-meeting-grid ul{margin:0;padding-left:18px}
+.v2-meeting-grid pre{margin:0;white-space:pre-wrap;font:inherit}
+.v2-meeting-safety{margin:14px 0 0;font-size:11px;line-height:1.5;color:var(--muted)}
+.v2-meeting-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+@media(max-width:700px){.v2-brief-actions,.v2-meeting-summary,.v2-meeting-grid{grid-template-columns:1fr}.v2-meeting-summary section.wide,.v2-meeting-grid section.wide{grid-column:auto}.v2-meeting-room-inner{padding:16px}.v2-meeting-actions .btn{flex:1 1 100%}}
+@media print{
+  html[data-v2-print-meeting="1"] body>*{display:none!important}
+  html[data-v2-print-meeting="1"] #v2-meeting-room{display:block!important;position:static!important;width:auto!important;max-height:none!important;box-shadow:none!important;border:0!important}
+  html[data-v2-print-meeting="1"] #v2-meeting-room .v2-meeting-actions,
+  html[data-v2-print-meeting="1"] #v2-meeting-room .modal-close{display:none!important}
+}
