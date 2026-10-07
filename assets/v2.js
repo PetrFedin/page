@@ -936,6 +936,7 @@ function installExecutiveProjectDossierV2(lang, $, projects) {
     const horizon = V2_HORIZONS[id]?.[en?'en':'ru'];
     if (!modal.open || !p || !e || !commercial || !proof) { shell.hidden=true; return; }
     shell.hidden=false;
+    modal.dataset.v2ProductDetail = 'collapsed';
 
     const disclosure = en ? [
       ['01','Public','Value, maturity and next milestone.'],
@@ -975,7 +976,10 @@ function installExecutiveProjectDossierV2(lang, $, projects) {
       </div>
 
       <div class="v2-exec-actions">
-        <button type="button" class="btn btn-primary" data-v2-exec-start>${en?'Discuss the next step':'Обсудить следующий этап'} →</button>
+        <div class="v2-exec-action-buttons">
+          <button type="button" class="btn btn-primary" data-v2-exec-start>${en?'Discuss the next step':'Обсудить следующий этап'} →</button>
+          <button type="button" class="btn" data-v2-exec-product-detail aria-expanded="false">${en?'Show product detail':'Показать продукт подробнее'}</button>
+        </div>
         <span>${en?'No confidential implementation detail is shown here.':'Закрытые детали реализации здесь не раскрываются.'}</span>
       </div>
 
@@ -1047,6 +1051,17 @@ function installExecutiveProjectDossierV2(lang, $, projects) {
       const start=e.target.closest('[data-v2-exec-start]');
       const demo=e.target.closest('[data-v2-exec-demo]');
       const diligence=e.target.closest('[data-v2-exec-diligence]');
+      const productDetail=e.target.closest('[data-v2-exec-product-detail]');
+      if(productDetail){
+        const open=modal.dataset.v2ProductDetail!=='expanded';
+        modal.dataset.v2ProductDetail=open?'expanded':'collapsed';
+        productDetail.setAttribute('aria-expanded',String(open));
+        productDetail.textContent=open
+          ? (en?'Hide product detail':'Свернуть продукт подробнее')
+          : (en?'Show product detail':'Показать продукт подробнее');
+        if(open) $('#gallery')?.scrollIntoView({behavior:'smooth',block:'start'});
+        return;
+      }
       if(!start && !demo && !diligence) return;
       const id=modal.dataset.project;
       const route=diligence?'diligence':demo?'pilot':'pilot';
