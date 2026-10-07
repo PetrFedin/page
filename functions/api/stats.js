@@ -40,6 +40,86 @@ export function gate(ok) {
 const HEAD = { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store', 'x-robots-tag': 'noindex' };
 const MSK = 3 * 3600;
 
+
+const LEAD_ROUTE_FIELDS = {
+  pilot: ['goal','scope','timing'],
+  partnership: ['contribution','format','firstCase','timing'],
+  investment: ['investorType','investorFocus','nextStep','timing'],
+  diligence: ['diligencePurpose','accessLevel','questions','timing']
+};
+
+function parseJson(v, fallback = {}) {
+  try { return JSON.parse(v || '') || fallback; } catch { return fallback; }
+}
+
+function timingPoints(v) {
+  const s = String(v || '').toLowerCase();
+  if (/до 1 месяца|within 1 month/.test(s)) return 25;
+  if (/1.?3/.test(s)) return 18;
+  if (/3.?6/.test(s)) return 10;
+  return 0;
+}
+
+function qualifyLead(sub, lead = {}) {
+  const route = String(lead.route || '').toLowerCase();
+  const project = String(lead.project || '').toLowerCase();
+  if (!route) return {
+    route: '', project, timing: '', score: null, priority: '—', stage: 'unclassified',
+    action: 'Уточнить тип запроса',
+    breakdown: { intent: 0, project: 0, completeness: 0, timing: 0, nextStep: 0 },
+    reasons: ['заявка создана до введения квалификационной формы или маршрут не указан']
+  };
+
+  const expected = LEAD_ROUTE_FIELDS[route] || [];
+  const filled = expected.filter((k) => String(lead[k] || '').trim()).length;
+  const completeness = expected.length ? Math.round(25 * filled / expected.length) : 0;
+  const intent = route === 'pilot' || route === 'diligence' ? 20
+    : route === 'partnership' || route === 'investment' ? 15
+    : 5;
+  const projectSpecificity = project ? 20 : 0;
+  const timing = timingPoints(lead.timing);
+  const nextStep = route === 'diligence'
+    ? (lead.accessLevel || lead.questions ? 10 : 0)
+    : route === 'pilot'
+      ? (lead.scope ? 10 : 0)
+      : route === 'partnership'
+        ? (lead.firstCase ? 10 : 0)
+        : route === 'investment'
+          ? (lead.nextStep || lead.investorFocus ? 10 : 0)
+          : 0;
+
+  const score = Math.min(100, intent + projectSpecificity + completeness + timing + nextStep);
+  const priority = score >= 75 ? 'A' : score >= 55 ? 'B' : score >= 35 ? 'C' : 'D';
+  const stage = score >= 75 ? 'ready' : score >= 55 ? 'qualified' : score >= 35 ? 'clarify' : 'early';
+
+  let action = 'Отправить материалы и уточнить задачу';
+  if (route === 'pilot') action = stage === 'ready' ? 'Назначить разговор о пилоте'
+    : stage === 'qualified' ? 'Уточнить границы и критерии пилота'
+    : 'Отправить материалы и уточнить задачу';
+  if (route === 'partnership') action = stage === 'ready' ? 'Назначить партнёрский разговор'
+    : stage === 'qualified' ? 'Уточнить первый совместный кейс'
+    : 'Отправить материалы и уточнить формат';
+  if (route === 'investment') action = stage === 'ready' ? 'Назначить инвестиционный intro'
+    : stage === 'qualified' ? 'Отправить investment brief и согласовать следующий шаг'
+    : 'Отправить краткие материалы';
+  if (route === 'diligence') action = stage === 'ready' ? 'Согласовать NDA и scope проверки'
+    : stage === 'qualified' ? 'Уточнить цель и уровень закрытого доступа'
+    : 'Сначала отправить публичные материалы';
+
+  return {
+    route, project, timing: lead.timing || '',
+    score, priority, stage, action,
+    breakdown: { intent, project: projectSpecificity, completeness, timing, nextStep },
+    reasons: [
+      `тип запроса +${intent}`,
+      projectSpecificity ? 'конкретный проект +20' : 'проект не выбран +0',
+      `полнота ответов ${filled}/${expected.length || 0} +${completeness}`,
+      timing ? `заявленный срок +${timing}` : 'срок не определён +0',
+      nextStep ? `следующий шаг конкретизирован +${nextStep}` : 'следующий шаг требует уточнения +0'
+    ]
+  };
+}
+
 export async function onRequestGet({ request, env }) {
   const ok = await authorized(request, env);
   if (ok !== true) return gate(ok);
@@ -110,8 +190,20 @@ export async function onRequestGet({ request, env }) {
   const errors = await q(`SELECT label, COUNT(*) n FROM events WHERE type='form_error' AND ts >= ? GROUP BY label ORDER BY n DESC LIMIT 20`, since);
   const abandons = await q(`SELECT ts, vid, label, country, city FROM events WHERE type='form_abandon' AND ts >= ? ORDER BY ts DESC LIMIT 30`, since);
   const quiz = await q(`SELECT type, target, label, COUNT(*) n FROM events WHERE type IN ('quiz_step','quiz_result') AND ts >= ? GROUP BY type, target, label ORDER BY type, n DESC LIMIT 60`, since);
-  const submissions = await q(`SELECT id, ts, vid, name, email, telegram, phone, entity, topic, message, lang, file_name, country, city, ok
+  const submissions = await q(`SELECT id, ts, vid, sid, name, email, telegram, phone, entity, topic, message, lang, file_name, country, city, ok
       FROM submissions WHERE ts >= ? ORDER BY ts DESC LIMIT 100`, since);
+  const leadEvents = await q(`SELECT sid, ts, data FROM events WHERE type='form_sent' AND ts >= ? ORDER BY ts DESC LIMIT 500`, since);
+  const leadBySid = {};
+  for (const e of leadEvents) {
+    if (!e.sid || leadBySid[e.sid]) continue;
+    const d = parseJson(e.data);
+    if (d.lead) leadBySid[e.sid] = d.lead;
+  }
+  for (const s of submissions) {
+    const lead = leadBySid[s.sid] || {};
+    s.lead = lead;
+    s.qualification = qualifyLead(s, lead);
+  }
   const visitors = await q(`SELECT vid, MIN(ts) first, MAX(ts) last, COUNT(*) n, COUNT(DISTINCT sid) sessions,
       MAX(country) country, MAX(city) city, MAX(device) device, MAX(browser) browser, MAX(os) os, MAX(org) org, MAX(ip) ip,
       SUM(type='pageview') views, MAX(CASE WHEN type='pageview' THEN ref END) ref
