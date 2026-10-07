@@ -472,3 +472,38 @@ Changes:
 - Long commercial/evidence strings use min-width:0 and overflow wrapping to prevent horizontal overflow.
 
 The browser connector was unavailable during this pass, so this iteration is a deterministic DOM/CSS breakpoint hardening pass rather than a claimed screenshot-based visual certification.
+
+
+## Executive Project Dossier v2.23
+
+The project modal is reorganised for 30–60 second executive reading.
+
+Level 01 — always visible:
+- project/value summary;
+- current maturity;
+- next decision / milestone;
+- problem;
+- buyer;
+- evidence now;
+- commercial path;
+- current ask.
+
+Level 02 — collapsed by default:
+- what the buyer pays for;
+- first sellable pilot;
+- pilot-to-contract gate;
+- revenue mechanics;
+- evidenced / not evidenced;
+- primary risk;
+- de-risking pilot;
+- scale / revise / stop logic;
+- strategic horizon, explicitly marked as roadmap rather than current capability.
+
+Level 03 — collapsed by default:
+- public / qualified demo / NDA-diligence disclosure ladder;
+- confidentiality boundary;
+- qualified demo and diligence CTAs.
+
+The previous separate stacked V2 dossier blocks are no longer mounted into the modal. Their canonical data remains in the registry and is reused by the consolidated executive dossier.
+
+Public confidentiality rules remain unchanged: no repository internals, architecture or proprietary implementation detail are exposed.
