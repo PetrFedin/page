@@ -914,3 +914,22 @@ Resolved:
 This follows the master-plan principle of progressive disclosure: proof remains available,
 but the public sales journey does not require visitors to understand the site's internal
 information architecture before taking action.
+
+
+### Implementation note — V2.22 breakpoint QA
+
+A responsive hardening pass was completed for the primary V2 journey at monitor, tablet
+and phone breakpoint classes.
+
+Covered:
+- hero CTA visibility;
+- tablet navigation crowding;
+- Mini Brief sticky-height limits;
+- long dossier modal scrolling;
+- narrow-phone CTA stacking;
+- contact form column collapse;
+- First Meeting Room viewport containment;
+- horizontal overflow guards in public dossier content.
+
+This pass is explicitly a code/CSS breakpoint audit. Screenshot-based visual certification
+remains a separate QA step whenever a connected browser with viewport control is available.
