@@ -298,3 +298,48 @@ Recommended actions are operational:
 This is intentionally not an AI win-probability score and does not estimate whether
 a person is "good" or "bad". It only answers: how complete and actionable is the
 request that was submitted?
+
+
+## Interactive Start and Lead Operating Queue v2.16
+
+The previous passive “How we start” copy is replaced with an interactive three-step start flow:
+
+1. choose the intended route: pilot / partnership / investment / NDA-diligence;
+2. choose the project;
+3. choose the expected timing.
+
+The selected context is transferred into the qualified enquiry route and contact form.
+The visitor does not need to repeat the same choices.
+
+Lead operations in /stats now use two independent layers:
+
+### Qualification
+Explainable readiness score based only on the submitted request:
+- route;
+- selected project;
+- completion of the route-specific questions;
+- timing explicitly chosen by the visitor;
+- specificity of the requested next step.
+
+### Operating state
+Append-only operational status:
+New → Reviewed → Contacted → Demo scheduled → NDA → Pilot discussion → Proposal → Won / Lost / Nurture.
+
+Each operating update records:
+- owner;
+- next action;
+- due date;
+- optional note;
+- timestamped history.
+
+The “Requires action today” queue includes:
+- overdue next actions;
+- actions due today;
+- new A-priority leads without an assigned due date.
+
+Qualification score and operating status are deliberately separate. A high-readiness lead
+can still be at New; a lower-readiness lead can be in Nurture. The system never converts
+the score into an opaque AI judgement about the person.
+
+The operating history is stored as append-only `lead_op` events in the existing analytics
+database; no separate CRM database is required for this layer.
