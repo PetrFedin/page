@@ -343,3 +343,36 @@ the score into an opaque AI judgement about the person.
 
 The operating history is stored as append-only `lead_op` events in the existing analytics
 database; no separate CRM database is required for this layer.
+
+
+## Mini Brief Builder v2.17
+
+“How we start” is now a first-conversation brief builder rather than passive explanatory copy.
+
+The visitor selects:
+1. route — pilot / partnership / investment / NDA-diligence;
+2. project;
+3. timing;
+4. two route-specific business questions.
+
+The right-hand preview updates immediately and shows the exact first-conversation brief.
+
+Route-specific questions intentionally stay at public business level:
+- pilot — what should be proven + real validation scope;
+- partnership — contribution + preferred format;
+- investment — first discussion focus + expected next step;
+- diligence — purpose + requested disclosure level.
+
+The builder never asks for internal architecture, implementation mechanics or proprietary technical detail.
+
+On continue:
+- route/project/timing move into Qualified Lead Routing;
+- matching answers prefill the corresponding qualification fields;
+- the generated brief is stored in a hidden `leadBrief` field;
+- the message is prefilled with the brief when the visitor has not already written a message;
+- the backend stores the brief in lead context;
+- Telegram receives it with the enquiry;
+- /stats shows it as “Brief первого разговора” above the operating controls.
+
+The Mini Brief and Qualification form are complementary:
+the Mini Brief removes repeated input and creates a useful first-call summary, while any remaining qualification fields can still be completed before submission.
