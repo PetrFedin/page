@@ -933,3 +933,19 @@ Covered:
 
 This pass is explicitly a code/CSS breakpoint audit. Screenshot-based visual certification
 remains a separate QA step whenever a connected browser with viewport control is available.
+
+
+### Implementation note — V2.23 executive dossier
+
+Project Dossier was consolidated into a progressive executive-reading hierarchy.
+
+Public modal now follows:
+1. **60-second decision snapshot** — problem, buyer, maturity, evidence, commercial path, next milestone and current ask.
+2. **Commercial & Proof** — collapsed by default; pilot economics, validation gaps, primary risk and scale/revise/stop logic.
+3. **Access & diligence** — collapsed by default; public → qualified demo → NDA/diligence.
+
+The previous independent Decision / Commercial / Proof / Confidentiality / Disclosure blocks are not mounted separately in V2.
+
+No underlying factual registry was removed. The change is presentation and progressive disclosure, reducing vertical length while preserving deeper evidence when deliberately requested.
+
+The Confidential disclosure override remains authoritative.
