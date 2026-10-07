@@ -948,4 +948,6 @@ The previous independent Decision / Commercial / Proof / Confidentiality / Discl
 
 No underlying factual registry was removed. The change is presentation and progressive disclosure, reducing vertical length while preserving deeper evidence when deliberately requested.
 
+Product walkthrough is also collapsed by default (gallery, facts, status, collaboration details) and can be opened explicitly from the executive snapshot.
+
 The Confidential disclosure override remains authoritative.
