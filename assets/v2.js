@@ -1018,7 +1018,7 @@ function installQualifiedLeadRouting(lang, $, projects) {
   };
 
   const fieldHtml = (f) => {
-    if (f.type === 'select') return `<label class="field"><span>${esc(f.label)}</span><select name="${esc(f.name)}" data-v2-route-required><option value="">${en?'Выберите…':'Выберите…'}</option>${f.options.map((o)=>`<option value="${esc(o)}">${esc(o)}</option>`).join('')}</select></label>`;
+    if (f.type === 'select') return `<label class="field"><span>${esc(f.label)}</span><select name="${esc(f.name)}" data-v2-route-required><option value="">${en?'Choose…':'Выберите…'}</option>${f.options.map((o)=>`<option value="${esc(o)}">${esc(o)}</option>`).join('')}</select></label>`;
     return `<label class="field"><span>${esc(f.label)}</span><input name="${esc(f.name)}" type="text" data-v2-route-required placeholder="${esc(f.placeholder || '')}"></label>`;
   };
 
