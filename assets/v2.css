@@ -622,10 +622,12 @@ html[data-preview="v2"] .modal-body{
   display:grid;
   place-items:center;
   font-style:normal;
-  font-size:16px;
+  font-size:0;
   color:var(--muted)
 }
+.v2-exec-level>summary i::before{content:'+';font-size:16px}
 .v2-exec-level[open]>summary i{color:var(--ink);border-color:var(--ink)}
+.v2-exec-level[open]>summary i::before{content:'−'}
 .v2-exec-level-body{
   padding:0 0 20px 44px
 }
