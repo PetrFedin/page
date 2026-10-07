@@ -426,3 +426,27 @@ The master-plan Client Pitch Room idea is adopted in a safe, session-only form:
 - it contains only public business context and no protected technical evidence.
 
 This is intentionally a first-meeting preparation room, not the confidential diligence room.
+
+
+## UX Journey Audit v2.21
+
+The V2 page was audited as one conversion journey rather than a collection of independent modules.
+
+Primary journey:
+1. Hero — one clear start CTA plus portfolio shortcut.
+2. Decision Layer — choose the working format.
+3. Mini Brief Builder — route, project/business context, timing and two route-specific questions.
+4. Recommendation / First Meeting Room — optional preparation, not a mandatory new step.
+5. Portfolio Intelligence — browse evidence and open a dossier only when needed.
+6. Clear next step — continue to Contact or return to edit the Mini Brief.
+
+Changes made:
+- the old “Where shall we start?” route-card layer is hidden because it duplicated the Decision Layer;
+- Stakeholder Lens is moved below the portfolio and collapsed by default as an optional perspective;
+- portfolio cards now expose only two primary actions: Open dossier / Start with this project;
+- commercial, investor-readiness and evidence detail stay inside the project dossier instead of expanding the portfolio card;
+- project “Start” preselects the project in the Mini Brief and uses Pilot as the default route;
+- a compact Next Step surface after the portfolio sends the visitor either to Contact or back to the Mini Brief;
+- CTA layout is reduced from a six-column action matrix to a stable two-action grid.
+
+The goal is one obvious next action at each level, while preserving all deeper evidence for visitors who deliberately open a dossier.
