@@ -341,3 +341,13 @@ html[data-preview="v2"] .opt-row[hidden] { display: none !important; }
 .v2-deep-details summary::-webkit-details-marker{display:none}.v2-deep-details summary::after{content:'+';font-size:18px;color:var(--accent);font-weight:400}.v2-deep-details[open] summary::after{content:'−'}
 .v2-deep-details ul{margin:0;padding:0 22px 18px 38px;columns:2;column-gap:34px}.v2-deep-details li{break-inside:avoid;color:var(--muted);font-size:12px;line-height:1.55;margin:0 0 8px}
 @media(max-width:759px){.v2-deep-head{grid-template-columns:1fr;gap:8px;padding:18px}.v2-deep-head h3{font-size:22px}.v2-deep-details ul{columns:1;padding-right:18px}.v2-deep-details summary{padding:13px 16px}}
+
+/* V2.16 compact executive portfolio cards */
+.v2-product-meta{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:0}
+.v2-product-meta>summary{cursor:pointer;list-style:none;padding:11px 0;font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:var(--accent);display:flex;justify-content:space-between;align-items:center}
+.v2-product-meta>summary::-webkit-details-marker{display:none}.v2-product-meta>summary::after{content:'+';font-size:16px;font-weight:400}.v2-product-meta[open]>summary::after{content:'−'}
+.v2-product-meta .v2-product-data{padding:0 0 12px}
+.v2-product-meta .v2-product-data>div:first-child{border-top:0;padding-top:2px}
+.v2-product{gap:13px}.v2-product-tag{font-size:14px;line-height:1.52}
+.v2-card-visual{aspect-ratio:16/7}
+@media(max-width:759px){.v2-card-visual{aspect-ratio:16/8}.v2-product-meta>summary{font-size:9px}}

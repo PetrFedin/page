@@ -32,6 +32,7 @@ const checks = [
   ['runtime bindings survive prerender', !/data-(?:decision-bound|bound(?:-portfolio|-stakeholder)?|commercial-bound|proof-bound|evidence-installed)=/.test(index + en) && !/dataset\.[A-Za-z0-9_]*(?:Bound|bound|Installed)/.test(v2)],
   ['actionable start flow', ['data-v2-start-mode','data-v2-start-continue','Перейти к короткой форме','Написать в Telegram'].every((x) => v2.includes(x))],
   ['deep new-project dossiers', ['V2_DEEP_PROJECTS','antiqua','fashionmgmt','furproduction','v2-deep-project'].every((x) => v2.includes(x))],
+  ['executive portfolio ordering', v2.includes("['syntha','fashionmgmt','furproduction','mfw','promomed','chatx','antiqua','renova']") && v2.includes('v2-product-meta')],
 ];
 
 let failed = 0;

@@ -147,7 +147,9 @@ const V2_INVESTOR_PRIORITY = {"syntha":{"ru":{"matters":"Fashion-бизнес т
 
 function renderPortfolioIntelligence(lang, $, projects) {
   const en = lang === 'en';
-  const items = Array.isArray(projects) ? projects.filter((p) => p?.id && p?.[lang]) : [];
+  const priorityOrder = ['syntha','fashionmgmt','furproduction','mfw','promomed','chatx','antiqua','renova'];
+  const rank = new Map(priorityOrder.map((id,i)=>[id,i]));
+  const items = Array.isArray(projects) ? projects.filter((p) => p?.id && p?.[lang]).sort((a,b)=>(rank.get(a.id)??99)-(rank.get(b.id)??99)) : [];
   const meta = V2_PORTFOLIO_META;
   const categories = V2_PORTFOLIO_CATEGORIES[en ? 'en' : 'ru'];
   const maturityLabels = V2_MATURITY[en ? 'en' : 'ru'];
@@ -238,11 +240,14 @@ function renderPortfolioIntelligence(lang, $, projects) {
         </div>
         ${renderCardVisual(p)}
         <p class="v2-product-tag">${esc(d.tagline)}</p>
-        <dl class="v2-product-data">
-          <div><dt>${en ? 'Audience' : 'Аудитория'}</dt><dd>${esc(short(d.who, 210))}</dd></div>
-          <div><dt>${en ? 'Current stage' : 'Текущая стадия'}</dt><dd>${esc(d.stage)}</dd></div>
-          <div><dt>${en ? 'Monetisation' : 'Монетизация'}</dt><dd>${esc(m.commercial[en ? 'en' : 'ru'])}</dd></div>
-        </dl>
+        <details class="v2-product-meta">
+          <summary>${en ? 'Audience · stage · commercial path' : 'Для кого · стадия · коммерческий путь'}</summary>
+          <dl class="v2-product-data">
+            <div><dt>${en ? 'Audience' : 'Аудитория'}</dt><dd>${esc(short(d.who, 210))}</dd></div>
+            <div><dt>${en ? 'Current stage' : 'Текущая стадия'}</dt><dd>${esc(d.stage)}</dd></div>
+            <div><dt>${en ? 'Monetisation' : 'Монетизация'}</dt><dd>${esc(m.commercial[en ? 'en' : 'ru'])}</dd></div>
+          </dl>
+        </details>
         ${priority ? `<div class="v2-investor-priority" aria-label="${en ? 'Investor priority' : 'Инвесторский приоритет'}">
           <div><span>01 · ${en ? 'Why this matters' : 'Почему это важно'}</span><p>${esc(short(priority.matters, 150))}</p></div>
           <div><span>02 · ${en ? 'Why now' : 'Почему сейчас'}</span><p>${esc(short(priority.now, 150))}</p></div>
