@@ -6,6 +6,7 @@ const v2 = read('assets/v2.js');
 const css = read('assets/v2.css');
 const statsApi = read('functions/api/stats.js');
 const statsUi = read('functions/stats.js');
+const leadsApi = read('functions/api/leads.js');
 const index = read('index.html');
 const content = read('assets/content.js');
 const en = read('en/index.html');
@@ -28,6 +29,16 @@ const checks = [
   ['commercial clarity layer', ['Кто покупатель','За что платит','Первый продаваемый пилот','Что измеряем','Что превращает пилот в контракт','Возможные модели выручки'].every((x) => v2.includes(x))],
   ['commercial hypothesis labeling', v2.includes('Рабочая гипотеза · подтверждается пилотом') && v2.includes('Коммерческая модель')],
   ['commercial proof and investor readiness', ['Что уже доказано','Что ещё не доказано','Главный риск','Как следующий пилот снимает риск','Какие данные должны появиться','МАСШТАБИРОВАТЬ','ПЕРЕСОБРАТЬ','ОСТАНОВИТЬ'].every((x) => v2.includes(x))],
+  ['public confidentiality guard', v2.includes('Публично / конфиденциально') && v2.includes('Запросить закрытое демо')],
+  ['controlled disclosure ladder', v2.includes('Уровни доступа') && v2.includes('NDA / diligence')],
+  ['qualified lead routing', ['pilot','partnership','investment','diligence'].every((x) => v2.includes(x)) && v2.includes('Квалифицированное обращение') && v2.includes('leadTiming')],
+  ['lead qualification model', statsApi.includes('function qualifyLead(') && statsUi.includes('Прозрачная квалификация') && statsUi.includes('Готовность')],
+  ['interactive start flow', v2.includes('data-v2-start-route') && v2.includes('data-v2-start-project') && v2.includes('data-v2-start-timing') && v2.includes('Продолжить с этим контекстом')],
+  ['lead operating API', leadsApi.includes("type, path, target, label, data") && leadsApi.includes("'lead_op'") && leadsApi.includes("demo_scheduled")],
+  ['lead operating queue', statsUi.includes('Lead Operating Queue') && statsUi.includes('Требует действия сегодня') && statsUi.includes('data-lead-save') && statsUi.includes("post('/api/leads'" )],
+  ['lead history append-only', statsApi.includes("type='lead_op'") && statsApi.includes('s.operations') && statsApi.includes('s.operating')],
+  ['responsive portfolio CTA grid', css.includes('grid-template-columns:repeat(6,minmax(0,1fr))') && css.includes('data-v2-talk="diligence"')],
+
 ];
 
 let failed = 0;
