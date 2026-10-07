@@ -93,7 +93,8 @@ export async function onRequestPost({ request, env }) {
     nextStep: clean(body.leadNextStep, 300),
     diligencePurpose: clean(body.leadDiligencePurpose, 160),
     accessLevel: clean(body.leadAccessLevel, 160),
-    questions: clean(body.leadQuestions, 500)
+    questions: clean(body.leadQuestions, 500),
+    brief: clean(body.leadBrief, 1600)
   };
   const line = (cond, v) => (cond ? v : null);
   const text = [
@@ -122,6 +123,7 @@ export async function onRequestPost({ request, env }) {
     line(leadContext.diligencePurpose, `<b>Цель проверки:</b> ${esc(leadContext.diligencePurpose)}`),
     line(leadContext.accessLevel, `<b>Уровень доступа:</b> ${esc(leadContext.accessLevel)}`),
     line(leadContext.questions, `<b>Вопросы:</b> ${esc(leadContext.questions)}`),
+    line(leadContext.brief, `<b>Brief:</b><br>${esc(leadContext.brief).replace(/\n/g,'<br>')}`),
     '',
     esc(message)
   ].filter((l) => l !== null).join('\n');
