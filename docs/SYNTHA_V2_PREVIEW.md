@@ -257,3 +257,44 @@ Telegram publication.
 Source-level checks:
 - npm run check:v2
 - npm run check:editorial
+
+
+## Lead Qualification v2.15
+
+V2 now uses an explainable lead-readiness model for pilot, partnership, investment
+and NDA/diligence enquiries.
+
+The score evaluates the **request's readiness for the next action**, not the person.
+It does not use country, name, device, inferred wealth, employer prestige,
+demographics, browsing profile or opaque AI predictions.
+
+Visible inputs:
+- request type / route;
+- whether a concrete project is selected;
+- completion of the route-specific qualification questions;
+- timing explicitly chosen by the visitor;
+- whether the next step is concrete.
+
+Maximum score: 100.
+
+The /stats lead view shows:
+- priority A / B / C / D;
+- readiness score;
+- readiness stage;
+- deterministic next action;
+- the full score breakdown and textual reasons.
+
+Legacy submissions without the new structured route remain **unclassified** rather
+than being forced into a low-priority bucket.
+
+Recommended actions are operational:
+- schedule pilot discussion;
+- clarify pilot scope;
+- schedule partnership discussion;
+- send investment brief / schedule investor intro;
+- agree NDA and diligence scope;
+- send public materials first.
+
+This is intentionally not an AI win-probability score and does not estimate whether
+a person is "good" or "bad". It only answers: how complete and actionable is the
+request that was submitted?
