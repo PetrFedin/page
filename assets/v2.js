@@ -895,6 +895,204 @@ function installDisclosureLadder(lang, $, projects) {
   paint();
 }
 
+
+/* V2.14 qualified lead routing */
+const V2_LEAD_ROUTES = {
+  ru: {
+    pilot: {
+      title: 'Пилот',
+      lead: 'Три коротких вопроса, чтобы первый разговор был о реальной проверке продукта, а не об общей презентации.',
+      topic: 'launch',
+      fields: [
+        {name:'leadGoal',label:'Что хотим доказать пилотом?',type:'select',options:['Экономический эффект','Рабочий процесс','Вовлечение пользователей','Коммерческий спрос','Другое']},
+        {name:'leadScope',label:'Какой реальный контур готовы дать для проверки?',type:'text',placeholder:'Например: один бренд / команда / событие / объект'},
+        {name:'leadTiming',label:'Когда нужен первый результат?',type:'select',options:['До 1 месяца','1–3 месяца','3–6 месяцев','Срок пока не определён']}
+      ]
+    },
+    partnership: {
+      title: 'Партнёрство',
+      lead: 'Собираем только то, что нужно, чтобы понять вклад сторон и первый совместный кейс.',
+      topic: 'partnership',
+      fields: [
+        {name:'leadContribution',label:'Что вы привносите?',type:'select',options:['Клиенты / канал продаж','Отраслевая экспертиза','Интеграция / технология','Операционный ресурс','Капитал','Другое']},
+        {name:'leadFormat',label:'Какой формат интересен?',type:'select',options:['Совместный пилот','Совместный выход на рынок','White-label / лицензирование','Стратегическое партнёрство','Другое']},
+        {name:'leadFirstCase',label:'Какой первый совместный кейс имеет смысл проверить?',type:'text',placeholder:'Коротко: задача, клиент или сценарий'}
+      ]
+    },
+    investment: {
+      title: 'Инвестиционный диалог',
+      lead: 'Только контекст, который помогает сразу выбрать правильный формат первого разговора.',
+      topic: 'investors',
+      fields: [
+        {name:'leadInvestorType',label:'Тип интереса',type:'select',options:['Стратегический инвестор','Финансовый инвестор','CVC / корпоративный венчур','Family office / private capital','Другое']},
+        {name:'leadInvestorFocus',label:'Что важно увидеть сначала?',type:'select',options:['Продукт и рынок','Пилот и подтверждения','Коммерческая модель','Стратегия роста','Команда / исполнение']},
+        {name:'leadNextStep',label:'Какой следующий шаг ожидаете?',type:'text',placeholder:'Например: intro call / demo / diligence'}
+      ]
+    },
+    diligence: {
+      title: 'NDA / проверка',
+      lead: 'Глубина раскрытия согласуется до передачи закрытых материалов.',
+      topic: 'investors',
+      fields: [
+        {name:'leadDiligencePurpose',label:'Цель проверки',type:'select',options:['Продуктовая','Коммерческая','Инвестиционная','Партнёрская','Техническая — ограниченный доступ','Security / compliance — ограниченный доступ']},
+        {name:'leadAccessLevel',label:'Какой уровень нужен?',type:'select',options:['Закрытое демо','NDA + выборочные материалы','Diligence с согласованным scope']},
+        {name:'leadQuestions',label:'Какие вопросы нужно закрыть?',type:'text',placeholder:'2–3 ключевых вопроса достаточно'}
+      ]
+    }
+  },
+  en: {
+    pilot: {
+      title: 'Pilot',
+      lead: 'Three short questions so the first conversation is about a real validation scope, not a generic presentation.',
+      topic: 'launch',
+      fields: [
+        {name:'leadGoal',label:'What should the pilot prove?',type:'select',options:['Economic impact','Operating workflow','User adoption','Commercial demand','Other']},
+        {name:'leadScope',label:'What real scope can you provide?',type:'text',placeholder:'For example: one brand / team / event / property'},
+        {name:'leadTiming',label:'When do you need the first result?',type:'select',options:['Within 1 month','1–3 months','3–6 months','Timing not defined yet']}
+      ]
+    },
+    partnership: {
+      title: 'Partnership',
+      lead: 'Only the context needed to understand each side’s contribution and the first joint case.',
+      topic: 'partnership',
+      fields: [
+        {name:'leadContribution',label:'What do you bring?',type:'select',options:['Clients / sales channel','Industry expertise','Integration / technology','Operating resource','Capital','Other']},
+        {name:'leadFormat',label:'Which format is relevant?',type:'select',options:['Joint pilot','Joint go-to-market','White-label / licensing','Strategic partnership','Other']},
+        {name:'leadFirstCase',label:'What first joint case should we test?',type:'text',placeholder:'Short description of the client or workflow'}
+      ]
+    },
+    investment: {
+      title: 'Investment discussion',
+      lead: 'Only the context needed to choose the right first conversation.',
+      topic: 'investors',
+      fields: [
+        {name:'leadInvestorType',label:'Type of interest',type:'select',options:['Strategic investor','Financial investor','CVC / corporate venture','Family office / private capital','Other']},
+        {name:'leadInvestorFocus',label:'What should we cover first?',type:'select',options:['Product and market','Pilot and evidence','Commercial model','Growth strategy','Team / execution']},
+        {name:'leadNextStep',label:'What next step do you expect?',type:'text',placeholder:'For example: intro call / demo / diligence'}
+      ]
+    },
+    diligence: {
+      title: 'NDA / diligence',
+      lead: 'The disclosure level is agreed before any confidential material is shared.',
+      topic: 'investors',
+      fields: [
+        {name:'leadDiligencePurpose',label:'Purpose of diligence',type:'select',options:['Product','Commercial','Investment','Partnership','Technical — controlled access','Security / compliance — controlled access']},
+        {name:'leadAccessLevel',label:'What level is needed?',type:'select',options:['Qualified demo','NDA + selected materials','Diligence with agreed scope']},
+        {name:'leadQuestions',label:'Which questions need to be resolved?',type:'text',placeholder:'2–3 key questions are enough'}
+      ]
+    }
+  }
+};
+
+function installQualifiedLeadRouting(lang, $, projects) {
+  const en = lang === 'en';
+  const form = $('#form');
+  const topic = $('#topic');
+  if (!form || !topic) return;
+  const config = V2_LEAD_ROUTES[en ? 'en' : 'ru'];
+  const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (ch) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+  let state = { route: '', project: '' };
+
+  let panel = $('#v2-qualified-route');
+  if (!panel) {
+    panel = document.createElement('section');
+    panel.id = 'v2-qualified-route';
+    panel.className = 'v2-qualified-route';
+    $('#topic-other-field')?.after(panel);
+  }
+
+  const routeFromTopic = (value) => value === 'launch' ? 'pilot' : value === 'partnership' ? 'partnership' : value === 'investors' ? 'investment' : '';
+
+  const defaultMessage = (route, projectId) => {
+    const p = (projects || []).find((x)=>x.id===projectId);
+    const name = p?.name || (en ? 'the project' : 'проект');
+    return en
+      ? route === 'pilot' ? `I would like to discuss a pilot for ${name}.`
+      : route === 'partnership' ? `I would like to discuss a partnership around ${name}.`
+      : route === 'diligence' ? `I would like to discuss NDA / diligence for ${name}.`
+      : `I would like to discuss investment in ${name}.`
+      : route === 'pilot' ? `Хочу обсудить пилот ${name}.`
+      : route === 'partnership' ? `Хочу обсудить партнёрство вокруг ${name}.`
+      : route === 'diligence' ? `Хочу обсудить NDA / проверку по ${name}.`
+      : `Хочу обсудить инвестиции в ${name}.`;
+  };
+
+  const fieldHtml = (f) => {
+    if (f.type === 'select') return `<label class="field"><span>${esc(f.label)}</span><select name="${esc(f.name)}" data-v2-route-required><option value="">${en?'Выберите…':'Выберите…'}</option>${f.options.map((o)=>`<option value="${esc(o)}">${esc(o)}</option>`).join('')}</select></label>`;
+    return `<label class="field"><span>${esc(f.label)}</span><input name="${esc(f.name)}" type="text" data-v2-route-required placeholder="${esc(f.placeholder || '')}"></label>`;
+  };
+
+  const render = () => {
+    const d = config[state.route];
+    if (!d) { panel.hidden = true; panel.replaceChildren(); return; }
+    panel.hidden = false;
+    const p = (projects || []).find((x)=>x.id===state.project);
+    panel.innerHTML = `
+      <input type="hidden" name="leadRoute" value="${esc(state.route)}">
+      <input type="hidden" name="leadProject" value="${esc(state.project)}">
+      <div class="v2-qualified-head">
+        <div><p class="eyebrow">${en?'Qualified enquiry':'Квалифицированное обращение'}</p><h3>${esc(d.title)}${p ? ' · '+esc(p.name) : ''}</h3></div>
+        <p>${esc(d.lead)}</p>
+      </div>
+      <div class="v2-qualified-fields">${d.fields.map(fieldHtml).join('')}</div>
+      <p class="v2-qualified-note">${en
+        ? 'These answers are only for routing the conversation. Do not include confidential implementation details here.'
+        : 'Ответы нужны только для маршрутизации разговора. Конфиденциальные детали реализации здесь указывать не нужно.'}</p>`;
+  };
+
+  const setRoute = (route, project = '') => {
+    if (!config[route]) return;
+    state = { route, project: project || state.project || '' };
+    const d = config[route];
+    if ([...topic.options].some((o)=>o.value===d.topic)) {
+      topic.value = d.topic;
+      topic.dispatchEvent(new Event('change',{bubbles:true}));
+    }
+    render();
+    const msg = form.querySelector('[name="message"]');
+    if (msg && !msg.value.trim()) msg.value = defaultMessage(route,state.project);
+    window.track?.('lead_route', route, state.project || '');
+    form.dispatchEvent(new Event('input',{bubbles:true}));
+  };
+  window.synthaV2SetLeadRoute = setRoute;
+
+  const routeValid = () => !state.route || [...panel.querySelectorAll('[data-v2-route-required]')].every((el)=>String(el.value||'').trim());
+
+  form.addEventListener('input', () => {
+    if (state.route && !routeValid()) $('#submit').disabled = true;
+  });
+  form.addEventListener('change', () => {
+    if (state.route && !routeValid()) $('#submit').disabled = true;
+  });
+
+  form.addEventListener('submit',(e)=>{
+    if (!state.route || routeValid()) return;
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    const first=[...panel.querySelectorAll('[data-v2-route-required]')].find((el)=>!String(el.value||'').trim());
+    const note=$('#form-note');
+    if(note){note.className='form-note';note.textContent=en?'Please answer the three short routing questions first.':'Сначала ответьте на три коротких вопроса для маршрутизации обращения.';}
+    first?.focus();
+  },true);
+
+  topic.addEventListener('change',()=>{
+    const next=routeFromTopic(topic.value);
+    if (!next) { state={route:'',project:''}; render(); return; }
+    if (state.route === 'diligence' && topic.value === 'investors') return;
+    if (state.route !== next) { state={route:next,project:state.project}; render(); }
+  });
+
+  $('#persona-picker')?.addEventListener('click',(e)=>{
+    const b=e.target.closest('[data-persona-topic]');
+    if(!b) return;
+    const next=routeFromTopic(b.dataset.personaTopic);
+    if(next) setTimeout(()=>setRoute(next,''),0);
+  });
+
+  const initial=routeFromTopic(topic.value);
+  if(initial) { state.route=initial; render(); }
+}
+
 export function renderV2(lang, projects = []) {
   const en = lang === 'en';
   document.documentElement.dataset.preview = 'v2';
@@ -937,6 +1135,7 @@ export function renderV2(lang, projects = []) {
   installPublicStatusStamp(lang, $, projects);
   installConfidentialityLayer(lang, $, projects);
   installDisclosureLadder(lang, $, projects);
+  installQualifiedLeadRouting(lang, $, projects);
   if (!$('#v2-steps')) {
     const section = document.createElement('section'); section.id = 'v2-steps'; section.className = 'section v2-steps';
     $('#contact').before(section);
