@@ -832,3 +832,42 @@ This is a transparent requirement matrix, not an AI win-probability score.
 
 **Commercial framing:** reduces enterprise sales cycle and turns technical maturity into a repeatable procurement advantage.
 
+
+
+## Confidential disclosure override — REQUIRED
+
+The public Page must never become a mirror of project repositories or a public technical due-diligence room.
+
+Public project surfaces may expose only:
+- business problem;
+- audience / buyer;
+- product value;
+- safe user-facing capabilities;
+- maturity/readiness at a high level;
+- next externally verifiable milestone;
+- commercial path and participation route.
+
+Public surfaces must not expose:
+- internal architecture or data-flow diagrams;
+- infrastructure topology;
+- database or queue internals;
+- internal authority/module names;
+- migration/schema details;
+- repository SHA/branches/commit history as product proof;
+- internal release/acceptance/security mechanics;
+- unique implementation know-how.
+
+Any deeper technical due-diligence capability in this master plan is reclassified as
+**CONTROLLED ACCESS**, not public static content.
+
+Disclosure ladder:
+1. Public view — value, maturity, next milestone.
+2. Qualified demo — deeper user flows and pilot scope.
+3. NDA / diligence — selected implementation evidence under agreed scope.
+
+Protected delivery must use a controlled mechanism outside the public static repository.
+If a milestone cannot be described safely at business-result level, it is not published.
+
+This override takes precedence over older roadmap text that could be interpreted as
+publishing architecture, implementation details or technical evidence directly on
+the public landing.
