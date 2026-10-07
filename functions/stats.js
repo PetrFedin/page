@@ -522,10 +522,21 @@ function client() {
       + '<div class="grow"></div><button class="btn" id="csv">Скачать таблицу (CSV)</button></div>'
       + (list.length ? list.map((s) => {
         let ent = null; try { ent = s.entity ? JSON.parse(s.entity) : null; } catch { /* не json */ }
+        const q = s.qualification || {};
+        const stageLabel = { ready:'Готов к действию', qualified:'Квалифицирован', clarify:'Нужно уточнение', early:'Ранний интерес', unclassified:'Не классифицировано' }[q.stage] || 'Не классифицировано';
+        const priorityClass = q.priority === 'A' ? 'ok' : q.priority === 'D' ? 'bad' : '';
+        const scoreLabel = q.score == null ? '—' : q.score + '/100';
+        const routeLabel = { pilot:'Пилот', partnership:'Партнёрство', investment:'Инвестиции', diligence:'NDA / проверка' }[q.route] || '—';
+        const breakdown = q.breakdown || {};
         return '<div class="card"><div class="head"><h3>' + esc(s.name) + '</h3><span class="when">' + esc(when(s.ts)) + '</span><span class="tag">' + esc(s.topic) + '</span>'
+          + '<span class="tag ' + priorityClass + '">Приоритет ' + esc(q.priority || '—') + '</span><span class="when">Готовность ' + esc(scoreLabel) + '</span>'
           + (s.ok ? '' : '<span class="tag bad">в Telegram не ушла</span>') + (s.country ? '<span class="when">' + esc(place(s)) + '</span>' : '') + '</div>'
           + '<div class="contacts">' + (s.email ? '<a href="mailto:' + esc(s.email) + '">' + esc(s.email) + '</a>' : '') + (s.telegram ? '<a href="' + tg(s.telegram) + '" target="_blank" rel="noopener">Telegram: ' + esc(s.telegram) + '</a>' : '') + (s.phone ? '<a href="tel:' + esc(s.phone.replace(/[^\d+]/g, '')) + '">' + esc(s.phone) + '</a>' : '') + '</div>'
           + (ent ? '<div class="when">Юрлицо: ' + esc([ent.name, ent.inn && 'ИНН ' + ent.inn, ent.address, ent.site].filter(Boolean).join(' · ')) + '</div>' : '')
+          + '<div class="leadq"><div class="leadq-main"><b>' + esc(q.action || 'Уточнить тип запроса') + '</b><span>' + esc(stageLabel) + ' · ' + esc(routeLabel) + (q.project ? ' · ' + esc(q.project) : '') + (q.timing ? ' · ' + esc(q.timing) : '') + '</span></div>'
+          + (q.score == null ? '<p>Новая квалификационная форма для этой заявки не применялась.</p>' : '<div class="leadq-score"><strong>' + esc(scoreLabel) + '</strong><small>готовность запроса</small></div>')
+          + (q.score == null ? '' : '<div class="leadq-break"><span>Тип +' + num(breakdown.intent) + '</span><span>Проект +' + num(breakdown.project) + '</span><span>Ответы +' + num(breakdown.completeness) + '</span><span>Срок +' + num(breakdown.timing) + '</span><span>Следующий шаг +' + num(breakdown.nextStep) + '</span></div>')
+          + (q.reasons?.length ? '<details><summary>Почему такой приоритет</summary><ul>' + q.reasons.map((r) => '<li>' + esc(r) + '</li>').join('') + '</ul></details>' : '') + '</div>'
           + '<div class="msg">' + esc(s.message) + '</div>' + (s.file_name ? '<div class="when">Файл: ' + esc(s.file_name) + '</div>' : '')
           + '<div class="act"><button class="btn" data-copy="' + esc([s.name, s.email, s.telegram, s.phone].filter(Boolean).join(', ')) + '">Скопировать контакты</button><button class="btn" data-lead-vid="' + esc(s.vid) + '">Путь по сайту</button></div><div class="detail" id="ld-' + esc(s.vid) + '" hidden style="margin-top:8px;border-radius:12px;border:1px solid var(--line)"></div></div>';
       }).join('') : '<div class="empty"><b>Заявок пока нет</b>Когда кто-то заполнит форму, она появится здесь с текстом и путём по сайту.</div>');
