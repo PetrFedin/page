@@ -358,19 +358,22 @@ function renderStakeholderLens(lang, $, projects) {
   if (!section) return;
 
   section.innerHTML = `
-    <div class="v2-stakeholder-head">
+    <div class="v2-stakeholder-collapsed">
       <div>
         <p class="eyebrow">${en ? 'Optional perspective' : 'Дополнительный ракурс'}</p>
         <h2>${en ? 'View the portfolio through your role' : 'Посмотреть портфель со своей стороны'}</h2>
+        <p>${en
+          ? 'Client, CEO, investor and strategic partner look for different evidence. Open this only when that perspective is useful.'
+          : 'Клиент, CEO, инвестор и стратегический партнёр ищут разные подтверждения. Откройте этот блок, только если такой ракурс полезен.'}</p>
       </div>
-      <p>${en
-        ? 'Use this only if you want a role-specific reading of the portfolio. It is not required to start.'
-        : 'Используйте этот переключатель, только если нужен взгляд с позиции вашей роли. Для начала работы он не обязателен.'}</p>
+      <button type="button" class="btn" data-v2-stakeholder-toggle aria-expanded="false">${en ? 'Choose perspective' : 'Выбрать ракурс'}</button>
     </div>
-    <div class="v2-stakeholder-tabs" role="tablist" aria-label="${en ? 'Visitor role' : 'Роль посетителя'}">
-      ${data.map((r,i)=>`<button type="button" role="tab" class="v2-stakeholder-tab${i===0?' active':''}" aria-selected="${i===0}" data-v2-stakeholder="${r.id}">${esc(r.label)}</button>`).join('')}
-    </div>
-    <article class="v2-stakeholder-panel" id="v2-stakeholder-panel"></article>`;
+    <div class="v2-stakeholder-body" hidden>
+      <div class="v2-stakeholder-tabs" role="tablist" aria-label="${en ? 'Visitor role' : 'Роль посетителя'}">
+        ${data.map((r,i)=>`<button type="button" role="tab" class="v2-stakeholder-tab${i===0?' active':''}" aria-selected="${i===0}" data-v2-stakeholder="${r.id}">${esc(r.label)}</button>`).join('')}
+      </div>
+      <article class="v2-stakeholder-panel" id="v2-stakeholder-panel"></article>
+    </div>`;
 
   const renderRole = (id) => {
     const role = data.find((x)=>x.id===id) || data[0];
@@ -399,6 +402,15 @@ function renderStakeholderLens(lang, $, projects) {
   if (!section.dataset.boundStakeholder) {
     section.dataset.boundStakeholder='1';
     section.addEventListener('click',(e)=>{
+      const toggle=e.target.closest('[data-v2-stakeholder-toggle]');
+      if(toggle){
+        const body=section.querySelector('.v2-stakeholder-body');
+        const open=body?.hidden;
+        if(body) body.hidden=!open;
+        toggle.setAttribute('aria-expanded',String(open));
+        toggle.textContent=open ? (en?'Hide perspective':'Свернуть ракурс') : (en?'Choose perspective':'Выбрать ракурс');
+        return;
+      }
       const tab=e.target.closest('[data-v2-stakeholder]');
       if(tab){ renderRole(tab.dataset.v2Stakeholder); return; }
       const primary=e.target.closest('[data-v2-role-primary]');
@@ -1560,7 +1572,23 @@ export function renderV2(lang, projects = []) {
     });
   }
   renderStart();
-  $('#contact-sub').textContent = en ? 'Your name, one way to reach you and a few words about your challenge are enough to start.' : 'Для начала достаточно имени, одного способа связи и нескольких слов о задаче.';
+  if (!$('#v2-primary-next')) {
+    const next = document.createElement('section');
+    next.id = 'v2-primary-next';
+    next.className = 'section v2-primary-next';
+    next.innerHTML = `
+      <div>
+        <p class="eyebrow">${en ? 'Next step' : 'Следующий шаг'}</p>
+        <h2>${en ? 'Ready to turn the brief into a conversation?' : 'Готовы перевести brief в разговор?'}</h2>
+        <p>${en ? 'If you already built a Mini Brief, the context will stay in the enquiry. Otherwise you can start with a short message.' : 'Если Mini Brief уже собран, контекст сохранится в обращении. Если нет — можно начать с короткого сообщения.'}</p>
+      </div>
+      <div class="v2-primary-next-actions">
+        <a class="btn btn-primary" href="#contact">${en ? 'Continue to contact' : 'Перейти к обращению'} →</a>
+        <a class="btn" href="#v2-steps">${en ? 'Edit Mini Brief' : 'Изменить Mini Brief'}</a>
+      </div>`;
+    ($('#v2-stakeholders') || $('#v2-portfolio'))?.after(next);
+  }
+    $('#contact-sub').textContent = en ? 'Your name, one way to reach you and a few words about your challenge are enough to start.' : 'Для начала достаточно имени, одного способа связи и нескольких слов о задаче.';
   if (!$('#v2-contact-method')) {
     const label = document.createElement('label'); label.className = 'field'; label.id = 'v2-method-field';
     label.innerHTML = '<span></span><select id="v2-contact-method"><option value="email">Email</option><option value="telegram">Telegram</option><option value="phone"></option></select>';
