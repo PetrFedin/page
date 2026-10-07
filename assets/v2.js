@@ -1221,6 +1221,81 @@ export function renderV2(lang, projects = []) {
     return lines.join('\n');
   };
   const briefComplete = () => questionSet().every((q)=>questionAnswer(q.key));
+  const briefRecommendations = en ? {
+    consulting: {
+      format:'45-minute problem framing session',
+      prepare:['The decision that must improve','Available management data / examples','One metric that would define a useful outcome'],
+      people:['Business owner or decision-maker','Person closest to the current process','Analytics / finance owner if relevant'],
+      outcome:'A bounded problem statement, decision frame and first analytical work package.',
+      gate:'Proceed only if the problem can be tested with available data and a clear business criterion.'
+    },
+    pilot: {
+      format:'45–60 minute pilot framing session',
+      prepare:['Current workflow in one real case','Who owns the process','What result would count as success'],
+      people:['Process owner','Operational user','Decision-maker who can approve the pilot'],
+      outcome:'A bounded pilot scope, success criteria, responsibilities and timeline.',
+      gate:'Start only when one real workflow, owner and measurable success criterion are agreed.'
+    },
+    partnership: {
+      format:'45-minute partnership design session',
+      prepare:['What each side contributes','First customer / use case','Preferred commercial format'],
+      people:['Business owner','Commercial or partnership owner','Operational owner for the first case'],
+      outcome:'A first joint case with roles, contribution and a measurable shared result.',
+      gate:'Proceed when both sides commit a concrete asset and one first joint case.'
+    },
+    investment: {
+      format:'30–45 minute investor intro',
+      prepare:['Product / portfolio of interest','What you need to verify first','Expected next step after the intro'],
+      people:['Investment decision-maker','Relevant strategic / operating expert if needed'],
+      outcome:'Agreement on the first diligence question and the evidence needed for the next conversation.',
+      gate:'Move to deeper diligence only when the investment question and required evidence are explicit.'
+    },
+    diligence: {
+      format:'30-minute diligence scoping call',
+      prepare:['Purpose of review','Questions that must be answered','Requested disclosure level'],
+      people:['Decision-maker for the review','Relevant product / commercial / technical reviewer'],
+      outcome:'An agreed diligence scope, disclosure level and next evidence package.',
+      gate:'No confidential material is shared before scope and access level are agreed.'
+    }
+  } : {
+    consulting: {
+      format:'45 минут — постановка задачи и рамки решения',
+      prepare:['Какое решение должно стать лучше','Какие данные / примеры уже есть','Один показатель, по которому поймём ценность результата'],
+      people:['ЛПР / владелец бизнес-задачи','Человек, который ведёт текущий процесс','Аналитика / финансы — если нужны для данных'],
+      outcome:'Ограниченная постановка задачи, критерий результата и первый рабочий пакет анализа.',
+      gate:'Идём дальше только если задачу можно проверить на доступных данных и понятном бизнес-критерии.'
+    },
+    pilot: {
+      format:'45–60 минут — рамка пилота',
+      prepare:['Один реальный текущий сценарий','Кто владеет процессом','Что будет считаться успешным результатом'],
+      people:['Владелец процесса','Будущий пользователь','ЛПР, который может подтвердить пилот'],
+      outcome:'Границы пилота, критерии результата, роли и ориентир по сроку.',
+      gate:'Пилот начинается только когда согласованы реальный сценарий, владелец и измеримый критерий результата.'
+    },
+    partnership: {
+      format:'45 минут — дизайн партнёрства',
+      prepare:['Что каждая сторона реально привносит','Первый клиент / кейс','Предпочтительный коммерческий формат'],
+      people:['Владелец бизнеса / направления','Коммерческий или партнёрский руководитель','Ответственный за первый совместный кейс'],
+      outcome:'Первый совместный кейс с ролями, вкладом сторон и измеримым общим результатом.',
+      gate:'Переходим дальше, когда обе стороны фиксируют конкретный вклад и один первый кейс.'
+    },
+    investment: {
+      format:'30–45 минут — инвестиционный intro',
+      prepare:['Какой продукт / портфель интересен','Что нужно проверить первым','Какой следующий шаг ожидается после знакомства'],
+      people:['Инвестиционный ЛПР','Стратегический / отраслевой эксперт — при необходимости'],
+      outcome:'Согласованный первый вопрос для проверки и перечень подтверждений для следующего разговора.',
+      gate:'Углубляем diligence только когда инвестиционный вопрос и требуемые подтверждения сформулированы явно.'
+    },
+    diligence: {
+      format:'30 минут — согласование рамки проверки',
+      prepare:['Цель проверки','2–3 вопроса, которые нужно закрыть','Требуемый уровень доступа'],
+      people:['ЛПР по проверке','Профильный продуктовый / коммерческий / технический эксперт'],
+      outcome:'Согласованный scope проверки, уровень раскрытия и следующий пакет материалов.',
+      gate:'Закрытые материалы не передаются до согласования scope и уровня доступа.'
+    }
+  };
+  const recommendation = () => briefRecommendations[startState.route] || briefRecommendations.consulting;
+
 
   window.synthaV2SetStartRoute = (route) => {
     if (!startRoutes.some((r)=>r[0]===route)) return;
@@ -1280,6 +1355,15 @@ export function renderV2(lang, projects = []) {
             ${questionSet().map((q)=>`<div><dt>${esc(q.label)}</dt><dd>${esc(questionAnswer(q.key) || (en?'Not answered yet':'Пока не заполнено'))}</dd></div>`).join('')}
           </dl>
           <p class="v2-brief-safety">${en ? 'Public business context only. Do not include confidential implementation details.' : 'Только публичный бизнес-контекст. Не указывайте конфиденциальные детали реализации.'}</p>
+          ${briefComplete() ? `
+          <section class="v2-brief-recommendation">
+            <p class="eyebrow">${en ? 'Recommended first step' : 'Рекомендуемый первый шаг'}</p>
+            <h4>${esc(recommendation().format)}</h4>
+            <div><b>${en ? 'Prepare' : 'Подготовить'}</b><ul>${recommendation().prepare.map((x)=>`<li>${esc(x)}</li>`).join('')}</ul></div>
+            <div><b>${en ? 'Invite' : 'Подключить'}</b><ul>${recommendation().people.map((x)=>`<li>${esc(x)}</li>`).join('')}</ul></div>
+            <div><b>${en ? 'Meeting output' : 'Результат встречи'}</b><p>${esc(recommendation().outcome)}</p></div>
+            <div><b>${en ? 'Next gate' : 'Следующий gate'}</b><p>${esc(recommendation().gate)}</p></div>
+          </section>` : ''}
           <button type="button" class="btn btn-primary v2-start-go" data-v2-start-go${briefComplete()?'':' disabled'}>${en ? 'Continue with this brief' : 'Продолжить с этим brief'} →</button>
           <small>${briefComplete() ? (en?'Brief is ready to transfer.':'Brief готов к переносу.') : (en?'Answer the two short questions to continue.':'Ответьте на два коротких вопроса, чтобы продолжить.')}</small>
         </aside>
