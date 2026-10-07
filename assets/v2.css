@@ -241,3 +241,44 @@ html[data-preview="v2"] .opt-row[hidden] { display: none !important; }
 .v2-disclosure-grid p{margin:0;font-size:12px;line-height:1.55;color:var(--muted)}
 .v2-disclosure-cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
 @media(max-width:759px){.v2-disclosure-grid{grid-template-columns:1fr}}
+
+/* V2.11 CEO decision surface */
+.v2-card-decision{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:-2px}
+.v2-card-decision>div{border:1px solid var(--line);border-radius:10px;padding:10px;background:color-mix(in srgb,var(--panel) 88%,var(--ink) 12%)}
+.v2-card-decision span{display:block;font-size:9px;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);margin-bottom:5px}
+.v2-card-decision p{margin:0;font-size:11px;line-height:1.45;color:var(--muted)}
+.v2-card-decision .v2-card-gate{border-color:color-mix(in srgb,var(--accent) 55%,var(--line) 45%)}
+
+.v2-dossier-head{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin-bottom:16px}
+.v2-dossier-head h3{font-size:24px;line-height:1.12;margin:6px 0 0;max-width:760px}
+.v2-dossier-state{max-width:360px;border:1px solid var(--accent);border-radius:999px;padding:8px 11px;font-size:10px;line-height:1.35;color:var(--ink)}
+.v2-dossier-grid-ceo{grid-template-columns:repeat(12,minmax(0,1fr));gap:10px}
+.v2-dossier-grid-ceo>div{border:1px solid var(--line);border-radius:12px;padding:12px;background:color-mix(in srgb,var(--panel) 92%,var(--ink) 8%);min-height:118px}
+.v2-dossier-grid-ceo>div{border-top:1px solid var(--line)}
+.v2-dossier-grid-ceo .v2-dossier-problem,.v2-dossier-grid-ceo .v2-dossier-product{grid-column:span 6}
+.v2-dossier-grid-ceo .v2-dossier-proof,.v2-dossier-grid-ceo .v2-dossier-governance,.v2-dossier-grid-ceo .v2-dossier-commercial{grid-column:span 4}
+.v2-dossier-grid-ceo .v2-dossier-risk,.v2-dossier-grid-ceo .v2-dossier-next{grid-column:span 6}
+.v2-dossier-grid-ceo .v2-dossier-proof,.v2-dossier-grid-ceo .v2-dossier-next{border-color:color-mix(in srgb,var(--accent) 58%,var(--line) 42%)}
+.v2-dossier-grid-ceo .v2-dossier-risk{background:color-mix(in srgb,var(--panel) 90%,#7b3d32 10%)}
+.v2-dossier-grid-ceo small{display:block;margin-top:7px;padding-top:7px;border-top:1px solid var(--line);font-size:10px;line-height:1.4;color:var(--muted)}
+.v2-dossier-askbar{display:grid;grid-template-columns:150px 1fr;gap:14px;align-items:start;margin-top:10px;padding:11px 12px;border-radius:10px;background:color-mix(in srgb,var(--accent) 9%,var(--panel) 91%);border:1px solid color-mix(in srgb,var(--accent) 45%,var(--line) 55%)}
+.v2-dossier-askbar span{font-size:9px;text-transform:uppercase;letter-spacing:.08em;color:var(--accent)}
+.v2-dossier-askbar p{margin:0;font-size:12px;line-height:1.5;color:var(--ink)}
+
+/* The CEO dossier already carries commercial and risk decisions. Keep duplicate modal layers out of the first reading path; card drill-down remains available. */
+#modal #v2-commercial-dossier,#modal #v2-proof-dossier{display:none!important}
+
+@media(max-width:1023px){
+ .v2-card-decision{grid-template-columns:1fr}
+ .v2-dossier-grid-ceo .v2-dossier-problem,.v2-dossier-grid-ceo .v2-dossier-product,.v2-dossier-grid-ceo .v2-dossier-risk,.v2-dossier-grid-ceo .v2-dossier-next{grid-column:span 6}
+ .v2-dossier-grid-ceo .v2-dossier-proof,.v2-dossier-grid-ceo .v2-dossier-governance,.v2-dossier-grid-ceo .v2-dossier-commercial{grid-column:span 4}
+}
+@media(max-width:759px){
+ .v2-card-decision{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:2px}
+ .v2-card-decision>div{min-width:78%;scroll-snap-align:start}
+ .v2-dossier-head{display:block}
+ .v2-dossier-state{display:inline-flex;max-width:none;margin-top:10px;border-radius:10px}
+ .v2-dossier-grid-ceo{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:9px;padding-bottom:4px}
+ .v2-dossier-grid-ceo>div,.v2-dossier-grid-ceo .v2-dossier-problem,.v2-dossier-grid-ceo .v2-dossier-product,.v2-dossier-grid-ceo .v2-dossier-proof,.v2-dossier-grid-ceo .v2-dossier-governance,.v2-dossier-grid-ceo .v2-dossier-commercial,.v2-dossier-grid-ceo .v2-dossier-risk,.v2-dossier-grid-ceo .v2-dossier-next{min-width:82%;width:82%;grid-column:auto;scroll-snap-align:start;min-height:170px}
+ .v2-dossier-askbar{grid-template-columns:1fr;gap:5px}
+}

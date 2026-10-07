@@ -20,14 +20,15 @@ const checks = [
   ['contact form anchors', ['id="contact"','id="form"','id="topic"','id="submit"'].every((x) => index.includes(x))],
   ['RU/EN pages exist', index.includes('assets/app.js') && en.includes('/assets/app.js')],
   ['V2 renderer receives project registry', app.includes('renderV2(lang, PROJECTS);')],
-  ['project decision dossier', v2.includes('Досье для решения') && v2.includes('Следующий проверяемый этап') && v2.includes('Обсудить следующий шаг')],
+  ['project decision dossier', v2.includes('CEO · досье для решения') && v2.includes('7 сигналов до следующего обязательства') && v2.includes('Обсудить следующий gate')],
   ['dossier CTA consistency', v2.includes("'Открыть досье'") && content.includes("open: 'Открыть досье'")],
   ['commercial clarity layer', ['Кто покупатель','За что платит','Первый продаваемый пилот','Что измеряем','Что превращает пилот в контракт','Возможные модели выручки'].every((x) => v2.includes(x))],
   ['commercial hypothesis labeling', v2.includes('Рабочая гипотеза · подтверждается пилотом') && v2.includes('Коммерческая модель')],
   ['commercial proof and investor readiness', ['Что уже доказано','Что ещё не доказано','Главный риск','Как следующий пилот снимает риск','Какие данные должны появиться','МАСШТАБИРОВАТЬ','ПЕРЕСОБРАТЬ','ОСТАНОВИТЬ'].every((x) => v2.includes(x))],
   ['portfolio truth sync', ['fashionmgmt','furproduction','antiqua'].every((x) => content.includes(`id: '${x}'`)) && !content.includes("id: 'moscow'") && index.includes('8 опубликованных продуктов') && !index.includes('${items.length} опубликованных продуктов')],
-  ['authority-backed dossiers', ['syntha','chatx','renova','mfw','promomed','fashionmgmt','furproduction','antiqua'].every((x) => v2.includes(`\"${x}\"`)) && !v2.includes('\"moscow\"') && ['Proof authority','Governance / ответственный','Gate принятия','Contract / commercial evidence','Пакет доказательств'].every((x) => v2.includes(x))],
+  ['authority-backed dossiers', ['syntha','chatx','renova','mfw','promomed','fashionmgmt','furproduction','antiqua'].every((x) => v2.includes(`\"${x}\"`)) && !v2.includes('\"moscow\"') && ['v2-dossier-proof','v2-dossier-governance','v2-dossier-commercial','v2-dossier-risk','v2-dossier-next'].every((x) => v2.includes(x))],
   ['confidential fashion cases stay anonymised', ![content,v2,index,en].some((x) => /Yanina|MVST/i.test(x))],
+  ['CEO card decision strip', ['v2-card-decision','Proof','Governance','Next gate'].every((x) => v2.includes(x))],
 ];
 
 let failed = 0;
