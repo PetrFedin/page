@@ -86,10 +86,20 @@ html[data-preview="v2"] .opt-row[hidden] { display: none !important; }
 .v2-product-data>div{display:grid;grid-template-columns:120px 1fr;gap:12px;padding-top:10px;border-top:1px solid var(--line)}
 .v2-product-data dt{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--accent)}
 .v2-product-data dd{margin:0;font-size:13px;line-height:1.55;color:var(--muted)}
-.v2-product-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto}
+.v2-product-actions{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;margin-top:auto;align-items:stretch}
+.v2-product-actions .btn{width:100%;min-width:0;min-height:40px;margin:0;justify-content:center;text-align:center;white-space:normal;line-height:1.25}
+.v2-product-actions [data-v2-open],
+.v2-product-actions [data-v2-talk="launch"],
+.v2-product-actions [data-v2-talk="partnership"],
+.v2-product-actions [data-v2-talk="investors"],
+.v2-product-actions [data-v2-talk="diligence"],
+.v2-product-actions .v2-evidence-toggle{grid-column:span 2}
+.v2-product-actions .v2-commercial-toggle,
+.v2-product-actions .v2-proof-toggle{grid-column:span 3}
 .v2-portfolio-note{font-size:12px;line-height:1.55;color:var(--muted);margin:16px 0 0}
 @media(max-width:900px){.v2-portfolio-summary{grid-template-columns:1fr 1fr}.v2-maturity-strip{grid-column:1/-1}.v2-portfolio-grid{grid-template-columns:1fr}}
-@media(max-width:759px){.v2-portfolio{padding-top:20px}.v2-portfolio-summary{grid-template-columns:1fr 1fr}.v2-maturity-strip{grid-template-columns:1fr 1fr}.v2-product{padding:18px}.v2-product-top{display:block}.v2-stage{display:inline-flex;margin-top:12px}.v2-product-data>div{grid-template-columns:1fr;gap:4px}.v2-product-actions .btn{flex:1 1 calc(50% - 8px);justify-content:center}}
+@media(max-width:759px){.v2-portfolio{padding-top:20px}.v2-portfolio-summary{grid-template-columns:1fr 1fr}.v2-maturity-strip{grid-template-columns:1fr 1fr}.v2-product{padding:18px}.v2-product-top{display:block}.v2-stage{display:inline-flex;margin-top:12px}.v2-product-data>div{grid-template-columns:1fr;gap:4px}.v2-product-actions{grid-template-columns:repeat(2,minmax(0,1fr))}.v2-product-actions [data-v2-open]{grid-column:1/-1}.v2-product-actions [data-v2-talk="launch"],.v2-product-actions [data-v2-talk="partnership"],.v2-product-actions [data-v2-talk="investors"],.v2-product-actions [data-v2-talk="diligence"],.v2-product-actions .v2-evidence-toggle,.v2-product-actions .v2-commercial-toggle,.v2-product-actions .v2-proof-toggle{grid-column:span 1}}
+@media(max-width:520px){.v2-product-actions{grid-template-columns:1fr}.v2-product-actions [data-v2-open],.v2-product-actions [data-v2-talk],.v2-product-actions .v2-evidence-toggle,.v2-product-actions .v2-commercial-toggle,.v2-product-actions .v2-proof-toggle{grid-column:1/-1}}
 
 
 /* V2.3 stakeholder lens styles */
@@ -118,7 +128,7 @@ html[data-preview="v2"] .opt-row[hidden] { display: none !important; }
 
 
 /* V2.4 executive evidence styles */
-.v2-evidence-toggle{margin-left:auto}
+.v2-evidence-toggle{margin-left:0}
 .v2-evidence-panel{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 18px;border-top:1px solid var(--line);padding-top:16px;margin-top:2px}
 .v2-evidence-panel[hidden]{display:none!important}
 .v2-evidence-panel>div{padding-top:4px}
@@ -147,7 +157,7 @@ html[data-preview="v2"] .opt-row[hidden] { display: none !important; }
 
 
 /* V2.7 commercial clarity styles */
-.v2-commercial-toggle{margin-left:auto}
+.v2-commercial-toggle{margin-left:0}
 .v2-commercial-panel,.v2-commercial-dossier{border-top:1px solid var(--line);padding-top:16px;margin-top:4px}
 .v2-commercial-panel[hidden],.v2-commercial-dossier[hidden]{display:none!important}
 .v2-commercial-head{display:grid;grid-template-columns:1fr auto;gap:8px 20px;align-items:end;margin-bottom:16px}
@@ -173,7 +183,7 @@ html[data-preview="v2"] .opt-row[hidden] { display: none !important; }
 
 
 /* V2.8 commercial proof styles */
-.v2-proof-toggle{margin-left:auto}
+.v2-proof-toggle{margin-left:0}
 .v2-proof-panel,.v2-proof-dossier{border-top:1px solid var(--line);padding-top:16px;margin-top:4px}
 .v2-proof-panel[hidden],.v2-proof-dossier[hidden]{display:none!important}
 .v2-proof-head{margin-bottom:16px}
