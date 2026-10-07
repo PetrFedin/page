@@ -450,3 +450,25 @@ Changes made:
 - CTA layout is reduced from a six-column action matrix to a stable two-action grid.
 
 The goal is one obvious next action at each level, while preserving all deeper evidence for visitors who deliberately open a dossier.
+
+
+## Breakpoint QA v2.22
+
+V2.22 focuses on responsive hardening rather than new product features.
+
+Target viewports:
+- desktop / monitor: 1440px class;
+- tablet: ~1024px class;
+- phone: ~390px class.
+
+Changes:
+- Hero is constrained to two visible choices in V2: Start working together / View portfolio.
+- Tablet V2 navigation switches to the burger below 1100px so the added Start item does not crowd the top bar.
+- Mini Brief preview remains sticky only on desktop and gets a viewport-bounded internal scroll area when Recommendation content grows.
+- Project dossier modals use viewport-safe height, contained scrolling and tighter phone padding.
+- Modal CTA rows collapse to one column on narrow phones.
+- Contact form pair-fields collapse to one column below 560px.
+- First Meeting Room receives its own scroll container, sticky header and mobile-safe viewport height.
+- Long commercial/evidence strings use min-width:0 and overflow wrapping to prevent horizontal overflow.
+
+The browser connector was unavailable during this pass, so this iteration is a deterministic DOM/CSS breakpoint hardening pass rather than a claimed screenshot-based visual certification.
