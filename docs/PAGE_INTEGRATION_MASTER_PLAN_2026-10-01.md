@@ -871,3 +871,26 @@ If a milestone cannot be described safely at business-result level, it is not pu
 This override takes precedence over older roadmap text that could be interpreted as
 publishing architecture, implementation details or technical evidence directly on
 the public landing.
+
+
+### Implementation note — V2.20
+
+A lightweight subset of the Client Pitch Room concept is now implemented in V2 as a
+**session-only First Meeting Room** generated from the Mini Brief.
+
+Implemented:
+- route/project-or-business-context/timing brief;
+- deterministic recommendation for first meeting;
+- preparation checklist;
+- suggested participants;
+- expected meeting output;
+- next gate;
+- copy and browser print/PDF;
+- no public client-specific URL;
+- no confidential implementation evidence.
+
+The full Generated Proposal Microsite / protected client room remains deferred until there
+is a concrete external client/investor case that justifies persistent or protected delivery.
+
+This implementation follows the Confidential disclosure override: public/static Page does
+not contain client confidential data or project technical due-diligence material.
