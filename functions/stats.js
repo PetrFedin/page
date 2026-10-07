@@ -117,7 +117,18 @@ input.search:focus{border-color:var(--accent)}
 .leadq-break{grid-column:1/-1;display:flex;gap:6px;flex-wrap:wrap}.leadq-break span{font-size:11px;padding:3px 7px;border:1px solid var(--line);border-radius:999px;background:var(--panel)}
 .leadq details{grid-column:1/-1}.leadq summary{cursor:pointer;font-size:12px;color:var(--muted)}.leadq ul{margin:8px 0 0;padding-left:18px}.leadq li{font-size:12px;color:var(--muted);margin:3px 0}
 .leadq>p{grid-column:1/-1;margin:0;font-size:12px;color:var(--muted)}
-@media(max-width:620px){.leadq{grid-template-columns:1fr}.leadq-score{text-align:left}.leadq-break,.leadq details,.leadq>p{grid-column:auto}}
+.leadops{display:grid;grid-template-columns:1.15fr .8fr 1.6fr .8fr;gap:9px;margin:12px 0}
+.leadops label{display:grid;gap:4px;font-size:11px;color:var(--muted)}
+.leadops input,.leadops select{width:100%;border:1px solid var(--line);background:var(--panel);border-radius:9px;padding:8px 9px;font-size:13px;min-width:0}
+.leadops-note{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:end;margin:-2px 0 12px}
+.leadops-note label{display:grid;gap:4px;font-size:11px;color:var(--muted)}
+.leadops-note input{width:100%;border:1px solid var(--line);background:var(--panel);border-radius:9px;padding:8px 9px;font-size:13px}
+.leadops-history{margin:8px 0 0}.leadops-history summary{cursor:pointer;font-size:12px;color:var(--muted)}
+.leadops-history ul{margin:7px 0 0;padding-left:18px}.leadops-history li{font-size:12px;color:var(--muted);margin:4px 0}
+.lead-today{display:grid;gap:8px;margin-top:10px}.lead-today a{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;text-decoration:none;color:inherit;padding:9px 11px;border:1px solid var(--line);border-radius:10px}
+.lead-today a:hover{border-color:var(--accent)}.lead-today small{color:var(--muted)}
+@media(max-width:900px){.leadops{grid-template-columns:1fr 1fr}.leadops label:nth-child(3){grid-column:1/-1}}
+@media(max-width:620px){.leadq{grid-template-columns:1fr}.leadq-score{text-align:left}.leadq-break,.leadq details,.leadq>p{grid-column:auto}.leadops{grid-template-columns:1fr}.leadops label:nth-child(3){grid-column:auto}.leadops-note{grid-template-columns:1fr}.lead-today a{grid-template-columns:1fr}}
 .card .head{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:baseline;margin-bottom:6px}
 .card .head h3{margin:0;font-size:16px}
 .card .when{color:var(--muted);font-size:13px}
@@ -226,7 +237,7 @@ function client() {
   try { regionNames = new Intl.DisplayNames(['ru'], { type: 'region' }); } catch { /* старый браузер */ }
 
   let tab = 'overview', days = 30, data = null;
-  const ui = { people: { q: '', f: 'all' }, leads: { f: 'all', p: 'all' }, open: {}, cache: {} };
+  const ui = { people: { q: '', f: 'all' }, leads: { f: 'all', p: 'all', s: 'active' }, open: {}, cache: {} };
 
   const store = {
     get(k) { try { return localStorage.getItem(k); } catch { return null; } },
@@ -513,30 +524,69 @@ function client() {
   /* ---------- «Заявки» ---------- */
   function leads() {
     const all = data.submissions, topics = [...new Set(all.map((s) => s.topic))];
-    const f = ui.leads.f, p = ui.leads.p;
+    const STATUS = {
+      new:'New', reviewed:'Reviewed', contacted:'Contacted', demo_scheduled:'Demo scheduled',
+      nda:'NDA', pilot_discussion:'Pilot discussion', proposal:'Proposal',
+      won:'Won', lost:'Lost', nurture:'Nurture'
+    };
+    const TERMINAL = new Set(['won','lost']);
+    const f = ui.leads.f, p = ui.leads.p, sf = ui.leads.s;
+    const today = new Date().toISOString().slice(0,10);
+    const needsToday = (s) => {
+      const o=s.operating||{}, due=o.dueDate||'';
+      if (TERMINAL.has(o.status)) return false;
+      if (due && due <= today) return true;
+      return !due && o.status === 'new' && s.qualification?.priority === 'A';
+    };
+    const statusMatch = (s) => sf === 'all' ? true
+      : sf === 'active' ? !TERMINAL.has(s.operating?.status)
+      : sf === 'today' ? needsToday(s)
+      : (s.operating?.status || 'new') === sf;
+
     const list = all
       .filter((s) => f === 'all' || s.topic === f)
       .filter((s) => p === 'all' || s.qualification?.priority === p)
-      .sort((a,b) => (b.qualification?.score || 0) - (a.qualification?.score || 0) || b.ts - a.ts);
+      .filter(statusMatch)
+      .sort((a,b) => (needsToday(b)-needsToday(a)) || (b.qualification?.score || 0) - (a.qualification?.score || 0) || b.ts - a.ts);
+
     const chip = (k, l) => '<button class="chip' + (f === k ? ' on' : '') + '" data-lf="' + esc(k) + '">' + esc(l) + '</button>';
     const pchip = (k, l) => '<button class="chip' + (p === k ? ' on' : '') + '" data-lp="' + esc(k) + '">' + esc(l) + '</button>';
+    const schip = (k, l) => '<button class="chip' + (sf === k ? ' on' : '') + '" data-ls="' + esc(k) + '">' + esc(l) + '</button>';
     const tg = (v) => 'https://t.me/' + encodeURIComponent(String(v).replace(/^@/, '').replace(/^https?:\/\/t\.me\//, ''));
     const counts = Object.fromEntries(['A','B','C','D'].map((k) => [k, all.filter((s) => s.qualification?.priority === k).length]));
-    return '<div class="box"><h2>Прозрачная квалификация</h2><p class="sub">Это оценка готовности запроса к следующему действию, а не оценка человека. Формула видна в каждой заявке: тип запроса + конкретный проект + полнота ответов + заявленный срок + конкретность следующего шага.</p>'
+    const due = all.filter(needsToday).sort((a,b)=>{
+      const ad=a.operating?.dueDate||'9999-99-99', bd=b.operating?.dueDate||'9999-99-99';
+      return ad.localeCompare(bd) || (b.qualification?.score||0)-(a.qualification?.score||0);
+    });
+
+    const todayBox = '<div class="box"><h2>Требует действия сегодня</h2><p class="sub">Просроченные и сегодняшние next actions + новые A-лиды без установленного срока.</p>'
+      + (due.length ? '<div class="lead-today">' + due.slice(0,8).map((s)=>{
+          const o=s.operating||{}, q=s.qualification||{};
+          return '<a href="#lead-' + s.id + '"><span><b>' + esc(s.name) + '</b><small>' + esc([q.project || s.topic, o.nextAction || q.action].filter(Boolean).join(' · ')) + '</small></span><small>' + esc(o.dueDate || 'срок не задан') + ' · ' + esc(q.priority || '—') + '</small></a>';
+        }).join('') + '</div>' : '<p class="hint">На сегодня нет обязательных действий.</p>') + '</div>';
+
+    return todayBox
+      + '<div class="box"><h2>Lead Operating Queue</h2><p class="sub">Рабочий статус заявки хранится отдельно от квалификационного score. Score отвечает «насколько запрос готов», статус — «что уже сделано и что делать дальше».</p>'
+      + '<div class="legend"><span><b>New → Reviewed → Contacted → Demo → NDA → Pilot → Proposal → Won / Lost / Nurture</b></span></div></div>'
+      + '<div class="box"><h2>Прозрачная квалификация</h2><p class="sub">Это оценка готовности запроса к следующему действию, а не оценка человека. Формула видна в каждой заявке.</p>'
       + '<div class="legend"><span><b>A</b> — ответить первым / назначить действие</span><span><b>B</b> — квалифицировано, уточнить детали</span><span><b>C</b> — нужно уточнение</span><span><b>D</b> — ранний интерес / материалы</span></div></div>'
-      + '<div class="toolbar">' + chip('all', 'Все темы (' + all.length + ')') + topics.map((t) => chip(t, t)).join('')
+      + '<div class="toolbar">' + schip('active','Активные') + schip('today','Сегодня · ' + due.length) + schip('all','Все')
+      + Object.entries(STATUS).map(([k,l])=>schip(k,l)).join('')
+      + '<span style="width:100%"></span>' + chip('all', 'Все темы (' + all.length + ')') + topics.map((t) => chip(t, t)).join('')
       + '<span style="width:100%"></span>' + pchip('all','Все приоритеты') + pchip('A','A · ' + counts.A) + pchip('B','B · ' + counts.B) + pchip('C','C · ' + counts.C) + pchip('D','D · ' + counts.D)
       + '<div class="grow"></div><button class="btn" id="csv">Скачать таблицу (CSV)</button></div>'
       + (list.length ? list.map((s) => {
         let ent = null; try { ent = s.entity ? JSON.parse(s.entity) : null; } catch {}
-        const q = s.qualification || {};
+        const q = s.qualification || {}, o=s.operating||{};
         const stageLabel = { ready:'Готов к действию', qualified:'Квалифицирован', clarify:'Нужно уточнение', early:'Ранний интерес', unclassified:'Не классифицировано' }[q.stage] || 'Не классифицировано';
         const priorityClass = q.priority === 'A' ? 'ok' : q.priority === 'D' ? 'bad' : '';
         const scoreLabel = q.score == null ? '—' : q.score + '/100';
         const routeLabel = { pilot:'Пилот', partnership:'Партнёрство', investment:'Инвестиции', diligence:'NDA / проверка' }[q.route] || '—';
         const breakdown = q.breakdown || {};
-        return '<div class="card"><div class="head"><h3>' + esc(s.name) + '</h3><span class="when">' + esc(when(s.ts)) + '</span><span class="tag">' + esc(s.topic) + '</span>'
+        const history=(s.operations||[]).slice().reverse();
+        return '<div class="card" id="lead-' + s.id + '"><div class="head"><h3>' + esc(s.name) + '</h3><span class="when">' + esc(when(s.ts)) + '</span><span class="tag">' + esc(s.topic) + '</span>'
           + '<span class="tag ' + priorityClass + '">Приоритет ' + esc(q.priority || '—') + '</span><span class="when">Готовность ' + esc(scoreLabel) + '</span>'
+          + '<span class="tag">' + esc(STATUS[o.status] || 'New') + '</span>'
           + (s.ok ? '' : '<span class="tag bad">в Telegram не ушла</span>') + (s.country ? '<span class="when">' + esc(place(s)) + '</span>' : '') + '</div>'
           + '<div class="contacts">' + (s.email ? '<a href="mailto:' + esc(s.email) + '">' + esc(s.email) + '</a>' : '') + (s.telegram ? '<a href="' + tg(s.telegram) + '" target="_blank" rel="noopener">Telegram: ' + esc(s.telegram) + '</a>' : '') + (s.phone ? '<a href="tel:' + esc(s.phone.replace(/[^\d+]/g, '')) + '">' + esc(s.phone) + '</a>' : '') + '</div>'
           + (ent ? '<div class="when">Юрлицо: ' + esc([ent.name, ent.inn && 'ИНН ' + ent.inn, ent.address, ent.site].filter(Boolean).join(' · ')) + '</div>' : '')
@@ -544,18 +594,27 @@ function client() {
           + (q.score == null ? '<p>Новая квалификационная форма для этой заявки не применялась.</p>' : '<div class="leadq-score"><strong>' + esc(scoreLabel) + '</strong><small>готовность запроса</small></div>')
           + (q.score == null ? '' : '<div class="leadq-break"><span>Тип +' + num(breakdown.intent) + '</span><span>Проект +' + num(breakdown.project) + '</span><span>Ответы +' + num(breakdown.completeness) + '</span><span>Срок +' + num(breakdown.timing) + '</span><span>Следующий шаг +' + num(breakdown.nextStep) + '</span></div>')
           + (q.reasons?.length ? '<details><summary>Почему такой приоритет</summary><ul>' + q.reasons.map((r) => '<li>' + esc(r) + '</li>').join('') + '</ul></details>' : '') + '</div>'
+          + '<div class="leadops" data-lead-op="' + s.id + '">'
+          + '<label>Статус<select name="status">' + Object.entries(STATUS).map(([k,l])=>'<option value="' + k + '"' + (o.status===k?' selected':'') + '>' + l + '</option>').join('') + '</select></label>'
+          + '<label>Ответственный<input name="owner" value="' + esc(o.owner || '') + '" placeholder="Пётр / команда"></label>'
+          + '<label>Следующее действие<input name="nextAction" value="' + esc(o.nextAction || q.action || '') + '" placeholder="Что именно сделать дальше"></label>'
+          + '<label>Срок<input name="dueDate" type="date" value="' + esc(o.dueDate || '') + '"></label>'
+          + '</div>'
+          + '<div class="leadops-note"><label>Заметка<input name="note" data-lead-note="' + s.id + '" placeholder="Что изменилось / почему меняем статус"></label><button class="btn" data-lead-save="' + s.id + '">Сохранить</button></div>'
+          + (history.length ? '<details class="leadops-history"><summary>История · ' + history.length + '</summary><ul>' + history.map((h)=>'<li><b>' + esc(STATUS[h.status] || h.status) + '</b> · ' + esc(when(h.ts)) + (h.owner?' · '+esc(h.owner):'') + (h.nextAction?' · '+esc(h.nextAction):'') + (h.dueDate?' · до '+esc(h.dueDate):'') + (h.note?' · '+esc(h.note):'') + '</li>').join('') + '</ul></details>' : '')
           + '<div class="msg">' + esc(s.message) + '</div>' + (s.file_name ? '<div class="when">Файл: ' + esc(s.file_name) + '</div>' : '')
           + '<div class="act"><button class="btn" data-copy="' + esc([s.name, s.email, s.telegram, s.phone].filter(Boolean).join(', ')) + '">Скопировать контакты</button><button class="btn" data-lead-vid="' + esc(s.vid) + '">Путь по сайту</button></div><div class="detail" id="ld-' + esc(s.vid) + '" hidden style="margin-top:8px;border-radius:12px;border:1px solid var(--line)"></div></div>';
-      }).join('') : '<div class="empty"><b>Заявок пока нет</b>Когда кто-то заполнит форму, она появится здесь с текстом и путём по сайту.</div>');
+      }).join('') : '<div class="empty"><b>По текущему фильтру заявок нет</b>Измените статус, тему или приоритет.</div>');
   }
 
   function exportCsv() {
-    const head = ['Дата', 'Имя', 'Email', 'Telegram', 'Телефон', 'Тема', 'Маршрут', 'Проект', 'Срок', 'Приоритет', 'Готовность', 'Стадия', 'Следующее действие', 'Юрлицо', 'Сообщение', 'Страна', 'Город'];
+    const head = ['Дата', 'Имя', 'Email', 'Telegram', 'Телефон', 'Тема', 'Маршрут', 'Проект', 'Срок запроса', 'Приоритет', 'Готовность', 'Стадия квалификации', 'CRM статус', 'Ответственный', 'Следующее действие', 'Срок действия', 'Юрлицо', 'Сообщение', 'Страна', 'Город'];
     const q = (v) => '"' + String(v ?? '').replace(/"/g, '""') + '"';
     const rows = data.submissions.map((s) => {
       let ent = ''; try { const e = s.entity ? JSON.parse(s.entity) : null; ent = e ? [e.name, e.inn, e.address, e.site].filter(Boolean).join('; ') : ''; } catch { /* не json */ }
       const l = s.lead || {}, z = s.qualification || {};
-      return [new Date(s.ts).toLocaleString('ru-RU'), s.name, s.email, s.telegram, s.phone, s.topic, l.route, l.project, l.timing, z.priority, z.score, z.stage, z.action, ent, s.message, s.country, s.city].map(q).join(';');
+      const o=s.operating||{};
+      return [new Date(s.ts).toLocaleString('ru-RU'), s.name, s.email, s.telegram, s.phone, s.topic, l.route, l.project, l.timing, z.priority, z.score, z.stage, o.status, o.owner, o.nextAction || z.action, o.dueDate, ent, s.message, s.country, s.city].map(q).join(';');
     });
     const blob = new Blob(['﻿' + [head.map(q).join(';'), ...rows].join('\r\n')], { type: 'text/csv;charset=utf-8' });
     const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'zayavki-' + new Date().toISOString().slice(0, 10) + '.csv'; a.click();
@@ -827,6 +886,25 @@ function client() {
     const pf = e.target.closest('[data-pf]'); if (pf) { ui.people.f = pf.dataset.pf; draw(); return; }
     const lf = e.target.closest('[data-lf]'); if (lf) { ui.leads.f = lf.dataset.lf; draw(); return; }
     const lp = e.target.closest('[data-lp]'); if (lp) { ui.leads.p = lp.dataset.lp; draw(); return; }
+    const ls = e.target.closest('[data-ls]'); if (ls) { ui.leads.s = ls.dataset.ls; draw(); return; }
+    const saveLead = e.target.closest('[data-lead-save]');
+    if (saveLead) {
+      const id = +saveLead.dataset.leadSave, wrap = document.querySelector('[data-lead-op="' + id + '"]');
+      if (!wrap) return;
+      saveLead.disabled = true; saveLead.textContent = 'Сохраняю…';
+      const body = {
+        submissionId: id,
+        status: wrap.querySelector('[name="status"]')?.value || 'new',
+        owner: wrap.querySelector('[name="owner"]')?.value || '',
+        nextAction: wrap.querySelector('[name="nextAction"]')?.value || '',
+        dueDate: wrap.querySelector('[name="dueDate"]')?.value || '',
+        note: document.querySelector('[data-lead-note="' + id + '"]')?.value || ''
+      };
+      post('/api/leads', body).then(()=>load(true)).catch((err)=>{
+        saveLead.disabled=false; saveLead.textContent='Сохранить'; alert('Не удалось сохранить: ' + err.message);
+      });
+      return;
+    }
     const top = e.target.closest('.person .top'); if (top) { togglePerson(top.dataset.vid); return; }
     if (e.target.closest('#csv')) { exportCsv(); return; }
     const cp = e.target.closest('[data-copy]');
