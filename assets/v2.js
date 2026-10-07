@@ -1159,39 +1159,122 @@ export function renderV2(lang, projects = []) {
     ['diligence','NDA / проверка','Перейти к контролируемому раскрытию для предметной проверки']
   ];
   const startTimings = en ? ['Within 1 month','1–3 months','3–6 months','Timing not defined yet'] : ['До 1 месяца','1–3 месяца','3–6 месяцев','Срок пока не определён'];
-  let startState = { route:'pilot', project:startProjects[0]?.id || '', timing:startTimings[1] };
+  const briefQuestions = en ? {
+    pilot: [
+      {key:'goal',label:'What should the pilot prove?',type:'select',options:['Economic impact','Operating workflow','User adoption','Commercial demand','Other'],lead:'leadGoal'},
+      {key:'scope',label:'What real scope can you provide?',type:'text',placeholder:'One brand / team / event / property',lead:'leadScope'}
+    ],
+    partnership: [
+      {key:'contribution',label:'What do you bring?',type:'select',options:['Clients / sales channel','Industry expertise','Integration / technology','Operating resource','Capital','Other'],lead:'leadContribution'},
+      {key:'format',label:'Which format is relevant?',type:'select',options:['Joint pilot','Joint go-to-market','White-label / licensing','Strategic partnership','Other'],lead:'leadFormat'}
+    ],
+    investment: [
+      {key:'focus',label:'What should we cover first?',type:'select',options:['Product and market','Pilot and evidence','Commercial model','Growth strategy','Team / execution'],lead:'leadInvestorFocus'},
+      {key:'next',label:'What next step do you expect?',type:'text',placeholder:'Intro call / demo / diligence',lead:'leadNextStep'}
+    ],
+    diligence: [
+      {key:'purpose',label:'Purpose of diligence',type:'select',options:['Product','Commercial','Investment','Partnership','Technical — controlled access','Security / compliance — controlled access'],lead:'leadDiligencePurpose'},
+      {key:'access',label:'What level is needed?',type:'select',options:['Qualified demo','NDA + selected materials','Diligence with agreed scope'],lead:'leadAccessLevel'}
+    ]
+  } : {
+    pilot: [
+      {key:'goal',label:'Что хотим доказать пилотом?',type:'select',options:['Экономический эффект','Рабочий процесс','Вовлечение пользователей','Коммерческий спрос','Другое'],lead:'leadGoal'},
+      {key:'scope',label:'Какой реальный контур готовы дать?',type:'text',placeholder:'Один бренд / команда / событие / объект',lead:'leadScope'}
+    ],
+    partnership: [
+      {key:'contribution',label:'Что вы привносите?',type:'select',options:['Клиенты / канал продаж','Отраслевая экспертиза','Интеграция / технология','Операционный ресурс','Капитал','Другое'],lead:'leadContribution'},
+      {key:'format',label:'Какой формат интересен?',type:'select',options:['Совместный пилот','Совместный выход на рынок','White-label / лицензирование','Стратегическое партнёрство','Другое'],lead:'leadFormat'}
+    ],
+    investment: [
+      {key:'focus',label:'Что важно увидеть сначала?',type:'select',options:['Продукт и рынок','Пилот и подтверждения','Коммерческая модель','Стратегия роста','Команда / исполнение'],lead:'leadInvestorFocus'},
+      {key:'next',label:'Какой следующий шаг ожидаете?',type:'text',placeholder:'Intro call / demo / diligence',lead:'leadNextStep'}
+    ],
+    diligence: [
+      {key:'purpose',label:'Цель проверки',type:'select',options:['Продуктовая','Коммерческая','Инвестиционная','Партнёрская','Техническая — ограниченный доступ','Security / compliance — ограниченный доступ'],lead:'leadDiligencePurpose'},
+      {key:'access',label:'Какой уровень нужен?',type:'select',options:['Закрытое демо','NDA + выборочные материалы','Diligence с согласованным scope'],lead:'leadAccessLevel'}
+    ]
+  };
+  let startState = { route:'pilot', project:startProjects[0]?.id || '', timing:startTimings[1], answers:{} };
+
+  const routeLabel = () => startRoutes.find((r)=>r[0]===startState.route)?.[1] || startState.route;
+  const projectLabel = () => startProjects.find((p)=>p.id===startState.project)?.name || (en ? 'Project not selected' : 'Проект не выбран');
+  const questionSet = () => briefQuestions[startState.route] || [];
+  const questionAnswer = (key) => String(startState.answers[startState.route]?.[key] || '').trim();
+  const briefText = () => {
+    const lines = en
+      ? [
+          `Goal: ${routeLabel()}`,
+          `Project: ${projectLabel()}`,
+          `Timing: ${startState.timing}`
+        ]
+      : [
+          `Цель: ${routeLabel()}`,
+          `Проект: ${projectLabel()}`,
+          `Срок: ${startState.timing}`
+        ];
+    questionSet().forEach((q)=>{
+      const value = questionAnswer(q.key);
+      if (value) lines.push(`${q.label}: ${value}`);
+    });
+    return lines.join('\n');
+  };
+  const briefComplete = () => questionSet().every((q)=>questionAnswer(q.key));
+
+  const briefFieldHtml = (q) => {
+    const value = questionAnswer(q.key);
+    if (q.type === 'select') return `<label><span>${esc(q.label)}</span><select data-v2-brief-answer="${esc(q.key)}"><option value="">${en?'Choose…':'Выберите…'}</option>${q.options.map((o)=>`<option value="${esc(o)}"${value===o?' selected':''}>${esc(o)}</option>`).join('')}</select></label>`;
+    return `<label><span>${esc(q.label)}</span><input type="text" value="${esc(value)}" data-v2-brief-answer="${esc(q.key)}" placeholder="${esc(q.placeholder || '')}"></label>`;
+  };
 
   const renderStart = () => {
     const root = $('#v2-steps');
     if (!root) return;
     root.innerHTML = `
       <div class="section-head v2-start-head">
-        <div><p class="eyebrow">${en ? 'Start here' : 'Начать отсюда'}</p><h2>${en ? 'How we start' : 'Как начинается работа'}</h2></div>
-        <p>${en ? 'Choose three things here. They will be transferred into the enquiry so the next conversation starts with context.' : 'Выберите три вещи прямо здесь. Они перейдут в обращение, чтобы следующий разговор сразу начинался с контекста.'}</p>
+        <div><p class="eyebrow">${en ? 'Mini Brief Builder' : 'Mini Brief Builder'}</p><h2>${en ? 'How we start' : 'Как начинается работа'}</h2></div>
+        <p>${en ? 'Build the context for the first conversation here. The brief is transferred into the enquiry without asking you to repeat the same information.' : 'Соберите контекст первого разговора прямо здесь. Brief перейдёт в обращение без повторного ввода тех же данных.'}</p>
       </div>
-      <div class="v2-start-flow">
-        <section class="v2-start-step">
-          <span class="svc-n">01</span>
-          <h3>${en ? 'What are we starting?' : 'Что начинаем?'}</h3>
-          <div class="v2-start-options">
-            ${startRoutes.map((r)=>`<button type="button" class="${startState.route===r[0]?'active':''}" data-v2-start-route="${r[0]}"><b>${r[1]}</b><span>${r[2]}</span></button>`).join('')}
-          </div>
-        </section>
-        <section class="v2-start-step">
-          <span class="svc-n">02</span>
-          <h3>${en ? 'Which project?' : 'Какой проект?'}</h3>
-          <div class="v2-start-projects">
-            ${startProjects.map((p)=>`<button type="button" class="${startState.project===p.id?'active':''}" data-v2-start-project="${p.id}">${p.name}</button>`).join('')}
-          </div>
-        </section>
-        <section class="v2-start-step">
-          <span class="svc-n">03</span>
-          <h3>${en ? 'When is the next result needed?' : 'Когда нужен следующий результат?'}</h3>
-          <div class="v2-start-timing">
-            ${startTimings.map((t)=>`<button type="button" class="${startState.timing===t?'active':''}" data-v2-start-timing="${esc(t)}">${esc(t)}</button>`).join('')}
-          </div>
-          <button type="button" class="btn btn-primary v2-start-go" data-v2-start-go>${en ? 'Continue with this context' : 'Продолжить с этим контекстом'} →</button>
-        </section>
+      <div class="v2-brief-builder">
+        <div class="v2-brief-inputs">
+          <section class="v2-start-step">
+            <span class="svc-n">01</span>
+            <h3>${en ? 'What are we starting?' : 'Что начинаем?'}</h3>
+            <div class="v2-start-options">
+              ${startRoutes.map((r)=>`<button type="button" class="${startState.route===r[0]?'active':''}" data-v2-start-route="${r[0]}"><b>${r[1]}</b><span>${r[2]}</span></button>`).join('')}
+            </div>
+          </section>
+          <section class="v2-start-step">
+            <span class="svc-n">02</span>
+            <h3>${en ? 'Which project?' : 'Какой проект?'}</h3>
+            <div class="v2-start-projects">
+              ${startProjects.map((p)=>`<button type="button" class="${startState.project===p.id?'active':''}" data-v2-start-project="${p.id}">${p.name}</button>`).join('')}
+            </div>
+          </section>
+          <section class="v2-start-step">
+            <span class="svc-n">03</span>
+            <h3>${en ? 'When is the next result needed?' : 'Когда нужен следующий результат?'}</h3>
+            <div class="v2-start-timing">
+              ${startTimings.map((t)=>`<button type="button" class="${startState.timing===t?'active':''}" data-v2-start-timing="${esc(t)}">${esc(t)}</button>`).join('')}
+            </div>
+          </section>
+          <section class="v2-start-step v2-brief-questions">
+            <span class="svc-n">04</span>
+            <h3>${en ? 'Two details for the first conversation' : 'Два уточнения для первого разговора'}</h3>
+            <div class="v2-brief-fields">${questionSet().map(briefFieldHtml).join('')}</div>
+          </section>
+        </div>
+        <aside class="v2-brief-preview" aria-live="polite">
+          <p class="eyebrow">${en ? 'First-conversation brief' : 'Brief первого разговора'}</p>
+          <h3>${projectLabel()}</h3>
+          <dl>
+            <div><dt>${en?'Route':'Цель'}</dt><dd>${esc(routeLabel())}</dd></div>
+            <div><dt>${en?'Timing':'Срок'}</dt><dd>${esc(startState.timing)}</dd></div>
+            ${questionSet().map((q)=>`<div><dt>${esc(q.label)}</dt><dd>${esc(questionAnswer(q.key) || (en?'Not answered yet':'Пока не заполнено'))}</dd></div>`).join('')}
+          </dl>
+          <p class="v2-brief-safety">${en ? 'Public business context only. Do not include confidential implementation details.' : 'Только публичный бизнес-контекст. Не указывайте конфиденциальные детали реализации.'}</p>
+          <button type="button" class="btn btn-primary v2-start-go" data-v2-start-go${briefComplete()?'':' disabled'}>${en ? 'Continue with this brief' : 'Продолжить с этим brief'} →</button>
+          <small>${briefComplete() ? (en?'Brief is ready to transfer.':'Brief готов к переносу.') : (en?'Answer the two short questions to continue.':'Ответьте на два коротких вопроса, чтобы продолжить.')}</small>
+        </aside>
       </div>`;
   };
 
@@ -1205,20 +1288,57 @@ export function renderV2(lang, projects = []) {
       const timing=e.target.closest('[data-v2-start-timing]');
       if(timing){startState.timing=timing.dataset.v2StartTiming;renderStart();return;}
       if(!e.target.closest('[data-v2-start-go]')) return;
+
       window.synthaV2SetLeadRoute?.(startState.route,startState.project);
+      const form=$('#form');
       const timingField=$('#v2-qualified-route [name="leadTiming"]');
       if(timingField){
         const opt=[...timingField.options].find((o)=>o.value===startState.timing);
         if(opt){timingField.value=startState.timing;timingField.dispatchEvent(new Event('change',{bubbles:true}));}
       }
-      const msg=$('#form [name="message"]');
-      const p=startProjects.find((x)=>x.id===startState.project);
-      if(msg && !msg.value.trim()) msg.value=en
-        ? `I would like to discuss ${startState.route} for ${p?.name || 'the project'} within ${startState.timing}.`
-        : `Хочу обсудить ${startState.route==='pilot'?'пилот':startState.route==='partnership'?'партнёрство':startState.route==='investment'?'инвестиционный диалог':'NDA / проверку'} по ${p?.name || 'проекту'}; ориентир по сроку — ${startState.timing}.`;
-      $('#form')?.dispatchEvent(new Event('input',{bubbles:true}));
+      questionSet().forEach((q)=>{
+        const target=$('#v2-qualified-route [name="' + q.lead + '"]');
+        const value=questionAnswer(q.key);
+        if(target && value){
+          target.value=value;
+          target.dispatchEvent(new Event('change',{bubbles:true}));
+          target.dispatchEvent(new Event('input',{bubbles:true}));
+        }
+      });
+      let hidden=form?.querySelector('[name="leadBrief"]');
+      if(form && !hidden){
+        hidden=document.createElement('input');
+        hidden.type='hidden';
+        hidden.name='leadBrief';
+        form.append(hidden);
+      }
+      if(hidden) hidden.value=briefText();
+
+      const msg=form?.querySelector('[name="message"]');
+      if(msg && !msg.value.trim()){
+        msg.value=en
+          ? `First conversation brief:\n${briefText()}`
+          : `Brief первого разговора:\n${briefText()}`;
+      }
+      form?.dispatchEvent(new Event('input',{bubbles:true}));
       $('#contact')?.scrollIntoView({behavior:'smooth',block:'start'});
-      setTimeout(()=>$('#v2-qualified-route [data-v2-route-required]')?.focus({preventScroll:true}),450);
+      setTimeout(()=>$('#v2-qualified-route [data-v2-route-required]:not([value=""])')?.focus({preventScroll:true}),450);
+    });
+    $('#v2-steps').addEventListener('input',(e)=>{
+      const field=e.target.closest('[data-v2-brief-answer]');
+      if(!field) return;
+      const route=startState.route;
+      startState.answers[route] ||= {};
+      startState.answers[route][field.dataset.v2BriefAnswer]=field.value;
+      renderStart();
+    });
+    $('#v2-steps').addEventListener('change',(e)=>{
+      const field=e.target.closest('[data-v2-brief-answer]');
+      if(!field) return;
+      const route=startState.route;
+      startState.answers[route] ||= {};
+      startState.answers[route][field.dataset.v2BriefAnswer]=field.value;
+      renderStart();
     });
   }
   renderStart();
