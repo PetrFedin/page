@@ -6,6 +6,7 @@ const v2 = read('assets/v2.js');
 const css = read('assets/v2.css');
 const statsApi = read('functions/api/stats.js');
 const statsUi = read('functions/stats.js');
+const contact = read('functions/api/contact.js');
 const leadsApi = read('functions/api/leads.js');
 const index = read('index.html');
 const content = read('assets/content.js');
@@ -33,7 +34,10 @@ const checks = [
   ['controlled disclosure ladder', v2.includes('Уровни доступа') && v2.includes('NDA / diligence')],
   ['qualified lead routing', ['pilot','partnership','investment','diligence'].every((x) => v2.includes(x)) && v2.includes('Квалифицированное обращение') && v2.includes('leadTiming')],
   ['lead qualification model', statsApi.includes('function qualifyLead(') && statsUi.includes('Прозрачная квалификация') && statsUi.includes('Готовность')],
-  ['interactive start flow', v2.includes('data-v2-start-route') && v2.includes('data-v2-start-project') && v2.includes('data-v2-start-timing') && v2.includes('Продолжить с этим контекстом')],
+  ['interactive start flow', v2.includes('data-v2-start-route') && v2.includes('data-v2-start-project') && v2.includes('data-v2-start-timing')],
+  ['mini brief builder', v2.includes('Mini Brief Builder') && v2.includes('data-v2-brief-answer') && v2.includes('leadBrief') && v2.includes('Brief первого разговора')],
+  ['mini brief route questions', ['leadGoal','leadScope','leadContribution','leadFormat','leadInvestorFocus','leadNextStep','leadDiligencePurpose','leadAccessLevel'].every((x)=>v2.includes(x))],
+  ['mini brief persisted', contact.includes('brief: clean(body.leadBrief') && statsUi.includes('Brief первого разговора') && statsUi.includes('leadBriefBox')],
   ['lead operating API', leadsApi.includes("type, path, target, label, data") && leadsApi.includes("'lead_op'") && leadsApi.includes("demo_scheduled")],
   ['lead operating queue', statsUi.includes('Lead Operating Queue') && statsUi.includes('Требует действия сегодня') && statsUi.includes('data-lead-save') && statsUi.includes("post('/api/leads'" )],
   ['lead history append-only', statsApi.includes("type='lead_op'") && statsApi.includes('s.operations') && statsApi.includes('s.operating')],
