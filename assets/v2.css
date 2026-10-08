@@ -517,3 +517,7 @@ html[data-preview="v2"] body{overflow-x:clip}
 
 /* V2.20 do not let the global contact FAB cover an open project action menu. */
 html[data-preview="v2"] body:has(.v2-product-more[open]) .cta-fab{opacity:0;pointer-events:none;transform:translateY(8px)}
+
+/* V2.21 variable-height project cards: opening one card must not stretch its neighbour. */
+.v2-portfolio-grid{align-items:start}
+.v2-product{align-self:start;height:auto}

@@ -6,9 +6,10 @@ const v2 = read('assets/v2.js');
 const index = read('index.html');
 const content = read('assets/content.js');
 const en = read('en/index.html');
+const css = read('assets/v2.css');
 
 const checks = [
-  ['portfolio heading', v2.includes("'Портфель как система'") && !v2.includes("'Портфель как система, а не длинный список'")],
+  ['portfolio heading', v2.includes("'Что уже построено'") && v2.includes("'Продукты'")],
   ['portfolio starts with two cards', v2.includes('const PORTFOLIO_FIRST = 2;')],
   ['portfolio show more control', v2.includes("id=\"v2-portfolio-more\"") && v2.includes("'Показать ещё'") && v2.includes("'Свернуть'")],
   ['detailed projects progressive reveal', app.includes('let projectsExpanded = false;') && app.includes('const PROJECTS_FIRST = 3;')],
@@ -36,7 +37,9 @@ const checks = [
   ['full public case studies', ['V2_CASE_STUDIES','Как устроено','Что внутри','Как этим пользуются','Что измеряем','С чем соединяется','Что проверяем на пилоте','Когда считаем, что получилось','Что развиваем дальше','v2-case-study'].every((x) => v2.includes(x))],
   ['visual product stories', ['V2_CASE_VISUALS','v2-visual-story','v2-arch-map','v2-flow-rail','v2-kpi-grid','v2-accept-grid','v2-roadmap-rail'].every((x) => v2.includes(x) || css.includes(x))],
   ['stable portfolio action hierarchy', ['v2-product-primary-actions','v2-product-more','v2-product-more-menu','Посмотреть проект','Ещё о проекте'].every((x) => v2.includes(x) || css.includes(x))],
-  ['human-first narrative', v2.includes("$('#cta-contact').setAttribute('href', '#v2-steps')") && v2.includes('V2 primary narrative')],
+  ['variable-height project cards', css.includes('.v2-portfolio-grid{align-items:start}') && css.includes('.v2-product{align-self:start;height:auto}')],
+  ['concise start choices', !v2.includes('<small>${m.copy}</small>') && v2.includes('Что подготовить для старта')],
+  ['restored landing order', v2.includes("$('#cta-contact').setAttribute('href', '#v2-decision')") && v2.includes('restore and pin the established section order from c32fd76') && v2.includes("'#v2-stakeholders', '#v2-routes', '#v2-decision', '#experience', '#consulting'")],
   ['Antiqua paintings-only public scope', content.includes('только для живописи') && v2.includes('paintings-only') && !/drawing|printmaking|engraving|рисунк|гравюр/i.test(content + v2)],
 ];
 
