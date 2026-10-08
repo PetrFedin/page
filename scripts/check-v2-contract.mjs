@@ -34,6 +34,7 @@ const checks = [
   ['deep new-project dossiers', ['V2_DEEP_PROJECTS','antiqua','fashionmgmt','furproduction','v2-deep-project'].every((x) => v2.includes(x))],
   ['executive portfolio ordering', v2.includes("['syntha','fashionmgmt','furproduction','mfw','promomed','chatx','antiqua','renova']") && v2.includes('v2-product-meta')],
   ['full public case studies', ['V2_CASE_STUDIES','Architecture','Modules','User journeys','KPI / измерение','Integrations','Pilot scope','Acceptance criteria','Roadmap','v2-case-study'].every((x) => v2.includes(x))],
+  ['visual product stories', ['V2_CASE_VISUALS','v2-visual-story','v2-arch-map','v2-flow-rail','v2-kpi-grid','v2-accept-grid','v2-roadmap-rail'].every((x) => v2.includes(x) || css.includes(x))],
   ['Antiqua paintings-only public scope', content.includes('только для живописи') && v2.includes('paintings-only') && !/drawing|printmaking|engraving|рисунк|гравюр/i.test(content + v2)],
 ];
 
