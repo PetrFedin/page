@@ -20,8 +20,8 @@ const checks = [
   ['contact form anchors', ['id="contact"','id="form"','id="topic"','id="submit"'].every((x) => index.includes(x))],
   ['RU/EN pages exist', index.includes('assets/app.js') && en.includes('/assets/app.js')],
   ['V2 renderer receives project registry', app.includes('renderV2(lang, PROJECTS);')],
-  ['project decision dossier', v2.includes('CEO · досье для решения') && v2.includes('7 сигналов до следующего обязательства') && v2.includes('Обсудить следующий gate')],
-  ['dossier CTA consistency', v2.includes("'Открыть досье'") && content.includes("open: 'Открыть досье'")],
+  ['project decision dossier', v2.includes('Проект без технического шума') && v2.includes('Что решает проект, как он работает и что дальше') && v2.includes('Обсудить следующий шаг')],
+  ['dossier CTA consistency', v2.includes('Посмотреть проект') && v2.includes('Ещё о проекте') && content.includes("open: 'Открыть досье'")],
   ['commercial clarity layer', ['Кто покупатель','За что платит','Первый продаваемый пилот','Что измеряем','Что превращает пилот в контракт','Возможные модели выручки'].every((x) => v2.includes(x))],
   ['commercial hypothesis labeling', v2.includes('Рабочая гипотеза · подтверждается пилотом') && v2.includes('Коммерческая модель')],
   ['commercial proof and investor readiness', ['Что уже доказано','Что ещё не доказано','Главный риск','Как следующий пилот снимает риск','Какие данные должны появиться','МАСШТАБИРОВАТЬ','ПЕРЕСОБРАТЬ','ОСТАНОВИТЬ'].every((x) => v2.includes(x))],
@@ -33,8 +33,10 @@ const checks = [
   ['actionable start flow', ['data-v2-start-mode','data-v2-start-continue','Перейти к короткой форме','Написать в Telegram'].every((x) => v2.includes(x))],
   ['deep new-project dossiers', ['V2_DEEP_PROJECTS','antiqua','fashionmgmt','furproduction','v2-deep-project'].every((x) => v2.includes(x))],
   ['executive portfolio ordering', v2.includes("['syntha','fashionmgmt','furproduction','mfw','promomed','chatx','antiqua','renova']") && v2.includes('v2-product-meta')],
-  ['full public case studies', ['V2_CASE_STUDIES','Architecture','Modules','User journeys','KPI / измерение','Integrations','Pilot scope','Acceptance criteria','Roadmap','v2-case-study'].every((x) => v2.includes(x))],
+  ['full public case studies', ['V2_CASE_STUDIES','Как устроено','Что внутри','Как этим пользуются','Что измеряем','С чем соединяется','Что проверяем на пилоте','Когда считаем, что получилось','Что развиваем дальше','v2-case-study'].every((x) => v2.includes(x))],
   ['visual product stories', ['V2_CASE_VISUALS','v2-visual-story','v2-arch-map','v2-flow-rail','v2-kpi-grid','v2-accept-grid','v2-roadmap-rail'].every((x) => v2.includes(x) || css.includes(x))],
+  ['stable portfolio action hierarchy', ['v2-product-primary-actions','v2-product-more','v2-product-more-menu','Посмотреть проект','Ещё о проекте'].every((x) => v2.includes(x) || css.includes(x))],
+  ['human-first narrative', v2.includes("$('#cta-contact').setAttribute('href', '#v2-steps')") && v2.includes('V2 primary narrative')],
   ['Antiqua paintings-only public scope', content.includes('только для живописи') && v2.includes('paintings-only') && !/drawing|printmaking|engraving|рисунк|гравюр/i.test(content + v2)],
 ];
 

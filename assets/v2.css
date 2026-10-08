@@ -472,3 +472,48 @@ html[data-preview="v2"] body{overflow-x:clip}
 @media(max-width:759px){
   .v2-case-study[data-case="antiqua"] .v2-case-head h3,.v2-case-study[data-case="fashionmgmt"] .v2-case-head h3,.v2-case-study[data-case="furproduction"] .v2-case-head h3{font-size:22px}
 }
+
+/* V2.20 stable portfolio actions + human-first hierarchy */
+.v2-product-actions{display:grid;gap:9px;margin-top:auto}
+.v2-product-primary-actions{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px}
+.v2-product-primary-actions .btn{width:100%;justify-content:center;min-width:0;white-space:normal;text-align:center}
+.v2-product-more{border-top:1px solid var(--line);padding-top:8px}
+.v2-product-more>summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:7px 2px;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.v2-product-more>summary::-webkit-details-marker{display:none}
+.v2-product-more>summary span{transition:transform .18s ease;color:var(--accent)}
+.v2-product-more[open]>summary span{transform:rotate(180deg)}
+.v2-product-more-menu{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding-top:8px}
+.v2-product-more-menu .btn{width:100%;min-width:0;justify-content:center;white-space:normal;line-height:1.25;text-align:center}
+.v2-product-more-menu .v2-evidence-toggle,.v2-product-more-menu .v2-commercial-toggle,.v2-product-more-menu .v2-proof-toggle{margin-left:0;flex-basis:auto}
+@media(max-width:759px){
+  .v2-product-primary-actions{grid-template-columns:1fr}
+  .v2-product-more-menu{grid-template-columns:1fr}
+  .v2-product-actions .btn{flex:none;width:100%}
+}
+
+/* V2.20 mobile uses true responsive sizing, not the legacy page-wide text zoom. */
+@media(max-width:759px){
+  html[data-preview="v2"][data-text-size="lg"] main,
+  html[data-preview="v2"][data-text-size="xl"] main,
+  html[data-preview="v2"][data-text-size="lg"] header.topbar,
+  html[data-preview="v2"][data-text-size="xl"] header.topbar,
+  html[data-preview="v2"][data-text-size="lg"] .modal-body,
+  html[data-preview="v2"][data-text-size="xl"] .modal-body{zoom:1!important}
+}
+
+/* V2.20 grid items may shrink to the real mobile column instead of forcing min-content width. */
+.v2-portfolio-grid{min-width:0}
+.v2-product{min-width:0;max-width:100%}
+.v2-product>*{min-width:0;max-width:100%}
+.v2-investor-priority>div,.v2-product-meta,.v2-product-actions,.v2-card-visual{min-width:0;max-width:100%}
+.v2-product p,.v2-product dd,.v2-product button{overflow-wrap:anywhere}
+
+/* V2.20 mobile investor signals: one readable thought at a time. */
+@media(max-width:759px){
+  .v2-investor-priority{display:flex!important;overflow-x:auto;scroll-snap-type:x mandatory;gap:8px;padding:0 0 4px;max-width:100%}
+  .v2-investor-priority>div{flex:0 0 86%;min-width:86%!important;max-width:86%!important;scroll-snap-align:start;min-height:126px}
+  .v2-investor-priority::after{content:'SWIPE →';flex:0 0 auto;align-self:flex-start;padding:8px 4px;font-size:7px;letter-spacing:.09em;color:var(--accent)}
+}
+
+/* V2.20 do not let the global contact FAB cover an open project action menu. */
+html[data-preview="v2"] body:has(.v2-product-more[open]) .cta-fab{opacity:0;pointer-events:none;transform:translateY(8px)}

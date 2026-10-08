@@ -88,7 +88,7 @@
         <a class="btn" href="#projects" id="cta-projects">Проекты</a>
         <a class="btn" href="#investors" id="cta-investors">Партнёрство</a>
         <a class="btn" href="#news" id="cta-feed">Лента</a>
-        <a class="btn btn-primary" href="#v2-decision" id="cta-contact">Выбрать формат работы</a>
+        <a class="btn btn-primary" href="#v2-steps" id="cta-contact">Выбрать формат работы</a>
       </div><div id="v2-proofbar" class="v2-proofbar"><span><strong>8</strong>опубликованных проектов</span><span><strong>5</strong>активных направлений</span><span><strong>2</strong>MVP</span><span><strong>6</strong>Готов к пилоту</span></div>
     </div>
     <figure class="portrait">
@@ -96,7 +96,326 @@
       <img id="hero-photo" src="/assets/photo/petr-portrait.webp" alt="Пётр Федин" width="900" height="1200" fetchpriority="high">
       </button>
     </figure>
-  </section><section id="v2-stakeholders" class="section v2-stakeholders">
+  </section><section id="v2-routes" class="section v2-routes"><p class="eyebrow">С чего начнём?</p><div class="v2-route-grid"><a class="v2-route" href="#consulting"><span class="v2-route-meta">01 / Для бизнеса</span><h3>Консалтинг</h3><p>Маржа, закупка, запасы, оборотный капитал и решения, которые можно проверить на данных.</p><span class="v2-route-action">Выбрать формат работы →</span></a><a class="v2-route" href="#v2-portfolio"><span class="v2-route-meta">02 / Для продукта</span><h3>Продукты и разработка</h3><p>Собственные цифровые продукты: от рабочего прототипа до пилота, внедрения и партнёрской модели.</p><span class="v2-route-action">Посмотреть портфель →</span></a><a class="v2-route" href="#investors"><span class="v2-route-meta">03 / Для совместного развития</span><h3>Партнёрство</h3><p>Пилоты, совместный выход на рынок, стратегическое сотрудничество и инвестиционный диалог.</p><span class="v2-route-action">Посмотреть варианты участия →</span></a></div></section><section id="v2-portfolio" class="section v2-portfolio">
+    <div class="section-head">
+      <p class="eyebrow">Портфель проектов</p>
+      <h2>Портфель как система</h2>
+      <p class="sub">8 опубликованных продуктов собраны в одной карте: направление, текущая стадия, следующий проверяемый этап и формат участия. Так можно быстро понять, где находится каждый продукт сегодня и что должно произойти дальше.</p>
+    </div>
+    <div class="v2-portfolio-summary" aria-label="Сводка портфеля" title="Сводка портфеля">
+      <div><strong>8</strong><span>проектов опубликовано</span></div>
+      <div><strong>5</strong><span>активных направления</span></div>
+      <div class="v2-maturity-strip">
+        <span class="v2-maturity-point"><i>0</i>Концепция</span><span class="v2-maturity-point active"><i>2</i>MVP</span><span class="v2-maturity-point active"><i>6</i>Готов к пилоту</span><span class="v2-maturity-point"><i>0</i>В эксплуатации</span>
+      </div>
+    </div>
+    <div class="v2-portfolio-filters" role="group" aria-label="Направления портфеля" title="Направления портфеля">
+      <button type="button" class="v2-filter active" data-v2-filter="all" aria-pressed="true">
+          <span>Все</span><b>8</b>
+        </button><button type="button" class="v2-filter" data-v2-filter="fashion" aria-pressed="false">
+          <span>Мода</span><b>4</b>
+        </button><button type="button" class="v2-filter" data-v2-filter="enterprise" aria-pressed="false">
+          <span>Корпоративные</span><b>3</b>
+        </button><button type="button" class="v2-filter" data-v2-filter="events" aria-pressed="false">
+          <span>События</span><b>2</b>
+        </button><button type="button" class="v2-filter" data-v2-filter="consumer" aria-pressed="false">
+          <span>Потребительские</span><b>1</b>
+        </button><button type="button" class="v2-filter" data-v2-filter="fintech" aria-pressed="false" disabled="">
+          <span>Финтех</span><b>0</b><small>не опубликовано</small>
+        </button><button type="button" class="v2-filter" data-v2-filter="art" aria-pressed="false">
+          <span>Искусство</span><b>1</b>
+        </button><button type="button" class="v2-filter" data-v2-filter="infrastructure" aria-pressed="false" disabled="">
+          <span>Инфраструктура</span><b>0</b><small>не опубликовано</small>
+        </button>
+    </div>
+    <div class="v2-portfolio-grid" id="v2-portfolio-grid"><article class="v2-product" data-v2-product="syntha">
+        <div class="v2-product-top">
+          <div>
+            <div class="v2-product-cats"><span>Мода</span></div>
+            <h3>Syntha</h3>
+          </div>
+          <span class="v2-stage v2-stage-pilot">Готов к пилоту</span>
+        </div>
+        <div class="v2-card-visual v2-card-visual-shot"><img src="/assets/shots/syntha-1.webp" alt="Syntha interface preview" loading="lazy"></div>
+        <p class="v2-product-tag">Операционная система бренда: от продукта и заказа до фактической маржи</p>
+        <details class="v2-product-meta">
+          <summary>Для кого · стадия · коммерческий путь</summary>
+          <dl class="v2-product-data">
+            <div><dt>Аудитория</dt><dd>Брендам и производствам, которым важно связать разработку продукта с продажей; розничным сетям, мультибрендовым байерам и дистрибьюторам, которым нужны подтверждённые цена, доступность, заказ и поставка.</dd></div>
+            <div><dt>Текущая стадия</dt><dd>Рабочая система, готовится к пилоту</dd></div>
+            <div><dt>Монетизация</dt><dd>Пилот → коммерческая модель фиксируется по результатам проверки</dd></div>
+          </dl>
+        </details>
+        <div class="v2-investor-priority" aria-label="Инвесторский приоритет" title="Инвесторский приоритет">
+          <div><span>01 · Почему это важно</span><p>Fashion-бизнес теряет скорость и маржу, когда продукт, заказ, поставка и экономика живут в разных системах и таблицах.</p></div>
+          <div><span>02 · Почему сейчас</span><p>Product/commercial core уже собран; EntityThread и Decision Ledger доказаны на PostgreSQL — следующий шаг уже не разработка, а реальный сезон.</p></div>
+          <div><span>03 · Что меняется экономически</span><p>Проверяемый рычаг: меньше ручной сверки, быстрее подтверждение заказа, меньше расхождений по цене, себестоимости и марже.</p></div>
+          <div class="v2-priority-next"><span>04 · Что должно быть доказано дальше</span><p>Один бренд должен провести реальный сезонный контур без критичного возврата к параллельным таблицам и показать измеримый выигрыш.</p></div>
+        </div>
+        <div class="v2-product-actions">
+          <div class="v2-product-primary-actions">
+            <button type="button" class="btn btn-sm btn-primary" data-v2-open="syntha">Посмотреть проект</button>
+            <button type="button" class="btn btn-sm" data-v2-talk="launch" data-v2-id="syntha">Обсудить пилот</button>
+          </div>
+          <details class="v2-product-more">
+            <summary>Ещё о проекте <span aria-hidden="true">↓</span></summary>
+            <div class="v2-product-more-menu">
+              <button type="button" class="btn btn-sm" data-v2-talk="partnership" data-v2-id="syntha">Партнёрство</button>
+              <button type="button" class="btn btn-sm" data-v2-talk="investors" data-v2-id="syntha">Инвестиции</button>
+            <button type="button" class="btn btn-sm v2-evidence-toggle" data-v2-evidence="syntha" aria-expanded="false">Коротко и по делу</button><button type="button" class="btn btn-sm v2-commercial-toggle" data-v2-commercial="syntha" aria-expanded="false">Как проект может зарабатывать</button><button type="button" class="btn btn-sm v2-proof-toggle" data-v2-proof="syntha" aria-expanded="false">Что уже подтверждено</button></div>
+          </details>
+        </div>
+      <div class="v2-evidence-panel" hidden="">
+        <div><span>Проблема</span><p>Разрозненные данные о продукте, заказах и исполнении требуют ручной сверки и замедляют решения.</p></div>
+        <div><span>Продукт</span><p>Операционная система для fashion-бизнеса, которая связывает продуктовый и коммерческий цикл в одном рабочем пространстве.</p></div>
+        <div><span>Подтверждение</span><p>Product/commercial core собран; на PostgreSQL доказаны entity-linked operational threads, immutable messages и Decision Ledger. Внешний сезонный пилот ещё не проведён.</p></div>
+        <div><span>Текущая стадия</span><p>Рабочая система, готовится к пилоту</p></div>
+        <div><span>Следующий этап</span><p>Провести пилот с первым брендом на реальном сезоне.</p></div>
+        <div><span>Коммерческий путь</span><p>Пилот → зафиксированные метрики → условия внедрения / выхода на рынок.</p></div>
+        <div><span>Что требуется от партнёра / инвестора</span><p>Бренд или магазин для пилота; партнёр по выходу на рынок.</p></div></div><section class="v2-commercial-panel" hidden="">
+      <div class="v2-commercial-grid">
+        <div><span>Кто покупатель</span><p>Фэшн-бренд, производитель или розничная компания, которым нужен единый контур продукта, заказа и экономики.</p></div>
+        <div><span>За что платит</span><p>За доступ к системе и управляемый рабочий контур; отдельно — за внедрение, интеграцию с учётной системой и настройку под процессы.</p></div>
+        <div><span>Первый продаваемый пилот</span><p>Один бренд, один реальный сезон, ограниченный набор пользователей и сквозной сценарий от продукта и шоурума до подтверждённого заказа и маржи.</p></div>
+        <div><span>Что измеряем</span><ul><li>доля сценария, прошедшая без ручной сверки между системами</li><li>время подготовки и подтверждения заказа</li><li>расхождения по цене, доступности, себестоимости и марже</li><li>готовность интеграции и пользователей к ежедневной работе</li></ul></div>
+        <div><span>Что превращает пилот в контракт</span><p>Пилот проходит согласованные критерии приёмки, определён интеграционный контур, подтверждены роли и объём регулярного использования.</p></div>
+        <div><span>Возможные модели выручки</span><ul><li>регулярный доступ / лицензия</li><li>внедрение и интеграция</li><li>корпоративная поддержка</li><li>партнёрство по выходу на рынок</li></ul></div>
+      </div>
+      <p class="v2-commercial-note">Рабочая коммерческая гипотеза. Цена, единица тарификации и экономика масштабирования должны быть зафиксированы после пилота.</p></section><section class="v2-proof-panel" hidden="">
+      <div class="v2-proof-grid">
+        <div class="v2-proof-good"><span>Что уже доказано</span><ul><li>единый продуктово-коммерческий контур уже собран</li><li>заказы, изменения и экономика продукта ведутся в одной рабочей логике</li><li>ключевые пользовательские сценарии готовы к проверке на реальном сезоне</li></ul></div>
+        <div><span>Что ещё не доказано</span><ul><li>устойчивое ежедневное использование внешним брендом</li><li>реальная стоимость внедрения в конкретной компании</li><li>готовность клиента платить по регулярной модели</li></ul></div>
+        <div><span>Главный риск</span><p>Главный риск — не наличие функций, а реальное внедрение: сможет ли команда бренда вести сезонный цикл в системе без возврата к ручной сверке.</p></div>
+        <div><span>Как следующий пилот снимает риск</span><p>Пилот с одним брендом должен показать, насколько система снижает ручную работу и помогает быстрее принимать коммерческие решения.</p></div>
+        <div class="v2-proof-data"><span>Какие данные должны появиться</span><ul><li>доля сценариев, которые проходят без внешних таблиц</li><li>время на подготовку и подтверждение заказа</li><li>число расхождений по цене, доступности и экономике</li><li>регулярность использования ключевыми ролями</li></ul></div>
+      </div>
+      <div class="v2-proof-decisions">
+        <div><b>МАСШТАБИРОВАТЬ</b><p>масштабировать, если основной сезонный сценарий работает стабильно и даёт измеримое сокращение ручной работы</p></div>
+        <div><b>ПЕРЕСОБРАТЬ</b><p>пересобрать объём внедрения, если ценность подтверждается, но использование остаётся слишком сложным</p></div>
+        <div><b>ОСТАНОВИТЬ</b><p>не масштабировать текущий коммерческий сценарий, если пилот не даёт измеримого преимущества перед существующим процессом</p></div>
+      </div></section></article><article class="v2-product" data-v2-product="fashionmgmt">
+        <div class="v2-product-top">
+          <div>
+            <div class="v2-product-cats"><span>Мода</span><span>Корпоративные</span><span>Конфиденциальный кейс</span></div>
+            <h3>Fashion Management OS</h3>
+          </div>
+          <span class="v2-stage v2-stage-pilot">Готов к пилоту</span>
+        </div>
+        <div class="v2-card-visual v2-card-visual-map v2-map-fashionmgmt" aria-label="Схема продукта" title="Схема продукта">
+      <div class="v2-map-frame"><span class="v2-map-node v2-map-node-1">ORDER</span><i>→</i><span class="v2-map-node v2-map-node-2">PRODUCTION</span><i>→</i><span class="v2-map-node v2-map-node-3">COST</span></div>
+    </div>
+        <p class="v2-product-tag">Операционная система fashion-производства: коллекция, заказ, цеха, себестоимость и ликвидность</p>
+        <details class="v2-product-meta">
+          <summary>Для кого · стадия · коммерческий путь</summary>
+          <dl class="v2-product-data">
+            <div><dt>Аудитория</dt><dd>Fashion house / atelier / производственной компании, где собственнику, операционному и производственному руководству нужна одна версия заказа, загрузки, затрат и денежных обязательств, а цехам — свой…</dd></div>
+            <div><dt>Текущая стадия</dt><dd>Рабочая система · подготовка контролируемого запуска</dd></div>
+            <div><dt>Монетизация</dt><dd>Контролируемый запуск → измеримые результаты → условия лицензии, внедрения и поддержки</dd></div>
+          </dl>
+        </details>
+        <div class="v2-investor-priority" aria-label="Инвесторский приоритет" title="Инвесторский приоритет">
+          <div><span>01 · Почему это важно</span><p>В сложном fashion-производстве срок и прибыльность заказа становятся понятны слишком поздно, если модель, материалы, цеха, платежи и себестоимость…</p></div>
+          <div><span>02 · Почему сейчас</span><p>Система уже связывает модель, заказ, производство, материалы, себестоимость, загрузку, платежи и закрытие месяца в одном рабочем контуре.</p></div>
+          <div><span>03 · Что меняется экономически</span><p>Проверяемый эффект — меньше ручной сверки, раньше видны задержки и перерасход, быстрее принимаются решения по загрузке, себестоимости и деньгам.</p></div>
+          <div class="v2-priority-next"><span>04 · Что должно быть доказано дальше</span><p>На реальном производственном контуре нужно доказать, что команда ведёт заказ от модели до закрытия в системе и не возвращается к критичным…</p></div>
+        </div>
+        <div class="v2-product-actions">
+          <div class="v2-product-primary-actions">
+            <button type="button" class="btn btn-sm btn-primary" data-v2-open="fashionmgmt">Посмотреть проект</button>
+            <button type="button" class="btn btn-sm" data-v2-talk="launch" data-v2-id="fashionmgmt">Обсудить пилот</button>
+          </div>
+          <details class="v2-product-more">
+            <summary>Ещё о проекте <span aria-hidden="true">↓</span></summary>
+            <div class="v2-product-more-menu">
+              <button type="button" class="btn btn-sm" data-v2-talk="partnership" data-v2-id="fashionmgmt">Партнёрство</button>
+              <button type="button" class="btn btn-sm" data-v2-talk="investors" data-v2-id="fashionmgmt">Инвестиции</button>
+            <button type="button" class="btn btn-sm v2-evidence-toggle" data-v2-evidence="fashionmgmt" aria-expanded="false">Коротко и по делу</button><button type="button" class="btn btn-sm v2-commercial-toggle" data-v2-commercial="fashionmgmt" aria-expanded="false">Как проект может зарабатывать</button><button type="button" class="btn btn-sm v2-proof-toggle" data-v2-proof="fashionmgmt" aria-expanded="false">Что уже подтверждено</button></div>
+          </details>
+        </div>
+      <div class="v2-evidence-panel" hidden="">
+        <div><span>Проблема</span><p>Модель, заказ, материалы, производство, себестоимость и деньги часто ведутся в разных таблицах. Из-за этого проблемы со сроком и экономикой заказа становятся видны слишком поздно.</p></div>
+        <div><span>Продукт</span><p>Fashion Management OS связывает разработку модели, заказ, производство, материалы, примерки, себестоимость, загрузку и денежный контур в одной системе.</p></div>
+        <div><span>Подтверждение</span><p>Уже собран рабочий контур от модели и заказа до производства, себестоимости, незавершёнки, загрузки, платежей и закрытия месяца. Роли и история значимых действий также учитываются.</p></div>
+        <div><span>Текущая стадия</span><p>Рабочая система · подготовка контролируемого запуска</p></div>
+        <div><span>Следующий этап</span><p>Провести контролируемый запуск на реальном производственном процессе и проверить ежедневную работу разных ролей на компьютере, планшете и телефоне.</p></div>
+        <div><span>Коммерческий путь</span><p>Реальный запуск → измерение времени, точности и отказа от параллельных таблиц → условия внедрения и поддержки.</p></div>
+        <div><span>Что требуется от партнёра / инвестора</span><p>Реальный производственный контур и ответственные со стороны бизнеса, производства и финансов. Публичная демонстрация остаётся обезличенной.</p></div></div><section class="v2-commercial-panel" hidden="">
+      <div class="v2-commercial-grid">
+        <div><span>Кто покупатель</span><p>Fashion house, ателье или производственная компания со сложным заказным производством, несколькими цехами и разными управленческими ролями.</p></div>
+        <div><span>За что платит</span><p>За использование единой операционной системы, внедрение в процессы компании, перенос данных и поддержку. Интеграции с внешними учётными системами согласуются отдельно.</p></div>
+        <div><span>Первый продаваемый пилот</span><p>Ограниченный реальный контур: каталог/модели, несколько заказов, production operations, materials, payments, cost/WIP/capacity и month close.</p></div>
+        <div><span>Что измеряем</span><ul><li>доля процесса без параллельных таблиц</li><li>время от изменения заказа до обновлённого cost/CTC signal</li><li>раннее выявление bottleneck/late risk</li><li>точность Plan/Fact/CTC/Forecast</li><li>срок закрытия месяца и полнота evidence</li></ul></div>
+        <div><span>Что превращает пилот в контракт</span><p>Роли принимают рабочий контур, ключевые расчёты воспроизводимы, critical workflows не требуют обхода системы и определён integration/support scope.</p></div>
+        <div><span>Возможные модели выручки</span><ul><li>enterprise licence / recurring access — hypothesis</li><li>implementation and process migration</li><li>integration work</li><li>support / SLA</li></ul></div>
+      </div>
+      <p class="v2-commercial-note">Публичный кейс обезличен. Цена, клиент, сотрудники, реальные заказы, cash-flow и договорные условия не публикуются.</p></section><section class="v2-proof-panel" hidden="">
+      <div class="v2-proof-grid">
+        <div class="v2-proof-good"><span>Что уже доказано</span><ul><li>сквозной product/order/production/cost core работает</li><li>роль и доступ отделены от фамилий и business/technical authority</li><li>cost snapshots, WIP/capacity, liquidity/month-close и audit уже реализованы</li></ul></div>
+        <div><span>Что ещё не доказано</span><ul><li>долгосрочная adoption всех ролей в реальном режиме</li><li>полный live role × device QA</li><li>экономический эффект против прежнего spreadsheet process</li></ul></div>
+        <div><span>Главный риск</span><p>Главный риск — не функциональность, а реальное замещение параллельного Excel и дисциплина ролей.</p></div>
+        <div><span>Как следующий пилот снимает риск</span><p>Controlled rollout должен измерить отказ от ручной сверки, скорость решения и качество cost/capacity signals.</p></div>
+        <div class="v2-proof-data"><span>Какие данные должны появиться</span><ul><li>parallel spreadsheet escape rate</li><li>decision lead time</li><li>Plan/Fact/CTC variance</li><li>late/bottleneck lead time</li><li>month-close duration</li></ul></div>
+      </div>
+      <div class="v2-proof-decisions">
+        <div><b>МАСШТАБИРОВАТЬ</b><p>масштабировать внутри клиента после устойчивого использования и воспроизводимых расчётов</p></div>
+        <div><b>ПЕРЕСОБРАТЬ</b><p>пересобрать UX/role scope, если system-of-record есть, но пользователи продолжают обходить его</p></div>
+        <div><b>ОСТАНОВИТЬ</b><p>не расширять интеграции до acceptance базового operating loop</p></div>
+      </div></section></article></div>
+    <button type="button" class="btn v2-portfolio-more" id="v2-portfolio-more" aria-expanded="false">Показать ещё</button>
+    <p class="v2-portfolio-note">Финтех и инфраструктура остаются пустыми до отдельной официальной публикации; искусство представлено Antiqua, а два новых fashion-кейса опубликованы без идентификации клиентов.</p></section><section id="v2-steps" class="section v2-steps">
+    <div class="v2-start-head">
+      <div>
+        <p class="eyebrow">Начните здесь</p>
+        <h2>Как начинается работа</h2>
+      </div>
+      <p>Выберите ближайшую ситуацию. Блок сразу покажет, что подготовить и куда нажать дальше.</p>
+    </div>
+    <div class="v2-start-choice" role="group" aria-label="Выберите, с чего начать" title="Выберите, с чего начать">
+      <button type="button" class="v2-start-mode" data-v2-start-mode="consulting" aria-pressed="false"><span>Бизнес-задача</span><strong>Улучшить экономику или управляемость бизнеса</strong><small>Закупка, маржа, запасы, оборотный капитал, отчётность или управленческая проблема, которую нужно проверить на данных.</small></button><button type="button" class="v2-start-mode" data-v2-start-mode="product" aria-pressed="false"><span>Цифровой продукт</span><strong>Создать, пересобрать или запустить рабочий продукт</strong><small>Новая система, внутренний инструмент, клиентский продукт, автоматизация процесса или существующий продукт, которому нужна более сильная архитектура и реализация.</small></button><button type="button" class="v2-start-mode" data-v2-start-mode="partnership" aria-pressed="false"><span>Пилот / партнёрство</span><strong>Проверить совместный кейс до масштабирования</strong><small>Ограниченный пилот, стратегическое партнёрство, канал, данные или операционный вклад, где обеим сторонам нужен измеримый повод продолжать.</small></button><button type="button" class="v2-start-mode" data-v2-start-mode="investment" aria-pressed="false"><span>Инвестиции</span><strong>Разобрать зрелость, риски и следующий capital gate</strong><small>Обсуждение конкретного продукта: что уже доказано, какие риски остаются, что должен показать пилот и что обязан разблокировать следующий капитал.</small></button>
+    </div>
+    <div class="v2-start-panel" id="v2-start-panel">
+      <div class="v2-start-empty">
+        <span>01</span>
+        <div><strong>Выберите один вариант выше</strong><p>После выбора здесь появится точный список того, что нужно, и кнопка для продолжения.</p></div>
+      </div>
+    </div></section><section class="section" id="contact">
+    <div class="section-head">
+      <h2 id="contact-title">Связаться</h2>
+      <p class="sub" id="contact-sub">Для начала достаточно имени, одного способа связи и нескольких слов о задаче.</p>
+    </div>
+
+    <div class="persona-picker" id="persona-picker"><span class="persona-label">Пишу как</span>
+    <button type="button" class="persona-chip" data-persona-topic="investors">Инвестор</button><button type="button" class="persona-chip" data-persona-topic="partnership">Партнёр</button><button type="button" class="persona-chip" data-persona-topic="consulting">Клиент</button><button type="button" class="persona-chip" data-persona-topic="press">Пресса</button></div>
+
+    <div class="contact-grid">
+      <form class="form" id="form" novalidate=""><p id="v2-form-note" class="v2-preview-note">Режим просмотра: форма проверяет заполнение, но не отправляет и не сохраняет обращение. Для реальной связи доступны прямые контакты.</p>
+        <div class="pair" data-n="1">
+          <label class="field" id="name-field">
+            <span data-f="name">Имя</span>
+            <input name="name" type="text" autocomplete="given-name" required="">
+          </label>
+          <label class="field" id="surname-field" hidden="">
+            <span data-f="surname">Фамилия</span>
+            <input name="surname" id="surname" type="text" autocomplete="family-name">
+          </label>
+          <label class="field" id="patronymic-field" hidden="">
+            <span data-f="patronymic">Отчество</span>
+            <input name="patronymic" id="patronymic" type="text" autocomplete="additional-name">
+          </label>
+        </div>
+        <div class="opt-row" role="group">
+          <label class="opt"><input type="checkbox" id="opt-surname"><span data-f="surname">Фамилия</span></label>
+          <label class="opt"><input type="checkbox" id="opt-patronymic"><span data-f="patronymic">Отчество</span></label>
+        </div>
+        <label class="field" id="v2-method-field"><span>Как с вами связаться?</span><select id="v2-contact-method"><option value="email">Email</option><option value="telegram">Telegram</option><option value="phone">Телефон</option></select></label><label class="field">
+          <span data-f="email">Email</span>
+          <input name="email" id="email" type="email" autocomplete="email" inputmode="email">
+        </label>
+        <div class="pair" data-n="1">
+          <label class="field" id="telegram-field">
+            <span data-f="telegram">Telegram</span>
+            <input name="telegram" id="telegram" type="text" autocomplete="off" placeholder="@username">
+          </label>
+          <label class="field" id="phone-field" hidden="">
+            <span data-f="phone">Телефон</span>
+            <input name="phone" id="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="+7 900 …">
+          </label>
+        </div>
+        <div class="opt-row" role="group" hidden="">
+          <label class="opt"><input type="checkbox" id="opt-telegram" checked=""><span data-f="telegram">Telegram</span></label>
+          <label class="opt"><input type="checkbox" id="opt-phone"><span data-f="phone">Телефон</span></label>
+        </div>
+        <p class="form-hint" data-f="contactHint">Нужны имя и хотя бы один способ связи: email, Telegram или телефон.</p>
+        <label class="consent entity-toggle">
+          <input type="checkbox" id="entity-toggle" name="isEntity">
+          <span data-f="entityLabel">Пишу как юридическое лицо</span>
+        </label>
+        <div class="entity-box" id="entity-box" hidden="">
+          <div class="pair" data-n="2">
+            <label class="field"><span data-f="entityName">Название организации</span>
+              <input name="entityName" id="entity-name" type="text" autocomplete="organization"></label>
+            <label class="field"><span data-f="entityInn">ИНН</span>
+              <input name="entityInn" id="entity-inn" type="text" autocomplete="off" inputmode="numeric"></label>
+          </div>
+          <div class="pair" data-n="2">
+            <label class="field"><span data-f="entityAddress">Адрес</span>
+              <input name="entityAddress" id="entity-address" type="text" autocomplete="street-address"></label>
+            <label class="field"><span data-f="entitySite">Сайт</span>
+              <input name="entitySite" id="entity-site" type="text" autocomplete="url" inputmode="url" placeholder="example.com"></label>
+          </div>
+        </div>
+        <label class="field">
+          <span data-f="topic">Тема</span>
+          <select name="topic" id="topic"><option value="consulting">Консалтинг</option><option value="launch">Запуск продукта</option><option value="investors">Инвестиции</option><option value="partnership">Партнёрство</option><option value="syntha">Syntha</option><option value="renova">Renova</option><option value="chatx">ChatX</option><option value="mfw">MFW+BFS+Made in Moscow</option><option value="promomed">Promomed и «СОСТОЯНИЕ»</option><option value="press">Пресса и комментарий</option><option value="event">Выступление или участие в мероприятии</option><option value="other">Другое</option></select>
+        </label>
+        <label class="field" id="topic-other-field" hidden="">
+          <span data-f="topicOther">Напишите тему</span>
+          <input name="topicOther" id="topic-other" type="text" autocomplete="off">
+        </label>
+        <label class="field">
+          <span data-f="message">Сообщение</span>
+          <textarea name="message" rows="4" required=""></textarea>
+        </label>
+        <div class="field">
+          <span data-f="file">Файл</span>
+          <label class="file-drop" for="attach">
+            <input type="file" id="attach" name="file" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.csv,.txt,.png,.jpg,.jpeg,.zip">
+            <span class="file-btn" id="file-btn">Выбрать файл</span>
+            <span class="file-name" id="file-name"></span>
+            <button class="file-clear" id="file-clear" type="button" hidden="">Убрать</button>
+          </label>
+          <span class="file-hint" id="file-hint">Можно приложить бриф, презентацию или таблицу — до 20 МБ</span>
+        </div>
+        <input type="text" name="company" tabindex="-1" autocomplete="off" class="trap" aria-hidden="true">
+        <label class="consent">
+          <input type="checkbox" id="consent" name="consent">
+          <span><span id="consent-text">Согласен на обработку персональных данных</span> · <a href="/privacy" target="_blank" rel="noopener" id="consent-link">Политика конфиденциальности</a></span>
+        </label>
+        <div id="turnstile-widget" hidden=""></div>
+        <p class="form-missing" id="form-missing" aria-live="polite"></p>
+        <button class="btn btn-primary" type="submit" id="submit" disabled="">Проверить заявку · просмотр</button><button type="button" class="btn v2-draft" id="v2-draft">Скачать описание обращения</button>
+        <p class="form-note" id="form-note" role="status" aria-live="polite"></p>
+      </form>
+
+      <aside class="direct">
+        <h3 id="direct-title">Контакты</h3>
+        <ul id="contacts">
+    <li><span class="lbl">WhatsApp</span>
+
+      <a href="https://wa.me/79775781685" target="_blank" rel="noopener">+7 977 578 16 85</a></li>
+    <li><span class="lbl">Telegram</span>
+      <button class="qr-trigger" type="button" data-qr="/assets/qr-sheqel.svg" aria-label="Показать QR-код" title="Показать QR-код">
+        <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true">
+          <rect x="3" y="3" width="7" height="7" fill="none" stroke="currentColor" stroke-width="1.6"></rect>
+          <rect x="14" y="3" width="7" height="7" fill="none" stroke="currentColor" stroke-width="1.6"></rect>
+          <rect x="3" y="14" width="7" height="7" fill="none" stroke="currentColor" stroke-width="1.6"></rect>
+          <rect x="14.5" y="14.5" width="2.3" height="2.3" fill="currentColor"></rect>
+          <rect x="18.7" y="14.5" width="2.3" height="2.3" fill="currentColor"></rect>
+          <rect x="14.5" y="18.7" width="2.3" height="2.3" fill="currentColor"></rect>
+          <rect x="18.7" y="18.7" width="2.3" height="2.3" fill="currentColor"></rect>
+        </svg>
+      </button>
+      <a href="https://t.me/sheqel" target="_blank" rel="noopener">@sheqel</a></li>
+    <li><span class="lbl">Канал проектов</span>
+      <button class="qr-trigger" type="button" data-qr="/assets/qr-syntha-pro.jpg" aria-label="Показать QR-код" title="Показать QR-код">
+        <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true">
+          <rect x="3" y="3" width="7" height="7" fill="none" stroke="currentColor" stroke-width="1.6"></rect>
+          <rect x="14" y="3" width="7" height="7" fill="none" stroke="currentColor" stroke-width="1.6"></rect>
+          <rect x="3" y="14" width="7" height="7" fill="none" stroke="currentColor" stroke-width="1.6"></rect>
+          <rect x="14.5" y="14.5" width="2.3" height="2.3" fill="currentColor"></rect>
+          <rect x="18.7" y="14.5" width="2.3" height="2.3" fill="currentColor"></rect>
+          <rect x="14.5" y="18.7" width="2.3" height="2.3" fill="currentColor"></rect>
+          <rect x="18.7" y="18.7" width="2.3" height="2.3" fill="currentColor"></rect>
+        </svg>
+      </button>
+      <a href="https://t.me/syntha_pro" target="_blank" rel="noopener">@syntha_pro</a></li></ul>
+        <div class="direct-actions">
+          <a class="btn btn-sm vcard" id="vcard" href="/assets/petr-fedin.vcf" download="">Сохранить контакт</a>
+          <button class="btn btn-sm" type="button" id="share-contact">Поделиться контактом</button>
+        </div>
+      </aside>
+    </div>
+  </section><section id="v2-stakeholders" class="section v2-stakeholders" hidden="" data-v2-secondary="true">
     <div class="v2-stakeholder-head">
       <div>
         <p class="eyebrow">Выберите свою роль</p>
@@ -120,7 +439,7 @@
       <div class="v2-stakeholder-actions">
         <button type="button" class="btn btn-primary" data-v2-role-primary="consulting">К формату работы →</button>
         <button type="button" class="btn" data-v2-role-secondary="client">Посмотреть опыт</button>
-      </div></article></section><section id="v2-routes" class="section v2-routes"><p class="eyebrow">С чего начнём?</p><div class="v2-route-grid"><a class="v2-route" href="#consulting"><span class="v2-route-meta">01 / Для бизнеса</span><h3>Консалтинг</h3><p>Маржа, закупка, запасы, оборотный капитал и решения, которые можно проверить на данных.</p><span class="v2-route-action">Выбрать формат работы →</span></a><a class="v2-route" href="#v2-portfolio"><span class="v2-route-meta">02 / Для продукта</span><h3>Продукты и разработка</h3><p>Собственные цифровые продукты: от рабочего прототипа до пилота, внедрения и партнёрской модели.</p><span class="v2-route-action">Посмотреть портфель →</span></a><a class="v2-route" href="#investors"><span class="v2-route-meta">03 / Для совместного развития</span><h3>Партнёрство</h3><p>Пилоты, совместный выход на рынок, стратегическое сотрудничество и инвестиционный диалог.</p><span class="v2-route-action">Посмотреть варианты участия →</span></a></div></section><section id="v2-decision" class="section v2-decision">
+      </div></article></section><section id="v2-decision" class="section v2-decision" hidden="" data-v2-secondary="true">
     <div class="section-head compact">
       <p class="eyebrow">Маршрутизатор решения</p>
       <h2>Поймите формат до первого контакта</h2>
@@ -292,159 +611,7 @@
     <p class="launch-diag-row"><button type="button" class="btn" id="diag-open">Подобрать формат работы</button></p></div>
   </section>
 
-  <section id="v2-portfolio" class="section v2-portfolio">
-    <div class="section-head">
-      <p class="eyebrow">Портфель проектов</p>
-      <h2>Портфель как система</h2>
-      <p class="sub">8 опубликованных продуктов собраны в одной карте: направление, текущая стадия, следующий проверяемый этап и формат участия. Так можно быстро понять, где находится каждый продукт сегодня и что должно произойти дальше.</p>
-    </div>
-    <div class="v2-portfolio-summary" aria-label="Сводка портфеля">
-      <div><strong>8</strong><span>проектов опубликовано</span></div>
-      <div><strong>5</strong><span>активных направления</span></div>
-      <div class="v2-maturity-strip">
-        <span class="v2-maturity-point"><i>0</i>Концепция</span><span class="v2-maturity-point active"><i>2</i>MVP</span><span class="v2-maturity-point active"><i>6</i>Готов к пилоту</span><span class="v2-maturity-point"><i>0</i>В эксплуатации</span>
-      </div>
-    </div>
-    <div class="v2-portfolio-filters" role="group" aria-label="Направления портфеля">
-      <button type="button" class="v2-filter active" data-v2-filter="all" aria-pressed="true">
-          <span>Все</span><b>8</b>
-        </button><button type="button" class="v2-filter" data-v2-filter="fashion" aria-pressed="false">
-          <span>Мода</span><b>4</b>
-        </button><button type="button" class="v2-filter" data-v2-filter="enterprise" aria-pressed="false">
-          <span>Корпоративные</span><b>3</b>
-        </button><button type="button" class="v2-filter" data-v2-filter="events" aria-pressed="false">
-          <span>События</span><b>2</b>
-        </button><button type="button" class="v2-filter" data-v2-filter="consumer" aria-pressed="false">
-          <span>Потребительские</span><b>1</b>
-        </button><button type="button" class="v2-filter" data-v2-filter="fintech" aria-pressed="false" disabled="">
-          <span>Финтех</span><b>0</b><small>не опубликовано</small>
-        </button><button type="button" class="v2-filter" data-v2-filter="art" aria-pressed="false">
-          <span>Искусство</span><b>1</b>
-        </button><button type="button" class="v2-filter" data-v2-filter="infrastructure" aria-pressed="false" disabled="">
-          <span>Инфраструктура</span><b>0</b><small>не опубликовано</small>
-        </button>
-    </div>
-    <div class="v2-portfolio-grid" id="v2-portfolio-grid"><article class="v2-product" data-v2-product="syntha">
-        <div class="v2-product-top">
-          <div>
-            <div class="v2-product-cats"><span>Мода</span></div>
-            <h3>Syntha</h3>
-          </div>
-          <span class="v2-stage v2-stage-pilot">Готов к пилоту</span>
-        </div>
-        <div class="v2-card-visual v2-card-visual-shot"><img src="/assets/shots/syntha-1.webp" alt="Syntha interface preview" loading="lazy"></div>
-        <p class="v2-product-tag">Операционная система бренда: от продукта и заказа до фактической маржи</p>
-        <details class="v2-product-meta">
-          <summary>Для кого · стадия · коммерческий путь</summary>
-          <dl class="v2-product-data">
-            <div><dt>Аудитория</dt><dd>Брендам и производствам, которым важно связать разработку продукта с продажей; розничным сетям, мультибрендовым байерам и дистрибьюторам, которым нужны подтверждённые цена, доступность, заказ и поставка.</dd></div>
-            <div><dt>Текущая стадия</dt><dd>Рабочая система, готовится к пилоту</dd></div>
-            <div><dt>Монетизация</dt><dd>Пилот → коммерческая модель фиксируется по результатам проверки</dd></div>
-          </dl>
-        </details>
-        <div class="v2-investor-priority" aria-label="Инвесторский приоритет" title="Инвесторский приоритет">
-          <div><span>01 · Почему это важно</span><p>Fashion-бизнес теряет скорость и маржу, когда продукт, заказ, поставка и экономика живут в разных системах и таблицах.</p></div>
-          <div><span>02 · Почему сейчас</span><p>Product/commercial core уже собран; EntityThread и Decision Ledger доказаны на PostgreSQL — следующий шаг уже не разработка, а реальный сезон.</p></div>
-          <div><span>03 · Что меняется экономически</span><p>Проверяемый рычаг: меньше ручной сверки, быстрее подтверждение заказа, меньше расхождений по цене, себестоимости и марже.</p></div>
-          <div class="v2-priority-next"><span>04 · Что должно быть доказано дальше</span><p>Один бренд должен провести реальный сезонный контур без критичного возврата к параллельным таблицам и показать измеримый выигрыш.</p></div>
-        </div>
-        <div class="v2-product-actions">
-          <button type="button" class="btn btn-sm btn-primary" data-v2-open="syntha">Открыть досье</button>
-          <button type="button" class="btn btn-sm" data-v2-talk="launch" data-v2-id="syntha">Обсудить пилот</button>
-          <button type="button" class="btn btn-sm" data-v2-talk="partnership" data-v2-id="syntha">Партнёрство</button>
-          <button type="button" class="btn btn-sm" data-v2-talk="investors" data-v2-id="syntha">Инвестиции</button>
-        <button type="button" class="btn btn-sm v2-evidence-toggle" data-v2-evidence="syntha" aria-expanded="false">Кратко для руководителя</button><button type="button" class="btn btn-sm v2-commercial-toggle" data-v2-commercial="syntha" aria-expanded="false">Коммерческая модель</button><button type="button" class="btn btn-sm v2-proof-toggle" data-v2-proof="syntha" aria-expanded="false">Доказательства и риски</button></div>
-      <div class="v2-evidence-panel" hidden="">
-        <div><span>Проблема</span><p>Разрозненные данные о продукте, заказах и исполнении требуют ручной сверки и замедляют решения.</p></div>
-        <div><span>Продукт</span><p>Операционная система для fashion-бизнеса, которая связывает продуктовый и коммерческий цикл в одном рабочем пространстве.</p></div>
-        <div><span>Подтверждение</span><p>Product/commercial core собран; на PostgreSQL доказаны entity-linked operational threads, immutable messages и Decision Ledger. Внешний сезонный пилот ещё не проведён.</p></div>
-        <div><span>Текущая стадия</span><p>Рабочая система, готовится к пилоту</p></div>
-        <div><span>Следующий этап</span><p>Провести пилот с первым брендом на реальном сезоне.</p></div>
-        <div><span>Коммерческий путь</span><p>Пилот → зафиксированные метрики → условия внедрения / выхода на рынок.</p></div>
-        <div><span>Что требуется от партнёра / инвестора</span><p>Бренд или магазин для пилота; партнёр по выходу на рынок.</p></div></div><section class="v2-commercial-panel" hidden="">
-      <div class="v2-commercial-grid">
-        <div><span>Кто покупатель</span><p>Фэшн-бренд, производитель или розничная компания, которым нужен единый контур продукта, заказа и экономики.</p></div>
-        <div><span>За что платит</span><p>За доступ к системе и управляемый рабочий контур; отдельно — за внедрение, интеграцию с учётной системой и настройку под процессы.</p></div>
-        <div><span>Первый продаваемый пилот</span><p>Один бренд, один реальный сезон, ограниченный набор пользователей и сквозной сценарий от продукта и шоурума до подтверждённого заказа и маржи.</p></div>
-        <div><span>Что измеряем</span><ul><li>доля сценария, прошедшая без ручной сверки между системами</li><li>время подготовки и подтверждения заказа</li><li>расхождения по цене, доступности, себестоимости и марже</li><li>готовность интеграции и пользователей к ежедневной работе</li></ul></div>
-        <div><span>Что превращает пилот в контракт</span><p>Пилот проходит согласованные критерии приёмки, определён интеграционный контур, подтверждены роли и объём регулярного использования.</p></div>
-        <div><span>Возможные модели выручки</span><ul><li>регулярный доступ / лицензия</li><li>внедрение и интеграция</li><li>корпоративная поддержка</li><li>партнёрство по выходу на рынок</li></ul></div>
-      </div>
-      <p class="v2-commercial-note">Рабочая коммерческая гипотеза. Цена, единица тарификации и экономика масштабирования должны быть зафиксированы после пилота.</p></section><section class="v2-proof-panel" hidden="">
-      <div class="v2-proof-grid">
-        <div class="v2-proof-good"><span>Что уже доказано</span><ul><li>единый продуктово-коммерческий контур уже собран</li><li>заказы, изменения и экономика продукта ведутся в одной рабочей логике</li><li>ключевые пользовательские сценарии готовы к проверке на реальном сезоне</li></ul></div>
-        <div><span>Что ещё не доказано</span><ul><li>устойчивое ежедневное использование внешним брендом</li><li>реальная стоимость внедрения в конкретной компании</li><li>готовность клиента платить по регулярной модели</li></ul></div>
-        <div><span>Главный риск</span><p>Главный риск — не наличие функций, а реальное внедрение: сможет ли команда бренда вести сезонный цикл в системе без возврата к ручной сверке.</p></div>
-        <div><span>Как следующий пилот снимает риск</span><p>Пилот с одним брендом должен показать, насколько система снижает ручную работу и помогает быстрее принимать коммерческие решения.</p></div>
-        <div class="v2-proof-data"><span>Какие данные должны появиться</span><ul><li>доля сценариев, которые проходят без внешних таблиц</li><li>время на подготовку и подтверждение заказа</li><li>число расхождений по цене, доступности и экономике</li><li>регулярность использования ключевыми ролями</li></ul></div>
-      </div>
-      <div class="v2-proof-decisions">
-        <div><b>МАСШТАБИРОВАТЬ</b><p>масштабировать, если основной сезонный сценарий работает стабильно и даёт измеримое сокращение ручной работы</p></div>
-        <div><b>ПЕРЕСОБРАТЬ</b><p>пересобрать объём внедрения, если ценность подтверждается, но использование остаётся слишком сложным</p></div>
-        <div><b>ОСТАНОВИТЬ</b><p>не масштабировать текущий коммерческий сценарий, если пилот не даёт измеримого преимущества перед существующим процессом</p></div>
-      </div></section></article><article class="v2-product" data-v2-product="fashionmgmt">
-        <div class="v2-product-top">
-          <div>
-            <div class="v2-product-cats"><span>Мода</span><span>Корпоративные</span><span>Конфиденциальный кейс</span></div>
-            <h3>Fashion Management OS</h3>
-          </div>
-          <span class="v2-stage v2-stage-pilot">Готов к пилоту</span>
-        </div>
-        <div class="v2-card-visual v2-card-visual-map v2-map-fashionmgmt" aria-label="Схема продукта" title="Схема продукта">
-      <div class="v2-map-frame"><span class="v2-map-node v2-map-node-1">ORDER</span><i>→</i><span class="v2-map-node v2-map-node-2">PRODUCTION</span><i>→</i><span class="v2-map-node v2-map-node-3">COST</span></div>
-    </div>
-        <p class="v2-product-tag">Операционная система fashion-производства: коллекция, заказ, цеха, себестоимость и ликвидность</p>
-        <details class="v2-product-meta">
-          <summary>Для кого · стадия · коммерческий путь</summary>
-          <dl class="v2-product-data">
-            <div><dt>Аудитория</dt><dd>Fashion house / atelier / производственной компании, где собственнику, операционному и производственному руководству нужна одна версия заказа, загрузки, затрат и денежных обязательств, а цехам — свой…</dd></div>
-            <div><dt>Текущая стадия</dt><dd>Working enterprise system · controlled rollout preparation</dd></div>
-            <div><dt>Монетизация</dt><dd>Controlled enterprise rollout → acceptance metrics → licence / implementation terms</dd></div>
-          </dl>
-        </details>
-        <div class="v2-investor-priority" aria-label="Инвесторский приоритет" title="Инвесторский приоритет">
-          <div><span>01 · Почему это важно</span><p>В fashion-производстве маржа и срок становятся видны слишком поздно, если заказ, операции, материалы, ставки, платежи и ДДС живут в разных таблицах.</p></div>
-          <div><span>02 · Почему сейчас</span><p>Working enterprise core уже связывает product/order/production, Plan/Fact/CTC/Forecast, WIP/capacity, 13-недельную ликвидность, month close и audit.</p></div>
-          <div><span>03 · Что меняется экономически</span><p>Проверяемый рычаг: меньше ручной сверки, раньше bottleneck/late-risk, быстрее cost/CTC signal и короче управленческий цикл закрытия месяца.</p></div>
-          <div class="v2-priority-next"><span>04 · Что должно быть доказано дальше</span><p>Controlled rollout должен доказать, что реальный order→production→cost→cash/close проходит в системе без критичной параллельной таблицы.</p></div>
-        </div>
-        <div class="v2-product-actions">
-          <button type="button" class="btn btn-sm btn-primary" data-v2-open="fashionmgmt">Открыть досье</button>
-          <button type="button" class="btn btn-sm" data-v2-talk="launch" data-v2-id="fashionmgmt">Обсудить пилот</button>
-          <button type="button" class="btn btn-sm" data-v2-talk="partnership" data-v2-id="fashionmgmt">Партнёрство</button>
-          <button type="button" class="btn btn-sm" data-v2-talk="investors" data-v2-id="fashionmgmt">Инвестиции</button>
-        <button type="button" class="btn btn-sm v2-evidence-toggle" data-v2-evidence="fashionmgmt" aria-expanded="false">Кратко для руководителя</button><button type="button" class="btn btn-sm v2-commercial-toggle" data-v2-commercial="fashionmgmt" aria-expanded="false">Коммерческая модель</button><button type="button" class="btn btn-sm v2-proof-toggle" data-v2-proof="fashionmgmt" aria-expanded="false">Доказательства и риски</button></div>
-      <div class="v2-evidence-panel" hidden="">
-        <div><span>Проблема</span><p>Модель, заказ, цеха, материалы, ставки, платежи, себестоимость и ДДС часто живут в разных таблицах; срок и экономика становятся видны слишком поздно.</p></div>
-        <div><span>Продукт</span><p>Конфиденциальная Fashion Management OS для сквозного управления разработкой модели, заказом, производством, себестоимостью, мощностью и ликвидностью.</p></div>
-        <div><span>Подтверждение</span><p>Рабочий enterprise core уже включает role-based access, product/order/production flow, cost engine Plan/Fact/CTC/Forecast, WIP/capacity, 13-недельную ликвидность, month close, audit/evidence и безопасный deploy/rollback.</p></div>
-        <div><span>Текущая стадия</span><p>Working enterprise system · controlled rollout preparation</p></div>
-        <div><span>Следующий этап</span><p>Завершить role × device QA и провести controlled rollout на реальном операционном контуре без раскрытия клиентских данных.</p></div>
-        <div><span>Коммерческий путь</span><p>Controlled rollout → acceptance metrics → agreed implementation/licence/support scope.</p></div>
-        <div><span>Что требуется от партнёра / инвестора</span><p>Доступ к операционному pilot contour и назначенные business/process owners; публичная демонстрация остаётся обезличенной.</p></div></div><section class="v2-commercial-panel" hidden="">
-      <div class="v2-commercial-grid">
-        <div><span>Кто покупатель</span><p>Fashion house, atelier или производственная компания со сложным заказным производством и несколькими управленческими ролями.</p></div>
-        <div><span>За что платит</span><p>За custom enterprise operating system, внедрение, data/process migration и поддержку; внешние интеграции — отдельный scope.</p></div>
-        <div><span>Первый продаваемый пилот</span><p>Ограниченный реальный контур: каталог/модели, несколько заказов, production operations, materials, payments, cost/WIP/capacity и month close.</p></div>
-        <div><span>Что измеряем</span><ul><li>доля процесса без параллельных таблиц</li><li>время от изменения заказа до обновлённого cost/CTC signal</li><li>раннее выявление bottleneck/late risk</li><li>точность Plan/Fact/CTC/Forecast</li><li>срок закрытия месяца и полнота evidence</li></ul></div>
-        <div><span>Что превращает пилот в контракт</span><p>Роли принимают рабочий контур, ключевые расчёты воспроизводимы, critical workflows не требуют обхода системы и определён integration/support scope.</p></div>
-        <div><span>Возможные модели выручки</span><ul><li>enterprise licence / recurring access — hypothesis</li><li>implementation and process migration</li><li>integration work</li><li>support / SLA</li></ul></div>
-      </div>
-      <p class="v2-commercial-note">Публичный кейс обезличен. Цена, клиент, сотрудники, реальные заказы, cash-flow и договорные условия не публикуются.</p></section><section class="v2-proof-panel" hidden="">
-      <div class="v2-proof-grid">
-        <div class="v2-proof-good"><span>Что уже доказано</span><ul><li>сквозной product/order/production/cost core работает</li><li>роль и доступ отделены от фамилий и business/technical authority</li><li>cost snapshots, WIP/capacity, liquidity/month-close и audit уже реализованы</li></ul></div>
-        <div><span>Что ещё не доказано</span><ul><li>долгосрочная adoption всех ролей в реальном режиме</li><li>полный live role × device QA</li><li>экономический эффект против прежнего spreadsheet process</li></ul></div>
-        <div><span>Главный риск</span><p>Главный риск — не функциональность, а реальное замещение параллельного Excel и дисциплина ролей.</p></div>
-        <div><span>Как следующий пилот снимает риск</span><p>Controlled rollout должен измерить отказ от ручной сверки, скорость решения и качество cost/capacity signals.</p></div>
-        <div class="v2-proof-data"><span>Какие данные должны появиться</span><ul><li>parallel spreadsheet escape rate</li><li>decision lead time</li><li>Plan/Fact/CTC variance</li><li>late/bottleneck lead time</li><li>month-close duration</li></ul></div>
-      </div>
-      <div class="v2-proof-decisions">
-        <div><b>МАСШТАБИРОВАТЬ</b><p>масштабировать внутри клиента после устойчивого использования и воспроизводимых расчётов</p></div>
-        <div><b>ПЕРЕСОБРАТЬ</b><p>пересобрать UX/role scope, если system-of-record есть, но пользователи продолжают обходить его</p></div>
-        <div><b>ОСТАНОВИТЬ</b><p>не расширять интеграции до acceptance базового operating loop</p></div>
-      </div></section></article></div>
-    <button type="button" class="btn v2-portfolio-more" id="v2-portfolio-more" aria-expanded="false">Показать ещё</button>
-    <p class="v2-portfolio-note">Финтех и инфраструктура остаются пустыми до отдельной официальной публикации; искусство представлено Antiqua, а два новых fashion-кейса опубликованы без идентификации клиентов.</p></section><section class="section" id="projects">
+  <section class="section" id="projects" hidden="" data-v2-secondary="true">
     <div class="section-head">
       <h2 id="projects-title">Подробные карточки проектов</h2>
       <p class="sub" id="projects-sub">Ниже сохранены полные карточки: стадия, логика продукта, варианты участия и подробности по каждому проекту.</p>
@@ -462,7 +629,7 @@
         <button class="btn btn-sm" type="button" data-compare="syntha">Сравнение</button>
         <button class="btn btn-sm flow-toggle" type="button" data-flow-toggle="" aria-expanded="false">Консалтинг × Syntha</button>
         <button class="btn btn-sm" type="button" data-leak-open="">Проверить сезон</button>
-        
+
       </div>
       <div class="flow-embed" id="flow-embed" hidden=""></div>
     </article>
@@ -476,11 +643,11 @@
         <button class="btn btn-sm" type="button" data-status="chatx">Стадия</button>
         <button class="btn btn-sm" type="button" data-news="chatx">Новости</button>
         <button class="btn btn-sm" type="button" data-compare="chatx">Сравнение</button>
-        
-        
+
+
         <button class="btn btn-sm" type="button" data-need-open="chatx">Проверить потребность</button>
       </div>
-      
+
     </article>
     <article class="card" data-project="renova">
       <span class="card-logo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 152 32" role="img" aria-label="Renova"><g fill="currentColor"><rect x="18.4" y="5.0" width="10.6" height="6.4" rx="0.9"></rect><rect x="6.3" y="5.0" width="10.6" height="6.4" rx="0.9"></rect><rect x="12.35" y="12.9" width="10.6" height="6.4" rx="0.9"></rect><rect x="1.6" y="12.9" width="9.25" height="6.4" rx="0.9"></rect><rect x="18.4" y="20.8" width="10.6" height="6.4" rx="0.9"></rect><rect x="6.3" y="20.8" width="10.6" height="6.4" rx="0.9"></rect></g><text x="40" y="23" font-family="Iowan Old Style, Georgia, serif" font-size="21" letter-spacing="0.3" fill="currentColor">Renova</text></svg></span>
@@ -492,11 +659,11 @@
         <button class="btn btn-sm" type="button" data-status="renova">Стадия</button>
         <button class="btn btn-sm" type="button" data-news="renova">Новости</button>
         <button class="btn btn-sm" type="button" data-compare="renova">Сравнение</button>
-        
-        
+
+
         <button class="btn btn-sm" type="button" data-need-open="renova">Проверить потребность</button>
       </div>
-      
+
     </article></div><div class="snap-dots" hidden=""></div>
     <button class="btn" id="projects-more" type="button" aria-expanded="false">Показать ещё</button>
     <div class="formats project-launch" id="project-launch">
@@ -633,7 +800,7 @@
       <div class="post-meta">
         <time datetime="2026-10-02">2 октября 2026 г.</time>
         <button type="button" class="post-tag" data-filter-tag="syntha">Syntha</button>
-        
+
         <button class="post-share" type="button" data-share="2026-10-02" aria-label="Поделиться" title="Поделиться">
           <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
             <path d="M12 3v12M12 3L8 7m4-4l4 4M5 13v6a1 1 0 001 1h12a1 1 0 001-1v-6" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -641,7 +808,7 @@
         </button>
       </div>
       <h3>Syntha ведёт сделки через разные юридические лица</h3>
-      
+
       <p>Syntha теперь ведёт сделки через разные юридические лица. В фэшн-опте бренд, дистрибьютор и производственный партнёр почти никогда не работают через одно юридическое лицо, особенно если в цепочке есть зарубежные контрагенты.
 
 Что изменилось: В Syntha появился реестр юридических лиц. Можно завести российские и иностранные реквизиты и вести сделку от нужного юридического лица, а не от общего профиля компании.
@@ -657,7 +824,7 @@
       <div class="post-meta">
         <time datetime="2026-10-01">1 октября 2026 г.</time>
         <button type="button" class="post-tag" data-filter-tag="renova">Renova</button>
-        
+
         <button class="post-share" type="button" data-share="2026-10-01" aria-label="Поделиться" title="Поделиться">
           <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
             <path d="M12 3v12M12 3L8 7m4-4l4 4M5 13v6a1 1 0 001 1h12a1 1 0 001-1v-6" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -665,7 +832,7 @@
         </button>
       </div>
       <h3>В Renova заявка превращается в проект одной операцией</h3>
-      
+
       <p>В Renova заявка превращается в проект одной операцией. Раньше лид на ремонт и рабочий проект были слабо связаны: чтобы превратить обращение в проект с мастером, заказчиком и графиком, нужно было вручную сверять, кто есть кто.
 
 Что изменилось: Управление участниками проекта и перевод лида в работу теперь выполняются одной операцией. Она проверена на одновременной работе: два сеанса сразу не расходятся в данных. Базовый механизм готов и проверен; завершение сценария независимого исполнителя — в работе.
@@ -681,7 +848,7 @@
       <div class="post-meta">
         <time datetime="2026-09-30">30 сентября 2026 г.</time>
         <button type="button" class="post-tag" data-filter-tag="chatx">ChatX</button>
-        
+
         <button class="post-share" type="button" data-share="2026-09-30" aria-label="Поделиться" title="Поделиться">
           <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
             <path d="M12 3v12M12 3L8 7m4-4l4 4M5 13v6a1 1 0 001 1h12a1 1 0 001-1v-6" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -689,7 +856,7 @@
         </button>
       </div>
       <h3>В ChatX появилась вики компании</h3>
-      
+
       <p>В ChatX появилась вики компании. Знания обычно хранятся где угодно, кроме мессенджера: в закреплённых сообщениях, файлах на диске, в головах тех, кто работает дольше всех.
 
 Что изменилось: Общая вики — страницы, которые правит вся команда, с полной историей изменений. Видно, кто и что поменял, и можно вернуться к прежней версии.
@@ -704,160 +871,7 @@
     <button class="btn" id="news-more" type="button" data-expanded="false">Показать ещё</button>
   </section>
 
-  <section id="v2-steps" class="section v2-steps">
-    <div class="v2-start-head">
-      <div>
-        <p class="eyebrow">Начните здесь</p>
-        <h2>Как начинается работа</h2>
-      </div>
-      <p>Выберите ближайшую ситуацию. Блок сразу покажет, что подготовить и куда нажать дальше.</p>
-    </div>
-    <div class="v2-start-choice" role="group" aria-label="Выберите, с чего начать">
-      <button type="button" class="v2-start-mode" data-v2-start-mode="consulting" aria-pressed="false"><span>Бизнес-задача</span><strong>Улучшить экономику или управляемость бизнеса</strong><small>Закупка, маржа, запасы, оборотный капитал, отчётность или управленческая проблема, которую нужно проверить на данных.</small></button><button type="button" class="v2-start-mode" data-v2-start-mode="product" aria-pressed="false"><span>Цифровой продукт</span><strong>Создать, пересобрать или запустить рабочий продукт</strong><small>Новая система, внутренний инструмент, клиентский продукт, автоматизация процесса или существующий продукт, которому нужна более сильная архитектура и реализация.</small></button><button type="button" class="v2-start-mode" data-v2-start-mode="partnership" aria-pressed="false"><span>Пилот / партнёрство</span><strong>Проверить совместный кейс до масштабирования</strong><small>Ограниченный пилот, стратегическое партнёрство, канал, данные или операционный вклад, где обеим сторонам нужен измеримый повод продолжать.</small></button><button type="button" class="v2-start-mode" data-v2-start-mode="investment" aria-pressed="false"><span>Инвестиции</span><strong>Разобрать зрелость, риски и следующий capital gate</strong><small>Обсуждение конкретного продукта: что уже доказано, какие риски остаются, что должен показать пилот и что обязан разблокировать следующий капитал.</small></button>
-    </div>
-    <div class="v2-start-panel" id="v2-start-panel">
-      <div class="v2-start-empty">
-        <span>01</span>
-        <div><strong>Выберите один вариант выше</strong><p>После выбора здесь появится точный список того, что нужно, и кнопка для продолжения.</p></div>
-      </div>
-    </div></section><section class="section" id="contact">
-    <div class="section-head">
-      <h2 id="contact-title">Связаться</h2>
-      <p class="sub" id="contact-sub">Для начала достаточно имени, одного способа связи и нескольких слов о задаче.</p>
-    </div>
 
-    <div class="persona-picker" id="persona-picker"><span class="persona-label">Пишу как</span>
-    <button type="button" class="persona-chip" data-persona-topic="investors">Инвестор</button><button type="button" class="persona-chip" data-persona-topic="partnership">Партнёр</button><button type="button" class="persona-chip" data-persona-topic="consulting">Клиент</button><button type="button" class="persona-chip" data-persona-topic="press">Пресса</button></div>
-
-    <div class="contact-grid">
-      <form class="form" id="form" novalidate=""><p id="v2-form-note" class="v2-preview-note">Режим просмотра: форма проверяет заполнение, но не отправляет и не сохраняет обращение. Для реальной связи доступны прямые контакты.</p>
-        <div class="pair" data-n="1">
-          <label class="field" id="name-field">
-            <span data-f="name">Имя</span>
-            <input name="name" type="text" autocomplete="given-name" required="">
-          </label>
-          <label class="field" id="surname-field" hidden="">
-            <span data-f="surname">Фамилия</span>
-            <input name="surname" id="surname" type="text" autocomplete="family-name">
-          </label>
-          <label class="field" id="patronymic-field" hidden="">
-            <span data-f="patronymic">Отчество</span>
-            <input name="patronymic" id="patronymic" type="text" autocomplete="additional-name">
-          </label>
-        </div>
-        <div class="opt-row" role="group">
-          <label class="opt"><input type="checkbox" id="opt-surname"><span data-f="surname">Фамилия</span></label>
-          <label class="opt"><input type="checkbox" id="opt-patronymic"><span data-f="patronymic">Отчество</span></label>
-        </div>
-        <label class="field" id="v2-method-field"><span>Как с вами связаться?</span><select id="v2-contact-method"><option value="email">Email</option><option value="telegram">Telegram</option><option value="phone">Телефон</option></select></label><label class="field">
-          <span data-f="email">Email</span>
-          <input name="email" id="email" type="email" autocomplete="email" inputmode="email">
-        </label>
-        <div class="pair" data-n="1">
-          <label class="field" id="telegram-field">
-            <span data-f="telegram">Telegram</span>
-            <input name="telegram" id="telegram" type="text" autocomplete="off" placeholder="@username">
-          </label>
-          <label class="field" id="phone-field" hidden="">
-            <span data-f="phone">Телефон</span>
-            <input name="phone" id="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="+7 900 …">
-          </label>
-        </div>
-        <div class="opt-row" role="group" hidden="">
-          <label class="opt"><input type="checkbox" id="opt-telegram" checked=""><span data-f="telegram">Telegram</span></label>
-          <label class="opt"><input type="checkbox" id="opt-phone"><span data-f="phone">Телефон</span></label>
-        </div>
-        <p class="form-hint" data-f="contactHint">Нужны имя и хотя бы один способ связи: email, Telegram или телефон.</p>
-        <label class="consent entity-toggle">
-          <input type="checkbox" id="entity-toggle" name="isEntity">
-          <span data-f="entityLabel">Пишу как юридическое лицо</span>
-        </label>
-        <div class="entity-box" id="entity-box" hidden="">
-          <div class="pair" data-n="2">
-            <label class="field"><span data-f="entityName">Название организации</span>
-              <input name="entityName" id="entity-name" type="text" autocomplete="organization"></label>
-            <label class="field"><span data-f="entityInn">ИНН</span>
-              <input name="entityInn" id="entity-inn" type="text" autocomplete="off" inputmode="numeric"></label>
-          </div>
-          <div class="pair" data-n="2">
-            <label class="field"><span data-f="entityAddress">Адрес</span>
-              <input name="entityAddress" id="entity-address" type="text" autocomplete="street-address"></label>
-            <label class="field"><span data-f="entitySite">Сайт</span>
-              <input name="entitySite" id="entity-site" type="text" autocomplete="url" inputmode="url" placeholder="example.com"></label>
-          </div>
-        </div>
-        <label class="field">
-          <span data-f="topic">Тема</span>
-          <select name="topic" id="topic"><option value="consulting">Консалтинг</option><option value="launch">Запуск продукта</option><option value="investors">Инвестиции</option><option value="partnership">Партнёрство</option><option value="syntha">Syntha</option><option value="renova">Renova</option><option value="chatx">ChatX</option><option value="mfw">MFW+BFS+Made in Moscow</option><option value="promomed">Promomed и «СОСТОЯНИЕ»</option><option value="press">Пресса и комментарий</option><option value="event">Выступление или участие в мероприятии</option><option value="other">Другое</option></select>
-        </label>
-        <label class="field" id="topic-other-field" hidden="">
-          <span data-f="topicOther">Напишите тему</span>
-          <input name="topicOther" id="topic-other" type="text" autocomplete="off">
-        </label>
-        <label class="field">
-          <span data-f="message">Сообщение</span>
-          <textarea name="message" rows="4" required=""></textarea>
-        </label>
-        <div class="field">
-          <span data-f="file">Файл</span>
-          <label class="file-drop" for="attach">
-            <input type="file" id="attach" name="file" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.csv,.txt,.png,.jpg,.jpeg,.zip">
-            <span class="file-btn" id="file-btn">Выбрать файл</span>
-            <span class="file-name" id="file-name"></span>
-            <button class="file-clear" id="file-clear" type="button" hidden="">Убрать</button>
-          </label>
-          <span class="file-hint" id="file-hint">Можно приложить бриф, презентацию или таблицу — до 20 МБ</span>
-        </div>
-        <input type="text" name="company" tabindex="-1" autocomplete="off" class="trap" aria-hidden="true">
-        <label class="consent">
-          <input type="checkbox" id="consent" name="consent">
-          <span><span id="consent-text">Согласен на обработку персональных данных</span> · <a href="/privacy" target="_blank" rel="noopener" id="consent-link">Политика конфиденциальности</a></span>
-        </label>
-        <div id="turnstile-widget" hidden=""></div>
-        <p class="form-missing" id="form-missing" aria-live="polite"></p>
-        <button class="btn btn-primary" type="submit" id="submit" disabled="">Проверить заявку · просмотр</button><button type="button" class="btn v2-draft" id="v2-draft">Скачать описание обращения</button>
-        <p class="form-note" id="form-note" role="status" aria-live="polite"></p>
-      </form>
-
-      <aside class="direct">
-        <h3 id="direct-title">Контакты</h3>
-        <ul id="contacts">
-    <li><span class="lbl">WhatsApp</span>
-      
-      <a href="https://wa.me/79775781685" target="_blank" rel="noopener">+7 977 578 16 85</a></li>
-    <li><span class="lbl">Telegram</span>
-      <button class="qr-trigger" type="button" data-qr="/assets/qr-sheqel.svg" aria-label="Показать QR-код" title="Показать QR-код">
-        <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true">
-          <rect x="3" y="3" width="7" height="7" fill="none" stroke="currentColor" stroke-width="1.6"></rect>
-          <rect x="14" y="3" width="7" height="7" fill="none" stroke="currentColor" stroke-width="1.6"></rect>
-          <rect x="3" y="14" width="7" height="7" fill="none" stroke="currentColor" stroke-width="1.6"></rect>
-          <rect x="14.5" y="14.5" width="2.3" height="2.3" fill="currentColor"></rect>
-          <rect x="18.7" y="14.5" width="2.3" height="2.3" fill="currentColor"></rect>
-          <rect x="14.5" y="18.7" width="2.3" height="2.3" fill="currentColor"></rect>
-          <rect x="18.7" y="18.7" width="2.3" height="2.3" fill="currentColor"></rect>
-        </svg>
-      </button>
-      <a href="https://t.me/sheqel" target="_blank" rel="noopener">@sheqel</a></li>
-    <li><span class="lbl">Канал проектов</span>
-      <button class="qr-trigger" type="button" data-qr="/assets/qr-syntha-pro.jpg" aria-label="Показать QR-код" title="Показать QR-код">
-        <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true">
-          <rect x="3" y="3" width="7" height="7" fill="none" stroke="currentColor" stroke-width="1.6"></rect>
-          <rect x="14" y="3" width="7" height="7" fill="none" stroke="currentColor" stroke-width="1.6"></rect>
-          <rect x="3" y="14" width="7" height="7" fill="none" stroke="currentColor" stroke-width="1.6"></rect>
-          <rect x="14.5" y="14.5" width="2.3" height="2.3" fill="currentColor"></rect>
-          <rect x="18.7" y="14.5" width="2.3" height="2.3" fill="currentColor"></rect>
-          <rect x="14.5" y="18.7" width="2.3" height="2.3" fill="currentColor"></rect>
-          <rect x="18.7" y="18.7" width="2.3" height="2.3" fill="currentColor"></rect>
-        </svg>
-      </button>
-      <a href="https://t.me/syntha_pro" target="_blank" rel="noopener">@syntha_pro</a></li></ul>
-        <div class="direct-actions">
-          <a class="btn btn-sm vcard" id="vcard" href="/assets/petr-fedin.vcf" download="">Сохранить контакт</a>
-          <button class="btn btn-sm" type="button" id="share-contact">Поделиться контактом</button>
-        </div>
-      </aside>
-    </div>
-  </section>
   <section class="section" id="media" hidden="">
     <div class="section-head">
       <h2 id="media-title">Публикации и выступления</h2>
