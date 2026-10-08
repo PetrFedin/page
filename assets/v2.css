@@ -383,3 +383,92 @@ html[data-preview="v2"] body{overflow-x:clip}
 @media(max-width:759px){
   .v2-story-flow .v2-story-title::after,.v2-story-roadmap .v2-story-title::after{content:'SWIPE →';margin-left:auto;font-size:7px;letter-spacing:.09em;color:var(--accent);font-weight:600}
 }
+
+/* V2.19 project-specific visual direction — one system, three identities */
+.v2-visual-story{--story-accent:var(--accent);--story-soft:color-mix(in srgb,var(--panel) 94%,var(--accent) 6%);--story-rule:color-mix(in srgb,var(--story-accent) 30%,var(--line) 70%)}
+.v2-visual-story .v2-story-title>span,.v2-visual-story .v2-story-title>strong,.v2-visual-story .v2-arch-layer small,.v2-visual-story .v2-flow-step b,.v2-visual-story .v2-kpi-grid small,.v2-visual-story .v2-roadmap-phase small{color:var(--story-accent)}
+.v2-visual-story .v2-arch-map>i,.v2-visual-story .v2-flow-rail>i,.v2-visual-story .v2-roadmap-rail>i{color:var(--story-accent)}
+.v2-visual-story .v2-roadmap-phase.now{border-color:var(--story-accent)}
+
+/* Antiqua — gallery / editorial / museum-label rhythm */
+.v2-story-antiqua{--story-accent:color-mix(in srgb,var(--ink) 54%,#9b7448 46%);--story-soft:color-mix(in srgb,var(--panel) 95%,#b59a78 5%);background:linear-gradient(180deg,color-mix(in srgb,var(--panel) 97%,#bda789 3%),var(--panel));padding-top:24px}
+.v2-story-antiqua .v2-story-card{border-radius:2px;border-color:color-mix(in srgb,var(--story-accent) 22%,var(--line) 78%);background:transparent;padding:18px 16px;margin-top:16px}
+.v2-story-antiqua .v2-story-card:first-child{margin-top:0}
+.v2-story-antiqua .v2-story-title{margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--story-rule)}
+.v2-story-antiqua .v2-story-title>span{width:auto;height:auto;border:0;border-radius:0;font-family:var(--serif);font-size:13px;padding-right:4px}
+.v2-story-antiqua .v2-story-title>strong{font-family:var(--serif);font-weight:500;text-transform:none;letter-spacing:.01em;font-size:16px}
+.v2-story-antiqua .v2-arch-layer{border:0;border-top:1px solid var(--story-rule);border-radius:0;padding:14px 4px 4px;background:transparent}
+.v2-story-antiqua .v2-arch-layer small{font-family:var(--serif);font-size:10px;letter-spacing:.12em}
+.v2-story-antiqua .v2-arch-layer span{border-radius:0;background:transparent;border-bottom:1px solid color-mix(in srgb,var(--line) 76%,transparent);padding:8px 0;font-family:var(--serif);font-size:12px}
+.v2-story-antiqua .v2-flow-step{border:0;border-top:1px solid var(--story-rule);border-radius:0;padding:11px 2px;background:transparent}
+.v2-story-antiqua .v2-flow-step b{font-family:var(--serif);font-size:14px;font-weight:400}.v2-story-antiqua .v2-flow-step span{font-family:var(--serif);font-size:11px}
+.v2-story-antiqua .v2-kpi-grid>div{border-radius:0;border-width:0 0 1px;border-color:var(--story-rule);padding:12px 4px;background:transparent}
+.v2-story-antiqua .v2-kpi-grid small{font-family:var(--serif);font-size:11px;text-transform:none;letter-spacing:.04em}.v2-story-antiqua .v2-kpi-grid span{font-family:var(--serif);font-size:11px}
+.v2-story-antiqua .v2-accept-grid{border-radius:0;border-color:var(--story-rule)}.v2-story-antiqua .v2-accept-head{background:transparent;border-bottom:1px solid var(--story-rule)}
+.v2-story-antiqua .v2-roadmap-phase{border-radius:0;border-width:1px 0 0;padding:12px 4px;background:transparent}.v2-story-antiqua .v2-roadmap-phase span{font-family:var(--serif);font-size:11px}
+
+/* Fashion Management OS — luxury operational cockpit */
+.v2-story-fashionmgmt{--story-accent:color-mix(in srgb,var(--ink) 58%,#9a8648 42%);--story-soft:color-mix(in srgb,var(--panel) 92%,var(--ink) 8%);background:linear-gradient(135deg,color-mix(in srgb,var(--panel) 96%,var(--ink) 4%),var(--panel))}
+.v2-story-fashionmgmt .v2-story-card{border-radius:9px;background:linear-gradient(180deg,color-mix(in srgb,var(--panel) 96%,var(--ink) 4%),var(--panel));box-shadow:inset 0 2px 0 color-mix(in srgb,var(--story-accent) 35%,transparent)}
+.v2-story-fashionmgmt .v2-story-title{padding-bottom:8px;border-bottom:1px solid var(--line)}
+.v2-story-fashionmgmt .v2-story-title>span{border-radius:6px;border-color:var(--story-rule);background:color-mix(in srgb,var(--story-accent) 8%,var(--panel) 92%)}
+.v2-story-fashionmgmt .v2-story-title>strong{font-family:var(--sans);font-weight:700;letter-spacing:.1em}
+.v2-story-fashionmgmt .v2-arch-layer{border-radius:7px;background:color-mix(in srgb,var(--panel) 92%,var(--ink) 8%);border-color:var(--story-rule)}
+.v2-story-fashionmgmt .v2-arch-layer small{font-weight:700}.v2-story-fashionmgmt .v2-arch-layer span{border-radius:5px;background:color-mix(in srgb,var(--panel) 97%,var(--story-accent) 3%);font-weight:600}
+.v2-story-fashionmgmt .v2-flow-step{border-radius:7px;border-color:var(--story-rule);box-shadow:inset 3px 0 0 color-mix(in srgb,var(--story-accent) 45%,transparent);background:color-mix(in srgb,var(--panel) 97%,var(--story-accent) 3%)}
+.v2-story-fashionmgmt .v2-kpi-grid>div{border-radius:7px;background:color-mix(in srgb,var(--panel) 94%,var(--ink) 6%);border-color:var(--story-rule)}
+.v2-story-fashionmgmt .v2-kpi-grid small{font-weight:700}.v2-story-fashionmgmt .v2-accept-grid{border-radius:7px;border-color:var(--story-rule)}
+.v2-story-fashionmgmt .v2-accept-head{background:color-mix(in srgb,var(--story-accent) 8%,var(--panel) 92%)}
+.v2-story-fashionmgmt .v2-roadmap-phase{border-radius:7px;background:color-mix(in srgb,var(--panel) 95%,var(--ink) 5%)}
+.v2-story-fashionmgmt .v2-roadmap-phase.now{background:color-mix(in srgb,var(--story-accent) 7%,var(--panel) 93%)}
+
+/* FUR PRODUCTION OS — industrial luxury / genealogy / evidence */
+.v2-story-furproduction{--story-accent:color-mix(in srgb,var(--ink) 48%,#8a5c3d 52%);--story-soft:color-mix(in srgb,var(--panel) 94%,#9a6b4b 6%);background-color:var(--panel);background-image:linear-gradient(color-mix(in srgb,var(--story-accent) 5%,transparent) 1px,transparent 1px),linear-gradient(90deg,color-mix(in srgb,var(--story-accent) 5%,transparent) 1px,transparent 1px);background-size:24px 24px}
+.v2-story-furproduction .v2-story-card{border-radius:7px;border-color:var(--story-rule);background:color-mix(in srgb,var(--panel) 95%,#6f4e37 5%);box-shadow:0 1px 0 color-mix(in srgb,var(--ink) 10%,transparent)}
+.v2-story-furproduction .v2-story-title>span{border-radius:4px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-variant-numeric:tabular-nums}
+.v2-story-furproduction .v2-story-title>strong{font-family:var(--sans);font-weight:700;letter-spacing:.11em}
+.v2-story-furproduction .v2-arch-layer{border-style:dashed;border-radius:6px;background:color-mix(in srgb,var(--panel) 96%,#7a563b 4%)}
+.v2-story-furproduction .v2-arch-layer small,.v2-story-furproduction .v2-flow-step b,.v2-story-furproduction .v2-roadmap-phase small{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-variant-numeric:tabular-nums}
+.v2-story-furproduction .v2-arch-layer span{border-radius:4px;border-left:2px solid color-mix(in srgb,var(--story-accent) 48%,transparent);background:var(--panel)}
+.v2-story-furproduction .v2-flow-step{border-radius:6px;border-style:dashed;border-color:var(--story-rule);background:color-mix(in srgb,var(--panel) 96%,#7a563b 4%)}
+.v2-story-furproduction .v2-flow-step span{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:9px}
+.v2-story-furproduction .v2-kpi-grid>div{border-radius:6px;border-color:var(--story-rule);background:color-mix(in srgb,var(--panel) 96%,#7a563b 4%)}
+.v2-story-furproduction .v2-kpi-grid small{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+.v2-story-furproduction .v2-accept-grid{border-radius:6px;border-color:var(--story-rule);background:color-mix(in srgb,var(--panel) 97%,#7a563b 3%)}
+.v2-story-furproduction .v2-accept-head{background:color-mix(in srgb,var(--story-accent) 8%,var(--panel) 92%)}
+.v2-story-furproduction .v2-accept-row>strong{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:9px}
+.v2-story-furproduction .v2-roadmap-phase{border-radius:6px;border-style:dashed;background:color-mix(in srgb,var(--panel) 96%,#7a563b 4%)}
+
+@media(max-width:759px){
+  .v2-story-antiqua{padding-top:18px}.v2-story-antiqua .v2-story-card{padding:15px 12px}
+  .v2-story-fashionmgmt .v2-story-card,.v2-story-furproduction .v2-story-card{padding:11px}
+}
+
+/* V2.19 case-study shells inherit each project's visual identity */
+.v2-case-study[data-case="antiqua"]{border-radius:2px;border-color:color-mix(in srgb,var(--ink) 12%,var(--line) 88%);background:color-mix(in srgb,var(--panel) 98%,#bca886 2%)}
+.v2-case-study[data-case="antiqua"] .v2-case-head{padding:26px 24px 22px;border-bottom-color:color-mix(in srgb,var(--ink) 14%,var(--line) 86%)}
+.v2-case-study[data-case="antiqua"] .v2-case-head h3{font-family:var(--serif);font-size:31px;font-weight:500;letter-spacing:-.02em}
+.v2-case-study[data-case="antiqua"] .v2-case-head>span,.v2-case-study[data-case="antiqua"] .v2-case-block summary b{font-family:var(--serif)}
+.v2-case-study[data-case="antiqua"] .v2-case-block{border-color:color-mix(in srgb,var(--ink) 10%,var(--line) 90%)}
+.v2-case-study[data-case="antiqua"] .v2-case-block summary{font-family:var(--serif);font-size:14px;font-weight:500;padding:16px 20px}
+.v2-case-study[data-case="antiqua"] .v2-case-block li{font-family:var(--serif);font-size:12px}
+
+.v2-case-study[data-case="fashionmgmt"]{border-radius:9px;border-color:color-mix(in srgb,var(--ink) 18%,var(--line) 82%);box-shadow:0 10px 30px color-mix(in srgb,var(--ink) 6%,transparent)}
+.v2-case-study[data-case="fashionmgmt"] .v2-case-head{background:linear-gradient(135deg,color-mix(in srgb,var(--panel) 95%,var(--ink) 5%),var(--panel));border-bottom-color:color-mix(in srgb,var(--ink) 18%,var(--line) 82%)}
+.v2-case-study[data-case="fashionmgmt"] .v2-case-head h3{font-family:var(--sans);font-size:25px;font-weight:700;letter-spacing:-.015em}
+.v2-case-study[data-case="fashionmgmt"] .v2-case-head>span,.v2-case-study[data-case="fashionmgmt"] .v2-case-block summary b{font-family:var(--sans);font-weight:700;letter-spacing:.08em}
+.v2-case-study[data-case="fashionmgmt"] .v2-case-block{border-color:color-mix(in srgb,var(--ink) 14%,var(--line) 86%)}
+.v2-case-study[data-case="fashionmgmt"] .v2-case-block summary{font-family:var(--sans);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;background:color-mix(in srgb,var(--panel) 97%,var(--ink) 3%)}
+.v2-case-study[data-case="fashionmgmt"] .v2-case-block[open] summary{box-shadow:inset 3px 0 0 color-mix(in srgb,var(--ink) 35%,transparent)}
+
+.v2-case-study[data-case="furproduction"]{border-radius:7px;border-color:color-mix(in srgb,var(--ink) 20%,var(--line) 80%);background-color:var(--panel);background-image:linear-gradient(color-mix(in srgb,var(--ink) 3%,transparent) 1px,transparent 1px),linear-gradient(90deg,color-mix(in srgb,var(--ink) 3%,transparent) 1px,transparent 1px);background-size:24px 24px}
+.v2-case-study[data-case="furproduction"] .v2-case-head{background:color-mix(in srgb,var(--panel) 95%,#76543d 5%);border-bottom-color:color-mix(in srgb,#76543d 24%,var(--line) 76%)}
+.v2-case-study[data-case="furproduction"] .v2-case-head h3{font-family:var(--sans);font-size:25px;font-weight:700;letter-spacing:-.01em}
+.v2-case-study[data-case="furproduction"] .v2-case-head>span,.v2-case-study[data-case="furproduction"] .v2-case-block summary b{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-variant-numeric:tabular-nums}
+.v2-case-study[data-case="furproduction"] .v2-case-block{border-color:color-mix(in srgb,#76543d 18%,var(--line) 82%);background:color-mix(in srgb,var(--panel) 97%,#76543d 3%)}
+.v2-case-study[data-case="furproduction"] .v2-case-block summary{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;font-weight:600;letter-spacing:.035em}
+.v2-case-study[data-case="furproduction"] .v2-case-block[open] summary{background:color-mix(in srgb,#76543d 7%,var(--panel) 93%)}
+
+@media(max-width:759px){
+  .v2-case-study[data-case="antiqua"] .v2-case-head h3,.v2-case-study[data-case="fashionmgmt"] .v2-case-head h3,.v2-case-study[data-case="furproduction"] .v2-case-head h3{font-size:22px}
+}
