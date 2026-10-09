@@ -43,6 +43,7 @@ const checks = [
   ['project index action safety', v2.includes("e.target.closest('.v2-index-more > summary')") && v2.includes('e.stopPropagation()') && v2.includes('details.open = !details.open')],
   ['project index bridge placement', v2.includes("section.querySelector(':scope > .section-head')") && v2.includes('head.after(bridge)')],
   ['portfolio density polish', css.includes('V2.22 portfolio → projects premium transition') && css.includes('aspect-ratio:16/6')],
+  ['editorial vertical rhythm', css.includes('V2.23 editorial vertical-rhythm polish') && css.includes('#consulting .services{grid-template-columns:repeat(6,minmax(0,1fr))}') && css.includes('#contact{padding-top:58px;padding-bottom:58px}')],
   ['concise start choices', !v2.includes('<small>${m.copy}</small>') && v2.includes('Что подготовить для старта')],
   ['restored landing order', v2.includes("$('#cta-contact').setAttribute('href', '#v2-decision')") && v2.includes('restore and pin the established section order from c32fd76') && v2.includes("'#v2-stakeholders', '#v2-routes', '#v2-decision', '#experience', '#consulting'")],
   ['Antiqua paintings-only public scope', content.includes('только для живописи') && v2.includes('paintings-only') && !/drawing|printmaking|engraving|рисунк|гравюр/i.test(content + v2)],

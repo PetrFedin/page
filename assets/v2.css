@@ -693,3 +693,55 @@ html[data-preview="v2"] #projects.v2-project-index #project-launch{
   html[data-preview="v2"] .v2-index-primary{grid-template-columns:1fr 1fr}
   html[data-preview="v2"] #projects.v2-project-index #project-launch{margin-top:24px;padding-top:22px}
 }
+
+/* V2.23 editorial vertical-rhythm polish — same content, less dead space */
+@media(min-width:1020px){
+  html[data-preview="v2"] #consulting{padding-top:58px;padding-bottom:58px}
+  html[data-preview="v2"] #consulting .services{grid-template-columns:repeat(3,minmax(0,1fr))}
+  html[data-preview="v2"] #consulting .services li:first-child{grid-column:auto}
+  html[data-preview="v2"] #consulting .svc{padding:16px 15px;gap:6px}
+  html[data-preview="v2"] #consulting .svc-t{font-size:18px;line-height:1.25}
+  html[data-preview="v2"] #consulting .svc-b,
+  html[data-preview="v2"] #consulting .svc-d{font-size:13.5px;line-height:1.45}
+  html[data-preview="v2"] #consulting .svc-more{font-size:12px}
+  html[data-preview="v2"] #consulting .deck-actions{margin-top:22px}
+  html[data-preview="v2"] #consulting .formats{margin-top:26px;padding-top:24px}
+  html[data-preview="v2"] #consulting .formats-head{margin-bottom:16px}
+  html[data-preview="v2"] #consulting .format{padding:15px 14px;gap:6px}
+  html[data-preview="v2"] #consulting .format h4{font-size:17px}
+  html[data-preview="v2"] #consulting .format p{font-size:13.5px;line-height:1.45}
+  html[data-preview="v2"] #consulting .format-foot{margin-top:2px}
+}
+@media(min-width:760px) and (max-width:1019px){
+  html[data-preview="v2"] #consulting .services li:first-child{grid-column:auto}
+  html[data-preview="v2"] #consulting .svc{padding:18px 16px}
+  html[data-preview="v2"] #consulting .formats{margin-top:28px;padding-top:24px}
+  html[data-preview="v2"] #consulting .formats-head{margin-bottom:18px}
+}
+@media(min-width:760px){
+  html[data-preview="v2"] #contact{padding-top:58px;padding-bottom:58px}
+  html[data-preview="v2"] #contact .persona-picker{margin-bottom:4px}
+  html[data-preview="v2"] #contact .contact-grid{gap:34px;align-items:start}
+  html[data-preview="v2"] #contact .form{gap:11px;max-width:620px}
+  html[data-preview="v2"] #contact .field{gap:4px}
+  html[data-preview="v2"] #contact textarea{min-height:112px}
+  html[data-preview="v2"] #contact .entity-box{gap:8px;padding:11px}
+  html[data-preview="v2"] #contact .direct ul{gap:10px}
+  html[data-preview="v2"] #contact .direct-actions{margin-top:16px}
+  html[data-preview="v2"] #investors{padding-top:60px;padding-bottom:60px}
+  html[data-preview="v2"] #investors .inv-lead{margin-bottom:18px}
+  html[data-preview="v2"] #investors .inv-list{gap:10px}
+  html[data-preview="v2"] #investors .inv-testrow{margin-top:18px}
+}
+@media(max-width:759px){
+  html[data-preview="v2"] #consulting .formats{margin-top:26px;padding-top:22px}
+  html[data-preview="v2"] #consulting .formats-head{margin-bottom:16px}
+  html[data-preview="v2"] #contact .form{gap:12px}
+  html[data-preview="v2"] #contact textarea{min-height:104px}
+}
+@media(min-width:1020px){
+  html[data-preview="v2"] #consulting .services{grid-template-columns:repeat(6,minmax(0,1fr))}
+  html[data-preview="v2"] #consulting .services li{grid-column:span 2}
+  html[data-preview="v2"] #consulting .services li:nth-child(4),
+  html[data-preview="v2"] #consulting .services li:nth-child(5){grid-column:span 3}
+}
