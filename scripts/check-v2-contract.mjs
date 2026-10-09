@@ -38,6 +38,8 @@ const checks = [
   ['visual product stories', ['V2_CASE_VISUALS','v2-visual-story','v2-arch-map','v2-flow-rail','v2-kpi-grid','v2-accept-grid','v2-roadmap-rail'].every((x) => v2.includes(x) || css.includes(x))],
   ['stable portfolio action hierarchy', ['v2-product-primary-actions','v2-product-more','v2-product-more-menu','Посмотреть проект','Ещё о проекте'].every((x) => v2.includes(x) || css.includes(x))],
   ['variable-height project cards', css.includes('.v2-portfolio-grid{align-items:start}') && css.includes('.v2-product{align-self:start;height:auto}')],
+  ['premium project index', ['installProjectIndexPolish','v2-project-index','v2-index-transition','v2-index-card','v2-index-more'].every((x) => v2.includes(x) || css.includes(x))],
+  ['portfolio density polish', css.includes('V2.22 portfolio → projects premium transition') && css.includes('aspect-ratio:16/6')],
   ['concise start choices', !v2.includes('<small>${m.copy}</small>') && v2.includes('Что подготовить для старта')],
   ['restored landing order', v2.includes("$('#cta-contact').setAttribute('href', '#v2-decision')") && v2.includes('restore and pin the established section order from c32fd76') && v2.includes("'#v2-stakeholders', '#v2-routes', '#v2-decision', '#experience', '#consulting'")],
   ['Antiqua paintings-only public scope', content.includes('только для живописи') && v2.includes('paintings-only') && !/drawing|printmaking|engraving|рисунк|гравюр/i.test(content + v2)],

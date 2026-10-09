@@ -521,3 +521,175 @@ html[data-preview="v2"] body:has(.v2-product-more[open]) .cta-fab{opacity:0;poin
 /* V2.21 variable-height project cards: opening one card must not stretch its neighbour. */
 .v2-portfolio-grid{align-items:start}
 .v2-product{align-self:start;height:auto}
+
+
+/* V2.22 portfolio → projects premium transition */
+@media(min-width:760px){
+  html[data-preview="v2"] .v2-portfolio{padding-top:28px;padding-bottom:34px}
+  html[data-preview="v2"] .v2-portfolio-summary{margin:16px 0 14px}
+  html[data-preview="v2"] .v2-portfolio-filters{margin-bottom:14px}
+  html[data-preview="v2"] .v2-portfolio-grid{gap:14px}
+  html[data-preview="v2"] .v2-product{padding:18px;gap:11px}
+  html[data-preview="v2"] .v2-product h3{font-size:25px}
+  html[data-preview="v2"] .v2-card-visual{aspect-ratio:16/6;margin-top:0}
+  html[data-preview="v2"] .v2-investor-priority{gap:6px}
+  html[data-preview="v2"] .v2-investor-priority>div{padding:9px;min-height:78px}
+  html[data-preview="v2"] .v2-investor-priority p{font-size:10.5px;line-height:1.4}
+  html[data-preview="v2"] .v2-product-meta>summary{padding:9px 0}
+}
+html[data-preview="v2"] .v2-portfolio-note{max-width:900px;font-size:10.5px;line-height:1.5;margin-top:12px}
+
+html[data-preview="v2"] #projects.v2-project-index{
+  margin-top:0;
+  padding-top:22px;
+  padding-bottom:44px;
+  border-top:0;
+}
+html[data-preview="v2"] .v2-index-transition{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  border-top:1px solid var(--line);
+  padding-top:16px;
+  margin:0 0 18px;
+  font-size:9px;
+  letter-spacing:.12em;
+  color:var(--muted);
+}
+html[data-preview="v2"] .v2-index-transition i{font-style:normal;color:var(--accent)}
+html[data-preview="v2"] .v2-index-transition strong{font-weight:600;color:var(--ink)}
+html[data-preview="v2"] #projects.v2-project-index .section-head .sub{
+  max-width:820px;
+  margin-top:8px;
+  margin-bottom:14px;
+}
+html[data-preview="v2"] #projects.v2-project-index .cards{
+  display:grid;
+  gap:0;
+  margin-top:8px;
+  border-top:1px solid var(--line);
+  background:transparent;
+  border-radius:0;
+}
+html[data-preview="v2"] #projects.v2-project-index .card{
+  display:grid;
+  grid-template-columns:180px minmax(0,1fr) 220px;
+  grid-template-areas:
+    "head title foot"
+    "head body foot";
+  gap:7px 24px;
+  align-items:start;
+  padding:18px 0;
+  border:0;
+  border-bottom:1px solid var(--line);
+  border-radius:0;
+  background:transparent;
+  box-shadow:none;
+  transform:none;
+  cursor:pointer;
+}
+html[data-preview="v2"] #projects.v2-project-index .card:hover{
+  border-color:var(--line);
+  transform:none;
+  box-shadow:none;
+  background:color-mix(in srgb,var(--accent-soft) 24%,transparent);
+}
+html[data-preview="v2"] .v2-index-card-head{grid-area:head;display:grid;gap:12px;align-content:start}
+html[data-preview="v2"] #projects.v2-project-index .card-logo svg{height:22px;max-width:150px}
+html[data-preview="v2"] #projects.v2-project-index .card .stage{
+  justify-self:start;
+  max-width:170px;
+  white-space:normal;
+  line-height:1.35;
+  font-size:9px;
+  padding:5px 8px;
+}
+html[data-preview="v2"] #projects.v2-project-index .card-tag{
+  grid-area:title;
+  margin:0;
+  font-size:18px;
+  line-height:1.22;
+}
+html[data-preview="v2"] #projects.v2-project-index .card-body{
+  grid-area:body;
+  margin:0;
+  font-size:13px;
+  line-height:1.52;
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+}
+html[data-preview="v2"] #projects.v2-project-index .card-foot{
+  grid-area:foot;
+  display:grid;
+  gap:7px;
+  margin:0;
+  align-items:start;
+}
+html[data-preview="v2"] .v2-index-primary{display:grid;grid-template-columns:1fr;gap:6px}
+html[data-preview="v2"] .v2-index-primary .btn{width:100%;min-width:0;justify-content:center}
+html[data-preview="v2"] .v2-index-more{border-top:1px solid var(--line);padding-top:4px}
+html[data-preview="v2"] .v2-index-more>summary{
+  list-style:none;
+  cursor:pointer;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  min-height:34px;
+  padding:5px 2px;
+  color:var(--muted);
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.07em;
+}
+html[data-preview="v2"] .v2-index-more>summary::-webkit-details-marker{display:none}
+html[data-preview="v2"] .v2-index-more>summary::after{content:'+';color:var(--accent);font-size:15px}
+html[data-preview="v2"] .v2-index-more[open]>summary::after{content:'−'}
+html[data-preview="v2"] .v2-index-more-menu{display:grid;gap:6px;padding-top:5px}
+html[data-preview="v2"] .v2-index-more-menu .btn{
+  width:100%;
+  min-width:0;
+  justify-content:flex-start;
+  border-radius:10px;
+  white-space:normal;
+  text-align:left;
+  line-height:1.25;
+}
+html[data-preview="v2"] .v2-index-flow{grid-column:1/-1}
+html[data-preview="v2"] #projects.v2-project-index #projects-more{margin-top:18px}
+html[data-preview="v2"] #projects.v2-project-index #project-launch{
+  margin-top:32px;
+  padding-top:26px;
+  border-top:1px solid var(--line);
+}
+
+@media(max-width:900px){
+  html[data-preview="v2"] #projects.v2-project-index .card{
+    grid-template-columns:150px minmax(0,1fr);
+    grid-template-areas:
+      "head title"
+      "head body"
+      "foot foot";
+  }
+  html[data-preview="v2"] #projects.v2-project-index .card-foot{
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+    align-items:start;
+  }
+}
+@media(max-width:759px){
+  html[data-preview="v2"] #projects.v2-project-index{padding-top:16px;padding-bottom:36px}
+  html[data-preview="v2"] .v2-index-transition{margin-bottom:14px}
+  html[data-preview="v2"] #projects.v2-project-index .card{
+    grid-template-columns:1fr;
+    grid-template-areas:"head" "title" "body" "foot";
+    gap:9px;
+    padding:16px 0;
+  }
+  html[data-preview="v2"] .v2-index-card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+  html[data-preview="v2"] #projects.v2-project-index .card .stage{max-width:48%;text-align:right}
+  html[data-preview="v2"] #projects.v2-project-index .card-body{-webkit-line-clamp:3}
+  html[data-preview="v2"] #projects.v2-project-index .card-foot{grid-template-columns:1fr}
+  html[data-preview="v2"] .v2-index-primary{grid-template-columns:1fr 1fr}
+  html[data-preview="v2"] #projects.v2-project-index #project-launch{margin-top:24px;padding-top:22px}
+}

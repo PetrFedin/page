@@ -995,6 +995,101 @@ function installPublicCaseStudy(lang, $, projects) {
   paint();
 }
 
+
+/* V2.22 portfolio → deep-project index polishing */
+function installProjectIndexPolish(lang, $, projects) {
+  const en = lang === 'en';
+  const section = $('#projects');
+  const cards = $('#cards');
+  if (!section || !cards) return;
+
+  section.classList.add('v2-project-index');
+  const title = $('#projects-title');
+  const sub = $('#projects-sub');
+  if (title) title.textContent = en ? 'Details & evidence' : 'Детали и доказательства';
+  if (sub) sub.textContent = en
+    ? 'The portfolio above shows what each product is and why it matters. Here is the working depth: status, news, comparisons and the full dossier.'
+    : 'Обзор выше показывает, что это за продукты и зачем они нужны. Здесь — рабочая глубина: стадия, новости, сравнение и полное досье.';
+
+  let bridge = $('#v2-index-transition');
+  if (!bridge) {
+    bridge = document.createElement('div');
+    bridge.id = 'v2-index-transition';
+    bridge.className = 'v2-index-transition';
+    section.prepend(bridge);
+  }
+  bridge.innerHTML = `<span>${en ? 'OVERVIEW' : 'ОБЗОР'}</span><i>→</i><strong>${en ? 'DEEP DIVE' : 'В ДЕТАЛИ'}</strong>`;
+
+  const note = section.previousElementSibling?.id === 'v2-portfolio'
+    ? section.previousElementSibling.querySelector('.v2-portfolio-note')
+    : document.querySelector('#v2-portfolio .v2-portfolio-note');
+  if (note) note.textContent = en
+    ? `${projects.length} products are currently public. Fintech and infrastructure stay unpublished until a separate release; confidential fashion cases remain anonymised.`
+    : `Сейчас публично показаны ${projects.length} продуктов. Финтех и инфраструктура появятся только после отдельной публикации; конфиденциальные fashion-кейсы остаются обезличенными.`;
+
+  const polishCard = (card) => {
+    if (!card || card.classList.contains('v2-index-card')) return;
+    card.classList.add('v2-index-card');
+
+    const logo = card.querySelector(':scope > .card-logo');
+    const stage = card.querySelector(':scope > .stage');
+    if (logo || stage) {
+      const head = document.createElement('div');
+      head.className = 'v2-index-card-head';
+      if (logo) head.append(logo);
+      if (stage) head.append(stage);
+      card.prepend(head);
+    }
+
+    const foot = card.querySelector(':scope > .card-foot');
+    if (foot && !foot.querySelector('.v2-index-primary')) {
+      const primary = document.createElement('div');
+      primary.className = 'v2-index-primary';
+      const open = foot.querySelector('[data-open]');
+      const status = foot.querySelector('[data-status]');
+      if (open) primary.append(open);
+      if (status) primary.append(status);
+      foot.prepend(primary);
+
+      const extras = [...foot.children].filter((node) => node !== primary);
+      if (extras.length) {
+        const more = document.createElement('details');
+        more.className = 'v2-index-more';
+        const summary = document.createElement('summary');
+        summary.textContent = en ? 'More actions' : 'Ещё действия';
+        const menu = document.createElement('div');
+        menu.className = 'v2-index-more-menu';
+        extras.forEach((node) => menu.append(node));
+        more.append(summary, menu);
+        foot.append(more);
+      }
+    }
+
+    const flow = card.querySelector(':scope > .flow-embed');
+    if (flow) flow.classList.add('v2-index-flow');
+  };
+
+  const apply = () => [...cards.querySelectorAll(':scope > .card')].forEach(polishCard);
+  apply();
+
+  if (!cards.__v2IndexObserver) {
+    const observer = new MutationObserver(apply);
+    observer.observe(cards, { childList: true });
+    cards.__v2IndexObserver = observer;
+  }
+  if (!cards.__v2IndexSummaryBound) {
+    cards.__v2IndexSummaryBound = true;
+    cards.addEventListener('click', (e) => {
+      const summary = e.target.closest('.v2-index-more > summary');
+      if (!summary) return;
+      e.preventDefault();
+      e.stopPropagation();
+      const details = summary.parentElement;
+      details.open = !details.open;
+    }, true);
+  }
+}
+
 export function renderV2(lang, projects = []) {
   const en = lang === 'en';
   document.documentElement.dataset.preview = 'v2';
@@ -1028,6 +1123,7 @@ export function renderV2(lang, projects = []) {
   $('#v2-routes').innerHTML = `<p class="eyebrow">${en ? 'What I do' : 'Что я делаю'}</p><div class="v2-route-grid">${routes.map(r=>`<a class="v2-route" href="${r[5]}"><span class="v2-route-meta">${r[0]} / ${r[1]}</span><h3>${r[2]}</h3><p>${r[3]}</p><span class="v2-route-action">${r[4]} →</span></a>`).join('')}</div>`;
   installDecisionLayer(lang, $);
   renderPortfolioIntelligence(lang, $, projects);
+  installProjectIndexPolish(lang, $, projects);
   renderStakeholderLens(lang, $, projects);
   installExecutiveEvidence(lang, $, projects);
   installProjectDecisionDossier(lang, $, projects);
