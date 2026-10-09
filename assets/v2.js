@@ -1016,7 +1016,8 @@ function installProjectIndexPolish(lang, $, projects) {
     bridge = document.createElement('div');
     bridge.id = 'v2-index-transition';
     bridge.className = 'v2-index-transition';
-    section.prepend(bridge);
+    const head = section.querySelector(':scope > .section-head');
+    if (head) head.after(bridge); else section.prepend(bridge);
   }
   bridge.innerHTML = `<span>${en ? 'OVERVIEW' : 'ОБЗОР'}</span><i>→</i><strong>${en ? 'DEEP DIVE' : 'В ДЕТАЛИ'}</strong>`;
 
