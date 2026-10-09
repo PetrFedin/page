@@ -20,12 +20,15 @@ function stabiliseProjectIndex() {
   const cards = section?.querySelector('#cards');
   if (!cards) return false;
 
-  cards.classList.remove('snap', 'snap-fit');
-  cards.style.removeProperty('height');
-  cards.removeAttribute('tabindex');
+  if (cards.classList.contains('snap')) cards.classList.remove('snap');
+  if (cards.classList.contains('snap-fit')) cards.classList.remove('snap-fit');
+  if (cards.style.height) cards.style.removeProperty('height');
+  if (cards.hasAttribute('tabindex')) cards.removeAttribute('tabindex');
   removeLegacyDots(cards);
 
-  section.dataset.v2IndexRuntime = 'ready';
+  if (section.dataset.v2IndexRuntime !== 'ready') {
+    section.dataset.v2IndexRuntime = 'ready';
+  }
   return true;
 }
 
@@ -33,15 +36,23 @@ function installProjectIndexRuntime() {
   stabiliseProjectIndex();
 
   const root = document.querySelector('#projects') || document.body;
-  const observer = new MutationObserver(() => stabiliseProjectIndex());
+  let scheduled = false;
+  const schedule = () => {
+    if (scheduled) return;
+    scheduled = true;
+    requestAnimationFrame(() => {
+      scheduled = false;
+      stabiliseProjectIndex();
+    });
+  };
+
+  const observer = new MutationObserver(schedule);
   observer.observe(root, {
     childList: true,
-    subtree: true,
-    attributes: true,
-    attributeFilter: ['class', 'style']
+    subtree: true
   });
 
-  window.addEventListener('resize', stabiliseProjectIndex, { passive: true });
+  window.addEventListener('resize', schedule, { passive: true });
 }
 
 if (document.readyState === 'loading') {
