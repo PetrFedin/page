@@ -21,6 +21,7 @@ import { tmpdir } from 'node:os';
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const CHROME = process.env.CHROME_BIN || '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 const MIME = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.svg': 'image/svg+xml', '.webp': 'image/webp', '.jpg': 'image/jpeg', '.png': 'image/png', '.mp4': 'video/mp4', '.webm': 'video/webm', '.pdf': 'application/pdf', '.vcf': 'text/vcard', '.xml': 'application/xml', '.txt': 'text/plain' };
+const V2_INDEX_STYLE = '<link rel="stylesheet" href="/assets/v2-index-layout.css">';
 
 const server = createServer((req, res) => {
   let path = decodeURIComponent(new URL(req.url, 'http://x').pathname);
@@ -96,7 +97,10 @@ let failed = false;
 for (const [file, url] of targets) {
   const path = join(root, file);
   if (!existsSync(path)) continue;
-  const src = readFileSync(path, 'utf8');
+  const source = readFileSync(path, 'utf8');
+  const src = source.includes('/assets/v2-index-layout.css')
+    ? source
+    : source.replace('</head>', `  ${V2_INDEX_STYLE}\n</head>`);
   if (!src.includes('<!--PR:START-->') || !src.includes('<!--PR:END-->')) { console.error(`${file}: нет меток PR`); failed = true; continue; }
   await send('Page.navigate', { url: `${base}${url}?prerender=1` });
   await sleep(4500);
