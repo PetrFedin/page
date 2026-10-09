@@ -1,6 +1,7 @@
 name: V2 preview quality
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - syntha-v2-preview-product-refresh
@@ -26,7 +27,7 @@ jobs:
   quality:
     name: build-contract-browser
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
 
     steps:
       - name: Checkout exact branch head
@@ -76,3 +77,39 @@ jobs:
           path: artifacts/v2-browser
           if-no-files-found: warn
           retention-days: 14
+
+      - name: Deploy admitted V2 to Netlify preview
+        if: github.event_name != 'pull_request'
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: 4025c165-6b18-41c5-b69b-ba056cc7fbc8
+        run: |
+          if [ -z "${NETLIFY_AUTH_TOKEN:-}" ]; then
+            echo "NETLIFY_AUTH_TOKEN is not configured; exact-head deploy remains blocked." | tee -a "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          npx --yes netlify-cli deploy \
+            --dir . \
+            --prod \
+            --site "$NETLIFY_SITE_ID" \
+            --auth "$NETLIFY_AUTH_TOKEN" \
+            --message "V2 admitted $GITHUB_SHA" \
+            --json | tee /tmp/netlify-deploy.json
+          echo "Deployed exact head \`$GITHUB_SHA\` after build, contract and browser admission." >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Verify public preview when deployed
+        if: github.event_name != 'pull_request'
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        run: |
+          if [ -z "${NETLIFY_AUTH_TOKEN:-}" ]; then
+            exit 0
+          fi
+          for attempt in {1..30}; do
+            if curl --fail --silent --show-error 'https://syntha-v2-preview-petr.netlify.app/?v=2&qa=post-deploy' > /dev/null; then
+              echo "Public preview responded successfully." >> "$GITHUB_STEP_SUMMARY"
+              exit 0
+            fi
+            sleep 2
+          done
+          exit 1
