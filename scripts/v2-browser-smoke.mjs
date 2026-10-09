@@ -18,14 +18,37 @@ function assert(condition, message) {
   if (!condition) failures.push(message);
 }
 
-async function clickInReadingPosition(page, locator) {
-  await locator.evaluate((element) => element.scrollIntoView({ block: 'center', inline: 'nearest' }));
-  await page.waitForTimeout(80);
-  await locator.click();
+async function clickInReadingPosition(page, locator, label) {
+  await locator.evaluate((element) => {
+    element.scrollIntoView({ block: 'center', inline: 'nearest', behavior: 'instant' });
+  });
+  await page.waitForTimeout(40);
+
+  const hit = await locator.evaluate((element) => {
+    const rect = element.getBoundingClientRect();
+    const x = Math.max(0, Math.min(window.innerWidth - 1, rect.left + rect.width / 2));
+    const y = Math.max(0, Math.min(window.innerHeight - 1, rect.top + rect.height / 2));
+    const target = document.elementFromPoint(x, y);
+    return {
+      ok: target === element || element.contains(target),
+      x,
+      y,
+      rect: { left: rect.left, top: rect.top, width: rect.width, height: rect.height },
+      target: target ? `${target.tagName.toLowerCase()}${target.id ? `#${target.id}` : ''}${target.className ? `.${String(target.className).trim().replace(/\s+/g, '.')}` : ''}` : 'none'
+    };
+  });
+
+  assert(hit.ok, `${label}: center hit ${hit.target} at ${Math.round(hit.x)},${Math.round(hit.y)} for ${JSON.stringify(hit.rect)}`);
+  if (!hit.ok) return false;
+
+  await page.mouse.click(hit.x, hit.y);
+  await page.waitForTimeout(40);
+  return true;
 }
 
 for (const viewport of viewports) {
   const page = await browser.newPage({ viewport: { width: viewport.width, height: viewport.height } });
+  await page.emulateMedia({ reducedMotion: 'reduce' });
   const pageErrors = [];
   const badResponses = [];
   page.on('pageerror', (error) => pageErrors.push(error.message));
@@ -34,10 +57,14 @@ for (const viewport of viewports) {
   });
 
   await page.goto(`${baseUrl}&viewport=${viewport.name}`, { waitUntil: 'networkidle' });
+  await page.evaluate(() => {
+    document.documentElement.style.scrollBehavior = 'auto';
+    document.body.style.scrollBehavior = 'auto';
+  });
 
   const portfolio = page.locator('#v2-portfolio');
   const projectsSection = page.locator('#projects');
-  await portfolio.scrollIntoViewIfNeeded();
+  await portfolio.evaluate((element) => element.scrollIntoView({ block: 'center', behavior: 'instant' }));
 
   assert(await portfolio.isVisible(), `${viewport.name}: portfolio is not visible`);
   assert(await projectsSection.isVisible(), `${viewport.name}: projects section is not visible`);
@@ -59,12 +86,14 @@ for (const viewport of viewports) {
   assert(sectionGap >= -2 && sectionGap <= 40, `${viewport.name}: portfolio/projects gap is ${sectionGap}px`);
 
   const showMore = page.locator('#v2-portfolio-more');
-  if (await showMore.isVisible()) await clickInReadingPosition(page, showMore);
+  if (await showMore.isVisible()) await clickInReadingPosition(page, showMore, `${viewport.name}: portfolio show more`);
   const portfolioIds = await page.locator('#v2-portfolio-grid [data-v2-product]').evaluateAll((nodes) => nodes.map((node) => node.dataset.v2Product));
   assert(JSON.stringify(portfolioIds) === JSON.stringify(projects), `${viewport.name}: portfolio order mismatch: ${portfolioIds.join(',')}`);
 
   const projectsMore = page.locator('#projects-more');
-  if (await projectsMore.isVisible() && (await projectsMore.getAttribute('aria-expanded')) !== 'true') await clickInReadingPosition(page, projectsMore);
+  if (await projectsMore.isVisible() && (await projectsMore.getAttribute('aria-expanded')) !== 'true') {
+    await clickInReadingPosition(page, projectsMore, `${viewport.name}: projects show more`);
+  }
   const indexCards = page.locator('#cards > .card');
   assert(await indexCards.count() === projects.length, `${viewport.name}: expected ${projects.length} deep-dive rows`);
 
@@ -76,18 +105,22 @@ for (const viewport of viewports) {
     const more = card.locator('.v2-index-more');
     if (await more.count()) {
       const summary = more.locator('summary');
-      await clickInReadingPosition(page, summary);
-      assert(await more.evaluate((element) => element.open), `${viewport.name}: row ${index + 1} more actions did not open`);
-      assert(await more.locator('.v2-index-more-menu .btn').count() >= 1, `${viewport.name}: row ${index + 1} more actions menu is empty`);
-      await clickInReadingPosition(page, summary);
+      const opened = await clickInReadingPosition(page, summary, `${viewport.name}: row ${index + 1} more actions`);
+      if (opened) {
+        assert(await more.evaluate((element) => element.open), `${viewport.name}: row ${index + 1} more actions did not open`);
+        assert(await more.locator('.v2-index-more-menu .btn').count() >= 1, `${viewport.name}: row ${index + 1} more actions menu is empty`);
+        await clickInReadingPosition(page, summary, `${viewport.name}: row ${index + 1} close more actions`);
+      }
     }
   }
 
   const firstOpen = indexCards.first().locator('[data-open]');
-  await clickInReadingPosition(page, firstOpen);
+  const dossierClick = await clickInReadingPosition(page, firstOpen, `${viewport.name}: first dossier`);
   const modal = page.locator('#modal');
-  assert(await modal.evaluate((element) => element.hasAttribute('open')), `${viewport.name}: project dossier did not open`);
-  await page.locator('#modal-close').click();
+  if (dossierClick) {
+    assert(await modal.evaluate((element) => element.hasAttribute('open')), `${viewport.name}: project dossier did not open`);
+    await page.locator('#modal-close').click();
+  }
 
   const overflow = await page.evaluate(() => ({
     scrollWidth: document.documentElement.scrollWidth,
