@@ -1,0 +1,22 @@
+/* V2-only containment for the legacy Projects registry.
+ * The base site turns .cards into a multi-column catalogue at desktop widths.
+ * V2 reuses the same DOM as a deep-dive index, so every project must occupy
+ * one full-width row before its internal head/content/action grid is applied. */
+html[data-preview="v2"] #projects.v2-project-index .cards {
+  grid-template-columns: minmax(0, 1fr) !important;
+  grid-auto-flow: row !important;
+  align-items: start;
+}
+
+html[data-preview="v2"] #projects.v2-project-index .card {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+html[data-preview="v2"] #projects.v2-project-index .v2-index-card-head,
+html[data-preview="v2"] #projects.v2-project-index .card-tag,
+html[data-preview="v2"] #projects.v2-project-index .card-body,
+html[data-preview="v2"] #projects.v2-project-index .card-foot {
+  min-width: 0;
+}
