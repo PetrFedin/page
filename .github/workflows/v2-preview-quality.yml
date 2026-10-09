@@ -1,0 +1,78 @@
+name: V2 preview quality
+
+on:
+  push:
+    branches:
+      - syntha-v2-preview-product-refresh
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'assets/**'
+      - 'scripts/**'
+      - 'index.html'
+      - 'en/**'
+      - 'package.json'
+      - '.github/workflows/v2-preview-quality.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: v2-preview-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    name: build-contract-browser
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout exact branch head
+        uses: actions/checkout@v4
+
+      - name: Use Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install browser runtime
+        run: |
+          npm install --no-save playwright@1.56.1
+          npx playwright install --with-deps chromium
+          echo "CHROME_BIN=$(node --input-type=module -e "import { chromium } from 'playwright'; console.log(chromium.executablePath())")" >> "$GITHUB_ENV"
+
+      - name: Build RU and EN prerendered pages
+        run: npm run build
+
+      - name: Validate V2 source contracts
+        run: npm run check:v2
+
+      - name: Start preview server
+        run: |
+          python3 -m http.server 4321 > /tmp/v2-preview-server.log 2>&1 &
+          echo $! > /tmp/v2-preview-server.pid
+          for attempt in {1..30}; do
+            if curl --fail --silent --show-error 'http://127.0.0.1:4321/?v=2&qa=github-actions' > /dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/v2-preview-server.log
+          exit 1
+
+      - name: Cross-device browser admission
+        env:
+          V2_BASE_URL: http://127.0.0.1:4321/?v=2&qa=github-actions
+          V2_QA_OUTPUT: artifacts/v2-browser
+        run: node scripts/v2-browser-smoke.mjs
+
+      - name: Upload visual QA evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v2-browser-evidence-${{ github.sha }}
+          path: artifacts/v2-browser
+          if-no-files-found: warn
+          retention-days: 14
