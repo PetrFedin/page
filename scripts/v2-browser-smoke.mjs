@@ -18,9 +18,9 @@ function assert(condition, message) {
   if (!condition) failures.push(message);
 }
 
-async function clickInReadingPosition(locator) {
+async function clickInReadingPosition(page, locator) {
   await locator.evaluate((element) => element.scrollIntoView({ block: 'center', inline: 'nearest' }));
-  await locator.page().waitForTimeout(80);
+  await page.waitForTimeout(80);
   await locator.click();
 }
 
@@ -59,12 +59,12 @@ for (const viewport of viewports) {
   assert(sectionGap >= -2 && sectionGap <= 40, `${viewport.name}: portfolio/projects gap is ${sectionGap}px`);
 
   const showMore = page.locator('#v2-portfolio-more');
-  if (await showMore.isVisible()) await clickInReadingPosition(showMore);
+  if (await showMore.isVisible()) await clickInReadingPosition(page, showMore);
   const portfolioIds = await page.locator('#v2-portfolio-grid [data-v2-product]').evaluateAll((nodes) => nodes.map((node) => node.dataset.v2Product));
   assert(JSON.stringify(portfolioIds) === JSON.stringify(projects), `${viewport.name}: portfolio order mismatch: ${portfolioIds.join(',')}`);
 
   const projectsMore = page.locator('#projects-more');
-  if (await projectsMore.isVisible() && (await projectsMore.getAttribute('aria-expanded')) !== 'true') await clickInReadingPosition(projectsMore);
+  if (await projectsMore.isVisible() && (await projectsMore.getAttribute('aria-expanded')) !== 'true') await clickInReadingPosition(page, projectsMore);
   const indexCards = page.locator('#cards > .card');
   assert(await indexCards.count() === projects.length, `${viewport.name}: expected ${projects.length} deep-dive rows`);
 
@@ -76,15 +76,15 @@ for (const viewport of viewports) {
     const more = card.locator('.v2-index-more');
     if (await more.count()) {
       const summary = more.locator('summary');
-      await clickInReadingPosition(summary);
+      await clickInReadingPosition(page, summary);
       assert(await more.evaluate((element) => element.open), `${viewport.name}: row ${index + 1} more actions did not open`);
       assert(await more.locator('.v2-index-more-menu .btn').count() >= 1, `${viewport.name}: row ${index + 1} more actions menu is empty`);
-      await clickInReadingPosition(summary);
+      await clickInReadingPosition(page, summary);
     }
   }
 
   const firstOpen = indexCards.first().locator('[data-open]');
-  await clickInReadingPosition(firstOpen);
+  await clickInReadingPosition(page, firstOpen);
   const modal = page.locator('#modal');
   assert(await modal.evaluate((element) => element.hasAttribute('open')), `${viewport.name}: project dossier did not open`);
   await page.locator('#modal-close').click();
