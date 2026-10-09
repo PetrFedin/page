@@ -20,8 +20,8 @@ permissions:
   contents: read
 
 concurrency:
-  group: v2-preview-${{ github.ref }}
-  cancel-in-progress: true
+  group: v2-preview-${{ github.ref }}-${{ github.sha }}
+  cancel-in-progress: false
 
 jobs:
   quality:
