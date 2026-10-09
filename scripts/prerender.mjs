@@ -36,13 +36,32 @@ const base = `http://127.0.0.1:${server.address().port}`;
 
 const port = 9400 + Math.floor(Math.random() * 400);
 const profile = mkdtempSync(join(tmpdir(), 'prerender-'));
-const chrome = spawn(CHROME, ['--headless=new', `--remote-debugging-port=${port}`, `--user-data-dir=${profile}`, '--remote-allow-origins=*', '--hide-scrollbars', 'about:blank'], { detached: true, stdio: 'ignore' });
+const chromeArgs = [
+  '--headless=new',
+  `--remote-debugging-port=${port}`,
+  `--user-data-dir=${profile}`,
+  '--remote-allow-origins=*',
+  '--hide-scrollbars',
+  '--no-first-run',
+  '--disable-background-networking',
+  ...(process.env.CI ? ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'] : []),
+  'about:blank'
+];
+let chromeStderr = '';
+const chrome = spawn(CHROME, chromeArgs, { detached: true, stdio: ['ignore', 'ignore', 'pipe'] });
+chrome.stderr?.on('data', (chunk) => {
+  if (chromeStderr.length < 12000) chromeStderr += chunk.toString();
+});
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const cleanup = () => { try { process.kill(-chrome.pid); } catch { /* уже закрыт */ } server.close(); try { rmSync(profile, { recursive: true, force: true }); } catch { /* не страшно */ } };
 
 let tabs;
 for (let i = 0; i < 60; i++) { try { tabs = await (await fetch(`http://127.0.0.1:${port}/json`)).json(); break; } catch { await sleep(250); } }
-if (!tabs) { cleanup(); throw new Error('Chrome не запустился'); }
+if (!tabs) {
+  const details = chromeStderr.trim() || `exit=${chrome.exitCode ?? 'unknown'}, signal=${chrome.signalCode ?? 'none'}`;
+  cleanup();
+  throw new Error(`Chrome не запустился: ${CHROME}; ${details}`);
+}
 const ws = new WebSocket(tabs.find((t) => t.type === 'page').webSocketDebuggerUrl);
 await new Promise((r) => (ws.onopen = r));
 let id = 0; const pend = new Map();
