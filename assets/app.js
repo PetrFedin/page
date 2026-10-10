@@ -1195,6 +1195,8 @@ function splitBodyLink(body) {
   return { text: body, href: null };
 }
 
+const postKey = (post) => String(post?.id || post?.date || '');
+
 /* Фильтр ленты по категории — null значит «всё». Список категорий
    строится из фактически встречающихся тегов, а не задаётся руками:
    так кнопка сама не появится для категории без единого поста. */
@@ -1236,12 +1238,12 @@ function renderNews() {
   $('#feed').innerHTML = list.slice(0, newsShown).map((p) => {
     const { text } = splitBodyLink(postText(p).body);
     return `
-    <li class="post" id="post-${p.date}" data-post="${p.date}">
+    <li class="post" id="post-${postKey(p)}" data-post="${postKey(p)}">
       <div class="post-meta">
         <time datetime="${p.date}">${fmt.format(new Date(p.date))}</time>
         <button type="button" class="post-tag" data-filter-tag="${p.tag}">${t.tags[p.tag] ?? p.tag}</button>
         ${p.images?.length ? `<img class="post-cover" src="${p.images[0]}" alt="" loading="lazy">` : ''}
-        <button class="post-share" type="button" data-share="${p.date}" aria-label="${t.share}">
+        <button class="post-share" type="button" data-share="${postKey(p)}" aria-label="${t.share}">
           <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
             <path d="M12 3v12M12 3L8 7m4-4l4 4M5 13v6a1 1 0 001 1h12a1 1 0 001-1v-6"
                   stroke="currentColor" stroke-width="1.7" fill="none"
@@ -1397,8 +1399,8 @@ $('#need-body').addEventListener('click', (e) => {
 });
 
 const postModal = $('#post-modal');
-function openPostModal(date) {
-  const p = SITE_NEWS.find((x) => x.date === date);
+function openPostModal(key) {
+  const p = SITE_NEWS.find((x) => postKey(x) === key);
   if (!p) return false;
   const t = T[lang].news;
   const { text, href } = splitBodyLink(postText(p).body);
@@ -1411,7 +1413,7 @@ function openPostModal(date) {
   $('#post-modal-tag').dataset.filterTag = p.tag;
   $('#post-modal-title').textContent = postText(p).title;
   window.setContentContext?.({ date: p.date, tag: p.tag, source: p.source?.outlet || '', title: postText(p).title });
-  window.track?.('content_open', p.date, postText(p).title, { tag: p.tag, source: p.source?.outlet || '' });
+  window.track?.('content_open', postKey(p), postText(p).title, { date: p.date, tag: p.tag, source: p.source?.outlet || '' });
 
   /* Источник, автор и оригинальное название — под заголовком, у своих
      постов о проектах их нет. */
@@ -1465,10 +1467,10 @@ function openPostModal(date) {
   /* Листание по публикациям того же проекта — тот же приём, что и в
      просмотрщике снимков (photo-prev/photo-next): стрелки по бокам и
      счётчик снизу, видны только когда у проекта больше одного поста. */
-  const projList = postNavList(date);
-  const idx = projList.findIndex((x) => x.date === date);
+  const projList = postNavList(key);
+  const idx = projList.findIndex((x) => postKey(x) === key);
   const many = projList.length > 1 && idx !== -1;
-  postModal.dataset.navDate = date;
+  postModal.dataset.navKey = key;
   $('#post-prev').hidden = !many;
   $('#post-next').hidden = !many;
   $('#post-prev').setAttribute('aria-label', t.postPrev);
@@ -1482,17 +1484,17 @@ function openPostModal(date) {
 }
 /* Листаем те посты, что сейчас в ленте (с учётом выбранной категории);
    если пост открыт по ссылке и в выборку не входит — всю ленту. */
-function postNavList(date) {
+function postNavList(key) {
   const filtered = filteredNews();
-  return filtered.some((x) => x.date === date) ? filtered : SITE_NEWS.filter(hasLang);
+  return filtered.some((x) => postKey(x) === key) ? filtered : SITE_NEWS.filter(hasLang);
 }
 function stepPost(dir) {
-  if (!postModal.dataset.navDate) return;
-  const list = postNavList(postModal.dataset.navDate);
-  const idx = list.findIndex((x) => x.date === postModal.dataset.navDate);
+  if (!postModal.dataset.navKey) return;
+  const list = postNavList(postModal.dataset.navKey);
+  const idx = list.findIndex((x) => postKey(x) === postModal.dataset.navKey);
   if (idx === -1) return;
   const next = list[(idx + dir + list.length) % list.length];
-  openPostModal(next.date);
+  openPostModal(postKey(next));
 }
 $('#post-prev').addEventListener('click', () => stepPost(-1));
 $('#post-next').addEventListener('click', () => stepPost(1));
@@ -1519,13 +1521,13 @@ $('#post-modal-project').addEventListener('click', (e) => {
 /* ---------- поделиться постом ----------
    У каждого поста свой адрес вида /#post-2026-09-23: по нему страница
    откроется и подсветит именно его, а подпись в тексте ведёт к автору. */
-const postLink = (date) => `${location.origin}/#post-${date}`;
+const postLink = (key) => `${location.origin}/#post-${encodeURIComponent(key)}`;
 
-function sharePost(date) {
-  const post = SITE_NEWS.find((p) => p.date === date);
+function sharePost(key) {
+  const post = SITE_NEWS.find((p) => postKey(p) === key);
   if (!post) return;
   const t = T[lang].news;
-  const url = postLink(date);
+  const url = postLink(key);
   const title = postText(post).title;
   const text = `${title}\n\n${t.shareSign}`;
 
@@ -1534,10 +1536,10 @@ function sharePost(date) {
     navigator.share({ title, text, url }).catch(() => {});
     return;
   }
-  openShareMenu(date, url, title);
+  openShareMenu(key, url, title);
 }
 
-function openShareMenu(date, url, title) {
+function openShareMenu(key, url, title) {
   document.querySelector('.share-menu')?.remove();
   const t = T[lang].news;
   const box = document.createElement('div');
@@ -1549,8 +1551,8 @@ function openShareMenu(date, url, title) {
     <a href="https://wa.me/?text=${encodeURIComponent(url + '\n\n')}${quoted}"
        target="_blank" rel="noopener">${t.shareIn.wa}</a>
     <button type="button" data-copy="${url}">${t.shareIn.copy}</button>`;
-  const anchor = document.querySelector(`[data-share="${date}"]`);
-  anchor.after(box);
+  const anchor = document.querySelector(`[data-share="${CSS.escape(key)}"]`);
+  if (anchor) anchor.after(box);
   box.querySelector('[data-copy]').addEventListener('click', async () => {
     const ok = await copyText(url);
     box.remove();
@@ -1624,7 +1626,7 @@ function openProjectNews(id) {
   $('#pn-channel').textContent = t.news.channel;
   $('#pn-feed').innerHTML = posts.length
     ? posts.map((post) => `
-      <li class="post" data-post="${post.date}">
+      <li class="post" data-post="${postKey(post)}">
         <div class="post-meta"><time datetime="${post.date}">${fmt.format(new Date(post.date))}</time></div>
         <h3>${post[lang].title}</h3>
         <p>${splitBodyLink(post[lang].body).text}</p>
@@ -1995,12 +1997,12 @@ function applyHash() {
   /* Ссылка на отдельный пост открывает его целиком, подгружая ленту,
      если пост ещё не показан среди первых newsShown карточек. */
   if (h.startsWith('post-')) {
-    const date = h.slice('post-'.length);
-    if (SITE_NEWS.findIndex((p) => p.date === date) >= newsShown) {
+    const key = decodeURIComponent(h.slice('post-'.length));
+    if (SITE_NEWS.findIndex((p) => postKey(p) === key) >= newsShown) {
       newsShown = SITE_NEWS.length;
       renderNews();
     }
-    if (openPostModal(date)) return;
+    if (openPostModal(key)) return;
     return closeModals();
   }
   if (h === 'roles' || h.startsWith('area-') || h.startsWith('format-') || h.startsWith('launch-') || h.startsWith('role-')) { if (showInfo(h)) return; }
@@ -2424,7 +2426,7 @@ if (document.documentElement.dataset.preview !== 'v2') {
     if (!Array.isArray(list)) return;
     let added = false;
     for (const p of list) {
-      if (!p?.date || SITE_NEWS.some((x) => x.date === p.date)) continue;
+      if (!p?.date || SITE_NEWS.some((x) => postKey(x) === postKey(p))) continue;
       SITE_NEWS.push(p);
       added = true;
     }
