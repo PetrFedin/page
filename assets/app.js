@@ -408,24 +408,15 @@ function render() {
       </article>`).join('')}</div>
     <p class="launch-diag-row"><button type="button" class="btn" id="diag-open">${t.diagnostic.label}</button></p>`;
 
-  /* Раздел «Публикации» имеет смысл только когда их больше одной —
-     иначе множественное число в заголовке расходится с содержимым. */
-  const hasMedia = t.media.items.length > 0;
-  $('#media').hidden = !hasMedia;
-  document.querySelector('[data-nav="media"]').hidden = !hasMedia;
-  $('#media-title').textContent = t.media.title;
-  $('#media-sub').textContent = t.media.subtitle;
-  $('#media-list').innerHTML = t.media.items.map((m) => {
-    const d = new Intl.DateTimeFormat(lang === 'ru' ? 'ru-RU' : 'en-GB',
-      { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(m.date));
-    return `<article class="media-item">
-      <div class="media-meta"><span class="media-outlet">${m.outlet}</span><time datetime="${m.date}">${d}</time></div>
-      <h3>${m.title}</h3>
-      <blockquote>${m.quote}</blockquote>
-      <p class="media-note">${m.note}</p>
-      <a class="btn btn-sm" href="${m.href}" target="_blank" rel="noopener">${t.media.read}</a>
-    </article>`;
-  }).join('');
+  /* V2: publications and external appearances live in the editorial feed.
+     Keep the legacy media section hidden so there is no duplicate publishing surface. */
+  const mediaSection = $('#media');
+  if (mediaSection) {
+    mediaSection.hidden = true;
+    $('#media-list').replaceChildren();
+  }
+  const mediaNav = document.querySelector('[data-nav="media"]');
+  if (mediaNav) mediaNav.hidden = true;
 
   $('#burger').setAttribute('aria-label', t.hero.navLabel ?? 'Menu');
   $('#press-title').textContent = t.press.title;
@@ -547,13 +538,31 @@ function render() {
 
 /* Язык — это адрес: русская страница «/», английская «/en/». Переключатель ведёт на двойника,
    чтобы ссылка, которой делятся, и заголовок страницы совпадали с тем, что видит человек. */
-$('#lang-toggle').addEventListener('click', () => {
-  const next = lang === 'ru' ? 'en' : 'ru';
-  store.set('lang', next);
-  document.cookie = `syntha_lang=${next}; Path=/; Max-Age=31536000; SameSite=Lax${location.protocol === 'https:' ? '; Secure' : ''}`;
-  const query = new URLSearchParams(location.search);
-  query.delete('lang');
-  location.href = (next === 'en' ? '/en/' : '/') + (query.size ? '?' + query : '') + location.hash;
+function switchLanguage(next, { push = true } = {}) {
+  if (!T[next] || next === lang) return;
+  const apply = () => {
+    lang = next;
+    store.set('lang', next);
+    document.cookie = `syntha_lang=${next}; Path=/; Max-Age=31536000; SameSite=Lax${location.protocol === 'https:' ? '; Secure' : ''}`;
+    const query = new URLSearchParams(location.search);
+    query.delete('lang');
+    if (push) history.pushState({ lang: next }, '', (next === 'en' ? '/en/' : '/') + (query.size ? '?' + query : '') + location.hash);
+    render();
+  };
+  document.documentElement.classList.add('lang-switching');
+  const finish = () => requestAnimationFrame(() => document.documentElement.classList.remove('lang-switching'));
+  if (document.startViewTransition && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const transition = document.startViewTransition(apply);
+    transition.finished.finally(finish);
+  } else {
+    apply();
+    finish();
+  }
+}
+$('#lang-toggle').addEventListener('click', () => switchLanguage(lang === 'ru' ? 'en' : 'ru'));
+addEventListener('popstate', () => {
+  const next = location.pathname.startsWith('/en') ? 'en' : 'ru';
+  if (next !== lang) switchLanguage(next, { push: false });
 });
 
 /* ---------- часы в шапке: день недели, дата и время идут в часовом поясе посетителя ---------- */

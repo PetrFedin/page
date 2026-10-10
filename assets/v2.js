@@ -176,6 +176,8 @@ function renderPortfolioIntelligence(lang, $, projects) {
     projectsSection?.before(section);
   }
   if (!section) return;
+  section.hidden = true;
+  section.dataset.v2Secondary = 'true';
 
   section.innerHTML = `
     <div class="section-head">
@@ -449,7 +451,7 @@ function renderStakeholderLens(lang, $, projects) {
       const primary=e.target.closest('[data-v2-role-primary]');
       if(primary){
         const route=primary.dataset.v2RolePrimary;
-        if(route==='portfolio'){ $('#v2-portfolio')?.scrollIntoView({behavior:'smooth',block:'start'}); return; }
+        if(route==='portfolio'){ $('#projects')?.scrollIntoView({behavior:'smooth',block:'start'}); return; }
         const decisionTab=document.querySelector(`#v2-decision [data-v2-path="${CSS.escape(route)}"]`);
         if(decisionTab){ decisionTab.click(); $('#v2-decision')?.scrollIntoView({behavior:'smooth',block:'start'}); }
         return;
@@ -1006,27 +1008,12 @@ function installProjectIndexPolish(lang, $, projects) {
   section.classList.add('v2-project-index');
   const title = $('#projects-title');
   const sub = $('#projects-sub');
-  if (title) title.textContent = en ? 'Details & evidence' : 'Детали и доказательства';
+  if (title) title.textContent = en ? 'Projects in detail' : 'Проекты подробно';
   if (sub) sub.textContent = en
-    ? 'The portfolio above shows what each product is and why it matters. Here is the working depth: status, news, comparisons and the full dossier.'
-    : 'Обзор выше показывает, что это за продукты и зачем они нужны. Здесь — рабочая глубина: стадия, новости, сравнение и полное досье.';
+    ? 'One project surface: what each product solves, where it stands today, the economic effect, what already works and the next verifiable step.'
+    : 'В одном месте: что решает продукт, где он находится сейчас, какой даёт экономический эффект, что уже работает и что должно быть подтверждено дальше.';
 
-  let bridge = $('#v2-index-transition');
-  if (!bridge) {
-    bridge = document.createElement('div');
-    bridge.id = 'v2-index-transition';
-    bridge.className = 'v2-index-transition';
-    const head = section.querySelector(':scope > .section-head');
-    if (head) head.after(bridge); else section.prepend(bridge);
-  }
-  bridge.innerHTML = `<span>${en ? 'OVERVIEW' : 'ОБЗОР'}</span><i>→</i><strong>${en ? 'DEEP DIVE' : 'В ДЕТАЛИ'}</strong>`;
-
-  const note = section.previousElementSibling?.id === 'v2-portfolio'
-    ? section.previousElementSibling.querySelector('.v2-portfolio-note')
-    : document.querySelector('#v2-portfolio .v2-portfolio-note');
-  if (note) note.textContent = en
-    ? `${projects.length} products are currently public. Fintech and infrastructure stay unpublished until a separate release; confidential fashion cases remain anonymised.`
-    : `Сейчас публично показаны ${projects.length} продуктов. Финтех и инфраструктура появятся только после отдельной публикации; конфиденциальные fashion-кейсы остаются обезличенными.`;
+  $('#v2-index-transition')?.remove();
 
   const polishCard = (card) => {
     if (!card || card.classList.contains('v2-index-card')) return;
@@ -1064,6 +1051,21 @@ function installProjectIndexPolish(lang, $, projects) {
         more.append(summary, menu);
         foot.append(more);
       }
+    }
+
+    const projectId = card.dataset.project;
+    const priority = V2_INVESTOR_PRIORITY[projectId]?.[en ? 'en' : 'ru'];
+    if (priority && !card.querySelector(':scope > .v2-index-signals')) {
+      const signals = document.createElement('div');
+      signals.className = 'v2-index-signals';
+      const signalRows = en
+        ? [['Why it matters', priority.matters], ['Where it is now', priority.now], ['Economic effect', priority.economic], ['What must be proven next', priority.next]]
+        : [['Почему это важно', priority.matters], ['Где проект сейчас', priority.now], ['Что меняется экономически', priority.economic], ['Что должно быть доказано дальше', priority.next]];
+      signals.innerHTML = signalRows.map(([label, copy], index) =>
+        `<div><span>${String(index + 1).padStart(2,'0')} · ${label}</span><p>${copy}</p></div>`
+      ).join('');
+      const body = card.querySelector(':scope > .card-body');
+      if (body) body.after(signals); else card.append(signals);
     }
 
     const flow = card.querySelector(':scope > .flow-embed');
@@ -1118,7 +1120,7 @@ export function renderV2(lang, projects = []) {
     ['03','For a shared opportunity','Partnership','Pilots, strategic collaboration and investment discussions.','Explore ways to work together','#investors']
   ] : [
     ['01','Для бизнеса','Консалтинг','Маржа, закупка, запасы, оборотный капитал и решения, которые можно проверить на данных.','Выбрать формат работы','#consulting'],
-    ['02','Для продукта','Продукты и разработка','Собственные цифровые продукты: от рабочего прототипа до пилота, внедрения и партнёрской модели.','Посмотреть портфель','#v2-portfolio'],
+    ['02','Для продукта','Продукты и разработка','Собственные цифровые продукты: от рабочего прототипа до пилота, внедрения и партнёрской модели.','Посмотреть проекты','#projects'],
     ['03','Для совместного развития','Партнёрство','Пилоты, совместный выход на рынок, стратегическое сотрудничество и инвестиционный диалог.','Посмотреть варианты участия','#investors']
   ];
   $('#v2-routes').innerHTML = `<p class="eyebrow">${en ? 'What I do' : 'Что я делаю'}</p><div class="v2-route-grid">${routes.map(r=>`<a class="v2-route" href="${r[5]}"><span class="v2-route-meta">${r[0]} / ${r[1]}</span><h3>${r[2]}</h3><p>${r[3]}</p><span class="v2-route-action">${r[4]} →</span></a>`).join('')}</div>`;
@@ -1154,7 +1156,7 @@ export function renderV2(lang, projects = []) {
       copy:'A new system, internal tool, customer product, workflow automation or an existing product that needs stronger architecture and execution.',
       need:['Describe the user and the workflow that should change','Show what already exists: files, product, process or prototype','Name the first bounded result that would make the project useful'],
       outcome:'The next step is scoped around the smallest working release, evidence and acceptance criteria rather than a long feature list.',
-      topic:'launch', route:'#v2-portfolio',
+      topic:'launch', route:'#projects',
       message:'I want to discuss a digital product. User/workflow: …\nWhat already exists: …\nFirst useful result: …'
     },
     {
@@ -1187,7 +1189,7 @@ export function renderV2(lang, projects = []) {
       copy:'Новая система, внутренний инструмент, клиентский продукт, автоматизация процесса или существующий продукт, которому нужна более сильная архитектура и реализация.',
       need:['Опишите пользователя и процесс, который должен измениться','Покажите, что уже есть: файлы, система, процесс или прототип','Назовите первый ограниченный результат, после которого продукт уже полезен'],
       outcome:'Следующий шаг строится вокруг минимального рабочего релиза и заранее понятного критерия успеха, а не вокруг бесконечного списка функций.',
-      topic:'launch', route:'#v2-portfolio',
+      topic:'launch', route:'#projects',
       message:'Хочу обсудить цифровой продукт.\nПользователь / процесс: …\nЧто уже есть: …\nПервый полезный результат: …'
     },
     {
@@ -1208,12 +1210,10 @@ export function renderV2(lang, projects = []) {
     }
   ];
   $('#v2-steps').innerHTML = `
-    <div class="v2-start-head">
-      <div>
-        <p class="eyebrow">${en ? 'Before we talk' : 'Перед первым разговором'}</p>
-        <h2>${en ? 'What to prepare' : 'Что подготовить для старта'}</h2>
-      </div>
-      <p>${en ? 'Choose the situation and get a short checklist for a useful first conversation.' : 'Выберите ситуацию — получите короткий список того, что стоит прислать или подготовить к первому разговору.'}</p>
+    <div class="section-head v2-start-head">
+      <p class="eyebrow">${en ? 'Before we talk' : 'Перед первым разговором'}</p>
+      <h2>${en ? 'What to prepare' : 'Что подготовить для старта'}</h2>
+      <p class="sub">${en ? 'Choose the situation and get a short checklist for a useful first conversation.' : 'Выберите ситуацию — получите короткий список того, что стоит прислать или подготовить к первому разговору.'}</p>
     </div>
     <div class="v2-start-choice" role="group" aria-label="${en ? 'Choose how to start' : 'Выберите, с чего начать'}">
       ${startModes.map((m)=>`<button type="button" class="v2-start-mode" data-v2-start-mode="${m.id}" aria-pressed="false"><span>${m.label}</span><strong>${m.title}</strong></button>`).join('')}
@@ -1306,7 +1306,7 @@ export function renderV2(lang, projects = []) {
   // This prevents prerender/runtime builds from silently reshuffling the landing narrative.
   const restoredOrder = [
     '#v2-stakeholders', '#v2-routes', '#v2-decision', '#experience', '#consulting',
-    '#v2-portfolio', '#projects', '#investors', '#news', '#v2-steps', '#contact', '#media', '#press'
+    '#projects', '#investors', '#news', '#v2-steps', '#contact', '#press'
   ];
   const restoredNodes = restoredOrder.map((selector) => $(selector)).filter(Boolean);
   let restoredAnchor = $('#top');
@@ -1317,6 +1317,13 @@ export function renderV2(lang, projects = []) {
     restoredAnchor = node;
   });
 
-  const barLink = $('#cta-bar a');
+  const hiddenPortfolio = $('#v2-portfolio');
+  if (hiddenPortfolio) { hiddenPortfolio.hidden = true; hiddenPortfolio.dataset.v2Secondary = 'true'; }
+  const mediaSection = $('#media');
+  if (mediaSection) { mediaSection.hidden = true; mediaSection.dataset.v2Secondary = 'true'; }
+  const mediaNav = document.querySelector('[data-nav="media"]');
+  if (mediaNav) mediaNav.hidden = true;
+
+    const barLink = $('#cta-bar a');
   if (barLink) {barLink.textContent = en ? 'Discuss a challenge' : 'Обсудить задачу';}
 }

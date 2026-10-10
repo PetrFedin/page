@@ -745,3 +745,73 @@ html[data-preview="v2"] #projects.v2-project-index #project-launch{
   html[data-preview="v2"] #consulting .services li:nth-child(4),
   html[data-preview="v2"] #consulting .services li:nth-child(5){grid-column:span 3}
 }
+
+
+/* V2.24 one project surface + stable language transition */
+html[data-preview="v2"] #v2-portfolio,
+html[data-preview="v2"] #media{display:none!important}
+html[data-preview="v2"]{scrollbar-gutter:stable}
+html[data-preview="v2"].lang-switching{overflow-y:scroll}
+html[data-preview="v2"]::view-transition-old(root),
+html[data-preview="v2"]::view-transition-new(root){animation-duration:.18s;animation-timing-function:ease}
+html[data-preview="v2"]::view-transition-old(root){animation-name:v2-lang-out}
+html[data-preview="v2"]::view-transition-new(root){animation-name:v2-lang-in}
+@keyframes v2-lang-out{from{opacity:1}to{opacity:.82}}
+@keyframes v2-lang-in{from{opacity:.82}to{opacity:1}}
+
+html[data-preview="v2"] .v2-start-head{
+  display:block;
+  margin-bottom:18px;
+  max-width:900px;
+}
+html[data-preview="v2"] .v2-start-head h2{margin:6px 0 0;max-width:780px}
+html[data-preview="v2"] .v2-start-head .sub{margin-top:8px;max-width:760px}
+
+html[data-preview="v2"] #projects.v2-project-index .card{
+  grid-template-areas:
+    "head title foot"
+    "head body foot"
+    "head signals foot";
+}
+html[data-preview="v2"] .v2-index-signals{
+  grid-area:signals;
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:7px;
+  margin-top:5px;
+}
+html[data-preview="v2"] .v2-index-signals>div{
+  border-top:1px solid var(--line);
+  padding:9px 4px 2px 0;
+  min-width:0;
+}
+html[data-preview="v2"] .v2-index-signals span{
+  display:block;
+  color:var(--accent);
+  font-size:8px;
+  line-height:1.35;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  margin-bottom:5px;
+}
+html[data-preview="v2"] .v2-index-signals p{
+  margin:0;
+  color:var(--muted);
+  font-size:10.5px;
+  line-height:1.45;
+}
+@media(max-width:900px){
+  html[data-preview="v2"] #projects.v2-project-index .card{
+    grid-template-areas:
+      "head title"
+      "head body"
+      "signals signals"
+      "foot foot";
+  }
+}
+@media(max-width:759px){
+  html[data-preview="v2"] #projects.v2-project-index .card{
+    grid-template-areas:"head" "title" "body" "signals" "foot";
+  }
+  html[data-preview="v2"] .v2-index-signals{grid-template-columns:1fr}
+}
