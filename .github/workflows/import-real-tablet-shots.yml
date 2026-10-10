@@ -1,0 +1,44 @@
+name: Import verified real tablet screenshots
+
+on:
+  push:
+    branches: [syntha-v2-preview-product-refresh]
+    paths:
+      - '.github/workflows/import-real-tablet-shots.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      ANTIQUA_URL: 'https://sdmntprdenmarkeast.oaiusercontent.com/files/00000000-ead4-8210-b46e-ebdc3cf23a09/raw?se=2026-10-10T00%3A46%3A57Z&sp=r&sv=2026-02-06&sr=b&scid=708157ea-f4de-59e7-b735-4523b7fd8fe4&skoid=e5e3659d-4463-4dbf-b2ce-ee32bc0a0a8d&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-10-10T00%3A36%3A08Z&ske=2026-10-11T00%3A36%3A08Z&sks=b&skv=2026-02-06&sig=GbV61bDBOySNzE%2BZwlZknaGTVhlA8tWdANU4BGkZ/fo%3D'
+      FUR_URL: 'https://sdmntprdenmarkeast.oaiusercontent.com/files/00000000-85ac-8210-adb5-e3f52cf8b8d3/raw?se=2026-10-10T00%3A46%3A59Z&sp=r&sv=2026-02-06&sr=b&scid=5b4395e3-fe07-564a-815a-f7e4f0de2209&skoid=e5e3659d-4463-4dbf-b2ce-ee32bc0a0a8d&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-10-09T02%3A37%3A02Z&ske=2026-10-10T02%3A37%3A02Z&sks=b&skv=2026-02-06&sig=kagiUIxvqL%2BFbpdPgvNzr%2BTQLV0sE5xqTbzckL/93UE%3D'
+      FASHION_URL: 'https://sdmntprdenmarkeast.oaiusercontent.com/files/00000000-89dc-8210-925d-111484553ac4/raw?se=2026-10-10T00%3A47%3A00Z&sp=r&sv=2026-02-06&sr=b&scid=277bd9ce-abed-5460-bfbd-6acc2c5c2c8f&skoid=e5e3659d-4463-4dbf-b2ce-ee32bc0a0a8d&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-10-10T00%3A18%3A11Z&ske=2026-10-11T00%3A18%3A11Z&sks=b&skv=2026-02-06&sig=BNV6dW3asVGBkjjeQQ5jDJCyOI9YYwE%2BiEOP0hWWGPU%3D'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: syntha-v2-preview-product-refresh
+      - name: Download verified screenshot artifacts
+        run: |
+          mkdir -p /tmp/shots/antiqua /tmp/shots/fur /tmp/shots/fashion assets/shots
+          curl -fsSL "$ANTIQUA_URL" -o /tmp/shots/antiqua.zip
+          curl -fsSL "$FUR_URL" -o /tmp/shots/fur.zip
+          curl -fsSL "$FASHION_URL" -o /tmp/shots/fashion.zip
+          unzip -q /tmp/shots/antiqua.zip -d /tmp/shots/antiqua
+          unzip -q /tmp/shots/fur.zip -d /tmp/shots/fur
+          unzip -q /tmp/shots/fashion.zip -d /tmp/shots/fashion
+          cp /tmp/shots/antiqua/antiqua-tablet.png assets/shots/antiqua-tablet.png
+          cp /tmp/shots/antiqua/antiqua-gallery-tablet.png assets/shots/antiqua-gallery-tablet.png
+          cp /tmp/shots/fur/fur-production-dashboard-tablet.png assets/shots/fur-production-dashboard-tablet.png
+          cp /tmp/shots/fashion/fashion-management-dashboard-tablet.png assets/shots/fashion-management-dashboard-tablet.png
+          file assets/shots/*.png
+      - name: Commit real project screenshots
+        run: |
+          git config user.name "syntha-v2-qa"
+          git config user.email "actions@users.noreply.github.com"
+          git add assets/shots/*.png
+          git commit -m "assets(v2): add verified real tablet screenshots"
+          git push origin HEAD:syntha-v2-preview-product-refresh
