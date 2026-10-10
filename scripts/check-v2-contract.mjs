@@ -57,6 +57,7 @@ const checks = [
   ['start section matches section heading', v2.includes('class="section-head v2-start-head"') && css.includes('.v2-start-head{')],
   ['concise start choices', !v2.includes('<small>${m.copy}</small>') && v2.includes('Что подготовить для старта')],
   ['restored landing order', v2.includes("$('#cta-contact').setAttribute('href', '#v2-decision')") && v2.includes('restore and pin the established section order from c32fd76') && v2.includes("'#v2-stakeholders', '#v2-routes', '#v2-decision', '#experience', '#consulting'")],
+  ['verified real tablet screenshots', ['/assets/shots/antiqua-tablet.png','/assets/shots/antiqua-gallery-tablet.png','/assets/shots/fashion-management-dashboard-tablet.png','/assets/shots/fur-production-dashboard-tablet.png'].every((x) => content.includes(x)) && content.includes("id: 'furproduction'\n    name: 'FUR PRODUCTION OS',\n    device: 'ipad'")],
   ['Antiqua paintings-only public scope', content.includes('только для живописи') && v2.includes('paintings-only') && !/drawing|printmaking|engraving|рисунк|гравюр/i.test(content + v2)],
 ];
 
