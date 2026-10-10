@@ -64,31 +64,16 @@ for (const viewport of viewports) {
 
   const portfolio = page.locator('#v2-portfolio');
   const projectsSection = page.locator('#projects');
-  await portfolio.evaluate((element) => element.scrollIntoView({ block: 'center', behavior: 'instant' }));
+  const mediaSection = page.locator('#media');
 
-  assert(await portfolio.isVisible(), `${viewport.name}: portfolio is not visible`);
+  assert(!(await portfolio.isVisible()), `${viewport.name}: duplicate portfolio overview must stay hidden`);
+  assert(!(await mediaSection.isVisible()), `${viewport.name}: separate publications section must stay hidden`);
   assert(await projectsSection.isVisible(), `${viewport.name}: projects section is not visible`);
-  assert(await projectsSection.evaluate((element) => element.classList.contains('v2-project-index')), `${viewport.name}: projects is not a deep-dive index`);
+  assert(await projectsSection.evaluate((element) => element.classList.contains('v2-project-index')), `${viewport.name}: projects is not the unified deep-dive surface`);
+  assert(await page.locator('#v2-index-transition').count() === 0, `${viewport.name}: obsolete overview/deep-dive bridge is still present`);
 
-  const transition = page.locator('#v2-index-transition');
-  assert(await transition.isVisible(), `${viewport.name}: transition label is not visible`);
-  const transitionPlacement = await transition.evaluate((element) => element.previousElementSibling?.classList.contains('section-head') ?? false);
-  assert(transitionPlacement, `${viewport.name}: transition label is not placed after section heading`);
-
-  const sectionGap = await page.evaluate(() => {
-    const portfolioElement = document.querySelector('#v2-portfolio');
-    const projectsElement = document.querySelector('#projects');
-    if (!portfolioElement || !projectsElement) return Number.POSITIVE_INFINITY;
-    const portfolioRect = portfolioElement.getBoundingClientRect();
-    const projectsRect = projectsElement.getBoundingClientRect();
-    return Math.round(projectsRect.top - portfolioRect.bottom);
-  });
-  assert(sectionGap >= -2 && sectionGap <= 40, `${viewport.name}: portfolio/projects gap is ${sectionGap}px`);
-
-  const showMore = page.locator('#v2-portfolio-more');
-  if (await showMore.isVisible()) await clickInReadingPosition(page, showMore, `${viewport.name}: portfolio show more`);
-  const portfolioIds = await page.locator('#v2-portfolio-grid [data-v2-product]').evaluateAll((nodes) => nodes.map((node) => node.dataset.v2Product));
-  assert(JSON.stringify(portfolioIds) === JSON.stringify(projects), `${viewport.name}: portfolio order mismatch: ${portfolioIds.join(',')}`);
+  const startHead = page.locator('#v2-steps > .section-head.v2-start-head');
+  assert(await startHead.count() === 1, `${viewport.name}: start section does not use standard section-head styling`);
 
   const projectsMore = page.locator('#projects-more');
   if (await projectsMore.isVisible() && (await projectsMore.getAttribute('aria-expanded')) !== 'true') {
@@ -101,6 +86,7 @@ for (const viewport of viewports) {
     const card = indexCards.nth(index);
     assert(await card.evaluate((element) => element.classList.contains('v2-index-card')), `${viewport.name}: row ${index + 1} missing v2-index-card`);
     assert(await card.locator('.v2-index-card-head').count() === 1, `${viewport.name}: row ${index + 1} missing index head`);
+    assert(await card.locator('.v2-index-signals > div').count() === 4, `${viewport.name}: row ${index + 1} must contain four executive signals`);
     assert(await card.locator('.v2-index-primary .btn').count() >= 1, `${viewport.name}: row ${index + 1} missing primary action`);
     const more = card.locator('.v2-index-more');
     if (await more.count()) {
@@ -122,6 +108,30 @@ for (const viewport of viewports) {
     await page.locator('#modal-close').click();
   }
 
+  // Language switch must stay in-page: no reload, no transient viewport/body shrink.
+  await page.evaluate(() => { window.__v2LanguageSentinel = 'alive'; });
+  const langToggle = page.locator('#lang-toggle');
+  const beforeSwitch = await page.evaluate(() => ({
+    width: document.documentElement.getBoundingClientRect().width,
+    viewport: window.innerWidth,
+    scrollY: window.scrollY
+  }));
+  await clickInReadingPosition(page, langToggle, `${viewport.name}: language toggle`);
+  await page.waitForTimeout(260);
+  const afterSwitch = await page.evaluate(() => ({
+    sentinel: window.__v2LanguageSentinel,
+    lang: document.documentElement.lang,
+    path: location.pathname,
+    width: document.documentElement.getBoundingClientRect().width,
+    viewport: window.innerWidth
+  }));
+  assert(afterSwitch.sentinel === 'alive', `${viewport.name}: language switch caused a full reload`);
+  assert(afterSwitch.lang === 'en' && afterSwitch.path.startsWith('/en'), `${viewport.name}: language switch did not update language/path`);
+  assert(Math.abs(afterSwitch.width - beforeSwitch.width) <= 1, `${viewport.name}: page width changed during language switch ${beforeSwitch.width} -> ${afterSwitch.width}`);
+  assert(afterSwitch.viewport === beforeSwitch.viewport, `${viewport.name}: viewport width changed during language switch`);
+  assert(!(await portfolio.isVisible()), `${viewport.name}: portfolio duplicate became visible after language switch`);
+  assert(!(await mediaSection.isVisible()), `${viewport.name}: media duplicate became visible after language switch`);
+
   const overflow = await page.evaluate(() => ({
     scrollWidth: document.documentElement.scrollWidth,
     viewportWidth: window.innerWidth
@@ -130,8 +140,8 @@ for (const viewport of viewports) {
   assert(pageErrors.length === 0, `${viewport.name}: page errors: ${pageErrors.join(' | ')}`);
   assert(badResponses.length === 0, `${viewport.name}: HTTP errors: ${badResponses.join(' | ')}`);
 
-  await portfolio.screenshot({ path: `${outputDir}/portfolio-${viewport.name}.png` });
   await projectsSection.screenshot({ path: `${outputDir}/projects-${viewport.name}.png` });
+  await page.locator('#v2-steps').screenshot({ path: `${outputDir}/start-${viewport.name}.png` });
   await page.close();
 }
 
