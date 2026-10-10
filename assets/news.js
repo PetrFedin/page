@@ -5,6 +5,38 @@
 
 export const NEWS = [
   {
+    "id": "analysis-saint-laurent-creative-transition-2026-10-10",
+    "date": "2026-10-10",
+    "tag": "analysis",
+    "source": {
+      "outlet": "Kering / Saint Laurent",
+      "author": null,
+      "original": "Saint Laurent announces the departure of its creative director, Anthony Vaccarello",
+      "url": "https://www.kering.com/en/news/saint-laurent-announces-the-departure-of-its-creative-director-anthony-vaccarello/"
+    },
+    "ru": {
+      "tags": [
+        "разбор",
+        "luxury",
+        "закупки"
+      ],
+      "subject": "Официальное сообщение Kering от 9 октября 2026 года об уходе Энтони Ваккарелло с поста креативного директора Saint Laurent.",
+      "title": "Saint Laurent: смена креативного руководства — не повод закупать вслепую",
+      "body": "Факты источника · Kering, 9 октября 2026. Saint Laurent объявил об уходе Энтони Ваккарелло, который возглавлял креативное направление дома с 2016 года. Компания заявила, что новое креативное руководство будет объявлено позднее. В официальном сообщении нет прогноза продаж, информации о будущих коллекциях или пересмотре графика поставок.\n\nМой аналитический разбор. Для байера это прежде всего событие, повышающее неопределённость в планировании ассортимента, а не доказательство будущего роста или падения спроса. Реакция закупки должна зависеть от фактического sell-through, структуры остатков, доли повторяемых моделей, маржи после уценок и обязательств по размещённым заказам. Само по себе назначение нового креативного директора ещё не даёт оснований менять финансовый план.\n\nЧто проверить в закупках:\n• Отделить постоянно востребованные модели от сезонных fashion-позиций и экспериментальных артикулов.\n• Сверить открытый бюджет закупки, уже подтверждённые заказы и остатки по этим группам.\n• Оценивать решения по фактическому спросу, оборачиваемости и марже, а не по интенсивности обсуждения новости.\n• Запросить у бренда подтверждённые сведения о преемственности ассортимента и сроках следующих коллекций, прежде чем пересматривать новые заказы.\n\nГраница вывода. Kering пока не раскрыл имя преемника и коммерческие последствия решения. Любой точный прогноз влияния на продажи или цены без дополнительных данных был бы предположением.\n\nИсточник: https://www.kering.com/en/news/saint-laurent-announces-the-departure-of-its-creative-director-anthony-vaccarello/"
+    },
+    "en": {
+      "tags": [
+        "analysis",
+        "luxury",
+        "buying"
+      ],
+      "subject": "Kering's official 9 October 2026 statement on Anthony Vaccarello's departure as Saint Laurent creative director.",
+      "title": "Saint Laurent's creative transition: don't let headlines set the buying plan",
+      "body": "Source facts · Kering, 9 October 2026. Saint Laurent announced the departure of Anthony Vaccarello, who had led the House's creative direction since 2016. The company said new creative leadership would be announced later. Its statement did not provide a sales outlook, future collection details or a revised delivery timetable.\n\nMy analytical interpretation. For a buyer, this creates planning uncertainty; it is not evidence that demand will rise or fall. The purchasing response should be based on actual sell-through, inventory composition, the share of recurring styles, post-markdown margin and existing order commitments. A change in creative leadership alone is not a defensible reason to rewrite the financial plan.\n\nA buying-team checklist:\n• Separate proven carryover styles from seasonal fashion lines and experimental SKUs.\n• Reconcile open-to-buy, committed purchase orders and inventory by these groups.\n• Use observed demand, stock turns and margin rather than headline intensity to guide decisions.\n• Ask the brand for confirmed information on assortment continuity and forthcoming collection timings before revising new orders.\n\nLimit of the conclusion. Kering has not yet named a successor or disclosed commercial effects. Any precise forecast for sales or prices would be speculation without further evidence.\n\nSource: https://www.kering.com/en/news/saint-laurent-announces-the-departure-of-its-creative-director-anthony-vaccarello/"
+    }
+  },
+
+  {
     "id": "syntha-recompute-b2-2026-10-10",
     "date": "2026-10-10",
     "tag": "syntha",
