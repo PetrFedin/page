@@ -136,7 +136,7 @@ for (const viewport of viewports) {
     scrollWidth: document.documentElement.scrollWidth,
     viewportWidth: window.innerWidth
   }));
-  assert(overflow.scrollWidth === overflow.viewportWidth, `${viewport.name}: horizontal overflow ${overflow.scrollWidth}/${overflow.viewportWidth}`);
+  assert(overflow.scrollWidth <= overflow.viewportWidth, `${viewport.name}: horizontal overflow ${overflow.scrollWidth}/${overflow.viewportWidth}`);
   assert(pageErrors.length === 0, `${viewport.name}: page errors: ${pageErrors.join(' | ')}`);
   assert(badResponses.length === 0, `${viewport.name}: HTTP errors: ${badResponses.join(' | ')}`);
 
