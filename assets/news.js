@@ -5,6 +5,37 @@
 
 export const NEWS = [
   {
+    "id": "analysis-kering-csf-luxury-governance-decision-rights-2026-10-10",
+    "date": "2026-10-10",
+    "tag": "analysis",
+    "source": {
+      "outlet": "Kering / Centre for Sustainable Fashion",
+      "author": null,
+      "original": "Kering and the Center for Sustainable Fashion Explore New Ways of Decision-Making in the Luxury Industry",
+      "url": "https://www.kering.com/en/news/kering-et-le-center-for-sustainable-fashion-imaginent-de-nouvelles-facons-de-decider-dans-le-luxe/"
+    },
+    "ru": {
+      "tags": [
+        "разбор",
+        "luxury",
+        "управленческие решения"
+      ],
+      "subject": "Сообщение Kering от 7 октября 2026 года о программе Governance for Tomorrow совместно с Centre for Sustainable Fashion.",
+      "title": "Kering: luxury пересматривает не только продукт, но и правила принятия решений",
+      "body": "Факты источника · Kering, 7 октября 2026 года. Kering и Centre for Sustainable Fashion при London College of Fashion рассказали о встрече Governance for Tomorrow, состоявшейся 29 сентября в Лондоне. Исследовательская программа изучает, как учитывать более широкий круг мнений и знаний при управлении luxury-компаниями. Обсуждение было построено вокруг интересов будущих поколений, культурного опыта и роли природных экосистем. Источник описывает исследование и дискуссию, но не объявляет новую систему закупок или доказанный финансовый результат.\n\nМой аналитический разбор. В закупках моды спор обычно формулируют как выбор между креативностью и цифрами. На практике проблема глубже: кто вправе принять решение, на каких данных и кто отвечает за последствия после сезона? Расширение перспектив полезно только тогда, когда его переводят в проверяемую управленческую процедуру, а не в дополнительную презентацию.\n\nКак я применил бы это к ассортиментному решению:\n• До утверждения заказа отделил бы прогноз спроса от художественной гипотезы и зафиксировал степень неопределённости.\n• В карточке решения показал бы ожидаемую валовую маржу, потребность в оборотном капитале, риск уценки и альтернативы размещению заказа.\n• Добавил бы качественные ограничения по материалам, жизненному циклу и условиям производства с ответственным за проверку.\n• После сезона сверил бы фактический спрос, остатки и маржу с исходным решением, чтобы обсуждать качество процесса, а не искать виноватых задним числом.\n\nГраница вывода. Это моя модель применения идей Kering к коммерческому управлению, а не объявленная группой методология. В публикации нет подтверждения, что такие процедуры уже внедрены, и нет количественной оценки их эффекта.\n\nИсточник: https://www.kering.com/en/news/kering-et-le-center-for-sustainable-fashion-imaginent-de-nouvelles-facons-de-decider-dans-le-luxe/"
+    },
+    "en": {
+      "tags": [
+        "analysis",
+        "luxury",
+        "decision governance"
+      ],
+      "subject": "Kering's 7 October 2026 update on the Governance for Tomorrow programme with the Centre for Sustainable Fashion.",
+      "title": "Kering asks a bigger question: who gets to shape luxury decisions?",
+      "body": "Source facts · Kering, 7 October 2026. Kering and the Centre for Sustainable Fashion at London College of Fashion reported on a Governance for Tomorrow gathering held in London on 29 September. Their research programme explores how a broader range of voices and knowledge could inform governance in luxury. The discussion considered future generations, cultural perspectives and living ecosystems. The announcement describes research and dialogue; it does not report a deployed buying system or measured financial gains.\n\nMy analytical interpretation. Fashion buying is often presented as a contest between creative instinct and commercial data. A more useful question is who can approve a decision, with which evidence, and who revisits the outcome after the season. Broader perspectives matter only if they become an auditable decision process rather than an extra slide deck.\n\nHow I would apply this to assortment planning:\n• Separate the demand forecast from the creative hypothesis and record uncertainty before committing an order.\n• Put expected gross margin, working-capital exposure, markdown risk and alternative allocations into the decision record.\n• Add material, product-lifecycle and production constraints, with named owners responsible for verification.\n• After the season, compare demand, inventory and margin against the original assumptions; review the decision process, not just the people.\n\nLimit of the conclusion. This is my proposed commercial application of Kering's governance discussion, not a methodology the group says it has implemented. The source offers no evidence of adoption of these steps or a quantified economic impact.\n\nSource: https://www.kering.com/en/news/kering-et-le-center-for-sustainable-fashion-imaginent-de-nouvelles-facons-de-decider-dans-le-luxe/"
+    }
+  },
+  {
     "id": "analysis-saint-laurent-creative-transition-2026-10-10",
     "date": "2026-10-10",
     "tag": "analysis",
