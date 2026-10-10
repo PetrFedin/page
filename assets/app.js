@@ -849,7 +849,7 @@ function renderNow() {
   let idx = 0;
   const paint = () => {
     const p = recent[idx];
-    post.dataset.date = p.date;
+    post.dataset.date = postKey(p);
     post.title = postText(p).title;
     post.querySelector('.top-news-date').textContent = `${T[lang].nav.news}:`;
     post.querySelector('.top-news-title').textContent = postText(p).title;

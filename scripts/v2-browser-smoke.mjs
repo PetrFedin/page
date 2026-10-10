@@ -62,6 +62,12 @@ for (const viewport of viewports) {
     document.body.style.scrollBehavior = 'auto';
   });
 
+  // Each top-news teaser must link to the unique feed post key, not a shared date.
+  const topNewsKey = await page.locator('#top-news').getAttribute('data-date');
+  assert(Boolean(topNewsKey), `${viewport.name}: top-news has no stable post id`);
+  assert(await page.locator(`#feed .post[data-post="${topNewsKey}"]`).count() === 1,
+    `${viewport.name}: top-news item does not resolve to the visible feed post ${topNewsKey}`);
+
   const portfolio = page.locator('#v2-portfolio');
   const projectsSection = page.locator('#projects');
   const mediaSection = page.locator('#media');

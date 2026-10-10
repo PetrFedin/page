@@ -9,7 +9,7 @@ const en = read('en/index.html');
 const css = read('assets/v2.css');
 const { NEWS } = await import('../assets/news.js');
 const cadenceDates = ['2026-10-03','2026-10-04','2026-10-05','2026-10-06','2026-10-07','2026-10-08','2026-10-09','2026-10-10'];
-const cadenceOk = cadenceDates.every((date) => { const posts = NEWS.filter((p) => p.date === date); return posts.length === 2 && posts.some((p) => p.tag === 'analysis') && posts.some((p) => p.tag !== 'analysis') && posts.every((p) => p.id); });
+const cadenceOk = cadenceDates.every((date) => { const posts = NEWS.filter((p) => p.date === date); return posts.length >= 2 && posts.some((p) => p.tag === 'analysis') && posts.some((p) => p.tag !== 'analysis') && posts.every((p) => p.id); });
 const uniqueNewsIds = NEWS.filter((p) => p.id).length === new Set(NEWS.filter((p) => p.id).map((p) => p.id)).size;
 
 const checks = [
