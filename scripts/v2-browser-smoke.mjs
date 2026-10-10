@@ -132,6 +132,20 @@ for (const viewport of viewports) {
   assert(!(await portfolio.isVisible()), `${viewport.name}: portfolio duplicate became visible after language switch`);
   assert(!(await mediaSection.isVisible()), `${viewport.name}: media duplicate became visible after language switch`);
 
+  const screenshotAssets = [
+    '/assets/shots/antiqua-tablet.png',
+    '/assets/shots/antiqua-gallery-tablet.png',
+    '/assets/shots/fashion-management-dashboard-tablet.png',
+    '/assets/shots/fur-production-dashboard-tablet.png'
+  ];
+  const screenshotProof = await page.evaluate(async (paths) => Promise.all(paths.map((src) => new Promise((resolve) => {
+    const img = new Image();
+    img.onload = () => resolve({ src, ok: img.naturalWidth > 0 && img.naturalHeight > 0, width: img.naturalWidth, height: img.naturalHeight });
+    img.onerror = () => resolve({ src, ok: false, width: 0, height: 0 });
+    img.src = src + '?qa=' + Date.now();
+  }))), screenshotAssets);
+  assert(screenshotProof.every((item) => item.ok), `${viewport.name}: real screenshot asset failed: ${JSON.stringify(screenshotProof)}`);
+
   const overflow = await page.evaluate(() => ({
     scrollWidth: document.documentElement.scrollWidth,
     viewportWidth: window.innerWidth
