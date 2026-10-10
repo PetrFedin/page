@@ -2865,9 +2865,7 @@ export const PROJECTS = [
     id: 'fashionmgmt',
     name: 'Fashion Management OS',
     device: 'ipad',
-    shots: [
-      { src: '/assets/shots/fashion-management-dashboard-tablet.png', ru: 'Реальный интерфейс Fashion Management OS на iPad: рабочая сводка собственника', en: 'Real Fashion Management OS interface on iPad: owner dashboard' }
-    ],
+    shots: ['/assets/shots/fashion-management-dashboard-tablet.png'],
     ru: {
       roadmap: [{ label: 'Operational core', state: 'done' }, { label: 'Role/device QA', state: 'current' }, { label: 'Controlled rollout', state: 'next' }],
       tagline: 'Операционная система fashion-производства: коллекция, заказ, цеха, себестоимость и ликвидность',
@@ -2907,9 +2905,7 @@ export const PROJECTS = [
     id: 'furproduction',
     name: 'FUR PRODUCTION OS',
     device: 'ipad',
-    shots: [
-      { src: '/assets/shots/fur-production-dashboard-tablet.png', ru: 'Реальный интерфейс FUR PRODUCTION OS на iPad: сырьё, производство и себестоимость', en: 'Real FUR PRODUCTION OS interface on iPad: materials, production and cost' }
-    ],
+    shots: ['/assets/shots/fur-production-dashboard-tablet.png'],
     ru: {
       roadmap: [{ label: 'Data + operations core', state: 'done' }, { label: 'Operational QA', state: 'current' }, { label: 'Controlled production use', state: 'next' }],
       tagline: 'Производственная система для закупки сырья, конкретных партий, производства и фактической себестоимости',
@@ -2949,10 +2945,7 @@ export const PROJECTS = [
     id: 'antiqua',
     name: 'Antiqua',
     device: 'ipad',
-    shots: [
-      { src: '/assets/shots/antiqua-tablet.png', ru: 'Реальный интерфейс Antiqua на iPad: галерея и навигация', en: 'Real Antiqua interface on iPad: gallery and navigation' },
-      { src: '/assets/shots/antiqua-gallery-tablet.png', ru: 'Реальная галерея Antiqua на iPad', en: 'Real Antiqua gallery on iPad' }
-    ],
+    shots: ['/assets/shots/antiqua-tablet.png', '/assets/shots/antiqua-gallery-tablet.png'],
     ru: {
       roadmap: [{ label: 'Gallery-first core', state: 'done' }, { label: 'Trust / production admission', state: 'current' }, { label: 'External art pilot', state: 'next' }],
       tagline: 'Цифровая экосистема живописи, художников, коллекций и исследования искусства',
