@@ -5,6 +5,30 @@
 
 export const NEWS = [
   {
+    "id": "syntha-recompute-b2-2026-10-10",
+    "date": "2026-10-10",
+    "tag": "syntha",
+    "ru": {
+      "tags": [
+        "Syntha",
+        "операционный контроль",
+        "продукт"
+      ],
+      "title": "Syntha: запущен контролируемый контур фонового пересчёта",
+      "body": "В Syntha объединён этап B2 системы повторного расчёта изменений в продукте: выделенный фоновой обработчик подключён к PostgreSQL и включён в проверки готовности и завершения работы.\n\nПоказатели очереди различают ожидание, повтор, выполнение, истёкшую аренду и окончательно отклонённые задачи. Операции без зарегистрированного исполнителя не забираются из очереди — система сообщает, что не готова их выполнить.\n\nГраница: исполнителей бизнес-операций, публичного API и проверенного сквозного сценария в этом этапе ещё нет. Следующий шаг — отдельный исполнитель с независимой сверкой результата.\n\nПодтверждение: https://github.com/PetrFedin/synth-v2/commit/538f00281649ecb12204dd2064e8bc5414555c65"
+    },
+    "en": {
+      "tags": [
+        "Syntha",
+        "operational control",
+        "product"
+      ],
+      "title": "Syntha: supervised background recomputation is wired into the runtime",
+      "body": "Syntha merged B2 runtime supervision for Product Engineering recomputation: a dedicated background worker is registered in the PostgreSQL runtime, including readiness and graceful-shutdown checks.\n\nQueue metrics distinguish queued, retry, running, expired-lease and dead-letter work. Unsupported operations are not claimed; the system reports them as not ready rather than silently processing them.\n\nBoundary: there is no owning-domain adapter, public API or verified end-to-end recompute user flow yet. Next comes the first narrowly scoped adapter with independently verified results.\n\nEvidence: https://github.com/PetrFedin/synth-v2/commit/538f00281649ecb12204dd2064e8bc5414555c65"
+    }
+  },
+
+  {
     id: 'promomed-accessibility-performance-2026-10-10', date: '2026-10-10', tag: 'promomed',
     ru: { tags: ['СОСТОЯНИЕ', 'доступность', 'продукт'], title: '«СОСТОЯНИЕ»: доступность и performance вошли в обязательный quality gate', body: 'В проект добавлены keyboard-accessibility proof, skip-navigation, performance contract и responsive evidence. Это не новый экран ради экрана, а усиление готовности продукта к реальному институциональному использованию.\n\nЧто изменилось: Доступность клавиатурой и производительность теперь проверяются как часть admission, а не остаются пожеланием после релиза.\n\nЧто это даёт:\n• меньше риска, что рабочий интерфейс окажется неудобным для части аудитории;\n• качество подтверждается браузерным proof;\n• performance становится измеряемым требованием.' },
     en: { tags: ['SOSTOYANIE', 'accessibility', 'product'], title: 'SOSTOYANIE: accessibility and performance enter the mandatory quality gate', body: 'Keyboard-accessibility proof, skip navigation, a performance contract and responsive evidence are now part of the project.\n\nWhat changed: keyboard accessibility and performance are tested as admission requirements rather than post-release wishes.\n\nWhat it gives you:\n• lower usability risk;\n• browser-backed proof;\n• measurable performance requirements.' }
