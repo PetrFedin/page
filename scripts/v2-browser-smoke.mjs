@@ -81,6 +81,30 @@ for (const viewport of viewports) {
   const startHead = page.locator('#v2-steps > .section-head.v2-start-head');
   assert(await startHead.count() === 1, `${viewport.name}: start section does not use standard section-head styling`);
 
+  // Start choices should follow the editorial serif treatment, not heavy bold CTA typography.
+  const startModeTitles = page.locator('#v2-steps .v2-start-mode > strong');
+  assert(await startModeTitles.count() === 4, `${viewport.name}: expected four start modes`);
+  const startTypography = await startModeTitles.evaluateAll((elements) =>
+    elements.map((element) => ({
+      weight: Number(getComputedStyle(element).fontWeight),
+      family: getComputedStyle(element).fontFamily
+    }))
+  );
+  assert(startTypography.every(({ weight, family }) => weight <= 500 && family.includes('Georgia')),
+    `${viewport.name}: start cards should have normal/medium serif headings: ${JSON.stringify(startTypography)}`);
+  const emptyWeight = await page.locator('#v2-start-panel .v2-start-empty strong')
+    .evaluate((element) => Number(getComputedStyle(element).fontWeight));
+  assert(emptyWeight <= 500, `${viewport.name}: empty state has heavy bold typography: ${emptyWeight}`);
+
+  const firstStartMode = page.locator('#v2-steps .v2-start-mode').first();
+  if (await clickInReadingPosition(page, firstStartMode, `${viewport.name}: start mode`)) {
+    assert((await firstStartMode.getAttribute('aria-pressed')) === 'true',
+      `${viewport.name}: start mode was not selected`);
+    assert(await page.locator('#v2-start-panel .v2-start-selected').count() === 1,
+      `${viewport.name}: start checklist did not open`);
+  }
+  await page.locator('#v2-steps').screenshot({ path: `${outputDir}/start-ru-${viewport.name}.png` });
+
   const projectsMore = page.locator('#projects-more');
   if (await projectsMore.isVisible() && (await projectsMore.getAttribute('aria-expanded')) !== 'true') {
     await clickInReadingPosition(page, projectsMore, `${viewport.name}: projects show more`);
@@ -156,6 +180,10 @@ for (const viewport of viewports) {
   assert(afterSwitch.viewport === beforeSwitch.viewport, `${viewport.name}: viewport width changed during language switch`);
   assert(!(await portfolio.isVisible()), `${viewport.name}: portfolio duplicate became visible after language switch`);
   assert(!(await mediaSection.isVisible()), `${viewport.name}: media duplicate became visible after language switch`);
+  const englishStartWeights = await page.locator('#v2-steps .v2-start-mode > strong')
+    .evaluateAll((elements) => elements.map((element) => Number(getComputedStyle(element).fontWeight)));
+  assert(englishStartWeights.length === 4 && englishStartWeights.every((weight) => weight <= 500),
+    `${viewport.name}: EN start-card headings became too bold: ${englishStartWeights.join(', ')}`);
 
   const screenshotAssets = [
     '/assets/shots/antiqua-tablet.png',
