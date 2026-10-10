@@ -7,6 +7,10 @@ const index = read('index.html');
 const content = read('assets/content.js');
 const en = read('en/index.html');
 const css = read('assets/v2.css');
+const { NEWS } = await import('../assets/news.js');
+const cadenceDates = ['2026-10-03','2026-10-04','2026-10-05','2026-10-06','2026-10-07','2026-10-08','2026-10-09','2026-10-10'];
+const cadenceOk = cadenceDates.every((date) => { const posts = NEWS.filter((p) => p.date === date); return posts.length === 2 && posts.some((p) => p.tag === 'analysis') && posts.some((p) => p.tag !== 'analysis') && posts.every((p) => p.id); });
+const uniqueNewsIds = NEWS.filter((p) => p.id).length === new Set(NEWS.filter((p) => p.id).map((p) => p.id)).size;
 
 const checks = [
   ['portfolio heading', v2.includes("'Что уже построено'") && v2.includes("'Продукты'")],
@@ -14,6 +18,8 @@ const checks = [
   ['portfolio show more control', v2.includes("id=\"v2-portfolio-more\"") && v2.includes("'Показать ещё'") && v2.includes("'Свернуть'")],
   ['detailed projects progressive reveal', app.includes('let projectsExpanded = false;') && app.includes('const PROJECTS_FIRST = 3;')],
   ['news progressive reveal', app.includes('function newsFirst() { return 3; }') && app.includes("$('#news-more').addEventListener('click'")],
+  ['editorial cadence Oct 3-10', cadenceOk],
+  ['unique feed ids', uniqueNewsIds && app.includes('const postKey = (post)') && app.includes('postKey(p)')],
   ['RU portfolio terminology', ['Мода','Корпоративные','События','Потребительские','Финтех','Искусство','Инфраструктура','Готов к пилоту'].every((x) => v2.includes(x))],
   ['stakeholder routes', ['client','ceo','investor','partner'].every((x) => v2.includes(`id:"${x}"`) || v2.includes(`"id":"${x}"`))],
   ['executive evidence', ['Проблема','Продукт','Подтверждение','Текущая стадия','Следующий этап','Коммерческий путь','Что требуется от партнёра / инвестора'].every((x) => v2.includes(x))],
@@ -41,7 +47,7 @@ const checks = [
   ['premium project index', ['installProjectIndexPolish','v2-project-index','v2-index-transition','v2-index-card','v2-index-more'].every((x) => v2.includes(x) || css.includes(x))],
   ['project index rerender safety', v2.includes('new MutationObserver(apply)') && v2.includes("observer.observe(cards, { childList: true })") && v2.includes("querySelectorAll(':scope > .card')")],
   ['project index action safety', v2.includes("e.target.closest('.v2-index-more > summary')") && v2.includes('e.stopPropagation()') && v2.includes('details.open = !details.open')],
-  ['project index bridge placement', v2.includes("section.querySelector(':scope > .section-head')") && v2.includes('head.after(bridge)')],
+  ['obsolete project bridge removed', v2.includes("$('#v2-index-transition')?.remove()") && !v2.includes('head.after(bridge)')],
   ['portfolio density polish', css.includes('V2.22 portfolio → projects premium transition') && css.includes('aspect-ratio:16/6')],
   ['editorial vertical rhythm', css.includes('V2.23 editorial vertical-rhythm polish') && css.includes('#consulting .services{grid-template-columns:repeat(6,minmax(0,1fr))}') && css.includes('#contact{padding-top:58px;padding-bottom:58px}')],
   ['one visible project surface', v2.includes("'#projects', '#investors', '#news'") && !v2.includes("'#v2-portfolio', '#projects', '#investors'") && css.includes('#v2-portfolio') && css.includes('display:none!important')],
