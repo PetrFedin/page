@@ -130,6 +130,12 @@ for (const viewport of viewports) {
     }
   }
 
+  // Every project logo remains a real SVG brand mark and both ERP gallery routes stay available.
+  for (const projectId of ['fashionmgmt','furproduction','antiqua']) {
+    const logo = page.locator(`#cards > .card[data-project="${projectId}"] .card-logo svg`);
+    assert(await logo.count() === 1, `${viewport.name}: missing dedicated SVG logo for ${projectId}`);
+  }
+
   const firstOpen = indexCards.first().locator('[data-open]');
   const dossierClick = await clickInReadingPosition(page, firstOpen, `${viewport.name}: first dossier`);
   const modal = page.locator('#modal');

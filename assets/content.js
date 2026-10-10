@@ -2865,7 +2865,7 @@ export const PROJECTS = [
     id: 'fashionmgmt',
     name: 'Fashion Management OS',
     device: 'ipad',
-    shots: ['/assets/shots/fashion-management-dashboard-tablet.png'],
+    shots: ['/assets/shots/fashion-management-dashboard-tablet.png', '/assets/shots/fashion-management-orders-tablet.png'],
     ru: {
       roadmap: [{ label: 'Operational core', state: 'done' }, { label: 'Role/device QA', state: 'current' }, { label: 'Controlled rollout', state: 'next' }],
       tagline: 'Операционная система fashion-производства: коллекция, заказ, цеха, себестоимость и ликвидность',
@@ -2905,7 +2905,7 @@ export const PROJECTS = [
     id: 'furproduction',
     name: 'FUR PRODUCTION OS',
     device: 'ipad',
-    shots: ['/assets/shots/fur-production-dashboard-tablet.png'],
+    shots: ['/assets/shots/fur-production-dashboard-tablet.png', '/assets/shots/fur-production-stock-tablet.png'],
     ru: {
       roadmap: [{ label: 'Data + operations core', state: 'done' }, { label: 'Operational QA', state: 'current' }, { label: 'Controlled production use', state: 'next' }],
       tagline: 'Производственная система для закупки сырья, конкретных партий, производства и фактической себестоимости',
