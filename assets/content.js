@@ -692,7 +692,7 @@ export const T = {
       copied: 'Ссылка скопирована',
       /* Подпись уходит вместе со ссылкой: репост должен вести к автору. */
       shareSign: 'Пётр Федин · syntha.pro',
-      tags: { analysis: 'Разбор', market: 'Рынок', product: 'Продукт', syntha: 'Syntha', renova: 'Renova', chatx: 'ChatX', mission: 'Позиция', investors: 'Инвесторам', pilots: 'Пилоты', press: 'Пресса' }
+      tags: { analysis: 'Разбор', market: 'Рынок', product: 'Продукт', syntha: 'Syntha', renova: 'Renova', chatx: 'ChatX', mfw: 'MFW', promomed: 'СОСТОЯНИЕ', fashionmgmt: 'Fashion Management OS', furproduction: 'FUR PRODUCTION OS', antiqua: 'Antiqua', mission: 'Позиция', investors: 'Инвесторам', pilots: 'Пилоты', press: 'Пресса' }
     },
     needCheck: {
       "chatx": {
@@ -1950,7 +1950,7 @@ export const T = {
       shareIn: { tg: 'To Telegram', wa: 'To WhatsApp', copy: 'Copy link' },
       copied: 'Link copied',
       shareSign: 'Petr Fedin · syntha.pro',
-      tags: { analysis: 'Analysis', market: 'Market', product: 'Product', syntha: 'Syntha', renova: 'Renova', chatx: 'ChatX', mission: 'Position', investors: 'For investors', pilots: 'Pilots', press: 'Press' }
+      tags: { analysis: 'Analysis', market: 'Market', product: 'Product', syntha: 'Syntha', renova: 'Renova', chatx: 'ChatX', mfw: 'MFW', promomed: 'SOSTOYANIE', fashionmgmt: 'Fashion Management OS', furproduction: 'FUR PRODUCTION OS', antiqua: 'Antiqua', mission: 'Position', investors: 'For investors', pilots: 'Pilots', press: 'Press' }
     },
     needCheck: {
       "chatx": {

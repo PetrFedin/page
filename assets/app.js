@@ -1209,7 +1209,7 @@ const filteredNews = () => {
 function renderNewsFilters() {
   const t = T[lang].news;
   const present = [...new Set(SITE_NEWS.filter(hasLang).map((p) => p.tag))];
-  const order = ['analysis', 'market', 'product', 'syntha', 'chatx', 'renova', 'mission', 'investors', 'pilots', 'press'];
+  const order = ['analysis', 'market', 'product', 'syntha', 'chatx', 'renova', 'mfw', 'promomed', 'fashionmgmt', 'furproduction', 'antiqua', 'mission', 'investors', 'pilots', 'press'];
   const cats = order.filter((k) => present.includes(k));
   $('#news-filters').innerHTML = `
     <button type="button" class="news-filter" data-filter="" aria-pressed="${!newsFilter}">${t.filterAll}</button>
