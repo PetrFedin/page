@@ -108,6 +108,25 @@ for (const viewport of viewports) {
     await page.locator('#modal-close').click();
   }
 
+  const realProjectShots = [
+    ['antiqua', '/assets/shots/antiqua-tablet.png'],
+    ['fashionmgmt', '/assets/shots/fashion-management-dashboard-tablet.png'],
+    ['furproduction', '/assets/shots/fur-production-dashboard-tablet.png']
+  ];
+  for (const [projectId, expectedShot] of realProjectShots) {
+    const projectCard = page.locator(`#cards > .card[data-project="${projectId}"]`);
+    assert(await projectCard.count() === 1, `${viewport.name}: missing project row ${projectId}`);
+    const opened = await clickInReadingPosition(page, projectCard.locator('[data-open]'), `${viewport.name}: open ${projectId} dossier`);
+    if (opened) {
+      const shot = page.locator('#gallery img').first();
+      await shot.waitFor({ state: 'visible', timeout: 10000 });
+      const shotState = await shot.evaluate((img) => ({ src: new URL(img.src).pathname, width: img.naturalWidth, height: img.naturalHeight }));
+      assert(shotState.src === expectedShot && shotState.width > 0 && shotState.height > 0,
+        `${viewport.name}: ${projectId} is not rendering the verified real screenshot: ${JSON.stringify(shotState)}`);
+      await page.locator('#modal-close').click();
+    }
+  }
+
   // Language switch must stay in-page: no reload, no transient viewport/body shrink.
   await page.evaluate(() => { window.__v2LanguageSentinel = 'alive'; });
   const langToggle = page.locator('#lang-toggle');
