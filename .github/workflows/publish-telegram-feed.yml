@@ -1,0 +1,29 @@
+name: Publish new feed posts to Telegram
+
+on:
+  push:
+    branches: [syntha-v2-preview-product-refresh]
+    paths:
+      - 'assets/news.js'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  telegram:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHANNEL_ID: ${{ secrets.TELEGRAM_CHANNEL_ID }}
+      PUBLIC_FEED_URL: https://syntha-v2-preview-petr.netlify.app/?v=2
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Publish newly added feed records
+        run: node scripts/publish-telegram-feed.mjs
