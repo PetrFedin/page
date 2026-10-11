@@ -2693,7 +2693,7 @@ export const PROJECTS = [
       investor: { note: 'Рассматриваю разные форматы: долевые инвестиции, спонсорство, покупку продукта или доли, маркетинговое партнёрство, интеграцию с другими продуктами. Разговор возможен уже сейчас; точные условия фиксирую по согласованным метрикам пилота.' },
       roadmap: [{ label: 'Прототип', state: 'done' }, { label: 'Рабочая система', state: 'done' }, { label: 'Готовится к пилоту', state: 'current' }, { label: 'Пилот и запуск', state: 'next' }],
       tagline: 'От разработки модели и техпакета до оптового заказа и экономики бренда',
-      stage: 'Рабочая PLM/B2B-платформа · внешний пилот впереди',
+      stage: 'Рабочая PLM/B2B · пилот впереди',
       card: 'Syntha связывает разработку модели, коллекцию, шоурум и оптовый заказ. Новые проверки помогают сверять опубликованные размерные карты, материалы и зависимости техпакета, но не утверждают решения за человека. Следующий рубеж — реальный сезон с брендом.',
       what: 'B2B-платформа для бренда и его партнёров, которая связывает разработку продукта, работу с коллекцией, продажи, исполнение заказа, производство и экономику в одном управляемом контуре.',
       who: 'Брендам и производствам, которым важно связать разработку продукта с продажей; розничным сетям, мультибрендовым байерам и дистрибьюторам, которым нужны подтверждённые цена, доступность, заказ и поставка.',
@@ -2711,7 +2711,7 @@ export const PROJECTS = [
       investor: { note: 'I will consider several formats: equity investment, sponsorship, buying the product or a stake, marketing partnerships and integration with other products. We can talk now; I fix exact terms against agreed pilot metrics.' },
       roadmap: [{ label: 'Prototype', state: 'done' }, { label: 'Working system', state: 'done' }, { label: 'Preparing for a pilot', state: 'current' }, { label: 'Pilot and launch', state: 'next' }],
       tagline: 'From product development and tech packs to wholesale orders and brand economics',
-      stage: 'Working PLM/B2B platform · external pilot ahead',
+      stage: 'Working PLM/B2B · pilot ahead',
       card: 'Syntha connects model development, collections, showrooms and wholesale orders. New checks review published measurement and material revisions and tech-pack dependencies without approving design decisions for people. A real-season brand pilot comes next.',
       what: 'A B2B operating platform for brands and their partners, connecting product development, collection work, sales, order execution, production and economics in one governed workflow.',
       who: 'Brands, retail chains, multi-brand buyers, distributors and manufacturers. Each has its own role and access rights.',
@@ -2813,7 +2813,7 @@ export const PROJECTS = [
     ru: {
       roadmap: [{ label: 'Единая платформа', state: 'done' }, { label: 'Подключение и проверка PostgreSQL', state: 'current' }, { label: 'Пилот на реальном событии', state: 'next' }],
       tagline: 'Единая цифровая платформа для Недели моды в Москве, BRICS+ Fashion Summit и «Сделано в Москве»',
-      stage: 'Рабочая демонстрация трёх направлений · production-база не подключена',
+      stage: 'Preview трёх событий · база не готова',
       card: 'Неделя моды в Москве, BRICS+ Fashion Summit и «Сделано в Москве» объединены в одной цифровой среде. Гость составляет личный маршрут, бренд продолжает общение с аудиторией после показа. Интерфейс проверен на разных устройствах, но постоянная база для реального события пока не допущена.',
       what: 'Цифровая экосистема вокруг MFW, BRICS+ Fashion Summit и «Сделано в Москве». Один аккаунт связывает программу, личный маршрут, взаимодействие с брендами, B2B и работу с аудиторией между событиями.',
       who: 'Организаторам — единая витрина и сводные цифры по обоим событиям. Брендам и дизайнерам — аудитория, которая остаётся после показа, и подтверждённый профиль в «Сделано в Москве». Площадкам и партнёрам — заметный вклад и путь от встречи к лиду. Гостям — один аккаунт, личная программа и цифровой пропуск. Та же основа подходит другим городам, форматам и отраслям, где событие — ядро бизнеса.',
@@ -2824,7 +2824,7 @@ export const PROJECTS = [
     en: {
       roadmap: [{ label: 'Unified platform', state: 'done' }, { label: 'PostgreSQL admission', state: 'current' }, { label: 'Real-event pilot', state: 'next' }],
       tagline: 'One digital platform for Moscow Fashion Week, BRICS+ Fashion Summit and Made in Moscow',
-      stage: 'Three-event preview · production database not admitted',
+      stage: 'Three-event preview · database pending',
       card: 'Moscow Fashion Week, BRICS+ Fashion Summit and Made in Moscow share one digital environment. Guests can plan their programme and brands can maintain connections after a show. The responsive preview works, but the production database and real-event operations are not admitted.',
       what: 'A digital ecosystem around MFW, BRICS+ Fashion Summit and Made in Moscow. One account connects programme, personal agenda, brand interaction, B2B and audience continuity between events.',
       who: 'Organisers get a single showcase and joint figures for both events. Brands and designers get an audience that outlasts the show, and a verified profile in Made in Moscow. Venues and partners get a visible contribution and a traceable path from meeting to lead. Guests get one account, a personal programme and a digital pass. The same foundation suits other cities, formats and industries where an event is the core of the business.',
@@ -2841,7 +2841,7 @@ export const PROJECTS = [
     ru: {
       tagline: '«СОСТОЯНИЕ» — сообщество и ежегодная конференция о здоровье и качестве жизни',
       roadmap: [{ label: 'Рабочая версия v1.4', state: 'done' }, { label: 'Надёжность данных и подготовка пилота', state: 'current' }, { label: 'Контролируемый запуск', state: 'next' }],
-      stage: 'Рабочая демоверсия v1.4 · постоянная база и пилот впереди',
+      stage: 'Демо v1.4 · пилот впереди',
       card: '«СОСТОЯНИЕ» соединяет круглогодичный контент, программу конференции, личный маршрут участника и работу партнёров. Разработаны инструменты проверки доказательств и подготовки решений организатора, улучшена доступность. Для реального запуска ещё нужны постоянная база и контролируемый пилот.',
       what: 'Цифровая среда для круглогодичной работы с аудиторией и проведения конференции: контент, программа, персональный маршрут, бронирования, работа площадки, партнёрский кабинет, продолжение взаимодействия после события и аналитика.',
       who: 'Организатору — единый контур регистрации, программы, посещения и последующего взаимодействия. Участнику — персональный маршрут и материалы по интересам. Партнёру — прозрачный сценарий присутствия и контакты только с согласия человека.',
@@ -2852,7 +2852,7 @@ export const PROJECTS = [
     en: {
       roadmap: [{ label: 'Working v1.4', state: 'done' }, { label: 'Durability and pilot preparation', state: 'current' }, { label: 'Controlled launch', state: 'next' }],
       tagline: '“SOSTOYANIE” — a year-round health-media and conference operating platform',
-      stage: 'Working v1.4 demo · durable data and pilot ahead',
+      stage: 'Demo v1.4 · pilot ahead',
       card: 'SOSTOYANIE connects year-round content, conference programming, attendee journeys and partner workspaces. Organiser diligence, evidence checks and accessibility have progressed. Durable production data and a controlled pilot are still separate admission gates.',
       what: 'A digital environment for year-round audience engagement and conference operations: content, programme, personal journey, booking, venue operations, partner workspace, post-event continuation and analytics.',
       who: 'Promomed gains a standing link with clients and partners, and a conference whose figures are visible in real time. Participants get a route and materials matched to their interests. Partners get a clear return on attendance, with leads shared only by consent. The same model suits other industries where a conference is the core of the relationship with the audience.',
@@ -2870,7 +2870,7 @@ export const PROJECTS = [
     ru: {
       roadmap: [{ label: 'Производственный и финансовый контур', state: 'done' }, { label: 'Проверка ролей и развёртывания', state: 'current' }, { label: 'Контролируемое использование', state: 'next' }],
       tagline: 'Операционная система fashion-производства: коллекция, заказ, цеха, себестоимость и ликвидность',
-      stage: 'Рабочая система · проверка ролей и развёртывания',
+      stage: 'Рабочая система · проверка ролей',
       card: 'Закрытая система для модного дома: от разработки модели и заказа до цехов, примерок, себестоимости и денежного плана. Уже есть разграничение ролей, история действий и фиксированная себестоимость закрытого заказа. Теперь важно сверить версию на сервере и проверить ежедневные сценарии с командой.',
       what: 'Custom Fashion Management OS: каталог и разработка модели → заказ → производственные операции → материалы и закупки → примерки → платежи → Plan/Fact/CTC/Forecast → WIP/capacity → 13-недельная ликвидность → month close → управленческие эффекты и audit trail.',
       who: 'Fashion house / atelier / производственной компании, где собственнику, операционному и производственному руководству нужна одна версия заказа, загрузки, затрат и денежных обязательств, а цехам — свой ограниченный рабочий контур.',
@@ -2887,7 +2887,7 @@ export const PROJECTS = [
     en: {
       roadmap: [{ label: 'Operational and financial core', state: 'done' }, { label: 'Role and deployment verification', state: 'current' }, { label: 'Controlled use', state: 'next' }],
       tagline: 'A fashion-production operating system connecting collection, orders, workshops, cost and liquidity',
-      stage: 'Working system · role and deployment verification',
+      stage: 'Working system · role QA',
       card: 'A confidential couture operating system covering product models, client orders, workshops, fittings, cost and cash planning. Role boundaries, audit history and frozen final order cost are implemented. Deployment parity and daily multi-role use remain to be verified.',
       what: 'A custom Fashion Management OS: catalogue/model development → order → production operations → materials/procurement → fittings → payments → Plan/Actual/CTC/Forecast → WIP/capacity → 13-week liquidity → month close → benefit register and audit trail.',
       who: 'A fashion house, atelier or production business that needs one version of order, capacity, cost and cash obligations for management while each workshop receives a bounded operating surface.',
@@ -2911,7 +2911,7 @@ export const PROJECTS = [
     ru: {
       roadmap: [{ label: 'Учёт партий и производства', state: 'done' }, { label: 'Сверка данных и рабочих сценариев', state: 'current' }, { label: 'Подтверждённое production-использование', state: 'next' }],
       tagline: 'Производственная система для закупки сырья, конкретных партий, производства и фактической себестоимости',
-      stage: 'Рабочая ERP · сверка расчётов и production-допуск',
+      stage: 'Рабочая ERP · сверка данных',
       card: 'Система связывает закупку конкретной партии сырья, склад, списание, выпуск изделия и фактическую себестоимость. Разработка продолжается: выравниваются показатели на разных экранах, карточки изделий и работа с оплатами. Для использования как единственного источника данных нужны полная сверка и техническая приёмка.',
       what: 'Vertical ERP: supplier/procurement → purchase cost components → raw-material lot → stock movements → model/BOM/norm → production order → lot-specific material usage → production expenses → finished goods → fittings → payments/documents → audit and recovery.',
       who: 'Производству с дорогим неоднородным сырьём, где стоимость одной единицы сильно зависит от конкретной партии, происхождения, валюты и дополнительных расходов и поэтому средневзвешенный складской учёт и ручной Excel дают искажённую экономику.',
@@ -2928,7 +2928,7 @@ export const PROJECTS = [
     en: {
       roadmap: [{ label: 'Lot and production accounting', state: 'done' }, { label: 'Data and workflow reconciliation', state: 'current' }, { label: 'Admitted production use', state: 'next' }],
       tagline: 'A vertical ERP for raw-material procurement, specific lots, production and actual cost',
-      stage: 'Working ERP · reconciliation and production admission',
+      stage: 'Working ERP · reconciliation',
       card: 'The system connects specific raw-material purchases, stock, consumption, finished goods and actual costing. Current work improves consistency across dashboards, product records and payment flows. Reconciliation, recovery and production admission remain prerequisites for exclusive operational use.',
       what: 'Vertical ERP: supplier/procurement → purchase cost components → raw-material lot → stock movements → model/BOM/norm → production order → lot-specific material usage → production expenses → finished goods → fittings → payments/documents → audit and recovery.',
       who: 'Production businesses using expensive heterogeneous raw material where unit economics depend on the exact batch, origin, currency and additional costs, making average-cost inventory or spreadsheet reconciliation insufficient.',
@@ -2952,8 +2952,8 @@ export const PROJECTS = [
     ru: {
       roadmap: [{ label: 'Галерея, произведения и коллекции', state: 'done' }, { label: 'Подтверждение базы и сохранности', state: 'current' }, { label: 'Пилот реальной коллекции', state: 'next' }],
       tagline: 'Цифровая экосистема живописи, художников, коллекций и исследования искусства',
-      stage: 'Галерея и исследовательская платформа MVP · production-допуск заблокирован',
-      card: 'Antiqua помогает изучать живопись через художников, историю, связанные произведения и коллекции, а не листать бесконечный каталог продаж. Основной путь просмотра работает. Но сначала требуется доказать принадлежность отдельной базы, целостность записей и сохранность после перезапуска. Затем — пилот реальной коллекции.',
+      stage: 'Gallery MVP · production не допущен',
+      card: 'Antiqua — цифровая галерея только для живописи. Она помогает изучать произведения через художников, историю, связанные работы и коллекции, а не листать бесконечный каталог продаж. Основной путь просмотра работает. Но сначала требуется доказать принадлежность отдельной базы, целостность записей и сохранность после перезапуска. Затем — пилот реальной коллекции.',
       what: 'Art-tech / research platform: Gallery → Artwork → Artist → Related Works → Save → Collection → Taste → Learn. Публичный scope — только живопись в утверждённых painterly media: oil, acrylic, tempera, watercolor, gouache и pastel. Карточка Artwork строится вокруг изображения, атрибуции, техники/материалов, периода, истории, provenance, источников, related works, коллекций и research context. Commerce — отдельный слой, а не authority над содержанием.',
       who: 'Коллекционерам и ценителям искусства — для глубокого discovery и личных коллекций; галереям и художникам — для качественной цифровой репрезентации; кураторам, историкам искусства и исследователям — для структурированного контекста и доказательной работы с произведением.',
       why: 'Обычный арт-каталог часто сводит произведение к изображению, автору, размеру и цене. Antiqua проектируется вокруг более длинной связи: почему работа важна, как она связана с автором и периодом, что известно о provenance, какие существуют related works и куда пользователь может углубиться дальше.',
@@ -2969,7 +2969,7 @@ export const PROJECTS = [
     en: {
       roadmap: [{ label: 'Gallery, artworks and collections', state: 'done' }, { label: 'Database identity and durability', state: 'current' }, { label: 'Real-collection pilot', state: 'next' }],
       tagline: 'A digital ecosystem for paintings, artists, collections and art research',
-      stage: 'Gallery-first research MVP · production admission blocked',
+      stage: 'Gallery MVP · production blocked',
       card: 'Antiqua lets people explore paintings through artists, history, related works and collections rather than a generic sales catalogue. The core discovery journey works in preview, but the dedicated database identity and persistence must be proved before a real-gallery pilot.',
       what: 'An art-tech / research platform: Gallery → Artwork → Artist → Related Works → Save → Collection → Taste → Learn. The public scope is paintings only in approved painterly media: oil, acrylic, tempera, watercolor, gouache and pastel. The Artwork record centres on imagery, attribution, technique/materials, period, history, provenance, sources, related works, collections and research context. Commerce remains a separate layer rather than an authority over content.',
       who: 'Collectors and art enthusiasts for deep discovery and personal collections; galleries and artists for high-quality digital representation; curators, art historians and researchers for structured context and evidence-based work around artworks.',
