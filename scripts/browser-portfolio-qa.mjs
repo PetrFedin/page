@@ -26,7 +26,21 @@ for(const lang of ['ru','en']){
     assert.equal(grid[3].y,grid[4].y,'desktop second line has 2 cards');
     assert.ok(grid[3].w>grid[0].w,'two last items fill row');
   }
-  if(width===375)assert.equal(new Set(grid.map(n=>n.x)).size,1,'mobile stack');
+  if(width===375){
+    // Existing phone UX intentionally uses horizontal snap cards, not a vertical stack.
+    const track=page.locator('#services');
+    const dimensions=await track.evaluate(el=>({scrollWidth:el.scrollWidth,clientWidth:el.clientWidth}));
+    assert.ok(dimensions.scrollWidth>dimensions.clientWidth+4,'mobile consulting carousel scrollable');
+    const dots=page.locator('#services + .snap-dots button');
+    await dots.first().waitFor();
+    assert.equal(await dots.count(),5,'five consultation slides have navigation dots');
+    assert.equal(new Set(grid.map(n=>n.y)).size,1,'cards share one horizontal rail');
+    await track.evaluate(el=>{el.scrollLeft=el.scrollWidth;});
+    await page.waitForFunction(()=>{const el=document.querySelector('#services');return el.scrollLeft>el.clientWidth;});
+    const activeAfterScroll=await page.locator('#services + .snap-dots [aria-current="true"]').count();
+    assert.equal(activeAfterScroll,1,'one active consultation slide after swipe');
+    await track.evaluate(el=>{el.scrollLeft=0;});
+  }
   await page.locator('#projects-more').click();
   assert.equal(await page.locator('#cards>.card').count(),11,'all eleven cards rendered');
   for(const id of projects){
