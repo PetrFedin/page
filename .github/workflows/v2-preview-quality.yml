@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - syntha-v2-preview-product-refresh
+      - page-v2-p0-user-journeys-release-gate
   pull_request:
     branches:
       - main
@@ -69,6 +70,12 @@ jobs:
           V2_QA_OUTPUT: artifacts/v2-browser
         run: node scripts/v2-browser-smoke.mjs
 
+      - name: Cross-device contact journey admission (RU and EN)
+        env:
+          V2_SITE_ORIGIN: http://127.0.0.1:4321
+          V2_QA_OUTPUT: artifacts/v2-browser
+        run: node scripts/v2-contact-journey.mjs
+
       - name: Upload visual QA evidence
         if: always()
         uses: actions/upload-artifact@v4
@@ -78,15 +85,18 @@ jobs:
           if-no-files-found: warn
           retention-days: 14
 
+      - name: Stamp exact admitted head for release verification
+        run: echo "$GITHUB_SHA" > v2-build-sha.txt
+
       - name: Deploy admitted V2 to Netlify preview
-        if: github.event_name != 'pull_request'
+        if: github.event_name == 'push' && github.ref == 'refs/heads/syntha-v2-preview-product-refresh'
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: 4025c165-6b18-41c5-b69b-ba056cc7fbc8
         run: |
           if [ -z "${NETLIFY_AUTH_TOKEN:-}" ]; then
-            echo "NETLIFY_AUTH_TOKEN is not configured; exact-head deploy remains blocked." | tee -a "$GITHUB_STEP_SUMMARY"
-            exit 0
+            echo "DEPLOY BLOCKED: NETLIFY_AUTH_TOKEN is not configured. Browser and contract quality may pass, but this branch has NOT been published." | tee -a "$GITHUB_STEP_SUMMARY"
+            exit 1
           fi
           npx --yes netlify-cli deploy \
             --dir . \
@@ -98,16 +108,14 @@ jobs:
           echo "Deployed exact head \`$GITHUB_SHA\` after build, contract and browser admission." >> "$GITHUB_STEP_SUMMARY"
 
       - name: Verify public preview when deployed
-        if: github.event_name != 'pull_request'
+        if: github.event_name == 'push' && github.ref == 'refs/heads/syntha-v2-preview-product-refresh'
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
         run: |
-          if [ -z "${NETLIFY_AUTH_TOKEN:-}" ]; then
-            exit 0
-          fi
           for attempt in {1..30}; do
-            if curl --fail --silent --show-error 'https://syntha-v2-preview-petr.netlify.app/?v=2&qa=post-deploy' > /dev/null; then
-              echo "Public preview responded successfully." >> "$GITHUB_STEP_SUMMARY"
+            published_sha="$(curl --fail --silent --show-error --max-time 10 'https://syntha-v2-preview-petr.netlify.app/v2-build-sha.txt' || true)"
+            if [ "$published_sha" = "$GITHUB_SHA" ]; then
+              echo "Public Netlify V2 confirmed at exact admitted SHA: $GITHUB_SHA" >> "$GITHUB_STEP_SUMMARY"
               exit 0
             fi
             sleep 2

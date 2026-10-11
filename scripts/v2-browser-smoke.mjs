@@ -3,7 +3,7 @@ import { chromium } from 'playwright';
 
 const baseUrl = process.env.V2_BASE_URL || 'http://127.0.0.1:4321/?v=2&qa=ci';
 const outputDir = process.env.V2_QA_OUTPUT || 'artifacts/v2-browser';
-const projects = ['syntha', 'fashionmgmt', 'furproduction', 'mfw', 'promomed', 'chatx', 'antiqua', 'renova'];
+const projects = ['syntha', 'fashionmgmt', 'furproduction', 'marcopescarolo', 'mfw', 'promomed', 'chatx', 'antiqua', 'renova', 'igra'];
 const viewports = [
   { name: 'desktop', width: 1440, height: 1000 },
   { name: 'tablet', width: 834, height: 1112 },
@@ -85,7 +85,7 @@ for (const viewport of viewports) {
   assert(await startHead.count() === 1, `${viewport.name}: start section does not use standard section-head styling`);
 
   // Start choices should follow the editorial serif treatment, not heavy bold CTA typography.
-  const startModeTitles = page.locator('#v2-steps .v2-start-mode > strong');
+  const startModeTitles = page.locator('#v2-steps .v2-start-mode > .v2-start-mode-title');
   assert(await startModeTitles.count() === 4, `${viewport.name}: expected four start modes`);
   const startTypography = await startModeTitles.evaluateAll((elements) =>
     elements.map((element) => ({
@@ -93,11 +93,11 @@ for (const viewport of viewports) {
       family: getComputedStyle(element).fontFamily
     }))
   );
-  assert(startTypography.every(({ weight, family }) => weight <= 500 && family.includes('Georgia')),
+  assert(startTypography.every(({ weight, family }) => weight <= 400 && family.includes('Georgia')),
     `${viewport.name}: start cards should have normal/medium serif headings: ${JSON.stringify(startTypography)}`);
-  const emptyWeight = await page.locator('#v2-start-panel .v2-start-empty strong')
+  const emptyWeight = await page.locator('#v2-start-panel .v2-start-empty .v2-start-empty-title')
     .evaluate((element) => Number(getComputedStyle(element).fontWeight));
-  assert(emptyWeight <= 500, `${viewport.name}: empty state has heavy bold typography: ${emptyWeight}`);
+  assert(emptyWeight <= 400, `${viewport.name}: empty state has heavy bold typography: ${emptyWeight}`);
 
   const firstStartMode = page.locator('#v2-steps .v2-start-mode').first();
   if (await clickInReadingPosition(page, firstStartMode, `${viewport.name}: start mode`)) {
@@ -106,7 +106,7 @@ for (const viewport of viewports) {
     assert(await page.locator('#v2-start-panel .v2-start-selected').count() === 1,
       `${viewport.name}: start checklist did not open`);
   }
-  await page.locator('#v2-steps').screenshot({ path: `${outputDir}/start-ru-${viewport.name}.png` });
+  await page.locator('#v2-steps').screenshot({ style: 'header.topbar, #cta-bar { visibility: hidden !important; }', path: `${outputDir}/start-ru-${viewport.name}.png` });
 
   // The floating legacy contact CTA cannot obscure readable text in V2.
   assert(!(await page.locator('#cta-bar').isVisible()),
@@ -146,7 +146,7 @@ for (const viewport of viewports) {
     }
   }
 
-  const withoutScreens = ['fashionmgmt','furproduction','antiqua'];
+  const withoutScreens = ['fashionmgmt','furproduction','antiqua','igra','marcopescarolo'];
   for (const projectId of withoutScreens) {
     const logo = page.locator(`#cards > .card[data-project="${projectId}"] .card-logo svg[data-brand="${projectId}"]`);
     assert(await logo.count() === 1, `${viewport.name}: missing SVG identity for ${projectId}`);
@@ -177,12 +177,63 @@ for (const viewport of viewports) {
       assert(!(await modal.locator('#gallery').isVisible()) && !(await modal.locator('#dots').isVisible()),
         `${viewport.name}: empty gallery controls visible for ${projectId}`);
       assert(await modal.locator('#facts').isVisible(), `${viewport.name}: ${projectId} dossier content vanished`);
+      const investment = modal.locator('#v2-investment-plan');
+      assert(await investment.isVisible(), `${viewport.name}: missing ${projectId} investment dossier`);
+      assert(await investment.locator('.v2-investment-grid article').count() === 11,
+        `${viewport.name}: ${projectId} investment dossier lacks all eleven diligence fields`);
+      assert(await investment.locator('.v2-investment-phases article').count() === 3,
+        `${viewport.name}: ${projectId} requires three implementation/commercial stages`);
+      assert((await investment.locator('.v2-investment-disclaimer').textContent()).includes('не утверждены'),
+        `${viewport.name}: ${projectId} financial assumption disclaimer missing`);
       await page.locator('#modal-close').click();
     }
   }
 
+  const marcoDemo = page.locator('#cards > .card[data-project="marcopescarolo"] [data-demo-link="marcopescarolo"]');
+  assert(await marcoDemo.count() === 1, `${viewport.name}: Marco published showroom link missing`);
+  if (await marcoDemo.count()) {
+    assert(await marcoDemo.getAttribute('href') === 'https://marco-pescarolo-showroom.netlify.app/',
+      `${viewport.name}: Marco showroom link points to unverified destination`);
+    assert((await marcoDemo.getAttribute('rel') || '').includes('noopener'),
+      `${viewport.name}: Marco outbound link lacks noopener`);
+    // Secondary links live in the progressive 'More actions' disclosure.
+    const marcoMore = page.locator('#cards > .card[data-project="marcopescarolo"] .v2-index-more');
+    if (await marcoMore.count() && !(await marcoMore.evaluate((el) => el.open))) {
+      await clickInReadingPosition(page, marcoMore.locator('summary'),
+        `${viewport.name}: expand Marco more actions`);
+    }
+    const [demoTab] = await Promise.all([
+      page.context().waitForEvent('page', { timeout: 12000 }),
+      clickInReadingPosition(page, marcoDemo, `${viewport.name}: open Marco live showroom`)
+    ]);
+    assert(demoTab.url().startsWith('https://marco-pescarolo-showroom.netlify.app/'),
+      `${viewport.name}: Marco live showroom did not open in new tab: ${demoTab.url()}`);
+    assert(!(await page.locator('#modal').evaluate((el) => el.hasAttribute('open'))),
+      `${viewport.name}: external demo click also opened the project dossier`);
+    await demoTab.close();
+  }
+
+  // Requested projects must open in the real existing dossier with correct labels.
+  for (const projectId of ['igra','marcopescarolo']) {
+    const card = page.locator(`#cards > .card[data-project="${projectId}"]`);
+    assert(await card.locator('[data-signal="challenge"],[data-signal="next"]').count() === 2,
+      `${viewport.name}: ${projectId} lacks executive stage and next step`);
+    if (await clickInReadingPosition(page, card.locator('[data-open]'), `${viewport.name}: ${projectId} dossier`)) {
+      assert(await modal.getAttribute('data-project') === projectId, `${viewport.name}: incorrect ${projectId} dossier`);
+      assert(await modal.locator('#facts').isVisible(), `${viewport.name}: ${projectId} detail vanished`);
+      await page.locator('#modal-cta').click();
+      const chosenTopic = await page.locator('#topic').inputValue();
+      assert(chosenTopic === (projectId === 'igra' ? 'launch' : 'partnership'),
+        `${viewport.name}: ${projectId} CTA opened invalid topic: ${chosenTopic}`);
+      const message = await page.locator('#form [name="message"]').inputValue();
+      assert(message.includes(projectId === 'igra' ? 'IGRA' : 'Marco Pescarolo'),
+        `${viewport.name}: ${projectId} CTA lost project context`);
+      await page.locator('#form [name="message"]').fill('');
+    }
+  }
+
   // Capture the Russian project index before the in-place language switch.
-  await projectsSection.screenshot({ path: `${outputDir}/projects-ru-${viewport.name}.png` });
+  await projectsSection.screenshot({ style: 'header.topbar, #cta-bar { visibility: hidden !important; }', path: `${outputDir}/projects-ru-${viewport.name}.png` });
 
   // Language switch must stay in-page: no reload, no transient viewport/body shrink.
   await page.evaluate(() => { window.__v2LanguageSentinel = 'alive'; });
@@ -231,7 +282,7 @@ for (const viewport of viewports) {
     assert(builtCopy?.length > 40, `${viewport.name}: EN row ${i + 1} missing implementation and limitations`);
   }
 
-  const englishStartWeights = await page.locator('#v2-steps .v2-start-mode > strong')
+  const englishStartWeights = await page.locator('#v2-steps .v2-start-mode > .v2-start-mode-title')
     .evaluateAll((elements) => elements.map((element) => Number(getComputedStyle(element).fontWeight)));
   assert(englishStartWeights.length === 4 && englishStartWeights.every((weight) => weight <= 500),
     `${viewport.name}: EN start-card headings became too bold: ${englishStartWeights.join(', ')}`);
@@ -258,8 +309,8 @@ for (const viewport of viewports) {
   assert(pageErrors.length === 0, `${viewport.name}: page errors: ${pageErrors.join(' | ')}`);
   assert(badResponses.length === 0, `${viewport.name}: HTTP errors: ${badResponses.join(' | ')}`);
 
-  await projectsSection.screenshot({ path: `${outputDir}/projects-${viewport.name}.png` });
-  await page.locator('#v2-steps').screenshot({ path: `${outputDir}/start-${viewport.name}.png` });
+  await projectsSection.screenshot({ style: 'header.topbar, #cta-bar { visibility: hidden !important; }', path: `${outputDir}/projects-${viewport.name}.png` });
+  await page.locator('#v2-steps').screenshot({ style: 'header.topbar, #cta-bar { visibility: hidden !important; }', path: `${outputDir}/start-${viewport.name}.png` });
   await page.evaluate(() => window.scrollTo({ top: 0, left: 0, behavior: 'instant' }));
   await page.screenshot({ path: `${outputDir}/hero-en-${viewport.name}.png` });
   await page.close();

@@ -329,6 +329,7 @@ function renderCards() {
       <div class="card-foot">
         <button class="btn btn-sm btn-primary" type="button" data-open="${p.id}">${t.projects.open}</button>
         <button class="btn btn-sm" type="button" data-status="${p.id}">${t.projects.statusBtn}</button>
+        ${p.demoUrl ? `<a class="btn btn-sm" data-demo-link="${p.id}" href="${p.demoUrl}" target="_blank" rel="noopener noreferrer">${lang === 'en' ? 'Open live storefront ↗' : 'Открыть демо-витрину ↗'}</a>` : ''}
         <button class="btn btn-sm" type="button" data-news="${p.id}"${hasNews ? '' : ` disabled title="${t.projects.newsEmpty}"`}>${t.projects.newsBtn}</button>
         ${COMPARE[p.id] && lang === 'ru' ? `<button class="btn btn-sm" type="button" data-compare="${p.id}">${t.projects.compareBtn}</button>` : ''}
         ${p.id === 'syntha' ? `<button class="btn btn-sm flow-toggle" type="button" data-flow-toggle aria-expanded="false">${t.flow.eyebrow}</button>` : ''}
@@ -745,6 +746,8 @@ function closeFlow() {
 }
 
 $('#cards').addEventListener('click', (e) => {
+  // An external live demo must open the destination, not also its parent dossier.
+  if (e.target.closest('[data-demo-link]')) return;
   /* визуализация сезона живёт внутри карточки Syntha — клики в ней не должны
      открывать модалку проекта, только свои переходы */
   if (e.target.closest('.flow-embed')) {
@@ -836,7 +839,21 @@ $('#projects-more').addEventListener('click', () => {
 
 /* «Обсудить участие» — переносит проект в форму */
 $('#modal-cta').addEventListener('click', () => {
-  $('#topic').value = modal.dataset.project;
+  const project = PROJECTS.find((p) => p.id === modal.dataset.project);
+  const topic = $('#topic');
+  const desired = project?.id || 'launch';
+  topic.value = [...topic.options].some((option) => option.value === desired)
+    ? desired : desired === 'marcopescarolo' ? 'partnership' : 'launch';
+  topic.dispatchEvent(new Event('change', { bubbles: true }));
+  // Preserve the actual product identity when the contact topics do not
+  // have a dedicated option; never submit an empty select value.
+  const message = $('#form [name="message"]');
+  if (project && message && !message.value.trim()) {
+    message.value = lang === 'en'
+      ? `I would like to discuss ${project.name}: a controlled pilot, current evidence and the next acceptance step.`
+      : `Хочу обсудить ${project.name}: контролируемый пилот, текущие подтверждения и следующий этап проверки.`;
+  }
+  $('#form').dispatchEvent(new Event('input', { bubbles: true }));
   leave();
   $('#contact').scrollIntoView({ behavior: 'smooth' });
   setTimeout(() => $('#form [name="name"]').focus(), 400);
@@ -2145,7 +2162,7 @@ function syncOptional() {
   [['surname', 'surname-field', 'surname'], ['patronymic', 'patronymic-field', 'patronymic'],
    ['telegram', 'telegram-field', 'telegram'], ['phone', 'phone-field', 'phone']].forEach(([k, box, input]) => {
     $(`#${box}`).hidden = !on(k);
-    if (!on(k)) $(`#${input}`).value = '';
+    if (!on(k) && document.documentElement.dataset.preview !== 'v2') $(`#${input}`).value = '';
   });
   /* одно поле в паре занимает всю строку */
   document.querySelectorAll('#form .pair').forEach((pair) => {

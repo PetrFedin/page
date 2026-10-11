@@ -2985,6 +2985,90 @@ export const PROJECTS = [
     }
   }
 
+  ,{
+    id: 'igra',
+    name: 'IGRA',
+    showScreenshots: false,
+    device: 'ipad',
+    shots: [],
+    ru: {
+      tagline: 'Цифровая игра-конструктор: наборы, инструкция, сборка и коллекция',
+      stage: 'Рабочая разработка · приёмка игрового цикла',
+      card: 'IGRA превращает сборку конструктора в игровой опыт: выбор набора, коробка с деталями, пошаговая инструкция, сборка, сохранение прогресса и коллекция. Есть iOS/AR-реализация и веб-демо. Главная незакрытая задача — достоверный сквозной цикл без подмены деталей и с надёжным продолжением игры.',
+      what: 'Интерактивный конструктор и коллекционная игровая система. Основной маршрут: каталог → набор → коробка → инструкция → сборка → продолжение. AR и игровой мир дополняют базовую механику, но не подменяют её.',
+      who: 'Дети и семьи, любители конструкторов, образовательные и развлекательные партнёры.',
+      why: 'Инструкция и цифровая сборка должны быть не декоративным роликом, а понятной игрой с настоящими шагами, учётом каждой детали и восстановлением состояния.',
+      how: 'Наборы и варианты, поэтапная сборка, проверка размещения деталей, подсказки, награды, локальное сохранение, AR/виртуальный режим и веб-демо. Всё перечисленное требует проверки в точном игровом маршруте.',
+      seeking: 'Партнёр для ограниченного пользовательского теста после закрытия учёта деталей и сохранений.',
+      roadmap: [{label:'Каталог и интерактивная модель',state:'done'},{label:'Полный цикл сборки и сохранения',state:'current'},{label:'Тест на устройствах и пилот',state:'next'}],
+      status: {
+        done: ['SwiftUI / ARKit / RealityKit игровая основа и локальный прогресс','Каталог наборов, подсказки и шаги сборки','Веб-демо для просмотра без устройства'],
+        now: ['Закрыть контроль полного комплекта деталей и последнего шага','Проверить сохранение / восстановление, перезапуск и выход','Проверить маршрут с реальными наборами без замен деталей'],
+        next: ['Кросс-устройство QA на телефоне, планшете и компьютере','Реальный пользовательский пилот без заявлений о массовом релизе'],
+        seeking: 'Пилот с игроками и семьёй после прохождения тестов.'
+      }
+    },
+    en: {
+      tagline: 'Digital building game: sets, instructions, assembly and collection',
+      stage: 'In development · assembly acceptance pending',
+      card: 'IGRA connects set discovery, a box of bricks, step-by-step instructions, hands-on assembly, progress recovery and a collection. iOS/AR code and a web demonstration exist. The critical missing proof is a complete, consistent build using the exact required parts and reliable resumption.',
+      what: 'An interactive construction and collecting experience. Core path: catalogue → set → box → instructions → build → continue. AR and world-building enhance this path rather than replace it.',
+      who: 'Families, young builders and potential educational or entertainment partners.',
+      why: 'A convincing building game must account for every part and recover player progress, not merely display an attractive model.',
+      how: 'Building sets, guided steps, placement validation, hints, rewards, local progress and iOS/AR plus web demonstration surfaces, subject to exact-path acceptance.',
+      seeking: 'A limited hands-on pilot once exact-parts assembly and save/restore have passed.',
+      roadmap: [{label:'Catalogue and interactive model',state:'done'},{label:'Complete assembly + save/restore',state:'current'},{label:'Device QA + user pilot',state:'next'}],
+      status: {
+        done: ['SwiftUI / ARKit / RealityKit foundation and local progress','Sets, hint mechanics and assembly stages','Web demonstration for device-independent previews'],
+        now: ['Validate all real parts including the final assembly step','Prove save/restore after restart and app exit','Eliminate substitute-part acceptance'],
+        next: ['Cross-device journey test','Limited real-user pilot before release claims'],
+        seeking: 'Pilot participants after the golden path has passed.'
+      }
+    }
+  },
+  {
+    id: 'marcopescarolo',
+    name: 'Marco Pescarolo',
+    demoUrl: 'https://marco-pescarolo-showroom.netlify.app/',
+    showScreenshots: false,
+    device: 'ipad',
+    shots: [],
+    ru: {
+      tagline: 'Luxury digital showroom · каталог коллекций и B2B-заказы',
+      stage: 'Опубликованная витрина · коммерческий контур на проверке',
+      card: 'Цифровой шоурум для премиального fashion-бренда: презентация коллекций, работа байера с ассортиментом, размерной матрицей, заказом и повторным заказом. Публичная Netlify-витрина существует. Реальная работа цен, складов, клиентских прав и подтверждения заказа ещё не доказана.',
+      what: 'White-label showroom с B2B-сценарием от коллекции до подтверждённого заказа и отдельным B2C/private запросом. Целевая архитектура включает товарный мастер, кабинеты клиентов, персональные цены, наличие, сроки поставки и административное управление.',
+      who: 'Владелец бренда, оптовые байеры, дилеры и частные клиенты по приглашению.',
+      why: 'Показ коллекции без управляемой размерной матрицы и жизненного цикла заказа не становится рабочим коммерческим инструментом.',
+      how: 'Публичный showroom развернут на Netlify; дальнейшая работа — объединить карточки товаров, размерные сетки, цены, права клиента, подтверждения и историю заказа на проверенных данных.',
+      seeking: 'Проверка реального каталога и закрытый B2B-пилот с брендом / байером. Это портфолио цифровой разработки, не официальное утверждение о производственном использовании брендом.',
+      roadmap: [{label:'Публичная витрина',state:'done'},{label:'B2B-матрица и каталог на реальных данных',state:'current'},{label:'Заказ, подтверждение, отгрузка и повторный заказ',state:'next'}],
+      status: {
+        done: ['Работающий публичный Netlify-сайт цифровой витрины','Концепция white-label шоурума и полного коммерческого цикла'],
+        now: ['Сверить публикацию с полным исходным проектом','Закрыть размерную матрицу, цены и доступ по типу клиента','Подтвердить действие каждой кнопки реальными данными'],
+        next: ['Проверить заказ → подтверждение → поставку → повторный заказ','Провести ограниченный B2B-пилот'],
+        seeking: 'Доступ к достоверным данным каталога и байерскому маршруту.'
+      }
+    },
+    en: {
+      tagline: 'Luxury digital showroom · collections and wholesale ordering',
+      stage: 'Public storefront · commerce acceptance pending',
+      card: 'A premium-fashion digital showroom conceived around collections, buyer assortment, size matrices, wholesale orders and reorders. A public Netlify storefront exists. Live stock, personalised pricing, client permissions and verified order confirmation remain unproven.',
+      what: 'A white-label luxury showroom intended to connect collection publishing, B2B selection, customer-specific pricing, availability, size-grid orders and fulfilment. A separate private-client inquiry path is also planned.',
+      who: 'Brand owners, wholesale buyers, retail partners and invited private clients.',
+      why: 'A beautiful collection presentation creates commercial value only once buyer selection, order states and fulfilment can be verified end to end.',
+      how: 'An existing public Netlify showroom provides a presentation layer; the authoritative catalogue, customer rights, order grid and live commercial workflow still require acceptance.',
+      seeking: 'A limited wholesale-buyer pilot on verified product and customer data; no claim of official production adoption by the named brand.',
+      roadmap: [{label:'Public storefront',state:'done'},{label:'Buyer matrix + real catalogue',state:'current'},{label:'Confirmed orders and reorders',state:'next'}],
+      status: {
+        done: ['Published digital storefront on Netlify','White-label concept for the full commerce flow'],
+        now: ['Reconcile the published build with the full source','Validate size-grid, customer-specific prices and account rights','Prove real interactions with authoritative data'],
+        next: ['Test order → confirmation → delivery → reorder','Run a controlled wholesale buyer pilot'],
+        seeking: 'Verified catalogue input and a buyer journey for a pilot.'
+      }
+    }
+  }
+
 ];
 
 /* Публичное облегчённое сравнение с альтернативами — те же данные, что в «Схема 1»
