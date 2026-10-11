@@ -45,6 +45,9 @@ jobs:
           export CHROME_BIN
           node scripts/make-deck-pdf.mjs
 
+      - name: Install PDF inspection tools
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
+
       - name: Validate PDFs and linked personal site
         shell: bash
         run: |
