@@ -60,7 +60,8 @@ async function scenario(viewport, lang) {
 
     // Changing contact method must never retain a stale, invisible contact value.
     await page.locator('#v2-contact-method').selectOption('telegram');
-    assert.equal(await page.locator('#email').inputValue(), '', `${label}: switching method cleared email`);
+    assert.equal(await page.locator('#email').inputValue(), 'qa@example.org', `${label}: switching method preserves email draft`);
+    assert.equal(await page.locator('#email').isDisabled(), true, `${label}: hidden email is excluded from FormData`);
     assert.equal(await page.locator('#email').isVisible(), false, `${label}: irrelevant email field hidden`);
     assert.equal(await page.locator('#telegram').isVisible(), true, `${label}: Telegram entry visible`);
     assert.equal(await page.locator('#submit').isDisabled(), true, `${label}: missing new contact blocked`);
@@ -68,12 +69,14 @@ async function scenario(viewport, lang) {
     assert.equal(await page.locator('#submit').isEnabled(), true, `${label}: Telegram contact accepted`);
 
     await page.locator('#v2-contact-method').selectOption('phone');
-    assert.equal(await page.locator('#telegram').inputValue(), '', `${label}: switching method cleared Telegram`);
+    assert.equal(await page.locator('#telegram').inputValue(), '@preview_qa', `${label}: switching method preserves Telegram draft`);
+    assert.equal(await page.locator('#telegram').isDisabled(), true, `${label}: hidden Telegram is excluded from FormData`);
     assert.equal(await page.locator('#telegram').isVisible(), false, `${label}: irrelevant Telegram field hidden`);
     assert.equal(await page.locator('#phone').isVisible(), true, `${label}: phone entry visible`);
     assert.equal(await page.locator('#submit').isDisabled(), true, `${label}: missing phone blocked`);
     await page.locator('#phone').fill('+31 20 123 4567');
     assert.equal(await page.locator('#submit').isEnabled(), true, `${label}: phone contact accepted`);
+    assert.deepEqual(await page.locator('#form').evaluate((form) => Array.from(new FormData(form).keys()).filter((key) => ['email','telegram','phone'].includes(key))), ['phone'], `${label}: only selected contact reaches the form payload`);
     await page.locator('#submit').click();
     assert.match(await page.locator('#form-note').innerText(), lang === 'en' ? /nothing was sent/ : /не отправлена/);
 
