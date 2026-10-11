@@ -746,6 +746,8 @@ function closeFlow() {
 }
 
 $('#cards').addEventListener('click', (e) => {
+  // An external live demo must open the destination, not also its parent dossier.
+  if (e.target.closest('[data-demo-link]')) return;
   /* визуализация сезона живёт внутри карточки Syntha — клики в ней не должны
      открывать модалку проекта, только свои переходы */
   if (e.target.closest('.flow-embed')) {
