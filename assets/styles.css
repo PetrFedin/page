@@ -1780,3 +1780,55 @@ a.lang{display:inline-flex; align-items:center; justify-content:center; text-dec
 @media (max-width:759px){
   .top-news-title{white-space:normal; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; font-size:12px; line-height:1.25}
 }
+
+/* Consulting: five advisory cards in a balanced 3 + 2 desktop composition. */
+@media(min-width:760px){#consulting .services{grid-template-columns:repeat(2,minmax(0,1fr))}#consulting .services li:first-child{grid-column:auto}#consulting .services li:last-child:nth-child(odd){grid-column:1/-1}#consulting .formats-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(min-width:1120px){#consulting .services{grid-template-columns:repeat(6,minmax(0,1fr))}#consulting .services li{grid-column:span 2}#consulting .services li:nth-last-child(2){grid-column:1/span 3}#consulting .services li:last-child{grid-column:4/span 3}#consulting .services .svc{padding:25px 23px}#consulting .formats-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(min-width:760px){#projects .cards{grid-template-rows:none;grid-auto-rows:auto}#projects .cards>.card{grid-row:auto;grid-template-rows:auto;align-content:start}#projects .cards>.card:first-child{grid-column:1/-1}}
+.project-wordmark{display:inline-block;font:500 clamp(14px,2vw,20px)/1.35 var(--serif);letter-spacing:.035em}
+.project-capabilities,.project-investor{margin-top:28px;padding-top:22px;border-top:1px solid var(--line)}
+.project-capabilities h3,.project-investor h3{font-family:var(--serif);font-size:clamp(20px,2.5vw,25px);font-weight:500;margin:0 0 10px}
+.project-capabilities>p,.project-investor>p{color:var(--muted);font-size:14px;margin:0 0 14px}
+.project-table{width:100%;border-collapse:collapse;table-layout:fixed;font-size:14px}.project-table th,.project-table td{padding:11px 10px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line);overflow-wrap:anywhere}.project-table th{font-weight:500;color:var(--muted);font-size:12px}.project-table td:first-child{width:33%;color:var(--ink)}
+.scenario-grid{display:grid;grid-template-columns:repeat(1,minmax(0,1fr));gap:10px;margin:16px 0}.scenario-grid article{border:1px solid var(--line);border-radius:12px;padding:16px;min-width:0}.scenario-grid h4{font-size:15px;margin:0 0 7px;font-weight:500}.scenario-grid p{color:var(--muted);font-size:14px;margin:0}.investor-checkpoints{padding-left:22px;color:var(--muted);font-size:14px}.investor-checkpoints li{padding:4px 0}.project-economics{font-size:14px;display:grid;gap:8px}.project-economics p{margin:0}.project-economics strong{font-weight:500}
+@media(min-width:800px){.scenario-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+#gallery[hidden],#dots[hidden],#project-capabilities[hidden],#project-investor[hidden]{display:none!important}
+
+/* Investor what-if calculator: compact, scroll-safe and accessible. */
+.investor-calculator{margin-top:22px;padding-top:18px;border-top:1px solid var(--line)}
+.investor-calculator h3{font-family:var(--serif);font-weight:500}
+.investor-calculator h4{margin:14px 0 10px;font-size:16px}
+.calc-disclaimer,.calc-hint{font-size:13px;line-height:1.55;color:var(--muted)}
+.calc-input-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.calc-controls{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:16px}
+.calc-field{display:grid;gap:6px;min-width:0;font-size:13px;color:var(--muted)}
+.calc-field input,.calc-field select{width:100%;min-width:0;padding:11px 10px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--ink);font:inherit;font-size:16px}
+.calc-field input:focus-visible,.calc-field select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.calc-empty,.calc-error{margin:16px 0;padding:12px;border:1px solid var(--line);border-radius:10px}
+.calc-error{border-color:var(--accent)}
+.calc-scenario-grid{display:grid;gap:12px;margin:20px 0}
+.calc-scenario-card{padding:15px;border:1px solid var(--line);border-radius:12px;min-width:0}
+.calc-scenario-card h4{margin:0 0 12px;font-family:var(--serif);font-weight:500}
+.calc-metric{display:grid;gap:4px;margin:0 0 10px;font-size:13px}
+.calc-metric span{color:var(--muted)}.calc-metric strong{font-size:17px;font-weight:500;overflow-wrap:anywhere}
+.calc-figure{margin:24px 0}.calc-figure figcaption{font-size:14px;color:var(--ink);margin-bottom:10px}.investor-cash-chart{width:100%;height:auto}
+.calc-legend{font-size:12px;color:var(--muted)}
+.calc-scroll{overflow-x:auto;max-width:100%}.calc-monthly-table{min-width:790px}
+.calc-details summary{cursor:pointer;padding:10px 0}.calc-sensitivity{margin:22px 0}
+.calc-tranche-rows{display:grid;gap:10px}.calc-tranche-line{display:grid;grid-template-columns:minmax(0,1fr) 96px 130px;gap:10px;align-items:center;border-bottom:1px solid var(--line);padding:8px 0}
+.calc-tranche-line p{margin:0;font-size:13px}.calc-tranche-amount{text-align:right;font-size:14px;font-weight:500}
+@media(min-width:820px){.calc-scenario-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:600px){.calc-input-grid{grid-template-columns:1fr}.calc-controls{grid-template-columns:repeat(2,minmax(0,1fr))}.calc-tranche-line{grid-template-columns:minmax(0,1fr) 88px}.calc-tranche-amount{grid-column:1/-1;text-align:left}}
+
+/* Dossier stage names can be full sentences; pills must wrap inside project cards. */
+#projects .card .stage{white-space:normal;max-width:100%;min-width:0;overflow-wrap:anywhere;line-height:1.4}
+
+/* Explicit tracks: avoid auto-placement lifting the fourth tile into the first row. */
+@media(min-width:1120px){
+ #consulting .services li:nth-child(1){grid-column:1/span 2;grid-row:1}
+ #consulting .services li:nth-child(2){grid-column:3/span 2;grid-row:1}
+ #consulting .services li:nth-child(3){grid-column:5/span 2;grid-row:1}
+ #consulting .services li:nth-child(4){grid-column:1/span 3;grid-row:2}
+ #consulting .services li:nth-child(5){grid-column:4/span 3;grid-row:2}
+}

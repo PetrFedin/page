@@ -1,6 +1,9 @@
-import { T, PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610041955';
+import { T, PROJECTS as CORE_PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610041955';
+import { EXTRA_PROJECTS, INVESTOR_BLUEPRINTS } from './portfolio-extensions.js?v=20261012-invdossiers';
+const PROJECTS = [...CORE_PROJECTS, ...EXTRA_PROJECTS];
+import { mountInvestorCalculator } from './investor-calculator.js?v=20261012-calc1';
 import { DECK } from './deck.js?v=202610041955';
-import { LOGOS } from './logos.js?v=202610041955';
+import { LOGOS } from './logos.js?v=20261012-invdossiers';
 import { createViewer } from './viewer.js?v=202609301526';
 import { syncSnaps } from './snap.js?v=202610041955';
 import { NEWS } from './news.js?v=202610041955';
@@ -640,6 +643,8 @@ function openProject(id, anchor) {
     <div class="frame ${p.device}"><img src="${src}" alt="${p.name} — ${i + 1}" loading="lazy"></div>`));
 
   gallery.innerHTML = frames.join('');
+  gallery.hidden = frames.length === 0;
+  $('#dots').hidden = frames.length === 0;
   /* Общий список для просмотрщика — в том же порядке, что и кадры в ленте:
      видео (если есть) первым, дальше снимки. Так стрелками можно листать
      видео и фото вместе, одним списком. */
@@ -661,6 +666,24 @@ function openProject(id, anchor) {
 
   $('#facts').innerHTML = ['what', 'who', 'why', 'how']
     .map((k) => `<div><dt>${t.projects.labels[k]}</dt><dd>${c[k]}</dd></div>`).join('');
+
+  const capabilities = $('#project-capabilities');
+  const caps = c.capabilities || [];
+  capabilities.hidden = !caps.length;
+  if(caps.length){
+    capabilities.innerHTML = `<h3>${lang === 'ru' ? 'Функциональная карта' : 'Functional map'}</h3><p>${lang === 'ru' ? 'Проектируемые и проверяемые сценарии. Это описание функций, а не снимки опубликованного интерфейса.' : 'Designed and testable workflows. Feature map, not screenshots of a deployed product.'}</p><table class="project-table"><thead><tr><th>${lang === 'ru' ? 'Контур' : 'Area'}</th><th>${lang === 'ru' ? 'Функциональность' : 'Capabilities'}</th></tr></thead><tbody>${caps.map(x=>`<tr><td>${x.area}</td><td>${x.feature}</td></tr>`).join('')}</tbody></table>`;
+  }else capabilities.innerHTML = '';
+  const economics = $('#project-investor');
+  const model = INVESTOR_BLUEPRINTS[id]?.[lang];
+  economics.hidden = !model;
+  if(model){
+    const labels = lang === 'ru' ? ['Консервативный','Базовый','Оптимистичный'] : ['Conservative','Base','Optimistic'];
+    economics.innerHTML = `<h3>${lang === 'ru'?'Инвестиционная модель — условия проверки':'Investment model — validation gates'}</h3><p>${lang === 'ru'?'Сценарии — гипотезы, а не прогноз выручки. Суммы траншей рассчитываются после проверки затрат и подписания договоров.':'Scenarios are hypotheses, not revenue forecasts. Tranche amounts require cost validation and executed contracts.'}</p><div class="project-economics"><p><strong>${lang === 'ru'?'Монетизация':'Revenue model'}:</strong> ${model.revenue}</p></div><div class="scenario-grid">${['conservative','base','optimistic'].map((k,i)=>`<article><h4>${labels[i]}</h4><p>${model[k]}</p></article>`).join('')}</div><h4>${lang === 'ru'?'Инвестиционные транши и условия выдачи':'Investment tranches and disbursement gates'}</h4><ol class="investor-checkpoints">${model.tranches.map(x=>`<li>${x}</li>`).join('')}</ol><div class="project-economics"><p><strong>${lang === 'ru'?'Критерий операционной безубыточности':'Operating break-even gate'}:</strong> ${model.breakEven}</p><p><strong>${lang === 'ru'?'Расчёт':'Formula'}:</strong> ${model.formula}</p><p><strong>${lang === 'ru'?'Проверяемые показатели':'Required evidence'}:</strong> ${model.evidence}</p></div>`;
+    const holder=document.createElement('div');
+    holder.className='investor-calculator-mount';
+    economics.append(holder);
+    mountInvestorCalculator(holder,{lang,projectId:id,gateLabels:model.tranches});
+  }else economics.innerHTML = '';
 
   const st = c.status;
   const s = t.projects.status;
