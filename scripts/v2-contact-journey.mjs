@@ -23,6 +23,10 @@ async function scenario(viewport, lang) {
     viewport: { width: viewport.width, height: viewport.height },
     acceptDownloads: true
   });
+  // Fail quickly per scenario rather than spending 8 × 30 s on a missing
+  // interactive control. This makes broken contact journeys actionable in CI.
+  page.setDefaultTimeout(8000);
+  page.setDefaultNavigationTimeout(15000);
   const apiRequests = [];
   const runtimeErrors = [];
   page.on('request', (request) => {
