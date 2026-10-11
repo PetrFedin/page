@@ -916,3 +916,30 @@ html[data-preview="v2"] .section > .section-head > h2 {
   margin-inline: 0;
   z-index: auto;
 }
+
+
+/* Investor due diligence — calm editorial layout, no numeric forecasts without evidence. */
+html[data-preview="v2"] .v2-investment-plan{border-top:1px solid var(--line);padding:22px 0;margin-top:18px;min-width:0}
+html[data-preview="v2"] .v2-investment-head h3{font-family:var(--serif);font-size:28px;font-weight:400;line-height:1.2;margin:6px 0}
+html[data-preview="v2"] .v2-investment-head>p:last-child{font-size:12px;line-height:1.6;color:var(--muted);margin:0 0 16px}
+html[data-preview="v2"] .v2-investment-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 20px}
+html[data-preview="v2"] .v2-investment-grid article{min-width:0;border-top:1px solid var(--line);padding:14px 0}
+html[data-preview="v2"] .v2-investment-grid article>span{display:block;font-size:10px;letter-spacing:.065em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+html[data-preview="v2"] .v2-investment-grid article p{font-size:13px;line-height:1.65;overflow-wrap:anywhere;margin:0}
+html[data-preview="v2"] .v2-investment-roadmap,html[data-preview="v2"] .v2-investment-economics{border-top:1px solid var(--line);padding:20px 0}
+html[data-preview="v2"] .v2-investment-roadmap h4,html[data-preview="v2"] .v2-investment-economics h4{font-family:var(--serif);font-size:21px;font-weight:400;margin:0 0 14px}
+html[data-preview="v2"] .v2-investment-phases{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+html[data-preview="v2"] .v2-investment-phases article{border:1px solid var(--line);border-radius:var(--radius);padding:15px;min-width:0}
+html[data-preview="v2"] .v2-investment-phases small{color:var(--accent);font-size:10px;letter-spacing:.045em}
+html[data-preview="v2"] .v2-investment-phases p,html[data-preview="v2"] .v2-investment-economics p{font-size:12px;line-height:1.65;overflow-wrap:anywhere}
+html[data-preview="v2"] .v2-investment-stage-proof{border-top:1px solid var(--line);padding-top:12px;color:var(--muted)}
+html[data-preview="v2"] .v2-investment-formula{padding:12px;border-left:2px solid var(--accent);background:var(--accent-soft)}
+html[data-preview="v2"] .v2-investment-disclaimer,html[data-preview="v2"] .v2-investment-competition{font-size:11px;line-height:1.65;color:var(--muted)}
+html[data-preview="v2"] .v2-investment-competition{border-top:1px solid var(--line);padding:14px 0}
+html[data-preview="v2"] .v2-investment-competition a{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
+@media(max-width:760px){
+ html[data-preview="v2"] .v2-investment-grid{grid-template-columns:1fr}
+ html[data-preview="v2"] .v2-investment-phases{grid-template-columns:1fr}
+ html[data-preview="v2"] .v2-investment-plan{padding:18px 0}
+ html[data-preview="v2"] .v2-investment-head h3{font-size:24px}
+}
