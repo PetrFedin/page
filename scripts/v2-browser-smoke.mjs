@@ -188,6 +188,12 @@ for (const viewport of viewports) {
       `${viewport.name}: Marco showroom link points to unverified destination`);
     assert((await marcoDemo.getAttribute('rel') || '').includes('noopener'),
       `${viewport.name}: Marco outbound link lacks noopener`);
+    // Secondary links live in the progressive 'More actions' disclosure.
+    const marcoMore = page.locator('#cards > .card[data-project="marcopescarolo"] .v2-index-more');
+    if (await marcoMore.count() && !(await marcoMore.evaluate((el) => el.open))) {
+      await clickInReadingPosition(page, marcoMore.locator('summary'),
+        `${viewport.name}: expand Marco more actions`);
+    }
     const [demoTab] = await Promise.all([
       page.context().waitForEvent('page', { timeout: 12000 }),
       clickInReadingPosition(page, marcoDemo, `${viewport.name}: open Marco live showroom`)
