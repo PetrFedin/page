@@ -1,6 +1,6 @@
 # Portfolio Source-of-Truth Registry
 
-Updated: 2026-10-07
+Updated: 2026-10-11 (stable filename retained for references)
 
 This registry defines the evidence sources used to describe projects on the Syntha landing.
 A roadmap item from an Integration Master Plan is never treated as implemented until the
@@ -9,7 +9,7 @@ current project repository contains implementation/acceptance evidence.
 ## Syntha
 
 Repository: `PetrFedin/synth-v2`
-Audited HEAD: `99311b4e`
+Audited HEAD: `9134ce9ab1d5ed18f0363a998dc36e5b38acebbf`
 
 Current-state sources:
 - `README.md`
@@ -94,7 +94,7 @@ Planned, not current:
 ## MFW / BFS / Made in Moscow
 
 Repository: `PetrFedin/MFW`
-Audited HEAD: `6f941b59`
+Audited HEAD: `161926f9b9795988c3e51f7227f198851be4cfd3`
 
 Current-state sources:
 - `CURRENT_STATE.md`
@@ -127,7 +127,7 @@ Planned, not current:
 ## Promomed / СОСТОЯНИЕ
 
 Repository: `PetrFedin/promomed`
-Audited HEAD: `a98489fa`
+Audited HEAD: `ae5303b3d4f28d558cf4cf35b9927da88653b4ed`
 
 Current-state sources:
 - `README.md`
@@ -166,7 +166,7 @@ The project remains in the internal project inventory, but as of 2026-10-07 it i
 
 Public identity: `Fashion Management OS`
 Source: confidential client implementation; client/brand name is intentionally excluded from the landing and from this registry.
-Audited implementation HEAD: `23f01751`
+Audited implementation HEAD: `d510954878f243acb9ad0c75284b24d626f8815f`
 
 Current evidence checked:
 - end-to-end model/catalogue → order → workshop operations → materials/payments flow;
@@ -183,7 +183,7 @@ Public boundary:
 
 Public identity: `FUR PRODUCTION OS`
 Source: confidential client implementation; client/brand name is intentionally excluded from the landing and from this registry.
-Audited implementation HEAD: `adab7c2c`
+Audited implementation HEAD: `f4625668b22ca98e53c845a7f276c9d105ae23af`
 
 Current evidence checked:
 - procurement → specific raw-material lot → stock → production → finished-goods traceability;
@@ -199,7 +199,7 @@ Public boundary:
 ## Antiqua
 
 Repository: `PetrFedin/antiqua`
-Audited HEAD: `331ecbc9`
+Audited HEAD: `a72b3198ad615224d7ef84d2ee3afce3004c3e24`
 
 Current-state sources:
 - gallery-first implementation commits (`f85af36e`, `174bc586`, `af34547f`);
@@ -219,6 +219,25 @@ Current evidence checked:
 Current boundary:
 - remaining legacy antique/object language must continue to be removed from product surfaces;
 - production PostgreSQL integrity/admission proof and external gallery/collection pilot are still required.
+
+## October 11, 2026 — current-source portfolio audit
+
+The V2 text was reviewed against exact repository heads. A merged feature is not automatically deployed, and a passing test does not prove customer adoption, completed production admission or commercial return.
+
+| Published project | Audited commit | Relevant progress | Still to prove |
+|---|---|---|---|
+| Syntha | `9134ce9ab` | Read-only Measurement/Material verification and canonical Tech Pack preflight in Product Engineering | End-to-end human-reviewed real-season use |
+| Fashion Management OS | `d51095487` | Production/finance flows, role fixes and authenticated responsive proof | Server-version parity and controlled role acceptance |
+| FUR PRODUCTION OS | `f4625668b` | Lot costing, cross-screen calculation and payment-flow work | Reconciliation, recovery and production admission |
+| MFW / BFS / Made in Moscow | `161926f9b` | Three connected experiences, responsive and runtime hardening | Secure PostgreSQL binding, schema and /ready |
+| СОСТОЯНИЕ | `ae5303b3d` | Institutional evidence, accessibility and performance | Durable PostgreSQL/recovery and controlled pilot |
+| ChatX | `9781ed583` | Conversations, requests, approvals and decisions linked to execution | Daily external-team usage |
+| Antiqua | `a72b3198a` | Gallery-first product and exact-head-safe admission tools | Dedicated database identity, durable restart proof and gallery pilot |
+| Renova | `f62e491ae` | Shared project, estimate, stages, documents and acceptance | Field pilot, live providers and payments |
+
+Public portfolio privacy: the two customer-specific fashion operating systems remain anonymised; do not disclose their client organisations, financial records, documents, names or source repository paths. Screenshots for both cases and Antiqua are retained as files but explicitly unpublished in the V2 UI.
+
+Do not claim live revenue or ROI, automated approval by AI, production database admission, regulated-provider verification, or universal competitive superiority until verified.
 
 ## Landing update rule
 

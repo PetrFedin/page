@@ -2,6 +2,7 @@ import fs from 'node:fs';
 
 const read = (p) => fs.readFileSync(p, 'utf8');
 const app = read('assets/app.js');
+const logos = read('assets/logos.js');
 const v2 = read('assets/v2.js');
 const index = read('index.html');
 const content = read('assets/content.js');
@@ -57,7 +58,8 @@ const checks = [
   ['start section matches section heading', v2.includes('class="section-head v2-start-head"') && css.includes('.v2-start-head{')],
   ['concise start choices', !v2.includes('<small>${m.copy}</small>') && v2.includes('Что подготовить для старта')],
   ['restored landing order', v2.includes("$('#cta-contact').setAttribute('href', '#v2-decision')") && v2.includes('restore and pin the established section order from c32fd76') && v2.includes("'#v2-stakeholders', '#v2-routes', '#v2-decision', '#experience', '#consulting'")],
-  ['verified real tablet screenshots', ['/assets/shots/antiqua-tablet.png','/assets/shots/antiqua-gallery-tablet.png','/assets/shots/fashion-management-dashboard-tablet.png','/assets/shots/fur-production-dashboard-tablet.png'].every((x) => content.includes(x)) && content.includes("id: 'furproduction',\n    name: 'FUR PRODUCTION OS',\n    device: 'ipad'")],
+  ['screenshot sources retained, publication disabled', ['/assets/shots/antiqua-tablet.png','/assets/shots/antiqua-gallery-tablet.png','/assets/shots/fashion-management-dashboard-tablet.png','/assets/shots/fur-production-dashboard-tablet.png'].every((x) => content.includes(x)) && ['fashionmgmt','furproduction','antiqua'].every((id)=>content.includes(`id: '${id}',\n    showScreenshots: false`)) && app.includes('gallery.hidden = frames.length === 0') && v2.includes('if (p.showScreenshots === false) return')],
+  ['distinct V2 project SVG logos', ['fashionmgmt','furproduction','antiqua'].every((id)=>logos.includes(`data-brand="${id}"`))],
   ['Antiqua paintings-only public scope', content.includes('только для живописи') && v2.includes('paintings-only') && !/drawing|printmaking|engraving|рисунк|гравюр/i.test(content + v2)],
 ];
 
