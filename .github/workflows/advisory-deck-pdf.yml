@@ -8,6 +8,11 @@ on:
       - assets/qr-syntha-site.svg
       - scripts/deck-print.html
       - scripts/make-deck-pdf.mjs
+      - scripts/advisory-deck-smoke.mjs
+      - assets/app.js
+      - assets/styles.css
+      - index.html
+      - en/index.html
       - .github/workflows/advisory-deck-pdf.yml
   workflow_dispatch:
 
@@ -44,6 +49,26 @@ jobs:
           fi
           export CHROME_BIN
           node scripts/make-deck-pdf.mjs
+
+      - name: Validate JS and render the interactive RU/EN deck
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --check assets/deck.js
+          node --check assets/app.js
+          node --check scripts/advisory-deck-smoke.mjs
+          CHROME_BIN="$(command -v google-chrome || command -v chromium)"
+          export CHROME_BIN
+          node scripts/advisory-deck-smoke.mjs
+
+      - name: Upload four browser screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: advisory-deck-browser-screenshots
+          path: artifacts/advisory-smoke/*.png
+          if-no-files-found: warn
+          retention-days: 30
 
       - name: Install PDF inspection tools
         run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
