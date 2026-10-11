@@ -189,7 +189,14 @@ for (const viewport of viewports) {
     if (await clickInReadingPosition(page, card.locator('[data-open]'), `${viewport.name}: ${projectId} dossier`)) {
       assert(await modal.getAttribute('data-project') === projectId, `${viewport.name}: incorrect ${projectId} dossier`);
       assert(await modal.locator('#facts').isVisible(), `${viewport.name}: ${projectId} detail vanished`);
-      await page.locator('#modal-close').click();
+      await page.locator('#modal-cta').click();
+      const chosenTopic = await page.locator('#topic').inputValue();
+      assert(chosenTopic === (projectId === 'igra' ? 'launch' : 'partnership'),
+        `${viewport.name}: ${projectId} CTA opened invalid topic: ${chosenTopic}`);
+      const message = await page.locator('#form [name="message"]').inputValue();
+      assert(message.includes(projectId === 'igra' ? 'IGRA' : 'Marco Pescarolo'),
+        `${viewport.name}: ${projectId} CTA lost project context`);
+      await page.locator('#form [name="message"]').fill('');
     }
   }
 
