@@ -2145,7 +2145,7 @@ function syncOptional() {
   [['surname', 'surname-field', 'surname'], ['patronymic', 'patronymic-field', 'patronymic'],
    ['telegram', 'telegram-field', 'telegram'], ['phone', 'phone-field', 'phone']].forEach(([k, box, input]) => {
     $(`#${box}`).hidden = !on(k);
-    if (!on(k)) $(`#${input}`).value = '';
+    if (!on(k) && document.documentElement.dataset.preview !== 'v2') $(`#${input}`).value = '';
   });
   /* одно поле в паре занимает всю строку */
   document.querySelectorAll('#form .pair').forEach((pair) => {
