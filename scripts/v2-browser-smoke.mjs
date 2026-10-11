@@ -7,7 +7,8 @@ const projects = ['syntha', 'fashionmgmt', 'furproduction', 'mfw', 'promomed', '
 const viewports = [
   { name: 'desktop', width: 1440, height: 1000 },
   { name: 'tablet', width: 834, height: 1112 },
-  { name: 'phone', width: 390, height: 844 }
+  { name: 'phone', width: 390, height: 844 },
+  { name: 'narrow-phone', width: 320, height: 700 }
 ];
 
 await mkdir(outputDir, { recursive: true });
@@ -61,6 +62,8 @@ for (const viewport of viewports) {
     document.documentElement.style.scrollBehavior = 'auto';
     document.body.style.scrollBehavior = 'auto';
   });
+
+  await page.screenshot({ path: `${outputDir}/hero-ru-${viewport.name}.png` });
 
   // Each top-news teaser must link to the unique feed post key, not a shared date.
   const topNewsKey = await page.locator('#top-news').getAttribute('data-date');
@@ -121,6 +124,15 @@ for (const viewport of viewports) {
     assert(await card.evaluate((element) => element.classList.contains('v2-index-card')), `${viewport.name}: row ${index + 1} missing v2-index-card`);
     assert(await card.locator('.v2-index-card-head').count() === 1, `${viewport.name}: row ${index + 1} missing index head`);
     assert(await card.locator('.v2-index-signals > div').count() === 4, `${viewport.name}: row ${index + 1} must contain four executive signals`);
+    const kinds = await card.locator('.v2-index-signals > div').evaluateAll((cells) =>
+      cells.map((cell) => cell.getAttribute('data-signal')));
+    assert(kinds.join(',') === 'challenge,value,built,next',
+      `${viewport.name}: row ${index + 1} is missing the challenge / value / built / next sequence: ${kinds}`);
+    const valueLabel = await card.locator('[data-signal="value"] span').textContent();
+    assert(valueLabel?.includes('гипотеза'), `${viewport.name}: row ${index + 1} must label potential value as an unproven hypothesis`);
+    const lengths = await card.locator('.v2-index-signals p').evaluateAll((elements) => elements.map((e) => e.textContent.trim().length));
+    assert(lengths.length === 4 && lengths.every((len) => len > 25 && len < 180),
+      `${viewport.name}: row ${index + 1} text is missing, excessive or truncated at source: ${lengths}`);
     assert(await card.locator('.v2-index-primary .btn').count() >= 1, `${viewport.name}: row ${index + 1} missing primary action`);
     const more = card.locator('.v2-index-more');
     if (await more.count()) {
@@ -204,6 +216,21 @@ for (const viewport of viewports) {
       await page.locator('#modal-close').click();
     }
   }
+  const englishCards = page.locator('#cards > .card');
+  assert(await englishCards.count() === projects.length,
+    `${viewport.name}: English language switch lost project cards`);
+  for (let i = 0; i < await englishCards.count(); i += 1) {
+    const card = englishCards.nth(i);
+    const kinds = await card.locator('.v2-index-signals > div').evaluateAll((cells) =>
+      cells.map((cell) => cell.getAttribute('data-signal')));
+    assert(kinds.join(',') === 'challenge,value,built,next',
+      `${viewport.name}: EN row ${i + 1} missing or duplicated editorial blocks: ${kinds}`);
+    const valueLabel = await card.locator('[data-signal="value"] span').textContent();
+    assert(valueLabel?.includes('hypothesis'), `${viewport.name}: EN row ${i + 1} potential value is not labeled a hypothesis`);
+    const builtCopy = await card.locator('[data-signal="built"] p').textContent();
+    assert(builtCopy?.length > 40, `${viewport.name}: EN row ${i + 1} missing implementation and limitations`);
+  }
+
   const englishStartWeights = await page.locator('#v2-steps .v2-start-mode > strong')
     .evaluateAll((elements) => elements.map((element) => Number(getComputedStyle(element).fontWeight)));
   assert(englishStartWeights.length === 4 && englishStartWeights.every((weight) => weight <= 500),
@@ -233,6 +260,8 @@ for (const viewport of viewports) {
 
   await projectsSection.screenshot({ path: `${outputDir}/projects-${viewport.name}.png` });
   await page.locator('#v2-steps').screenshot({ path: `${outputDir}/start-${viewport.name}.png` });
+  await page.evaluate(() => window.scrollTo({ top: 0, left: 0, behavior: 'instant' }));
+  await page.screenshot({ path: `${outputDir}/hero-en-${viewport.name}.png` });
   await page.close();
 }
 
@@ -244,4 +273,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('V2 browser smoke passed for desktop, tablet and phone.');
+console.log('V2 browser smoke passed for desktop, tablet, phone and 320px narrow phone.');
