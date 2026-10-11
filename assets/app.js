@@ -329,6 +329,7 @@ function renderCards() {
       <div class="card-foot">
         <button class="btn btn-sm btn-primary" type="button" data-open="${p.id}">${t.projects.open}</button>
         <button class="btn btn-sm" type="button" data-status="${p.id}">${t.projects.statusBtn}</button>
+        ${p.demoUrl ? `<a class="btn btn-sm" data-demo-link="${p.id}" href="${p.demoUrl}" target="_blank" rel="noopener noreferrer">${lang === 'en' ? 'Open live storefront ↗' : 'Открыть демо-витрину ↗'}</a>` : ''}
         <button class="btn btn-sm" type="button" data-news="${p.id}"${hasNews ? '' : ` disabled title="${t.projects.newsEmpty}"`}>${t.projects.newsBtn}</button>
         ${COMPARE[p.id] && lang === 'ru' ? `<button class="btn btn-sm" type="button" data-compare="${p.id}">${t.projects.compareBtn}</button>` : ''}
         ${p.id === 'syntha' ? `<button class="btn btn-sm flow-toggle" type="button" data-flow-toggle aria-expanded="false">${t.flow.eyebrow}</button>` : ''}
