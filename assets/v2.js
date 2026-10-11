@@ -1,4 +1,5 @@
 import './v2-product-refresh.js';
+import { V2_INVESTMENT_PLANS, V2_INVESTMENT_ECONOMICS } from './v2-investment-plans.js';
 /* Isolated V2 presentation; original content and project registry are preserved. */
 const V2_PATHS = {"ru":[{"id":"consulting","n":"01","tab":"Консалтинг","kicker":"Экономика и управление","title":"Разобрать бизнес-задачу и принять решение","body":"Проверяем проблему на данных, считаем экономику и определяем, что менять в закупке, ассортименте, каналах или капитале.","when":["маржа или денежный поток не сходятся","остатки и закупка требуют пересборки","решение нужно принять на данных"],"need":["управленческие данные и ограничения","контекст решения и сроки","критерий, по которому задача считается решённой"],"gets":["диагностика и приоритет","расчёт экономики решения","план действий с контрольными точками"],"topic":"consulting","prompt":"Коротко опишите бизнес-задачу, что сейчас не устраивает и какой результат нужен."},{"id":"pilot","n":"02","tab":"Пилот продукта","kicker":"Продукт и разработка","title":"Проверить продукт на реальной работе","body":"Берём один ключевой сценарий, заранее определяем результат и проверяем его с реальными пользователями до большого внедрения.","when":["есть процесс, который можно оцифровать","гипотезу нужно проверить до большого внедрения","важен измеримый результат пилота"],"need":["описание текущего процесса","владелец процесса и тестовый контур","данные или примеры для одного ключевого сценария"],"gets":["границы пилота и критерии успеха","рабочий сценарий / прототип","решение: масштабировать, изменить или остановить"],"topic":"launch","prompt":"Опишите процесс или задачу, которую хотите проверить в пилоте, и что должно измениться после него."},{"id":"partnership","n":"03","tab":"Партнёрство","kicker":"Совместный рост","title":"Собрать совместный коммерческий кейс","body":"Фиксируем вклад каждой стороны, клиента и способ заработать. Затем проверяем это на одном ограниченном совместном кейсе.","when":["есть доступ к клиентам, данным или инфраструктуре","нужна совместная коммерческая модель","интересен co-development или distribution"],"need":["что каждая сторона реально вносит","какой клиентский сценарий создаём вместе","как измеряется общий результат"],"gets":["роли и вклад сторон","понятная коммерческая механика","план первого совместного запуска"],"topic":"partnership","prompt":"Опишите, что вы предлагаете как партнёр и какой совместный результат считаете ценным."},{"id":"investment","n":"04","tab":"Инвестиции","kicker":"Капитал и масштабирование","title":"Обсудить капитал для конкретного продукта","body":"Показываю текущую стадию, что уже подтверждено, главный риск и какой измеримый этап должен открыть следующий капитал.","when":["интересен один из действующих проектов","нужен понятный путь от капитала к измеримому этапу","важны экономика, риски и подтверждения"],"need":["интересующий продукт или направление","инвестиционный горизонт и формат участия","ключевые требования к риску и доходности"],"gets":["структурированный разбор продукта","этап → капитал → измеримый результат","следующий шаг по проверке или сделке"],"topic":"investors","prompt":"Укажите проект или направление, формат интереса и что вы хотите проверить перед следующим шагом."}],"en":[{"id":"consulting","n":"01","tab":"Advisory","kicker":"Economics & management","title":"Improve profit, inventory or management visibility","body":"We connect the economics of the decision with merchandise, channels, working capital and operating constraints. The output is an implementable decision, not a report that sits on a shelf.","when":["margin or cash conversion is under pressure","buying and inventory need to be redesigned","the decision must be grounded in data"],"need":["management data and constraints","decision context and timeline","a clear acceptance criterion"],"gets":["diagnosis and priorities","decision model and economics","implementation plan with control points"],"topic":"consulting","prompt":"Briefly describe the business problem, what is not working today and the outcome you need."},{"id":"pilot","n":"02","tab":"Product pilot","kicker":"Product & development","title":"Test a digital product on a real business workflow","body":"We select one measurable Golden Path, limit the pilot scope and define PASS / FAIL criteria upfront. The product is tested in operation, not only in a demo.","when":["a workflow can be digitised","a hypothesis should be tested before a large rollout","the pilot needs a measurable outcome"],"need":["current workflow description","a process owner and test environment","sample data for one Golden Path"],"gets":["pilot scope and acceptance criteria","working workflow / prototype","result evidence and a go / no-go decision"],"topic":"launch","prompt":"Describe the workflow you want to test and what should improve after the pilot."},{"id":"partnership","n":"03","tab":"Partnership","kicker":"Joint growth","title":"Combine assets, capabilities or market access","body":"We first define each side’s contribution, commercial mechanics and accountability. Then we structure a limited joint case where value can be proven with evidence.","when":["you bring clients, data or infrastructure","a joint commercial model is needed","co-development or distribution is relevant"],"need":["what each side contributes","the customer workflow we create together","how joint value will be measured"],"gets":["roles and contribution map","value / revenue-sharing model","plan for the first joint case"],"topic":"partnership","prompt":"Describe what you bring as a partner and the joint outcome you would consider valuable."},{"id":"investment","n":"04","tab":"Investment","kicker":"Capital & scale","title":"Discuss capital for a specific product or portfolio","body":"The discussion is structured around the product, maturity, monetisation, the next de-risking milestone and the exact use of capital.","when":["one of the active products is relevant","capital must map to a measurable milestone","economics, risk and evidence matter"],"need":["product or area of interest","investment horizon and participation format","key risk / return requirements"],"gets":["structured investment dialogue","milestone → capital → evidence map","next diligence / pilot / partnership step"],"topic":"investors","prompt":"Name the product or area, your preferred format and what you need to verify before the next step."}]};
 
@@ -1236,6 +1237,64 @@ function installProjectIndexPolish(lang, $, projects) {
   }
 }
 
+
+/* Investment diligence: one public, source-conscious plan per project.
+   No fabricated investment amount, ROI, IRR, or categorical competitor superiority. */
+function installInvestorPlans(lang, $, projects) {
+  const en = lang === 'en';
+  const language = en ? 'en' : 'ru';
+  const modal = $('#modal');
+  if (!modal) return;
+  let section = $('#v2-investment-plan');
+  if (!section) {
+    section = document.createElement('section');
+    section.id = 'v2-investment-plan';
+    section.className = 'v2-investment-plan';
+    const next = $('#v2-disclosure-ladder');
+    if (next) next.after(section);
+    else modal.querySelector('.modal-body')?.append(section);
+  }
+  const esc = (v) => String(v ?? '').replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const labels = en
+    ? ['Why now','Paying customer','Customer outcomes','Investor case','Revenue model','Cost drivers','Our candidate advantage','Competitive reality','Current proof','Key risk','Success metrics']
+    : ['Почему сейчас','Кто платит','Ценность для клиента','Что получает инвестор','Источники выручки','Структура затрат','Наше предполагаемое преимущество','Конкурентная реальность','Что уже подтверждено','Основной риск','Метрики результата'];
+  const fields = ['now','buyer','value','investor','revenue','cost','edge','competitor','proof','risk','metric'];
+  const paint = () => {
+    const id = modal.dataset.project;
+    const plan = V2_INVESTMENT_PLANS[id];
+    if (!modal.open || !plan) { section.hidden = true; return; }
+    section.hidden = false;
+    const d = plan[language], economics = V2_INVESTMENT_ECONOMICS[language];
+    section.innerHTML = `
+      <div class="v2-investment-head">
+        <p class="eyebrow">${en ? 'Investment dossier · assumptions disclosed' : 'Инвестиционное досье · гипотезы обозначены'}</p>
+        <h3>${esc(plan.name)}</h3>
+        <p>${esc(plan.segment)} · ${en ? 'Business case, roadmap and diligence' : 'Экономика, развитие и проверка гипотез'}</p>
+      </div>
+      <div class="v2-investment-grid">${fields.map((field,i)=>`<article data-investment-field="${field}"><span>${labels[i]}</span><p>${esc(d[field])}</p></article>`).join('')}</div>
+      <div class="v2-investment-roadmap">
+        <h4>${en ? 'Technical, functional and commercial roadmap' : 'Технический, функциональный и коммерческий план'}</h4>
+        <div class="v2-investment-phases">${d.stages.map((phase,i)=>`<article><small>0${i+1} · ${esc(phase[0])}</small><p>${esc(phase[1])}</p><p class="v2-investment-stage-proof">${en?'Commercial gate':'Коммерческий критерий'}: ${esc(phase[2])}</p></article>`).join('')}</div>
+      </div>
+      <div class="v2-investment-economics">
+        <h4>${en ? 'Unit economics & payback' : 'Юнит-экономика и окупаемость'}</h4>
+        <p>${esc(economics.intro)}</p>
+        <p class="v2-investment-formula">${esc(economics.formula)}</p>
+        <p>${esc(economics.gate)}</p>
+        <p class="v2-investment-disclaimer">${esc(economics.caution)}</p>
+      </div>
+      <div class="v2-investment-competition">
+        <p>${en ? 'Competitor features are not evidence that other vendors lack them. Test each claim on an identical customer scenario.' : 'Наличие функции у конкурента не доказывает её отсутствие у других. Сравнение проводится на одинаковом клиентском сценарии.'}</p>
+        ${plan.benchmark ? `<a href="${esc(plan.benchmark)}" target="_blank" rel="noopener noreferrer">${en ? 'Competitor product reference ↗' : 'Описание продукта конкурента ↗'}</a>` : ''}
+      </div>`;
+  };
+  if (!modal.__v2InvestorBound) {
+    modal.__v2InvestorBound = true;
+    new MutationObserver(paint).observe(modal, { attributes:true, attributeFilter:['open','data-project'] });
+  }
+  paint();
+}
+
 export function renderV2(lang, projects = []) {
   const en = lang === 'en';
   document.documentElement.dataset.preview = 'v2';
@@ -1281,6 +1340,7 @@ export function renderV2(lang, projects = []) {
   installPublicStatusStamp(lang, $, projects);
   installConfidentialityLayer(lang, $, projects);
   installDisclosureLadder(lang, $, projects);
+  installInvestorPlans(lang, $, projects);
   if (!$('#v2-steps')) {
     const section = document.createElement('section'); section.id = 'v2-steps'; section.className = 'section v2-steps';
     $('#contact').before(section);
