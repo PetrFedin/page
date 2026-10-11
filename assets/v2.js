@@ -1442,8 +1442,8 @@ export function renderV2(lang, projects = []) {
     });
     $('#form').dispatchEvent(new Event('input', { bubbles: true }));
   };
-  if (!methodSelect.dataset.v2MethodBound) {
-    methodSelect.dataset.v2MethodBound = 'true';
+  if (!methodSelect.__v2MethodBound) {
+    methodSelect.__v2MethodBound = 'true';
     methodSelect.addEventListener('change', syncContactMethod);
   }
   syncContactMethod();
