@@ -238,3 +238,7 @@ Cross-product platformization plan:
 - [docs/PORTFOLIO_PLATFORM_FABRIC_2026-10-06.md](./docs/PORTFOLIO_PLATFORM_FABRIC_2026-10-06.md)
 
 It defines the common API/SDK, partner, sandbox, certification, metering and solution-marketplace layer across the portfolio without merging product data authorities.
+
+## Обязательное внедрение без новых затрат
+
+Перед работой прочитать [план приоритетов, интеграций и доказательств](docs/REQUIRED_ZERO_COST_IMPLEMENTATION_2026-10-12.md). Дополнительный бюджет **0 ₽**; этот план не заменяет архитектуру, AGENTS.md, CI или обязательное ревью. Без доказательства работы кода/релиза пункт не считается выполненным.
