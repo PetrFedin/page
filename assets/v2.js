@@ -999,6 +999,122 @@ function installPublicCaseStudy(lang, $, projects) {
 }
 
 
+/* V2.29 concise portfolio: product value is explicitly a pilot hypothesis. */
+const V2_INDEX_EDITORIAL = {
+  "syntha": {
+    "ru": {
+      "challenge": "Объединить модель, заказ, поставку и маржу без бесконечной сверки таблиц.",
+      "value": "Быстрее согласовывать заказы и раньше видеть расхождения в экономике.",
+      "built": "Связаны продукт, заказ и история решений. Проверки техпакета ограничены; реальный сезон ещё не пройден.",
+      "next": "Проверить техпакет на реальных данных и пройти сезон с брендом."
+    },
+    "en": {
+      "challenge": "Connect product, orders, supply and margin without constant spreadsheet reconciliation.",
+      "value": "Approve orders sooner and spot margin discrepancies earlier.",
+      "built": "Product, order and decision history are connected. Tech-pack checks are limited; no real-season proof yet.",
+      "next": "Validate real tech packs and run a complete season with a brand."
+    }
+  },
+  "fashionmgmt": {
+    "ru": {
+      "challenge": "Видеть срок, загрузку и себестоимость каждого производственного заказа.",
+      "value": "Замечать задержки и перерасход до того, как они становятся дорогими.",
+      "built": "Роли, производственная модель и расчёты реализованы. Актуальность серверной версии ещё не подтверждена.",
+      "next": "Сверить деплой и проверить ежедневные сценарии сотрудников."
+    },
+    "en": {
+      "challenge": "Track delivery dates, capacity and costs for every production order.",
+      "value": "Catch delays and overruns before they become expensive.",
+      "built": "Roles, production workflows and calculations are built. Deployed-version parity is still unverified.",
+      "next": "Match deployed code to source and test real staff workflows."
+    }
+  },
+  "furproduction": {
+    "ru": {
+      "challenge": "Проследить каждую партию сырья от закупки до готового изделия.",
+      "value": "Сократить ошибки остатков, списаний и расчёта себестоимости.",
+      "built": "Учёт партий и производства реализован. Сквозная сверка движений и расчётов ещё не закрыта.",
+      "next": "Свести остатки, движения, оплаты и себестоимость с первичными документами."
+    },
+    "en": {
+      "challenge": "Trace each raw-material lot from purchasing to a finished item.",
+      "value": "Reduce stock, consumption and costing errors.",
+      "built": "Lot tracking and production records are built. End-to-end reconciliation is not yet complete.",
+      "next": "Reconcile stock, movements, payments and costing to source documents."
+    }
+  },
+  "mfw": {
+    "ru": {
+      "challenge": "Сохранить аудиторию и контакты брендов после завершения события.",
+      "value": "Проверять посещения, B2B-контакты и повторный интерес между сезонами.",
+      "built": "Объединённый интерфейс MFW, BFS и «Сделано в Москве» собран. Production PostgreSQL ещё не допущена.",
+      "next": "Подтвердить PostgreSQL и /ready, затем провести пилот на реальном событии."
+    },
+    "en": {
+      "challenge": "Keep audiences and brand relationships alive after an event.",
+      "value": "Measure attendance, B2B outcomes and repeat engagement across seasons.",
+      "built": "The MFW, BFS and Made in Moscow interface is assembled. Production PostgreSQL is not yet admitted.",
+      "next": "Prove PostgreSQL readiness, then pilot a real event."
+    }
+  },
+  "promomed": {
+    "ru": {
+      "challenge": "Продлить ценность конференции для участника, партнёра и организатора.",
+      "value": "Проверять посещения, качество лидов и интерес к контенту после события.",
+      "built": "Демо v1.4 и инструменты организатора готовы. Надёжное хранение и реальный пилот не подтверждены.",
+      "next": "Доказать сохранность и восстановление данных, затем испытать продукт с участниками."
+    },
+    "en": {
+      "challenge": "Make the conference useful beyond event day for attendees and partners.",
+      "value": "Measure attendance, lead quality and return visits to content.",
+      "built": "The v1.4 demo and organiser tools exist. Durable storage and a real pilot remain unverified.",
+      "next": "Prove data durability and recovery, then test with attendees."
+    }
+  },
+  "chatx": {
+    "ru": {
+      "challenge": "Не терять решения и ответственность между чатом, встречей и задачей.",
+      "value": "Сократить ручной перенос договорённостей между сервисами.",
+      "built": "Коммуникация, встречи, задачи и согласования собраны. Внешнего корпоративного пилота пока нет.",
+      "next": "Проверить удобство и безопасность ежедневной работы одной команды."
+    },
+    "en": {
+      "challenge": "Keep decisions and owners linked across chats, meetings and tasks.",
+      "value": "Reduce handoffs and lost decisions between tools.",
+      "built": "Messaging, meetings, tasks and approvals are assembled. No external company pilot yet.",
+      "next": "Test daily adoption and security with one real team."
+    }
+  },
+  "antiqua": {
+    "ru": {
+      "challenge": "Вернуть живописи контекст: художника, историю, связанные работы и источники.",
+      "value": "Помогать исследовать коллекцию глубже и возвращаться к произведениям.",
+      "built": "Галерея, художники и коллекции доступны в preview. Надёжность выделенной базы ещё не доказана.",
+      "next": "Подтвердить отдельную PostgreSQL и восстановление, затем подключить реальную коллекцию."
+    },
+    "en": {
+      "challenge": "Give paintings context: artists, history, related works and sources.",
+      "value": "Help visitors research a collection and return to artworks.",
+      "built": "Gallery, artist and collection journeys work in preview. Dedicated database durability is unproven.",
+      "next": "Verify isolated PostgreSQL and recovery, then onboard a real collection."
+    }
+  },
+  "renova": {
+    "ru": {
+      "challenge": "Связать смету, работы, изменения и приёмку в историю одного ремонта.",
+      "value": "Раньше замечать перерасход и прозрачнее согласовывать этапы.",
+      "built": "Основной контур собран. Работа на настоящем объекте и внешние сервисы ещё не проверены.",
+      "next": "Провести один ремонт с заказчиком и исполнителем от сметы до приёмки."
+    },
+    "en": {
+      "challenge": "Bring budgets, work, changes and acceptance into one renovation record.",
+      "value": "See overruns earlier and make stage approvals clearer.",
+      "built": "Core workflows are assembled. Real-property use and external services remain untested.",
+      "next": "Run one property from estimate through acceptance with both sides."
+    }
+  }
+};
+
 /* V2.22 portfolio → deep-project index polishing */
 function installProjectIndexPolish(lang, $, projects) {
   const en = lang === 'en';
@@ -1009,10 +1125,10 @@ function installProjectIndexPolish(lang, $, projects) {
   section.classList.add('v2-project-index');
   const title = $('#projects-title');
   const sub = $('#projects-sub');
-  if (title) title.textContent = en ? 'Projects in detail' : 'Проекты подробно';
+  if (title) title.textContent = en ? 'Projects' : 'Проекты';
   if (sub) sub.textContent = en
-    ? 'One project surface: what each product solves, where it stands today, the economic effect, what already works and the next verifiable step.'
-    : 'В одном месте: что решает продукт, где он находится сейчас, какой даёт экономический эффект, что уже работает и что должно быть подтверждено дальше.';
+    ? 'Eight products. The challenge, potential value, what is built, and what needs proving next. Open a project for the full story.'
+    : 'Восемь продуктов. Задача, возможная польза, уже работающие сценарии и ближайшая проверка. Детали — внутри проекта.';
 
   $('#v2-index-transition')?.remove();
 
@@ -1056,15 +1172,27 @@ function installProjectIndexPolish(lang, $, projects) {
 
     const projectId = card.dataset.project;
     const priority = V2_INVESTOR_PRIORITY[projectId]?.[en ? 'en' : 'ru'];
-    if (priority && !card.querySelector(':scope > .v2-index-signals')) {
+    const brief = V2_INDEX_EDITORIAL[projectId]?.[en ? 'en' : 'ru'];
+    if (priority && brief && !card.querySelector(':scope > .v2-index-signals')) {
       const signals = document.createElement('div');
       signals.className = 'v2-index-signals';
-      const signalRows = en
-        ? [['Why it matters', priority.matters], ['Where it is now', priority.now], ['Economic effect', priority.economic], ['What must be proven next', priority.next]]
-        : [['Почему это важно', priority.matters], ['Где проект сейчас', priority.now], ['Что меняется экономически', priority.economic], ['Что должно быть доказано дальше', priority.next]];
-      signals.innerHTML = signalRows.map(([label, copy], index) =>
-        `<div><span>${String(index + 1).padStart(2,'0')} · ${label}</span><p>${copy}</p></div>`
-      ).join('');
+      signals.setAttribute('aria-label', en ? 'Project at a glance' : 'Проект за минуту');
+      const rows = [
+        ['challenge', en ? 'Challenge' : 'Задача', brief.challenge],
+        ['value', en ? 'Potential value · pilot hypothesis' : 'Потенциальная польза · гипотеза', brief.value],
+        ['built', en ? 'Built · limits' : 'Сделано · ограничения', brief.built],
+        ['next', en ? 'Next verification' : 'Следующая проверка', brief.next]
+      ];
+      signals.replaceChildren(...rows.map(([kind, label, copy]) => {
+        const cell = document.createElement('div');
+        cell.dataset.signal = kind;
+        const heading = document.createElement('span');
+        heading.textContent = label;
+        const bodyText = document.createElement('p');
+        bodyText.textContent = copy;
+        cell.append(heading, bodyText);
+        return cell;
+      }));
       const body = card.querySelector(':scope > .card-body');
       if (body) body.after(signals); else card.append(signals);
     }
