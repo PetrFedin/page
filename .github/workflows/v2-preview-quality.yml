@@ -86,7 +86,7 @@ jobs:
           retention-days: 14
 
       - name: Stamp exact admitted head for release verification
-        run: printf '%s\\n' "$GITHUB_SHA" > v2-build-sha.txt
+        run: echo "$GITHUB_SHA" > v2-build-sha.txt
 
       - name: Deploy admitted V2 to Netlify preview
         if: github.event_name == 'push' && github.ref == 'refs/heads/syntha-v2-preview-product-refresh'
