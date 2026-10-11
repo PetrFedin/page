@@ -249,3 +249,25 @@ Before changing any project card, evidence block, commercial model or project pu
 4. Classify each claim as **implemented/current**, **next gate**, or **planned strategic extension**.
 5. Never promote a planned item into implemented/current without repository evidence.
 6. Update the audited HEAD in this registry whenever a material landing change is made.
+
+
+## IGRA — added to V2 portfolio, pending release admission
+
+Source: private repository `PetrFedin/igra` (do not expose a private source URL in public cards).
+Last independently inspected source: main README and available default-branch metadata on 2026-10-12; public GitHub API last commit returned `eb50e2a88c8c3497df409c9013dc646c5b80261d`, but other work-in-progress branches/PRs may be newer.
+
+Public-safe description: digital construction game with a catalogue of sets, guided assembly, iOS ARKit / RealityKit implementation, local progress and a web demonstration. The central Golden Path is catalogue → set → box → instructions → build → save / continue. The current project workflow reports ongoing work on 300 correct physical-style pieces and save/resume integration; do not market these as accepted or production ready.
+
+Acceptance boundary: full 300-part assembly without substitutes, final-piece accounting, recoverable saves after restart, responsive navigation and actual Apple-device/desktop testing. No claim of App Store publication, actual user traction, monetisation or safe multiplayer rollout. V2 must use a bespoke identity, and show no unapproved screenshots.
+
+## Marco Pescarolo showroom — added to V2 portfolio, pending release admission
+
+Public evidence: `https://marco-pescarolo-showroom.netlify.app/`, Netlify site `51c98d91-f106-4540-b1de-0b3915f1fcd3`; deployment `6ac6231cc610fe3ddcbf97a9`, published on 2026-10-07, manual drop deploy with `commit_ref=null` and no deploy functions. It is a publicly reachable storefront, not evidence of an authenticated order engine.
+
+Public-safe description: luxury digital showroom concept for a fashion brand: collection presentation, buyer assortment, size-grid wholesale order, selective customer pricing, stock / delivery availability, reorder and admin workflows. Only the public Netlify storefront is independently evidenced; dynamic authorisation, live inventory, transactional orders, invoices and confirmed actual sales are NOT independently admitted.
+
+Release and claims boundary: reconcile current deployed HTML with the full source and brand approval, validate real product catalogue, pricing rights, commercial order flow and B2B buyer pilot. Phrase as development portfolio work rather than a verified endorsement or production deployment for the brand. Do not show unapproved commercial data, mock stock figures as real, private client data or unapproved project screenshots.
+
+## Public portfolio release rule
+
+As requested, V2 registry contains ten entries including these two. The V1 catalogue stays untouched. Before publication, verify all ten on RU and EN, four viewports, each opening its correct dossier and displaying challenge / value hypothesis / built boundary / next acceptance stage. The final release must prove the exact deployed Git SHA, not just a green local build. No live screenshot claims until screenshot artifacts have been inspected.
