@@ -62,7 +62,7 @@ for(const lang of ['ru','en']){
     assert.ok(texts.every(x=>x.length>45),'financial values visible');
     if(id==='fintech')await page.screenshot({path:out+'/fintech-'+lang+'-'+width+'.png'});
     await modal.locator('#modal-close').click();
-    await page.locator('#modal:not([open])').waitFor();
+    await page.locator('#modal').waitFor({state:'hidden'});
   }
   const overflow=await page.evaluate(()=>document.documentElement.scrollWidth>document.documentElement.clientWidth+2);
   assert.equal(overflow,false,lang+'/'+width+' no horizontal viewport overflow');
