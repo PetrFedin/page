@@ -1359,12 +1359,12 @@ export function renderV2(lang, projects = []) {
       <p class="sub">${en ? 'Choose the situation and get a short checklist for a useful first conversation.' : 'Выберите ситуацию — получите короткий список того, что стоит прислать или подготовить к первому разговору.'}</p>
     </div>
     <div class="v2-start-choice" role="group" aria-label="${en ? 'Choose how to start' : 'Выберите, с чего начать'}">
-      ${startModes.map((m)=>`<button type="button" class="v2-start-mode" data-v2-start-mode="${m.id}" aria-pressed="false"><span>${m.label}</span><strong>${m.title}</strong></button>`).join('')}
+      ${startModes.map((m)=>`<button type="button" class="v2-start-mode" data-v2-start-mode="${m.id}" aria-pressed="false"><span>${m.label}</span><span class="v2-start-mode-title">${m.title}</span></button>`).join('')}
     </div>
     <div class="v2-start-panel" id="v2-start-panel">
       <div class="v2-start-empty">
         <span>01</span>
-        <div><strong>${en ? 'Choose one option above' : 'Выберите ситуацию выше'}</strong><p>${en ? 'You will get a short preparation checklist.' : 'Здесь появится короткий чек-лист для первого разговора.'}</p></div>
+        <div><span class="v2-start-empty-title">${en ? 'Choose one option above' : 'Выберите ситуацию выше'}</span><p>${en ? 'You will get a short preparation checklist.' : 'Здесь появится короткий чек-лист для первого разговора.'}</p></div>
       </div>
     </div>`;
   const startSection = $('#v2-steps');
