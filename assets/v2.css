@@ -828,3 +828,39 @@ html[data-preview="v2"] #modal:is([data-project="fashionmgmt"],[data-project="fu
   html[data-preview="v2"] #cards > .card:is([data-project="fashionmgmt"],[data-project="furproduction"],[data-project="antiqua"]) .card-logo svg{width:100%;height:auto;max-height:34px}
   html[data-preview="v2"] #modal:is([data-project="fashionmgmt"],[data-project="furproduction"],[data-project="antiqua"]) .modal-logo svg{height:auto;max-height:43px}
 }
+
+
+/* V2.27 mobile reading polish based on actual browser evidence:
+ * keep project identities readable; never overlay content with the legacy floating CTA.
+ * All standard contact paths remain available in the page. */
+html[data-preview="v2"] .cta-bar{display:none!important}
+@media(max-width:759px){
+  html[data-preview="v2"] #projects.v2-project-index .card[data-project="fashionmgmt"] .v2-index-card-head,
+  html[data-preview="v2"] #projects.v2-project-index .card[data-project="furproduction"] .v2-index-card-head,
+  html[data-preview="v2"] #projects.v2-project-index .card[data-project="antiqua"] .v2-index-card-head{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:8px;
+  }
+  html[data-preview="v2"] #projects.v2-project-index .card[data-project="fashionmgmt"] .card-logo,
+  html[data-preview="v2"] #projects.v2-project-index .card[data-project="furproduction"] .card-logo,
+  html[data-preview="v2"] #projects.v2-project-index .card[data-project="antiqua"] .card-logo{
+    flex:0 0 auto;
+    width:100%;
+    max-width:100%;
+  }
+  html[data-preview="v2"] #projects.v2-project-index .card[data-project="fashionmgmt"] .card-logo svg,
+  html[data-preview="v2"] #projects.v2-project-index .card[data-project="furproduction"] .card-logo svg,
+  html[data-preview="v2"] #projects.v2-project-index .card[data-project="antiqua"] .card-logo svg{
+    width:auto;
+    height:40px;
+    max-width:100%;
+    max-height:40px;
+  }
+  html[data-preview="v2"] #projects.v2-project-index .card[data-project="fashionmgmt"] .stage,
+  html[data-preview="v2"] #projects.v2-project-index .card[data-project="furproduction"] .stage,
+  html[data-preview="v2"] #projects.v2-project-index .card[data-project="antiqua"] .stage{
+    max-width:100%;
+    text-align:left;
+  }
+}

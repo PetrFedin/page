@@ -105,6 +105,10 @@ for (const viewport of viewports) {
   }
   await page.locator('#v2-steps').screenshot({ path: `${outputDir}/start-ru-${viewport.name}.png` });
 
+  // The floating legacy contact CTA cannot obscure readable text in V2.
+  assert(!(await page.locator('#cta-bar').isVisible()),
+    `${viewport.name}: legacy floating contact action overlays V2 content`);
+
   const projectsMore = page.locator('#projects-more');
   if (await projectsMore.isVisible() && (await projectsMore.getAttribute('aria-expanded')) !== 'true') {
     await clickInReadingPosition(page, projectsMore, `${viewport.name}: projects show more`);
@@ -164,6 +168,9 @@ for (const viewport of viewports) {
       await page.locator('#modal-close').click();
     }
   }
+
+  // Capture the Russian project index before the in-place language switch.
+  await projectsSection.screenshot({ path: `${outputDir}/projects-ru-${viewport.name}.png` });
 
   // Language switch must stay in-page: no reload, no transient viewport/body shrink.
   await page.evaluate(() => { window.__v2LanguageSentinel = 'alive'; });
