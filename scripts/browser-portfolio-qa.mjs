@@ -13,6 +13,9 @@ try {
 for(const lang of ['ru','en']){
  for(const width of [375,768,1440]){
   const page=await browser.newPage({viewport:{width,height:850},reducedMotion:'reduce'});
+  // Cloudflare rejects its production Turnstile sitekey on local CI host (110200).
+  // Stub only the third-party widget in automated localhost QA; form integration remains out of scope.
+  await page.route('https://challenges.cloudflare.com/**',route=>route.fulfill({status:200,contentType:'text/javascript',body:''}));
   page.on('pageerror',e=>errors.push(lang+'/'+width+': '+String(e)));
   const response=await page.goto(base+(lang==='en'?'/en/':'/'),{waitUntil:'domcontentloaded'});
   assert.equal(response.status(),200,lang+' index HTTP 200');
