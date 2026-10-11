@@ -146,7 +146,7 @@ for (const viewport of viewports) {
     }
   }
 
-  const withoutScreens = ['fashionmgmt','furproduction','antiqua'];
+  const withoutScreens = ['fashionmgmt','furproduction','antiqua','igra','marcopescarolo'];
   for (const projectId of withoutScreens) {
     const logo = page.locator(`#cards > .card[data-project="${projectId}"] .card-logo svg[data-brand="${projectId}"]`);
     assert(await logo.count() === 1, `${viewport.name}: missing SVG identity for ${projectId}`);
@@ -177,6 +177,18 @@ for (const viewport of viewports) {
       assert(!(await modal.locator('#gallery').isVisible()) && !(await modal.locator('#dots').isVisible()),
         `${viewport.name}: empty gallery controls visible for ${projectId}`);
       assert(await modal.locator('#facts').isVisible(), `${viewport.name}: ${projectId} dossier content vanished`);
+      await page.locator('#modal-close').click();
+    }
+  }
+
+  // Requested projects must open in the real existing dossier with correct labels.
+  for (const projectId of ['igra','marcopescarolo']) {
+    const card = page.locator(`#cards > .card[data-project="${projectId}"]`);
+    assert(await card.locator('[data-signal="challenge"],[data-signal="next"]').count() === 2,
+      `${viewport.name}: ${projectId} lacks executive stage and next step`);
+    if (await clickInReadingPosition(page, card.locator('[data-open]'), `${viewport.name}: ${projectId} dossier`)) {
+      assert(await modal.getAttribute('data-project') === projectId, `${viewport.name}: incorrect ${projectId} dossier`);
+      assert(await modal.locator('#facts').isVisible(), `${viewport.name}: ${projectId} detail vanished`);
       await page.locator('#modal-close').click();
     }
   }
