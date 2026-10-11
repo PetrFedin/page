@@ -7,9 +7,11 @@ on:
       - 'assets/logos.js'
       - 'assets/styles.css'
       - 'assets/portfolio-extensions.js'
+      - 'assets/investor-calculator.js'
       - 'index.html'
       - 'en/index.html'
       - 'scripts/verify-investor-dossiers.mjs'
+      - 'scripts/verify-investor-calculator.mjs'
       - '.github/workflows/portfolio-dossiers.yml'
   workflow_dispatch:
 jobs:
@@ -22,10 +24,12 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - run: node --check assets/investor-calculator.js
       - run: node --check assets/app.js
       - run: node --check assets/content.js
       - run: node --check assets/portfolio-extensions.js
       - run: node --check assets/logos.js
       - run: node scripts/verify-investor-dossiers.mjs
+      - run: node scripts/verify-investor-calculator.mjs
       - run: npm run build
       - run: node scripts/verify-investor-dossiers.mjs
