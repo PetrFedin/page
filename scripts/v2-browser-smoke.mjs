@@ -3,7 +3,7 @@ import { chromium } from 'playwright';
 
 const baseUrl = process.env.V2_BASE_URL || 'http://127.0.0.1:4321/?v=2&qa=ci';
 const outputDir = process.env.V2_QA_OUTPUT || 'artifacts/v2-browser';
-const projects = ['syntha', 'fashionmgmt', 'furproduction', 'mfw', 'promomed', 'chatx', 'antiqua', 'renova'];
+const projects = ['syntha', 'fashionmgmt', 'furproduction', 'marcopescarolo', 'mfw', 'promomed', 'chatx', 'antiqua', 'renova', 'igra'];
 const viewports = [
   { name: 'desktop', width: 1440, height: 1000 },
   { name: 'tablet', width: 834, height: 1112 },
