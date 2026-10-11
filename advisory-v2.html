@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="color-scheme" content="light">
+<title>Пётр Федин — Fashion Advisory · Executive Briefing V2</title>
+<meta name="description" content="Переговорная презентация о стратегии, экономике и управлении фэшн-бизнесом.">
+<style>
+:root{--paper:#faf9f7;--card:#fffefc;--ink:#17171a;--muted:#615e5b;--line:#e2ddd7;--accent:#a8492b;--blush:#f3e7e1;--dark:#17181a;--white:#f9f7f2}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:20px}body{margin:0;background:#eae7e3;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.47}
+a{color:inherit}a:focus-visible,button:focus-visible{outline:3px solid #d77d4f;outline-offset:4px}
+.introbar{max-width:1192px;margin:0 auto;padding:19px 20px 0;display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:13px;color:#625d59}
+.introbar a{text-decoration:none;border-bottom:1px solid #b9ada3}.introbar strong{font-weight:600;letter-spacing:.035em}
+.slide{position:relative;width:min(1160px,calc(100% - 32px));min-height:652px;margin:18px auto 30px;padding:52px 58px 59px;background:var(--paper);box-shadow:0 8px 36px #30292318;overflow:hidden}
+.slide.dark{background:var(--dark);color:var(--white);border-left:8px solid var(--accent)}
+.kicker{font-size:11px;font-weight:750;text-transform:uppercase;letter-spacing:.13em;color:var(--accent);margin:0 0 28px}
+.dark .kicker{color:#dab297}h1,h2,h3,p{margin:0}h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:400;letter-spacing:-.027em}
+h1{font-size:clamp(38px,5vw,57px);line-height:1.15;max-width:770px}
+h2{font-size:clamp(29px,3.1vw,42px);line-height:1.18;max-width:990px}
+h3{font-size:22px;line-height:1.23}
+.lead{margin-top:25px;font-size:17px;color:var(--muted);max-width:880px}
+.dark .lead{color:#d9d3cd}
+.rule{border:0;border-top:1px solid var(--line);margin:25px 0 30px}.dark .rule{border-color:#414142}
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px;margin-top:33px}
+.cards.four{grid-template-columns:repeat(4,minmax(0,1fr))}
+.cards.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px 22px 24px;min-width:0}
+.card.accent{background:var(--blush)}
+.card .mini,.smallcap{font-size:11px;font-weight:750;text-transform:uppercase;letter-spacing:.105em;color:var(--accent)}
+.card h3{margin:17px 0 13px}.card p{font-size:15px;color:var(--muted)}
+.card .term{display:block;font-size:12px;color:var(--accent);font-weight:650;margin-top:15px}
+.callout{background:var(--blush);padding:17px 20px;margin-top:27px;font-family:Georgia,serif;font-size:19px;line-height:1.37}
+.dark .callout{background:#303134;color:var(--white)}
+.sequence{margin-top:28px;display:grid;gap:10px}
+.seqrow{display:grid;grid-template-columns:190px 1fr;gap:20px;align-items:start;padding:12px 20px;background:var(--card);border-bottom:1px solid var(--line)}
+.seqrow:nth-child(even){background:#f1eeea}
+.seqrow b{font-size:11px;text-transform:uppercase;letter-spacing:.09em;color:var(--accent);padding-top:4px}
+.seqrow span{font-size:16px}
+.numberline{display:grid;grid-template-columns:1fr 310px;gap:45px;margin-top:35px;align-items:center}
+.bars{display:grid;gap:20px}.barrow{display:grid;grid-template-columns:190px 1fr 40px;gap:12px;align-items:center}.barrow span,.barrow strong{font-size:15px}.bar{height:30px;background:#94908d}.bar.second{background:#c57859}
+.statbox{border:1px solid #606064;background:#323337;padding:30px;border-radius:12px}
+.statbox .smallcap{color:#d8ab92}.statbox strong{font-family:Georgia,serif;font-size:37px;display:block;margin:14px 0 10px;font-weight:400}
+.stats{display:flex;gap:75px;margin:48px 0 38px}.stats strong{display:block;font:normal 60px Georgia,serif;margin:18px 0}.stats small{font-size:11px;font-weight:700;letter-spacing:.11em;color:#deb49b}
+.foot{position:absolute;left:58px;right:58px;bottom:19px;border-top:1px solid var(--line);padding-top:11px;display:flex;justify-content:space-between;align-items:center;font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.foot a{color:var(--accent);font-weight:700;text-decoration:underline}.dark .foot{border-color:#414142;color:#c4bbb5}.dark .foot a{color:#e6bca6}
+.qrlink{display:inline-flex;flex-direction:column;align-items:center;gap:7px;flex-shrink:0;text-decoration:none;font-size:12px;font-weight:600;color:#ceb3a3}
+.qrlink svg{width:145px;height:145px;background:#fff;padding:8px;border-radius:9px;image-rendering:pixelated}
+.cover-bottom{display:flex;align-items:end;justify-content:space-between;gap:40px;margin-top:65px}
+.cover-bottom .author{border-top:1px solid #555055;padding-top:23px;flex:1;font:normal 23px Georgia,serif}
+.cover-bottom .author small{font:normal 13px Arial,sans-serif;color:#cbc5c0;display:block;margin-top:9px}
+.cta{display:inline-block;background:var(--accent);color:white;text-decoration:none;padding:13px 22px;margin-top:24px;font-weight:650;font-size:16px}
+.outro{display:flex;align-items:center;justify-content:space-between;gap:35px;margin-top:45px}.outro .copy{max-width:720px}
+.caveat{font-size:12px;color:var(--muted);margin-top:14px}.dark .caveat{color:#d0c6c0}
+nav{position:sticky;bottom:0;z-index:20;display:flex;justify-content:center;align-items:center;gap:12px;background:#17181af2;color:white;margin-top:15px;padding:12px;font-size:13px}
+nav button{border:1px solid #777;background:transparent;color:white;border-radius:5px;padding:8px 13px;cursor:pointer;min-width:96px}
+nav button:hover{background:#3e3c3b}nav button:disabled{opacity:.4;cursor:default}
+nav a{color:#ecd0c2;text-decoration:none;margin-left:12px}
+@media(max-width:820px){
+.slide{padding:35px 28px 62px;min-height:560px}.cards.four{grid-template-columns:repeat(2,minmax(0,1fr))}.cards{gap:11px}
+.card{padding:16px}.card h3{font-size:20px}.card p{font-size:14px}.numberline{grid-template-columns:1fr;gap:18px}.stats{gap:32px}
+.foot{left:28px;right:28px}.barrow{grid-template-columns:120px 1fr 40px}.introbar{font-size:12px}
+}
+@media(max-width:580px){
+body{background:var(--paper)}.slide{width:100%;min-height:auto;margin:0;padding:37px 21px 61px;box-shadow:none;border-bottom:8px solid #e8e4df}
+.slide.dark{border-left:5px solid var(--accent);border-bottom:8px solid #37383b}
+h1{font-size:39px}h2{font-size:31px}.lead{font-size:16px;margin-top:16px}.kicker{margin-bottom:22px}
+.cards,.cards.two,.cards.four{grid-template-columns:1fr;margin-top:23px}.card{padding:16px 18px}.card h3{margin:10px 0 8px}
+.seqrow{grid-template-columns:1fr;gap:5px;padding:10px 13px}.seqrow span{font-size:14px}
+.cover-bottom,.outro{flex-direction:column;align-items:start;margin-top:30px}.qrlink svg{width:128px;height:128px}
+.statbox{padding:20px}.stats{flex-direction:column;gap:8px;margin-top:20px}.stats strong{font-size:45px}
+.numberline{margin-top:22px}.barrow{grid-template-columns:110px 1fr 33px;gap:7px}.barrow span{font-size:12px}
+.foot{left:21px;right:21px;font-size:9px}.callout{font-size:17px}
+nav{gap:6px;padding:9px}nav button{min-width:68px;padding:8px 7px}nav a{display:none}
+}
+@media print{
+@page{size:landscape;margin:0}body{background:#fff}.introbar,nav{display:none}.slide{width:100%;height:100vh;min-height:0;margin:0;box-shadow:none;break-after:page;border:none;print-color-adjust:exact;-webkit-print-color-adjust:exact}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="introbar"><strong>ПЁТР ФЕДИН / FASHION ADVISORY</strong><a href="/#consulting">← Вернуться к консалтингу</a></div>
+<main id="deck">
+<section class="slide dark" id="p1" aria-label="Обложка">
+<p class="kicker">STRATEGY · MERCHANDISE · CASH</p>
+<h1>Рост должен<br>приносить деньги.</h1>
+<p class="lead">Стратегия, коммерческая экономика и управление фэшн-бизнесом — от решения о закупке до денег на счёте.</p>
+<div class="cover-bottom"><div class="author">Пётр Федин<small>Fashion advisory / Executive briefing</small></div><a class="qrlink" href="https://syntha.pro" target="_blank" rel="noopener"><svg data-syntha-qr role="img" aria-label="QR-код сайта syntha.pro"></svg><span>syntha.pro ↗</span></a></div>
+</section>
+<section class="slide" id="p2"><p class="kicker">01 / ГЛАВНЫЙ ВОПРОС</p><h2>Продажи растут. Почему свободных денег не становится больше?</h2><p class="lead">Выручка, закупка и деньги могут двигаться в разные стороны. Важно увидеть это до нового заказа.</p>
+<div class="cards"><article class="card"><span class="mini">01</span><h3>Выручка</h3><p>Продажи идут вверх. Но скидки и затраты на каналы могут забрать прирост.</p></article><article class="card"><span class="mini">02</span><h3>Товар</h3><p>Ассортимент растёт. Капитал застревает в размерах и медленных позициях.</p></article><article class="card"><span class="mini">03</span><h3>Деньги</h3><p>В отчёте есть прибыль. На очередной заказ поставщику свободных денег уже не хватает.</p></article></div>
+<div class="callout">Первый вопрос: какое решение действительно изменит ситуацию — и во сколько оно обойдётся?</div></section>
+<section class="slide" id="p3"><p class="kicker">02 / ДЛЯ КОГО РАБОТА</p><h2>Три роли. Один бизнес. Разные вопросы к цифрам.</h2><p class="lead">Не нужен ещё один отчёт, который никто не откроет. Нужен ответ, после которого можно действовать.</p>
+<div class="cards"><article class="card"><span class="mini">Собственник</span><h3>Куда вкладывать?</h3><p>Какая категория, рынок или инвестиция принесёт отдачу? Где лучше остановиться?</p></article><article class="card accent"><span class="mini">Генеральный директор</span><h3>Кто отвечает?</h3><p>Как связать коммерцию, закупку, производство и финансы одним планом?</p></article><article class="card"><span class="mini">Коммерческий директор</span><h3>Что создаёт маржу?</h3><p>Какая цена, канал и ассортимент улучшают результат, а не просто оборот?</p></article></div>
+<div class="callout">Когда трое видят разную экономику, даже сильная команда принимает решения вслепую.</div></section>
+<section class="slide" id="p4"><p class="kicker">03 / ПОДХОД</p><h2>Начинаю с вопроса собственника. Не с отчёта и не с системы.</h2><p class="lead">Сначала выясняем, что нужно решить. Затем проверяем цифры и выбираем действие.</p>
+<div class="cards four"><article class="card"><span class="mini">01</span><h3>Вопрос</h3><p>Что тормозит рост или съедает деньги прямо сейчас?</p></article><article class="card"><span class="mini">02</span><h3>Проверка</h3><p>Продажи, закупки, запас, каналы, финансы. Где факты расходятся?</p></article><article class="card"><span class="mini">03</span><h3>Сценарии</h3><p>Что даст каждый вариант и сколько капитала потребуется?</p></article><article class="card"><span class="mini">04</span><h3>Действие</h3><p>Решение, владелец, срок и проверка эффекта.</p></article></div>
+<div class="callout">На встрече должен появиться следующий конкретный шаг. Не очередной список наблюдений.</div></section>
+<section class="slide dark" id="p5"><p class="kicker">04 / УСЛОВНЫЙ РАСЧЁТ</p><h2>Выручка выросла на 15%. Валовая прибыль снизилась.</h2><p class="lead">Условный сценарий — не кейс клиента. Он показывает, почему оборот нельзя смотреть без маржи.</p>
+<div class="numberline"><div class="bars"><div class="barrow"><span>Базовый сезон</span><div class="bar" style="width:87%"></div><strong>100</strong></div><div class="barrow"><span>Следующий сезон</span><div class="bar second" style="width:100%"></div><strong>115</strong></div><p class="caveat">100 × 45% = 45<br>115 × 38% = 43,7</p></div><div class="statbox"><span class="smallcap">Валовая прибыль</span><strong>45 → 43,7</strong><p>−1,3 ед. / −2,9%</p></div></div>
+<div class="callout">Вывод: прежде чем радоваться обороту, считаем маржу после скидок и экономику канала.</div></section>
+<section class="slide" id="p6"><p class="kicker">05 / ТОВАР И ЗАКУПКА</p><h2>Лишний остаток начинается задолго до склада.</h2><p class="lead">Ошибка в ширине коллекции и размерной матрице превращается в уценку уже после начала сезона.</p>
+<div class="sequence"><div class="seqrow"><b>Коллекция</b><span>Не дублируем спрос похожими моделями.</span></div><div class="seqrow"><b>Закупка</b><span>Проверяем лимиты, ширину и глубину до заказа.</span></div><div class="seqrow"><b>Распределение</b><span>Размеры и спрос сопоставляем по площадкам.</span></div><div class="seqrow"><b>Пополнение</b><span>Не завозим новый товар поверх медленного запаса.</span></div><div class="seqrow"><b>Уценка</b><span>Выходим из ошибки до того, как потерян весь сезон.</span></div></div>
+<div class="callout">Товарный план — не таблица артикулов. Это правила, по которым компания рискует капиталом.</div></section>
+<section class="slide" id="p7"><p class="kicker">06 / КАПИТАЛ И ЛИКВИДНОСТЬ</p><h2>Прибыль в отчёте не оплачивает поставщику счёт.</h2><p class="lead">Рост сначала требует денег, и лишь позже их приносит. Этот временной разрыв нужно посчитать.</p>
+<div class="cards four"><article class="card accent"><span class="mini">Заказ</span><h3>Обязательство</h3><p>Нужно платить поставщику.</p></article><article class="card"><span class="mini">Поставка</span><h3>Запас</h3><p>Деньги уже вложены, товар ещё не продан.</p></article><article class="card"><span class="mini">Продажа</span><h3>Выручка</h3><p>Продажа и получение денег — не всегда одно событие.</p></article><article class="card"><span class="mini">Новый цикл</span><h3>Ликвидность</h3><p>Следующую закупку нужно финансировать заранее.</p></article></div>
+<div class="callout">Считаем оборотный капитал, даты платежей и стресс-сценарий до того, как рост стал обязательством.</div></section>
+<section class="slide dark" id="p8"><p class="kicker">07 / ПРОФЕССИОНАЛЬНЫЙ ОПЫТ</p><h2>Практика на масштабе, где ошибки обходятся дорого.</h2><p class="lead">Крупная мультибрендовая фэшн-розница: закупки, ассортимент, маржа, оборачиваемость и автоматизация решений.</p>
+<div class="stats"><div><small>БРЕНДОВ В ПЕРИМЕТРЕ</small><strong>500+</strong></div><div><small>ТОВАРНЫХ ПОЗИЦИЙ</small><strong>30 000+</strong></div></div>
+<div class="callout">Масштаб указан по личному лендингу. Это не обещание аналогичного результата клиенту.</div></section>
+<section class="slide" id="p9"><p class="kicker">08 / ЧТО ОСТАЁТСЯ У КОМПАНИИ</p><h2>После проекта у команды должны остаться инструменты.</h2><p class="lead">Рабочие модели, правила и решения. Не отчёт, который красиво выглядит и пылится в папке.</p>
+<div class="sequence"><div class="seqrow"><b>Карта проблем</b><span>Приоритеты, цена вопроса, допущения.</span></div><div class="seqrow"><b>Экономическая модель</b><span>Маржа, канал, товарный запас, оборотный капитал.</span></div><div class="seqrow"><b>Правила закупки</b><span>Лимиты, распределение, пополнение и уценка.</span></div><div class="seqrow"><b>Контур управления</b><span>Метрики, ответственные, сроки решений.</span></div><div class="seqrow"><b>План внедрения</b><span>Что меняем, кто делает, как проверяем результат.</span></div></div></section>
+<section class="slide" id="p10"><p class="kicker">09 / ФОРМАТЫ СОТРУДНИЧЕСТВА</p><h2>Формат зависит от задачи. Не каждой компании нужен большой проект.</h2><p class="lead">Объём определяем после разговора о том, что требуется бизнесу и какими данными он располагает.</p>
+<div class="cards two"><article class="card accent"><span class="mini">Диагностика</span><span class="term">4–6 недель</span><h3>Где теряется результат?</h3><p>Карта проблем, расчёты и план на сезон.</p></article><article class="card"><span class="mini">Советник собственника</span><span class="term">От 3 месяцев</span><h3>Как принимать решения увереннее?</h3><p>Сценарии, правила и регулярная проверка исполнения.</p></article><article class="card"><span class="mini">Руководство программой</span><span class="term">4–6 месяцев</span><h3>Как провести изменения?</h3><p>Приоритеты, полномочия, координация команды.</p></article><article class="card"><span class="mini">Данные, аналитика, PLM</span><span class="term">3–6 месяцев</span><h3>Как связать товар, продажи и деньги?</h3><p>Модель данных, прототип и план внедрения.</p></article></div></section>
+<section class="slide" id="p11"><p class="kicker">10 / КАК ПРОВЕРЯЕМ ЭФФЕКТ</p><h2>Результат нельзя подтвердить одним красивым графиком.</h2><p class="lead">Базу сравнения договариваемся считать заранее. Отделяем изменения от надежд и совпадений.</p>
+<div class="cards four"><article class="card"><span class="mini">База</span><h3>Что было</h3><p>Исходный период и качество данных.</p></article><article class="card"><span class="mini">Действие</span><h3>Что поменяли</h3><p>Решение, которое команда действительно исполнила.</p></article><article class="card"><span class="mini">Метрика</span><h3>Что считаем</h3><p>Маржа, оборачиваемость, деньги, сроки.</p></article><article class="card"><span class="mini">Проверка</span><h3>Что получилось</h3><p>План-факт, условия и внешние факторы.</p></article></div>
+<div class="callout">Не использую чужие конфиденциальные цифры и не выдаю условный расчёт за реальный кейс.</div></section>
+<section class="slide dark" id="p12"><p class="kicker">ПЕРВАЯ ВСТРЕЧА / 30–45 МИНУТ</p><h1>Начнём с вашего<br>главного решения.</h1>
+<div class="outro"><div class="copy"><p class="lead">Что сейчас важнее — рост, маржа, товар или деньги? За первую встречу выясним, какие цифры нужны и с кем принимать решение.</p><a class="cta" href="https://syntha.pro/#contact" target="_blank" rel="noopener">Обсудить задачу на syntha.pro ↗</a><p class="lead"><a href="https://syntha.pro" target="_blank" rel="noopener">https://syntha.pro</a></p></div><a class="qrlink" href="https://syntha.pro" target="_blank" rel="noopener"><svg data-syntha-qr role="img" aria-label="QR-код сайта syntha.pro"></svg><span>Открыть сайт</span></a></div>
+<p class="caveat">Пётр Федин / Fashion advisory</p></section>
+</main>
+<nav aria-label="Навигация по презентации"><button id="prev" type="button">← Назад</button><span id="counter" aria-live="polite">1 / 12</span><button id="next" type="button">Вперёд →</button><a href="https://syntha.pro" target="_blank" rel="noopener">syntha.pro ↗</a></nav>
+<script>
+const matrix='000000000000000000000000000000000|000000000000000000000000000000000|000000000000000000000000000000000|000000000000000000000000000000000|000011111110111000100011111110000|000010000010000001100010000010000|000010111010101001001010111010000|000010111010010100001010111010000|000010111010011110100010111010000|000010000010101101100010000010000|000011111110101010101011111110000|000000000000001101000000000000000|000010100011011011010001001010000|000011011000011110011111010110000|000011011111111101111100011010000|000001011001010100111100010000000|000000000011001001101010000010000|000000011001001001110011000110000|000011011011111100010000011010000|000000111000101001000011110000000|000011001110100111011111100100000|000000000000110010001000100010000|000011111110110011101010100010000|000010000010001110111000100010000|000010111010010001111111100110000|000010111010001001100100101100000|000010111010101100010001110110000|000010000010010001001101100000000|000011111110111111001110010010000|000000000000000000000000000000000|000000000000000000000000000000000|000000000000000000000000000000000|000000000000000000000000000000000'.split('|');
+document.querySelectorAll('[data-syntha-qr]').forEach(svg=>{svg.setAttribute('viewBox','0 0 33 33');svg.setAttribute('shape-rendering','crispEdges');matrix.forEach((row,y)=>{for(let x=0;x<row.length;x++){if(row[x]!=='1')continue;const r=document.createElementNS('http://www.w3.org/2000/svg','rect');r.setAttribute('x',x);r.setAttribute('y',y);r.setAttribute('width',1);r.setAttribute('height',1);r.setAttribute('fill','#17171a');svg.appendChild(r);}})});
+const slides=[...document.querySelectorAll('.slide')],counter=document.getElementById('counter'),prev=document.getElementById('prev'),next=document.getElementById('next');let pos=0;
+function sync(i){pos=Math.max(0,Math.min(i,slides.length-1));counter.textContent=(pos+1)+' / '+slides.length;prev.disabled=pos===0;next.disabled=pos===slides.length-1}
+function go(i){sync(i);slides[pos].scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'})}
+prev.addEventListener('click',()=>go(pos-1));next.addEventListener('click',()=>go(pos+1));addEventListener('keydown',e=>{if(['INPUT','TEXTAREA','BUTTON'].includes(document.activeElement.tagName))return;if(e.key==='ArrowRight'){e.preventDefault();go(pos+1)}else if(e.key==='ArrowLeft'){e.preventDefault();go(pos-1)}});
+if('IntersectionObserver' in window){const ob=new IntersectionObserver(entries=>{const visible=entries.filter(e=>e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];if(visible)sync(slides.indexOf(visible.target))},{threshold:[.25,.50,.75]});slides.forEach(s=>ob.observe(s));}
+sync(0);
+</script>
+</body></html>
