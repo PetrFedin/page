@@ -907,3 +907,12 @@ html[data-preview="v2"] .cta-bar{display:none!important}
     text-align:left;
   }
 }
+
+/* V2 QA: keep long project and contact pages readable while scrolling.
+   Legacy sticky section h2 crossed editable form fields and produced a floating
+   heading halfway down the page. The global V1 rule remains untouched. */
+html[data-preview="v2"] .section > .section-head > h2 {
+  position: static;
+  margin-inline: 0;
+  z-index: auto;
+}
