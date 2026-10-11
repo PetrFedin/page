@@ -177,6 +177,14 @@ for (const viewport of viewports) {
       assert(!(await modal.locator('#gallery').isVisible()) && !(await modal.locator('#dots').isVisible()),
         `${viewport.name}: empty gallery controls visible for ${projectId}`);
       assert(await modal.locator('#facts').isVisible(), `${viewport.name}: ${projectId} dossier content vanished`);
+      const investment = modal.locator('#v2-investment-plan');
+      assert(await investment.isVisible(), `${viewport.name}: missing ${projectId} investment dossier`);
+      assert(await investment.locator('.v2-investment-grid article').count() === 11,
+        `${viewport.name}: ${projectId} investment dossier lacks all eleven diligence fields`);
+      assert(await investment.locator('.v2-investment-phases article').count() === 3,
+        `${viewport.name}: ${projectId} requires three implementation/commercial stages`);
+      assert((await investment.locator('.v2-investment-disclaimer').textContent()).includes('не утверждены'),
+        `${viewport.name}: ${projectId} financial assumption disclaimer missing`);
       await page.locator('#modal-close').click();
     }
   }
