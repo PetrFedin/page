@@ -2291,6 +2291,10 @@ function renderDeck() {
   $('#deck-title').textContent = d.title;
   $('#deck-lead').textContent = d.lead;
   $('#deck-tagline').textContent = d.tagline;
+  $('#deck-site-title').textContent = d.siteTitle;
+  $('#deck-site-hint').textContent = d.siteHint;
+  $('#deck-site-final-title').textContent = d.siteTitle;
+  $('#deck-site-scan').textContent = d.siteScan;
   $('#chain-title').textContent = d.chainTitle;
   $('#chain-list').className = 'chain-list snap';
   $('#chain-hint').textContent = d.chainHint ?? '';

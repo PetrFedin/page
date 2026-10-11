@@ -30,6 +30,12 @@ const ЗАМЕНЫ = [
   ['>К содержанию</a>', '>Skip to content</a>'],
   ['>Подробно о проекте</a>', '>Project page</a>'],
   ['alt="QR-код"', 'alt="QR code"'],
+  // Consulting deck website/QR handoff is translated in the generated EN shell.
+  ['Портфолио и контакты', 'Portfolio and contact'],
+  ['Проекты и способы связи — на личном сайте.', 'Explore projects and ways to get in touch.'],
+  ['Сканируйте QR-код, чтобы открыть сайт.', 'Scan the QR code to visit my website.'],
+  ['QR-код сайта syntha.pro', 'QR code for syntha.pro'],
+  ['Сайт и контакты', 'Website and contact'],
   ['<link rel="canonical" href="https://syntha.pro/">',
    '<link rel="canonical" href="https://syntha.pro/en/">'],
 ];

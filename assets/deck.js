@@ -13,6 +13,10 @@ export const DECK = {
     chainHint: 'Выберите этап — откроется направление работы, которое его закрывает.',
     decisionLabel: 'Решение',
     download: 'Скачать презентацию (PDF)',
+    siteTitle: 'Портфолио и контакты',
+    siteHint: 'Откройте мой сайт: опыт, проекты и возможность связаться.',
+    siteScan: 'Наведите камеру на QR-код, чтобы перейти на syntha.pro.',
+    siteVisit: 'Открыть syntha.pro',
     glossaryTitle: 'Сокращения',
     glossary: [
       ['PLM', 'управление жизненным циклом продукта'],
@@ -145,6 +149,10 @@ export const DECK = {
     chainHint: 'Choose a stage to open the area of work that covers it.',
     decisionLabel: 'Decision',
     download: 'Download the deck (PDF)',
+    siteTitle: 'Portfolio and contact',
+    siteHint: 'Explore my experience, projects and ways to get in touch.',
+    siteScan: 'Scan the QR code to open syntha.pro.',
+    siteVisit: 'Visit syntha.pro',
     glossaryTitle: 'Abbreviations',
     glossary: [
       ['PLM', 'product lifecycle management'],

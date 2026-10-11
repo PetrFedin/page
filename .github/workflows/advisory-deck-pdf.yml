@@ -1,0 +1,136 @@
+name: Build bilingual advisory deck PDFs
+
+on:
+  push:
+    branches: [feat/advisory-deck-site-qr-20261011]
+    paths:
+      - assets/deck.js
+      - assets/qr-syntha-site.svg
+      - scripts/deck-print.html
+      - scripts/make-deck-pdf.mjs
+      - scripts/advisory-deck-smoke.mjs
+      - scripts/build-en.mjs
+      - assets/app.js
+      - assets/styles.css
+      - index.html
+      - en/index.html
+      - .github/workflows/advisory-deck-pdf.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: advisory-deck-pdf-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  pdf:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout exactly this branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          persist-credentials: true
+
+      - name: Node.js 24
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Generate both PDFs from the same deck source
+        shell: bash
+        run: |
+          set -euo pipefail
+          CHROME_BIN="$(command -v google-chrome || command -v chromium || true)"
+          if [[ -z "$CHROME_BIN" ]]; then
+            echo "Chrome is required for reliable CSS print"; exit 1
+          fi
+          export CHROME_BIN
+          node scripts/make-deck-pdf.mjs
+
+      - name: Validate JS and render the interactive RU/EN deck
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --check assets/deck.js
+          node --check assets/app.js
+          node --check scripts/advisory-deck-smoke.mjs
+          node scripts/build-en.mjs
+          CHROME_BIN="$(command -v google-chrome || command -v chromium)"
+          export CHROME_BIN
+          node scripts/advisory-deck-smoke.mjs
+
+      - name: Upload four browser screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: advisory-deck-browser-screenshots
+          path: artifacts/advisory-smoke/*.png
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: Install PDF inspection tools
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils zbar-tools
+
+      - name: Validate PDFs and linked personal site
+        shell: bash
+        run: |
+          set -euo pipefail
+          for file in assets/fashion-advisory.pdf assets/fashion-advisory-en.pdf; do
+            test -s "$file"
+            if ! command -v pdftotext >/dev/null; then
+              echo "pdftotext missing, cannot validate output"; exit 1
+            fi
+            pdftotext "$file" - | grep -Fq 'https://syntha.pro'
+            echo "PASS $file: link text present"
+          done
+          grep -Fq '/assets/qr-syntha-site.svg' scripts/deck-print.html
+          grep -Fq 'https://syntha.pro' assets/qr-syntha-site.svg
+
+      - name: Render and decode cover and final page QR codes
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts/advisory-pdf
+          for lang in ru en; do
+            if [[ "$lang" == ru ]]; then file="assets/fashion-advisory.pdf"; else file="assets/fashion-advisory-en.pdf"; fi
+            pages="$(pdfinfo "$file" | awk '/^Pages:/ {print $2}')"
+            test "$pages" -gt 1
+            pdftoppm -f 1 -l 1 -r 180 -png -singlefile "$file" "artifacts/advisory-pdf/${lang}-cover"
+            pdftoppm -f "$pages" -l "$pages" -r 180 -png -singlefile "$file" "artifacts/advisory-pdf/${lang}-final"
+            for page in cover final; do
+              png="artifacts/advisory-pdf/${lang}-${page}.png"
+              actual="$(zbarimg --quiet --raw "$png" | head -n 1)"
+              if [[ "$actual" != "https://syntha.pro" ]]; then
+                echo "Incorrect or unreadable QR in $png: [$actual]"
+                exit 1
+              fi
+              echo "PASS $png QR -> $actual"
+            done
+          done
+
+      - name: Upload rendered PDF cover and final pages
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: advisory-deck-pdf-visual-evidence
+          path: artifacts/advisory-pdf/*.png
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: Commit generated PDFs on feature branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/fashion-advisory.pdf assets/fashion-advisory-en.pdf
+          if git diff --cached --quiet; then
+            echo "No PDF changes"
+          else
+            git commit -m "build(advisory): sync RU and EN PDF with QR and site link"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          fi
