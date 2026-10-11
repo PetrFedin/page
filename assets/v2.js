@@ -1406,23 +1406,39 @@ export function renderV2(lang, projects = []) {
     });
   }
   $('#contact-sub').textContent = en ? 'Your name, one way to reach you and a few words about your challenge are enough to start.' : 'Для начала достаточно имени, одного способа связи и нескольких слов о задаче.';
+  // The prerendered HTML already includes this control. Bind events on BOTH
+  // the generated and the dynamically-created versions, otherwise selectors
+  // look correct but never update the actual form.
   if (!$('#v2-contact-method')) {
     const label = document.createElement('label'); label.className = 'field'; label.id = 'v2-method-field';
     label.innerHTML = '<span></span><select id="v2-contact-method"><option value="email">Email</option><option value="telegram">Telegram</option><option value="phone"></option></select>';
     $('#email').closest('label').before(label);
-    const setMethod = () => {
-      const method = $('#v2-contact-method').value;
-      $('#opt-telegram').checked = method === 'telegram';
-      $('#opt-phone').checked = method === 'phone';
-      $('#opt-telegram').dispatchEvent(new Event('change'));
-      $('#email').closest('label').hidden = method !== 'email';
-      if (method !== 'email') $('#email').value = '';
-      $('#form').dispatchEvent(new Event('input'));
-    };
-    $('#v2-contact-method').addEventListener('change', setMethod);
-    setMethod();
-    $('#opt-telegram').closest('.opt-row').hidden = true;
   }
+  const methodSelect = $('#v2-contact-method');
+  const syncContactMethod = () => {
+    const method = methodSelect.value;
+    $('#opt-telegram').checked = method === 'telegram';
+    $('#opt-phone').checked = method === 'phone';
+    for (const [id, selected] of [['email', 'email'], ['telegram', 'telegram'], ['phone', 'phone']]) {
+      const input = document.getElementById(id);
+      if (!input) continue;
+      const active = method === selected;
+      input.closest('label').hidden = !active;
+      // Disabled fields are absent from FormData, without destroying a draft
+      // when somebody toggles the method and later changes their mind.
+      input.disabled = !active;
+    }
+    document.querySelectorAll('#form .pair').forEach((pair) => {
+      pair.dataset.n = String([...pair.children].filter((child) => !child.hidden).length);
+    });
+    $('#form').dispatchEvent(new Event('input', { bubbles: true }));
+  };
+  if (!methodSelect.dataset.v2MethodBound) {
+    methodSelect.dataset.v2MethodBound = 'true';
+    methodSelect.addEventListener('change', syncContactMethod);
+  }
+  syncContactMethod();
+  $('#opt-telegram').closest('.opt-row').hidden = true;
   $('#v2-method-field > span').textContent = en ? 'How can I reach you?' : 'Как с вами связаться?';
   $('#v2-contact-method option[value="phone"]').textContent = en ? 'Phone' : 'Телефон';
   if (!$('#v2-form-note')) {
