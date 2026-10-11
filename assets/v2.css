@@ -827,6 +827,39 @@ html[data-preview="v2"] #cards > .card :is(a,button):focus-visible{
   html[data-preview="v2"] .v2-index-signals>div{padding-block:10px 4px}
 }
 
+/* V2.29: compact, source-conscious portfolio briefs with clear proof hierarchy. */
+html[data-preview="v2"] #projects.v2-project-index .v2-index-signals{
+  gap:8px 22px;
+  margin-top:8px;
+}
+html[data-preview="v2"] #projects.v2-project-index .v2-index-signals>div{
+  padding:11px 8px 8px 0;
+}
+html[data-preview="v2"] #projects.v2-project-index .v2-index-signals span{
+  font-size:10px;
+  font-weight:600;
+  letter-spacing:.025em;
+}
+html[data-preview="v2"] #projects.v2-project-index .v2-index-signals p{
+  font-size:12.5px;
+  line-height:1.55;
+  overflow-wrap:break-word;
+}
+html[data-preview="v2"] #projects.v2-project-index .v2-index-signals>div[data-signal="built"]{
+  border-top-color:var(--accent);
+}
+html[data-preview="v2"] #projects.v2-project-index .v2-index-signals>div:is([data-signal="built"],[data-signal="next"]) p{
+  color:var(--ink);
+}
+@media(max-width:759px){
+  html[data-preview="v2"] #projects.v2-project-index .v2-index-signals{gap:0;margin-top:3px}
+  html[data-preview="v2"] #projects.v2-project-index .v2-index-signals>div{padding:10px 0 9px}
+  html[data-preview="v2"] #projects.v2-project-index .v2-index-signals p{font-size:13px;line-height:1.52}
+}
+@media(max-width:360px){
+  html[data-preview="v2"] #projects.v2-project-index .v2-index-primary{grid-template-columns:1fr}
+}
+
 /* V2.26 editorial identities and deferred screenshot galleries. */
 html[data-preview="v2"] #modal #gallery[hidden],
 html[data-preview="v2"] #modal #dots[hidden]{display:none!important}
