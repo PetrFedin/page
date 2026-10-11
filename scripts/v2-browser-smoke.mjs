@@ -106,7 +106,7 @@ for (const viewport of viewports) {
     assert(await page.locator('#v2-start-panel .v2-start-selected').count() === 1,
       `${viewport.name}: start checklist did not open`);
   }
-  await page.locator('#v2-steps').screenshot({ path: `${outputDir}/start-ru-${viewport.name}.png` });
+  await page.locator('#v2-steps').screenshot({ style: 'header.topbar, #cta-bar { visibility: hidden !important; }', path: `${outputDir}/start-ru-${viewport.name}.png` });
 
   // The floating legacy contact CTA cannot obscure readable text in V2.
   assert(!(await page.locator('#cta-bar').isVisible()),
@@ -201,7 +201,7 @@ for (const viewport of viewports) {
   }
 
   // Capture the Russian project index before the in-place language switch.
-  await projectsSection.screenshot({ path: `${outputDir}/projects-ru-${viewport.name}.png` });
+  await projectsSection.screenshot({ style: 'header.topbar, #cta-bar { visibility: hidden !important; }', path: `${outputDir}/projects-ru-${viewport.name}.png` });
 
   // Language switch must stay in-page: no reload, no transient viewport/body shrink.
   await page.evaluate(() => { window.__v2LanguageSentinel = 'alive'; });
@@ -277,8 +277,8 @@ for (const viewport of viewports) {
   assert(pageErrors.length === 0, `${viewport.name}: page errors: ${pageErrors.join(' | ')}`);
   assert(badResponses.length === 0, `${viewport.name}: HTTP errors: ${badResponses.join(' | ')}`);
 
-  await projectsSection.screenshot({ path: `${outputDir}/projects-${viewport.name}.png` });
-  await page.locator('#v2-steps').screenshot({ path: `${outputDir}/start-${viewport.name}.png` });
+  await projectsSection.screenshot({ style: 'header.topbar, #cta-bar { visibility: hidden !important; }', path: `${outputDir}/projects-${viewport.name}.png` });
+  await page.locator('#v2-steps').screenshot({ style: 'header.topbar, #cta-bar { visibility: hidden !important; }', path: `${outputDir}/start-${viewport.name}.png` });
   await page.evaluate(() => window.scrollTo({ top: 0, left: 0, behavior: 'instant' }));
   await page.screenshot({ path: `${outputDir}/hero-en-${viewport.name}.png` });
   await page.close();
