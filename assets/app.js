@@ -1,8 +1,8 @@
 import { T, PROJECTS as CORE_PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610041955';
-import { EXTRA_PROJECTS, INVESTOR_BLUEPRINTS } from './portfolio-extensions.js';
+import { EXTRA_PROJECTS, INVESTOR_BLUEPRINTS } from './portfolio-extensions.js?v=20261012-invdossiers';
 const PROJECTS = [...CORE_PROJECTS, ...EXTRA_PROJECTS];
 import { DECK } from './deck.js?v=202610041955';
-import { LOGOS } from './logos.js?v=202610041955';
+import { LOGOS } from './logos.js?v=20261012-invdossiers';
 import { createViewer } from './viewer.js?v=202609301526';
 import { syncSnaps } from './snap.js?v=202610041955';
 import { NEWS } from './news.js?v=202610041955';
