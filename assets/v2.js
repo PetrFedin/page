@@ -138,7 +138,7 @@ function installDecisionLayer(lang, $) {
 
 
 /* V2.2 portfolio intelligence */
-const V2_PORTFOLIO_META = {"syntha":{"cats":["fashion"],"maturity":"pilot","commercial":{"ru":"Пилот → коммерческая модель фиксируется по результатам проверки","en":"Pilot → commercial model fixed after validation"}},"chatx":{"cats":["enterprise"],"maturity":"mvp","commercial":{"ru":"Пилот в компании → условия внедрения после проверки","en":"Company pilot → rollout terms after validation"}},"renova":{"cats":["consumer"],"maturity":"mvp","commercial":{"ru":"Закрытый тест → модель выхода на рынок после проверки","en":"Closed test → market model after validation"}},"mfw":{"cats":["events","fashion"],"maturity":"pilot","commercial":{"ru":"Pilot-ready preview → реальное событие → партнёрская / лицензионная модель","en":"Pilot-ready preview → real event → partnership / licensing model"}},"promomed":{"cats":["events"],"maturity":"pilot","commercial":{"ru":"Live v1.4 → controlled pilot → коммерческий формат после evidence","en":"Live v1.4 → controlled pilot → commercial format after evidence"}},"antiqua":{"cats":["art"],"maturity":"pilot","commercial":{"ru":"Пилот с галереей или коллекцией → проверка ценности → профессиональная / исследовательская модель","en":"Gallery / institution pilot → professional / research model after evidence"}},"fashionmgmt":{"cats":["fashion","enterprise"],"maturity":"pilot","commercial":{"ru":"Контролируемый запуск → измеримые результаты → условия лицензии, внедрения и поддержки","en":"Controlled enterprise rollout → acceptance metrics → licence / implementation terms"},"confidential":true},"furproduction":{"cats":["fashion","enterprise"],"maturity":"pilot","commercial":{"ru":"Производственный пилот → подтверждение точности остатков и себестоимости → условия внедрения","en":"Controlled production use → inventory/cost acceptance → vertical ERP rollout terms"},"confidential":true}};
+const V2_PORTFOLIO_META = {"syntha":{"cats":["fashion"],"maturity":"pilot","commercial":{"ru":"Пилот → коммерческая модель фиксируется по результатам проверки","en":"Pilot → commercial model fixed after validation"}},"chatx":{"cats":["enterprise"],"maturity":"mvp","commercial":{"ru":"Пилот в компании → условия внедрения после проверки","en":"Company pilot → rollout terms after validation"}},"renova":{"cats":["consumer"],"maturity":"mvp","commercial":{"ru":"Закрытый тест → модель выхода на рынок после проверки","en":"Closed test → market model after validation"}},"mfw":{"cats":["events","fashion"],"maturity":"pilot","commercial":{"ru":"Pilot-ready preview → реальное событие → партнёрская / лицензионная модель","en":"Pilot-ready preview → real event → partnership / licensing model"}},"promomed":{"cats":["events"],"maturity":"pilot","commercial":{"ru":"Live v1.4 → controlled pilot → коммерческий формат после evidence","en":"Live v1.4 → controlled pilot → commercial format after evidence"}},"antiqua":{"cats":["art"],"maturity":"pilot","commercial":{"ru":"Пилот с галереей или коллекцией → проверка ценности → профессиональная / исследовательская модель","en":"Gallery / institution pilot → professional / research model after evidence"}},"fashionmgmt":{"cats":["fashion","enterprise"],"maturity":"pilot","commercial":{"ru":"Контролируемый запуск → измеримые результаты → условия лицензии, внедрения и поддержки","en":"Controlled enterprise rollout → acceptance metrics → licence / implementation terms"},"confidential":true},"furproduction":{"cats":["fashion","enterprise"],"maturity":"pilot","commercial":{"ru":"Производственный пилот → подтверждение точности остатков и себестоимости → условия внедрения","en":"Controlled production use → inventory/cost acceptance → vertical ERP rollout terms"},"confidential":true},"igra":{"cats":["consumer"],"maturity":"mvp","commercial":{"ru":"Игровой golden path → пилот с пользователями после проверок","en":"Playable golden path → user pilot after acceptance"}},"marcopescarolo":{"cats":["fashion","enterprise"],"maturity":"mvp","commercial":{"ru":"Действующая витрина → B2B-пилот на данных каталога → условия внедрения","en":"Live storefront → verified-catalogue wholesale pilot → rollout terms"}}};
 const V2_PORTFOLIO_CATEGORIES = {"ru":[["all","Все"],["fashion","Мода"],["enterprise","Корпоративные"],["events","События"],["consumer","Потребительские"],["fintech","Финтех"],["art","Искусство"],["infrastructure","Инфраструктура"]],"en":[["all","All"],["fashion","Fashion"],["enterprise","Enterprise"],["events","Events"],["consumer","Consumer"],["fintech","Fintech"],["art","Art"],["infrastructure","Infrastructure"]]};
 const V2_MATURITY = {"ru":{"concept":"Концепция","mvp":"MVP","pilot":"Готов к пилоту","production":"В эксплуатации"},"en":{"concept":"Concept","mvp":"MVP","pilot":"Pilot-ready","production":"Production"}};
 
@@ -147,7 +147,7 @@ const V2_INVESTOR_PRIORITY = {"syntha":{"ru":{"matters":"Fashion-бизнес т
 
 function renderPortfolioIntelligence(lang, $, projects) {
   const en = lang === 'en';
-  const priorityOrder = ['syntha','fashionmgmt','furproduction','mfw','promomed','chatx','antiqua','renova'];
+  const priorityOrder = ['syntha','fashionmgmt','furproduction','marcopescarolo','mfw','promomed','chatx','antiqua','renova','igra'];
   const rank = new Map(priorityOrder.map((id,i)=>[id,i]));
   const items = Array.isArray(projects) ? projects.filter((p) => p?.id && p?.[lang]).sort((a,b)=>(rank.get(a.id)??99)-(rank.get(b.id)??99)) : [];
   const meta = V2_PORTFOLIO_META;
@@ -1113,6 +1113,15 @@ const V2_INDEX_EDITORIAL = {
       "next": "Run one property from estimate through acceptance with both sides."
     }
   }
+,  "marcopescarolo": {
+    "ru":{"challenge":"Соединить показ коллекции с размерной матрицей и подтверждённым заказом.","value":"Ускорять работу байера от выбора до заказа без ручных таблиц.","built":"Netlify-витрина опубликована; доступ к данным, цены, заказы и связность исходного кода не подтверждены.","next":"Проверить каталог, матрицу, права клиента и цикл заказа с байером."},
+    "en":{"challenge":"Connect luxury collection presentation with a complete order grid.","value":"Enable faster buyer selection and reduce manual ordering.","built":"A Netlify storefront is live; real pricing, data, permissions and confirmed orders remain unverified.","next":"Prove catalogue, size matrix, buyer access and order workflow."}
+  },
+  "igra": {
+    "ru":{"challenge":"Довести цифровую сборку от коробки до сохранённой готовой модели.","value":"Давать игроку понятную сборку без потерянных деталей и прогресса.","built":"Есть iOS/AR-основа и веб-демо; последний шаг и восстановление требуют приёмки.","next":"Проверить точные наборы, сохранение и сквозной маршрут на устройствах."},
+    "en":{"challenge":"Make every building set playable from opening the box to saving the model.","value":"Let players assemble and resume reliably without missing parts.","built":"iOS/AR code and web demo exist; complete parts and save/restore still need acceptance.","next":"Verify exact-parts building, recovery and full device journeys."}
+  },
+
 };
 
 /* V2.22 portfolio → deep-project index polishing */
@@ -1127,8 +1136,8 @@ function installProjectIndexPolish(lang, $, projects) {
   const sub = $('#projects-sub');
   if (title) title.textContent = en ? 'Projects' : 'Проекты';
   if (sub) sub.textContent = en
-    ? 'Eight products. The challenge, potential value, what is built, and what needs proving next. Open a project for the full story.'
-    : 'Восемь продуктов. Задача, возможная польза, уже работающие сценарии и ближайшая проверка. Детали — внутри проекта.';
+    ? 'Ten products. The challenge, potential value, what is built, and what needs proving next. Open a project for the full story.'
+    : 'Десять продуктов. Задача, возможная польза, уже работающие сценарии и ближайшая проверка. Детали — внутри проекта.';
 
   $('#v2-index-transition')?.remove();
 
