@@ -9,6 +9,7 @@ on:
       - scripts/deck-print.html
       - scripts/make-deck-pdf.mjs
       - scripts/advisory-deck-smoke.mjs
+      - scripts/build-en.mjs
       - assets/app.js
       - assets/styles.css
       - index.html
@@ -57,6 +58,7 @@ jobs:
           node --check assets/deck.js
           node --check assets/app.js
           node --check scripts/advisory-deck-smoke.mjs
+          node scripts/build-en.mjs
           CHROME_BIN="$(command -v google-chrome || command -v chromium)"
           export CHROME_BIN
           node scripts/advisory-deck-smoke.mjs
