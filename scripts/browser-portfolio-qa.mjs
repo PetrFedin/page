@@ -64,6 +64,14 @@ for(const lang of ['ru','en']){
     await modal.locator('#modal-close').click();
     await page.locator('#modal').waitFor({state:'hidden'});
   }
+  const diagnostic=await page.evaluate(()=>{
+    const vw=document.documentElement.clientWidth;
+    return [...document.querySelectorAll('body *')].map(el=>{
+      const r=el.getBoundingClientRect();
+      return {tag:el.tagName,className:typeof el.className==='string'?el.className.slice(0,75):'',id:el.id||'',right:Math.round(r.right),left:Math.round(r.left),width:Math.round(r.width)};
+    }).filter(r=>r.right>vw+2&&r.width>0).sort((a,b)=>b.right-a.right).slice(0,16);
+  });
+  if(diagnostic.length)console.log('OVERFLOW_DIAGNOSTIC '+lang+'/'+width+' '+JSON.stringify(diagnostic));
   const overflow=await page.evaluate(()=>document.documentElement.scrollWidth>document.documentElement.clientWidth+2);
   assert.equal(overflow,false,lang+'/'+width+' no horizontal viewport overflow');
   await page.close();
