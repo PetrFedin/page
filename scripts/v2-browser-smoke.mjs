@@ -85,7 +85,7 @@ for (const viewport of viewports) {
   assert(await startHead.count() === 1, `${viewport.name}: start section does not use standard section-head styling`);
 
   // Start choices should follow the editorial serif treatment, not heavy bold CTA typography.
-  const startModeTitles = page.locator('#v2-steps .v2-start-mode > strong');
+  const startModeTitles = page.locator('#v2-steps .v2-start-mode > .v2-start-mode-title');
   assert(await startModeTitles.count() === 4, `${viewport.name}: expected four start modes`);
   const startTypography = await startModeTitles.evaluateAll((elements) =>
     elements.map((element) => ({
@@ -93,11 +93,11 @@ for (const viewport of viewports) {
       family: getComputedStyle(element).fontFamily
     }))
   );
-  assert(startTypography.every(({ weight, family }) => weight <= 500 && family.includes('Georgia')),
+  assert(startTypography.every(({ weight, family }) => weight <= 400 && family.includes('Georgia')),
     `${viewport.name}: start cards should have normal/medium serif headings: ${JSON.stringify(startTypography)}`);
-  const emptyWeight = await page.locator('#v2-start-panel .v2-start-empty strong')
+  const emptyWeight = await page.locator('#v2-start-panel .v2-start-empty .v2-start-empty-title')
     .evaluate((element) => Number(getComputedStyle(element).fontWeight));
-  assert(emptyWeight <= 500, `${viewport.name}: empty state has heavy bold typography: ${emptyWeight}`);
+  assert(emptyWeight <= 400, `${viewport.name}: empty state has heavy bold typography: ${emptyWeight}`);
 
   const firstStartMode = page.locator('#v2-steps .v2-start-mode').first();
   if (await clickInReadingPosition(page, firstStartMode, `${viewport.name}: start mode`)) {
@@ -274,7 +274,7 @@ for (const viewport of viewports) {
     assert(builtCopy?.length > 40, `${viewport.name}: EN row ${i + 1} missing implementation and limitations`);
   }
 
-  const englishStartWeights = await page.locator('#v2-steps .v2-start-mode > strong')
+  const englishStartWeights = await page.locator('#v2-steps .v2-start-mode > .v2-start-mode-title')
     .evaluateAll((elements) => elements.map((element) => Number(getComputedStyle(element).fontWeight)));
   assert(englishStartWeights.length === 4 && englishStartWeights.every((weight) => weight <= 500),
     `${viewport.name}: EN start-card headings became too bold: ${englishStartWeights.join(', ')}`);
