@@ -3029,6 +3029,7 @@ export const PROJECTS = [
   {
     id: 'marcopescarolo',
     name: 'Marco Pescarolo',
+    demoUrl: 'https://marco-pescarolo-showroom.netlify.app/',
     showScreenshots: false,
     device: 'ipad',
     shots: [],
