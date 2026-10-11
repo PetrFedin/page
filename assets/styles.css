@@ -1820,3 +1820,6 @@ a.lang{display:inline-flex; align-items:center; justify-content:center; text-dec
 .calc-tranche-line p{margin:0;font-size:13px}.calc-tranche-amount{text-align:right;font-size:14px;font-weight:500}
 @media(min-width:820px){.calc-scenario-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:600px){.calc-input-grid{grid-template-columns:1fr}.calc-controls{grid-template-columns:repeat(2,minmax(0,1fr))}.calc-tranche-line{grid-template-columns:minmax(0,1fr) 88px}.calc-tranche-amount{grid-column:1/-1;text-align:left}}
+
+/* Dossier stage names can be full sentences; pills must wrap inside project cards. */
+#projects .card .stage{white-space:normal;max-width:100%;min-width:0;overflow-wrap:anywhere;line-height:1.4}
