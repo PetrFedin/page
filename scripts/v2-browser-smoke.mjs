@@ -130,10 +130,15 @@ for (const viewport of viewports) {
     }
   }
 
-  // Every project logo remains a real SVG brand mark and both ERP gallery routes stay available.
-  for (const projectId of ['fashionmgmt','furproduction','antiqua']) {
-    const logo = page.locator(`#cards > .card[data-project="${projectId}"] .card-logo svg`);
-    assert(await logo.count() === 1, `${viewport.name}: missing dedicated SVG logo for ${projectId}`);
+  const withoutScreens = ['fashionmgmt','furproduction','antiqua'];
+  for (const projectId of withoutScreens) {
+    const logo = page.locator(`#cards > .card[data-project="${projectId}"] .card-logo svg[data-brand="${projectId}"]`);
+    assert(await logo.count() === 1, `${viewport.name}: missing SVG identity for ${projectId}`);
+    if (await logo.count()) {
+      const bounds = await logo.boundingBox();
+      assert(Boolean(bounds && bounds.width > 85 && bounds.height > 15),
+        `${viewport.name}: ${projectId} wordmark too small or clipped: ${JSON.stringify(bounds)}`);
+    }
   }
 
   const firstOpen = indexCards.first().locator('[data-open]');
@@ -144,21 +149,18 @@ for (const viewport of viewports) {
     await page.locator('#modal-close').click();
   }
 
-  const realProjectShots = [
-    ['antiqua', '/assets/shots/antiqua-tablet.png'],
-    ['fashionmgmt', '/assets/shots/fashion-management-dashboard-tablet.png'],
-    ['furproduction', '/assets/shots/fur-production-dashboard-tablet.png']
-  ];
-  for (const [projectId, expectedShot] of realProjectShots) {
+  for (const projectId of withoutScreens) {
     const projectCard = page.locator(`#cards > .card[data-project="${projectId}"]`);
     assert(await projectCard.count() === 1, `${viewport.name}: missing project row ${projectId}`);
-    const opened = await clickInReadingPosition(page, projectCard.locator('[data-open]'), `${viewport.name}: open ${projectId} dossier`);
+    const opened = await clickInReadingPosition(page, projectCard.locator('[data-open]'), `${viewport.name}: open ${projectId} dossier without screenshots`);
     if (opened) {
-      const shot = page.locator('#gallery img').first();
-      await shot.waitFor({ state: 'visible', timeout: 10000 });
-      const shotState = await shot.evaluate((img) => ({ src: new URL(img.src).pathname, width: img.naturalWidth, height: img.naturalHeight }));
-      assert(shotState.src === expectedShot && shotState.width > 0 && shotState.height > 0,
-        `${viewport.name}: ${projectId} is not rendering the verified real screenshot: ${JSON.stringify(shotState)}`);
+      assert(await modal.getAttribute('data-project') === projectId, `${viewport.name}: wrong dossier for ${projectId}`);
+      assert(await modal.locator(`#modal-logo svg[data-brand="${projectId}"]`).count() === 1, `${viewport.name}: missing logo in ${projectId} dossier`);
+      assert(await modal.locator('#gallery img, #gallery video, #gallery .frame').count() === 0,
+        `${viewport.name}: unpublished screenshots inserted for ${projectId}`);
+      assert(!(await modal.locator('#gallery').isVisible()) && !(await modal.locator('#dots').isVisible()),
+        `${viewport.name}: empty gallery controls visible for ${projectId}`);
+      assert(await modal.locator('#facts').isVisible(), `${viewport.name}: ${projectId} dossier content vanished`);
       await page.locator('#modal-close').click();
     }
   }
@@ -186,6 +188,15 @@ for (const viewport of viewports) {
   assert(afterSwitch.viewport === beforeSwitch.viewport, `${viewport.name}: viewport width changed during language switch`);
   assert(!(await portfolio.isVisible()), `${viewport.name}: portfolio duplicate became visible after language switch`);
   assert(!(await mediaSection.isVisible()), `${viewport.name}: media duplicate became visible after language switch`);
+  for (const projectId of ['fashionmgmt','furproduction','antiqua']) {
+    const card = page.locator(`#cards > .card[data-project="${projectId}"]`);
+    if (await clickInReadingPosition(page, card.locator('[data-open]'), `${viewport.name}: EN ${projectId} dossier`)) {
+      assert(!(await page.locator('#gallery').isVisible()), `${viewport.name}: EN ${projectId} gallery reappeared`);
+      assert(await page.locator('#gallery img, #gallery video').count() === 0,
+        `${viewport.name}: EN ${projectId} screenshot was rendered`);
+      await page.locator('#modal-close').click();
+    }
+  }
   const englishStartWeights = await page.locator('#v2-steps .v2-start-mode > strong')
     .evaluateAll((elements) => elements.map((element) => Number(getComputedStyle(element).fontWeight)));
   assert(englishStartWeights.length === 4 && englishStartWeights.every((weight) => weight <= 500),

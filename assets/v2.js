@@ -209,6 +209,7 @@ function renderPortfolioIntelligence(lang, $, projects) {
       : 'Финтех и инфраструктура остаются пустыми до отдельной официальной публикации; искусство представлено Antiqua, а два новых fashion-кейса опубликованы без идентификации клиентов.'}</p>`;
 
   const renderCardVisual = (p) => {
+    if (p.showScreenshots === false) return '';
     const shot = Array.isArray(p.shots) && p.shots[0] ? p.shots[0] : null;
     if (shot) return `<div class="v2-card-visual v2-card-visual-shot"><img src="${esc(shot)}" alt="${esc(p.name)} interface preview" loading="lazy"></div>`;
     const maps = {

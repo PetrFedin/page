@@ -639,8 +639,9 @@ function openProject(id, anchor) {
   /* Первым кадром — видео прохода по разделам: оно доказывает, что продукт работает.
      poster держит первый экран, пока видео грузится, и остаётся вместо него,
      если браузер не умеет WebM. */
+  const visibleShots = p.showScreenshots === false ? [] : p.shots;
   const frames = [];
-  if (p.video) {
+  if (p.video && visibleShots.length) {
     frames.push(`
       <div class="frame ${p.device} has-video">
         <video poster="${p.shots[0]}" muted loop playsinline preload="none"
@@ -650,20 +651,22 @@ function openProject(id, anchor) {
         </button>
       </div>`);
   }
-  frames.push(...p.shots.map((src, i) => `
+  frames.push(...visibleShots.map((src, i) => `
     <div class="frame ${p.device}"><img src="${src}" alt="${p.name} — ${i + 1}" loading="lazy"></div>`));
 
   gallery.innerHTML = frames.join('');
+  gallery.hidden = frames.length === 0;
+  $('#dots').hidden = frames.length === 0;
   /* Общий список для просмотрщика — в том же порядке, что и кадры в ленте:
      видео (если есть) первым, дальше снимки. Так стрелками можно листать
      видео и фото вместе, одним списком. */
   const mediaList = [];
-  if (p.video) mediaList.push({ src: p.video, poster: p.shots[0], alt: p.name, type: 'video' });
+  if (p.video && visibleShots.length) mediaList.push({ src: p.video, poster: visibleShots[0], alt: p.name, type: 'video' });
   [...gallery.querySelectorAll('img')].forEach((img) => mediaList.push({ src: img.src, alt: img.alt }));
   gallery.querySelectorAll('img').forEach((img, i) => {
-    img.addEventListener('click', () => openPhoto(mediaList, i + (p.video ? 1 : 0)));
+    img.addEventListener('click', () => openPhoto(mediaList, i + (p.video && visibleShots.length ? 1 : 0)));
   });
-  if (p.video) {
+  if (p.video && visibleShots.length) {
     const videoFrame = gallery.querySelector('.frame.has-video');
     videoFrame?.addEventListener('click', (e) => {
       if (e.target.closest('.play')) return; // маленькую inline-плашку не трогаем

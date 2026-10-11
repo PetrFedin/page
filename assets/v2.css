@@ -815,3 +815,16 @@ html[data-preview="v2"] .v2-index-signals p{
   }
   html[data-preview="v2"] .v2-index-signals{grid-template-columns:1fr}
 }
+
+
+/* V2.26 editorial identities and deferred screenshot galleries. */
+html[data-preview="v2"] #modal #gallery[hidden],
+html[data-preview="v2"] #modal #dots[hidden]{display:none!important}
+html[data-preview="v2"] #cards > .card:is([data-project="fashionmgmt"],[data-project="furproduction"],[data-project="antiqua"]) .card-logo{min-width:0;max-width:100%}
+html[data-preview="v2"] #cards > .card:is([data-project="fashionmgmt"],[data-project="furproduction"],[data-project="antiqua"]) .card-logo svg{display:block;width:auto;height:34px;max-width:100%;max-height:34px}
+html[data-preview="v2"] #modal:is([data-project="fashionmgmt"],[data-project="furproduction"],[data-project="antiqua"]) .modal-logo svg{display:block;width:auto;height:43px;max-width:100%}
+@media(max-width:759px){
+  html[data-preview="v2"] #cards > .card:is([data-project="fashionmgmt"],[data-project="furproduction"],[data-project="antiqua"]) .card-logo{flex:1 1 auto;max-width:56%;min-width:0}
+  html[data-preview="v2"] #cards > .card:is([data-project="fashionmgmt"],[data-project="furproduction"],[data-project="antiqua"]) .card-logo svg{width:100%;height:auto;max-height:34px}
+  html[data-preview="v2"] #modal:is([data-project="fashionmgmt"],[data-project="furproduction"],[data-project="antiqua"]) .modal-logo svg{height:auto;max-height:43px}
+}

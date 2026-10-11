@@ -2863,6 +2863,7 @@ export const PROJECTS = [
   },
   {
     id: 'fashionmgmt',
+    showScreenshots: false, // V2 public presentation only; files stay available for later approval.
     name: 'Fashion Management OS',
     device: 'ipad',
     shots: ['/assets/shots/fashion-management-dashboard-tablet.png', '/assets/shots/fashion-management-orders-tablet.png'],
@@ -2903,6 +2904,7 @@ export const PROJECTS = [
   },
   {
     id: 'furproduction',
+    showScreenshots: false, // V2 public presentation only; files stay available for later approval.
     name: 'FUR PRODUCTION OS',
     device: 'ipad',
     shots: ['/assets/shots/fur-production-dashboard-tablet.png', '/assets/shots/fur-production-stock-tablet.png'],
@@ -2943,6 +2945,7 @@ export const PROJECTS = [
   },
   {
     id: 'antiqua',
+    showScreenshots: false, // V2 public presentation only; files stay available for later approval.
     name: 'Antiqua',
     device: 'ipad',
     shots: ['/assets/shots/antiqua-tablet.png', '/assets/shots/antiqua-gallery-tablet.png'],
