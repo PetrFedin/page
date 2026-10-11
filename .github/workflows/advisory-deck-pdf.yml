@@ -73,7 +73,7 @@ jobs:
           retention-days: 30
 
       - name: Install PDF inspection tools
-        run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils zbar-tools
 
       - name: Validate PDFs and linked personal site
         shell: bash
@@ -89,6 +89,37 @@ jobs:
           done
           grep -Fq '/assets/qr-syntha-site.svg' scripts/deck-print.html
           grep -Fq 'https://syntha.pro' assets/qr-syntha-site.svg
+
+      - name: Render and decode cover and final page QR codes
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts/advisory-pdf
+          for lang in ru en; do
+            if [[ "$lang" == ru ]]; then file="assets/fashion-advisory.pdf"; else file="assets/fashion-advisory-en.pdf"; fi
+            pages="$(pdfinfo "$file" | awk '/^Pages:/ {print $2}')"
+            test "$pages" -gt 1
+            pdftoppm -f 1 -l 1 -r 180 -png -singlefile "$file" "artifacts/advisory-pdf/${lang}-cover"
+            pdftoppm -f "$pages" -l "$pages" -r 180 -png -singlefile "$file" "artifacts/advisory-pdf/${lang}-final"
+            for page in cover final; do
+              png="artifacts/advisory-pdf/${lang}-${page}.png"
+              actual="$(zbarimg --quiet --raw "$png" | head -n 1)"
+              if [[ "$actual" != "https://syntha.pro" ]]; then
+                echo "Incorrect or unreadable QR in $png: [$actual]"
+                exit 1
+              fi
+              echo "PASS $png QR -> $actual"
+            done
+          done
+
+      - name: Upload rendered PDF cover and final pages
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: advisory-deck-pdf-visual-evidence
+          path: artifacts/advisory-pdf/*.png
+          if-no-files-found: warn
+          retention-days: 30
 
       - name: Commit generated PDFs on feature branch
         shell: bash
