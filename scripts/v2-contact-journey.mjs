@@ -96,7 +96,7 @@ async function scenario(viewport, lang) {
     assert.equal(apiRequests.length, 0, `${label}: draft must not trigger API request`);
 
     // Both languages use one complete flow, with a readable contact panel.
-    await page.locator('#contact').screenshot({ path: `${output}/contact-${lang}-${viewport.name}.png` });
+    await page.locator('#contact').screenshot({ style: 'header.topbar, #cta-bar { visibility: hidden !important; }', path: `${output}/contact-${lang}-${viewport.name}.png` });
     assert.deepEqual(runtimeErrors, [], `${label}: uncaught browser errors`);
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth);
     assert.equal(overflow, false, `${label}: horizontal scrolling`);
