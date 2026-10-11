@@ -446,6 +446,7 @@ function render() {
   $('#share-contact').textContent = t.contact.shareContact;
   syncSubmit?.();
   $('#deck-open').textContent = t.consulting.deckOpen;
+  $('#deck-executive').textContent = lang === 'en' ? 'Executive briefing (RU) ↗' : 'Переговорная презентация ↗';
   $('#deck-pdf').textContent = t.consulting.deckPdf;
   $('#deck-pdf').href = t.consulting.deckFile;
   $('#deck-pdf-2').href = t.consulting.deckFile;
