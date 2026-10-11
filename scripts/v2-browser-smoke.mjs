@@ -181,6 +181,15 @@ for (const viewport of viewports) {
     }
   }
 
+  const marcoDemo = page.locator('#cards > .card[data-project="marcopescarolo"] [data-demo-link="marcopescarolo"]');
+  assert(await marcoDemo.count() === 1, `${viewport.name}: Marco published showroom link missing`);
+  if (await marcoDemo.count()) {
+    assert(await marcoDemo.getAttribute('href') === 'https://marco-pescarolo-showroom.netlify.app/',
+      `${viewport.name}: Marco showroom link points to unverified destination`);
+    assert((await marcoDemo.getAttribute('rel') || '').includes('noopener'),
+      `${viewport.name}: Marco outbound link lacks noopener`);
+  }
+
   // Requested projects must open in the real existing dossier with correct labels.
   for (const projectId of ['igra','marcopescarolo']) {
     const card = page.locator(`#cards > .card[data-project="${projectId}"]`);
