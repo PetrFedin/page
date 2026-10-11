@@ -9,5 +9,11 @@ export const LOGOS = {
   mfw: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 252 32" role="img" aria-label="MFW · BFS · Made in Moscow"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="4.4" r="1.9"/><path d="M12.6 9.8c1-1 2.2-1.6 3.4-1.6s2.4.6 3.4 1.6l-1.2 6.4c2.2 3.8 4.4 8.6 5.6 13.6H8.2c1.2-5 3.4-9.8 5.6-13.6z"/><path d="M14.1 8.5c.5 1.6 3.3 1.6 3.8 0"/></g><text x="38" y="22" font-family="Iowan Old Style, Georgia, serif" font-size="17" letter-spacing="0.2" fill="currentColor">MFW · BFS · Made in Moscow</text></svg>`,
   /* Promomed — пульс-линия: здоровье и маршрут как сквозная тема концепции
      «СОСТОЯНИЕ», сама словесная марка остаётся сдержанной. */
-  promomed: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 152 32" role="img" aria-label="Promomed"><path d="M2 16h4.5l2.2-6.5 3.6 13 2.2-6.5h4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><text x="33" y="23" font-family="Iowan Old Style, Georgia, serif" font-size="21" letter-spacing="0.3" fill="currentColor">Promomed</text></svg>`
+  promomed: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 152 32" role="img" aria-label="Promomed"><path d="M2 16h4.5l2.2-6.5 3.6 13 2.2-6.5h4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><text x="33" y="23" font-family="Iowan Old Style, Georgia, serif" font-size="21" letter-spacing="0.3" fill="currentColor">Promomed</text></svg>`,
+  "fashion-os": '<span class="project-wordmark">FASHION MANAGEMENT OS</span>',
+  fur: '<span class="project-wordmark">FUR PRODUCTION</span>',
+  antiqua: '<span class="project-wordmark">ANTIQUA</span>',
+  igra: '<span class="project-wordmark">IGRA</span>',
+  marco: '<span class="project-wordmark">MARCO PESCAROLO / COMMERCIAL OS</span>',
+  fintech: '<span class="project-wordmark">DEBT STABILITY OS</span>'
 };
