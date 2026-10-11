@@ -836,7 +836,21 @@ $('#projects-more').addEventListener('click', () => {
 
 /* «Обсудить участие» — переносит проект в форму */
 $('#modal-cta').addEventListener('click', () => {
-  $('#topic').value = modal.dataset.project;
+  const project = PROJECTS.find((p) => p.id === modal.dataset.project);
+  const topic = $('#topic');
+  const desired = project?.id || 'launch';
+  topic.value = [...topic.options].some((option) => option.value === desired)
+    ? desired : desired === 'marcopescarolo' ? 'partnership' : 'launch';
+  topic.dispatchEvent(new Event('change', { bubbles: true }));
+  // Preserve the actual product identity when the contact topics do not
+  // have a dedicated option; never submit an empty select value.
+  const message = $('#form [name="message"]');
+  if (project && message && !message.value.trim()) {
+    message.value = lang === 'en'
+      ? `I would like to discuss ${project.name}: a controlled pilot, current evidence and the next acceptance step.`
+      : `Хочу обсудить ${project.name}: контролируемый пилот, текущие подтверждения и следующий этап проверки.`;
+  }
+  $('#form').dispatchEvent(new Event('input', { bubbles: true }));
   leave();
   $('#contact').scrollIntoView({ behavior: 'smooth' });
   setTimeout(() => $('#form [name="name"]').focus(), 400);
