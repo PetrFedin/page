@@ -101,7 +101,12 @@ function installDecisionLayer(lang, $) {
     draft.className = 'btn v2-draft';
     draft.id = 'v2-draft';
     $('#submit')?.after(draft);
-    draft.addEventListener('click', () => {
+  }
+  // Prerender already contains #v2-draft. Rebind on every render so the
+  // button works on first load AND uses the current language after switching.
+  const draftButton = $('#v2-draft');
+  if (draftButton) {
+    draftButton.onclick = () => {
       const form = $('#form');
       if (!form) return;
       const data = new FormData(form);
@@ -131,7 +136,7 @@ function installDecisionLayer(lang, $) {
       a.download = en ? 'syntha-v2-enquiry.txt' : 'syntha-v2-brief.txt';
       a.click();
       setTimeout(() => URL.revokeObjectURL(a.href), 1000);
-    });
+    };
   }
   $('#v2-draft').textContent = en ? 'Download text brief' : 'Скачать описание обращения';
 }
