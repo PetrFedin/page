@@ -1,6 +1,7 @@
 import { T, PROJECTS as CORE_PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610041955';
 import { EXTRA_PROJECTS, INVESTOR_BLUEPRINTS } from './portfolio-extensions.js?v=20261012-invdossiers';
 const PROJECTS = [...CORE_PROJECTS, ...EXTRA_PROJECTS];
+import { mountInvestorCalculator } from './investor-calculator.js?v=20261012-calc1';
 import { DECK } from './deck.js?v=202610041955';
 import { LOGOS } from './logos.js?v=20261012-invdossiers';
 import { createViewer } from './viewer.js?v=202609301526';
@@ -678,6 +679,10 @@ function openProject(id, anchor) {
   if(model){
     const labels = lang === 'ru' ? ['Консервативный','Базовый','Оптимистичный'] : ['Conservative','Base','Optimistic'];
     economics.innerHTML = `<h3>${lang === 'ru'?'Инвестиционная модель — условия проверки':'Investment model — validation gates'}</h3><p>${lang === 'ru'?'Сценарии — гипотезы, а не прогноз выручки. Суммы траншей рассчитываются после проверки затрат и подписания договоров.':'Scenarios are hypotheses, not revenue forecasts. Tranche amounts require cost validation and executed contracts.'}</p><div class="project-economics"><p><strong>${lang === 'ru'?'Монетизация':'Revenue model'}:</strong> ${model.revenue}</p></div><div class="scenario-grid">${['conservative','base','optimistic'].map((k,i)=>`<article><h4>${labels[i]}</h4><p>${model[k]}</p></article>`).join('')}</div><h4>${lang === 'ru'?'Инвестиционные транши и условия выдачи':'Investment tranches and disbursement gates'}</h4><ol class="investor-checkpoints">${model.tranches.map(x=>`<li>${x}</li>`).join('')}</ol><div class="project-economics"><p><strong>${lang === 'ru'?'Критерий операционной безубыточности':'Operating break-even gate'}:</strong> ${model.breakEven}</p><p><strong>${lang === 'ru'?'Расчёт':'Formula'}:</strong> ${model.formula}</p><p><strong>${lang === 'ru'?'Проверяемые показатели':'Required evidence'}:</strong> ${model.evidence}</p></div>`;
+    const holder=document.createElement('div');
+    holder.className='investor-calculator-mount';
+    economics.append(holder);
+    mountInvestorCalculator(holder,{lang,projectId:id,gateLabels:model.tranches});
   }else economics.innerHTML = '';
 
   const st = c.status;
