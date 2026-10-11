@@ -188,6 +188,15 @@ for (const viewport of viewports) {
       `${viewport.name}: Marco showroom link points to unverified destination`);
     assert((await marcoDemo.getAttribute('rel') || '').includes('noopener'),
       `${viewport.name}: Marco outbound link lacks noopener`);
+    const [demoTab] = await Promise.all([
+      page.context().waitForEvent('page', { timeout: 12000 }),
+      clickInReadingPosition(page, marcoDemo, `${viewport.name}: open Marco live showroom`)
+    ]);
+    assert(demoTab.url().startsWith('https://marco-pescarolo-showroom.netlify.app/'),
+      `${viewport.name}: Marco live showroom did not open in new tab: ${demoTab.url()}`);
+    assert(!(await page.locator('#modal').evaluate((el) => el.hasAttribute('open'))),
+      `${viewport.name}: external demo click also opened the project dossier`);
+    await demoTab.close();
   }
 
   // Requested projects must open in the real existing dossier with correct labels.
