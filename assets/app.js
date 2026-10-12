@@ -2297,18 +2297,18 @@ $('#form').addEventListener('submit', async (e) => {
       });
     }
     if (!res.ok) throw new Error(String(res.status));
-    note.className = 'form-note ok';
-    note.textContent = t.contact.ok;
     window.dispatchEvent(new Event('track:form-sent'));
     form.reset();
     refreshLeadContext();
-    clearDraft();
     showFile();
     syncEntityFields();
     syncOptional();
     syncSubmit();
-    /* токен Turnstile одноразовый — без сброса повторная отправка уйдёт с протухшим */
-    window.turnstile?.reset();
+    clearDraft();
+    /* Reset widget separately: a UI clean-up error must not turn a delivered lead into a false failure. */
+    try { window.turnstile?.reset(); } catch (error) { console.warn('Turnstile reset deferred'); }
+    note.className = 'form-note ok';
+    note.textContent = t.contact.ok;
   } catch (err) {
     window.track?.('form_error', '', 'сбой отправки');
     note.className = 'form-note';
