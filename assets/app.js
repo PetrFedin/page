@@ -371,6 +371,8 @@ function render() {
   $('#lead-paths-eyebrow').textContent=leads.eyebrow;
   $('#lead-paths-title').textContent=leads.title;
   $('#lead-paths-sub').textContent=leads.subtitle;
+  $('#modal-pilot').textContent=leads.modalPilot;
+  $('#modal-invest').textContent=leads.modalInvestor;
   $('#lead-routes-grid').innerHTML=leads.options.map(p=>`
     <article class="lead-route-card" data-route-card="${p.id}">
       <span class="svc-n">${p.n}</span><h3>${p.title}</h3><p>${p.description}</p>
