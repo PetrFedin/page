@@ -41,8 +41,8 @@ Existing site latest confirmed displayed post: **2026-10-02** at audit time. `ch
 | Target date | Editorial topic | RU/EN | Evidence prerequisite | Site | Telegram |
 | --- | --- | --- | --- | --- | --- |
 | Oct 13 | How to assess a digital platform before first revenue | Prepared | Editorial, not product deployment claim | In V2 source; not live until publish | Paused for approval |
-| Oct 15 | IGRA: inventory and reusable building instructions | Planned | Confirm real demo vs future features | Hold | Hold |
-| Oct 17 | Marco: buyer size matrix and repeat-order journey | Planned | Confirm lifecycle status | Hold | Hold |
+| Oct 15 | IGRA: inventory and reusable building instructions | Draft RU/EN, private hold | Confirm real demo vs future features | Hold | Hold |
+| Oct 17 | Marco: buyer size matrix and repeat-order journey | Draft RU/EN, private hold | Confirm lifecycle status | Hold | Hold |
 | Oct 20 | Antiqua: artwork provenance and source uncertainty | Planned | Attribute only checked artworks | Hold | Hold |
 | Oct 22 | Fashion Management OS: from product to procurement decision | Planned | Demonstrated user journey | Hold | Hold |
 | Oct 24 | Debt Stability OS: household cash-gap analysis | Planned | Finance accuracy, legal/disclaimer review | Hold | Hold |
@@ -58,3 +58,5 @@ Existing site latest confirmed displayed post: **2026-10-02** at audit time. `ch
 - All 11 dossiers available in both languages; mobile, tablet and desktop interactive QA.
 - No backend internals, infrastructure IDs, schemas or credentials exposed in public-facing pages.
 - SEO checks: canonical/hreflang, all route CTAs, favicon, OG images, sitemap, RSS and JSON Feed; Web Vitals/Lighthouse to be measured on preview and released site.
+
+October 15 and 17 material exists in assets/news.js as site:false, and is also in the Telegram paused list. It cannot appear on the public site or be sent by the automatic queue without editorial approval and a deliberate status change.
