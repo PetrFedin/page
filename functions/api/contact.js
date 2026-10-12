@@ -40,6 +40,10 @@ export async function onRequestPost({ request, env }) {
     return new Response('invalid payload', { status: 400 });
   }
   if (clean(body.company, 50)) return new Response('ok', { status: 200 }); // honeypot
+  /* Do not accept a direct POST without the consent required by the public form. */
+  if (!['on','true','1'].includes(String(body.consent ?? ''))) {
+    return new Response('consent required', { status: 400 });
+  }
 
   /* Fail closed: there must be a verified Turnstile token before any private lead is forwarded. */
   if (!env.TURNSTILE_SECRET_KEY) return new Response('captcha not configured', { status: 503 });
