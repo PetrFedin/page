@@ -2301,8 +2301,9 @@ $('#form').addEventListener('submit', async (e) => {
     if (!res.ok) throw new Error(String(res.status));
     window.dispatchEvent(new Event('track:form-sent'));
     form.reset();
+    // Hidden inputs reflect their value attribute; form.reset() alone does not clear them.
+    setLeadContext();
     document.querySelectorAll('.persona-chip').forEach(el=>el.classList.remove('active'));
-    refreshLeadContext();
     showFile();
     syncEntityFields();
     syncOptional();
