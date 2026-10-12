@@ -28,6 +28,7 @@ for (const file of ['index.html','en/index.html']) {
 
 const input = {
   name:'Test & Pilot', email:'pilot@example.org', message:'Private pilot discussion', topic:'investors',
+  consent:'on',
   leadRoute:'investor',leadProject:'fintech',leadGoal:'Investment discussion',
   leadTiming:'1–3 months','cf-turnstile-response':'dummy-token'
 };
@@ -72,6 +73,9 @@ try{
   assert.equal(calls[2].payload.chat_id,env.TELEGRAM_CHAT_ID);
 
   const missingSecret=await submit(input,{...env,TURNSTILE_SECRET_KEY:undefined});
+  const noConsent=await submit({...input,consent:''});
+  assert.equal(noConsent.status,400,'server must require informed consent');
+  assert.equal(calls.length,0,'do not call external services without consent');
   assert.equal(missingSecret.status,503,'Turnstile must fail closed');
   assert.equal(calls.length,0,'cannot contact Telegram without Turnstile');
   const missingToken=await submit({...input,'cf-turnstile-response':''});
