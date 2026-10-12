@@ -20,6 +20,8 @@ on:
       - 'channel-queue.json'
       - 'package.json'
       - 'scripts/prepare-pages-release.mjs'
+      - 'scripts/verify-pages-release.mjs'
+      - 'scripts/prerender.mjs'
       - '.gitignore'
       - 'index.html'
       - 'en/index.html'
@@ -53,6 +55,7 @@ jobs:
       - run: node scripts/verify-editorial-queue.mjs
       - run: npm run build
       - run: npm run package:pages
+      - run: node scripts/verify-pages-release.mjs
       - run: node scripts/verify-investor-dossiers.mjs
       - run: npm install --no-save playwright@1.58.2
       - run: npx playwright install --with-deps chromium
