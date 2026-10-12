@@ -96,6 +96,17 @@
     </figure>
   </section>
 
+  <!--LEAD_ROUTES_START-->
+  <section class="section lead-routes" id="work-with-me" aria-labelledby="lead-paths-title">
+    <div class="section-head"><p class="eyebrow" id="lead-paths-eyebrow">Выберите формат взаимодействия</p><h2 id="lead-paths-title">От задачи — к конкретному следующему шагу</h2><p class="sub" id="lead-paths-sub">Для каждого запроса — свой маршрут, цель разговора и результат.</p></div>
+    <div class="lead-routes-grid" id="lead-routes-grid">
+      <article class="lead-route-card" data-route-card="client"><span class="svc-n">01</span><h3>Для клиентов</h3><p>Экономика, закупка, стратегия, процессы и цифровая трансформация бизнеса.</p><button class="btn btn-sm" type="button" data-lead-start="client">Обсудить задачу</button></article>
+      <article class="lead-route-card" data-route-card="pilot"><span class="svc-n">02</span><h3>Для партнёров</h3><p>Первый пилот, технологическая интеграция или совместный продукт на реальном сценарии.</p><button class="btn btn-sm" type="button" data-lead-start="pilot">Предложить пилот</button></article>
+      <article class="lead-route-card" data-route-card="investor"><span class="svc-n">03</span><h3>Для инвесторов</h3><p>Проверить стадию проекта, риски и сценарную экономику перед предметным разговором.</p><button class="btn btn-sm" type="button" data-lead-start="investor">Обсудить участие</button></article>
+    </div>
+  </section>
+<!--LEAD_ROUTES_END-->
+
   <section class="section" id="experience">
     <div class="section-head">
       <h2 id="experience-title">Релевантный опыт</h2>
@@ -517,6 +528,10 @@
 
     <div class="contact-grid">
       <form class="form" id="form" novalidate="">
+        <input type="hidden" name="leadRoute" id="lead-route-value" value="">
+        <input type="hidden" name="leadProject" id="lead-project-value" value="">
+        <input type="hidden" name="leadGoal" id="lead-goal-value" value="">
+        <p class="lead-context" id="lead-context" role="status" hidden></p>
         <div class="pair" data-n="2">
           <label class="field" id="name-field">
             <span data-f="name">Имя</span>
@@ -576,6 +591,7 @@
           <span data-f="topic">Тема</span>
           <select name="topic" id="topic"><option value="consulting">Консалтинг</option><option value="launch">Запуск продукта</option><option value="investors">Инвестиции</option><option value="partnership">Партнёрство</option><option value="syntha">Syntha</option><option value="renova">Renova</option><option value="chatx">ChatX</option><option value="mfw">MFW+BFS+Made in Moscow</option><option value="promomed">Promomed и «СОСТОЯНИЕ»</option><option value="press">Пресса и комментарий</option><option value="event">Выступление или участие в мероприятии</option><option value="other">Другое</option></select>
         </label>
+        <label class="field lead-timing-field"><span id="lead-timing-label">Когда планируете начать? (необязательно)</span><select name="leadTiming" id="lead-timing"><option value="">Срок пока не определён</option><option value="0–1 month">В течение месяца</option><option value="1–3 months">В течение 1–3 месяцев</option><option value="3–6 months">В течение 3–6 месяцев</option><option value="later">Позднее</option></select></label>
         <label class="field" id="topic-other-field" hidden="">
           <span data-f="topicOther">Напишите тему</span>
           <input name="topicOther" id="topic-other" type="text" autocomplete="off">
@@ -702,6 +718,8 @@
 
     <div class="modal-actions">
       <button class="btn btn-primary" id="modal-cta" type="button"></button>
+      <button class="btn" id="modal-pilot" type="button">Предложить пилот</button>
+      <button class="btn" id="modal-invest" type="button">Инвестору</button>
       <a class="btn" id="modal-more" href="/syntha.html" hidden>Подробно о проекте</a>
     </div>
   </div>
