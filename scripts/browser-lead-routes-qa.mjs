@@ -38,6 +38,13 @@ for(const lang of ['ru','en']){
    assert.equal(await page.locator('#lead-project-value').inputValue(),'fintech');
    assert.equal(await page.locator('#topic').inputValue(),'investors');
    await page.locator('#lead-timing').selectOption('1–3 months');
+   // Cloudflare is intentionally stubbed on localhost: supply an explicit test token.
+   await page.evaluate(()=>{
+     const widget=document.querySelector('#turnstile-widget');
+     const dummy=document.createElement('input');
+     dummy.type='hidden';dummy.name='cf-turnstile-response';dummy.value='ci-only-token';
+     widget.append(dummy);
+   });
    await page.locator('#lead-context').scrollIntoViewIfNeeded();
    await page.screenshot({path:'qa-artifacts/lead-contact-'+lang+'-'+width+'.png'});
    await page.locator('#form [name="name"]').fill('Test Contact');
