@@ -112,6 +112,7 @@ export async function onRequestPost({ request, env }) {
     line(leadContext.route, `<b>Маршрут:</b> ${esc(leadContext.route)}`),
     line(leadContext.project, `<b>Проект:</b> ${esc(leadContext.project)}`),
     line(leadContext.timing, `<b>Срок:</b> ${esc(leadContext.timing)}`),
+    line(leadContext.goal, `<b>Цель:</b> ${esc(leadContext.goal)}`),
     '',
     esc(message)
   ].filter((l) => l !== null).join('\n');
