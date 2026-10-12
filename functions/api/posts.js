@@ -6,8 +6,8 @@ const J = (data, status = 200, extra = {}) => new Response(JSON.stringify(data),
   status, headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store', ...extra }
 });
 const clean = (v, n) => String(v ?? '').slice(0, n);
-const TAGS = ['analysis', 'market', 'product', 'syntha', 'chatx', 'renova', 'mfw', 'promomed', 'mission', 'investors', 'press'];
-const PROJECT_TAGS = new Set(['syntha', 'chatx', 'renova', 'mfw', 'promomed']);
+const TAGS = ['analysis', 'market', 'product', 'syntha', 'chatx', 'renova', 'mfw', 'promomed', 'fashion-os', 'fur', 'antiqua', 'igra', 'marco', 'fintech', 'mission', 'investors', 'press'];
+const PROJECT_TAGS = new Set(['syntha', 'chatx', 'renova', 'mfw', 'promomed', 'fashion-os', 'fur', 'antiqua', 'igra', 'marco', 'fintech']);
 const ANALYSIS_TAGS = new Set(['analysis', 'market', 'press']);
 
 function dayKey(ms) {
