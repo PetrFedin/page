@@ -8,6 +8,16 @@ on:
       - 'assets/styles.css'
       - 'assets/portfolio-extensions.js'
       - 'assets/investor-calculator.js'
+      - 'assets/lead-paths.js'
+      - 'assets/news.js'
+      - 'functions/api/contact.js'
+      - 'scripts/build-en.mjs'
+      - 'scripts/make-feed.mjs'
+      - 'scripts/verify-qualified-leads.mjs'
+      - 'scripts/browser-lead-routes-qa.mjs'
+      - 'scripts/verify-editorial-queue.mjs'
+      - 'channel-queue.json'
+      - 'package.json'
       - 'index.html'
       - 'en/index.html'
       - 'scripts/verify-investor-dossiers.mjs'
@@ -26,12 +36,17 @@ jobs:
         with:
           node-version: '22'
       - run: node --check assets/investor-calculator.js
+      - run: node --check assets/lead-paths.js
+      - run: node --check assets/news.js
+      - run: node --check functions/api/contact.js
       - run: node --check assets/app.js
       - run: node --check assets/content.js
       - run: node --check assets/portfolio-extensions.js
       - run: node --check assets/logos.js
       - run: node scripts/verify-investor-dossiers.mjs
       - run: node scripts/verify-investor-calculator.mjs
+      - run: node scripts/verify-qualified-leads.mjs
+      - run: node scripts/verify-editorial-queue.mjs
       - run: npm run build
       - run: node scripts/verify-investor-dossiers.mjs
       - run: npm install --no-save playwright@1.58.2
@@ -40,6 +55,7 @@ jobs:
         run: |
           python3 -m http.server 4321 --bind 127.0.0.1 >/tmp/portfolio-http.log 2>&1 &
           node scripts/browser-portfolio-qa.mjs
+          node scripts/browser-lead-routes-qa.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
