@@ -28,6 +28,17 @@ const article=byDate.get('2026-10-13');
 assert.equal(article?.tag,'investors');
 assert.ok(queue.paused.includes('2026-10-13'),'new Telegram post requires review');
 assert.ok(!queue.order.includes('2026-10-13'),'do not auto-publish without approval');
+for(const date of ['2026-10-15','2026-10-17']){
+  const draft=byDate.get(date);
+  assert.ok(draft && draft.ru?.title && draft.ru?.body && draft.en?.title && draft.en?.body,'bilingual draft missing: '+date);
+  assert.equal(draft.site,false,'future editorial is intentionally not public: '+date);
+  assert.ok(queue.paused.includes(date),'draft must remain paused in Telegram: '+date);
+  assert.ok(!queue.order.includes(date),'draft must not be auto-published: '+date);
+}
+const taxonomy=read('functions/api/posts.js');
+for(const tag of ['fashion-os','fur','antiqua','igra','marco','fintech']){
+  assert.ok(taxonomy.includes("'"+tag+"'"),'editorial project tag missing: '+tag);
+}
 const app=read('assets/app.js');
 assert.ok(app.includes("timeZone:'Europe/Moscow'"),'local editorial date must not use UTC');
 const build=read('scripts/make-feed.mjs');
