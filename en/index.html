@@ -96,6 +96,17 @@
     </figure>
   </section>
 
+  <!--LEAD_ROUTES_START-->
+  <section class="section lead-routes" id="work-with-me" aria-labelledby="lead-paths-title">
+    <div class="section-head"><p class="eyebrow" id="lead-paths-eyebrow">Choose how to work together</p><h2 id="lead-paths-title">From a question to a concrete next step</h2><p class="sub" id="lead-paths-sub">Clear journeys for prospective clients, partners and investors.</p></div>
+    <div class="lead-routes-grid" id="lead-routes-grid">
+      <article class="lead-route-card" data-route-card="client"><span class="svc-n">01</span><h3>For clients</h3><p>Buying economics, commercial strategy, operational processes and transformation.</p><button class="btn btn-sm" type="button" data-lead-start="client">Discuss your challenge</button></article>
+      <article class="lead-route-card" data-route-card="pilot"><span class="svc-n">02</span><h3>For partners</h3><p>Explore a pilot, technical integration or co-development on a real workflow.</p><button class="btn btn-sm" type="button" data-lead-start="pilot">Propose a pilot</button></article>
+      <article class="lead-route-card" data-route-card="investor"><span class="svc-n">03</span><h3>For investors</h3><p>Review product maturity, risks and hypothetical economics before a focused conversation.</p><button class="btn btn-sm" type="button" data-lead-start="investor">Discuss participation</button></article>
+    </div>
+  </section>
+<!--LEAD_ROUTES_END-->
+
   <section class="section" id="experience">
     <div class="section-head">
       <h2 id="experience-title">Relevant experience</h2>
@@ -517,6 +528,10 @@ What it gives you:
 
     <div class="contact-grid">
       <form class="form" id="form" novalidate="">
+        <input type="hidden" name="leadRoute" id="lead-route-value" value="">
+        <input type="hidden" name="leadProject" id="lead-project-value" value="">
+        <input type="hidden" name="leadGoal" id="lead-goal-value" value="">
+        <p class="lead-context" id="lead-context" role="status" hidden></p>
         <div class="pair" data-n="2">
           <label class="field" id="name-field">
             <span data-f="name">First name</span>
@@ -576,6 +591,7 @@ What it gives you:
           <span data-f="topic">Topic</span>
           <select name="topic" id="topic"><option value="consulting">Advisory</option><option value="launch">Product launch</option><option value="investors">Investment</option><option value="partnership">Partnership</option><option value="syntha">Syntha</option><option value="renova">Renova</option><option value="chatx">ChatX</option><option value="mfw">MFW+BFS+Made in Moscow</option><option value="promomed">Promomed and “SOSTOYANIE”</option><option value="press">Press and comment</option><option value="event">Speaking or event participation</option><option value="other">Other</option></select>
         </label>
+        <label class="field lead-timing-field"><span id="lead-timing-label">When would you like to start? (optional)</span><select name="leadTiming" id="lead-timing"><option value="">Timing undecided</option><option value="0–1 month">Within a month</option><option value="1–3 months">In 1–3 months</option><option value="3–6 months">In 3–6 months</option><option value="later">Later</option></select></label>
         <label class="field" id="topic-other-field" hidden="">
           <span data-f="topicOther">Describe the topic</span>
           <input name="topicOther" id="topic-other" type="text" autocomplete="off">
@@ -702,6 +718,8 @@ What it gives you:
 
     <div class="modal-actions">
       <button class="btn btn-primary" id="modal-cta" type="button"></button>
+      <button class="btn" id="modal-pilot" type="button">Propose a pilot</button>
+      <button class="btn" id="modal-invest" type="button">Investor enquiry</button>
       <a class="btn" id="modal-more" href="/syntha.html" hidden>Project page</a>
     </div>
   </div>
