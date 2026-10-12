@@ -7,14 +7,17 @@ import { DECK } from './deck.js?v=202610041955';
 import { LOGOS } from './logos.js?v=20261012-invdossiers';
 import { createViewer } from './viewer.js?v=202609301526';
 import { syncSnaps } from './snap.js?v=202610041955';
-import { NEWS } from './news.js?v=202610041955';
+import { NEWS } from './news.js?v=20261013-editorial1';
 
 /* Сайт — витрина: показываем отобранные материалы. Канал получает весь поток.
    Лента идёт от свежего к старому по дате публикации — «Показать ещё» раскрывает
    более старые записи; порядок записей в news.js на отображение не влияет.
    Даты вперёд сегодняшней — это запланированные, ещё не наступившие публикации:
    на сайте они не должны быть видны раньше своего дня. */
-const today = new Date().toISOString().slice(0, 10);
+const todayParts=Object.fromEntries(new Intl.DateTimeFormat('en-GB',{
+  timeZone:'Europe/Moscow',year:'numeric',month:'2-digit',day:'2-digit'
+}).formatToParts(new Date()).map(({type,value})=>[type,value]));
+const today=`${todayParts.year}-${todayParts.month}-${todayParts.day}`;
 const SITE_NEWS = NEWS.filter((p) => p.site !== false && p.date <= today)
   .sort((a, b) => b.date.localeCompare(a.date));
 /* Пост показывается на EN-версии только если у него есть перевод (en:).
