@@ -43,4 +43,6 @@ const app=read('assets/app.js');
 assert.ok(app.includes("timeZone:'Europe/Moscow'"),'local editorial date must not use UTC');
 const build=read('scripts/make-feed.mjs');
 assert.ok(build.includes("timeZone:'Europe/Moscow'"),'RSS feed uses same editorial clock');
+assert.ok(read('scripts/tg-queue.mjs').includes("timeZone: 'Europe/Moscow'"),
+  'Telegram send window must use Moscow time, not the server machine timezone');
 console.log('PASS: bilingual dated content, non-overlapping queues, review-required Telegram, editorial timezone');
