@@ -2247,7 +2247,7 @@ $('#form').addEventListener('submit', async (e) => {
   const data = Object.fromEntries(new FormData(form));
 
   if (data.company) return;                       // honeypot: бот заполнил скрытое поле
-  if (window.turnstile && !data['cf-turnstile-response']) {
+  if (!data['cf-turnstile-response']) {
     note.className = 'form-note';
     note.textContent = t.contact.captchaWait;
     return;
