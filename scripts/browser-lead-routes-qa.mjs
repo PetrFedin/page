@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 import assert from 'node:assert/strict';
+import {mkdirSync} from 'node:fs';
+mkdirSync('qa-artifacts',{recursive:true});
 import {chromium} from 'playwright';
 const browser=await chromium.launch({headless:true,args:['--no-sandbox']});
 const base='http://127.0.0.1:4321';
@@ -19,6 +21,8 @@ for(const lang of ['ru','en']){
    assert.equal(response.status(),200);
    await page.locator('#lead-routes-grid [data-lead-start]').first().waitFor();
    assert.equal(await page.locator('#lead-routes-grid [data-lead-start]').count(),3,lang+' routes');
+   await page.locator('#work-with-me').scrollIntoViewIfNeeded();
+   await page.screenshot({path:'qa-artifacts/lead-routes-'+lang+'-'+width+'.png'});
    for(const [id,topic] of [['client','consulting'],['pilot','partnership'],['investor','investors']]){
      await page.locator('[data-lead-start="'+id+'"]').click();
      assert.equal(await page.locator('#lead-route-value').inputValue(),id,lang+'/'+width+' route');
@@ -34,6 +38,8 @@ for(const lang of ['ru','en']){
    assert.equal(await page.locator('#lead-project-value').inputValue(),'fintech');
    assert.equal(await page.locator('#topic').inputValue(),'investors');
    await page.locator('#lead-timing').selectOption('1–3 months');
+   await page.locator('#lead-context').scrollIntoViewIfNeeded();
+   await page.screenshot({path:'qa-artifacts/lead-contact-'+lang+'-'+width+'.png'});
    await page.locator('#form [name="name"]').fill('Test Contact');
    await page.locator('#email').fill('qa@example.org');
    await page.locator('#consent').check();
