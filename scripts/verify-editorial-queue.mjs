@@ -9,6 +9,11 @@ const byDate=new Map(NEWS.map(post=>[post.date,post]));
 assert.equal(byDate.size,NEWS.length,'unique news dates');
 assert.equal(new Set(queue.order).size,queue.order.length,'unique active queue dates');
 assert.equal(new Set(queue.paused).size,queue.paused.length,'unique paused dates');
+for(const item of queue.unresolvedLegacyDates||[]){
+  assert.ok(!byDate.has(item.date),'quarantined date unexpectedly has content '+item.date);
+  assert.ok(!queue.order.includes(item.date),'quarantined date must never be in active queue');
+  assert.ok(!queue.paused.includes(item.date),'quarantined date must not masquerade as an approved draft');
+}
 for(const date of [...queue.order,...queue.paused]){
   assert.ok(byDate.has(date),'unknown editorial item '+date);
   assert.ok(!queue.order.includes(date)||!queue.paused.includes(date),'same item active and paused '+date);
