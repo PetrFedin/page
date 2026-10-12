@@ -67,7 +67,7 @@ if (!pending.length) {
   process.exit(0);
 }
 
-const hour = new Date().getHours();
+const hour = Number(new Intl.DateTimeFormat('en-GB', { hour: '2-digit', hourCycle: 'h23', timeZone: 'Europe/Moscow' }).format(new Date()));
 if (!has('--dry-run') && (hour < queue.windowStart || hour >= queue.windowEnd)) {
   say(`Вне окна публикации (${hour}:00, окно ${queue.windowStart}:00–${queue.windowEnd}:00) — пропускаю.`);
   process.exit(0);
