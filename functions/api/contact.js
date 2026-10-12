@@ -36,6 +36,9 @@ export async function onRequestPost({ request, env }) {
     }
   }
 
+  if (!body || typeof body !== 'object' || Array.isArray(body)) {
+    return new Response('invalid payload', { status: 400 });
+  }
   if (clean(body.company, 50)) return new Response('ok', { status: 200 }); // honeypot
 
   /* Fail closed: there must be a verified Turnstile token before any private lead is forwarded. */
@@ -163,8 +166,16 @@ export async function onRequestPost({ request, env }) {
   const deliver = async (method, init) => {
     try {
       const res = await fetch(api + method, init);
-      if (!res.ok) console.error('telegram delivery failed', method, res.status);
-      return res.ok;
+      if (!res.ok) {
+        console.error('telegram delivery failed', method, res.status);
+        return false;
+      }
+      const outcome = await res.json();
+      if (outcome?.ok !== true) {
+        console.error('telegram delivery rejected', method);
+        return false;
+      }
+      return true;
     } catch {
       console.error('telegram network delivery failure', method);
       return false;
