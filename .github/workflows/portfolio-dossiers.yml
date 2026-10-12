@@ -18,6 +18,8 @@ on:
       - 'scripts/verify-editorial-queue.mjs'
       - 'channel-queue.json'
       - 'package.json'
+      - 'scripts/prepare-pages-release.mjs'
+      - '.gitignore'
       - 'index.html'
       - 'en/index.html'
       - 'scripts/verify-investor-dossiers.mjs'
@@ -48,12 +50,13 @@ jobs:
       - run: node scripts/verify-qualified-leads.mjs
       - run: node scripts/verify-editorial-queue.mjs
       - run: npm run build
+      - run: npm run package:pages
       - run: node scripts/verify-investor-dossiers.mjs
       - run: npm install --no-save playwright@1.58.2
       - run: npx playwright install --with-deps chromium
       - name: Chromium RU and EN responsive acceptance
         run: |
-          python3 -m http.server 4321 --bind 127.0.0.1 >/tmp/portfolio-http.log 2>&1 &
+          python3 -m http.server 4321 --bind 127.0.0.1 --directory dist-pages >/tmp/portfolio-http.log 2>&1 &
           node scripts/browser-portfolio-qa.mjs
           node scripts/browser-lead-routes-qa.mjs
       - uses: actions/upload-artifact@v4
