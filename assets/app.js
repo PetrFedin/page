@@ -1849,6 +1849,7 @@ function startContact({topic,topicOther,message,route,project='',goal=''}){
   const nextRoute=route===undefined?routeForTopic($('#topic').value):safeLeadRoute(route);
   const routeOption=LEAD_COPY[lang].options.find(p=>p.id===nextRoute);
   setLeadContext({route:nextRoute,project,goal:goal||routeOption?.goal||''});
+  document.querySelectorAll('.persona-chip').forEach(el=>el.classList.toggle('active',el.dataset.personaTopic===$('#topic').value));
   const msgEl=$('#form [name="message"]');
   if(msgEl&&message&&!msgEl.value.trim())msgEl.value=message;
   window.track?.('lead_route_selected',nextRoute,project||'general');
@@ -2192,6 +2193,7 @@ $('#topic').addEventListener('change',()=>{
   const route=routeForTopic($('#topic').value);
   const p=LEAD_COPY[lang].options.find(x=>x.id===route);
   setLeadContext({route,goal:p?.goal||''});
+  document.querySelectorAll('.persona-chip').forEach(el=>el.classList.toggle('active',el.dataset.personaTopic===$('#topic').value));
 });
 syncTopicOther();
 
@@ -2299,6 +2301,7 @@ $('#form').addEventListener('submit', async (e) => {
     if (!res.ok) throw new Error(String(res.status));
     window.dispatchEvent(new Event('track:form-sent'));
     form.reset();
+    document.querySelectorAll('.persona-chip').forEach(el=>el.classList.remove('active'));
     refreshLeadContext();
     showFile();
     syncEntityFields();
