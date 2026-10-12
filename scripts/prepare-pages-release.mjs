@@ -1,0 +1,70 @@
+#!/usr/bin/env node
+/**
+ * Assemble an allowlisted Cloudflare Pages static directory. Run from repo root:
+ *   npm run build && node scripts/prepare-pages-release.mjs
+ *
+ * The Pages Functions live at /functions beside (NOT inside) dist-pages.
+ * Wrangler CLI must be launched from this repo root to bundle them.
+ */
+import { cpSync, existsSync, lstatSync, mkdirSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
+import { dirname, join, relative, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import assert from 'node:assert/strict';
+
+const root=resolve(dirname(fileURLToPath(import.meta.url)),'..');
+const dist=join(root,'dist-pages');
+const staticFiles=[
+ 'index.html','privacy.html','syntha.html','renova.html','chatx.html',
+ 'promomed.html','mfw.html','marco-pescarolo.html','favicon.ico',
+ 'robots.txt','sitemap.xml','feed.xml','feed.json','llms.txt',
+ '_headers','_routes.json',
+ 'effa60696db2628d61a43e4d89f0186c.txt'
+];
+const staticDirs=['assets','en'];
+const mustHave=[
+ 'index.html','en/index.html','assets/app.js','assets/styles.css',
+ 'assets/lead-paths.js','assets/portfolio-extensions.js',
+ 'assets/investor-calculator.js','en/feed.xml','_headers','_routes.json'
+];
+for(const file of [...staticFiles,...staticDirs,...mustHave]){
+ const src=join(root,file);
+ assert.ok(existsSync(src),'release input missing: '+file);
+ assert.ok(!lstatSync(src).isSymbolicLink(),'unsafe symlink: '+file);
+}
+assert.ok(existsSync(join(root,'functions/api/contact.js')),
+  'Pages Functions must exist adjacent to the static output');
+
+rmSync(dist,{recursive:true,force:true});
+mkdirSync(dist,{recursive:true});
+for(const file of staticFiles){
+ mkdirSync(dirname(join(dist,file)),{recursive:true});
+ cpSync(join(root,file),join(dist,file));
+}
+for(const dir of staticDirs){
+ cpSync(join(root,dir),join(dist,dir),{recursive:true,errorOnExist:true,force:false});
+}
+const paths=[];
+function list(p){
+ for(const item of readdirSync(join(dist,p),{withFileTypes:true})){
+  const rel=join(p,item.name);
+  assert.ok(!item.isSymbolicLink(),'unsafe output symlink: '+rel);
+  if(item.isDirectory())list(rel);
+  else {
+   assert.ok(item.isFile(),'unsupported output type: '+rel);
+   assert.ok(!/(\.env$|\.pem$|\.key$|\/\.|\.secret$)/i.test(rel),'sensitive output: '+rel);
+   paths.push(rel);
+  }
+ }
+}
+list('');
+for(const path of mustHave)assert.ok(paths.includes(path),path);
+for(const forbidden of ['functions/','scripts/','docs/','private/','.github/','.claude/','node_modules/']){
+ assert.ok(!paths.some(p=>p.startsWith(forbidden)),'forbidden public directory: '+forbidden);
+}
+assert.ok(!paths.includes('channel-queue.json'),'publication queue must remain private');
+assert.ok(!paths.includes('package.json'),'build metadata must not be publicly hosted');
+mkdirSync(join(root,'qa-artifacts'),{recursive:true});
+writeFileSync(join(root,'qa-artifacts','pages-release-manifest.json'),
+ JSON.stringify({files:paths.length,includesFunctions:false,assets:paths},null,2)+'\n');
+console.log('PASS: Cloudflare Pages public-only bundle ('+paths.length+' files), private sources excluded');
+console.log('IMPORTANT: Deploy with Wrangler from repository root to bundle /functions separately.');
