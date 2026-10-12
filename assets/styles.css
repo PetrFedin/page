@@ -1832,3 +1832,17 @@ a.lang{display:inline-flex; align-items:center; justify-content:center; text-dec
  #consulting .services li:nth-child(4){grid-column:1/span 3;grid-row:2}
  #consulting .services li:nth-child(5){grid-column:4/span 3;grid-row:2}
 }
+
+/* Three commercial routes and qualified contact context; no cards reserved empty. */
+.lead-routes{padding-top:40px;padding-bottom:48px}
+.lead-routes .section-head .eyebrow{margin-bottom:9px;font-size:11px}
+.lead-routes-grid{display:grid;gap:14px;margin-top:23px}
+.lead-route-card{min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:11px;border:1px solid var(--line);border-radius:var(--radius);background:var(--panel);padding:22px 20px}
+.lead-route-card h3{font-family:var(--serif);font-size:clamp(19px,2vw,23px);font-weight:500;line-height:1.2;margin:0}
+.lead-route-card p{font-size:15px;line-height:1.5;color:var(--muted);flex:1;margin:0}
+.lead-route-card .btn{margin-top:8px;white-space:normal;text-align:left}
+.lead-route-card:focus-within{border-color:var(--accent)}
+.lead-context{background:var(--accent-soft);color:var(--ink);font-size:13px;padding:12px 15px;border:1px solid var(--line);border-radius:10px;margin:0;line-height:1.5}
+.lead-context[hidden]{display:none!important}
+.lead-timing-field select{width:100%;max-width:100%}
+@media(min-width:760px){.lead-routes-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
