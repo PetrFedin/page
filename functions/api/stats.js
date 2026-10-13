@@ -53,25 +53,36 @@ function parseJson(v, fallback = {}) {
   try { return JSON.parse(v || '') || fallback; } catch { return fallback; }
 }
 
+/* New V2 routes should be scored using the established commercial taxonomy.
+   Preserve the original route in response metadata and never infer a signed contract. */
+export function normalizeLeadRoute(value) {
+  const raw=String(value || '').trim().toLowerCase();
+  return ({client:'consulting',investor:'investment'})[raw] || raw;
+}
+
 function timingPoints(v) {
   const s = String(v || '').toLowerCase();
-  if (/до 1 месяца|within 1 month/.test(s)) return 25;
+  if (/до 1 месяца|within 1 month|0\s*[–-]\s*1\s*month/.test(s)) return 25;
   if (/1.?3/.test(s)) return 18;
   if (/3.?6/.test(s)) return 10;
   return 0;
 }
 
-function qualifyLead(sub, lead = {}) {
-  const route = String(lead.route || '').toLowerCase();
+export function qualifyLead(sub, lead = {}) {
+  const rawRoute = String(lead.route || '').trim().toLowerCase();
+  const route = normalizeLeadRoute(rawRoute);
   const project = String(lead.project || '').toLowerCase();
   if (!route) return {
-    route: '', project, timing: '', score: null, priority: '—', stage: 'unclassified',
+    route: '', normalizedRoute:'', project, timing: '', score: null, priority: '—', stage: 'unclassified', requiresHumanReview: true,
     action: 'Уточнить тип запроса',
     breakdown: { intent: 0, project: 0, completeness: 0, timing: 0, nextStep: 0 },
     reasons: ['заявка создана до введения квалификационной формы или маршрут не указан']
   };
 
-  const expected = LEAD_ROUTE_FIELDS[route] || [];
+  // V2 asks compact goal + timing fields; older routes keep their extended form.
+  const expected = rawRoute==='client' || rawRoute==='investor'
+    ? ['goal','timing']
+    : (LEAD_ROUTE_FIELDS[route] || []);
   const filled = expected.filter((k) => String(lead[k] || '').trim()).length;
   const completeness = expected.length ? Math.round(25 * filled / expected.length) : 0;
   const intent = route === 'consulting' || route === 'pilot' || route === 'diligence' ? 20
@@ -111,8 +122,8 @@ function qualifyLead(sub, lead = {}) {
     : 'Сначала отправить публичные материалы';
 
   return {
-    route, project, timing: lead.timing || '',
-    score, priority, stage, action,
+    route: rawRoute, normalizedRoute: route, project, timing: lead.timing || '',
+    score, priority, stage, action, requiresHumanReview: true,
     breakdown: { intent, project: projectSpecificity, completeness, timing, nextStep },
     reasons: [
       `тип запроса +${intent}`,
