@@ -33,15 +33,13 @@ jobs:
         run: |
           node scripts/make-feed.mjs
           git diff --exit-code -- feed.xml feed.json en/feed.xml en/feed.json
-      - name: Assert only editorial files changed against main
+      - name: Validate content-only scope when editorial data changes
         run: |
           git fetch origin main --depth=1
           git diff --name-only origin/main HEAD > /tmp/changed-files
-          if grep -E -q '^(assets/news\\.js|feed\\.(xml|json)|en/feed\\.(xml|json))
- /tmp/changed-files; then
-            grep -v -E '^(assets/(news|app)\\.js|index\\.html|en/index\\.html|feed\\.(xml|json)|en/feed\\.(xml|json)|scripts/verify-oct13-publication\\.mjs|\\.github/workflows/editorial-hotfix\\.yml)
- /tmp/changed-files > /tmp/unexpected-files || :
+          if grep -E -q '^(assets/news[.]js|feed[.](xml|json)|en/feed[.](xml|json))$' /tmp/changed-files; then
+            grep -v -E '^(assets/(news|app)[.]js|index[.]html|en/index[.]html|feed[.](xml|json)|en/feed[.](xml|json)|scripts/verify-oct13-publication[.]mjs|[.]github/workflows/editorial-hotfix[.]yml)$' /tmp/changed-files > /tmp/unexpected-files || :
             test ! -s /tmp/unexpected-files || (cat /tmp/unexpected-files && exit 1)
           else
-            echo "No editorial data changed; scoped release gate not applicable."
+            echo "No editorial data changed; content-only rule not applicable."
           fi
