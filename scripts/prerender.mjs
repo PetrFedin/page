@@ -63,6 +63,10 @@ const EXTRACT = `(() => {
   const box = document.createElement('div');
   nodes.forEach((n) => box.append(n.cloneNode(true)));
   box.querySelectorAll('.to-top, .share-menu, .scroll-progress').forEach((n) => n.remove());
+  /* Ephemeral Turnstile iframe + token are browser state, not prerenderable content. */
+  const widget = box.querySelector('#turnstile-widget');
+  if (widget) widget.replaceChildren();
+  box.querySelectorAll('input[name="cf-turnstile-response"], [id^="cf-chl-widget-"]').forEach(n => n.remove());
   box.querySelectorAll('.snap-fit').forEach((n) => n.removeAttribute('style'));
   box.querySelectorAll('.snap-dots').forEach((n) => { n.innerHTML = ''; n.removeAttribute('data-first'); });
   box.querySelectorAll('[tabindex="0"]').forEach((n) => n.removeAttribute('tabindex'));
