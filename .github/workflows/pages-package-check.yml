@@ -32,6 +32,16 @@ jobs:
           node --check scripts/verify-live-publication-contract.mjs
       - name: Read-only external-admission contract (mocked URLs)
         run: node scripts/verify-live-publication-contract.mjs
+      - name: Rebuild RU/EN pages in headless Chromium, verify prerender sanitation
+        run: |
+          npm install --no-save playwright@1.58.2
+          npx playwright install --with-deps chromium
+          export CHROME_BIN="$(node --input-type=module -e 'import { chromium } from "playwright"; process.stdout.write(chromium.executablePath())')"
+          npm run build
+          for file in index.html en/index.html; do
+            test "$(grep -o 'id="turnstile-widget"' "$file" | wc -l)" -eq 1
+            ! grep -q 'cf-chl-widget-' "$file"
+          done
       - name: Clean public bundle
         run: npm run package:pages
       - name: Verify exact source revision in release manifest
