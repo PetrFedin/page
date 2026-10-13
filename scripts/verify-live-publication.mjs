@@ -65,6 +65,8 @@ export async function verifyLivePublication({
   requireArticleDate(date);
   const host = new URL(releaseUrl);
   assert.equal(host.protocol, 'https:', 'Only HTTPS origins may be admitted');
+  assert.ok(host.hostname === 'syntha.pro' || host.hostname === 'www.syntha.pro' || host.hostname.endsWith('.pages.dev'),
+    'Only syntha.pro or approved Cloudflare Pages preview origins are supported');
   assert.ok(!host.username && !host.password, 'Credentials must not appear in URL');
   assert.equal(host.pathname, '/', 'Use the deployment origin, not a subpath');
   assert.ok(!host.search && !host.hash, 'Release URL must be a clean origin');
