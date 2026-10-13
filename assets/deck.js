@@ -1,4 +1,5 @@
-/* Полное содержание презентации фэшн-консалтинга — то же, что в PDF.
+/* Интерактивная презентация фэшн-консалтинга RU/EN.
+   Онлайн-версия дополнена расчетом и разделами; PDF — отдельная редакция.
    Блок = заголовок + набор карточек. Карточка: eyebrow / title / body / decision / list. */
 
 export const DECK = {
@@ -12,7 +13,7 @@ export const DECK = {
     chainTo: [0, 1, 0, 2, 2, 3, 3, 1, 4],
     chainHint: 'Выберите этап — откроется направление работы, которое его закрывает.',
     decisionLabel: 'Решение',
-    download: 'Скачать презентацию (PDF)',
+    download: 'Скачать PDF (без интерактивного расчёта)',
     glossaryTitle: 'Сокращения',
     glossary: [
       ['PLM', 'управление жизненным циклом продукта'],
@@ -241,7 +242,7 @@ export const DECK = {
     chainTo: [0, 1, 0, 2, 2, 3, 3, 1, 4],
     chainHint: 'Choose a stage to open the area of work that covers it.',
     decisionLabel: 'Decision',
-    download: 'Download the deck (PDF)',
+    download: 'Download PDF (without interactive calculator)',
     glossaryTitle: 'Abbreviations',
     glossary: [
       ['PLM', 'product lifecycle management'],
