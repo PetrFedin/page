@@ -1,0 +1,36 @@
+name: Read-only live SYNTHA release admission
+on:
+  workflow_dispatch:
+    inputs:
+      release_url:
+        description: Approved Cloudflare preview or production origin (HTTPS)
+        required: true
+        default: https://syntha.pro
+        type: string
+      article_date:
+        description: Expected newest article date (YYYY-MM-DD)
+        required: true
+        default: '2026-10-13'
+        type: string
+      expected_sha:
+        description: Exact source Git SHA from approved deployment (optional for editorial-only check)
+        required: false
+        default: ''
+        type: string
+permissions:
+  contents: read
+jobs:
+  read-only-verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify external RU/EN article and optional source SHA
+        run: node scripts/verify-live-publication.mjs
+        env:
+          RELEASE_URL: ${{ inputs.release_url }}
+          VERIFY_DATE: ${{ inputs.article_date }}
+          EXPECTED_SHA: ${{ inputs.expected_sha }}
