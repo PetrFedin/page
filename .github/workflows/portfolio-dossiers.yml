@@ -44,6 +44,12 @@ jobs:
       contents: read
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Assert exact checked-out PR head
+        run: |
+          test "$(git rev-parse HEAD)" = "${{ github.event.pull_request.head.sha || github.sha }}"
+          echo "Verified checkout SHA: $(git rev-parse HEAD)"
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
