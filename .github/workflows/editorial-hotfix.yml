@@ -1,0 +1,40 @@
+name: Oct 13 editorial release validation
+on:
+  pull_request:
+    paths:
+      - 'assets/news.js'
+      - 'assets/app.js'
+      - 'index.html'
+      - 'en/index.html'
+      - 'feed.xml'
+      - 'feed.json'
+      - 'en/feed.xml'
+      - 'en/feed.json'
+      - 'scripts/verify-oct13-publication.mjs'
+      - '.github/workflows/editorial-hotfix.yml'
+  workflow_dispatch:
+jobs:
+  verify-content:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --check assets/news.js
+      - run: node --check assets/app.js
+      - run: node --check scripts/verify-oct13-publication.mjs
+      - run: node scripts/verify-oct13-publication.mjs
+      - name: Regenerated RU/EN RSS and JSON must match committed content
+        run: |
+          node scripts/make-feed.mjs
+          git diff --exit-code -- feed.xml feed.json en/feed.xml en/feed.json
+      - name: Assert only editorial files changed against main
+        run: |
+          git fetch origin main --depth=1
+          git diff --name-only origin/main HEAD | grep -v -E '^(assets/(news|app)\.js|index\.html|en/index\.html|feed\.(xml|json)|en/feed\.(xml|json)|scripts/verify-oct13-publication\.mjs|\.github/workflows/editorial-hotfix\.yml)$' > /tmp/unexpected-files || :
+          test ! -s /tmp/unexpected-files || (cat /tmp/unexpected-files && exit 1)
