@@ -9,3 +9,6 @@ node_modules/
 telegram.env
 published.json
 .claude/worktrees/
+
+# Build-only sanitized public output
+dist-pages/
