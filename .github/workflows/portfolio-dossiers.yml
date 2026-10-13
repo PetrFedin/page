@@ -17,6 +17,7 @@ on:
       - 'functions/api/stats.js'
       - 'functions/stats.js'
       - 'scripts/verify-publishing-admission.mjs'
+      - 'scripts/verify-live-release.mjs'
       - 'functions/api/posts.js'
       - 'scripts/build-en.mjs'
       - 'scripts/make-feed.mjs'
@@ -62,6 +63,7 @@ jobs:
       - run: node --check functions/api/t.js
       - run: node --check functions/api/stats.js
       - run: node --check functions/stats.js
+      - run: node --check scripts/verify-live-release.mjs
       - run: node --check functions/api/posts.js
       - run: node --check scripts/tg-queue.mjs
       - run: node --check assets/app.js
