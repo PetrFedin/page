@@ -50,3 +50,13 @@ For a Git-integrated project, confirm whether manually uploaded deployments are 
 - PR #8: prior CI GREEN, new contact hardening and allowlisted release bundle now undergoing additional CI.
 - No proven Cloudflare admin authorization, exact Pages project identity, Turnstile and Telegram bindings in current connected tools.
 - Therefore **PRODUCTION HOLD**; no new Cloudflare deploy or merge and no paid resources.
+
+## Read-only deployment verification
+After any approved preview and again after production publication, run a read-only exact-SHA comparison:
+
+    RELEASE_URL=https://CONFIRMED_HOST EXPECTED_SHA=VERIFIED_SOURCE_SHA node scripts/verify-live-release.mjs
+
+The script validates deployed RU/EN HTML fingerprints, project flows, asset URLs, canonical links and that private files are not served. It performs **no form POST** and cannot replace the authorised real Turnstile/Telegram end-to-end delivery test. Reject a deployment when the served commit differs from the reviewed PR SHA.
+
+## Editorial switch
+Publication is off by default. Cloudflare editorial publishing requires EDITORIAL_PUBLISH_ENABLED=true in the intended environment after editorial approval; scheduled posts run through the authorised cron, not visitor analytics or read-only stats. The local historical Telegram queue also requires the flag in its private telegram.env. Do not enable the flag until the queue is reconciled against previously published posts. October 13, 15 and 17 materials remain site:false/paused pending review.
