@@ -63,6 +63,11 @@ const EXTRACT = `(() => {
   const box = document.createElement('div');
   nodes.forEach((n) => box.append(n.cloneNode(true)));
   box.querySelectorAll('.to-top, .share-menu, .scroll-progress').forEach((n) => n.remove());
+  /* Prerender must NOT ship ephemeral Cloudflare challenge DOM/token fields.
+     Cloudflare initializes its widget afresh on the real target hostname. */
+  const captcha = box.querySelector('#turnstile-widget');
+  if (captcha) captcha.replaceChildren();
+  box.querySelectorAll('input[name="cf-turnstile-response"], [id^="cf-chl-widget-"]').forEach(n => n.remove());
   box.querySelectorAll('.snap-fit').forEach((n) => n.removeAttribute('style'));
   box.querySelectorAll('.snap-dots').forEach((n) => { n.innerHTML = ''; n.removeAttribute('data-first'); });
   box.querySelectorAll('[tabindex="0"]').forEach((n) => n.removeAttribute('tabindex'));

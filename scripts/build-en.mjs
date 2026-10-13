@@ -15,8 +15,8 @@ const ЗАМЕНЫ = [
   ['/assets/photo/petr-portrait.webp', '/assets/photo/petr-ny.webp'],
   ['<title>Пётр Федин — фэшн-консалтинг и проекты</title>',
    '<title>Petr Fedin — fashion advisory and projects</title>'],
-  ['content="Консультирую фэшн-бренды и разрабатываю собственные IT-продукты: Syntha, ChatX, Renova, MFW+BFS+Made in Moscow, Promomed."',
-   'content="I advise fashion brands and build my own IT products: Syntha, ChatX, Renova, MFW+BFS+Made in Moscow, Promomed."'],
+  ['content="Фэшн-консалтинг, экономика закупок и цифровые платформы: Syntha, ChatX, Renova, Antiqua, IGRA, Marco Pescarolo и другие проекты. Пилоты, партнёрство, инвестиции."',
+   'content="Fashion advisory, buying economics and digital platforms: Syntha, ChatX, Renova, Antiqua, IGRA, Marco Pescarolo and more. Pilots, partnerships and investment."'],
   ['<meta property="og:url" content="https://syntha.pro/">',
    '<meta property="og:url" content="https://syntha.pro/en/">'],
   ['content="Пётр Федин — фэшн-консалтинг и проекты"',
@@ -42,6 +42,20 @@ for (const [из, в] of ЗАМЕНЫ) {
   }
   html = html.replaceAll(из, в);
 }
+/* Preserve English static fallback for the commercial paths. */
+const routeStart='<!--LEAD_ROUTES_START-->',routeEnd='<!--LEAD_ROUTES_END-->';
+const ruStart=html.indexOf(routeStart),ruEnd=html.indexOf(routeEnd,ruStart);
+if(ruStart<0||ruEnd<0){console.error('Commercial paths missing from source HTML');process.exit(1);}
+const enRoutes="<!--LEAD_ROUTES_START-->\n  <section class=\"section lead-routes\" id=\"work-with-me\" aria-labelledby=\"lead-paths-title\">\n    <div class=\"section-head\"><p class=\"eyebrow\" id=\"lead-paths-eyebrow\">Choose how to work together</p><h2 id=\"lead-paths-title\">From a question to a concrete next step</h2><p class=\"sub\" id=\"lead-paths-sub\">Clear journeys for prospective clients, partners and investors.</p></div>\n    <div class=\"lead-routes-grid\" id=\"lead-routes-grid\">\n      <article class=\"lead-route-card\" data-route-card=\"client\"><span class=\"svc-n\">01</span><h3>For clients</h3><p>Buying economics, commercial strategy, operational processes and transformation.</p><button class=\"btn btn-sm\" type=\"button\" data-lead-start=\"client\">Discuss your challenge</button></article>\n      <article class=\"lead-route-card\" data-route-card=\"pilot\"><span class=\"svc-n\">02</span><h3>For partners</h3><p>Explore a pilot, technical integration or co-development on a real workflow.</p><button class=\"btn btn-sm\" type=\"button\" data-lead-start=\"pilot\">Propose a pilot</button></article>\n      <article class=\"lead-route-card\" data-route-card=\"investor\"><span class=\"svc-n\">03</span><h3>For investors</h3><p>Review product maturity, risks and hypothetical economics before a focused conversation.</p><button class=\"btn btn-sm\" type=\"button\" data-lead-start=\"investor\">Discuss participation</button></article>\n    </div>\n  </section>\n<!--LEAD_ROUTES_END-->";
+html=html.slice(0,ruStart)+enRoutes+html.slice(ruEnd+routeEnd.length);
+html=html.replaceAll('Когда планируете начать? (необязательно)','When would you like to start? (optional)')
+  .replaceAll('Срок пока не определён','Timing undecided')
+  .replaceAll('В течение месяца','Within a month')
+  .replaceAll('В течение 1–3 месяцев','In 1–3 months')
+  .replaceAll('В течение 3–6 месяцев','In 3–6 months')
+  .replaceAll('Позднее</option>','Later</option>')
+  .replaceAll('>Предложить пилот</button>','>Propose a pilot</button>')
+  .replaceAll('>Инвестору</button>','>Investor enquiry</button>');
 /* разметка schema.org для английской страницы */
 const LD = {
   '@context': 'https://schema.org',

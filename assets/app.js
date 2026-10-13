@@ -2,18 +2,22 @@ import { T, PROJECTS as CORE_PROJECTS, CONTACTS, COMPARE } from './content.js?v=
 import { EXTRA_PROJECTS, INVESTOR_BLUEPRINTS } from './portfolio-extensions.js?v=20261012-invdossiers';
 const PROJECTS = [...CORE_PROJECTS, ...EXTRA_PROJECTS];
 import { mountInvestorCalculator } from './investor-calculator.js?v=20261012-calc1';
+import { LEAD_COPY, safeLeadRoute, routeForTopic } from './lead-paths.js?v=20261013-leads1';
 import { DECK } from './deck.js?v=202610041955';
 import { LOGOS } from './logos.js?v=20261012-invdossiers';
 import { createViewer } from './viewer.js?v=202609301526';
 import { syncSnaps } from './snap.js?v=202610041955';
-import { NEWS } from './news.js?v=202610041955';
+import { NEWS } from './news.js?v=20261013-editorial1';
 
 /* Сайт — витрина: показываем отобранные материалы. Канал получает весь поток.
    Лента идёт от свежего к старому по дате публикации — «Показать ещё» раскрывает
    более старые записи; порядок записей в news.js на отображение не влияет.
    Даты вперёд сегодняшней — это запланированные, ещё не наступившие публикации:
    на сайте они не должны быть видны раньше своего дня. */
-const today = new Date().toISOString().slice(0, 10);
+const todayParts=Object.fromEntries(new Intl.DateTimeFormat('en-GB',{
+  timeZone:'Europe/Moscow',year:'numeric',month:'2-digit',day:'2-digit'
+}).formatToParts(new Date()).map(({type,value})=>[type,value]));
+const today=`${todayParts.year}-${todayParts.month}-${todayParts.day}`;
 const SITE_NEWS = NEWS.filter((p) => p.site !== false && p.date <= today)
   .sort((a, b) => b.date.localeCompare(a.date));
 /* Пост показывается на EN-версии только если у него есть перевод (en:).
@@ -363,6 +367,23 @@ function render() {
   $('#hero-name').textContent = t.hero.name;
   $('#hero-lead').textContent = t.hero.lead;
   $('#hero-bio').textContent = t.hero.bio;
+  const leads=LEAD_COPY[lang];
+  $('#lead-paths-eyebrow').textContent=leads.eyebrow;
+  $('#lead-paths-title').textContent=leads.title;
+  $('#lead-paths-sub').textContent=leads.subtitle;
+  $('#modal-pilot').textContent=leads.modalPilot;
+  $('#modal-invest').textContent=leads.modalInvestor;
+  $('#lead-routes-grid').innerHTML=leads.options.map(p=>`
+    <article class="lead-route-card" data-route-card="${p.id}">
+      <span class="svc-n">${p.n}</span><h3>${p.title}</h3><p>${p.description}</p>
+      <button class="btn btn-sm" type="button" data-lead-start="${p.id}">${p.action}</button>
+    </article>`).join('');
+  const timing=$('#lead-timing'),oldTiming=timing.value;
+  $('#lead-timing-label').textContent=leads.timingLabel;
+  timing.innerHTML=leads.timing.map(([value,title])=>`<option value="${value}">${title}</option>`).join('');
+  if([...timing.options].some(o=>o.value===oldTiming))timing.value=oldTiming;
+  refreshLeadContext();
+
   document.querySelectorAll('.modal-close').forEach((b) => { b.setAttribute('aria-label', t.nav.close); b.title = t.nav.close; });
   const backLabel = lang === 'ru' ? 'Назад' : 'Back';
   $('#cv-back').setAttribute('aria-label', backLabel);
@@ -842,10 +863,20 @@ $('#projects-more').addEventListener('click', () => {
 
 /* «Обсудить участие» — переносит проект в форму */
 $('#modal-cta').addEventListener('click', () => {
-  $('#topic').value = modal.dataset.project;
-  leave();
-  $('#contact').scrollIntoView({ behavior: 'smooth' });
-  setTimeout(() => $('#form [name="name"]').focus(), 400);
+  const id=modal.dataset.project,name=PROJECTS.find(p=>p.id===id)?.name||id;
+  const topic=T[lang].contact.topics[id]?id:'partnership';
+  startContact({topic,route:'pilot',project:id,goal:LEAD_COPY[lang].options[1].goal,
+    message:LEAD_COPY[lang].messagePilot(name)});
+});
+$('#modal-pilot').addEventListener('click',()=>{
+  const id=modal.dataset.project,name=PROJECTS.find(p=>p.id===id)?.name||id;
+  startContact({topic:'partnership',route:'pilot',project:id,goal:LEAD_COPY[lang].options[1].goal,
+    message:LEAD_COPY[lang].messagePilot(name)});
+});
+$('#modal-invest').addEventListener('click',()=>{
+  const id=modal.dataset.project,name=PROJECTS.find(p=>p.id===id)?.name||id;
+  startContact({topic:'investors',route:'investor',project:id,goal:LEAD_COPY[lang].options[2].goal,
+    message:LEAD_COPY[lang].messageInvestor(name)});
 });
 
 /* ---------- новости в верхней панели: свежие публикации сменяют друг друга ---------- */
@@ -1794,17 +1825,45 @@ function showInfo(hash) {
 }
 
 /* Общий ход «связаться»: подставляем тему и текст, закрываем окна и ведём к форме. */
-function startContact({ topic, topicOther, message }) {
-  $('#topic').value = topic;
-  if (topic === 'other') $('#topic-other').value = topicOther ?? '';
+function refreshLeadContext() {
+  const route=safeLeadRoute($('#lead-route-value').value);
+  const project=$('#lead-project-value').value;
+  const copy=LEAD_COPY[lang],option=copy.options.find(x=>x.id===route);
+  const projectName=PROJECTS.find(p=>p.id===project)?.name;
+  const context=$('#lead-context');
+  context.hidden=!option;
+  context.textContent=option?[copy.summary+': '+option.title,projectName].filter(Boolean).join(' · '):'';
+}
+function setLeadContext({route='',project='',goal=''}={}) {
+  const id=safeLeadRoute(route);
+  $('#lead-route-value').value=id;
+  $('#lead-project-value').value=PROJECTS.some(p=>p.id===project)?project:'';
+  $('#lead-goal-value').value=id?String(goal).slice(0,150):'';
+  refreshLeadContext();
+}
+function startContact({topic,topicOther,message,route,project='',goal=''}){
+  const hasTopic=[...$('#topic').options].some(o=>o.value===topic);
+  $('#topic').value=hasTopic?topic:'other';
+  if($('#topic').value==='other')$('#topic-other').value=topicOther??(project||'');
   syncTopicOther();
-  const msgEl = $('#form [name="message"]');
-  if (msgEl && message && !msgEl.value.trim()) msgEl.value = message;
+  const nextRoute=route===undefined?routeForTopic($('#topic').value):safeLeadRoute(route);
+  const routeOption=LEAD_COPY[lang].options.find(p=>p.id===nextRoute);
+  setLeadContext({route:nextRoute,project,goal:goal||routeOption?.goal||''});
+  document.querySelectorAll('.persona-chip').forEach(el=>el.classList.toggle('active',el.dataset.personaTopic===$('#topic').value));
+  const msgEl=$('#form [name="message"]');
+  if(msgEl&&message&&!msgEl.value.trim())msgEl.value=message;
+  window.track?.('lead_route_selected',nextRoute,project||'general');
   syncSubmit?.();
   leaveAll();
-  requestAnimationFrame(() => $('#contact').scrollIntoView({ behavior: 'smooth' }));
-  setTimeout(() => $('#form [name="name"]').focus(), 400);
+  requestAnimationFrame(()=>$('#contact').scrollIntoView({behavior:'smooth'}));
+  setTimeout(()=>$('#form [name="name"]').focus(),400);
 }
+$('#lead-routes-grid').addEventListener('click',(event)=>{
+  const id=event.target.closest('[data-lead-start]')?.dataset.leadStart;
+  const p=LEAD_COPY[lang].options.find(x=>x.id===id);
+  if(!p)return;
+  startContact({topic:p.topic,route:p.id,goal:p.goal});
+});
 
 $('#facts-bar').addEventListener('click', (e) => {
   const c = e.target.closest('[data-area-contact]');
@@ -2129,7 +2188,13 @@ function syncTopicOther() {
   field.hidden = !isOther;
   if (!isOther) $('#topic-other').value = '';
 }
-$('#topic').addEventListener('change', syncTopicOther);
+$('#topic').addEventListener('change',()=>{
+  syncTopicOther();
+  const route=routeForTopic($('#topic').value);
+  const p=LEAD_COPY[lang].options.find(x=>x.id===route);
+  setLeadContext({route,goal:p?.goal||''});
+  document.querySelectorAll('.persona-chip').forEach(el=>el.classList.toggle('active',el.dataset.personaTopic===$('#topic').value));
+});
 syncTopicOther();
 
 /* «Пишу как юридическое лицо» — раскрывает необязательные поля названия и ИНН. */
@@ -2167,6 +2232,9 @@ $('#persona-picker').addEventListener('click', (e) => {
   if (!b) return;
   $('#topic').value = b.dataset.personaTopic;
   syncTopicOther();
+  const route=routeForTopic($('#topic').value);
+  const p=LEAD_COPY[lang].options.find(x=>x.id===route);
+  setLeadContext({route,goal:p?.goal||''});
   $('#form [name="name"]').focus();
   document.querySelectorAll('.persona-chip').forEach((el) => el.classList.toggle('active', el === b));
 });
@@ -2179,7 +2247,7 @@ $('#form').addEventListener('submit', async (e) => {
   const data = Object.fromEntries(new FormData(form));
 
   if (data.company) return;                       // honeypot: бот заполнил скрытое поле
-  if (window.turnstile && !data['cf-turnstile-response']) {
+  if (!data['cf-turnstile-response']) {
     note.className = 'form-note';
     note.textContent = t.contact.captchaWait;
     return;
@@ -2231,17 +2299,20 @@ $('#form').addEventListener('submit', async (e) => {
       });
     }
     if (!res.ok) throw new Error(String(res.status));
-    note.className = 'form-note ok';
-    note.textContent = t.contact.ok;
     window.dispatchEvent(new Event('track:form-sent'));
     form.reset();
-    clearDraft();
+    // Hidden inputs reflect their value attribute; form.reset() alone does not clear them.
+    setLeadContext();
+    document.querySelectorAll('.persona-chip').forEach(el=>el.classList.remove('active'));
     showFile();
     syncEntityFields();
     syncOptional();
     syncSubmit();
-    /* токен Turnstile одноразовый — без сброса повторная отправка уйдёт с протухшим */
-    window.turnstile?.reset();
+    clearDraft();
+    /* Reset widget separately: a UI clean-up error must not turn a delivered lead into a false failure. */
+    try { window.turnstile?.reset(); } catch (error) { console.warn('Turnstile reset deferred'); }
+    note.className = 'form-note ok';
+    note.textContent = t.contact.ok;
   } catch (err) {
     window.track?.('form_error', '', 'сбой отправки');
     note.className = 'form-note';

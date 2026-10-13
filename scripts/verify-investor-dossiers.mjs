@@ -28,8 +28,8 @@ for(const p of EXTRA_PROJECTS){
 for(const p of ['index.html','en/index.html']){
   const html=read(p);
   for(const id of ['project-capabilities','project-investor','gallery','cards','modal']) assert.ok(html.includes('id="'+id+'"'), 'missing '+id+' from '+p);
-  assert.ok(html.includes('/assets/app.js?v=20261012-invdossiers'), 'stale JS cache tag '+p);
-  assert.ok(html.includes('/assets/styles.css?v=20261012-invdossiers'), 'stale CSS cache tag '+p);
+  assert.ok(html.includes('/assets/app.js?v=20261013-leads2'), 'stale JS cache tag '+p);
+  assert.ok(html.includes('/assets/styles.css?v=20261013-leads2'), 'stale CSS cache tag '+p);
 }
 const app = read('assets/app.js');
 assert.ok(app.includes('CORE_PROJECTS, ...EXTRA_PROJECTS'), 'new projects not included in cards');
