@@ -40,9 +40,13 @@ on:
       - 'scripts/browser-portfolio-qa.mjs'
       - '.github/workflows/portfolio-dossiers.yml'
   workflow_dispatch:
+concurrency:
+  group: portfolio-dossiers-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 jobs:
   validate:
     runs-on: ubuntu-latest
+    timeout-minutes: 25
     permissions:
       contents: read
     steps:
