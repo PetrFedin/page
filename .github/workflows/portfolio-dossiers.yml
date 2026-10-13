@@ -8,6 +8,11 @@ on:
       - 'assets/styles.css'
       - 'assets/portfolio-extensions.js'
       - 'assets/investor-calculator.js'
+      - 'assets/advisory-economics.js'
+      - 'assets/deck.js'
+      - 'scripts/verify-advisory-economics.mjs'
+      - 'scripts/browser-advisory-economics-qa.mjs'
+      - 'docs/PAGE_ADVISORY_ECONOMICS_2026-10-13.md'
       - 'assets/lead-paths.js'
       - 'assets/news.js'
       - 'functions/api/contact.js'
@@ -61,6 +66,10 @@ jobs:
         with:
           node-version: '22'
       - run: node --check assets/investor-calculator.js
+      - run: node --check assets/advisory-economics.js
+      - run: node --check assets/deck.js
+      - run: node --check scripts/verify-advisory-economics.mjs
+      - run: node --check scripts/browser-advisory-economics-qa.mjs
       - run: node --check assets/lead-paths.js
       - run: node --check assets/news.js
       - run: node --check functions/api/contact.js
@@ -79,6 +88,7 @@ jobs:
       - run: node scripts/verify-investor-dossiers.mjs
       - run: node scripts/verify-investor-calculator.mjs
       - run: node scripts/verify-qualified-leads.mjs
+      - run: node scripts/verify-advisory-economics.mjs
       - run: node scripts/verify-editorial-queue.mjs
       - run: node scripts/verify-publishing-admission.mjs
       - run: npm run build
@@ -92,6 +102,7 @@ jobs:
           python3 -m http.server 4321 --bind 127.0.0.1 --directory dist-pages >/tmp/portfolio-http.log 2>&1 &
           node scripts/browser-portfolio-qa.mjs
           node scripts/browser-lead-routes-qa.mjs
+          node scripts/browser-advisory-economics-qa.mjs
       - uses: actions/upload-artifact@v4
         if: success()
         with:

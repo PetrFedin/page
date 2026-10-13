@@ -4,6 +4,7 @@ const PROJECTS = [...CORE_PROJECTS, ...EXTRA_PROJECTS];
 import { mountInvestorCalculator } from './investor-calculator.js?v=20261012-calc1';
 import { LEAD_COPY, safeLeadRoute, routeForTopic } from './lead-paths.js?v=20261013-leads1';
 import { DECK } from './deck.js?v=202610041955';
+import { mountAdvisoryEconomics } from './advisory-economics.js?v=20261013a';
 import { LOGOS } from './logos.js?v=20261012-invdossiers';
 import { createViewer } from './viewer.js?v=202609301526';
 import { syncSnaps } from './snap.js?v=202610041955';
@@ -2377,6 +2378,23 @@ function renderDeck() {
     d.glossary.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('') + '</dl>';
   $('#deck-footnote').textContent = d.footnote;
   $('#deck-pdf-2').textContent = d.download;
+
+  /* Keep the calculator isolated from contact payloads. Route to a normal
+     client enquiry using the existing qualified lead context, never copy financial values. */
+  $('#deck-economics')?.remove();
+  const economics = document.createElement('section');
+  economics.id = 'deck-economics';
+  $('#deck-blocks').before(economics);
+  mountAdvisoryEconomics(economics, lang, () => {
+    startContact({
+      topic:'consulting',
+      route:'client',
+      goal:lang === 'en' ? 'Inventory and working capital diagnostic' : 'Диагностика запасов и оборотного капитала',
+      message:lang === 'en'
+        ? 'I would like to discuss inventory and working capital diagnostics.'
+        : 'Хочу обсудить диагностику товарных запасов и оборотного капитала.'
+    });
+  });
 
   $('#deck-blocks').innerHTML = d.blocks.map((b) => `
     <section class="deck-block" id="deck-${b.id}">
