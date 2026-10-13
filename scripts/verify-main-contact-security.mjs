@@ -1,8 +1,15 @@
 #!/usr/bin/env node
 /* No external network: all Turnstile/Telegram calls are mocked here. */
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import { onRequestPost } from '../functions/api/contact.js';
 
+const page = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
+const client = readFileSync(new URL('../assets/app.js', import.meta.url), 'utf8');
+assert.match(page, /id="consent"\s+name="consent"/, 'V1 page must submit consent');
+assert.match(page, /class="cf-turnstile"/, 'V1 page must render Turnstile');
+assert.ok(client.includes("Object.fromEntries(new FormData(form))"), 'V1 contact must include checkboxes in form payload');
+assert.ok(client.includes("data['cf-turnstile-response']"), 'V1 contact must gate on Turnstile token');
 const secret={TELEGRAM_BOT_TOKEN:'test-token-not-real',TELEGRAM_CHAT_ID:'12345',TURNSTILE_SECRET_KEY:'test-secret-not-real'};
 const payload={
   name:'Example & Name',
