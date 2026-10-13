@@ -31,6 +31,9 @@ assert.ok(!getBlock.includes('publishDue('),'admin GET must be side effect free'
 const t=read('functions/api/t.js');
 assert.ok(!t.includes('publishDue('),'page-visit analytics must never trigger publishing');
 assert.ok(!t.includes("import { publishDue"),'analytics should not load editorial publisher');
+const queueScript=read('scripts/tg-queue.mjs');
+assert.ok(queueScript.includes("env.EDITORIAL_PUBLISH_ENABLED !== 'true'"),'unattended legacy Telegram queue requires explicit approval');
+
 
 assert.equal(normalizeLeadRoute('client'),'consulting');
 assert.equal(normalizeLeadRoute('investor'),'investment');
