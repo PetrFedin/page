@@ -69,7 +69,9 @@ for (const lang of ['ru', 'en']) {
 const app = readFileSync(new URL('../assets/app.js', import.meta.url), 'utf8');
 const styles = readFileSync(new URL('../assets/styles.css', import.meta.url), 'utf8');
 assert.ok(app.includes("mountAdvisoryEconomics(economics, lang"), 'Deck integration must mount');
-assert.ok(app.includes("$('#topic-other').value"), 'Lead context must be explicit');
+assert.ok(app.includes("startContact({"), 'Advisory CTA must call the unified qualified contact route');
+assert.match(app,/mountAdvisoryEconomics\(economics, lang, \(\) => \{[\s\S]*?topic:'consulting',[\s\S]*?route:'client'/, 'Advisory CTA must explicitly select client/consulting');
+assert.ok(!app.includes("$('#topic-other').value = lang === 'en'"), 'Advisory CTA must not bypass V2 lead context');
 assert.ok(!app.includes('releasedCapital') && !app.includes('additionalCapital'), 'No automatic financial inputs in leads');
 assert.ok(styles.includes('.advisory-economics-results[hidden]'), 'Hidden results must stay hidden');
 console.log('PASS: inventory working capital arithmetic, input validation, zero and negative scenarios, RU/EN deck and privacy wiring.');
