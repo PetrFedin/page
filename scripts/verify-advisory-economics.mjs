@@ -68,6 +68,9 @@ for (const lang of ['ru', 'en']) {
 }
 const app = readFileSync(new URL('../assets/app.js', import.meta.url), 'utf8');
 const styles = readFileSync(new URL('../assets/styles.css', import.meta.url), 'utf8');
+const calcSource = readFileSync(new URL('../assets/advisory-economics.js', import.meta.url), 'utf8');
+assert.doesNotMatch(calcSource, /\b(?:fetch|sendBeacon|localStorage|sessionStorage|XMLHttpRequest|indexedDB)\s*(?:\(|\.|\[)/,
+  'Financial inputs must never be transmitted or persisted directly from calculator code');
 assert.ok(app.includes("mountAdvisoryEconomics(economics, lang"), 'Deck integration must mount');
 assert.ok(app.includes("startContact({"), 'Advisory CTA must call the unified qualified contact route');
 assert.match(app,/mountAdvisoryEconomics\(economics, lang, \(\) => \{[\s\S]*?topic:'consulting',[\s\S]*?route:'client'/, 'Advisory CTA must explicitly select client/consulting');
