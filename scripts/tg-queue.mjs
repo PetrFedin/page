@@ -67,6 +67,13 @@ if (!pending.length) {
   process.exit(0);
 }
 
+/* Historical queue entries must not be sent by a stale timer unless the
+   release owner explicitly approves automatic channel publication. */
+if (!has('--dry-run') && env.EDITORIAL_PUBLISH_ENABLED !== 'true') {
+  say('Автоматическая публикация заблокирована: нужен EDITORIAL_PUBLISH_ENABLED=true после редакционного согласования.');
+  process.exit(0);
+}
+
 const hour = Number(new Intl.DateTimeFormat('en-GB', { hour: '2-digit', hourCycle: 'h23', timeZone: 'Europe/Moscow' }).format(new Date()));
 if (!has('--dry-run') && (hour < queue.windowStart || hour >= queue.windowEnd)) {
   say(`Вне окна публикации (${hour}:00, окно ${queue.windowStart}:00–${queue.windowEnd}:00) — пропускаю.`);
