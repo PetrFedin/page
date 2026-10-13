@@ -581,10 +581,10 @@ function client() {
       + (list.length ? list.map((s) => {
         let ent = null; try { ent = s.entity ? JSON.parse(s.entity) : null; } catch {}
         const q = s.qualification || {}, o=s.operating||{};
-        const stageLabel = { ready:'Готов к действию', qualified:'Квалифицирован', clarify:'Нужно уточнение', early:'Ранний интерес', unclassified:'Не классифицировано' }[q.stage] || 'Не классифицировано';
+        const stageLabel = { ready:'Готов к действию', qualified:'Квалифицирован', clarify:'Нужно уточнение', early:'Ранний интерес', unclassified:'Не классифицировано', needs_review:'Требует ручной проверки' }[q.stage] || 'Не классифицировано';
         const priorityClass = q.priority === 'A' ? 'ok' : q.priority === 'D' ? 'bad' : '';
         const scoreLabel = q.score == null ? '—' : q.score + '/100';
-        const routeLabel = { consulting:'Консалтинг', pilot:'Пилот', partnership:'Партнёрство', investment:'Инвестиции', diligence:'NDA / проверка' }[q.route] || '—';
+        const routeLabel = { consulting:'Консалтинг', pilot:'Пилот', partnership:'Партнёрство', investment:'Инвестиции', diligence:'NDA / проверка', client:'Консалтинг', investor:'Инвестиции' }[q.route] || '—';
         const breakdown = q.breakdown || {};
         const history=(s.operations||[]).slice().reverse();
         const leadBriefBox = s.lead?.brief
