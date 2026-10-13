@@ -51,19 +51,20 @@ const fetcher = async (url) => {
   assert.ok(outputs.has(path),'No unapproved network routes');
   return {status:200,headers:{get:()=>outputs.get(path)},text:async()=>payload(path)};
 };
-const result = await verifyLivePublication({releaseUrl:'https://example.test',date,expectedSha:sha,fetcher});
+const result = await verifyLivePublication({releaseUrl:'https://preview-demo.pages.dev',date,expectedSha:sha,fetcher});
 assert.equal(result.ok,true);
 assert.equal(result.checked.length,8);
 assert.equal(result.shaVerified,true);
-const without = await verifyLivePublication({releaseUrl:'https://example.test',date,fetcher});
+const without = await verifyLivePublication({releaseUrl:'https://preview-demo.pages.dev',date,fetcher});
 assert.equal(without.checked.length,7);
 assert.equal(without.shaVerified,false);
-await assert.rejects(verifyLivePublication({releaseUrl:'http://example.test',date,fetcher}),/HTTPS/);
-await assert.rejects(verifyLivePublication({releaseUrl:'https://user:password@example.test',date,fetcher}),/Credentials/);
-await assert.rejects(verifyLivePublication({releaseUrl:'https://example.test/subdir',date,fetcher}),/origin/);
-await assert.rejects(verifyLivePublication({releaseUrl:'https://example.test',date:'2026-10-32',fetcher}));
+await assert.rejects(verifyLivePublication({releaseUrl:'http://preview-demo.pages.dev',date,fetcher}),/HTTPS/);
+await assert.rejects(verifyLivePublication({releaseUrl:'https://example.test',date,fetcher}),/Only syntha.pro/);
+await assert.rejects(verifyLivePublication({releaseUrl:'https://user:password@preview-demo.pages.dev',date,fetcher}),/Credentials/);
+await assert.rejects(verifyLivePublication({releaseUrl:'https://preview-demo.pages.dev/subdir',date,fetcher}),/origin/);
+await assert.rejects(verifyLivePublication({releaseUrl:'https://preview-demo.pages.dev',date:'2026-10-32',fetcher}));
 await assert.rejects(verifyLivePublication({
-  releaseUrl:'https://example.test',date,fetcher:async url=>{
+  releaseUrl:'https://preview-demo.pages.dev',date,fetcher:async url=>{
     const response=await fetcher(url);
     if(new URL(url).pathname==='/feed.xml')return {...response,text:async()=>makeRss('2026-10-02')};
     return response;
