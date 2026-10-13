@@ -102,7 +102,9 @@ export function qualifyLead(sub, lead = {}) {
 
   const score = Math.min(100, intent + projectSpecificity + completeness + timing + nextStep);
   const priority = score >= 75 ? 'A' : score >= 55 ? 'B' : score >= 35 ? 'C' : 'D';
-  const stage = score >= 75 ? 'ready' : score >= 55 ? 'qualified' : score >= 35 ? 'clarify' : 'early';
+  const v2SelfSelectedRoute = ['client','pilot','investor'].includes(rawRoute);
+  const stage = v2SelfSelectedRoute ? 'needs_review'
+    : score >= 75 ? 'ready' : score >= 55 ? 'qualified' : score >= 35 ? 'clarify' : 'early';
 
   let action = 'Отправить материалы и уточнить задачу';
   if (route === 'consulting') action = stage === 'ready' ? 'Назначить диагностический разговор'
@@ -126,6 +128,7 @@ export function qualifyLead(sub, lead = {}) {
     score, priority, stage, action, requiresHumanReview: true,
     breakdown: { intent, project: projectSpecificity, completeness, timing, nextStep },
     reasons: [
+      'Предварительный сигнал интереса: не подтверждает договор, платежеспособность или намерение инвестировать',
       `тип запроса +${intent}`,
       projectSpecificity ? (route === 'consulting' ? 'контекст задачи конкретизирован +20' : 'конкретный проект +20') : (route === 'consulting' ? 'контекст задачи требует уточнения +0' : 'проект не выбран +0'),
       `полнота ответов ${filled}/${expected.length || 0} +${completeness}`,
