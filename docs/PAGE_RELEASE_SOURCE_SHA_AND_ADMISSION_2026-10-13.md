@@ -28,3 +28,23 @@ Historical README sections say there is no build step and recommend deploying th
 ## Current known state
 
 PR #7 and #8 remain Draft, unmerged and without independent reviews. PR #13 remains Draft until review. A successful PR build does not mean `syntha.pro` is up to date; site and Telegram delivery have separate admission requirements. No production deployment or sending is performed by this document.
+
+## Independent live admission script (read-only)
+
+After the approved Cloudflare deployment, execute:
+
+```bash
+RELEASE_URL=https://syntha.pro VERIFY_DATE=2026-10-13 node scripts/verify-live-publication.mjs
+```
+
+For exact-source admission of the sanitized package, **also** supply the full Git commit SHA used in the deployed bundle:
+
+```bash
+RELEASE_URL=https://syntha.pro VERIFY_DATE=2026-10-13 EXPECTED_SHA=<40-hex-source-sha> node scripts/verify-live-publication.mjs
+```
+
+The script performs only GETs with cache-busting query parameters, checks the RU/EN home HTML and RSS/JSON feeds, verifies the expected article as the first entry, and rejects stale Turnstile HTML. If `EXPECTED_SHA` is provided, it additionally requires JSON at `/release-health.json` with the matching source SHA.
+
+Once this workflow is merged to the default branch, GitHub Actions → **Read-only live SYNTHA release admission** → **Run workflow** offers the same probe with explicit URL/date/SHA inputs. A green run is **not** proof that a form submission, private Telegram receipt, Cloudflare account identity or rollback has been tested. The workflow is manual and does not create a deployment or post to Telegram.
+
+For an editorial-only hotfix before the sanitized package is installed, this stricter checker may fail on older prerendered Turnstile markup. Verify the article separately using the live RSS and JSON first; do not confuse editorial visibility with full release admission.
