@@ -26,9 +26,9 @@ for(const post of NEWS){
 }
 const article=byDate.get('2026-10-13');
 assert.equal(article?.tag,'investors');
-assert.equal(article.site,false,'investor article remains a private draft until editorial approval');
-assert.ok(queue.paused.includes('2026-10-13'),'new Telegram post requires review');
-assert.ok(!queue.order.includes('2026-10-13'),'do not auto-publish without approval');
+assert.equal(article.site,true,'Oct 13 article is approved and present in main');
+assert.ok(!queue.paused.includes('2026-10-13'),'approved Oct 13 article is not an unpublished draft');
+assert.ok(!queue.order.includes('2026-10-13'),'publication is one-off and must never enter unattended queue');
 for(const date of ['2026-10-15','2026-10-17']){
   const draft=byDate.get(date);
   assert.ok(draft && draft.ru?.title && draft.ru?.body && draft.en?.title && draft.en?.body,'bilingual draft missing: '+date);
