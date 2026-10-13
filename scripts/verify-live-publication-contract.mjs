@@ -18,6 +18,8 @@ const makeHtml = (lang,d) => '<!doctype html><html lang="' + lang +
 assertFeedXml(makeRss(date),date,'ru');
 assertFeedJson(makeJson(date),date,'ru');
 assertHtml(makeHtml('en',date),date,'en');
+assertHtml(makeHtml('en',date),date,'en',true);
+assert.throws(()=>assertHtml(makeHtml('en',date)+'cf-chl-widget-bad',date,'en',true),/transient captcha/);
 assertReleaseManifest(JSON.stringify({source_sha:sha,bundle:'public-static-only',functions_bundled:false}),sha);
 assert.throws(()=>assertFeedXml(makeRss('2026-10-02'),date,'ru'));
 assert.throws(()=>assertFeedJson(makeJson('2026-10-02'),date,'en'));
