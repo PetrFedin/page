@@ -19,6 +19,10 @@ try {
       page.on('pageerror', error => uncaught.push(lang + '/' + width + ': ' + String(error)));
       const response = await page.goto(base + (lang === 'en' ? '/en/' : '/'), { waitUntil: 'domcontentloaded' });
       assert.equal(response.status(), 200);
+      // Simulate a stale investor intent before navigating to the advisory.
+      // Calculator contact must override it with a consulting/client intent.
+      await page.locator('[data-lead-start="investor"]').click();
+      assert.equal(await page.locator('#lead-route-value').inputValue(), 'investor');
       await page.locator('#deck-open').click();
       const deck = page.locator('#deck-modal[open]');
       await deck.waitFor();
@@ -49,9 +53,12 @@ try {
       assert.equal(overflow, false, lang+'/'+width+' deck overflows horizontally');
       await economics.locator('[data-economics-action="contact"]').click();
       await deck.waitFor({ state: 'hidden' });
-      assert.equal(await page.locator('#topic').inputValue(), 'other');
-      const contactTopic = await page.locator('#topic-other').inputValue();
-      assert.ok(lang==='ru' ? contactTopic.includes('оборотного капитала') : contactTopic.includes('working capital'));
+      assert.equal(await page.locator('#topic').inputValue(), 'consulting');
+      assert.equal(await page.locator('#lead-route-value').inputValue(), 'client');
+      assert.equal(await page.locator('#lead-project-value').inputValue(), '');
+      assert.equal(await page.locator('#topic-other').inputValue(), '');
+      const leadGoal = await page.locator('#lead-goal-value').inputValue();
+      assert.ok(lang === 'ru' ? leadGoal.includes('оборотного капитала') : leadGoal.includes('working capital'));
       const msg = await page.locator('#form [name="message"]').inputValue();
       assert.ok(!msg.includes('120000000'), 'No financial inputs copied into lead message');
       await page.close();
