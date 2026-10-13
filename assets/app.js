@@ -3,7 +3,7 @@ import { DECK } from './deck.js?v=202610041955';
 import { LOGOS } from './logos.js?v=202610041955';
 import { createViewer } from './viewer.js?v=202609301526';
 import { syncSnaps } from './snap.js?v=202610041955';
-import { NEWS } from './news.js?v=202610041955';
+import { NEWS } from './news.js?v=20261013-editorial1';
 
 /* Сайт — витрина: показываем отобранные материалы. Канал получает весь поток.
    Лента идёт от свежего к старому по дате публикации — «Показать ещё» раскрывает
