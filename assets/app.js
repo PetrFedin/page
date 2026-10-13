@@ -1,5 +1,6 @@
 import { T, PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610041955';
 import { DECK } from './deck.js?v=202610041955';
+import { mountAdvisoryEconomics } from './advisory-economics.js?v=20261013a';
 import { LOGOS } from './logos.js?v=202610041955';
 import { createViewer } from './viewer.js?v=202609301526';
 import { syncSnaps } from './snap.js?v=202610041955';
@@ -2283,6 +2284,30 @@ function renderDeck() {
     d.glossary.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('') + '</dl>';
   $('#deck-footnote').textContent = d.footnote;
   $('#deck-pdf-2').textContent = d.download;
+
+  /* Interactive educational model. Never send financial input with the lead form. */
+  const previousEconomics = $('#deck-economics');
+  if (previousEconomics) previousEconomics.remove();
+  const economics = document.createElement('section');
+  economics.id = 'deck-economics';
+  $('#deck-blocks').before(economics);
+  mountAdvisoryEconomics(economics, lang, () => {
+    $('#topic').value = 'other';
+    $('#topic-other').value = lang === 'en'
+      ? 'Inventory and working capital diagnostic'
+      : 'Диагностика запасов и оборотного капитала';
+    syncTopicOther();
+    const msg = $('#form [name="message"]');
+    if (msg && !msg.value.trim()) {
+      msg.value = lang === 'en'
+        ? 'I would like to discuss an inventory and working capital diagnostic.'
+        : 'Хочу обсудить диагностику товарных запасов и оборотного капитала.';
+    }
+    syncSubmit?.();
+    leaveAll();
+    $('#contact').scrollIntoView({ behavior: 'smooth' });
+    setTimeout(() => $('#form [name="name"]').focus(), 400);
+  });
 
   $('#deck-blocks').innerHTML = d.blocks.map((b) => `
     <section class="deck-block" id="deck-${b.id}">

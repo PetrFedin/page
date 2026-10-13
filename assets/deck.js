@@ -1,4 +1,5 @@
-/* Полное содержание презентации фэшн-консалтинга — то же, что в PDF.
+/* Интерактивная презентация фэшн-консалтинга RU/EN.
+   Онлайн-версия дополнена расчетом и разделами; PDF — отдельная редакция.
    Блок = заголовок + набор карточек. Карточка: eyebrow / title / body / decision / list. */
 
 export const DECK = {
@@ -12,7 +13,7 @@ export const DECK = {
     chainTo: [0, 1, 0, 2, 2, 3, 3, 1, 4],
     chainHint: 'Выберите этап — откроется направление работы, которое его закрывает.',
     decisionLabel: 'Решение',
-    download: 'Скачать презентацию (PDF)',
+    download: 'Скачать PDF (без интерактивного расчёта)',
     glossaryTitle: 'Сокращения',
     glossary: [
       ['PLM', 'управление жизненным циклом продукта'],
@@ -130,6 +131,103 @@ export const DECK = {
           { eyebrow: 'Стратегия и финансы', title: 'Стратегия роста, рынки и капитал', body: 'Рынок → финансовая модель → капитал → переговоры. География, конкуренты, потребность в финансировании и материалы для решения собственника.' },
           { eyebrow: 'Стабилизация', title: 'Перестройка управления в нестабильной среде', body: 'Ликвидность → приоритеты → ответственность → контроль. Восстановить управляемость и вернуть бизнес к росту.' }
         ]
+      },
+      {
+        "id": "diagnostic",
+        "title": "Первый шаг — управленческая диагностика",
+        "note": "Ориентир — 10 рабочих дней после согласования задачи и получения полного набора данных; срок и объём закрепляются отдельно.",
+        "items": [
+          {
+            "eyebrow": "01 · Проверяем",
+            "title": "Исходная экономика",
+            "body": "Сверка маржи, себестоимости, запасов, продаж и денежного цикла. Отмечаем расхождения источников и недостающие данные.",
+            "decision": "Единый список цифр, которым можно доверять, и список ограничений."
+          },
+          {
+            "eyebrow": "02 · Считаем",
+            "title": "Причины потерь",
+            "body": "Разложение отклонений по товару, категории, каналу, сезону и управленческому решению. Выделение чувствительности к допущениям.",
+            "decision": "Какие решения создают разницу и сколько стоит промедление."
+          },
+          {
+            "eyebrow": "03 · Действуем",
+            "title": "План с ответственными",
+            "body": "Реестр решений: действие, владелец, дата, требуемые данные, показатель проверки и условие остановки.",
+            "decision": "Приоритеты внедрения и измеримый критерий результата."
+          }
+        ]
+      },
+      {
+        "id": "cases",
+        "title": "Как выглядит решение на практике",
+        "note": "Ниже — учебные ситуации, не клиентские кейсы и не заявления о достигнутых результатах.",
+        "items": [
+          {
+            "eyebrow": "Сценарий A · учебный",
+            "title": "Запас растёт быстрее продаж",
+            "body": "Сегментируем остаток по возрасту, сезонности, размерности и скорости продаж, отделяя доступный к сокращению запас от страхового.",
+            "decision": "Изменить заказы, распределение и правила пополнения; проверить денежный эффект по факту."
+          },
+          {
+            "eyebrow": "Сценарий B · учебный",
+            "title": "Выручка растёт, вклад канала падает",
+            "body": "Считаем маржу после скидок, логистики, комиссий, возвратов и маркетинговых затрат — по каналам и категориям.",
+            "decision": "Пересмотреть цену, коммерческие условия либо отказаться от убыточной активности."
+          },
+          {
+            "eyebrow": "Сценарий C · учебный",
+            "title": "Производство не успевает к сезону",
+            "body": "Сопоставляем календарь коллекции, готовность спецификаций, мощности, контрольные даты и возможные альтернативы.",
+            "decision": "Менять план размещения только после сравнения риска срыва и полной себестоимости."
+          }
+        ]
+      },
+      {
+        "id": "engagement",
+        "title": "Форматы сотрудничества",
+        "note": "Формат выбирается по масштабу задачи. Предложение, состав работ, сроки и стоимость согласуются до старта.",
+        "items": [
+          {
+            "eyebrow": "Формат 01",
+            "title": "Диагностика решения",
+            "body": "Ограниченная область анализа: проблема → исходные данные → варианты → экономическая оценка → план действий.",
+            "decision": "Заключение и согласованный список управленческих решений."
+          },
+          {
+            "eyebrow": "Формат 02",
+            "title": "Программа трансформации",
+            "body": "Изменения товарного планирования, процессов, цифровых систем или коммерческой модели с поэтапной приёмкой.",
+            "decision": "Внедрённый процесс и проверяемые показатели до и после."
+          },
+          {
+            "eyebrow": "Формат 03",
+            "title": "Советник собственника",
+            "body": "Регулярная проверка гипотез, капитальных решений и исполненных мер без подмены ответственности операционной команды.",
+            "decision": "Ритм решений, прозрачные допущения и контроль результатов."
+          }
+        ]
+      },
+      {
+        "id": "evidence",
+        "title": "Как отделяем реальный эффект от красивого прогноза",
+        "note": "Без исходной базы и подтверждения исполнения прогноз остаётся сценарием, а не доказанным результатом.",
+        "items": [
+          {
+            "eyebrow": "До",
+            "title": "Базовый период",
+            "body": "Фиксируем календарный период, определения показателей, источники, исключения и качество данных."
+          },
+          {
+            "eyebrow": "Во время",
+            "title": "След управленческого решения",
+            "body": "Фиксируем владельца, дату, согласование, изменение условий и доказательства фактического исполнения."
+          },
+          {
+            "eyebrow": "После",
+            "title": "Измерение и атрибуция",
+            "body": "Сравниваем результат с базой и объясняем влияние сезонности, цены, ассортимента и прочих факторов."
+          }
+        ]
       }
     ]
   },
@@ -144,7 +242,7 @@ export const DECK = {
     chainTo: [0, 1, 0, 2, 2, 3, 3, 1, 4],
     chainHint: 'Choose a stage to open the area of work that covers it.',
     decisionLabel: 'Decision',
-    download: 'Download the deck (PDF)',
+    download: 'Download PDF (without interactive calculator)',
     glossaryTitle: 'Abbreviations',
     glossary: [
       ['PLM', 'product lifecycle management'],
@@ -261,6 +359,103 @@ export const DECK = {
           { eyebrow: 'Operational diagnostics', title: 'Premium segment: development and production', body: 'Finance → product → production → inventory → management. From order economics and capital to production and the management model.' },
           { eyebrow: 'Strategy and finance', title: 'Growth strategy, markets and capital', body: 'Market → financial model → capital → negotiations. Geography, competitors, funding needs and materials for the owner’s decision.' },
           { eyebrow: 'Stabilisation', title: 'Rebuilding management in volatile conditions', body: 'Liquidity → priorities → accountability → control. Restoring control and returning the business to growth.' }
+        ]
+      },
+      {
+        "id": "diagnostic",
+        "title": "First step — a management diagnostic",
+        "note": "Indicative timeline: 10 working days after scope alignment and receipt of complete data. Exact scope and timing are agreed separately.",
+        "items": [
+          {
+            "eyebrow": "01 · Validate",
+            "title": "Economic baseline",
+            "body": "Reconcile margin, cost, inventory, sales and cash cycle, documenting inconsistent sources and data gaps.",
+            "decision": "A trusted starting point and transparent list of constraints."
+          },
+          {
+            "eyebrow": "02 · Analyse",
+            "title": "Sources of leakage",
+            "body": "Trace deviations by SKU, category, channel, season and decision, stress-testing key assumptions.",
+            "decision": "Understand the decision drivers and cost of delay."
+          },
+          {
+            "eyebrow": "03 · Act",
+            "title": "Accountable action plan",
+            "body": "Decision register with owner, action, due date, required evidence, success metric and stop conditions.",
+            "decision": "Implementation priorities and testable outcomes."
+          }
+        ]
+      },
+      {
+        "id": "cases",
+        "title": "What a decision can look like",
+        "note": "Illustrative scenarios only, not client case studies or claims of results achieved.",
+        "items": [
+          {
+            "eyebrow": "Scenario A · illustrative",
+            "title": "Inventory grows faster than sales",
+            "body": "Segment inventory by age, season, size curve and sales velocity, separating potentially reducible stock from safety stock.",
+            "decision": "Change orders, allocation and replenishment, then verify the cash impact."
+          },
+          {
+            "eyebrow": "Scenario B · illustrative",
+            "title": "Revenue grows while channel contribution falls",
+            "body": "Measure margin after discounts, freight, commissions, returns and marketing costs by channel and category.",
+            "decision": "Reprice, renegotiate terms or stop loss-making activity."
+          },
+          {
+            "eyebrow": "Scenario C · illustrative",
+            "title": "Production misses the season",
+            "body": "Align the collection calendar, specification readiness, capacity, control dates and alternatives.",
+            "decision": "Replan only after comparing delay risk and full landed cost."
+          }
+        ]
+      },
+      {
+        "id": "engagement",
+        "title": "Ways of working together",
+        "note": "Choose the scope that fits the decision. Commercial terms, work plan and timing are agreed before work starts.",
+        "items": [
+          {
+            "eyebrow": "Format 01",
+            "title": "Decision diagnostic",
+            "body": "A tightly scoped problem: data → options → economics → decision → implementation plan.",
+            "decision": "An evidence-based decision memo and action list."
+          },
+          {
+            "eyebrow": "Format 02",
+            "title": "Transformation programme",
+            "body": "Merchandise planning, workflows, digital systems or the commercial model with milestone-based acceptance.",
+            "decision": "Implemented workflows and independently checkable before/after metrics."
+          },
+          {
+            "eyebrow": "Format 03",
+            "title": "Owner's adviser",
+            "body": "Regular evaluation of growth choices, capital allocation and executed actions while the operations team retains accountability.",
+            "decision": "A clear decision cadence, stated assumptions and outcome tracking."
+          }
+        ]
+      },
+      {
+        "id": "evidence",
+        "title": "Separate verified results from attractive forecasts",
+        "note": "Without a baseline and execution proof, a forecast remains a scenario, not an achieved result.",
+        "items": [
+          {
+            "eyebrow": "Before",
+            "title": "Baseline period",
+            "body": "Fix the period, metric definitions, source systems, exclusions and data-quality limitations."
+          },
+          {
+            "eyebrow": "During",
+            "title": "Decision trail",
+            "body": "Record the decision owner, approval, date, changed conditions and evidence that an action happened."
+          },
+          {
+            "eyebrow": "After",
+            "title": "Measurement and attribution",
+            "body": "Compare results with the baseline, allowing for seasonality, prices, assortment and other drivers."
+          }
         ]
       }
     ]

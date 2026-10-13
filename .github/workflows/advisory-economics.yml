@@ -1,0 +1,53 @@
+name: Advisory economics bilingual acceptance
+on:
+  pull_request:
+    paths:
+      - 'assets/advisory-economics.js'
+      - 'assets/deck.js'
+      - 'assets/app.js'
+      - 'assets/styles.css'
+      - 'scripts/verify-advisory-economics.mjs'
+      - 'scripts/browser-advisory-economics-qa.mjs'
+      - '.github/workflows/advisory-economics.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: advisory-economics-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check JavaScript
+        run: |
+          node --check assets/advisory-economics.js
+          node --check assets/deck.js
+          node --check assets/app.js
+          node --check scripts/verify-advisory-economics.mjs
+          node --check scripts/browser-advisory-economics-qa.mjs
+      - name: Finance and bilingual contracts
+        run: node scripts/verify-advisory-economics.mjs
+      - name: Install isolated browser test dependency
+        run: |
+          npm install --no-save playwright@1.58.2
+          npx playwright install --with-deps chromium
+      - name: Mobile, tablet and desktop browser acceptance
+        run: |
+          python3 -m http.server 4321 --bind 127.0.0.1 > /tmp/advisory-http.log 2>&1 &
+          node scripts/browser-advisory-economics-qa.mjs
+      - name: Save browser evidence
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: bilingual-advisory-${{ github.event.pull_request.head.sha || github.sha }}
+          path: qa-artifacts/
+          if-no-files-found: ignore
+          retention-days: 7
