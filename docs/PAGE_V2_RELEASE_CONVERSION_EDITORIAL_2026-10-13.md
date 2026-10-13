@@ -40,7 +40,7 @@ Existing site latest confirmed displayed post: **2026-10-02** at audit time. `ch
 
 | Target date | Editorial topic | RU/EN | Evidence prerequisite | Site | Telegram |
 | --- | --- | --- | --- | --- | --- |
-| Oct 13 | How to assess a digital platform before first revenue | Prepared | Editorial, not product deployment claim | In V2 source; not live until publish | Paused for approval |
+| Oct 13 | How to assess a digital platform before first revenue | Draft RU/EN | Editorial, not product deployment claim | site:false — editorial approval required | Paused for approval |
 | Oct 15 | IGRA: inventory and reusable building instructions | Draft RU/EN, private hold | Confirm real demo vs future features | Hold | Hold |
 | Oct 17 | Marco: buyer size matrix and repeat-order journey | Draft RU/EN, private hold | Confirm lifecycle status | Hold | Hold |
 | Oct 20 | Antiqua: artwork provenance and source uncertainty | Planned | Attribute only checked artworks | Hold | Hold |
