@@ -10,6 +10,11 @@ on:
       - 'assets/investor-calculator.js'
       - 'assets/lead-paths.js'
       - 'assets/news.js'
+      - 'feed.xml'
+      - 'feed.json'
+      - 'en/feed.xml'
+      - 'en/feed.json'
+      - 'scripts/verify-v2-editorial-preservation.mjs'
       - 'functions/api/contact.js'
       - 'functions/api/_lib.js'
       - 'functions/api/cron.js'
@@ -80,8 +85,13 @@ jobs:
       - run: node scripts/verify-investor-calculator.mjs
       - run: node scripts/verify-qualified-leads.mjs
       - run: node scripts/verify-editorial-queue.mjs
+      - run: node scripts/verify-v2-editorial-preservation.mjs
       - run: node scripts/verify-publishing-admission.mjs
       - run: npm run build
+      - name: Confirm regenerated feeds and bilingual SSR retain Oct 13
+        run: |
+          node scripts/verify-v2-editorial-preservation.mjs --rendered
+          git diff --exit-code -- feed.xml feed.json en/feed.xml en/feed.json
       - run: npm run package:pages
       - run: node scripts/verify-pages-release.mjs
       - run: node scripts/verify-investor-dossiers.mjs
