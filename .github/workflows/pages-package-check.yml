@@ -1,0 +1,42 @@
+name: Public release packaging and Turnstile integrity
+on:
+  pull_request:
+    paths:
+      - 'index.html'
+      - 'en/index.html'
+      - 'scripts/prerender.mjs'
+      - 'scripts/package-cloudflare-pages.mjs'
+      - 'package.json'
+      - '.gitignore'
+      - '.github/workflows/pages-package-check.yml'
+  workflow_dispatch:
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Syntax
+        run: |
+          node --check scripts/prerender.mjs
+          node --check scripts/package-cloudflare-pages.mjs
+      - name: Clean public bundle
+        run: npm run package:pages
+      - name: Confirm static privacy boundaries
+        run: |
+          test -f dist-pages/release-health.json
+          test ! -e dist-pages/functions
+          test ! -e dist-pages/channel-queue.json
+          test ! -e dist-pages/private
+          test ! -e dist-pages/docs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sanitized-pages-static-${{ github.event.pull_request.head.sha || github.sha }}
+          path: dist-pages/
+          retention-days: 7
