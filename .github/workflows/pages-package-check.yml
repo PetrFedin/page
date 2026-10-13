@@ -6,6 +6,8 @@ on:
       - 'en/index.html'
       - 'scripts/prerender.mjs'
       - 'scripts/package-cloudflare-pages.mjs'
+      - 'scripts/verify-live-publication.mjs'
+      - 'scripts/verify-live-publication-contract.mjs'
       - 'package.json'
       - '.gitignore'
       - '.github/workflows/pages-package-check.yml'
@@ -26,6 +28,10 @@ jobs:
         run: |
           node --check scripts/prerender.mjs
           node --check scripts/package-cloudflare-pages.mjs
+          node --check scripts/verify-live-publication.mjs
+          node --check scripts/verify-live-publication-contract.mjs
+      - name: Read-only external-admission contract (mocked URLs)
+        run: node scripts/verify-live-publication-contract.mjs
       - name: Clean public bundle
         run: npm run package:pages
       - name: Verify exact source revision in release manifest
