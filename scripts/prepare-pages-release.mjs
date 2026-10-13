@@ -6,7 +6,8 @@
  * The Pages Functions live at /functions beside (NOT inside) dist-pages.
  * Wrangler CLI must be launched from this repo root to bundle them.
  */
-import { cpSync, existsSync, lstatSync, mkdirSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
+import { cpSync, existsSync, lstatSync, mkdirSync, readdirSync, rmSync, readFileSync, writeFileSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
 import { dirname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import assert from 'node:assert/strict';
@@ -43,6 +44,16 @@ for(const file of staticFiles){
 for(const dir of staticDirs){
  cpSync(join(root,dir),join(dist,dir),{recursive:true,errorOnExist:true,force:false});
 }
+/* Public release fingerprint: ties the served HTML to the exact source commit.
+   No credentials or private release identifiers are emitted. */
+const sourceSha=execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim();
+assert.match(sourceSha,/^[a-f0-9]{40}$/,'valid Git source SHA');
+for(const entry of ['index.html','en/index.html']){
+  const file=join(dist,entry),html=readFileSync(file,'utf8');
+  assert.ok(!html.includes('name="syntha-build-commit"'),'duplicate release marker');
+  assert.ok(html.includes('</head>'),'HTML head present for release marker');
+  writeFileSync(file,html.replace('</head>',`<meta name="syntha-build-commit" content="${sourceSha}">\n</head>`));
+}
 const paths=[];
 function list(p){
  for(const item of readdirSync(join(dist,p),{withFileTypes:true})){
@@ -65,6 +76,6 @@ assert.ok(!paths.includes('channel-queue.json'),'publication queue must remain p
 assert.ok(!paths.includes('package.json'),'build metadata must not be publicly hosted');
 mkdirSync(join(root,'qa-artifacts'),{recursive:true});
 writeFileSync(join(root,'qa-artifacts','pages-release-manifest.json'),
- JSON.stringify({files:paths.length,includesFunctions:false,assets:paths},null,2)+'\n');
-console.log('PASS: Cloudflare Pages public-only bundle ('+paths.length+' files), private sources excluded');
+ JSON.stringify({sourceSha,files:paths.length,includesFunctions:false,assets:paths},null,2)+'\n');
+console.log('PASS: Cloudflare Pages public-only bundle ('+paths.length+' files) for '+sourceSha+', private sources excluded');
 console.log('IMPORTANT: Deploy with Wrangler from repository root to bundle /functions separately.');
