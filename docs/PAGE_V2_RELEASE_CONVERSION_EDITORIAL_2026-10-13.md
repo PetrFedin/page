@@ -40,7 +40,7 @@ Existing site latest confirmed displayed post: **2026-10-02** at audit time. `ch
 
 | Target date | Editorial topic | RU/EN | Evidence prerequisite | Site | Telegram |
 | --- | --- | --- | --- | --- | --- |
-| Oct 13 | How to assess a digital platform before first revenue | Draft RU/EN | Editorial, not product deployment claim | site:false — editorial approval required | Paused for approval |
+| Oct 13 | How to assess a digital platform before first revenue | Approved RU/EN copy in GitHub main | Editorial is approved, but production receipt is separate | site:true in code; actual Cloudflare publication unverified | One-off guarded send only after live RSS proof; NOT automatically queued |
 | Oct 15 | IGRA: inventory and reusable building instructions | Draft RU/EN, private hold | Confirm real demo vs future features | Hold | Hold |
 | Oct 17 | Marco: buyer size matrix and repeat-order journey | Draft RU/EN, private hold | Confirm lifecycle status | Hold | Hold |
 | Oct 20 | Antiqua: artwork provenance and source uncertainty | Planned | Attribute only checked artworks | Hold | Hold |
@@ -48,6 +48,8 @@ Existing site latest confirmed displayed post: **2026-10-02** at audit time. `ch
 | Oct 24 | Debt Stability OS: household cash-gap analysis | Planned | Finance accuracy, legal/disclaimer review | Hold | Hold |
 | Oct 27 | Renova: stage acceptance and capital accountability | Planned | Contract/delivery evidence | Hold | Hold |
 | Oct 29 | Commercial case: how to scope a pilot and acceptance | Planned | Publish only verified metrics | Hold | Hold |
+
+The October 13 article was already approved and added to GitHub `main` through PR #10, but the public site's RSS still showed October 2 as the latest item on the last external check. This branch preserves that approved article and its 19-item RU/EN feeds. It does **not** assert the Cloudflare deployment or Telegram post happened. The post must be absent from unattended `order` and from `paused`; actual Telegram sending is a separate guarded one-off after live site proof. October 15 and 17 remain drafts.
 
 **Editorial rule:** 2 posts/week is a target, not a fact of historical delivery. Draft RU and EN together; editorial approval, rights and source check required before publication. A post in `NEWS` means on-site scheduling intent, not confirmation that @syntha_pro published it. Never automatically empty the historical paused list or backdate a post to fake a cadence.
 
