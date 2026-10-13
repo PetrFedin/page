@@ -1,6 +1,6 @@
 /* Публикации: список для ленты на сайте (публично) и управление календарём (по логину и паролю). */
 import { authorized, gate } from './stats.js';
-import { ensureSchema, publishDue, sitePosts, mskDate } from './_lib.js';
+import { ensureSchema, publishDue, sitePosts, mskDate, editorialPublishingEnabled } from './_lib.js';
 
 const J = (data, status = 200, extra = {}) => new Response(JSON.stringify(data), {
   status, headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store', ...extra }
@@ -97,8 +97,7 @@ export async function onRequestGet({ request, env }) {
   const ok = await authorized(request, env);
   if (ok !== true) return gate(ok);
   await ensureSchema(env);
-  /* заодно публикуем то, что подошло по времени */
-  await publishDue(env);
+  /* Read-only administrative GET must not initiate a publication. */
   const rows = (await env.DB.prepare(`SELECT * FROM posts ORDER BY publish_at DESC LIMIT 500`).all()).results;
   return J({
     posts: rows,
@@ -127,6 +126,9 @@ export async function onRequestPost({ request, env }) {
   try { b = await request.json(); } catch { return J({ error: 'bad json' }, 400); }
   const now = Date.now();
   const action = clean(b.action, 20) || 'save';
+  if (action === 'now' && !editorialPublishingEnabled(env)) {
+    return J({ error: 'editorial-publishing-disabled', message: 'Explicit approval and deployment gate required.' }, 409);
+  }
 
   if (action === 'delete') {
     await env.DB.prepare('DELETE FROM posts WHERE id = ?').bind(Number(b.id)).run();
