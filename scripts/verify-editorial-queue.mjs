@@ -26,6 +26,7 @@ for(const post of NEWS){
 }
 const article=byDate.get('2026-10-13');
 assert.equal(article?.tag,'investors');
+assert.equal(article.site,false,'investor article remains a private draft until editorial approval');
 assert.ok(queue.paused.includes('2026-10-13'),'new Telegram post requires review');
 assert.ok(!queue.order.includes('2026-10-13'),'do not auto-publish without approval');
 for(const date of ['2026-10-15','2026-10-17']){
