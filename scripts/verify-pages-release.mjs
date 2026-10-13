@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import assert from 'node:assert/strict';
 import {readFileSync,readdirSync,existsSync} from 'node:fs';
+import {execFileSync} from 'node:child_process';
 import {join} from 'node:path';
 const root=new URL('../',import.meta.url);
 const read=path=>readFileSync(new URL('dist-pages/'+path,root),'utf8');
@@ -23,5 +24,12 @@ for(const required of ['index.html','en/index.html','privacy.html','en/privacy.h
 }
 const staticManifest=JSON.parse(readFileSync(new URL('../qa-artifacts/pages-release-manifest.json',import.meta.url),'utf8'));
 assert.ok(staticManifest.files>=30,'unexpectedly small release payload');
+const sourceSha=execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim();
+assert.equal(staticManifest.sourceSha,sourceSha,'bundle must match checked-out commit');
+for(const file of ['index.html','en/index.html']){
+  const html=read(file);
+  assert.ok(html.includes('<meta name="syntha-build-commit" content="'+sourceSha+'">'),
+    'release origin SHA missing from '+file);
+}
 assert.ok(!staticManifest.assets.some(x=>/\.env$|private\/|docs\/|scripts\/|functions\//.test(x)),'manifest leaked source');
 console.log('PASS: RU/EN captcha widget is clean after prerender, consent available, release assets allowlisted, private source absent');
