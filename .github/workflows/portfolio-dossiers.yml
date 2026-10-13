@@ -89,6 +89,13 @@ jobs:
           node scripts/browser-portfolio-qa.mjs
           node scripts/browser-lead-routes-qa.mjs
       - uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: cloudflare-pages-static-${{ github.event.pull_request.head.sha || github.sha }}
+          path: dist-pages/
+          retention-days: 7
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: bilingual-portfolio-browser-qa
