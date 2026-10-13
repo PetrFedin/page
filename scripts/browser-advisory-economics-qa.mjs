@@ -61,6 +61,36 @@ try {
       assert.ok(lang === 'ru' ? leadGoal.includes('оборотного капитала') : leadGoal.includes('working capital'));
       const msg = await page.locator('#form [name="message"]').inputValue();
       assert.ok(!msg.includes('120000000'), 'No financial inputs copied into lead message');
+      // Assert the actual outbound contact envelope, not only visible form values.
+      // Contact endpoint and Turnstile are mocked on localhost, not live acceptance.
+      let delivered = null;
+      await page.route('**/api/contact', async route => {
+        delivered = route.request().postDataJSON();
+        await route.fulfill({status:200,contentType:'text/plain',body:'ok'});
+      });
+      await page.evaluate(() => {
+        const root = document.querySelector('#turnstile-widget');
+        const token = document.createElement('input');
+        token.type = 'hidden';
+        token.name = 'cf-turnstile-response';
+        token.value = 'ci-only-token';
+        root.append(token);
+      });
+      await page.locator('#form [name="name"]').fill('QA Advisory Contact');
+      await page.locator('#email').fill('qa-advisory@example.org');
+      await page.locator('#consent').check();
+      assert.equal(await page.locator('#submit').isEnabled(), true, 'valid consented lead can submit');
+      await page.locator('#submit').click();
+      await page.waitForFunction(() => document.querySelector('#form-note')?.classList.contains('ok'));
+      assert.ok(delivered, 'Client advisory lead was not submitted');
+      assert.equal(delivered.leadRoute, 'client');
+      assert.equal(delivered.topic, 'consulting');
+      assert.equal(delivered.leadProject || '', '');
+      assert.ok(delivered.leadGoal, 'No advisory lead goal');
+      const envelope = JSON.stringify(delivered);
+      for (const sensitive of ['120000000','30000000','averageInventory','annualCogs','targetDays']) {
+        assert.ok(!envelope.includes(sensitive), 'Financial model input leaked to enquiry: ' + sensitive);
+      }
       await page.close();
     }
   }
