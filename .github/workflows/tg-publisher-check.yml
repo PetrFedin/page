@@ -1,0 +1,29 @@
+name: Guarded Telegram editorial publishing
+on:
+  pull_request:
+    paths:
+      - 'scripts/tg-publish-date.mjs'
+      - 'scripts/verify-telegram-date.mjs'
+      - 'README.md'
+      - '.github/workflows/tg-publisher-check.yml'
+  workflow_dispatch:
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --check scripts/tg-publish-date.mjs
+      - run: node --check scripts/verify-telegram-date.mjs
+      - run: node scripts/verify-telegram-date.mjs
+      - name: Offline preview must never send a message
+        run: |
+          node scripts/tg-publish-date.mjs --date 2026-10-13 > /tmp/telegram-preview.txt
+          grep -q "PREVIEW, nothing sent" /tmp/telegram-preview.txt
+          grep -q "https://syntha.pro/#post-2026-10-13" /tmp/telegram-preview.txt
