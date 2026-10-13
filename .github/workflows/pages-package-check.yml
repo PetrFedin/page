@@ -28,6 +28,11 @@ jobs:
           node --check scripts/package-cloudflare-pages.mjs
       - name: Clean public bundle
         run: npm run package:pages
+      - name: Verify exact source revision in release manifest
+        run: |
+          node --input-type=module -e "import fs from 'node:fs';import assert from 'node:assert/strict';const m=JSON.parse(fs.readFileSync('dist-pages/release-health.json','utf8'));assert.equal(m.source_sha,process.env.GITHUB_SHA_OVERRIDE || process.env.GITHUB_HEAD_SHA);assert.equal(m.functions_bundled,false)"
+        env:
+          GITHUB_HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
       - name: Confirm static privacy boundaries
         run: |
           test -f dist-pages/release-health.json
