@@ -26,6 +26,8 @@ on:
       - 'scripts/browser-lead-routes-qa.mjs'
       - 'scripts/verify-editorial-queue.mjs'
       - 'channel-queue.json'
+      - 'docs/PAGE_V2_CLOUDFLARE_RELEASE_ADMISSION_2026-10-13.md'
+      - 'docs/PAGE_V2_RELEASE_CONVERSION_EDITORIAL_2026-10-13.md'
       - 'package.json'
       - 'scripts/prepare-pages-release.mjs'
       - 'scripts/verify-pages-release.mjs'
