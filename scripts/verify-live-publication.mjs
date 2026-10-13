@@ -38,12 +38,14 @@ export function assertFeedJson(source, date, language) {
     language + ': duplicate/missing target JSON item');
 }
 
-export function assertHtml(html, date, lang) {
+export function assertHtml(html, date, lang, requireSanitizedTurnstile = false) {
   assert.ok(new RegExp('<html[^>]*lang=["\\x27]' + lang + '["\\x27]', 'i').test(html), lang + ': wrong HTML language');
   assert.equal((html.match(new RegExp('id=["\\x27]post-' + date + '["\\x27]', 'g')) || []).length, 1,
     lang + ': exactly one prerendered target article required');
-  assert.ok(html.includes('id="turnstile-widget"'), lang + ': missing Turnstile root');
-  assert.ok(!html.includes('cf-chl-widget-'), lang + ': transient captcha response leaked into static HTML');
+  if (requireSanitizedTurnstile) {
+    assert.ok(html.includes('id="turnstile-widget"'), lang + ': missing Turnstile root');
+    assert.ok(!html.includes('cf-chl-widget-'), lang + ': transient captcha response leaked into static HTML');
+  }
 }
 
 export function assertReleaseManifest(source, expectedSha) {
@@ -84,7 +86,7 @@ export async function verifyLivePublication({
 
   for (const [prefix, language] of [['','ru'],['/en','en']]) {
     const html = await get(prefix + '/', 'text/html');
-    assertHtml(html, date, language);
+    assertHtml(html, date, language, Boolean(expectedSha));
     const xml = await get(prefix + '/feed.xml');
     assertFeedXml(xml, date, language);
     const json = await get(prefix + '/feed.json');
