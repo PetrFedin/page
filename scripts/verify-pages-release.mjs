@@ -19,7 +19,7 @@ for(const lang of ['ru','en']){
 for(const blocked of ['functions','scripts','docs','private','.github','channel-queue.json','package.json']){
  assert.ok(!existsSync(new URL('dist-pages/'+blocked,root)),'private path leaked: '+blocked);
 }
-for(const required of ['index.html','en/index.html','privacy.html','en/privacy.html','assets/app.js','assets/lead-paths.js','assets/news.js','assets/investor-calculator.js','_headers','_routes.json']){
+for(const required of ['index.html','en/index.html','privacy.html','en/privacy.html','assets/app.js','assets/lead-paths.js','assets/news.js','assets/investor-calculator.js','assets/opportunity-copy.js','assets/opportunity-economics.js','assets/opportunity-studio.js','_headers','_routes.json']){
  assert.ok(existsSync(new URL('dist-pages/'+required,root)),'public asset missing: '+required);
 }
 const staticManifest=JSON.parse(readFileSync(new URL('../qa-artifacts/pages-release-manifest.json',import.meta.url),'utf8'));
