@@ -177,12 +177,12 @@ function renderInvestors() {
   $('#investors-list').innerHTML = iv.formats.map((f, i) => `
     <article class="inv-card mini" id="inv-${f.id}" data-idx="${i}">
       <span class="svc-n">${String(i + 1).padStart(2, '0')}</span>
-      <h3>${f.title}</h3>
+      <h3 id="inv-heading-${f.id}">${f.title}</h3>
       <p class="inv-tag">${f.tagline}</p>
       <p class="inv-what">${f.what}</p>
       <div class="inv-foot">
-        <button class="inv-read" type="button" data-coop-open="${i}">${L.read} →</button>
-        <button class="btn btn-sm" type="button" data-inv-talk="${f.id}">${L.contact}</button>
+        <button class="inv-read" type="button" data-coop-open="${i}" aria-haspopup="dialog" aria-describedby="inv-heading-${f.id}">${L.read} →</button>
+        <button class="btn btn-sm" type="button" data-inv-talk="${f.id}" aria-describedby="inv-heading-${f.id}">${L.contact}</button>
       </div>
     </article>`).join('');
   $('#investors-projects').innerHTML = '';
@@ -657,6 +657,7 @@ function openProject(id, anchor) {
   /* просмотрщик относится к прежнему проекту — закрываем его вместе со сменой */
   viewer.close();
   modal.dataset.project = id;
+  modal.setAttribute('aria-label', p.name + (lang === 'ru' ? ' — подробности проекта' : ' — project details'));
   $('#modal-logo').innerHTML = LOGOS[p.id];
   $('#modal-tagline').textContent = c.tagline;
   $('#modal-stage').textContent = c.stage;
