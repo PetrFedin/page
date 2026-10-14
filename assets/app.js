@@ -5,6 +5,7 @@ import { mountInvestorCalculator } from './investor-calculator.js?v=20261012-cal
 import { LEAD_COPY, safeLeadRoute, routeForTopic } from './lead-paths.js?v=20261013-leads1';
 import { DECK } from './deck.js?v=202610041955';
 import { mountAdvisoryEconomics } from './advisory-economics.js?v=20261013a';
+import { mountOpportunityStudio } from './opportunity-studio.js?v=20261014-op1';
 import { LOGOS } from './logos.js?v=20261012-invdossiers';
 import { createViewer } from './viewer.js?v=202609301526';
 import { syncSnaps } from './snap.js?v=202610041955';
@@ -498,6 +499,8 @@ function render() {
   $('#projects-sub').textContent = t.projects.subtitle;
   renderCards();
   renderInvestors();
+  $('#nav-opportunities').textContent = lang === 'en' ? 'Opportunities' : 'Возможности';
+  mountOpportunityStudio($('#opportunities'), lang, PROJECTS, (selection) => startContact(selection), INVESTOR_BLUEPRINTS);
 
   /* Продуктовые проекты выше — доказательство, а не витрина: тем, кто
      досмотрел до конца раздела, предлагаем тот же путь для своей задачи. */
