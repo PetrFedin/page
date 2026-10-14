@@ -120,8 +120,10 @@ const read = name => readFileSync(new URL('../'+name,import.meta.url),'utf8');
 const app=read('assets/app.js');
 const browser=read('assets/opportunity-studio.js');
 const css=read('assets/styles.css');
-assert.ok(app.includes("mountOpportunityStudio($('#opportunities'), lang"),'Must mount studio in V2 render');
+assert.ok(app.includes("mountOpportunityStudio(") && app.includes("$('#opportunities'), lang, PROJECTS"),
+  'Must mount studio in V2 render');
 assert.ok(app.includes("startContact(selection)"),'Must use existing contact route');
+assert.ok(app.includes("openProject(projectId, 'investor')"),'Selected project must open its existing detailed investor model');
 assert.doesNotMatch(browser, /\b(?:fetch|sendBeacon|localStorage|sessionStorage|XMLHttpRequest|indexedDB)\s*(?:\(|\.|\[)/,
   'Commercial financial inputs must not be transmitted or persisted by calculator');
 assert.ok(!browser.includes('JSON.stringify(currentValues())'),'Must not serialize all financial inputs to lead');
