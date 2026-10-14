@@ -500,7 +500,11 @@ function render() {
   renderCards();
   renderInvestors();
   $('#nav-opportunities').textContent = lang === 'en' ? 'Opportunities' : 'Возможности';
-  mountOpportunityStudio($('#opportunities'), lang, PROJECTS, (selection) => startContact(selection), INVESTOR_BLUEPRINTS);
+  mountOpportunityStudio(
+    $('#opportunities'), lang, PROJECTS,
+    (selection) => startContact(selection), INVESTOR_BLUEPRINTS,
+    (projectId) => openProject(projectId, 'investor')
+  );
 
   /* Продуктовые проекты выше — доказательство, а не витрина: тем, кто
      досмотрел до конца раздела, предлагаем тот же путь для своей задачи. */
@@ -762,6 +766,7 @@ function openProject(id, anchor) {
   body.scrollTop = 0;
   /* экраны грузятся лениво и меняют высоту — прокручиваем следующим кадром */
   if (anchor === 'status') requestAnimationFrame(() => $('#status').scrollIntoView({ block: 'start' }));
+  if (anchor === 'investor') requestAnimationFrame(() => economics.scrollIntoView({ block: 'start' }));
 }
 
 /* Закрыть раскрытую ленту (кнопкой ✕ внутри неё или повторным кликом по тумблеру):
