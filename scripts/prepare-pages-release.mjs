@@ -25,7 +25,9 @@ const staticDirs=['assets','en'];
 const mustHave=[
  'index.html','en/index.html','assets/app.js','assets/styles.css',
  'assets/lead-paths.js','assets/portfolio-extensions.js',
- 'assets/investor-calculator.js','en/feed.xml','_headers','_routes.json'
+ 'assets/investor-calculator.js','assets/opportunity-copy.js',
+ 'assets/opportunity-economics.js','assets/opportunity-studio.js',
+ 'en/feed.xml','_headers','_routes.json'
 ];
 for(const file of [...staticFiles,...staticDirs,...mustHave]){
  const src=join(root,file);

@@ -12,6 +12,12 @@ import { fileURLToPath } from 'node:url';
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const ЗАМЕНЫ = [
   ['<html lang="ru">', '<html lang="en">'],
+  ['>Возможности</a>', '>Opportunities</a>'],
+  ['Коммерческие сценарии · предварительная оценка', 'Commercial scenarios · preliminary assessment'],
+  ['От конкретной задачи — к проверяемой экономике', 'From a concrete challenge to testable economics'],
+  ['Сравнение вариантов разработки, оптимизации бизнеса, раннего доступа и участия в проектах. Не является публичной офертой.', 'Compare software delivery, business transformation, early access and project participation. Not a binding public offer.'],
+  ['Для интерактивного расчёта требуется JavaScript.', 'Interactive estimates require JavaScript.'],
+  ['>Запросить предметную оценку</a>', '>Request a tailored assessment</a>'],
   ['/assets/photo/petr-portrait.webp', '/assets/photo/petr-ny.webp'],
   ['<title>Пётр Федин — фэшн-консалтинг и проекты</title>',
    '<title>Petr Fedin — fashion advisory and projects</title>'],
