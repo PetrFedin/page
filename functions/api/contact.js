@@ -3,8 +3,9 @@
  * Секреты задаются в настройках проекта Pages:
  *   TELEGRAM_BOT_TOKEN   — токен бота от @BotFather
  *   TELEGRAM_CHAT_ID     — id чата получателя
- *   TURNSTILE_SECRET_KEY — секретный ключ виджета Turnstile (не задан — проверка пропускается)
- * Ничего не сохраняем: заявка только пересылается.
+ *   TURNSTILE_SECRET_KEY — обязательный секрет Turnstile (при отсутствии отправка закрыта)
+ * Заявка пересылается ТОЛЬКО в приватный Telegram-чат; опционально сохраняется в закрытой D1.
+ * Без реальной конфигурации Cloudflare Pages и успешного Turnstile LIVE приёмка остаётся HOLD.
  */
 
 const LIMIT = { name: 120, contact: 160, message: 4000, entity: 200 };
@@ -35,12 +36,21 @@ export async function onRequestPost({ request, env }) {
     }
   }
 
+  if (!body || typeof body !== 'object' || Array.isArray(body)) {
+    return new Response('invalid payload', { status: 400 });
+  }
   if (clean(body.company, 50)) return new Response('ok', { status: 200 }); // honeypot
+  /* Do not accept a direct POST without the consent required by the public form. */
+  if (!['on','true','1'].includes(String(body.consent ?? ''))) {
+    return new Response('consent required', { status: 400 });
+  }
 
-  /* Turnstile: токен приходит из виджета на странице (поле cf-turnstile-response). */
-  if (env.TURNSTILE_SECRET_KEY) {
-    const token = clean(body['cf-turnstile-response'], 2000);
-    if (!token) return new Response('captcha required', { status: 400 });
+  /* Fail closed: there must be a verified Turnstile token before any private lead is forwarded. */
+  if (!env.TURNSTILE_SECRET_KEY) return new Response('captcha not configured', { status: 503 });
+  const token = clean(body['cf-turnstile-response'], 2000);
+  if (!token) return new Response('captcha required', { status: 400 });
+  let challenge;
+  try {
     const verify = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
@@ -50,9 +60,13 @@ export async function onRequestPost({ request, env }) {
         remoteip: request.headers.get('cf-connecting-ip') || undefined
       })
     });
-    const result = await verify.json().catch(() => ({ success: false }));
-    if (!result.success) return new Response('captcha failed', { status: 400 });
+    if (!verify.ok) return new Response('captcha service unavailable', { status: 503 });
+    challenge = await verify.json();
+  } catch (err) {
+    console.error('turnstile verification unavailable');
+    return new Response('captcha service unavailable', { status: 503 });
   }
+  if (challenge?.success !== true) return new Response('captcha failed', { status: 400 });
 
   const first = clean(body.name, LIMIT.name);
   const surname = clean(body.surname, LIMIT.name);
@@ -97,62 +111,99 @@ export async function onRequestPost({ request, env }) {
     brief: clean(body.leadBrief, 1600)
   };
   const line = (cond, v) => (cond ? v : null);
-  const text = [
+  const capHtml = (input, maxChars = 240) => {
+    let out = '';
+    for (const char of String(input)) {
+      const encoded = esc(char);
+      if (out.length + encoded.length > maxChars) return out + '…';
+      out += encoded;
+    }
+    return out;
+  };
+  const header = [
     '<b>Заявка с syntha.pro</b>',
     '',
-    `<b>Тема:</b> ${esc(topic)}`,
-    `<b>Имя:</b> ${esc(name)}`,
-    line(email, `<b>Email:</b> ${esc(email)}`),
-    line(telegram, `<b>Telegram:</b> ${esc(telegram)}`),
-    line(phone, `<b>Телефон:</b> ${esc(phone)}`),
-    line(isEntity, `<b>Юрлицо:</b> ${esc([entity.name, entity.inn && `ИНН ${entity.inn}`].filter(Boolean).join(', ') || '—')}`),
-    line(entity.address, `<b>Адрес:</b> ${esc(entity.address)}`),
-    line(entity.site, `<b>Сайт:</b> ${esc(entity.site)}`),
-    `<b>Язык:</b> ${esc(clean(body.lang, 4) || '—')}`,
-    line(leadContext.route, `<b>Маршрут:</b> ${esc(leadContext.route)}`),
-    line(leadContext.project, `<b>Проект:</b> ${esc(leadContext.project)}`),
-    line(leadContext.timing, `<b>Срок:</b> ${esc(leadContext.timing)}`),
-    '',
-    esc(message)
-  ].filter((l) => l !== null).join('\n');
+    `<b>Тема:</b> ${capHtml(topic, 140)}`,
+    `<b>Имя:</b> ${capHtml(name, 280)}`,
+    line(email, `<b>Email:</b> ${capHtml(email, 200)}`),
+    line(telegram, `<b>Telegram:</b> ${capHtml(telegram, 200)}`),
+    line(phone, `<b>Телефон:</b> ${capHtml(phone, 200)}`),
+    line(isEntity, `<b>Юрлицо:</b> ${capHtml([entity.name, entity.inn && `ИНН ${entity.inn}`].filter(Boolean).join(', ') || '—', 240)}`),
+    line(entity.address, `<b>Адрес:</b> ${capHtml(entity.address, 240)}`),
+    line(entity.site, `<b>Сайт:</b> ${capHtml(entity.site, 240)}`),
+    `<b>Язык:</b> ${capHtml(clean(body.lang, 4), 8) || '—'}`,
+    line(leadContext.route, `<b>Маршрут:</b> ${capHtml(leadContext.route, 60)}`),
+    line(leadContext.project, `<b>Проект:</b> ${capHtml(leadContext.project, 80)}`),
+    line(leadContext.timing, `<b>Срок:</b> ${capHtml(leadContext.timing, 120)}`),
+    line(leadContext.goal, `<b>Цель:</b> ${capHtml(leadContext.goal, 200)}`)
+  ].filter(l => l !== null).join('\n');
+  /* Telegram limits formatted text to 4096; bound encoded payloads to 3800.
+     Split only between complete Unicode code points, never inside an HTML entity. */
+  const chunks = [];
+  let part = '';
+  for (const char of message) {
+    const encoded = esc(char);
+    if (part.length + encoded.length > 3000 && part) {
+      chunks.push(part); part = '';
+    }
+    part += encoded;
+  }
+  if (part) chunks.push(part);
+  const whole = header + '\n\n' + esc(message);
+  const messages = whole.length <= 3800 ? [whole] : [header, ...chunks.map((p, i) => `<b>Сообщение ${i + 1}/${chunks.length}:</b>\n${p}`)];
+  /* Even if the configured ID is a group/channel, never expose contact details to it. */
+  let recipient;
+  try {
+    const response = await fetch(`https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/getChat`, {
+      method: 'POST', headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ chat_id: env.TELEGRAM_CHAT_ID })
+    });
+    if (!response.ok) return new Response('private recipient unavailable', { status: 503 });
+    recipient = await response.json();
+  } catch { return new Response('private recipient unavailable', { status: 503 }); }
+  if (!recipient?.ok || recipient.result?.type !== 'private') {
+    console.error('telegram recipient must be a private chat');
+    return new Response('private recipient required', { status: 503 });
+  }
 
-  /* Файл уходит документом, а текст заявки — подписью к нему:
-     так заявка и вложение остаются одним сообщением. */
-  let tg;
+  const api = `https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/`;
+  const deliver = async (method, init) => {
+    try {
+      const res = await fetch(api + method, init);
+      if (!res.ok) {
+        console.error('telegram delivery failed', method, res.status);
+        return false;
+      }
+      const outcome = await res.json();
+      if (outcome?.ok !== true) {
+        console.error('telegram delivery rejected', method);
+        return false;
+      }
+      return true;
+    } catch {
+      console.error('telegram network delivery failure', method);
+      return false;
+    }
+  };
+  let delivered = true;
   if (file) {
     const fd = new FormData();
     fd.append('chat_id', env.TELEGRAM_CHAT_ID);
-    fd.append('caption', text.slice(0, 1024));
-    fd.append('parse_mode', 'HTML');
+    fd.append('caption', Array.from(`Заявка с syntha.pro · ${topic}`).slice(0, 240).join(''));
     fd.append('document', file, file.name || 'file');
-    tg = await fetch(`https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendDocument`, {
-      method: 'POST', body: fd
-    });
-    /* Подпись к документу ограничена 1024 знаками — длинное сообщение досылаем отдельно. */
-    if (tg.ok && text.length > 1024) {
-      await fetch(`https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
-        method: 'POST',
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ chat_id: env.TELEGRAM_CHAT_ID, text, parse_mode: 'HTML', disable_web_page_preview: true })
-      });
-    }
-  } else {
-    tg = await fetch(`https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
+    delivered = await deliver('sendDocument', { method: 'POST', body: fd });
+  }
+  for (const text of messages) {
+    if (!delivered) break;
+    delivered = await deliver('sendMessage', {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({
-        chat_id: env.TELEGRAM_CHAT_ID,
-        text,
-        parse_mode: 'HTML',
-        disable_web_page_preview: true
-      })
+      body: JSON.stringify({ chat_id: env.TELEGRAM_CHAT_ID, text, parse_mode: 'HTML', disable_web_page_preview: true })
     });
   }
-
-  if (!tg.ok) {
-    console.error('telegram api error', tg.status, await tg.text());
+  if (!delivered) {
     await save(env, request, body, { name, email, telegram, phone, entity, topic, message, file, leadContext, ok: 0 });
-    return new Response('telegram failed', { status: 502 });
+    return new Response('telegram failed or partially delivered', { status: 502 });
   }
   await save(env, request, body, { name, email, telegram, phone, entity, topic, message, file, leadContext, ok: 1 });
   return new Response('ok', { status: 200 });

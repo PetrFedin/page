@@ -1780,3 +1780,182 @@ a.lang{display:inline-flex; align-items:center; justify-content:center; text-dec
 @media (max-width:759px){
   .top-news-title{white-space:normal; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; font-size:12px; line-height:1.25}
 }
+
+/* Consulting: five advisory cards in a balanced 3 + 2 desktop composition. */
+@media(min-width:760px){#consulting .services{grid-template-columns:repeat(2,minmax(0,1fr))}#consulting .services li:first-child{grid-column:auto}#consulting .services li:last-child:nth-child(odd){grid-column:1/-1}#consulting .formats-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(min-width:1120px){#consulting .services{grid-template-columns:repeat(6,minmax(0,1fr))}#consulting .services li{grid-column:span 2}#consulting .services li:nth-last-child(2){grid-column:1/span 3}#consulting .services li:last-child{grid-column:4/span 3}#consulting .services .svc{padding:25px 23px}#consulting .formats-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(min-width:760px){#projects .cards{grid-template-rows:none;grid-auto-rows:auto}#projects .cards>.card{grid-row:auto;grid-template-rows:auto;align-content:start}#projects .cards>.card:first-child{grid-column:1/-1}}
+.project-wordmark{display:inline-block;font:500 clamp(14px,2vw,20px)/1.35 var(--serif);letter-spacing:.035em}
+.project-capabilities,.project-investor{margin-top:28px;padding-top:22px;border-top:1px solid var(--line)}
+.project-capabilities h3,.project-investor h3{font-family:var(--serif);font-size:clamp(20px,2.5vw,25px);font-weight:500;margin:0 0 10px}
+.project-capabilities>p,.project-investor>p{color:var(--muted);font-size:14px;margin:0 0 14px}
+.project-table{width:100%;border-collapse:collapse;table-layout:fixed;font-size:14px}.project-table th,.project-table td{padding:11px 10px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line);overflow-wrap:anywhere}.project-table th{font-weight:500;color:var(--muted);font-size:12px}.project-table td:first-child{width:33%;color:var(--ink)}
+.scenario-grid{display:grid;grid-template-columns:repeat(1,minmax(0,1fr));gap:10px;margin:16px 0}.scenario-grid article{border:1px solid var(--line);border-radius:12px;padding:16px;min-width:0}.scenario-grid h4{font-size:15px;margin:0 0 7px;font-weight:500}.scenario-grid p{color:var(--muted);font-size:14px;margin:0}.investor-checkpoints{padding-left:22px;color:var(--muted);font-size:14px}.investor-checkpoints li{padding:4px 0}.project-economics{font-size:14px;display:grid;gap:8px}.project-economics p{margin:0}.project-economics strong{font-weight:500}
+@media(min-width:800px){.scenario-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+#gallery[hidden],#dots[hidden],#project-capabilities[hidden],#project-investor[hidden]{display:none!important}
+
+/* Investor what-if calculator: compact, scroll-safe and accessible. */
+.investor-calculator{margin-top:22px;padding-top:18px;border-top:1px solid var(--line)}
+.investor-calculator h3{font-family:var(--serif);font-weight:500}
+.investor-calculator h4{margin:14px 0 10px;font-size:16px}
+.calc-disclaimer,.calc-hint{font-size:13px;line-height:1.55;color:var(--muted)}
+.calc-input-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.calc-controls{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:16px}
+.calc-field{display:grid;gap:6px;min-width:0;font-size:13px;color:var(--muted)}
+.calc-field input,.calc-field select{width:100%;min-width:0;padding:11px 10px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--ink);font:inherit;font-size:16px}
+.calc-field input:focus-visible,.calc-field select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.calc-empty,.calc-error{margin:16px 0;padding:12px;border:1px solid var(--line);border-radius:10px}
+.calc-error{border-color:var(--accent)}
+.calc-scenario-grid{display:grid;gap:12px;margin:20px 0}
+.calc-scenario-card{padding:15px;border:1px solid var(--line);border-radius:12px;min-width:0}
+.calc-scenario-card h4{margin:0 0 12px;font-family:var(--serif);font-weight:500}
+.calc-metric{display:grid;gap:4px;margin:0 0 10px;font-size:13px}
+.calc-metric span{color:var(--muted)}.calc-metric strong{font-size:17px;font-weight:500;overflow-wrap:anywhere}
+.calc-figure{margin:24px 0}.calc-figure figcaption{font-size:14px;color:var(--ink);margin-bottom:10px}.investor-cash-chart{width:100%;height:auto}
+.calc-legend{font-size:12px;color:var(--muted)}
+.calc-scroll{overflow-x:auto;max-width:100%}.calc-monthly-table{min-width:790px}
+.calc-details summary{cursor:pointer;padding:10px 0}.calc-sensitivity{margin:22px 0}
+.calc-tranche-rows{display:grid;gap:10px}.calc-tranche-line{display:grid;grid-template-columns:minmax(0,1fr) 96px 130px;gap:10px;align-items:center;border-bottom:1px solid var(--line);padding:8px 0}
+.calc-tranche-line p{margin:0;font-size:13px}.calc-tranche-amount{text-align:right;font-size:14px;font-weight:500}
+@media(min-width:820px){.calc-scenario-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:600px){.calc-input-grid{grid-template-columns:1fr}.calc-controls{grid-template-columns:repeat(2,minmax(0,1fr))}.calc-tranche-line{grid-template-columns:minmax(0,1fr) 88px}.calc-tranche-amount{grid-column:1/-1;text-align:left}}
+
+/* Dossier stage names can be full sentences; pills must wrap inside project cards. */
+#projects .card .stage{white-space:normal;max-width:100%;min-width:0;overflow-wrap:anywhere;line-height:1.4}
+
+/* Explicit tracks: avoid auto-placement lifting the fourth tile into the first row. */
+@media(min-width:1120px){
+ #consulting .services li:nth-child(1){grid-column:1/span 2;grid-row:1}
+ #consulting .services li:nth-child(2){grid-column:3/span 2;grid-row:1}
+ #consulting .services li:nth-child(3){grid-column:5/span 2;grid-row:1}
+ #consulting .services li:nth-child(4){grid-column:1/span 3;grid-row:2}
+ #consulting .services li:nth-child(5){grid-column:4/span 3;grid-row:2}
+}
+
+/* Three commercial routes and qualified contact context; no cards reserved empty. */
+.lead-routes{padding-top:40px;padding-bottom:48px}
+.lead-routes .section-head .eyebrow{margin-bottom:9px;font-size:11px}
+.lead-routes-grid{display:grid;gap:14px;margin-top:23px}
+.lead-route-card{min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:11px;border:1px solid var(--line);border-radius:var(--radius);background:var(--panel);padding:22px 20px}
+.lead-route-card h3{font-family:var(--serif);font-size:clamp(19px,2vw,23px);font-weight:500;line-height:1.2;margin:0}
+.lead-route-card p{font-size:15px;line-height:1.5;color:var(--muted);flex:1;margin:0}
+.lead-route-card .btn{margin-top:8px;white-space:normal;text-align:left}
+.lead-route-card:focus-within{border-color:var(--accent)}
+.lead-context{background:var(--accent-soft);color:var(--ink);font-size:13px;padding:12px 15px;border:1px solid var(--line);border-radius:10px;margin:0;line-height:1.5}
+.lead-context[hidden]{display:none!important}
+.lead-timing-field select{width:100%;max-width:100%}
+@media(min-width:760px){.lead-routes-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+
+/* Advisory economics — interactive and explicitly hypothetical. */
+.advisory-economics{
+  margin:38px 0 8px;
+  padding:30px 0 32px;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+}
+.advisory-economics-head h3{font-size:clamp(21px,3.4vw,26px);margin:0 0 12px;font-weight:500}
+.advisory-economics-head .sub{max-width:720px;font-size:15px;color:var(--muted);margin:0 0 22px}
+.advisory-economics-grid{display:grid;gap:14px}
+.advisory-economics-grid label{
+  display:flex;flex-direction:column;gap:8px;min-width:0;
+  font-size:13px;line-height:1.4;color:var(--muted);
+}
+.advisory-economics-grid input,.advisory-economics-grid select{
+  display:block;box-sizing:border-box;min-width:0;width:100%;min-height:45px;
+  padding:11px 12px;border:1px solid var(--line);border-radius:10px;
+  font:inherit;font-size:16px;color:var(--ink);background:var(--panel);
+}
+.advisory-economics-grid input:focus-visible,.advisory-economics-grid select:focus-visible,
+.advisory-economics-actions .btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.advisory-economics-actions{display:flex;flex-wrap:wrap;gap:10px;margin:20px 0 14px}
+.advisory-economics-status{color:var(--muted);font-size:13px;min-height:1.4em;margin:12px 0}
+.advisory-economics-results{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:16px 0}
+.advisory-economics-results > div{padding:18px 12px;min-width:0;background:var(--panel)}
+.advisory-economics-results dt{font-size:12px;line-height:1.4;color:var(--muted);margin:0 0 10px}
+.advisory-economics-results dd{font-size:clamp(17px,3vw,22px);line-height:1.2;margin:0;overflow-wrap:anywhere;font-weight:500;font-variant-numeric:tabular-nums}
+.advisory-economics-results[hidden],.advisory-economics-interpretation[hidden]{display:none}
+.advisory-economics-interpretation{color:var(--ink);font-size:14px;line-height:1.5;margin:12px 0}
+.advisory-economics-note{max-width:760px;color:var(--muted);font-size:12px;line-height:1.6;margin:13px 0 0}
+@media (min-width:640px){.advisory-economics-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:380px){.advisory-economics-results{grid-template-columns:1fr}.advisory-economics-actions .btn{width:100%}}
+
+/* V2 opportunity studio: commercial scenarios, never a checkout or securities offer. */
+.opportunity-studio{scroll-margin-top:76px}
+.op-heading{display:block!important}
+.op-heading .eyebrow{margin-bottom:14px}
+.op-heading h2{font-weight:500}
+.op-heading .sub{max-width:810px}
+.op-modes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:26px 0 22px}
+.op-mode{
+  border:1px solid var(--line);border-radius:12px;padding:16px 14px;
+  background:var(--panel);color:var(--ink);text-align:left;cursor:pointer;
+  display:flex;flex-direction:column;align-items:flex-start;gap:9px;min-width:0;
+  font:inherit;line-height:1.4;transition:border-color .12s,background .12s;
+}
+.op-mode span{font-size:15px;font-weight:500}
+.op-mode small{font-size:12px;color:var(--muted);line-height:1.5}
+.op-mode[aria-pressed="true"]{border-color:var(--accent);background:color-mix(in srgb,var(--accent-soft) 22%,var(--panel))}
+.op-mode:hover{border-color:var(--accent)}
+.op-mode:focus-visible,.op-field input:focus-visible,.op-field select:focus-visible,
+.op-actions .btn:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.op-project-select{display:grid;gap:10px;padding:16px 17px;background:var(--panel);border:1px solid var(--line);border-radius:12px}
+.op-project-context{color:var(--muted);line-height:1.55;font-size:13px}
+.op-panel{padding:26px 0 14px;min-width:0}
+.op-panel>h3{font-size:clamp(20px,3vw,27px);font-weight:500;line-height:1.28;margin:0 0 13px}
+.op-panel>.sub{font-size:15px;max-width:790px;color:var(--muted);line-height:1.6;margin:0 0 20px}
+.op-panel .op-subhead{font-size:17px;font-weight:500;margin:32px 0 16px;line-height:1.4}
+.op-fields{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;margin:16px 0}
+.op-field{display:flex;flex-direction:column;gap:8px;font-size:13px;color:var(--muted);line-height:1.4;min-width:0}
+.op-field input,.op-field select{
+  width:100%;min-width:0;min-height:46px;padding:11px 12px;
+  box-sizing:border-box;border:1px solid var(--line);border-radius:9px;
+  color:var(--ink);background:var(--panel);font:inherit;font-size:16px;
+}
+.op-input-hint,.op-status{font-size:12px;line-height:1.6;color:var(--muted);margin:13px 0}
+.op-status{min-height:20px}
+.op-metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin:17px 0 15px}
+.op-metrics[hidden]{display:none}
+.op-metric{min-width:0;background:var(--panel);padding:17px 14px}
+.op-metric dt{font-size:12px;color:var(--muted);line-height:1.45;margin-bottom:10px}
+.op-metric dd{font-size:clamp(17px,2.5vw,22px);line-height:1.3;font-weight:500;font-variant-numeric:tabular-nums;overflow-wrap:anywhere;margin:0}
+.op-actions{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0}
+.op-caveat,.op-disclaimer{max-width:880px;color:var(--muted);font-size:12px;line-height:1.7}
+.op-disclaimer{border-top:1px solid var(--line);padding-top:20px;margin:20px 0 0}
+.op-steps{margin:0;padding:0;display:grid;grid-template-columns:1fr;gap:10px;list-style:none}
+.op-steps li{display:grid;grid-template-columns:38px minmax(0,1fr);gap:12px;padding:14px;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
+.op-step-index,.op-index{font-size:12px;color:var(--muted)}
+.op-steps h4,.op-choice h4{font-size:15px;font-weight:500;margin:0 0 6px;line-height:1.35}
+.op-steps p,.op-choice p{font-size:13px;line-height:1.55;color:var(--muted);margin:0}
+.op-choices{display:grid;grid-template-columns:1fr;gap:11px}
+.op-choice{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:17px 15px;min-width:0}
+.op-choice .op-index{display:block;margin:0 0 12px}
+.op-choice p.op-caveat{font-size:12px;margin-top:12px}
+.op-sources{margin:0;padding:0;list-style:none;border-top:1px solid var(--line)}
+.op-sources li{display:flex;flex-direction:column;gap:5px;padding:12px 0;border-bottom:1px solid var(--line);font-size:13px;line-height:1.5}
+.op-sources li a{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
+.op-sources li span{color:var(--muted)}
+.op-project-plan{margin:18px 0 24px;padding:18px;background:var(--panel);border:1px solid var(--line);border-radius:12px}
+.op-project-plan h4{font-size:16px;font-weight:500;margin:0 0 10px}
+.op-project-plan p{font-size:13px;color:var(--muted);line-height:1.6}
+.op-project-plan ol{padding-left:20px;margin:12px 0 0;display:grid;gap:7px}
+.op-project-plan li{font-size:13px;line-height:1.5}
+.op-fallback{font-size:13px;color:var(--muted);line-height:1.6}
+@media(min-width:640px){
+  .op-modes{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .op-fields{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .op-choices{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .op-steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .op-project-select{grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);align-items:center}
+}
+@media(min-width:1000px){
+  .op-modes{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .op-panel{padding-top:33px}
+  .op-fields{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .op-metrics{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .op-sources li{flex-direction:row;align-items:start;justify-content:space-between;gap:20px}
+}
+@media(max-width:380px){
+  .op-modes,.op-metrics{grid-template-columns:1fr}
+  .op-actions .btn{width:100%}
+}

@@ -1011,11 +1011,11 @@ export const T = {
           "id": "equity",
           "title": "Инвестиции в продукт",
           "tagline": "Капитал на следующий этап развития",
-          "what": "Вы входите долей в один из продуктов или в новую идею. Деньги идут на пилот, доработку и выход на рынок по плану, который мы согласуем.",
+          "what": "Обсуждаем участие в капитале только после проверки действующих владельцев, прав на продукт и корпоративных ограничений. При согласованной первичной сделке средства могут финансировать конкретные этапы разработки и пилота.",
           "partner": "План развития и доступ к метрикам пилота. Вы видите, как растёт продукт, и влияете на объём и приоритеты.",
           "project": "Деньги на пилот и доработку. Если есть выход на первого клиента, знакомство с ним.",
           "fit": "Частному инвестору или фонду, которому важны продукт и понятный путь к проверке, а не презентация.",
-          "start": "Знакомство и разговор под NDA, затем показ продукта и плана пилота. Участие возможно на этом этапе; точные условия фиксируем по согласованным метрикам пилота."
+          "start": "Сначала проверяем структуру собственности, IP и план пилота. Затем обсуждаем формат сделки, защиту доли основателя, права инвестора и транши по подтверждённым этапам."
         },
         {
           "id": "strategic",
@@ -1061,8 +1061,8 @@ export const T = {
           "id": "acquisition",
           "title": "Покупка продукта или доли",
           "tagline": "Продукт под вашим управлением",
-          "what": "Вы покупаете продукт целиком или долю в нём. Рассматриваю и частичную передачу, и полную, если вы готовы вести продукт дальше.",
-          "partner": "Готовую базу: код, документацию, накопленные сценарии и опыт их проверки. Вы не начинаете с нуля.",
+          "what": "Можно обсудить приобретение части доли, стратегическую инвестицию либо передачу бизнеса или IP. Ни один пакет, включая 100%, не объявлен свободным для покупки; структура зависит от прав существующих участников и отдельных переговоров.",
+          "partner": "По результатам проверки — согласованный состав кода, прав на IP, документации и результатов тестирования. Объём передачи фиксируется отдельно, без обещания готового коммерческого продукта.",
           "project": "Команду и ресурсы, чтобы вести продукт дальше. Мою роль эксперта по отрасли обсуждаем.",
           "fit": "Компании, которой нужен готовый продукт в fashion или смежной области, а не очередной внутренний проект.",
           "start": "Предварительный разговор под NDA: что именно вас интересует и в какой форме. Условия обсуждаем после знакомства с продуктом."
@@ -2269,11 +2269,11 @@ export const T = {
           "id": "equity",
           "title": "Equity investment",
           "tagline": "Capital for the next stage of a product",
-          "what": "You take a stake in one of the products or in a new idea. The money goes to the pilot, further development and market entry, following a plan we agree.",
+          "what": "Equity participation is considered only after verifying current owners, product IP and corporate restrictions. Subject to an agreed primary round, proceeds may fund specific development and pilot milestones.",
           "partner": "A development plan and access to the pilot metrics. You see the product grow and have a say in scope and priorities.",
           "project": "Funding for the pilot and further development. If you can open a door to a first customer, an introduction.",
           "fit": "A private investor or fund that cares about the product and a clear route to proving it, more than a pitch deck.",
-          "start": "An introduction and a conversation under NDA, then a look at the product and the pilot plan. You can join at this stage; exact terms are fixed against the agreed pilot metrics."
+          "start": "First confirm ownership, IP and the pilot roadmap; then discuss transaction structure, founder retention, investor rights and evidence-based funding tranches."
         },
         {
           "id": "strategic",
@@ -2319,8 +2319,8 @@ export const T = {
           "id": "acquisition",
           "title": "Acquiring a product or stake",
           "tagline": "A product under your management",
-          "what": "You buy the whole product or a share in it. I will consider a partial handover as readily as a full one, if you are ready to take the product forward.",
-          "partner": "A ready foundation: code, documentation, tested scenarios and the experience of checking them. You do not start from zero.",
+          "what": "A partial stake purchase, strategic investment or acquisition of a business or IP could be discussed. No shares, including a 100% package, are advertised as available: any transfer depends on current holders' rights and separate negotiations.",
+          "partner": "Subject to diligence, a documented scope of code, IP rights, documentation and test evidence. Transfer terms are agreed separately; commercial maturity is not guaranteed.",
           "project": "A team and resources to take the product forward. We can discuss my role as an industry adviser.",
           "fit": "A company that wants a finished product in fashion or an adjacent field, rather than another internal build.",
           "start": "A preliminary conversation under NDA on what interests you and in what form. Terms follow once you have seen the product."

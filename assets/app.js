@@ -1,6 +1,12 @@
-import { T, PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610041955';
+import { T, PROJECTS as CORE_PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610041955';
+import { EXTRA_PROJECTS, INVESTOR_BLUEPRINTS } from './portfolio-extensions.js?v=20261012-invdossiers';
+const PROJECTS = [...CORE_PROJECTS, ...EXTRA_PROJECTS];
+import { mountInvestorCalculator } from './investor-calculator.js?v=20261012-calc1';
+import { LEAD_COPY, safeLeadRoute, routeForTopic } from './lead-paths.js?v=20261013-leads1';
 import { DECK } from './deck.js?v=202610041955';
-import { LOGOS } from './logos.js?v=202610041955';
+import { mountAdvisoryEconomics } from './advisory-economics.js?v=20261013a';
+import { mountOpportunityStudio } from './opportunity-studio.js?v=20261014-op1';
+import { LOGOS } from './logos.js?v=20261012-invdossiers';
 import { createViewer } from './viewer.js?v=202609301526';
 import { syncSnaps } from './snap.js?v=202610041955';
 import { NEWS } from './news.js?v=20261013-editorial1';
@@ -10,7 +16,10 @@ import { NEWS } from './news.js?v=20261013-editorial1';
    более старые записи; порядок записей в news.js на отображение не влияет.
    Даты вперёд сегодняшней — это запланированные, ещё не наступившие публикации:
    на сайте они не должны быть видны раньше своего дня. */
-const today = new Date().toISOString().slice(0, 10);
+const todayParts=Object.fromEntries(new Intl.DateTimeFormat('en-GB',{
+  timeZone:'Europe/Moscow',year:'numeric',month:'2-digit',day:'2-digit'
+}).formatToParts(new Date()).map(({type,value})=>[type,value]));
+const today=`${todayParts.year}-${todayParts.month}-${todayParts.day}`;
 const SITE_NEWS = NEWS.filter((p) => p.site !== false && p.date <= today)
   .sort((a, b) => b.date.localeCompare(a.date));
 /* Пост показывается на EN-версии только если у него есть перевод (en:).
@@ -360,6 +369,23 @@ function render() {
   $('#hero-name').textContent = t.hero.name;
   $('#hero-lead').textContent = t.hero.lead;
   $('#hero-bio').textContent = t.hero.bio;
+  const leads=LEAD_COPY[lang];
+  $('#lead-paths-eyebrow').textContent=leads.eyebrow;
+  $('#lead-paths-title').textContent=leads.title;
+  $('#lead-paths-sub').textContent=leads.subtitle;
+  $('#modal-pilot').textContent=leads.modalPilot;
+  $('#modal-invest').textContent=leads.modalInvestor;
+  $('#lead-routes-grid').innerHTML=leads.options.map(p=>`
+    <article class="lead-route-card" data-route-card="${p.id}">
+      <span class="svc-n">${p.n}</span><h3>${p.title}</h3><p>${p.description}</p>
+      <button class="btn btn-sm" type="button" data-lead-start="${p.id}">${p.action}</button>
+    </article>`).join('');
+  const timing=$('#lead-timing'),oldTiming=timing.value;
+  $('#lead-timing-label').textContent=leads.timingLabel;
+  timing.innerHTML=leads.timing.map(([value,title])=>`<option value="${value}">${title}</option>`).join('');
+  if([...timing.options].some(o=>o.value===oldTiming))timing.value=oldTiming;
+  refreshLeadContext();
+
   document.querySelectorAll('.modal-close').forEach((b) => { b.setAttribute('aria-label', t.nav.close); b.title = t.nav.close; });
   const backLabel = lang === 'ru' ? 'Назад' : 'Back';
   $('#cv-back').setAttribute('aria-label', backLabel);
@@ -473,6 +499,12 @@ function render() {
   $('#projects-sub').textContent = t.projects.subtitle;
   renderCards();
   renderInvestors();
+  $('#nav-opportunities').textContent = lang === 'en' ? 'Opportunities' : 'Возможности';
+  mountOpportunityStudio(
+    $('#opportunities'), lang, PROJECTS,
+    (selection) => startContact(selection), INVESTOR_BLUEPRINTS,
+    (projectId) => openProject(projectId, 'investor')
+  );
 
   /* Продуктовые проекты выше — доказательство, а не витрина: тем, кто
      досмотрел до конца раздела, предлагаем тот же путь для своей задачи. */
@@ -547,6 +579,15 @@ function render() {
    чтобы ссылка, которой делятся, и заголовок страницы совпадали с тем, что видит человек. */
 $('#lang-toggle').addEventListener('click', () => {
   const next = lang === 'ru' ? 'en' : 'ru';
+  // Language variants have distinct canonical URLs: navigation reloads the
+  // document. Do NOT persist sensitive calculator amounts in storage or URL.
+  // Warn before dropping local hypothetical inputs, even if saved in another tab.
+  if ($('#opportunities')?.dataset.opportunityHasUnsavedInputs === 'true') {
+    const question = lang === 'ru'
+      ? 'При смене языка страница перезагрузится, а введённые числа предварительного расчёта не сохранятся. Продолжить?'
+      : 'Switching language reloads this page and clears your private calculator inputs. Continue?';
+    if (!window.confirm(question)) return;
+  }
   store.set('lang', next);
   location.href = (next === 'en' ? '/en/' : '/') + location.search + location.hash;
 });
@@ -640,6 +681,8 @@ function openProject(id, anchor) {
     <div class="frame ${p.device}"><img src="${src}" alt="${p.name} — ${i + 1}" loading="lazy"></div>`));
 
   gallery.innerHTML = frames.join('');
+  gallery.hidden = frames.length === 0;
+  $('#dots').hidden = frames.length === 0;
   /* Общий список для просмотрщика — в том же порядке, что и кадры в ленте:
      видео (если есть) первым, дальше снимки. Так стрелками можно листать
      видео и фото вместе, одним списком. */
@@ -661,6 +704,24 @@ function openProject(id, anchor) {
 
   $('#facts').innerHTML = ['what', 'who', 'why', 'how']
     .map((k) => `<div><dt>${t.projects.labels[k]}</dt><dd>${c[k]}</dd></div>`).join('');
+
+  const capabilities = $('#project-capabilities');
+  const caps = c.capabilities || [];
+  capabilities.hidden = !caps.length;
+  if(caps.length){
+    capabilities.innerHTML = `<h3>${lang === 'ru' ? 'Функциональная карта' : 'Functional map'}</h3><p>${lang === 'ru' ? 'Проектируемые и проверяемые сценарии. Это описание функций, а не снимки опубликованного интерфейса.' : 'Designed and testable workflows. Feature map, not screenshots of a deployed product.'}</p><table class="project-table"><thead><tr><th>${lang === 'ru' ? 'Контур' : 'Area'}</th><th>${lang === 'ru' ? 'Функциональность' : 'Capabilities'}</th></tr></thead><tbody>${caps.map(x=>`<tr><td>${x.area}</td><td>${x.feature}</td></tr>`).join('')}</tbody></table>`;
+  }else capabilities.innerHTML = '';
+  const economics = $('#project-investor');
+  const model = INVESTOR_BLUEPRINTS[id]?.[lang];
+  economics.hidden = !model;
+  if(model){
+    const labels = lang === 'ru' ? ['Консервативный','Базовый','Оптимистичный'] : ['Conservative','Base','Optimistic'];
+    economics.innerHTML = `<h3>${lang === 'ru'?'Инвестиционная модель — условия проверки':'Investment model — validation gates'}</h3><p>${lang === 'ru'?'Сценарии — гипотезы, а не прогноз выручки. Суммы траншей рассчитываются после проверки затрат и подписания договоров.':'Scenarios are hypotheses, not revenue forecasts. Tranche amounts require cost validation and executed contracts.'}</p><div class="project-economics"><p><strong>${lang === 'ru'?'Монетизация':'Revenue model'}:</strong> ${model.revenue}</p></div><div class="scenario-grid">${['conservative','base','optimistic'].map((k,i)=>`<article><h4>${labels[i]}</h4><p>${model[k]}</p></article>`).join('')}</div><h4>${lang === 'ru'?'Инвестиционные транши и условия выдачи':'Investment tranches and disbursement gates'}</h4><ol class="investor-checkpoints">${model.tranches.map(x=>`<li>${x}</li>`).join('')}</ol><div class="project-economics"><p><strong>${lang === 'ru'?'Критерий операционной безубыточности':'Operating break-even gate'}:</strong> ${model.breakEven}</p><p><strong>${lang === 'ru'?'Расчёт':'Formula'}:</strong> ${model.formula}</p><p><strong>${lang === 'ru'?'Проверяемые показатели':'Required evidence'}:</strong> ${model.evidence}</p></div>`;
+    const holder=document.createElement('div');
+    holder.className='investor-calculator-mount';
+    economics.append(holder);
+    mountInvestorCalculator(holder,{lang,projectId:id,gateLabels:model.tranches});
+  }else economics.innerHTML = '';
 
   const st = c.status;
   const s = t.projects.status;
@@ -714,6 +775,7 @@ function openProject(id, anchor) {
   body.scrollTop = 0;
   /* экраны грузятся лениво и меняют высоту — прокручиваем следующим кадром */
   if (anchor === 'status') requestAnimationFrame(() => $('#status').scrollIntoView({ block: 'start' }));
+  if (anchor === 'investor') requestAnimationFrame(() => economics.scrollIntoView({ block: 'start' }));
 }
 
 /* Закрыть раскрытую ленту (кнопкой ✕ внутри неё или повторным кликом по тумблеру):
@@ -819,10 +881,20 @@ $('#projects-more').addEventListener('click', () => {
 
 /* «Обсудить участие» — переносит проект в форму */
 $('#modal-cta').addEventListener('click', () => {
-  $('#topic').value = modal.dataset.project;
-  leave();
-  $('#contact').scrollIntoView({ behavior: 'smooth' });
-  setTimeout(() => $('#form [name="name"]').focus(), 400);
+  const id=modal.dataset.project,name=PROJECTS.find(p=>p.id===id)?.name||id;
+  const topic=T[lang].contact.topics[id]?id:'partnership';
+  startContact({topic,route:'pilot',project:id,goal:LEAD_COPY[lang].options[1].goal,
+    message:LEAD_COPY[lang].messagePilot(name)});
+});
+$('#modal-pilot').addEventListener('click',()=>{
+  const id=modal.dataset.project,name=PROJECTS.find(p=>p.id===id)?.name||id;
+  startContact({topic:'partnership',route:'pilot',project:id,goal:LEAD_COPY[lang].options[1].goal,
+    message:LEAD_COPY[lang].messagePilot(name)});
+});
+$('#modal-invest').addEventListener('click',()=>{
+  const id=modal.dataset.project,name=PROJECTS.find(p=>p.id===id)?.name||id;
+  startContact({topic:'investors',route:'investor',project:id,goal:LEAD_COPY[lang].options[2].goal,
+    message:LEAD_COPY[lang].messageInvestor(name)});
 });
 
 /* ---------- новости в верхней панели: свежие публикации сменяют друг друга ---------- */
@@ -1771,17 +1843,51 @@ function showInfo(hash) {
 }
 
 /* Общий ход «связаться»: подставляем тему и текст, закрываем окна и ведём к форме. */
-function startContact({ topic, topicOther, message }) {
-  $('#topic').value = topic;
-  if (topic === 'other') $('#topic-other').value = topicOther ?? '';
+function refreshLeadContext() {
+  const route=safeLeadRoute($('#lead-route-value').value);
+  const project=$('#lead-project-value').value;
+  const copy=LEAD_COPY[lang],option=copy.options.find(x=>x.id===route);
+  const projectName=PROJECTS.find(p=>p.id===project)?.name;
+  const context=$('#lead-context');
+  context.hidden=!option;
+  context.textContent=option?[copy.summary+': '+option.title,projectName].filter(Boolean).join(' · '):'';
+}
+function setLeadContext({route='',project='',goal=''}={}) {
+  const id=safeLeadRoute(route);
+  $('#lead-route-value').value=id;
+  $('#lead-project-value').value=PROJECTS.some(p=>p.id===project)?project:'';
+  $('#lead-goal-value').value=id?String(goal).slice(0,150):'';
+  refreshLeadContext();
+}
+let lastAutoContactMessage = '';
+function startContact({topic,topicOther,message,route,project='',goal=''}){
+  const hasTopic=[...$('#topic').options].some(o=>o.value===topic);
+  $('#topic').value=hasTopic?topic:'other';
+  if($('#topic').value==='other')$('#topic-other').value=topicOther??(project||'');
   syncTopicOther();
-  const msgEl = $('#form [name="message"]');
-  if (msgEl && message && !msgEl.value.trim()) msgEl.value = message;
+  const nextRoute=route===undefined?routeForTopic($('#topic').value):safeLeadRoute(route);
+  const routeOption=LEAD_COPY[lang].options.find(p=>p.id===nextRoute);
+  setLeadContext({route:nextRoute,project,goal:goal||routeOption?.goal||''});
+  document.querySelectorAll('.persona-chip').forEach(el=>el.classList.toggle('active',el.dataset.personaTopic===$('#topic').value));
+  const msgEl=$('#form [name="message"]');
+  // Do not overwrite a message the visitor edited. A previous autogenerated
+  // enquiry can be replaced when they switch from investor to client mode.
+  if (msgEl && message && (!msgEl.value.trim() || msgEl.value === lastAutoContactMessage)) {
+    msgEl.value = message;
+    lastAutoContactMessage = message;
+  }
+  window.track?.('lead_route_selected',nextRoute,project||'general');
   syncSubmit?.();
   leaveAll();
-  requestAnimationFrame(() => $('#contact').scrollIntoView({ behavior: 'smooth' }));
-  setTimeout(() => $('#form [name="name"]').focus(), 400);
+  requestAnimationFrame(()=>$('#contact').scrollIntoView({behavior:'smooth'}));
+  setTimeout(()=>$('#form [name="name"]').focus(),400);
 }
+$('#lead-routes-grid').addEventListener('click',(event)=>{
+  const id=event.target.closest('[data-lead-start]')?.dataset.leadStart;
+  const p=LEAD_COPY[lang].options.find(x=>x.id===id);
+  if(!p)return;
+  startContact({topic:p.topic,route:p.id,goal:p.goal});
+});
 
 $('#facts-bar').addEventListener('click', (e) => {
   const c = e.target.closest('[data-area-contact]');
@@ -2106,7 +2212,13 @@ function syncTopicOther() {
   field.hidden = !isOther;
   if (!isOther) $('#topic-other').value = '';
 }
-$('#topic').addEventListener('change', syncTopicOther);
+$('#topic').addEventListener('change',()=>{
+  syncTopicOther();
+  const route=routeForTopic($('#topic').value);
+  const p=LEAD_COPY[lang].options.find(x=>x.id===route);
+  setLeadContext({route,goal:p?.goal||''});
+  document.querySelectorAll('.persona-chip').forEach(el=>el.classList.toggle('active',el.dataset.personaTopic===$('#topic').value));
+});
 syncTopicOther();
 
 /* «Пишу как юридическое лицо» — раскрывает необязательные поля названия и ИНН. */
@@ -2144,6 +2256,9 @@ $('#persona-picker').addEventListener('click', (e) => {
   if (!b) return;
   $('#topic').value = b.dataset.personaTopic;
   syncTopicOther();
+  const route=routeForTopic($('#topic').value);
+  const p=LEAD_COPY[lang].options.find(x=>x.id===route);
+  setLeadContext({route,goal:p?.goal||''});
   $('#form [name="name"]').focus();
   document.querySelectorAll('.persona-chip').forEach((el) => el.classList.toggle('active', el === b));
 });
@@ -2156,7 +2271,7 @@ $('#form').addEventListener('submit', async (e) => {
   const data = Object.fromEntries(new FormData(form));
 
   if (data.company) return;                       // honeypot: бот заполнил скрытое поле
-  if (window.turnstile && !data['cf-turnstile-response']) {
+  if (!data['cf-turnstile-response']) {
     note.className = 'form-note';
     note.textContent = t.contact.captchaWait;
     return;
@@ -2208,17 +2323,20 @@ $('#form').addEventListener('submit', async (e) => {
       });
     }
     if (!res.ok) throw new Error(String(res.status));
-    note.className = 'form-note ok';
-    note.textContent = t.contact.ok;
     window.dispatchEvent(new Event('track:form-sent'));
     form.reset();
-    clearDraft();
+    // Hidden inputs reflect their value attribute; form.reset() alone does not clear them.
+    setLeadContext();
+    document.querySelectorAll('.persona-chip').forEach(el=>el.classList.remove('active'));
     showFile();
     syncEntityFields();
     syncOptional();
     syncSubmit();
-    /* токен Turnstile одноразовый — без сброса повторная отправка уйдёт с протухшим */
-    window.turnstile?.reset();
+    clearDraft();
+    /* Reset widget separately: a UI clean-up error must not turn a delivered lead into a false failure. */
+    try { window.turnstile?.reset(); } catch (error) { console.warn('Turnstile reset deferred'); }
+    note.className = 'form-note ok';
+    note.textContent = t.contact.ok;
   } catch (err) {
     window.track?.('form_error', '', 'сбой отправки');
     note.className = 'form-note';
@@ -2283,6 +2401,23 @@ function renderDeck() {
     d.glossary.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('') + '</dl>';
   $('#deck-footnote').textContent = d.footnote;
   $('#deck-pdf-2').textContent = d.download;
+
+  /* Keep the calculator isolated from contact payloads. Route to a normal
+     client enquiry using the existing qualified lead context, never copy financial values. */
+  $('#deck-economics')?.remove();
+  const economics = document.createElement('section');
+  economics.id = 'deck-economics';
+  $('#deck-blocks').before(economics);
+  mountAdvisoryEconomics(economics, lang, () => {
+    startContact({
+      topic:'consulting',
+      route:'client',
+      goal:lang === 'en' ? 'Inventory and working capital diagnostic' : 'Диагностика запасов и оборотного капитала',
+      message:lang === 'en'
+        ? 'I would like to discuss inventory and working capital diagnostics.'
+        : 'Хочу обсудить диагностику товарных запасов и оборотного капитала.'
+    });
+  });
 
   $('#deck-blocks').innerHTML = d.blocks.map((b) => `
     <section class="deck-block" id="deck-${b.id}">

@@ -9,3 +9,7 @@ node_modules/
 telegram.env
 published.json
 .claude/worktrees/
+
+# Output-only public deployment bundle and CI evidence.
+dist-pages/
+qa-artifacts/

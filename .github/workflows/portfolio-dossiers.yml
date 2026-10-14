@@ -1,0 +1,150 @@
+name: Portfolio bilingual dossier integrity
+on:
+  pull_request:
+    paths:
+      - 'assets/app.js'
+      - 'assets/content.js'
+      - 'assets/logos.js'
+      - 'assets/styles.css'
+      - 'assets/portfolio-extensions.js'
+      - 'assets/investor-calculator.js'
+      - 'assets/advisory-economics.js'
+      - 'assets/opportunity-copy.js'
+      - 'assets/opportunity-economics.js'
+      - 'assets/opportunity-studio.js'
+      - 'scripts/verify-opportunity-studio.mjs'
+      - 'scripts/browser-opportunity-studio-qa.mjs'
+      - 'docs/PAGE_V2_COMMERCIAL_OFFER_ARCHITECTURE_2026-10-14.md'
+      - 'assets/deck.js'
+      - 'scripts/verify-advisory-economics.mjs'
+      - 'scripts/browser-advisory-economics-qa.mjs'
+      - 'docs/PAGE_ADVISORY_ECONOMICS_2026-10-13.md'
+      - 'assets/lead-paths.js'
+      - 'assets/news.js'
+      - 'feed.xml'
+      - 'feed.json'
+      - 'en/feed.xml'
+      - 'en/feed.json'
+      - 'scripts/verify-v2-editorial-preservation.mjs'
+      - 'scripts/verify-live-release-contract.mjs'
+      - 'scripts/browser-v2-language-privacy-qa.mjs'
+      - 'docs/PAGE_V2_RELEASE_AUDIT_2026-10-15.md'
+      - 'functions/api/contact.js'
+      - 'functions/api/_lib.js'
+      - 'functions/api/cron.js'
+      - 'functions/api/t.js'
+      - 'functions/api/stats.js'
+      - 'functions/stats.js'
+      - 'scripts/verify-publishing-admission.mjs'
+      - 'scripts/verify-live-release.mjs'
+      - 'functions/api/posts.js'
+      - 'scripts/build-en.mjs'
+      - 'scripts/make-feed.mjs'
+      - 'scripts/tg-queue.mjs'
+      - 'scripts/verify-qualified-leads.mjs'
+      - 'scripts/browser-lead-routes-qa.mjs'
+      - 'scripts/verify-editorial-queue.mjs'
+      - 'channel-queue.json'
+      - 'docs/PAGE_V2_CLOUDFLARE_RELEASE_ADMISSION_2026-10-13.md'
+      - 'docs/PAGE_V2_RELEASE_CONVERSION_EDITORIAL_2026-10-13.md'
+      - 'package.json'
+      - 'scripts/prepare-pages-release.mjs'
+      - 'scripts/verify-pages-release.mjs'
+      - 'scripts/prerender.mjs'
+      - '.gitignore'
+      - 'index.html'
+      - 'en/index.html'
+      - 'scripts/verify-investor-dossiers.mjs'
+      - 'scripts/verify-investor-calculator.mjs'
+      - 'scripts/browser-portfolio-qa.mjs'
+      - '.github/workflows/portfolio-dossiers.yml'
+  workflow_dispatch:
+concurrency:
+  group: portfolio-dossiers-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - name: Assert exact checked-out PR head
+        run: |
+          test "$(git rev-parse HEAD)" = "${{ github.event.pull_request.head.sha || github.sha }}"
+          echo "Verified checkout SHA: $(git rev-parse HEAD)"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --check assets/investor-calculator.js
+      - run: node --check assets/advisory-economics.js
+      - run: node --check assets/opportunity-copy.js
+      - run: node --check assets/opportunity-economics.js
+      - run: node --check assets/opportunity-studio.js
+      - run: node --check scripts/verify-opportunity-studio.mjs
+      - run: node --check scripts/browser-opportunity-studio-qa.mjs
+      - run: node --check assets/deck.js
+      - run: node --check scripts/verify-advisory-economics.mjs
+      - run: node --check scripts/browser-advisory-economics-qa.mjs
+      - run: node --check assets/lead-paths.js
+      - run: node --check assets/news.js
+      - run: node --check functions/api/contact.js
+      - run: node --check functions/api/_lib.js
+      - run: node --check functions/api/cron.js
+      - run: node --check functions/api/t.js
+      - run: node --check functions/api/stats.js
+      - run: node --check functions/stats.js
+      - run: node --check scripts/verify-live-release.mjs
+      - run: node --check scripts/verify-live-release-contract.mjs
+      - run: node --check scripts/browser-v2-language-privacy-qa.mjs
+      - run: node --check scripts/verify-v2-editorial-preservation.mjs
+      - run: node --check functions/api/posts.js
+      - run: node --check scripts/tg-queue.mjs
+      - run: node --check assets/app.js
+      - run: node --check assets/content.js
+      - run: node --check assets/portfolio-extensions.js
+      - run: node --check assets/logos.js
+      - run: node scripts/verify-investor-dossiers.mjs
+      - run: node scripts/verify-investor-calculator.mjs
+      - run: node scripts/verify-qualified-leads.mjs
+      - run: node scripts/verify-advisory-economics.mjs
+      - run: node scripts/verify-opportunity-studio.mjs
+      - run: node scripts/verify-editorial-queue.mjs
+      - run: node scripts/verify-v2-editorial-preservation.mjs
+      - run: node scripts/verify-live-release-contract.mjs
+      - run: node scripts/verify-publishing-admission.mjs
+      - run: npm run build
+      - name: Verify exact RU/EN editorial and no generated feed drift
+        run: |
+          node scripts/verify-v2-editorial-preservation.mjs --rendered
+          git diff --exit-code -- feed.xml feed.json en/feed.xml en/feed.json
+      - run: node scripts/verify-opportunity-studio.mjs
+      - run: npm run package:pages
+      - run: node scripts/verify-pages-release.mjs
+      - run: node scripts/verify-investor-dossiers.mjs
+      - run: npm install --no-save playwright@1.58.2
+      - run: npx playwright install --with-deps chromium
+      - name: Chromium RU and EN responsive acceptance
+        run: |
+          python3 -m http.server 4321 --bind 127.0.0.1 --directory dist-pages >/tmp/portfolio-http.log 2>&1 &
+          node scripts/browser-portfolio-qa.mjs
+          node scripts/browser-lead-routes-qa.mjs
+          node scripts/browser-advisory-economics-qa.mjs
+          node scripts/browser-opportunity-studio-qa.mjs
+          node scripts/browser-v2-language-privacy-qa.mjs
+      - uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: cloudflare-pages-static-${{ github.event.pull_request.head.sha || github.sha }}
+          path: dist-pages/
+          retention-days: 7
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: bilingual-portfolio-browser-qa
+          path: qa-artifacts/
+          if-no-files-found: ignore
