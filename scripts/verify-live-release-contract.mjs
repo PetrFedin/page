@@ -32,6 +32,10 @@ function responder(path) {
     moduleNames.map(x=>"import './"+x+"?v=new';").join('\n'),'text/javascript');
   if(path.startsWith('/assets/styles.css'))return response('.opportunity-studio{}','text/css');
   if(moduleNames.some(x=>path.startsWith('/assets/'+x)))return response('export const ready = true;','text/javascript');
+  if(path==='/release-health.json')return response(JSON.stringify({
+    source_sha:sha,bundle:'public-static-only',functions_bundled:false,
+    languages:['ru','en'],asset_count:50
+  }),'application/json');
   if(path==='/sitemap.xml')return response('<?xml version="1.0"?><urlset/>','application/xml');
   if(path==='/robots.txt')return response('User-agent: *\nAllow: /','text/plain');
   if(path.endsWith('feed.xml'))return response('<rss><channel><item><guid>#post-'+date+'</guid></item></channel></rss>','application/rss+xml');
@@ -81,6 +85,15 @@ await assert.rejects(verifyLiveRelease({
       ?response('<html>SPA fallback</html>','text/html'):fetcher(url,opts);
   }
 }),/expected JS MIME/);
+await assert.rejects(verifyLiveRelease({
+  releaseUrl:domain,expectedSha:sha,expectedEditorialDate:date,
+  fetcher:async(url,opts)=>{
+    const path=new URL(url).pathname;
+    return path==='/release-health.json'
+      ? response('<!doctype html><html>fallback</html>','text/html')
+      : fetcher(url,opts);
+  }
+}),/expected JSON MIME/);
 await assert.rejects(verifyLiveRelease({
   releaseUrl:domain,expectedSha:sha,expectedEditorialDate:date,
   fetcher:async(url,opts)=>{
