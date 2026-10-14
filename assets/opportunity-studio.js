@@ -123,7 +123,7 @@ export function mountOpportunityStudio(host, language, projects, startContact, b
         '<ul class="op-sources">'+t.samples.map(([brand,amount,url])=>
           '<li><a href="'+escapeHtml(url)+'" rel="noopener noreferrer" target="_blank">'+
           escapeHtml(brand)+'</a><span>'+escapeHtml(amount)+'</span></li>').join('')+'</ul>' +
-        '<p class="op-caveat">'+escapeHtml(t.benchmark)+'</p>' +
+        '<p class="op-caveat"><a href="https://clutch.co/developers/pricing" rel="noopener noreferrer" target="_blank">Clutch — Software Development Pricing Guide (2026)</a>. '+escapeHtml(t.benchmark)+'</p>' +
         '<p class="op-caveat">'+escapeHtml(t.notQuoted)+'</p>';
     }
     if (mode === 'transform') {
