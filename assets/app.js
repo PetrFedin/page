@@ -175,7 +175,7 @@ function renderInvestors() {
   $('#investors-lead').textContent = iv.lead;
   $('#investors-list').className = 'inv-list snap snap-fit';
   $('#investors-list').innerHTML = iv.formats.map((f, i) => `
-    <article class="inv-card mini" id="inv-${f.id}" data-idx="${i}" tabindex="0" role="button" aria-label="${f.title}">
+    <article class="inv-card mini" id="inv-${f.id}" data-idx="${i}">
       <span class="svc-n">${String(i + 1).padStart(2, '0')}</span>
       <h3>${f.title}</h3>
       <p class="inv-tag">${f.tagline}</p>
@@ -224,19 +224,19 @@ $('#coop-talk').addEventListener('click', () => {
   startContact({ topic: 'investors', message: iv.contactMessages[id] ?? '' });
 });
 $('#investors-list').addEventListener('click', (e) => {
-  const b = e.target.closest('[data-inv-talk]');
-  if (b) {
+  const talk = e.target.closest('[data-inv-talk]');
+  if (talk) {
     const iv = T[lang].investors;
-    return startContact({ topic: 'investors', message: iv.contactMessages[b.dataset.invTalk] ?? '' });
+    return startContact({ topic: 'investors', message: iv.contactMessages[talk.dataset.invTalk] ?? '' });
   }
-  /* карточка целиком открывает формат; кнопки внутри делают своё */
+  // The article is a semantic container, not a button with nested buttons.
+  // Each card exposes a real "Read more" button for keyboard/AT users while
+  // allowing pointer users to click its non-interactive surface.
+  const read = e.target.closest('[data-coop-open]');
+  if (read) return openCoop(Number(read.dataset.coopOpen));
+  if (e.target.closest('button, a, input, select, textarea')) return;
   const card = e.target.closest('.inv-card');
-  if (card) openCoop(+card.dataset.idx);
-});
-$('#investors-list').addEventListener('keydown', (e) => {
-  if (e.key !== 'Enter' && e.key !== ' ') return;
-  const card = e.target.closest('.inv-card');
-  if (card && e.target === card) { e.preventDefault(); openCoop(+card.dataset.idx); }
+  if (card) return openCoop(Number(card.dataset.idx));
 });
 
 /* ---------- «Подобрать формат сотрудничества»: тест на шесть форматов ---------- */
