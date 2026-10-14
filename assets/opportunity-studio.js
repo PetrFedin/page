@@ -27,6 +27,11 @@ const cardsHtml = rows => '<div class="op-choices">' + rows.map((r, i) =>
 
 export function mountOpportunityStudio(host, language, projects, startContact, blueprints = {}) {
   if (!host || !Array.isArray(projects)) throw new TypeError('Opportunity studio needs a mount element and projects');
+  // The parent V2 render runs again on RU/EN toggle. Aborting old delegated
+  // listeners prevents duplicate form navigations or stale-language handlers.
+  host.__opportunityController?.abort();
+  const controller = new AbortController();
+  host.__opportunityController = controller;
   const lang = language === 'en' ? 'en' : 'ru';
   const t = OPPORTUNITY_COPY[lang];
   const money = new Intl.NumberFormat(lang==='ru'?'ru-RU':'en-US', {
@@ -274,17 +279,17 @@ export function mountOpportunityStudio(host, language, projects, startContact, b
     if(!button)return;
     if(button.dataset.opAction==='example')applyExample();
     if(button.dataset.opAction==='contact')contact();
-  });
+  },{signal:controller.signal});
   host.addEventListener('change',event=>{
     if(event.target.matches('[data-op-project]')){
       selectedProject=event.target.value;
       projectContext();
       if(active==='capital')renderPanel();
     } else if(event.target.matches('[data-op-input]'))recalc();
-  });
+  },{signal:controller.signal});
   host.addEventListener('input',event=>{
     if(event.target.matches('[data-op-input]'))recalc();
-  });
+  },{signal:controller.signal});
   projectContext();
   renderPanel();
 }
