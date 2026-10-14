@@ -57,6 +57,12 @@ for(const lang of cases){
     await section.locator('[data-op-mode="capital"]').click();
     assert.equal(await section.locator('.op-project-plan li').count(),3,
       'Three sourced project financing milestones');
+    await section.locator('[data-op-action="project-economics"]').click();
+    await page.locator('#modal[open]').waitFor();
+    assert.equal(await page.locator('#modal #project-investor .investor-calculator').count(),1,
+      'Existing in-depth 12/24/36 month funding model linked');
+    await page.locator('#modal-close').click();
+    await page.locator('#modal[open]').waitFor({state:'hidden'});
     assert.equal(await section.locator('[data-op-metrics]').isVisible(),false);
     await section.locator('[data-op-action="example"]').click();
     assert.equal(await section.locator('[data-op-metrics]').isVisible(),true);
