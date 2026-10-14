@@ -2,7 +2,7 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { PROJECTS as CORE } from '../assets/content.js';
-import { EXTRA_PROJECTS } from '../assets/portfolio-extensions.js';
+import { EXTRA_PROJECTS as EXTRA } from '../assets/portfolio-extensions.js';
 
 const read=path=>readFileSync(new URL('../'+path,import.meta.url),'utf8');
 const paths=[
