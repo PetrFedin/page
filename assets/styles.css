@@ -1959,3 +1959,39 @@ a.lang{display:inline-flex; align-items:center; justify-content:center; text-dec
   .op-modes,.op-metrics{grid-template-columns:1fr}
   .op-actions .btn{width:100%}
 }
+
+
+/* WCAG 2.2 touch-target admission: keep 6-8 px visual indicator while
+   ensuring every carousel/pagination control has a >= 24px hit target.
+   Contrast and size tests cover RU/EN desktop and phone in axe-core QA. */
+.snap-dots button{
+  width:34px;
+  min-width:34px;
+  height:34px;
+  min-height:34px;
+  padding:14px;
+  background-clip:content-box;
+}
+.snap-dots button[aria-current="true"]{width:42px;min-width:42px}
+.dots{gap:2px}
+.dots .dot{
+  box-sizing:border-box;
+  width:34px;
+  min-width:34px;
+  height:34px;
+  min-height:34px;
+  padding:13px;
+  border:0;
+  background:var(--line);
+  background-clip:content-box;
+}
+.dots .dot[aria-current="true"]{
+  width:42px;
+  min-width:42px;
+  background-color:var(--accent);
+}
+.snap-dots button:focus-visible,.dots .dot:focus-visible,.inv-read:focus-visible{
+  outline:2px solid var(--accent);
+  outline-offset:2px;
+}
+.inv-card.mini:focus-within{border-color:var(--accent)}
