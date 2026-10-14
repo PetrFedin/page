@@ -114,6 +114,11 @@ export async function verifyLiveRelease({
     'opportunity-copy.js','advisory-economics.js','lead-paths.js','investor-calculator.js']) {
     assert.ok([...jsVisited].some(p=>p.startsWith('/assets/'+module)), 'Release is missing '+module);
   }
+  const health = JSON.parse(await get('/release-health.json', 'json'));
+  assert.equal(health.source_sha, expectedSha, 'Public health marker differs from reviewed Git SHA');
+  assert.equal(health.bundle, 'public-static-only', 'Unexpected public bundle type');
+  assert.equal(health.functions_bundled, false, 'Static health marker cannot assert deployed server functions');
+  assert.deepEqual(health.languages, ['ru','en'], 'Expected two-language release');
   await get('/sitemap.xml', 'xml');
   await get('/robots.txt');
   for (const prefix of ['/','/en/']) {
