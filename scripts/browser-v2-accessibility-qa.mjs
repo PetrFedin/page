@@ -47,6 +47,15 @@ try {
       });
       assert.equal(response.status(),200);
       await page.locator('#opportunities [data-op-mode="build"]').waitFor();
+      assert.equal(await page.locator('#investors-list .inv-card[role="button"]').count(),0,
+        'Investor article may not contain nested interactive button semantics');
+      assert.equal(await page.locator('#investors-list [data-coop-open]').count(),6,
+        'Investor formats need explicit keyboard-accessible read controls');
+      const tooSmall=await page.evaluate(()=>[...document.querySelectorAll('.snap-dots button')]
+        .filter(el=>el.getClientRects().length>0)
+        .filter(el=>{const b=el.getBoundingClientRect();return b.width<24||b.height<24;})
+        .map(el=>el.outerHTML.slice(0,150)));
+      assert.deepEqual(tooSmall,[],'All visible carousel targets must be at least 24x24 CSS px');
       await audit(page,lang+'/'+width+'/full-page');
       const op=page.locator('#opportunities');
       for(const mode of ['transform','access','capital']){
@@ -57,9 +66,18 @@ try {
       // Existing project modal is part of a real customer/investor flow.
       await page.locator('#cards [data-open="syntha"]').click();
       await page.locator('#modal[open]').waitFor();
+      const tinyDots=await page.locator('#dots .dot:visible').evaluateAll(nodes=>nodes
+        .filter(el=>{const b=el.getBoundingClientRect();return b.width<24||b.height<24;})
+        .map(el=>el.outerHTML.slice(0,100)));
+      assert.deepEqual(tinyDots,[],'Gallery pagination must expose 24x24 touch targets');
       await audit(page,lang+'/'+width+'/project-modal','#modal');
       await page.locator('#modal-close').click();
       await page.locator('#modal').waitFor({state:'hidden'});
+      await page.locator('#investors-list [data-coop-open]').first().focus();
+      await page.keyboard.press('Enter');
+      await page.locator('#coop-modal[open]').waitFor();
+      await page.locator('#coop-close').click();
+      await page.locator('#coop-modal').waitFor({state:'hidden'});
       await context.close();
     }
   }
