@@ -54,7 +54,9 @@ export async function verifyLiveRelease({
     url.hostname.endsWith('.pages.dev'), 'Only SYNTHA or Cloudflare Pages previews are permitted');
   if (expectedEditorialDate) {
     assert.match(expectedEditorialDate, /^\d{4}-\d\d-\d\d$/, 'Editorial date must be YYYY-MM-DD');
-    assert.equal(new Date(expectedEditorialDate + 'T00:00:00Z').toISOString().slice(0,10),
+    const parsedDate = new Date(expectedEditorialDate + 'T00:00:00Z');
+    assert.ok(Number.isFinite(parsedDate.getTime()), 'Editorial date must be real');
+    assert.equal(parsedDate.toISOString().slice(0,10),
       expectedEditorialDate, 'Editorial date must be real');
   }
   const root = url.origin;
