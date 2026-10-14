@@ -32,9 +32,12 @@ async function audit(page,label,selector) {
 try {
   for(const lang of ['ru','en']){
     for(const width of [390,1440]){
-      const page=await browser.newPage({
+      // axe-core injects into isolated BrowserContext; browser.newPage()
+      // creates a shared ownerless context that this library rejects.
+      const context=await browser.newContext({
         viewport:{width,height:900},reducedMotion:'reduce'
       });
+      const page=await context.newPage();
       page.on('dialog',d=>d.dismiss());
       // Do not request live Cloudflare CAPTCHA or third-party private data.
       await page.route('https://challenges.cloudflare.com/**',r=>
@@ -57,7 +60,7 @@ try {
       await audit(page,lang+'/'+width+'/project-modal','#modal');
       await page.locator('#modal-close').click();
       await page.locator('#modal').waitFor({state:'hidden'});
-      await page.close();
+      await context.close();
     }
   }
   writeFileSync('qa-artifacts/v2-accessibility-audit.json',JSON.stringify({
