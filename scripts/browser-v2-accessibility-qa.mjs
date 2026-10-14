@@ -52,11 +52,11 @@ try {
         await audit(page,lang+'/'+width+'/opportunity-'+mode,'#opportunities');
       }
       // Existing project modal is part of a real customer/investor flow.
-      await page.locator('#projects #cards .card').first().click();
-      if(await page.locator('#modal[open]').count()) {
-        await audit(page,lang+'/'+width+'/project-modal','#modal');
-        await page.locator('#modal-close').click();
-      }
+      await page.locator('#cards [data-open="syntha"]').click();
+      await page.locator('#modal[open]').waitFor();
+      await audit(page,lang+'/'+width+'/project-modal','#modal');
+      await page.locator('#modal-close').click();
+      await page.locator('#modal').waitFor({state:'hidden'});
       await page.close();
     }
   }
