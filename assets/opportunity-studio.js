@@ -25,7 +25,7 @@ const cardsHtml = rows => '<div class="op-choices">' + rows.map((r, i) =>
   '</span><h4>' + escapeHtml(r[0]) + '</h4><p>' + escapeHtml(r[1]) +
   '</p><p class="op-caveat">' + escapeHtml(r[2]) + '</p></article>').join('') + '</div>';
 
-export function mountOpportunityStudio(host, language, projects, startContact) {
+export function mountOpportunityStudio(host, language, projects, startContact, blueprints = {}) {
   if (!host || !Array.isArray(projects)) throw new TypeError('Opportunity studio needs a mount element and projects');
   const lang = language === 'en' ? 'en' : 'ru';
   const t = OPPORTUNITY_COPY[lang];
@@ -85,6 +85,20 @@ export function mountOpportunityStudio(host, language, projects, startContact) {
       '<p data-op-status class="op-status" role="status" aria-live="polite">' + escapeHtml(t.empty) + '</p>' +
       '<dl class="op-metrics" data-op-metrics hidden>' +
       metrics.map(m=>metricHtml(...m)).join('')+'</dl>';
+  }
+  function projectPlanHtml() {
+    const blueprint = blueprints[selectedProject]?.[lang];
+    if (!blueprint) return '';
+    const header = lang === 'ru'
+      ? 'План финансируемых этапов выбранного проекта'
+      : 'Project-specific, milestone-funded roadmap';
+    const stages = (blueprint.tranches || []).map((item,i)=>
+      '<li>' + escapeHtml(String(i+1)+'. '+item) + '</li>').join('');
+    const modelLabel = lang === 'ru' ? 'Возможная модель выручки' : 'Possible revenue model';
+    const proofLabel = lang === 'ru' ? 'Что понадобится подтвердить' : 'Evidence required';
+    return '<aside class="op-project-plan"><h4>' + escapeHtml(header) + '</h4>' +
+      '<p>' + escapeHtml(modelLabel+': '+blueprint.revenue) + '</p><ol>' +
+      stages + '</ol><p>' + escapeHtml(proofLabel+': '+blueprint.evidence) + '</p></aside>';
   }
   function panelHtml(mode) {
     if (mode === 'build') {
@@ -160,7 +174,7 @@ export function mountOpportunityStudio(host, language, projects, startContact) {
       '<p class="op-caveat">'+escapeHtml(t.financingNote)+'</p>'+
       '<h4 class="op-subhead">'+escapeHtml(t.useFunds)+'</h4>'+cardsHtml(t.capitalSteps)+
       '<h4 class="op-subhead">'+escapeHtml(t.needsTitle)+'</h4>'+
-      cardsHtml(t.projectRoles.map((r,i)=>[r[0],r[1],'']));
+      cardsHtml(t.projectRoles.map((r,i)=>[r[0],r[1],'']))+projectPlanHtml();
   }
   const currentValues = () => {
     const vals = {};
@@ -265,6 +279,7 @@ export function mountOpportunityStudio(host, language, projects, startContact) {
     if(event.target.matches('[data-op-project]')){
       selectedProject=event.target.value;
       projectContext();
+      if(active==='capital')renderPanel();
     } else if(event.target.matches('[data-op-input]'))recalc();
   });
   host.addEventListener('input',event=>{
