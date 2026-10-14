@@ -30,6 +30,7 @@ on:
       - 'scripts/verify-v2-editorial-preservation.mjs'
       - 'scripts/verify-live-release-contract.mjs'
       - 'scripts/browser-v2-language-privacy-qa.mjs'
+      - 'scripts/browser-v2-page-integrity-qa.mjs'
       - 'docs/PAGE_V2_RELEASE_AUDIT_2026-10-15.md'
       - 'functions/api/contact.js'
       - 'scripts/verify-main-contact-security.mjs'
@@ -104,6 +105,7 @@ jobs:
       - run: node --check scripts/verify-live-release.mjs
       - run: node --check scripts/verify-live-release-contract.mjs
       - run: node --check scripts/browser-v2-language-privacy-qa.mjs
+      - run: node --check scripts/browser-v2-page-integrity-qa.mjs
       - run: node --check scripts/verify-v2-editorial-preservation.mjs
       - run: node --check functions/api/posts.js
       - run: node --check scripts/tg-queue.mjs
@@ -142,6 +144,7 @@ jobs:
           node scripts/browser-advisory-economics-qa.mjs
           node scripts/browser-opportunity-studio-qa.mjs
           node scripts/browser-v2-language-privacy-qa.mjs
+          node scripts/browser-v2-page-integrity-qa.mjs
       - uses: actions/upload-artifact@v4
         if: success()
         with:
