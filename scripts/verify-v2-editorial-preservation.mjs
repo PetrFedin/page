@@ -11,6 +11,11 @@ assert.equal(article.length,1,'Oct 13 approved publication must remain unique');
 assert.equal(article[0].site,true,'V2 may not revoke approved Oct 13 editorial');
 for(const lang of ['ru','en']){
   assert.ok(article[0][lang]?.title && article[0][lang]?.body?.length>400,'Missing approved '+lang+' body');
+  const telegram=article[0].tg?.[lang];
+  assert.equal(telegram?.title,article[0][lang].title,'Telegram copy must use approved title: '+lang);
+  assert.ok(telegram?.body?.includes('https://syntha.pro/'+(lang==='en'?'en/':'')+'#post-'+date),
+    'Telegram one-off preview must link to the same approved live article: '+lang);
+  assert.ok(telegram.body.length<3500,'Keep Telegram preview within text budget: '+lang);
 }
 assert.ok(!queue.order.includes(date),'Oct 13 must not enter unattended Telegram queue');
 assert.ok(!queue.paused.includes(date),'Oct 13 is already approved for website, not an editorial draft');
