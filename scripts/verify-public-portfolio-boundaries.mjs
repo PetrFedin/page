@@ -33,6 +33,12 @@ const art=all.find(p=>p.id==='antiqua');
 assert.ok(art?.ru?.card.includes('живописи'),'Antiqua must describe paintings and works on paper');
 assert.doesNotMatch(JSON.stringify(art.ru)+JSON.stringify(art.en),/антиквариат|антикварных|antiques\b/i,
   'Antiqua public scope must not revert to antiques/collectibles');
+const healthcare=all.find(p=>p.id==='promomed');
+assert.ok(healthcare,'Missing independent health event concept');
+assert.match(healthcare.ru.stage,/Независимый прототип/, 'Independent concept must be clearly visible in RU stage');
+assert.match(healthcare.en.stage,/Independent concept/, 'Independent concept must be clearly visible in EN stage');
+assert.doesNotMatch(healthcare.ru.who,/«Промомед» получает/, 'Do not assert measured Promomed client benefit');
+assert.doesNotMatch(healthcare.en.who,/Promomed gains/, 'Do not assert corporate approval or observed outcome');
 const fur=all.find(p=>p.id==='fur');
 assert.equal(fur.name,'FUR PRODUCTION','FUR must remain a neutral platform dossier');
 const client=all.find(p=>p.id==='marco');
