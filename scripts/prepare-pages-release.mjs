@@ -76,6 +76,17 @@ for(const forbidden of ['functions/','scripts/','docs/','private/','.github/','.
 }
 assert.ok(!paths.includes('channel-queue.json'),'publication queue must remain private');
 assert.ok(!paths.includes('package.json'),'build metadata must not be publicly hosted');
+/* Public read-only source marker; does not claim the Cloudflare Function is
+   deployed or that production contact/Telegram acceptance has passed. */
+const health = {
+  source_sha: sourceSha,
+  bundle: 'public-static-only',
+  functions_bundled: false,
+  languages: ['ru','en'],
+  asset_count: paths.length + 1
+};
+writeFileSync(join(dist,'release-health.json'),JSON.stringify(health,null,2)+'\n');
+paths.push('release-health.json');
 mkdirSync(join(root,'qa-artifacts'),{recursive:true});
 writeFileSync(join(root,'qa-artifacts','pages-release-manifest.json'),
  JSON.stringify({sourceSha,files:paths.length,includesFunctions:false,assets:paths},null,2)+'\n');

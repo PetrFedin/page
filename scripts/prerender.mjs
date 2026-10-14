@@ -36,14 +36,35 @@ const base = `http://127.0.0.1:${server.address().port}`;
 
 const port = 9400 + Math.floor(Math.random() * 400);
 const profile = mkdtempSync(join(tmpdir(), 'prerender-'));
-const chrome = spawn(CHROME, ['--headless=new', `--remote-debugging-port=${port}`, `--user-data-dir=${profile}`, '--remote-allow-origins=*', '--hide-scrollbars', 'about:blank'], { detached: true, stdio: 'ignore' });
+const args = ['--headless=new', `--remote-debugging-port=${port}`, `--user-data-dir=${profile}`, '--remote-allow-origins=*', '--hide-scrollbars', 'about:blank'];
+// GitHub-hosted Linux Chromium requires explicit sandbox bypass; local macOS
+// keeps the normal browser startup flags.
+if (process.platform === 'linux' && process.env.CI) args.unshift('--no-sandbox', '--disable-dev-shm-usage');
+const chrome = spawn(CHROME, args, { detached: true, stdio: ['ignore', 'ignore', 'pipe'] });
+let chromeDiagnostic = '';
+chrome.stderr.on('data', (chunk) => { chromeDiagnostic = (chromeDiagnostic + chunk.toString()).slice(-2400); });
+chrome.on('error', (err) => { chromeDiagnostic = (chromeDiagnostic + '\n' + String(err)).slice(-2400); });
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-const cleanup = () => { try { process.kill(-chrome.pid); } catch { /* уже закрыт */ } server.close(); try { rmSync(profile, { recursive: true, force: true }); } catch { /* не страшно */ } };
+const cleanup = () => { try { if (chrome.pid) process.kill(-chrome.pid); } catch { /* уже закрыт */ } server.close(); try { rmSync(profile, { recursive: true, force: true }); } catch { /* не страшно */ } };
 
 let tabs;
-for (let i = 0; i < 60; i++) { try { tabs = await (await fetch(`http://127.0.0.1:${port}/json`)).json(); break; } catch { await sleep(250); } }
-if (!tabs) { cleanup(); throw new Error('Chrome не запустился'); }
-const ws = new WebSocket(tabs.find((t) => t.type === 'page').webSocketDebuggerUrl);
+for (let i = 0; i < 60; i++) {
+  try {
+    const response = await fetch(`http://127.0.0.1:${port}/json`);
+    if (response.ok) {
+      const found = await response.json();
+      if (found.some(t => t.type === 'page' && t.webSocketDebuggerUrl)) { tabs = found; break; }
+    }
+  } catch { /* Chrome debugger not ready */ }
+  if (chrome.exitCode != null || chromeDiagnostic.includes('spawn ')) break;
+  await sleep(250);
+}
+if (!tabs) {
+  const detail = `exit=${chrome.exitCode ?? 'unknown'} binary=${CHROME}\n${chromeDiagnostic}`;
+  cleanup();
+  throw new Error('Chrome не запустился. ' + detail);
+}
+const ws = new WebSocket(tabs.find((t) => t.type === 'page' && t.webSocketDebuggerUrl).webSocketDebuggerUrl);
 await new Promise((r) => (ws.onopen = r));
 let id = 0; const pend = new Map();
 ws.onmessage = (e) => { const m = JSON.parse(e.data); if (m.id && pend.has(m.id)) { pend.get(m.id)(m); pend.delete(m.id); } };

@@ -70,6 +70,19 @@ export function mountOpportunityStudio(host, language, projects, startContact, b
   // In-memory only: switching tabs preserves the provisional calculation
   // without persisting any user data to storage.
   const drafts = new Map();
+  const financialFields = new Set([
+    'hours','hoursPerWeek','reusePercent','manualHours','hourlyCost',
+    'efficiencyPercent','otherAnnualSavings','implementationBudget',
+    'annualSupport','futureMonthlyPrice','discountPercent','months',
+    'assumedValuation','ticket','founderBefore','founderMinimum'
+  ]);
+  const updateUnsavedFlag = () => {
+    const hasNumbers = [...drafts.values()].some(values =>
+      Object.entries(values).some(([key, val]) =>
+        financialFields.has(key) && String(val).trim() !== ''));
+    // Only a Boolean is exposed to the outer page; no amount leaves the module.
+    host.dataset.opportunityHasUnsavedInputs = String(hasNumbers);
+  };
 
   function projectContext() {
     const el = host.querySelector('[data-op-project-context]');
@@ -192,6 +205,7 @@ export function mountOpportunityStudio(host, language, projects, startContact, b
   function recalc() {
     const values = currentValues();
     drafts.set(active,values);
+    updateUnsavedFlag();
     let res;
     if(active==='build') res=calculateSoftwareScenario(values);
     else if(active==='transform') res=calculateTransformationScenario(values);

@@ -26,6 +26,13 @@ const staticManifest=JSON.parse(readFileSync(new URL('../qa-artifacts/pages-rele
 assert.ok(staticManifest.files>=30,'unexpectedly small release payload');
 const sourceSha=execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim();
 assert.equal(staticManifest.sourceSha,sourceSha,'bundle must match checked-out commit');
+const health=JSON.parse(read('release-health.json'));
+assert.equal(health.source_sha,sourceSha,'public health marker must match source commit');
+assert.equal(health.bundle,'public-static-only','release contains only static assets');
+assert.equal(health.functions_bundled,false,'public manifest may not claim Pages Functions are bundled');
+assert.deepEqual(health.languages,['ru','en'],'bilingual release health');
+assert.equal(health.asset_count,staticManifest.files,'health asset count matches private package manifest');
+assert.ok(staticManifest.assets.includes('release-health.json'),'public status must be part of the allowlisted output');
 for(const file of ['index.html','en/index.html']){
   const html=read(file);
   assert.ok(html.includes('<meta name="syntha-build-commit" content="'+sourceSha+'">'),

@@ -21,6 +21,14 @@ on:
       - 'docs/PAGE_ADVISORY_ECONOMICS_2026-10-13.md'
       - 'assets/lead-paths.js'
       - 'assets/news.js'
+      - 'feed.xml'
+      - 'feed.json'
+      - 'en/feed.xml'
+      - 'en/feed.json'
+      - 'scripts/verify-v2-editorial-preservation.mjs'
+      - 'scripts/verify-live-release-contract.mjs'
+      - 'scripts/browser-v2-language-privacy-qa.mjs'
+      - 'docs/PAGE_V2_RELEASE_AUDIT_2026-10-15.md'
       - 'functions/api/contact.js'
       - 'functions/api/_lib.js'
       - 'functions/api/cron.js'
@@ -90,6 +98,9 @@ jobs:
       - run: node --check functions/api/stats.js
       - run: node --check functions/stats.js
       - run: node --check scripts/verify-live-release.mjs
+      - run: node --check scripts/verify-live-release-contract.mjs
+      - run: node --check scripts/browser-v2-language-privacy-qa.mjs
+      - run: node --check scripts/verify-v2-editorial-preservation.mjs
       - run: node --check functions/api/posts.js
       - run: node --check scripts/tg-queue.mjs
       - run: node --check assets/app.js
@@ -102,8 +113,14 @@ jobs:
       - run: node scripts/verify-advisory-economics.mjs
       - run: node scripts/verify-opportunity-studio.mjs
       - run: node scripts/verify-editorial-queue.mjs
+      - run: node scripts/verify-v2-editorial-preservation.mjs
+      - run: node scripts/verify-live-release-contract.mjs
       - run: node scripts/verify-publishing-admission.mjs
       - run: npm run build
+      - name: Verify exact RU/EN editorial and no generated feed drift
+        run: |
+          node scripts/verify-v2-editorial-preservation.mjs --rendered
+          git diff --exit-code -- feed.xml feed.json en/feed.xml en/feed.json
       - run: node scripts/verify-opportunity-studio.mjs
       - run: npm run package:pages
       - run: node scripts/verify-pages-release.mjs
@@ -117,6 +134,7 @@ jobs:
           node scripts/browser-lead-routes-qa.mjs
           node scripts/browser-advisory-economics-qa.mjs
           node scripts/browser-opportunity-studio-qa.mjs
+          node scripts/browser-v2-language-privacy-qa.mjs
       - uses: actions/upload-artifact@v4
         if: success()
         with:
