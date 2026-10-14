@@ -579,6 +579,15 @@ function render() {
    чтобы ссылка, которой делятся, и заголовок страницы совпадали с тем, что видит человек. */
 $('#lang-toggle').addEventListener('click', () => {
   const next = lang === 'ru' ? 'en' : 'ru';
+  // Language variants have distinct canonical URLs: navigation reloads the
+  // document. Do NOT persist sensitive calculator amounts in storage or URL.
+  // Warn before dropping local hypothetical inputs, even if saved in another tab.
+  if ($('#opportunities')?.dataset.opportunityHasUnsavedInputs === 'true') {
+    const question = lang === 'ru'
+      ? 'При смене языка страница перезагрузится, а введённые числа предварительного расчёта не сохранятся. Продолжить?'
+      : 'Switching language reloads this page and clears your private calculator inputs. Continue?';
+    if (!window.confirm(question)) return;
+  }
   store.set('lang', next);
   location.href = (next === 'en' ? '/en/' : '/') + location.search + location.hash;
 });
