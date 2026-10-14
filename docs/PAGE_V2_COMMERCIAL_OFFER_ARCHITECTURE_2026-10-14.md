@@ -78,6 +78,8 @@ The user wishes to retain founder ownership. This is a **negotiating objective**
 
 Existing `INVESTOR_BLUEPRINTS[projectId][lang].tranches` supplies **three specific milestones per each of the 11 projects**. The Studio displays these beside the project's proposed revenue mechanism and the missing acceptance evidence. This avoids a generic universal fundraising promise.
 
+When a listed project is selected, the Studio provides a button to open the **existing project-specific investor calculator**, with 12/24/36-month hypothetical cash paths, conservative/base/optimistic cases, peak capital need, break-even sensitivity and proposed stage allocations summing to 100%. This reuses the already-tested financial engine instead of maintaining two competing investor forecasts. Ownership-percentage mechanics stay clearly separate from business cash flow. Inputs from either calculator remain in-browser and are not pre-filled in enquiry messages.
+
 Proposed use-of-proceeds categories, pending detailed estimate and owner sign-off:
 1. Product/security/data rights and operational readiness.
 2. Pilot with named business owners, proof of delivery and real unit costs.
