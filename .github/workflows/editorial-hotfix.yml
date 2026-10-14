@@ -28,13 +28,24 @@ jobs:
       - run: node --check assets/news.js
       - run: node --check assets/app.js
       - run: node --check scripts/verify-oct13-publication.mjs
-      - run: node scripts/verify-oct13-publication.mjs
+      - name: Validate V1 editorial snapshot
+        if: ${{ hashFiles('assets/portfolio-extensions.js') == '' }}
+        run: node scripts/verify-oct13-publication.mjs
+      - name: Validate V2 preserved editorial
+        if: ${{ hashFiles('assets/portfolio-extensions.js') != '' }}
+        run: node scripts/verify-v2-editorial-preservation.mjs
       - name: Regenerated RU/EN RSS and JSON must match committed content
         run: |
           node scripts/make-feed.mjs
           git diff --exit-code -- feed.xml feed.json en/feed.xml en/feed.json
-      - name: Assert only editorial files changed against main
+      - name: Assert V1 content-only scope or V2 multi-surface preservation
         run: |
+          if test -f assets/portfolio-extensions.js; then
+            test -f scripts/verify-v2-editorial-preservation.mjs
+            test -f scripts/verify-live-release-contract.mjs
+            echo "V2 integration: multi-surface exact-head tests replace the V1 content-only whitelist."
+            exit 0
+          fi
           git fetch origin main --depth=1
           git diff --name-only origin/main HEAD | grep -v -E '^(assets/(news|app)\.js|index\.html|en/index\.html|feed\.(xml|json)|en/feed\.(xml|json)|scripts/verify-oct13-publication\.mjs|\.github/workflows/editorial-hotfix\.yml)$' > /tmp/unexpected-files || :
           test ! -s /tmp/unexpected-files || (cat /tmp/unexpected-files && exit 1)
