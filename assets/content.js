@@ -2835,16 +2835,16 @@ export const PROJECTS = [
   },
   {
     id: 'promomed',
-    name: 'Promomed + Состояние',
+    name: 'СОСТОЯНИЕ — концепт для Promomed',
     device: 'iphone',
     shots: ['/assets/shots/promomed-home.jpg', '/assets/shots/promomed-events.jpg'],
     ru: {
       tagline: '«СОСТОЯНИЕ» — комьюнити и ежегодная конференция о здоровье и красоте: один маршрут на весь год',
       roadmap: [{ label: 'Рабочий прототип', state: 'done' }, { label: 'Демонстрация Promomed', state: 'current' }, { label: 'Разработка и запуск', state: 'next' }],
-      stage: 'Прототип, демо для Promomed',
+      stage: 'Независимый прототип, не официальный продукт Promomed',
       card: 'Конференция раз в год, сообщество круглый год. Персональный маршрут, паспорт участия, встречи с партнёрами и операционный центр; прототип на 42 сессии в 7 залах. Ищу партнёров для проекта.',
-      what: 'Вокруг ежегодной конференции «Промомед» строится сообщество, которое не расходится вместе с залом. Вместо общей программы — персональный маршрут: Smart Route собирает расписание по интересам, Moment Mode на запрос «есть 20 минут» подсказывает следующий шаг. «Паспорт СОСТОЯНИЯ» — не рейтинг, а личная история участия: знания, событие, диалог, практика. После конференции он открывает материалы по интересам. Рабочий прототип этого сценария я собрал сам.',
-      who: '«Промомед» получает постоянную связь с клиентами и партнёрами и конференцию, цифры которой видны в реальном времени. Участники — маршрут и материалы по интересам. Партнёры — понятную ценность участия и контакты только с согласия человека. Та же модель подходит другим отраслям, где конференция — ядро отношений с аудиторией.',
+      what: 'В предлагаемом сценарии вокруг конференции формируется сообщество, которое не расходится вместе с залом. Вместо общей программы — персональный маршрут: Smart Route собирает расписание по интересам, Moment Mode на запрос «есть 20 минут» подсказывает следующий шаг. «Паспорт СОСТОЯНИЯ» — не рейтинг, а личная история участия: знания, событие, диалог, практика. После конференции он открывает материалы по интересам. Рабочий прототип этого сценария я собрал сам.',
+      who: 'Организатор в таком сценарии мог бы поддерживать постоянную связь с участниками и партнёрами, используя показатели мероприятия для управления. Участники — маршрут и материалы по интересам. Партнёры — понятную ценность участия и контакты только с согласия человека. Та же модель подходит другим отраслям, где конференция — ядро отношений с аудиторией.',
       why: 'Конференция бывает раз в год, интерес к ней живёт круглый год. Но рассылки, соцсети, регистрация и программа существуют порознь: накопленная связь не усиливает событие, а участник уходит с папкой материалов вместо собственного маршрута. Платформа соединяет всё в один путь, который не обрывается на выходе из зала.',
       how: 'Одна платформа для сообщества и конференции: сообщество работает между событиями, а конференция опирается на накопленную связь с клиентами и партнёрами. Экраны и сценарии прототипа показывают, что получают компания, партнёры и участники. Данные демонстрации (программа, партнёры, показатели) иллюстративны.',
       seeking: 'Ищу партнёров для «СОСТОЯНИЯ»: экспертов, компании и организаторов, которым интересно собрать сообщество вокруг конференции.'
@@ -2852,10 +2852,10 @@ export const PROJECTS = [
     en: {
       roadmap: [{ label: 'Working prototype', state: 'done' }, { label: 'Demo to Promomed', state: 'current' }, { label: 'Build and launch', state: 'next' }],
       tagline: '“SOSTOYANIE” — a health and beauty community and annual conference: one route for the whole year',
-      stage: 'Prototype, demo for Promomed',
+      stage: 'Independent concept, not an official Promomed product',
       card: 'A conference once a year, a community all year round. A personal route, a participation passport, partner meetings and an operations centre; a prototype with 42 sessions in 7 halls. I am looking for partners for the project.',
-      what: 'Around Promomed’s annual conference grows a community that does not disperse with the hall. A personal route replaces one programme for all: Smart Route builds a schedule around each participant’s interests, and Moment Mode answers “I have 20 minutes” with a next step. The “SOSTOYANIE Passport” is not a leaderboard but a personal record of participation: knowledge, event, dialogue, practice. Afterwards it opens materials matched to the participant’s interests. I built the working prototype of this journey myself.',
-      who: 'Promomed gains a standing link with clients and partners, and a conference whose figures are visible in real time. Participants get a route and materials matched to their interests. Partners get a clear return on attendance, with leads shared only by consent. The same model suits other industries where a conference is the core of the relationship with the audience.',
+      what: 'In this independent concept, a conference becomes the centre of a year-round community that does not disperse with the hall. A personal route replaces one programme for all: Smart Route builds a schedule around each participant’s interests, and Moment Mode answers “I have 20 minutes” with a next step. The “SOSTOYANIE Passport” is not a leaderboard but a personal record of participation: knowledge, event, dialogue, practice. Afterwards it opens materials matched to the participant’s interests. I built the working prototype of this journey myself.',
+      who: 'An organiser in this model could build year-round participant and partner relationships, with operational conference metrics for decision-making. Participants get a route and materials matched to their interests. Partners get a clear return on attendance, with leads shared only by consent. The same model suits other industries where a conference is the core of the relationship with the audience.',
       why: 'A conference happens once a year, but interest in it lives all year. Newsletters, social media, registration and programme run separately, so the relationship built does not strengthen the event, and participants leave with a folder of handouts instead of a route of their own. The platform joins these into one journey that does not end at the exit.',
       how: 'One platform for the community and the conference: the community stays active between events, and the conference builds on accumulated ties with clients and partners. The prototype’s screens and flows show what the company, its partners and participants receive. Demo data (programme, partners, figures) is illustrative.',
       seeking: 'I am looking for partners for “SOSTOYANIE”: experts, companies and organisers who would like to build a community around a conference.'
