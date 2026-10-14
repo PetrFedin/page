@@ -25,7 +25,7 @@ const cardsHtml = rows => '<div class="op-choices">' + rows.map((r, i) =>
   '</span><h4>' + escapeHtml(r[0]) + '</h4><p>' + escapeHtml(r[1]) +
   '</p><p class="op-caveat">' + escapeHtml(r[2]) + '</p></article>').join('') + '</div>';
 
-export function mountOpportunityStudio(host, language, projects, startContact, blueprints = {}) {
+export function mountOpportunityStudio(host, language, projects, startContact, blueprints = {}, openProjectEconomics = () => {}) {
   if (!host || !Array.isArray(projects)) throw new TypeError('Opportunity studio needs a mount element and projects');
   // The parent V2 render runs again on RU/EN toggle. Aborting old delegated
   // listeners prevents duplicate form navigations or stale-language handlers.
@@ -103,7 +103,10 @@ export function mountOpportunityStudio(host, language, projects, startContact, b
     const proofLabel = lang === 'ru' ? 'Что понадобится подтвердить' : 'Evidence required';
     return '<aside class="op-project-plan"><h4>' + escapeHtml(header) + '</h4>' +
       '<p>' + escapeHtml(modelLabel+': '+blueprint.revenue) + '</p><ol>' +
-      stages + '</ol><p>' + escapeHtml(proofLabel+': '+blueprint.evidence) + '</p></aside>';
+      stages + '</ol><p>' + escapeHtml(proofLabel+': '+blueprint.evidence) + '</p>' +
+      '<button type="button" class="btn" data-op-action="project-economics">' +
+        escapeHtml(lang==='ru'?'Открыть расширенную финансовую модель проекта':
+          'Open the detailed project finance model')+'</button></aside>';
   }
   function panelHtml(mode) {
     if (mode === 'build') {
@@ -279,6 +282,8 @@ export function mountOpportunityStudio(host, language, projects, startContact, b
     if(!button)return;
     if(button.dataset.opAction==='example')applyExample();
     if(button.dataset.opAction==='contact')contact();
+    if(button.dataset.opAction==='project-economics' &&
+      blueprints[selectedProject]?.[lang]) openProjectEconomics(selectedProject);
   },{signal:controller.signal});
   host.addEventListener('change',event=>{
     if(event.target.matches('[data-op-project]')){
