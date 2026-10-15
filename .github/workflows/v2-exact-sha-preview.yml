@@ -1,0 +1,87 @@
+name: V2 exact-SHA public review preview
+on:
+  push:
+    branches:
+      - ops/page-v2-reviewed-preview-20261015
+    paths:
+      - .github/workflows/v2-exact-sha-preview.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  publish-v2-only:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      GH_TOKEN: ${{ github.token }}
+      NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+      V2_NETLIFY_SITE_ID: "4025c165-6b18-41c5-b69b-ba056cc7fbc8"
+      VERIFIED_SHA: "83cf9eadd0cb19b804a8d38a8a6d38a740e9eb7a"
+    steps:
+      - name: Download independently tested V2 public bundle, not main/V1
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh run download 38746886659 --repo PetrFedin/page \
+            --name "cloudflare-pages-static-${VERIFIED_SHA}" --dir dist-pages
+          test -f dist-pages/index.html
+          test -f dist-pages/en/index.html
+          test -f dist-pages/release-health.json
+          node -e 'const fs=require("fs");const p=JSON.parse(fs.readFileSync("dist-pages/release-health.json","utf8"));if(p.source_sha!==process.env.VERIFIED_SHA || p.functions_bundled!==false)process.exit(1);console.log("Verified public artifact: "+p.source_sha);'
+      - name: Provision Netlify CLI on this isolated GitHub runner
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Deploy exact V2 artifact; never target syntha.pro or GitHub main
+        shell: bash
+        run: |
+          set -euo pipefail
+          if test -n "${NETLIFY_AUTH_TOKEN}"; then
+            echo "Deploying to confirmed existing Netlify V2 preview site ID"
+            MODE="v2-preview-site"
+            npx --yes netlify-cli@latest deploy --site "${V2_NETLIFY_SITE_ID}" \
+              --prod --dir dist-pages --no-build --json > /tmp/netlify-v2-result.json
+          else
+            echo "No Netlify credential: using isolated anonymous, claimable 1-hour site"
+            MODE="anonymous-temporary-preview"
+            npx --yes netlify-cli@latest deploy --allow-anonymous \
+              --dir dist-pages --no-build --json > /tmp/netlify-v2-result.json
+          fi
+          MODE="${MODE}" node <<'JS'
+          const fs = require('fs');
+          const obj = JSON.parse(fs.readFileSync('/tmp/netlify-v2-result.json','utf8'));
+          const url = obj.deploy_url || obj.deployUrl || obj.url || obj.site_url || obj.siteUrl;
+          if (!url || !/^https:\/\//.test(url)) {
+            console.error('Deploy CLI did not report a verified HTTPS URL');
+            process.exit(1);
+          }
+          const fsout = process.env.GITHUB_STEP_SUMMARY;
+          fs.appendFileSync(fsout, '## SYNTHA V2 — exact-SHA test preview\n\n');
+          fs.appendFileSync(fsout, '- **Preview:** ' + url + '\n');
+          fs.appendFileSync(fsout, '- **Mode:** ' + process.env.MODE + '\n');
+          fs.appendFileSync(fsout, '- **Source SHA:** ' + process.env.VERIFIED_SHA + '\n');
+          if (process.env.MODE === 'anonymous-temporary-preview') {
+            fs.appendFileSync(fsout, '- **Expires unless claimed:** about 1 hour from deployment (Netlify policy).\n');
+          }
+          console.log('PUBLIC_V2_URL='+url);
+          console.log('DEPLOY_MODE='+process.env.MODE);
+          JS
+      - name: Verify live V2 exact SHA and language routes
+        shell: bash
+        run: |
+          set -euo pipefail
+          URL=$(node -e 'const j=require("/tmp/netlify-v2-result.json");process.stdout.write(j.deploy_url||j.deployUrl||j.url||j.site_url||j.siteUrl||"")')
+          for i in 1 2 3 4 5 6; do
+            curl --fail --silent --show-error --max-time 20 "${URL}/release-health.json" -o /tmp/public-v2-health.json && break || sleep 5
+          done
+          VERIFIED_SHA="${VERIFIED_SHA}" node -e 'const j=require("/tmp/public-v2-health.json");if(j.source_sha!==process.env.VERIFIED_SHA)throw Error("deployed SHA mismatch");console.log("Live SHA MATCH:",j.source_sha)'
+          curl --fail --silent --show-error --max-time 20 "${URL}/" -o /tmp/v2-ru.html
+          curl --fail --silent --show-error --max-time 20 "${URL}/en/" -o /tmp/v2-en.html
+          grep -q 'id="project-development"' /tmp/v2-ru.html
+          grep -q 'id="project-development"' /tmp/v2-en.html
+          grep -q 'id="investment-formats"' /tmp/v2-ru.html
+          grep -q 'id="investment-formats"' /tmp/v2-en.html
+          echo "LIVE_V2_RU_EN_OK"
