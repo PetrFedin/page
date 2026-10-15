@@ -44,6 +44,16 @@ for(const lang of ['ru','en']){
     assert.equal(activeAfterScroll,1,'one active consultation slide after swipe');
     await track.evaluate(el=>{el.scrollLeft=0;});
   }
+  const featured=await page.locator('#cards>.card').evaluateAll(nodes=>nodes.map(n=>n.dataset.project));
+  assert.deepEqual(featured,['syntha','chatx','renova','mfw','promomed'],lang+'/'+width+' featured project sequence');
+  const bridge=page.locator('#project-development');
+  assert.ok(await bridge.locator('a[href="#project-launch"]').isVisible(),'product delivery link visible');
+  assert.ok(await bridge.locator('a[href="#investment-formats"]').isVisible(),'investment format link visible');
+  assert.equal(await page.locator('#investment-formats').count(),1,'investment anchor exists');
+  if(width===1440){
+    const widths=grid.slice(0,3).map(n=>n.w);
+    assert.ok(Math.max(...widths)-Math.min(...widths)<3,'desktop consultation cards evenly sized');
+  }
   await page.locator('#projects-more').click();
   assert.equal(await page.locator('#cards>.card').count(),11,'all eleven cards rendered');
   for(const id of projects){

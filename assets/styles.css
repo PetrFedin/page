@@ -1783,9 +1783,11 @@ a.lang{display:inline-flex; align-items:center; justify-content:center; text-dec
 
 /* Consulting: five advisory cards in a balanced 3 + 2 desktop composition. */
 @media(min-width:760px){#consulting .services{grid-template-columns:repeat(2,minmax(0,1fr))}#consulting .services li:first-child{grid-column:auto}#consulting .services li:last-child:nth-child(odd){grid-column:1/-1}#consulting .formats-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(min-width:1120px){#consulting .services{grid-template-columns:repeat(6,minmax(0,1fr))}#consulting .services li{grid-column:span 2}#consulting .services li:nth-last-child(2){grid-column:1/span 3}#consulting .services li:last-child{grid-column:4/span 3}#consulting .services .svc{padding:25px 23px}#consulting .formats-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(min-width:960px){#consulting .services{grid-template-columns:repeat(6,minmax(0,1fr))}#consulting .services li{grid-column:span 2}#consulting .services li:nth-last-child(2){grid-column:1/span 3}#consulting .services li:last-child{grid-column:4/span 3}#consulting .services .svc{padding:25px 23px}#consulting .formats-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(min-width:760px){#projects .cards{grid-template-rows:none;grid-auto-rows:auto}#projects .cards>.card{grid-row:auto;grid-template-rows:auto;align-content:start}#projects .cards>.card:first-child{grid-column:1/-1}}
-.project-wordmark{display:inline-block;font:500 clamp(14px,2vw,20px)/1.35 var(--serif);letter-spacing:.035em}
+.project-wordmark{display:inline-flex;align-items:center;gap:9px;max-width:100%;font:500 clamp(14px,2vw,20px)/1.35 var(--serif);letter-spacing:.035em}
+.card-logo .project-wordmark svg,#modal-logo .project-wordmark svg{flex:0 0 24px;width:24px;height:24px;display:block}
+.project-wordmark > span{min-width:0;overflow-wrap:anywhere}
 .project-capabilities,.project-investor{margin-top:28px;padding-top:22px;border-top:1px solid var(--line)}
 .project-capabilities h3,.project-investor h3{font-family:var(--serif);font-size:clamp(20px,2.5vw,25px);font-weight:500;margin:0 0 10px}
 .project-capabilities>p,.project-investor>p{color:var(--muted);font-size:14px;margin:0 0 14px}
@@ -1825,7 +1827,7 @@ a.lang{display:inline-flex; align-items:center; justify-content:center; text-dec
 #projects .card .stage{white-space:normal;max-width:100%;min-width:0;overflow-wrap:anywhere;line-height:1.4}
 
 /* Explicit tracks: avoid auto-placement lifting the fourth tile into the first row. */
-@media(min-width:1120px){
+@media(min-width:960px){
  #consulting .services li:nth-child(1){grid-column:1/span 2;grid-row:1}
  #consulting .services li:nth-child(2){grid-column:3/span 2;grid-row:1}
  #consulting .services li:nth-child(3){grid-column:5/span 2;grid-row:1}
@@ -2006,3 +2008,37 @@ a.lang{display:inline-flex; align-items:center; justify-content:center; text-dec
 .op-timeline thead th{font-weight:500;color:var(--ink)}
 .op-timeline tbody th{font-weight:400;color:var(--muted)}
 .op-timeline tbody tr:last-child td,.op-timeline tbody tr:last-child th{border-bottom:0}
+
+
+/* V2: full-width product-development bridge and an explicit investment target. */
+.project-development{
+  margin:24px 0 28px;
+  padding:clamp(20px,3vw,34px);
+  display:grid;gap:22px;align-items:start;
+  border:1px solid var(--line);border-radius:var(--radius);
+  background:var(--panel);
+}
+.project-development-copy,.project-development-steps{min-width:0}
+.project-development h3{
+  font:500 clamp(24px,3vw,34px)/1.2 var(--serif);
+  letter-spacing:-.015em;margin:6px 0 12px;
+}
+.project-development-copy > p:not(.eyebrow){max-width:70ch;color:var(--muted);font-size:15px;line-height:1.65}
+.project-development-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.project-development-actions .btn{max-width:100%;white-space:normal;text-align:center}
+.project-development-steps{list-style:none;margin:0;padding:0;display:grid;gap:0;border-top:1px solid var(--line)}
+.project-development-steps li{display:grid;grid-template-columns:27px minmax(0,1fr);gap:13px;padding:13px 0;border-bottom:1px solid var(--line);font-size:14px;line-height:1.55}
+.project-development-steps .svc-n{padding-top:2px}
+#project-development,#project-launch,#investment-formats{scroll-margin-top:calc(var(--topbar-h,56px) + 24px)}
+.investment-choice{margin:16px 0 20px}
+.investment-choice h3{font:500 clamp(20px,2.4vw,27px)/1.25 var(--serif);margin:0 0 7px}
+.investment-choice p{color:var(--muted);font-size:14px;max-width:75ch;line-height:1.6}
+@media(min-width:960px){
+  .project-development{grid-template-columns:minmax(0,1.2fr) minmax(0,.95fr);align-items:center}
+  #consulting .services{grid-template-columns:repeat(6,minmax(0,1fr))}
+  #consulting .services li{min-width:0}
+}
+@media(max-width:480px){
+  .project-development-actions{display:grid;grid-template-columns:minmax(0,1fr)}
+  .project-development-actions .btn{width:100%}
+}
