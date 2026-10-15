@@ -139,6 +139,42 @@ export function calculateSoftwareTCO({
     assumption:'undiscounted_usd_cost_only_no_feature_parity'};
 }
 
+
+/**
+ * Pure schedule of *hypothetical cumulative spending*, rather than a revenue,
+ * profit, payback or ROI forecast. All initial development/implementation
+ * costs are assumed paid in month zero; recurring spend is even each month.
+ * Time-value of money, staggered payments and functionality differences are
+ * excluded. Both edges of labour-rate estimates remain visible.
+ */
+export function calculateTCOTimeline(tco, cadenceMonths = 12) {
+  if (!tco || tco.ok !== true || !Number.isInteger(tco.horizonMonths) ||
+      tco.horizonMonths < 1 || tco.horizonMonths > 120 ||
+      !Number.isInteger(cadenceMonths) || cadenceMonths < 1 || cadenceMonths > 120)
+    return {ok:false,error:'invalid'};
+  const values=[
+    tco.custom?.upfrontLow,tco.custom?.upfrontHigh,tco.custom?.monthly,
+    tco.reuse?.upfrontLow,tco.reuse?.upfrontHigh,tco.reuse?.monthly,
+    tco.saas?.upfront,tco.saas?.monthly
+  ];
+  if(values.some(v=>typeof v!=='number'||!Number.isFinite(v)||v<0))
+    return {ok:false,error:'invalid'};
+  const months=[0];
+  for(let m=cadenceMonths;m<tco.horizonMonths;m+=cadenceMonths)months.push(m);
+  months.push(tco.horizonMonths);
+  const rows=months.map(month=>({
+    month,
+    customLow:tco.custom.upfrontLow + tco.custom.monthly*month,
+    customHigh:tco.custom.upfrontHigh + tco.custom.monthly*month,
+    reuseLow:tco.reuse.upfrontLow + tco.reuse.monthly*month,
+    reuseHigh:tco.reuse.upfrontHigh + tco.reuse.monthly*month,
+    saas:tco.saas.upfront + tco.saas.monthly*month
+  }));
+  return {ok:true,months,rows,
+    assumption:'all_upfront_at_month_zero_even_monthly_costs_no_discounting'};
+}
+
+
 export function calculateTransformationScenario({
   manualHours, hourlyCost, efficiencyPercent, otherAnnualSavings,
   implementationBudget, annualSupport
