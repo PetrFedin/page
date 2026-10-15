@@ -31,7 +31,16 @@ for(const lang of cases){
     assert.equal(await section.locator('[data-op-metrics]').isVisible(),false,'No assumed prices shown before input');
     await section.locator('[data-op-action="example"]').click();
     assert.equal(await section.locator('[data-op-metrics]').isVisible(),true,'Build scenario shown');
-    const buildValue=await section.locator('[data-op-result="baselineCost"]').textContent();
+    const tcoResults=section.locator('[data-op-tco-results]');
+    assert.equal(await tcoResults.isVisible(),true,'Three-way TCO shown only on completed inputs');
+    assert.equal(await section.locator('[data-op-result="tcoSaas"]').count(),1);
+    const baselineTco=await section.locator('[data-op-result="tcoCustom"]').textContent();
+    assert.ok(baselineTco.includes('53')&&baselineTco.includes('82'),'36-month custom build TCO');
+    await section.locator('[data-op-input="horizonMonths"]').fill('0');
+    assert.equal(await tcoResults.isVisible(),false,'Reject invalid TCO horizon');
+    await section.locator('[data-op-input="horizonMonths"]').fill('36');
+    assert.equal(await tcoResults.isVisible(),true);
+        const buildValue=await section.locator('[data-op-result="baselineCost"]').textContent();
     assert.ok(buildValue.includes('30')&&buildValue.includes('58'),'Labour-only Clutch bounds present');
     await section.locator('[data-op-input="reusePercent"]').fill('100');
     assert.equal(await section.locator('[data-op-metrics]').isVisible(),false,'Invalid reuse should hide results');
