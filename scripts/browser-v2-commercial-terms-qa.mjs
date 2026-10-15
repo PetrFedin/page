@@ -33,7 +33,18 @@ try{
     };
     for(const [mode,names] of Object.entries(sections)){
       await studio.locator('[data-op-mode="'+mode+'"]').click();
-      if(mode==='access')assert.equal(await studio.locator('[data-op-input="accessTier"]').inputValue(),'');
+      if(mode==='access'){
+        const tier=studio.locator('[data-op-input="accessTier"]');
+        const estimator=studio.locator('[data-op-access-estimator]');
+        assert.equal(await tier.inputValue(),'');
+        assert.equal(await estimator.isVisible(),false,'No discount estimate without explicit founder choice');
+        await tier.selectOption('explore');
+        assert.equal(await estimator.isVisible(),false,'Free exploration cannot imply paid pre-order');
+        await tier.selectOption('founding-customer');
+        assert.equal(await estimator.isVisible(),true,'Only founding customer reveals conditional discount');
+        await tier.selectOption('');
+        assert.equal(await estimator.isVisible(),false,'Clearing founding status conceals price model');
+      }
       if(mode==='capital')assert.equal(await studio.locator('[data-op-input="mode"]').inputValue(),'');
       const text=await studio.innerText();
       assert.ok(!/\b(?:undefined|null)\b/.test(text),'No JS placeholder in '+mode);
@@ -57,6 +68,7 @@ try{
     await studio.locator('[data-op-mode="access"]').click();
     assert.equal(await studio.locator('[data-op-input="accessTier"] option').count(),5); // placeholder + four real options
     await studio.locator('[data-op-input="accessTier"]').selectOption('founding-customer');
+    assert.equal(await studio.locator('[data-op-access-estimator]').isVisible(),true);
     await studio.locator('[data-op-action="contact"]').click();
     assert.equal(await page.locator('#lead-route-value').inputValue(),'pilot');
     assert.ok((await page.locator('#lead-goal-value').inputValue()).includes(copy.accessTiers[2][0]));
