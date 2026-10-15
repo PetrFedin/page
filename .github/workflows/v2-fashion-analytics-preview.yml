@@ -1,0 +1,166 @@
+name: V2 Fashion Analytics GREEN live preview
+on:
+  push:
+    branches:
+      - ops/page-v2-fashion-analytics-review-20261015
+    paths:
+      - .github/workflows/v2-fashion-analytics-preview.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  deploy-visual-preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 16
+    env:
+      GH_TOKEN: ${{ github.token }}
+      VERIFIED_SHA: ec9e0350c6c3b9d856871d2d6313c8d497f79580
+      WRANGLER_SEND_METRICS: "false"
+      NO_COLOR: "1"
+    steps:
+      - name: Fetch exact tested V2 static artifact (never main or V1)
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh run download 38772236431 --repo PetrFedin/page \
+            --name "cloudflare-pages-static-${VERIFIED_SHA}" --dir dist-pages
+          test -f dist-pages/index.html
+          test -f dist-pages/en/index.html
+          test -f dist-pages/release-health.json
+          node -e 'const fs=require("fs");const x=JSON.parse(fs.readFileSync("dist-pages/release-health.json"));if(x.source_sha!==process.env.VERIFIED_SHA)process.exit(1);console.log("Exact V2 source validated: "+x.source_sha)'
+          python3 - <<'PY'
+          from pathlib import Path
+          files=[p for p in Path('dist-pages').rglob('*') if p.is_file()]
+          assert len(files)<1000, len(files)
+          assert all(p.stat().st_size<5*1024*1024 for p in files)
+          print('Static assets:',len(files))
+          PY
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Publish to disposable Cloudflare Workers static site (not syntha.pro)
+        shell: bash
+        run: |
+          set -euo pipefail
+          unset CLOUDFLARE_API_TOKEN CLOUDFLARE_ACCOUNT_ID CF_API_TOKEN
+          # Workers static assets do not guarantee implicit index rewriting
+          # in all ephemeral routing modes. Resolve RU/EN entry points explicitly.
+          cat > review-worker.mjs <<'WORKER'
+          export default {
+            async fetch(request, env) {
+              const url = new URL(request.url);
+              if (url.pathname.startsWith('/api/')) {
+                return new Response(JSON.stringify({
+                  error: 'This is a static V2 visual preview; server forms are disabled.'
+                }), { status: 501, headers: { 'content-type':'application/json; charset=utf-8' } });
+              }
+              const indexPath = url.pathname === '/' || url.pathname === '/index.html'
+                ? '/index.html'
+                : url.pathname === '/en' || url.pathname === '/en/' || url.pathname === '/en/index.html'
+                  ? '/en/index.html' : null;
+              if (indexPath) {
+                const target = new URL(indexPath, request.url);
+                return env.ASSETS.fetch(new Request(target, request));
+              }
+              return env.ASSETS.fetch(request);
+            }
+          };
+          WORKER
+          cat > wrangler.jsonc <<'JSON'
+          {
+            "name": "syntha-v2-reviewed-ec9e03",
+            "compatibility_date": "2026-10-15",
+            "main": "./review-worker.mjs",
+            "assets": {
+              "directory": "./dist-pages",
+              "binding": "ASSETS",
+              "run_worker_first": true,
+              "html_handling": "none",
+              "not_found_handling": "none"
+            }
+          }
+          JSON
+          # Claim URLs are bearer credentials: capture all CLI output privately.
+          npx --yes wrangler@latest deploy --temporary --config wrangler.jsonc > /tmp/wrangler-v2.log 2>&1 || {
+            echo "Temporary Cloudflare deploy failed; logs suppressed because they may contain claim tokens."
+            exit 1
+          }
+          python3 - <<'PY'
+          import re
+          from pathlib import Path
+          s=Path('/tmp/wrangler-v2.log').read_text()
+          urls=re.findall(r'https://[a-z0-9.-]+\.workers\.dev',s,re.I)
+          if not urls:
+            print('Cloudflare CLI returned no public workers.dev URL')
+            raise SystemExit(1)
+          url=urls[-1].rstrip('/').strip()
+          Path('/tmp/v2-visual-url').write_text(url)
+          print('PUBLIC_V2_VISUAL_URL='+url)
+          print('CLAIM_URL_PRESENT='+str(bool(re.search(r'claim-preview',s,re.I))))
+          with open(__import__('os').environ['GITHUB_STEP_SUMMARY'],'a') as f:
+            f.write('## V2 visual review only — validated SHA\\n\\n')
+            f.write('**Open:** '+url+'\\n\\n')
+            f.write('**SHA:** ec9e0350c6c3b9d856871d2d6313c8d497f79580\\n\\n')
+            f.write('**Note:** Unclaimed temporary Cloudflare URL expires in 60 minutes. Static visual preview; contact and Telegram backend not enabled. V1 and the old Netlify V2 are unchanged.\\n')
+          PY
+
+      - name: Verify public V2 routes, assets and SHA
+        shell: bash
+        run: |
+          set -euo pipefail
+          URL="$(cat /tmp/v2-visual-url)"
+          attempt() {
+            local path="$1" dest="$2" success=1
+            for i in $(seq 1 18); do
+              if curl -f -sS -L --max-time 22 "${URL}${path}" -o "${dest}"; then
+                success=0; break
+              fi
+              echo "Waiting for Cloudflare temporary routing: path=${path} attempt=${i}"
+              sleep 5
+            done
+            if [[ "$success" != "0" ]]; then
+              echo "FAILED_ROUTE=${path}"
+              return 1
+            fi
+          }
+          attempt /release-health.json /tmp/review-health.json
+          VERIFIED_SHA="${VERIFIED_SHA}" node - <<'JS'
+          const fs=require('node:fs');
+          const health=JSON.parse(fs.readFileSync('/tmp/review-health.json','utf8'));
+          if(health.source_sha!==process.env.VERIFIED_SHA)throw Error('Public SHA differs from tested archive');
+          console.log('LIVE_SHA_OK',health.source_sha);
+          JS
+          attempt / /tmp/review-ru.html
+          attempt /en/ /tmp/review-en.html
+          attempt /assets/opportunity-copy.js /tmp/review-opportunity.js
+          attempt /assets/clarity.js /tmp/review-clarity.js
+          attempt /assets/fashion-analytics.js /tmp/review-fashion.js
+          attempt /assets/fashion-analytics-core.js /tmp/review-fashion-core.js
+          VERIFIED_SHA="${VERIFIED_SHA}" node - <<'JS'
+          const fs=require('node:fs');
+          const ru=fs.readFileSync('/tmp/review-ru.html','utf8');
+          const en=fs.readFileSync('/tmp/review-en.html','utf8');
+          const opportunity=fs.readFileSync('/tmp/review-opportunity.js','utf8');
+          const clarity=fs.readFileSync('/tmp/review-clarity.js','utf8');
+          const fashion=fs.readFileSync('/tmp/review-fashion.js','utf8');
+          const core=fs.readFileSync('/tmp/review-fashion-core.js','utf8');
+          const sha=process.env.VERIFIED_SHA;
+          if(!ru.includes('lang="ru"') || !en.includes('lang="en"'))throw Error('RU/EN language entry points invalid');
+          for(const [lang,html] of [['ru',ru],['en',en]]){
+            if(!html.includes('content="'+sha+'"'))throw Error(lang+' entry SHA mismatch');
+            for(const id of ['project-development','investment-formats','opportunities']){
+              if(!html.includes('id="'+id+'"'))throw Error(lang+' missing '+id);
+            }
+          }
+          if(!opportunity.includes('decisionOptions') || opportunity.includes('Для сравнения: готовые продукты'))
+            throw Error('Outdated opportunity copy is publicly served');
+          if(!clarity.includes('polishPublicPage'))throw Error('Client-first content is missing');
+          if(!fashion.includes('mountFashionAnalytics') || !core.includes('buildFashionReport'))throw Error('Fashion Analytics assets missing');
+          if(!ru.includes('id="fashion-analytics"') || !en.includes('id="fashion-analytics"'))throw Error('Fashion Analytics markup missing');
+          console.log('PUBLIC_V2_RU_EN_ROUTES_ASSETS_VERIFIED');
+          JS
