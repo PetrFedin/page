@@ -10,9 +10,9 @@ export const LOGOS = {
   /* Promomed — пульс-линия: здоровье и маршрут как сквозная тема концепции
      «СОСТОЯНИЕ», сама словесная марка остаётся сдержанной. */
   promomed: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 152 32" role="img" aria-label="Promomed"><path d="M2 16h4.5l2.2-6.5 3.6 13 2.2-6.5h4.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><text x="33" y="23" font-family="Iowan Old Style, Georgia, serif" font-size="21" letter-spacing="0.3" fill="currentColor">Promomed</text></svg>`,
-  "fashion-os": '<span class="project-wordmark">FASHION MANAGEMENT OS</span>',
-  fur: '<span class="project-wordmark">FUR PRODUCTION</span>',
-  antiqua: '<span class="project-wordmark">ANTIQUA</span>',
+  "fashion-os": `<span class="project-wordmark"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><rect x="2.5" y="3.5" width="8" height="8" rx="1"/><rect x="13.5" y="3.5" width="8" height="8" rx="1"/><rect x="2.5" y="14.5" width="8" height="6" rx="1"/><rect x="13.5" y="14.5" width="8" height="6" rx="1"/></svg><span>FASHION MANAGEMENT OS</span></span>`,
+  fur: `<span class="project-wordmark"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18v4H3zM5 12h14v4H5zM8 19h8v2H8z"/><path d="M12 9v3M12 16v3"/></svg><span>FUR PRODUCTION</span></span>`,
+  antiqua: `<span class="project-wordmark"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="3" width="19" height="18" rx="1"/><path d="m6 16 4-5 3 3 3-5 3 7H6z"/><circle cx="8" cy="8" r="1"/></svg><span>ANTIQUA</span></span>`,
   igra: '<span class="project-wordmark">IGRA</span>',
   marco: '<span class="project-wordmark">MARCO PESCAROLO / COMMERCIAL OS</span>',
   fintech: '<span class="project-wordmark">DEBT STABILITY OS</span>'
