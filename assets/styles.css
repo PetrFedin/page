@@ -1995,3 +1995,7 @@ a.lang{display:inline-flex; align-items:center; justify-content:center; text-dec
   outline-offset:2px;
 }
 .inv-card.mini:focus-within{border-color:var(--accent)}
+
+/* Контраст при наведении на тег в тёмной теме: белый на #e0805f даёт 2,8:1, тёмный текст — около 7:1. */
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]) .post-tag:hover{color:#1a0f0a} }
+:root[data-theme="dark"] .post-tag:hover{color:#1a0f0a}
