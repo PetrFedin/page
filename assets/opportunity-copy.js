@@ -47,13 +47,26 @@ export const OPPORTUNITY_COPY = {
       ['04','Внедрение','Перенос данных, обучение, тестирование прав и устойчивости, журнал решений'],
       ['05','Подтверждённый результат','Данные до/после, эффект с учётом сезонности и затрат, план сопровождения']
     ],
-    samplesTitle:'Для сравнения: готовые продукты',
-    sampleNote:'Не аналогичные по функционалу коммерческие предложения. Цены сторонних сервисов — ориентир лицензии, без внедрения и по состоянию на 14.10.2026.',
+    decisionTitle:'Готовый сервис, адаптация или своя разработка?',
+    decisionLead:'Этот блок относится только к выбору пути разработки и интеграции. Мы не сравниваем разные продукты как взаимозаменяемые и не утверждаем, что наша система выгоднее. Сначала проверяем бизнес-процесс и требования.',
+    decisionOptions:[
+      ['Использовать готовый сервис','Когда базовые задачи закрываются стандартными функциями и приемлемыми настройками.','Проверить: реальные сценарии, права на данные, ограничения, интеграции и полную стоимость.'],
+      ['Адаптировать платформу','Когда нужное ядро уже существует, но требуется связать данные, роли и процессы.','Проверить: API, объём доработок, миграцию, поддержку и зависимость от поставщика.'],
+      ['Разработать собственную систему','Когда важные процессы или требования нельзя разумно закрыть готовым ПО.','Проверить: бюджет, сроки, владение кодом, безопасность и сопровождение.']
+    ],
+    decisionValue:'Результат для клиента: аргументированное решение «купить / адаптировать / разработать», список необходимых проверок и бюджетных статей. Предпочтительный путь определяется только после изучения вашей задачи.',
+    tcoShort:'Развернуть расчёт: внедрение, лицензии, интеграции и поддержка',
+    samplesTitle:'Примеры решений для выбранной задачи',
+    sampleSelectPrompt:'Выберите «Класс решения» выше, чтобы увидеть относящиеся к нему примеры. Они не используются для автоматического расчёта.',
+    sampleNoMatch:'Для этого класса в кратком справочнике нет прямого примера. Это не означает, что на рынке нет готовых продуктов; нужен отдельный поиск.',
+    sampleMatchIntro:'Справочные продукты для направления: ',
+    sampleGuideTitle:'Показать справочные продукты',
+    sampleNote:'Это ссылки на официальные страницы разных классов программного обеспечения, а не рейтинг, проверка функционального соответствия или коммерческие оферты. Текущие тарифы, внедрение и полная стоимость проверяются отдельно. Никакие цены не подставляются в модель автоматически.',
     samples:[
-      ['Odoo','Custom: от $49/пользователь/мес. при годовой оплате (актуальные условия уточнять)','https://www.odoo.com/pricing'],
-      ['HubSpot','Smart CRM Professional: от $50/место/мес. (условия и скидки меняются)','https://www.hubspot.com/products/crm'],
-      ['Sharetribe','Build $39/мес.; Live $259/мес. или $199/мес. при годовой оплате','https://www.sharetribe.com/help/en/articles/17105170-sharetribe-pricing-plans-and-usage-based-fees'],
-      ['Bubble','Starter Web + Mobile: $59/мес. при годовой оплате','https://bubble.io/pricing/compare']
+      ['Odoo','ERP и бизнес-операции; страница разработчика с перечнем приложений и тарифами','https://www.odoo.com/pricing'],
+      ['HubSpot','CRM и процессы работы с клиентами; официальное описание','https://www.hubspot.com/products/crm'],
+      ['Sharetribe','Создание маркетплейсов; официальный сайт платформы','https://www.sharetribe.com/'],
+      ['Bubble','Конструктор веб- и мобильных приложений (не готовая ERP/CRM)','https://bubble.io/']
     ],
     transformTitle:'Экономика пересборки и оптимизации бизнеса',
     transformLead:'Оцениваем процессы до покупки технологий. Можно начать с аудита, новой управленческой модели или автоматизации уже согласованного процесса.',
@@ -164,13 +177,26 @@ export const OPPORTUNITY_COPY = {
       ['04','Implementation','Data migration, enablement, access controls, reliability and decision audit'],
       ['05','Verified outcome','Baseline vs actual with adjustments, support plan and next decisions']
     ],
-    samplesTitle:'Reference subscription examples',
-    sampleNote:'Different software packages and feature sets, not comparable bids. Provider prices checked 14 Oct 2026; exclude implementation.',
+    decisionTitle:'Use a ready-made service, adapt a platform, or build your own?',
+    decisionLead:'This guidance applies only to software delivery and integration. Different products are not interchangeable, and this is not a claim that our platforms cost less. Start from your business workflow and requirements.',
+    decisionOptions:[
+      ['Use an existing service','When standard features and configuration adequately cover the core workflow.','Verify: real use cases, data rights, limitations, integrations and total cost.'],
+      ['Adapt a platform','When a reusable core exists but your workflows need connected data, roles or interfaces.','Verify: APIs, modification scope, migration, support and vendor dependencies.'],
+      ['Build a custom system','When critical processes or constraints cannot reasonably be covered by existing software.','Verify: budget, delivery timeline, IP, security and long-term support.']
+    ],
+    decisionValue:'Your outcome: a reasoned buy / adapt / build choice, the checks required and the relevant cost components. No path is recommended without understanding your case.',
+    tcoShort:'Expand full ownership costs: setup, licences, integrations and support',
+    samplesTitle:'Examples relevant to your software type',
+    sampleSelectPrompt:'Choose a software type above to see related reference products. They do not populate the calculator.',
+    sampleNoMatch:'No directly relevant example is included in this small reference set. This does not mean that no existing market solution is available.',
+    sampleMatchIntro:'Reference products for: ',
+    sampleGuideTitle:'Show product references',
+    sampleNote:'Official links to different software categories; not a ranking, feature-equivalence study or binding quote. Validate current terms, implementation and total cost separately. No provider price is inserted into the model.',
     samples:[
-      ['Odoo','Custom: from $49/user/month on annual plan; confirm current terms','https://www.odoo.com/pricing'],
-      ['HubSpot','Smart CRM Professional: from $50/seat/month; pricing/promotions vary','https://www.hubspot.com/products/crm'],
-      ['Sharetribe','Build $39/month; Live $259/month or $199/month annual','https://www.sharetribe.com/help/en/articles/17105170-sharetribe-pricing-plans-and-usage-based-fees'],
-      ['Bubble','Starter Web + Mobile: $59/month with annual billing','https://bubble.io/pricing/compare']
+      ['Odoo','ERP and business operations; official application and pricing overview','https://www.odoo.com/pricing'],
+      ['HubSpot','CRM and customer workflows; official product overview','https://www.hubspot.com/products/crm'],
+      ['Sharetribe','Marketplace creation software; official product site','https://www.sharetribe.com/'],
+      ['Bubble','Web and mobile app builder (not an off-the-shelf ERP or CRM)','https://bubble.io/']
     ],
     transformTitle:'Economics of operational redesign',
     transformLead:'Fix workflows before purchasing software. Start with an audit, management reporting or automation of an agreed process.',

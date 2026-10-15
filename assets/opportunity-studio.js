@@ -191,7 +191,12 @@ export function mountOpportunityStudio(host, language, projects, startContact, b
   }
   function panelHtml(mode) {
     if (mode === 'build') {
-      return '<h3>' + escapeHtml(t.buildTitle) + '</h3><p class="sub">' + escapeHtml(t.buildLead) + '</p>' +
+      const decision = '<section class="op-decision" aria-label="' + escapeHtml(t.decisionTitle) + '">' +
+        '<h4 class="op-subhead">' + escapeHtml(t.decisionTitle) + '</h4>' +
+        '<p class="op-caveat">' + escapeHtml(t.decisionLead) + '</p>' +
+        cardsHtml(t.decisionOptions) +
+        '<p class="op-decision-outcome">' + escapeHtml(t.decisionValue) + '</p></section>';
+      return decision + '<h3>' + escapeHtml(t.buildTitle) + '</h3><p class="sub">' + escapeHtml(t.buildLead) + '</p>' +
         '<div class="op-fields"><label class="op-field"><span>' + escapeHtml(t.typeLabel) +
         '</span><select data-op-input="type"><option value="">'+
           escapeHtml(lang==='ru'?'Выберите направление':'Choose a solution type')+'</option>' +
@@ -205,15 +210,14 @@ export function mountOpportunityStudio(host, language, projects, startContact, b
           ['baselineCost',t.baseCost],['adaptedCost',t.adaptedCost],
           ['difference',t.diff],['baselineWeeks',t.baselineTime],
           ['adaptedWeeks',t.reuseTime]
-        ]) + tcoHtml() + foot() +
+        ]) + '<details class="op-advanced"><summary>'+escapeHtml(t.tcoShort)+'</summary>' + tcoHtml() + '</details>' + foot() +
         '<p class="op-caveat">'+escapeHtml(t.buildCaveat)+'</p>' +
-        '<h4 class="op-subhead">'+escapeHtml(t.workflowTitle)+'</h4>' +
-        rowsHtml(t.workflow) +
+        '<details class="op-advanced"><summary>'+escapeHtml(t.workflowTitle)+'</summary>' +
+        rowsHtml(t.workflow) + '</details>' +
+        '<details class="op-advanced" data-op-references><summary>'+escapeHtml(t.sampleGuideTitle)+'</summary>' +
         '<h4 class="op-subhead">'+escapeHtml(t.samplesTitle)+'</h4>' +
         '<p class="op-caveat">'+escapeHtml(t.sampleNote)+'</p>' +
-        '<ul class="op-sources">'+t.samples.map(([brand,amount,url])=>
-          '<li><a href="'+escapeHtml(url)+'" rel="noopener noreferrer" target="_blank">'+
-          escapeHtml(brand)+'</a><span>'+escapeHtml(amount)+'</span></li>').join('')+'</ul>' +
+        '<div class="op-reference-content" data-op-reference-content aria-live="polite"></div></details>' +
         '<p class="op-caveat"><a href="https://clutch.co/developers/pricing" rel="noopener noreferrer" target="_blank">Clutch — Software Development Pricing Guide (2026)</a>. '+escapeHtml(t.benchmark)+'</p>' +
         '<p class="op-caveat">'+escapeHtml(t.notQuoted)+'</p>';
     }
@@ -387,6 +391,24 @@ export function mountOpportunityStudio(host, language, projects, startContact, b
         :(lang==='ru'?'Нарушается в модели':'Below assumed floor'));
     }
   }
+  function updateReferences() {
+    const target=panel.querySelector('[data-op-reference-content]');
+    if(!target)return;
+    const kind=get('type')?.value||'';
+    const examples={
+      crm:[1], erp:[0], marketplace:[2], mobile:[3]
+    };
+    const indices=examples[kind];
+    if(!kind){target.textContent=t.sampleSelectPrompt;return;}
+    if(!indices){target.textContent=t.sampleNoMatch;return;}
+    const chosen=t.buildTypes.find(([key])=>key===kind);
+    target.innerHTML='<p class="op-caveat">'+escapeHtml(t.sampleMatchIntro+(chosen?.[1]||''))+'</p>' +
+      '<ul class="op-sources">'+indices.map(i=>{
+        const [name,description,url]=t.samples[i];
+        return '<li><a href="'+escapeHtml(url)+'" target="_blank" rel="noopener noreferrer">'+escapeHtml(name)+
+          '</a><span>'+escapeHtml(description)+'</span></li>';
+      }).join('')+'</ul>';
+  }
   function renderPanel() {
     panel.innerHTML=panelHtml(active);
     for(const button of host.querySelectorAll('[data-op-mode]')){
@@ -398,6 +420,7 @@ export function mountOpportunityStudio(host, language, projects, startContact, b
       if(Object.hasOwn(draft,input.dataset.opInput))input.value=draft[input.dataset.opInput];
     }
     recalc();
+    updateReferences();
   }
   function applyExample(){
     const examples = {
@@ -414,6 +437,7 @@ export function mountOpportunityStudio(host, language, projects, startContact, b
     };
     for(const [key,value] of Object.entries(examples[active]))if(get(key))get(key).value=value;
     recalc();
+    updateReferences();
   }
   function contact(){
     // The contact process receives route, project and qualitative scope only.
@@ -440,7 +464,7 @@ export function mountOpportunityStudio(host, language, projects, startContact, b
       selectedProject=event.target.value;
       projectContext();
       if(active==='capital')renderPanel();
-    } else if(event.target.matches('[data-op-input]'))recalc();
+    } else if(event.target.matches('[data-op-input]')){recalc();updateReferences();}
   },{signal:controller.signal});
   host.addEventListener('input',event=>{
     if(event.target.matches('[data-op-input]'))recalc();

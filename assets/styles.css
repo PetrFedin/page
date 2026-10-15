@@ -2115,3 +2115,18 @@ a.lang{display:inline-flex; align-items:center; justify-content:center; text-dec
  #top .hero-cta{display:none}
 }
 @media(prefers-reduced-motion:reduce){#projects .cards>.card:hover{transform:none}}
+
+/* Software decision guide: choices first, advanced financial models on demand. */
+.op-decision{margin:0 0 30px}
+.op-decision .op-subhead{margin:0 0 10px}
+.op-decision>.op-caveat{max-width:75ch;font-size:14px;margin-bottom:15px}
+.op-decision-outcome{font-size:14px;line-height:1.65;color:var(--ink);padding:15px 0;border-bottom:1px solid var(--line);margin:18px 0 0}
+.op-advanced{margin:20px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.op-advanced+ .op-advanced{border-top:0;margin-top:-20px}
+.op-advanced>summary{cursor:pointer;list-style:none;padding:17px 4px;font-size:14px;color:var(--ink);font-weight:500;display:flex;align-items:center;justify-content:space-between;gap:14px;min-height:46px}
+.op-advanced>summary::-webkit-details-marker{display:none}
+.op-advanced>summary::after{content:'+';font-size:20px;font-weight:400;color:var(--accent)}
+.op-advanced[open]>summary::after{content:'−'}
+.op-advanced>.op-tco,.op-advanced>.op-steps,.op-reference-content{padding:6px 4px 22px}
+.op-advanced .op-tco{margin-top:0}
+.op-reference-content>.op-caveat{margin:4px 0 12px}

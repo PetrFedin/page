@@ -107,7 +107,8 @@ for(const lang of ['ru','en']){
   assert.equal(c.dealPaths.length,5,'Five financing/partnership structures');
   assert.equal(c.workflow.length,5,'Five delivery milestones');
   assert.equal(c.capitalSteps.length,4,'Four possible use-of-funds stages');
-  assert.equal(c.samples.length,4,'Verified SaaS comparators');
+  assert.equal(c.samples.length,4,'Contextual official software references');
+  assert.equal(c.decisionOptions.length,3,'Buy, adapt, build decision strategies');
   assert.ok(c.samples.every(item=>item[2].startsWith('https://')),'Source links must be HTTPS');
   for(const p of projects){
     assert.ok(PROJECT_OPPORTUNITIES[p.id][lang],'Missing project summary '+lang+' '+p.id);
