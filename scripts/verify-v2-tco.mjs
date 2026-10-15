@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import assert from 'node:assert/strict';
-import {calculateSoftwareTCO,findTCOMonthCrossing} from '../assets/opportunity-economics.js';
+import {calculateSoftwareTCO,findTCOMonthCrossing,calculateTCOTimeline} from '../assets/opportunity-economics.js';
 import {OPPORTUNITY_COPY} from '../assets/opportunity-copy.js';
 const x={
   hours:1200,hoursPerWeek:160,reusePercent:30,horizonMonths:36,
@@ -17,6 +17,18 @@ assert.equal(a.reuse.totalLow,21000+6500+(250+200)*36);
 assert.equal(a.reuse.totalHigh,41160+6500+(250+200)*36);
 assert.equal(a.saas.total,7000+(120+20*25+250)*36);
 assert.equal(a.assumption,'undiscounted_usd_cost_only_no_feature_parity');
+const timeline=calculateTCOTimeline(a);
+assert.equal(timeline.ok,true);
+assert.deepEqual(timeline.months,[0,12,24,36]);
+assert.equal(timeline.rows[0].customLow,a.custom.upfrontLow);
+assert.equal(timeline.rows[0].saas,a.saas.upfront);
+assert.equal(timeline.rows.at(-1).customHigh,a.custom.totalHigh);
+assert.equal(timeline.rows.at(-1).reuseLow,a.reuse.totalLow);
+assert.equal(timeline.rows.at(-1).saas,a.saas.total);
+assert.deepEqual(calculateTCOTimeline({...a,horizonMonths:13}).months,[0,12,13]);
+assert.deepEqual(calculateTCOTimeline({...a,horizonMonths:1}).months,[0,1]);
+assert.equal(calculateTCOTimeline({...a,saas:{...a.saas,monthly:NaN}}).ok,false);
+assert.equal(calculateTCOTimeline(a,0).ok,false);
 assert.equal(a.crossings.customLow.status,'beyond_horizon');
 assert.equal(a.crossings.customHigh.status,'beyond_horizon');
 assert.equal(a.crossings.reuseLow.status,'beyond_horizon');
