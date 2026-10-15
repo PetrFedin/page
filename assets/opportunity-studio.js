@@ -170,7 +170,9 @@ export function mountOpportunityStudio(host, language, projects, startContact, b
     if (mode === 'build') {
       return '<h3>' + escapeHtml(t.buildTitle) + '</h3><p class="sub">' + escapeHtml(t.buildLead) + '</p>' +
         '<div class="op-fields"><label class="op-field"><span>' + escapeHtml(t.typeLabel) +
-        '</span><select data-op-input="type">' + t.buildTypes.map(([id,title])=>
+        '</span><select data-op-input="type"><option value="">'+
+          escapeHtml(lang==='ru'?'Выберите направление':'Choose a solution type')+'</option>' +
+          t.buildTypes.map(([id,title])=>
           '<option value="'+escapeHtml(id)+'">'+escapeHtml(title)+'</option>').join('') +
         '</select></label>' +
         inputHtml('hours',t.hoursLabel,{min:1,max:1e7}) +
@@ -213,8 +215,9 @@ export function mountOpportunityStudio(host, language, projects, startContact, b
         cardsHtml(t.accessTiers) +
         '<div class="op-fields"><label class="op-field"><span>' +
         escapeHtml(lang==='ru'?'Формат раннего участия':'Early participation format') +
-        '</span><select data-op-input="accessTier">' +
-        EARLY_ACCESS_IDS.map((id,i)=>'<option value="'+id+'">'+
+        '</span><select data-op-input="accessTier"><option value="">' +
+        escapeHtml(lang==='ru'?'Выберите формат':'Choose participation format') +
+        '</option>' + EARLY_ACCESS_IDS.map((id,i)=>'<option value="'+id+'">'+
           escapeHtml(t.accessTiers[i][0])+'</option>').join('') +
         '</select></label></div>' +
         '<h4 class="op-subhead">'+escapeHtml(lang==='ru'?'Сравнить условную льготу':'Illustrative early-access benefit')+'</h4>'+
@@ -231,7 +234,9 @@ export function mountOpportunityStudio(host, language, projects, startContact, b
       '<p class="op-caveat">'+escapeHtml(t.noCapTable)+'</p>'+
       '<h4 class="op-subhead">'+escapeHtml(lang==='ru'?'Модель переговорной структуры':'Illustrative equity mechanics')+'</h4>'+
       '<div class="op-fields"><label class="op-field"><span>'+escapeHtml(t.modeLabel)+
-      '</span><select data-op-input="mode"><option value="primary">'+escapeHtml(t.primary)+
+      '</span><select data-op-input="mode"><option value="">'+
+      escapeHtml(lang==='ru'?'Выберите тип сделки':'Choose transaction type')+
+      '</option><option value="primary">'+escapeHtml(t.primary)+
       '</option><option value="secondary">'+escapeHtml(t.secondary)+'</option></select></label>'+
       inputHtml('assumedValuation',t.preMoney,{min:1})+
       inputHtml('ticket',t.investAmount,{min:1})+
