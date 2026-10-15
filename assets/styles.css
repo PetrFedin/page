@@ -2042,3 +2042,76 @@ a.lang{display:inline-flex; align-items:center; justify-content:center; text-dec
   .project-development-actions{display:grid;grid-template-columns:minmax(0,1fr)}
   .project-development-actions .btn{width:100%}
 }
+
+
+/* V2 clarity layer: fewer visual decisions per viewport, depth on demand. */
+#top .hero-cta{gap:9px}
+#top .hero-cta .btn:nth-child(1),#top .hero-cta .btn:nth-child(4),#top .hero-cta .btn:nth-child(5){display:none}
+#top .hero-text .lead{max-width:61ch}
+#top .hero-text .bio{max-width:74ch;font-size:15px;color:var(--muted)}
+#work-with-me{padding-top:34px;padding-bottom:44px}
+#work-with-me .lead-routes-grid{gap:14px;margin-top:18px}
+#work-with-me .lead-route-card{padding:23px 22px;gap:10px}
+#work-with-me .lead-route-card h3{font:500 23px/1.2 var(--serif)}
+#work-with-me .lead-route-card p{font-size:14px;line-height:1.6;color:var(--muted)}
+#work-with-me .lead-route-card .btn{margin-top:auto}
+#experience .facts-bar,#consulting .services,#projects .cards,#investors .inv-list{margin-top:18px}
+#consulting .svc{align-content:start;gap:10px}
+#consulting .svc-t{font-size:clamp(18px,1.8vw,21px)}
+#consulting .svc-b{font-size:14px;line-height:1.65}
+#consulting .svc-d{font-size:13px;line-height:1.6}
+#consulting .svc-more{font-size:13px;margin-top:auto;padding-top:12px}
+#projects .cards{grid-template-rows:none;grid-auto-rows:auto;gap:14px}
+#projects .cards>.card{min-height:0;grid-row:auto;grid-template-rows:none;align-content:start;padding:24px 24px 20px;gap:12px}
+#projects .cards>.card:first-child{grid-column:auto}
+#projects .card-sector{font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--accent);margin-top:1px}
+#projects .card-tag{font-size:clamp(19px,2vw,23px);line-height:1.23}
+#projects .card-body{font-size:14px;line-height:1.65;max-width:60ch}
+#projects .card-foot{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:auto;padding-top:9px}
+#projects .card-foot>[data-open]{min-height:42px}
+#projects .card-tools{flex:1 1 150px;max-width:100%;min-width:0}
+#projects .card-tools>summary{list-style:none;font-size:13px;color:var(--muted);cursor:pointer;display:inline-flex;align-items:center;gap:7px;min-height:40px;padding:7px 0}
+#projects .card-tools>summary::-webkit-details-marker{display:none}
+#projects .card-tools>summary::after{content:'+';font-size:18px;line-height:1;color:var(--accent);font-weight:400}
+#projects .card-tools[open]>summary::after{content:'−'}
+#projects .card-tools-actions{display:flex;flex-wrap:wrap;gap:7px;padding:8px 0}
+#projects .card-tools-actions .btn{white-space:normal;font-size:12px;padding:8px 10px}
+#project-development{margin:20px 0 30px}
+#project-development .project-development-copy>p:not(.eyebrow){max-width:66ch}
+#project-development .project-development-steps li{font-size:14px}
+#investors .inv-lead{border-left:none;background:none;padding:0;max-width:77ch;font-size:16px;margin:6px 0 22px;line-height:1.65}
+#investors .investment-choice{margin:14px 0 20px}
+#investors .inv-card{gap:9px;padding:21px 20px}
+#investors .inv-card .inv-what{font-size:14px;line-height:1.65}
+#investors .inv-card .inv-tag{font-size:13px}
+#investors .inv-read{font-size:13px}
+#news .feed{margin-top:20px}
+.v2-disclosure{border:1px solid var(--line);border-radius:var(--radius);padding:0;background:var(--panel);margin:24px 0;min-width:0}
+.v2-disclosure>summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:20px 24px}
+.v2-disclosure>summary::-webkit-details-marker{display:none}
+.v2-disclosure-title{font:500 clamp(18px,2.1vw,24px)/1.28 var(--serif)}
+.v2-disclosure-arrow{flex:0 0 32px;width:32px;height:32px;display:grid;place-items:center;border:1px solid var(--line);border-radius:50%;font-size:21px;color:var(--accent)}
+.v2-disclosure[open] .v2-disclosure-arrow{font-size:0}
+.v2-disclosure[open] .v2-disclosure-arrow::after{content:'−';font-size:21px}
+.v2-disclosure-hint{padding:0 24px 20px;font-size:14px;color:var(--muted);line-height:1.5}
+.v2-disclosure[open]>.v2-disclosure-hint{padding-bottom:16px}
+.v2-disclosure>.formats{padding:0 24px 24px}
+.v2-disclosure .formats-head{display:none}
+#projects .v2-disclosure{margin-top:24px}
+@media(min-width:760px){
+ #projects .cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+ #projects .card{min-width:0}
+}
+@media(min-width:1160px){
+ #projects .cards{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:759px){
+ #projects .cards.snap{display:flex;gap:12px;overflow-x:auto}
+ #projects .cards.snap>.card{flex:0 0 88%;padding:20px}
+ #projects .card-foot{align-items:flex-start}
+ .v2-disclosure>summary{padding:17px 18px}
+ .v2-disclosure-hint{padding:0 18px 18px}
+ .v2-disclosure>.formats{padding:0 18px 18px}
+ #top .hero-cta{display:none}
+}
+@media(prefers-reduced-motion:reduce){#projects .cards>.card:hover{transform:none}}
