@@ -6,7 +6,7 @@ import {
 
 /* Purely client-side explanations with in-memory inputs. Financial inputs are
    never copied into leads, tracking, browser storage or network requests. */
-const escapeHtml = (s) => String(s).replace(/[&<>"']/g, x =>
+const escapeHtml = (s) => String(s ?? '').replace(/[&<>"']/g, x =>
   ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[x]));
 const inputHtml = (key, label, opts = {}) =>
   '<label class="op-field"><span>' + escapeHtml(label) + '</span><input data-op-input="' +
@@ -20,10 +20,55 @@ const rowsHtml = rows => '<ol class="op-steps">' + rows.map(row =>
   '<li><span class="op-step-index">' + escapeHtml(row[0]) +
   '</span><div><h4>' + escapeHtml(row[1]) + '</h4><p>' +
   escapeHtml(row[2] || '') + '</p></div></li>').join('') + '</ol>';
-const cardsHtml = rows => '<div class="op-choices">' + rows.map((r, i) =>
-  '<article class="op-choice"><span class="op-index">0' + (i + 1) +
-  '</span><h4>' + escapeHtml(r[0]) + '</h4><p>' + escapeHtml(r[1]) +
-  '</p><p class="op-caveat">' + escapeHtml(r[2]) + '</p></article>').join('') + '</div>';
+/** Preserve all substantive terms of each offer, including optional fourth-column
+ * restrictions. Never render missing values as literal "undefined". */
+export function renderOpportunityCards(rows) {
+  if (!Array.isArray(rows)) throw new TypeError('Card rows must be an array');
+  return '<div class="op-choices">' + rows.map((row, index) => {
+    if (!Array.isArray(row) || typeof row[0] !== 'string' || !row[0].trim())
+      throw new TypeError('Each card needs a non-empty title');
+    const paragraphs = row.slice(1).filter(v=>typeof v==='string' && v.trim()!=='');
+    return '<article class="op-choice"><span class="op-index">' +
+      String(index + 1).padStart(2,'0') + '</span><h4>' +
+      escapeHtml(row[0]) + '</h4>' + paragraphs.map((item,i)=>
+        '<p' + (i?' class="op-caveat"':'') + '>' +
+        escapeHtml(item) + '</p>').join('') + '</article>';
+  }).join('') + '</div>';
+}
+const cardsHtml = renderOpportunityCards;
+export const EARLY_ACCESS_IDS = Object.freeze([
+  'explore', 'design-partner', 'founding-customer', 'post-launch'
+]);
+
+/** Allowlisted qualitative request: never reads or serializes any finance inputs. */
+export function buildOpportunityRequest({
+  mode, language='ru', projectId='own', projects=[],
+  softwareType='', capitalMode='', accessTier=''
+}={}) {
+  const lang=language==='en'?'en':'ru';
+  const copy=OPPORTUNITY_COPY[lang];
+  const selectedMode=copy.modes.find(item=>item.id===mode);
+  if(!selectedMode || !Array.isArray(projects))return null;
+  const selectedProject=projects.find(item=>item.id===projectId);
+  const routes={
+    build:['consulting','client'],transform:['consulting','client'],
+    access:['partnership','pilot'],capital:['investors','investor']
+  };
+  if(!Object.hasOwn(routes,mode))return null;
+  let detail='';
+  if(mode==='build')detail=copy.buildTypes.find(x=>x[0]===softwareType)?.[1]||'';
+  if(mode==='capital' && ['primary','secondary'].includes(capitalMode))detail=copy[capitalMode];
+  const tierIndex=EARLY_ACCESS_IDS.indexOf(accessTier);
+  if(mode==='access' && tierIndex>=0)detail=copy.accessTiers[tierIndex][0];
+  const subject=[selectedMode.title,detail].filter(Boolean).join(' · ');
+  const prefix=lang==='ru'?'Хочу обсудить персональный расчёт и условия: ':
+    'I would like a tailored scope and terms for: ';
+  return {
+    topic:routes[mode][0],route:routes[mode][1],
+    project:selectedProject?.id||'',goal:subject.slice(0,150),
+    message:prefix+(selectedProject?.name||copy.ownProject)+' — '+subject+'.'
+  };
+}
 
 export function mountOpportunityStudio(host, language, projects, startContact, blueprints = {}, openProjectEconomics = () => {}) {
   if (!host || !Array.isArray(projects)) throw new TypeError('Opportunity studio needs a mount element and projects');
@@ -161,11 +206,17 @@ export function mountOpportunityStudio(host, language, projects, startContact, b
           ['annualNet',t.annualNet],['payback',t.payback]
         ]) + foot() + '<p class="op-caveat">'+escapeHtml(t.transformCaveat)+'</p>' +
         '<h4 class="op-subhead">'+escapeHtml(t.workflowTitle)+'</h4>' +
-        cardsHtml(t.transformStages.map((r,i)=>['0'+(i+1)+' · '+r[0],r[1],r[2]]));
+        cardsHtml(t.transformStages);
     }
     if (mode === 'access') {
       return '<h3>'+escapeHtml(t.accessTitle)+'</h3><p class="sub">'+escapeHtml(t.accessLead)+'</p>' +
         cardsHtml(t.accessTiers) +
+        '<div class="op-fields"><label class="op-field"><span>' +
+        escapeHtml(lang==='ru'?'Формат раннего участия':'Early participation format') +
+        '</span><select data-op-input="accessTier">' +
+        EARLY_ACCESS_IDS.map((id,i)=>'<option value="'+id+'">'+
+          escapeHtml(t.accessTiers[i][0])+'</option>').join('') +
+        '</select></label></div>' +
         '<h4 class="op-subhead">'+escapeHtml(lang==='ru'?'Сравнить условную льготу':'Illustrative early-access benefit')+'</h4>'+
         '<div class="op-fields">' +
         inputHtml('futureMonthlyPrice',t.accessFuture,{min:0})+
@@ -195,7 +246,7 @@ export function mountOpportunityStudio(host, language, projects, startContact, b
       '<p class="op-caveat">'+escapeHtml(t.financingNote)+'</p>'+
       '<h4 class="op-subhead">'+escapeHtml(t.useFunds)+'</h4>'+cardsHtml(t.capitalSteps)+
       '<h4 class="op-subhead">'+escapeHtml(t.needsTitle)+'</h4>'+
-      cardsHtml(t.projectRoles.map((r,i)=>[r[0],r[1],'']))+projectPlanHtml();
+      cardsHtml(t.projectRoles)+projectPlanHtml();
   }
   const currentValues = () => {
     const vals = {};
@@ -274,19 +325,13 @@ export function mountOpportunityStudio(host, language, projects, startContact, b
     recalc();
   }
   function contact(){
-    const path = {build:['consulting','client'],transform:['consulting','client'],
-      access:['partnership','pilot'],capital:['investors','investor']}[active];
-    const label=t.modes.find(x=>x.id===active).title;
-    const chosen = projects.find(x=>x.id===selectedProject);
-    const name = chosen?.name || t.ownProject;
-    // A project ID and generic subject are the ONLY things transmitted to
-    // the contact form. Never pass calculated values, draft inputs or metrics.
-    startContact({
-      topic:path[0],route:path[1],project:chosen?.id||'',
-      goal:label,
-      message:(lang==='ru'?'Хочу обсудить персональный расчёт и условия: ':'I would like a tailored scope and terms for: ')+name+
-        ' — '+label+'.'
+    // The contact process receives route, project and qualitative scope only.
+    const request=buildOpportunityRequest({
+      mode:active,language:lang,projectId:selectedProject,projects,
+      softwareType:get('type')?.value||'',capitalMode:get('mode')?.value||'',
+      accessTier:get('accessTier')?.value||''
     });
+    if(request)startContact(request);
   }
 
   host.addEventListener('click',event=>{
