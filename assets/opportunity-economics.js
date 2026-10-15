@@ -41,6 +41,42 @@ export function calculateSoftwareScenario({ hours, hoursPerWeek, reusePercent })
 
 
 /**
+ * First *whole billing month* where a linearly accumulated route cost meets
+ * or passes a SaaS alternative's cumulative cost. These are *cost crossings*
+ * (not returns, profits, discount rates, or financial break-even).
+ *
+ * A cost may start lower and become higher later: preserve the direction.
+ * Never extrapolate a point past the user-selected observation horizon.
+ */
+export function findTCOMonthCrossing({
+  alternativeUpfront, alternativeMonthly, saasUpfront, saasMonthly, horizonMonths
+} = {}) {
+  const fields=[alternativeUpfront,alternativeMonthly,saasUpfront,saasMonthly];
+  if(fields.some(v=>!validNumber(v,0,MAX_MONEY)) ||
+     !validNumber(horizonMonths,1,120,true))return {ok:false,error:'invalid'};
+  const begin=number(alternativeUpfront)-number(saasUpfront);
+  const slope=number(alternativeMonthly)-number(saasMonthly);
+  if(begin===0) {
+    return {ok:true,status:slope===0?'same_cost':'equal_initial',
+      month:0,direction:slope<0?'alternative_lower':slope>0?'saas_lower':'equal'};
+  }
+  if(begin>0 && slope>=0)
+    return {ok:true,status:'no_crossing',month:null,direction:'saas_lower'};
+  if(begin<0 && slope<=0)
+    return {ok:true,status:'no_crossing',month:null,direction:'alternative_lower'};
+  const becomesAlternativeLower=begin>0;
+  for(let month=1;month<=number(horizonMonths);month++){
+    const delta=begin+slope*month;
+    if(becomesAlternativeLower ? delta<=1e-6 : delta>=-1e-6) {
+      return {ok:true,status:'crossed',month,
+        direction:becomesAlternativeLower?'alternative_lower':'saas_lower'};
+    }
+  }
+  return {ok:true,status:'beyond_horizon',month:null,
+    direction:becomesAlternativeLower?'saas_lower':'alternative_lower'};
+}
+
+/**
  * Like-for-like observation horizon for three *hypothetical* delivery routes:
  * 1) bespoke development, 2) adaptation of reusable modules, 3) SaaS.
  * No benefit parity, market discount, quoted SYNTHA price, tax treatment,
@@ -89,7 +125,17 @@ export function calculateSoftwareTCO({
     upfront:saasUpfront, monthly:saasMonthly,
     total:saasUpfront+saasMonthly*months
   };
-  return {ok:true,horizonMonths:months,custom,reuse,saas,
+  const toCrossing=(upfront,monthly)=>findTCOMonthCrossing({
+    alternativeUpfront:upfront,alternativeMonthly:monthly,
+    saasUpfront:saas.upfront,saasMonthly:saas.monthly,horizonMonths:months
+  });
+  const crossings={
+    customLow:toCrossing(custom.upfrontLow,custom.monthly),
+    customHigh:toCrossing(custom.upfrontHigh,custom.monthly),
+    reuseLow:toCrossing(reuse.upfrontLow,reuse.monthly),
+    reuseHigh:toCrossing(reuse.upfrontHigh,reuse.monthly)
+  };
+  return {ok:true,horizonMonths:months,custom,reuse,saas,crossings,
     assumption:'undiscounted_usd_cost_only_no_feature_parity'};
 }
 
