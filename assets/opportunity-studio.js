@@ -1,6 +1,6 @@
 import { OPPORTUNITY_COPY, PROJECT_OPPORTUNITIES } from './opportunity-copy.js';
 import {
-  calculateSoftwareScenario, calculateSoftwareTCO, calculateTransformationScenario,
+  calculateSoftwareScenario, calculateSoftwareTCO, calculateTCOTimeline, calculateTransformationScenario,
   calculateEarlyAccessScenario, calculateCapitalScenario
 } from './opportunity-economics.js';
 
@@ -186,6 +186,7 @@ export function mountOpportunityStudio(host, language, projects, startContact, b
       metricHtml('tcoCustom',t.tcoCustom)+metricHtml('tcoReuse',t.tcoReuse)+
       metricHtml('tcoSaas',t.tcoSaas)+'</dl>' +
       '<p class="op-caveat" data-op-tco-crossings hidden role="status"></p>' +
+      '<div data-op-tco-timeline hidden class="op-timeline" aria-live="off"></div>' +
       '<p class="op-caveat">'+escapeHtml(t.tcoWarning)+'</p></section>';
   }
   function panelHtml(mode) {
@@ -315,6 +316,25 @@ export function mountOpportunityStudio(host, language, projects, startContact, b
           (lang==='ru'?'; адаптация — ':'; adaptation — ')+
           format(tco.crossings.reuseLow)+' / '+format(tco.crossings.reuseHigh)+
           (lang==='ru'?'. Пересечение может означать и потерю преимущества; сравнивайте итоговые суммы.':'. Crossing may also mean costs become higher; compare total amounts.');
+      }
+      const timelineNode=panel.querySelector('[data-op-tco-timeline]');
+      const timeline=tco.ok?calculateTCOTimeline(tco,12):{ok:false};
+      if(timelineNode){
+        timelineNode.hidden=!timeline.ok;
+        if(timeline.ok){
+          const headings=lang==='ru'?['Месяц','Своя разработка','Адаптация','SaaS']:
+            ['Month','Custom build','Adaptation','SaaS'];
+          const fmt=(lo,hi)=>quote(lo)+' — '+quote(hi);
+          timelineNode.innerHTML='<p class="op-caveat">'+escapeHtml(lang==='ru'?
+            'Накопленные затраты: все разовые расходы учтены в месяце 0, регулярные начисляются равномерно.':
+            'Cumulative costs: all upfront costs in month 0, recurring costs evenly per month.')+
+            '</p><div class="op-timeline-scroll"><table><thead><tr>'+
+            headings.map(h=>'<th scope="col">'+escapeHtml(h)+'</th>').join('')+
+            '</tr></thead><tbody>'+timeline.rows.map(row=>
+              '<tr><th scope="row">'+row.month+'</th><td>'+fmt(row.customLow,row.customHigh)+
+              '</td><td>'+fmt(row.reuseLow,row.reuseHigh)+'</td><td>'+quote(row.saas)+
+              '</td></tr>').join('')+'</tbody></table></div>';
+        }else timelineNode.replaceChildren();
       }
       if(tcoNode){
         tcoNode.hidden=!tco.ok;
