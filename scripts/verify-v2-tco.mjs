@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import assert from 'node:assert/strict';
-import {calculateSoftwareTCO} from '../assets/opportunity-economics.js';
+import {calculateSoftwareTCO,findTCOMonthCrossing} from '../assets/opportunity-economics.js';
 import {OPPORTUNITY_COPY} from '../assets/opportunity-copy.js';
 const x={
   hours:1200,hoursPerWeek:160,reusePercent:30,horizonMonths:36,
@@ -17,6 +17,27 @@ assert.equal(a.reuse.totalLow,21000+6500+(250+200)*36);
 assert.equal(a.reuse.totalHigh,41160+6500+(250+200)*36);
 assert.equal(a.saas.total,7000+(120+20*25+250)*36);
 assert.equal(a.assumption,'undiscounted_usd_cost_only_no_feature_parity');
+assert.equal(a.crossings.customLow.status,'beyond_horizon');
+assert.equal(a.crossings.customHigh.status,'beyond_horizon');
+assert.equal(a.crossings.reuseLow.status,'crossed');
+assert.equal(a.crossings.reuseLow.month,21);
+assert.equal(a.crossings.reuseHigh.status,'beyond_horizon');
+for(const [input,status,month,direction] of [
+  [{alternativeUpfront:1000,alternativeMonthly:10,saasUpfront:0,saasMonthly:110,horizonMonths:12},'crossed',10,'alternative_lower'],
+  [{alternativeUpfront:0,alternativeMonthly:120,saasUpfront:1000,saasMonthly:20,horizonMonths:12},'crossed',10,'saas_lower'],
+  [{alternativeUpfront:500,alternativeMonthly:100,saasUpfront:0,saasMonthly:50,horizonMonths:24},'no_crossing',null,'saas_lower'],
+  [{alternativeUpfront:0,alternativeMonthly:20,saasUpfront:500,saasMonthly:100,horizonMonths:24},'no_crossing',null,'alternative_lower'],
+  [{alternativeUpfront:1000,alternativeMonthly:10,saasUpfront:0,saasMonthly:110,horizonMonths:9},'beyond_horizon',null,'saas_lower'],
+  [{alternativeUpfront:0,alternativeMonthly:20,saasUpfront:0,saasMonthly:20,horizonMonths:12},'same_cost',0,'equal'],
+  [{alternativeUpfront:0,alternativeMonthly:10,saasUpfront:0,saasMonthly:20,horizonMonths:12},'equal_initial',0,'alternative_lower']
+]){
+ const result=findTCOMonthCrossing(input);
+ assert.equal(result.ok,true);
+ assert.equal(result.status,status);
+ assert.equal(result.month,month);
+ assert.equal(result.direction,direction);
+}
+assert.equal(findTCOMonthCrossing({alternativeUpfront:0,alternativeMonthly:0,saasUpfront:0,saasMonthly:0,horizonMonths:121}).ok,false);
 assert.equal(calculateSoftwareTCO({...x,horizonMonths:1}).ok,true);
 assert.equal(calculateSoftwareTCO({...x,horizonMonths:120}).ok,true);
 for(const update of [
