@@ -33,6 +33,10 @@ for(const lang of cases){
     assert.equal(await section.locator('[data-op-metrics]').isVisible(),true,'Build scenario shown');
     const tcoResults=section.locator('[data-op-tco-results]');
     assert.equal(await tcoResults.isVisible(),true,'Three-way TCO shown only on completed inputs');
+    const crossing=section.locator('[data-op-tco-crossings]');
+    assert.equal(await crossing.isVisible(),true,'Cumulative cost crossing should be explained');
+    assert.ok((await crossing.textContent()).includes(lang==='ru'?'нет пересечения':'no crossing'),
+      'Do not invent a cost crossing outside the 36-month example horizon');
     assert.equal(await section.locator('[data-op-result="tcoSaas"]').count(),1);
     const baselineTco=await section.locator('[data-op-result="tcoCustom"]').textContent();
     assert.ok(baselineTco.includes('53')&&baselineTco.includes('82'),'36-month custom build TCO');
