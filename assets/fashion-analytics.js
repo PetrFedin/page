@@ -28,8 +28,8 @@ export function mountFashionAnalytics(node,language='ru'){
     field('dimension').innerHTML=opt(FASHION_ROLES[role],t.dimensions,dimension);
     const rep=buildFashionReport(rows,{role,view,groupBy:dimension,growthPct:growth});
     const out=node.querySelector('[data-fa-report]');
-    if(!rep.ok){field('errors').hidden=false;field('errors').textContent=rep.errors.join(' · ');out.replaceChildren();return;}
-    field('errors').hidden=true;
+    if(!rep.ok){node.querySelector('[data-fa-errors]').hidden=false;node.querySelector('[data-fa-errors]').textContent=rep.errors.join(' · ');out.replaceChildren();return;}
+    node.querySelector('[data-fa-errors]').hidden=true;
     const keys=sets[view],metric=k=>'<div class="fa-metric"><dt>'+escape(t.kpis[k])+'</dt><dd>'+escape(format(k,rep.totals[k]))+'</dd></div>';
     const columns=keys.slice(0,4);
     out.innerHTML='<p class="fa-period">'+escape(t.period)+': <strong>'+escape(rep.latestMonth)+'</strong> · '+rep.sampleRows+' '+escape(language==='en'?'records':'записей')+'</p>'+
@@ -47,9 +47,9 @@ export function mountFashionAnalytics(node,language='ru'){
     if(key==='growth'){const n=Number(target.value);if(target.value!==''&&Number.isFinite(n)&&n>=-50&&n<=100){growth=n;render();}}
     if(key==='file'){
       const f=target.files?.[0];if(!f)return;
-      if(f.size>2000000){field('errors').hidden=false;field('errors').textContent=t.error+': 2 MB maximum';return;}
+      if(f.size>2000000){node.querySelector('[data-fa-errors]').hidden=false;node.querySelector('[data-fa-errors]').textContent=t.error+': 2 MB maximum';return;}
       const data=parseFashionCsv(await f.text());
-      if(!data.ok){field('errors').hidden=false;field('errors').textContent=data.errors.slice(0,5).join(' · ');return;}
+      if(!data.ok){node.querySelector('[data-fa-errors]').hidden=false;node.querySelector('[data-fa-errors]').textContent=data.errors.slice(0,5).join(' · ');return;}
       rows=data.rows;source='import';node.querySelector('[data-fa-label]').textContent=language==='en'?'Local imported dataset · not uploaded':'Импортированные данные · только в браузере';render();target.value='';
     }
   });
