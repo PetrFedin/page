@@ -1,6 +1,6 @@
 import { OPPORTUNITY_COPY, PROJECT_OPPORTUNITIES } from './opportunity-copy.js';
 import {
-  calculateSoftwareScenario, calculateTransformationScenario,
+  calculateSoftwareScenario, calculateSoftwareTCO, calculateTransformationScenario,
   calculateEarlyAccessScenario, calculateCapitalScenario
 } from './opportunity-economics.js';
 
@@ -166,6 +166,23 @@ export function mountOpportunityStudio(host, language, projects, startContact, b
         escapeHtml(lang==='ru'?'Открыть расширенную финансовую модель проекта':
           'Open the detailed project finance model')+'</button></aside>';
   }
+  function tcoHtml(){
+    const entries=[
+      ['horizonMonths',t.tcoHorizon,1,120],
+      ['customOneTime',t.tcoCustomOnce,0,1e9],['customMonthly',t.tcoCustomMonthly,0,1e9],
+      ['reuseOneTime',t.tcoReuseOnce,0,1e9],['reuseMonthly',t.tcoReuseMonthly,0,1e9],
+      ['reuseLicenseMonthly',t.tcoReuseLicense,0,1e9],['saasOneTime',t.tcoSaasOnce,0,1e9],
+      ['saasMonthlyPlatform',t.tcoSaasPlatform,0,1e9],['saasUsers',t.tcoSaasUsers,0,100000],
+      ['saasMonthlySeat',t.tcoSaasSeat,0,1e9],['saasMonthlyOperations',t.tcoSaasOps,0,1e9]
+    ];
+    return '<section class="op-tco" aria-label="'+escapeHtml(t.tcoTitle)+'">' +
+      '<h4 class="op-subhead">'+escapeHtml(t.tcoTitle)+'</h4>' +
+      '<p class="op-caveat">'+escapeHtml(t.tcoLead)+'</p><div class="op-fields">' +
+      entries.map(([key,label,min,max])=>inputHtml(key,label,{min,max,step:key==='horizonMonths'||key==='saasUsers'?1:'any'})).join('') +
+      '</div><dl class="op-metrics" data-op-tco-results hidden>' +
+      metricHtml('tcoCustom',t.tcoCustom)+metricHtml('tcoReuse',t.tcoReuse)+
+      metricHtml('tcoSaas',t.tcoSaas)+'</dl><p class="op-caveat">'+escapeHtml(t.tcoWarning)+'</p></section>';
+  }
   function panelHtml(mode) {
     if (mode === 'build') {
       return '<h3>' + escapeHtml(t.buildTitle) + '</h3><p class="sub">' + escapeHtml(t.buildLead) + '</p>' +
@@ -182,7 +199,7 @@ export function mountOpportunityStudio(host, language, projects, startContact, b
           ['baselineCost',t.baseCost],['adaptedCost',t.adaptedCost],
           ['difference',t.diff],['baselineWeeks',t.baselineTime],
           ['adaptedWeeks',t.reuseTime]
-        ]) + foot() +
+        ]) + tcoHtml() + foot() +
         '<p class="op-caveat">'+escapeHtml(t.buildCaveat)+'</p>' +
         '<h4 class="op-subhead">'+escapeHtml(t.workflowTitle)+'</h4>' +
         rowsHtml(t.workflow) +
@@ -276,6 +293,25 @@ export function mountOpportunityStudio(host, language, projects, startContact, b
       mode:values.mode,assumedValuation:values.assumedValuation,
       ticket:values.ticket,founderBefore:values.founderBefore,founderMinimum:values.founderMinimum
     });
+    if(active==='build'){
+      const tcoNode=panel.querySelector('[data-op-tco-results]');
+      const tco=calculateSoftwareTCO(values);
+      if(tcoNode){
+        tcoNode.hidden=!tco.ok;
+        if(tco.ok){
+          const formatRange=(x)=>quote(x.totalLow)+' — '+quote(x.totalHigh);
+          const amounts={
+            tcoCustom:formatRange(tco.custom),
+            tcoReuse:formatRange(tco.reuse),
+            tcoSaas:quote(tco.saas.total)
+          };
+          for(const [key,value] of Object.entries(amounts)){
+            const cell=tcoNode.querySelector('[data-op-result="'+key+'"]');
+            if(cell)cell.textContent=value;
+          }
+        }
+      }
+    }
     const metrics=panel.querySelector('[data-op-metrics]');
     const status=panel.querySelector('[data-op-status]');
     if(!res.ok) {
@@ -325,7 +361,11 @@ export function mountOpportunityStudio(host, language, projects, startContact, b
   }
   function applyExample(){
     const examples = {
-      build:{type:'crm',hours:'1200',hoursPerWeek:'160',reusePercent:'30'},
+      build:{type:'crm',hours:'1200',hoursPerWeek:'160',reusePercent:'30',
+        horizonMonths:'36',customOneTime:'4000',customMonthly:'550',
+        reuseOneTime:'6500',reuseMonthly:'250',reuseLicenseMonthly:'200',
+        saasOneTime:'7000',saasMonthlyPlatform:'120',saasUsers:'20',
+        saasMonthlySeat:'25',saasMonthlyOperations:'250'},
       transform:{manualHours:'6000',hourlyCost:'15',efficiencyPercent:'15',
         otherAnnualSavings:'0',implementationBudget:'18000',annualSupport:'3000'},
       access:{accessTier:'founding-customer',futureMonthlyPrice:'49',discountPercent:'25',months:'12'},
