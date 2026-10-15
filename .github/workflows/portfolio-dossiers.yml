@@ -119,6 +119,9 @@ jobs:
       - run: node --check scripts/verify-v2-editorial-preservation.mjs
       - run: node --check functions/api/posts.js
       - run: node --check scripts/tg-queue.mjs
+      - run: node --check assets/fashion-analytics-core.js
+      - run: node --check assets/fashion-analytics.js
+      - run: node --check scripts/verify-fashion-analytics.mjs
       - run: node --check assets/app.js
       - run: node --check assets/content.js
       - run: node --check assets/portfolio-extensions.js
@@ -132,6 +135,7 @@ jobs:
       - run: node scripts/verify-advisory-economics.mjs
       - run: node scripts/verify-opportunity-studio.mjs
       - run: node scripts/verify-v2-tco.mjs
+      - run: node scripts/verify-fashion-analytics.mjs
       - run: node scripts/verify-v2-commercial-contract.mjs
       - run: node scripts/verify-editorial-queue.mjs
       - run: node scripts/verify-v2-editorial-preservation.mjs
@@ -153,6 +157,7 @@ jobs:
         run: |
           python3 -m http.server 4321 --bind 127.0.0.1 --directory dist-pages >/tmp/portfolio-http.log 2>&1 &
           node scripts/browser-portfolio-qa.mjs
+          node scripts/browser-fashion-analytics-qa.mjs
           node scripts/browser-lead-routes-qa.mjs
           node scripts/browser-advisory-economics-qa.mjs
           node scripts/browser-opportunity-studio-qa.mjs
