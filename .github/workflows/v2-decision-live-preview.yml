@@ -109,7 +109,7 @@ jobs:
             f.write('**Note:** Unclaimed temporary Cloudflare URL expires in 60 minutes. Static visual preview; contact and Telegram backend not enabled. V1 and the old Netlify V2 are unchanged.\\n')
           PY
 
-      - name: Verify temporary public URL: index routes, language, assets, exact SHA
+      - name: Verify public V2 routes, assets and SHA
         shell: bash
         run: |
           set -euo pipefail
