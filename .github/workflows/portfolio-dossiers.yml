@@ -15,6 +15,7 @@ on:
       - 'assets/opportunity-economics.js'
       - 'assets/opportunity-studio.js'
       - 'scripts/verify-opportunity-studio.mjs'
+      - 'scripts/verify-v2-tco.mjs'
       - 'scripts/browser-opportunity-studio-qa.mjs'
       - 'docs/PAGE_V2_COMMERCIAL_OFFER_ARCHITECTURE_2026-10-14.md'
       - 'assets/deck.js'
@@ -93,6 +94,7 @@ jobs:
       - run: node --check assets/opportunity-economics.js
       - run: node --check assets/opportunity-studio.js
       - run: node --check scripts/verify-opportunity-studio.mjs
+      - run: node --check scripts/verify-v2-tco.mjs
       - run: node --check scripts/browser-opportunity-studio-qa.mjs
       - run: node --check assets/deck.js
       - run: node --check scripts/verify-advisory-economics.mjs
@@ -129,6 +131,7 @@ jobs:
       - run: node scripts/verify-main-contact-security.mjs
       - run: node scripts/verify-advisory-economics.mjs
       - run: node scripts/verify-opportunity-studio.mjs
+      - run: node scripts/verify-v2-tco.mjs
       - run: node scripts/verify-v2-commercial-contract.mjs
       - run: node scripts/verify-editorial-queue.mjs
       - run: node scripts/verify-v2-editorial-preservation.mjs
