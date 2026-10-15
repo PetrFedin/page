@@ -119,7 +119,10 @@ export function mountOpportunityStudio(host, language, projects, startContact, b
     'hours','hoursPerWeek','reusePercent','manualHours','hourlyCost',
     'efficiencyPercent','otherAnnualSavings','implementationBudget',
     'annualSupport','futureMonthlyPrice','discountPercent','months',
-    'assumedValuation','ticket','founderBefore','founderMinimum'
+    'assumedValuation','ticket','founderBefore','founderMinimum',
+    'horizonMonths','customOneTime','customMonthly','reuseOneTime',
+    'reuseMonthly','reuseLicenseMonthly','saasOneTime','saasMonthlyPlatform',
+    'saasUsers','saasMonthlySeat','saasMonthlyOperations'
   ]);
   const updateUnsavedFlag = () => {
     const hasNumbers = [...drafts.values()].some(values =>
