@@ -8,7 +8,10 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const SITE = 'https://syntha.pro';
 const { NEWS } = await import(pathToFileURL(join(root, 'assets/news.js')).href);
-const today = new Date().toISOString().slice(0, 10);
+const todayParts=Object.fromEntries(new Intl.DateTimeFormat('en-GB',{
+  timeZone:'Europe/Moscow',year:'numeric',month:'2-digit',day:'2-digit'
+}).formatToParts(new Date()).map(({type,value})=>[type,value]));
+const today=`${todayParts.year}-${todayParts.month}-${todayParts.day}`;
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const LABEL = /^(О чём материал|Разбор|Мнение аналитика|Выводы|Что изменилось|Что это даёт|What the piece covers|The breakdown|Analyst’s take|Takeaways|What changed|What it gives you):\s*/;
 

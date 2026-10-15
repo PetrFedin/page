@@ -20,7 +20,18 @@
     "2026-09-30",
     "2026-10-01",
     "2026-10-02",
-    "2026-10-03",
-    "2026-10-04"
+    "2026-10-15",
+    "2026-10-17"
+  ],
+  "editorialStatus": "New investor article prepared for site release; Telegram paused pending explicit approval, queue review and credentials verification.",
+  "unresolvedLegacyDates": [
+    {
+      "date": "2026-10-03",
+      "reason": "Date reserved in historical queue, but no matching approved entry exists in assets/news.js. Do not send."
+    },
+    {
+      "date": "2026-10-04",
+      "reason": "Date reserved in historical queue, but no matching approved entry exists in assets/news.js. Do not send."
+    }
   ]
 }

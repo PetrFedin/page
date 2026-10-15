@@ -1011,11 +1011,11 @@ export const T = {
           "id": "equity",
           "title": "Инвестиции в продукт",
           "tagline": "Капитал на следующий этап развития",
-          "what": "Вы входите долей в один из продуктов или в новую идею. Деньги идут на пилот, доработку и выход на рынок по плану, который мы согласуем.",
+          "what": "Обсуждаем участие в капитале только после проверки действующих владельцев, прав на продукт и корпоративных ограничений. При согласованной первичной сделке средства могут финансировать конкретные этапы разработки и пилота.",
           "partner": "План развития и доступ к метрикам пилота. Вы видите, как растёт продукт, и влияете на объём и приоритеты.",
           "project": "Деньги на пилот и доработку. Если есть выход на первого клиента, знакомство с ним.",
           "fit": "Частному инвестору или фонду, которому важны продукт и понятный путь к проверке, а не презентация.",
-          "start": "Знакомство и разговор под NDA, затем показ продукта и плана пилота. Участие возможно на этом этапе; точные условия фиксируем по согласованным метрикам пилота."
+          "start": "Сначала проверяем структуру собственности, IP и план пилота. Затем обсуждаем формат сделки, защиту доли основателя, права инвестора и транши по подтверждённым этапам."
         },
         {
           "id": "strategic",
@@ -1061,8 +1061,8 @@ export const T = {
           "id": "acquisition",
           "title": "Покупка продукта или доли",
           "tagline": "Продукт под вашим управлением",
-          "what": "Вы покупаете продукт целиком или долю в нём. Рассматриваю и частичную передачу, и полную, если вы готовы вести продукт дальше.",
-          "partner": "Готовую базу: код, документацию, накопленные сценарии и опыт их проверки. Вы не начинаете с нуля.",
+          "what": "Можно обсудить приобретение части доли, стратегическую инвестицию либо передачу бизнеса или IP. Ни один пакет, включая 100%, не объявлен свободным для покупки; структура зависит от прав существующих участников и отдельных переговоров.",
+          "partner": "По результатам проверки — согласованный состав кода, прав на IP, документации и результатов тестирования. Объём передачи фиксируется отдельно, без обещания готового коммерческого продукта.",
           "project": "Команду и ресурсы, чтобы вести продукт дальше. Мою роль эксперта по отрасли обсуждаем.",
           "fit": "Компании, которой нужен готовый продукт в fashion или смежной области, а не очередной внутренний проект.",
           "start": "Предварительный разговор под NDA: что именно вас интересует и в какой форме. Условия обсуждаем после знакомства с продуктом."
@@ -2269,11 +2269,11 @@ export const T = {
           "id": "equity",
           "title": "Equity investment",
           "tagline": "Capital for the next stage of a product",
-          "what": "You take a stake in one of the products or in a new idea. The money goes to the pilot, further development and market entry, following a plan we agree.",
+          "what": "Equity participation is considered only after verifying current owners, product IP and corporate restrictions. Subject to an agreed primary round, proceeds may fund specific development and pilot milestones.",
           "partner": "A development plan and access to the pilot metrics. You see the product grow and have a say in scope and priorities.",
           "project": "Funding for the pilot and further development. If you can open a door to a first customer, an introduction.",
           "fit": "A private investor or fund that cares about the product and a clear route to proving it, more than a pitch deck.",
-          "start": "An introduction and a conversation under NDA, then a look at the product and the pilot plan. You can join at this stage; exact terms are fixed against the agreed pilot metrics."
+          "start": "First confirm ownership, IP and the pilot roadmap; then discuss transaction structure, founder retention, investor rights and evidence-based funding tranches."
         },
         {
           "id": "strategic",
@@ -2319,8 +2319,8 @@ export const T = {
           "id": "acquisition",
           "title": "Acquiring a product or stake",
           "tagline": "A product under your management",
-          "what": "You buy the whole product or a share in it. I will consider a partial handover as readily as a full one, if you are ready to take the product forward.",
-          "partner": "A ready foundation: code, documentation, tested scenarios and the experience of checking them. You do not start from zero.",
+          "what": "A partial stake purchase, strategic investment or acquisition of a business or IP could be discussed. No shares, including a 100% package, are advertised as available: any transfer depends on current holders' rights and separate negotiations.",
+          "partner": "Subject to diligence, a documented scope of code, IP rights, documentation and test evidence. Transfer terms are agreed separately; commercial maturity is not guaranteed.",
           "project": "A team and resources to take the product forward. We can discuss my role as an industry adviser.",
           "fit": "A company that wants a finished product in fashion or an adjacent field, rather than another internal build.",
           "start": "A preliminary conversation under NDA on what interests you and in what form. Terms follow once you have seen the product."
@@ -2835,16 +2835,16 @@ export const PROJECTS = [
   },
   {
     id: 'promomed',
-    name: 'Promomed + Состояние',
+    name: 'СОСТОЯНИЕ — концепт для Promomed',
     device: 'iphone',
     shots: ['/assets/shots/promomed-home.jpg', '/assets/shots/promomed-events.jpg'],
     ru: {
       tagline: '«СОСТОЯНИЕ» — комьюнити и ежегодная конференция о здоровье и красоте: один маршрут на весь год',
       roadmap: [{ label: 'Рабочий прототип', state: 'done' }, { label: 'Демонстрация Promomed', state: 'current' }, { label: 'Разработка и запуск', state: 'next' }],
-      stage: 'Прототип, демо для Promomed',
+      stage: 'Независимый прототип, не официальный продукт Promomed',
       card: 'Конференция раз в год, сообщество круглый год. Персональный маршрут, паспорт участия, встречи с партнёрами и операционный центр; прототип на 42 сессии в 7 залах. Ищу партнёров для проекта.',
-      what: 'Вокруг ежегодной конференции «Промомед» строится сообщество, которое не расходится вместе с залом. Вместо общей программы — персональный маршрут: Smart Route собирает расписание по интересам, Moment Mode на запрос «есть 20 минут» подсказывает следующий шаг. «Паспорт СОСТОЯНИЯ» — не рейтинг, а личная история участия: знания, событие, диалог, практика. После конференции он открывает материалы по интересам. Рабочий прототип этого сценария я собрал сам.',
-      who: '«Промомед» получает постоянную связь с клиентами и партнёрами и конференцию, цифры которой видны в реальном времени. Участники — маршрут и материалы по интересам. Партнёры — понятную ценность участия и контакты только с согласия человека. Та же модель подходит другим отраслям, где конференция — ядро отношений с аудиторией.',
+      what: 'В предлагаемом сценарии вокруг конференции формируется сообщество, которое не расходится вместе с залом. Вместо общей программы — персональный маршрут: Smart Route собирает расписание по интересам, Moment Mode на запрос «есть 20 минут» подсказывает следующий шаг. «Паспорт СОСТОЯНИЯ» — не рейтинг, а личная история участия: знания, событие, диалог, практика. После конференции он открывает материалы по интересам. Рабочий прототип этого сценария я собрал сам.',
+      who: 'Организатор в таком сценарии мог бы поддерживать постоянную связь с участниками и партнёрами, используя показатели мероприятия для управления. Участники — маршрут и материалы по интересам. Партнёры — понятную ценность участия и контакты только с согласия человека. Та же модель подходит другим отраслям, где конференция — ядро отношений с аудиторией.',
       why: 'Конференция бывает раз в год, интерес к ней живёт круглый год. Но рассылки, соцсети, регистрация и программа существуют порознь: накопленная связь не усиливает событие, а участник уходит с папкой материалов вместо собственного маршрута. Платформа соединяет всё в один путь, который не обрывается на выходе из зала.',
       how: 'Одна платформа для сообщества и конференции: сообщество работает между событиями, а конференция опирается на накопленную связь с клиентами и партнёрами. Экраны и сценарии прототипа показывают, что получают компания, партнёры и участники. Данные демонстрации (программа, партнёры, показатели) иллюстративны.',
       seeking: 'Ищу партнёров для «СОСТОЯНИЯ»: экспертов, компании и организаторов, которым интересно собрать сообщество вокруг конференции.'
@@ -2852,10 +2852,10 @@ export const PROJECTS = [
     en: {
       roadmap: [{ label: 'Working prototype', state: 'done' }, { label: 'Demo to Promomed', state: 'current' }, { label: 'Build and launch', state: 'next' }],
       tagline: '“SOSTOYANIE” — a health and beauty community and annual conference: one route for the whole year',
-      stage: 'Prototype, demo for Promomed',
+      stage: 'Independent concept, not an official Promomed product',
       card: 'A conference once a year, a community all year round. A personal route, a participation passport, partner meetings and an operations centre; a prototype with 42 sessions in 7 halls. I am looking for partners for the project.',
-      what: 'Around Promomed’s annual conference grows a community that does not disperse with the hall. A personal route replaces one programme for all: Smart Route builds a schedule around each participant’s interests, and Moment Mode answers “I have 20 minutes” with a next step. The “SOSTOYANIE Passport” is not a leaderboard but a personal record of participation: knowledge, event, dialogue, practice. Afterwards it opens materials matched to the participant’s interests. I built the working prototype of this journey myself.',
-      who: 'Promomed gains a standing link with clients and partners, and a conference whose figures are visible in real time. Participants get a route and materials matched to their interests. Partners get a clear return on attendance, with leads shared only by consent. The same model suits other industries where a conference is the core of the relationship with the audience.',
+      what: 'In this independent concept, a conference becomes the centre of a year-round community that does not disperse with the hall. A personal route replaces one programme for all: Smart Route builds a schedule around each participant’s interests, and Moment Mode answers “I have 20 minutes” with a next step. The “SOSTOYANIE Passport” is not a leaderboard but a personal record of participation: knowledge, event, dialogue, practice. Afterwards it opens materials matched to the participant’s interests. I built the working prototype of this journey myself.',
+      who: 'An organiser in this model could build year-round participant and partner relationships, with operational conference metrics for decision-making. Participants get a route and materials matched to their interests. Partners get a clear return on attendance, with leads shared only by consent. The same model suits other industries where a conference is the core of the relationship with the audience.',
       why: 'A conference happens once a year, but interest in it lives all year. Newsletters, social media, registration and programme run separately, so the relationship built does not strengthen the event, and participants leave with a folder of handouts instead of a route of their own. The platform joins these into one journey that does not end at the exit.',
       how: 'One platform for the community and the conference: the community stays active between events, and the conference builds on accumulated ties with clients and partners. The prototype’s screens and flows show what the company, its partners and participants receive. Demo data (programme, partners, figures) is illustrative.',
       seeking: 'I am looking for partners for “SOSTOYANIE”: experts, companies and organisers who would like to build a community around a conference.'

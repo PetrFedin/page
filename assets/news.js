@@ -5,47 +5,57 @@
 
 export const NEWS = [
   {
-    "date": "2026-10-13",
-    "tag": "investors",
-    "site": true,
+    "date": "2026-10-15",
+    "tag": "igra",
+    "site": false,
     "ru": {
       "tags": [
-        "инвесторам",
-        "пилот",
-        "экономика"
+        "IGRA",
+        "конструктор",
+        "инструкции"
       ],
-      "title": "Как оценивать цифровую платформу до первой выручки",
-      "body": "Презентация продукта отвечает на вопрос, что он должен делать. Инвестиционное решение требует других ответов: кто будет платить, за какой результат, сколько стоит внедрение и что должно произойти до следующего транша.\n\nДля каждого пилота нужны заранее согласованные признаки результата: реальный рабочий сценарий, ответственный со стороны клиента, подтверждённая стоимость исполнения и понятное решение о продолжении.\n\nКонсервативный, базовый и оптимистичный расчёты полезны только при раскрытых исходных данных. Прогноз не становится фактом от того, что он красиво выглядит на графике.\n\nПоэтому в описаниях проектов отдельно показываю текущую стадию, возможную модель выручки, риски и критерии перехода к коммерческому запуску. До появления подписанных договоров и оплаченных услуг реальные продажи не заявляются."
+      "title": "IGRA: цифровая инструкция должна помогать собирать, а не мешать",
+      "body": "У конструктора есть простой критерий качества: человек должен понимать следующий шаг, находить нужную деталь и видеть, почему соединение работает.\n\nДля IGRA проектируется связанный сценарий: доступные детали → выбор модели → пошаговая инструкция → сборка → сохранение результата. Качество этого сценария зависит не от количества красивых карточек, а от читаемости каждого шага, реалистичных соединений и устойчивости интерфейса на телефоне.\n\nДо завершения сквозных испытаний редактора, движений деталей и сохранения я не называю эту цепочку готовой для пользователей. Следующий критерий — пройти полный маршрут на нескольких устройствах без ручного обхода ошибок."
     },
     "en": {
       "tags": [
-        "investors",
-        "pilots",
-        "economics"
+        "IGRA",
+        "construction",
+        "instructions"
       ],
-      "title": "How to evaluate a digital platform before its first revenue",
-      "body": "A product presentation explains what it is designed to do. An investment decision needs different answers: who will pay, for what result, how much implementation costs, and what evidence is required before the next tranche.\n\nEvery pilot needs clear acceptance evidence agreed in advance: an actual workflow, an accountable customer stakeholder, verified delivery cost and a decision on whether to continue.\n\nDownside, base and upside calculations are useful only when their assumptions are explicit. A forecast does not become a fact because its chart looks convincing.\n\nThat is why project descriptions separate current maturity, possible revenue models, risks and commercial milestones. Until contracts and paid services are verified, we do not present them as traction."
-    },
-    "tg": {
-      "ru": {
-        "title": "Как оценивать цифровую платформу до первой выручки",
-        "tags": [
-          "инвестиции",
-          "пилоты",
-          "экономика"
-        ],
-        "body": "Как инвестору оценивать платформу до первой выручки?\n\nНужен не красивый прогноз, а проверяемая цепочка: кто станет покупателем, что именно проверяет пилот, какова себестоимость его исполнения, какие документы подтверждают результат и что должно произойти до следующего инвестиционного транша.\n\nКонсервативный, базовый и оптимистичный сценарии остаются гипотезами до появления контрактов и платежей.\n\nПодробный разбор: https://syntha.pro/#post-2026-10-13"
-      },
-      "en": {
-        "title": "How to evaluate a digital platform before its first revenue",
-        "tags": [
-          "investing",
-          "pilot",
-          "unit_economics"
-        ],
-        "body": "Before first revenue, a product deck is not evidence of a working business model. Review the pilot scope, cost of delivery, milestones and financing gates.\n\nFull note: https://syntha.pro/en/#post-2026-10-13"
-      }
+      "title": "IGRA: digital building instructions should make assembly easier",
+      "body": "A construction experience has a straightforward quality test: can someone identify the next step, find the required piece and understand why the connection works?\n\nIGRA is being designed around a connected journey: available pieces → model choice → step-by-step instructions → assembly → saved result. The critical factors are legible steps, credible connections and a stable mobile interface, not the number of glossy product tiles.\n\nUntil end-to-end editor, part-motion and persistence checks pass, I will not describe this complete journey as user-ready. The next evidence milestone is a full device-tested assembly without manual workarounds."
     }
+  },
+  {
+    "date": "2026-10-17",
+    "tag": "marco",
+    "site": false,
+    "ru": {
+      "tags": [
+        "Marco",
+        "B2B",
+        "планирование"
+      ],
+      "title": "Marco Pescarolo Commercial OS: размерная матрица — начало сделки, а не конец",
+      "body": "В оптовой закупке количество изделий по размерам — только первая запись. Дальше нужно согласовать изменение заказа, зафиксировать цену, подтвердить поставку и сравнить ожидаемый ассортимент с фактическими продажами.\n\nДля Marco Pescarolo Commercial OS проектируется единая последовательность: размерная матрица → подтверждение заказа → частичные поставки → доказательства получения → анализ продаж → повторная закупка. Это целевая операционная модель, а не подтверждение того, что все этапы работают у внешних клиентов.\n\nСледующий проверяемый рубеж — единая база заказов между Wholesale и Admin, реальные роли, сохранение между устройствами и приёмка исполнения без потери размерной детализации."
+    },
+    "en": {
+      "tags": [
+        "Marco",
+        "wholesale",
+        "sizing"
+      ],
+      "title": "Marco Pescarolo Commercial OS: a size matrix is the start of the wholesale deal",
+      "body": "A wholesale size breakdown is only the first record of an order. The buyer and brand still need to agree revisions, lock commercial terms, confirm deliveries and compare the intended assortment with actual sell-through.\n\nThe target Marco Pescarolo Commercial OS journey is size matrix → order confirmation → partial shipments → delivery evidence → sell-through → reorder. This is an operating model, not a claim that every stage is currently running with external customers.\n\nThe next evidence milestone is a single order record across Wholesale and Admin, verified real roles, persistence between devices and delivery acceptance without losing size-level detail."
+    }
+  },
+  {
+    date: '2026-10-13', tag: 'investors', site:true,
+    ru: {"tags":["инвесторам","пилот","экономика"],"title":"Как оценивать цифровую платформу до первой выручки","body":"Презентация продукта отвечает на вопрос, что он должен делать. Инвестиционное решение требует других ответов: кто будет платить, за какой результат, сколько стоит внедрение и что должно произойти до следующего транша.\n\nДля каждого пилота нужны заранее согласованные признаки результата: реальный рабочий сценарий, ответственный со стороны клиента, подтверждённая стоимость исполнения и понятное решение о продолжении.\n\nКонсервативный, базовый и оптимистичный расчёты полезны только при раскрытых исходных данных. Прогноз не становится фактом от того, что он красиво выглядит на графике.\n\nПоэтому в описаниях проектов отдельно показываю текущую стадию, возможную модель выручки, риски и критерии перехода к коммерческому запуску. До появления подписанных договоров и оплаченных услуг реальные продажи не заявляются."},
+    en: {"tags":["investors","pilots","economics"],"title":"How to evaluate a digital platform before its first revenue","body":"A product presentation explains what it is designed to do. An investment decision needs different answers: who will pay, for what result, how much implementation costs, and what evidence is required before the next tranche.\n\nEvery pilot needs clear acceptance evidence agreed in advance: an actual workflow, an accountable customer stakeholder, verified delivery cost and a decision on whether to continue.\n\nDownside, base and upside calculations are useful only when their assumptions are explicit. A forecast does not become a fact because its chart looks convincing.\n\nThat is why project descriptions separate current maturity, possible revenue models, risks and commercial milestones. Until contracts and paid services are verified, we do not present them as traction."},
+    tg: {"ru":{"title":"Как оценивать цифровую платформу до первой выручки","tags":["инвестиции","пилоты","экономика"],"body":"Как инвестору оценивать платформу до первой выручки?\n\nНужен не красивый прогноз, а проверяемая цепочка: кто станет покупателем, что именно проверяет пилот, какова себестоимость его исполнения, какие документы подтверждают результат и что должно произойти до следующего инвестиционного транша.\n\nКонсервативный, базовый и оптимистичный сценарии остаются гипотезами до появления контрактов и платежей.\n\nПодробный разбор: https://syntha.pro/#post-2026-10-13"},"en":{"title":"How to evaluate a digital platform before its first revenue","tags":["investing","pilot","unit_economics"],"body":"Before first revenue, a product deck is not evidence of a working business model. Review the pilot scope, cost of delivery, milestones and financing gates.\n\nFull note: https://syntha.pro/en/#post-2026-10-13"}}
+
   },
   {
     date: '2025-10-09',

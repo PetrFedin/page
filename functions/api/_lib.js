@@ -69,7 +69,12 @@ export async function sendTg(env, text) {
 }
 
 /* Публикует всё, что назначено на время не позже «сейчас». Возвращает число обработанных. */
+/* No public traffic or admin read may trigger publication by accident.
+   Release owner enables the explicit env gate only after editorial approval. */
+export const editorialPublishingEnabled = env => env?.EDITORIAL_PUBLISH_ENABLED === 'true';
+
 export async function publishDue(env, { onlyId } = {}) {
+  if (!editorialPublishingEnabled(env)) return 0;
   if (!(await ensureSchema(env))) return 0;
   const now = Date.now();
   const due = onlyId
