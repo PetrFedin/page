@@ -1,920 +1,275 @@
 <!doctype html>
 <html lang="ru">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Пётр Федин — фэшн-консалтинг и проекты</title>
-<meta name="description" content="Консультирую фэшн-бренды и разрабатываю собственные IT-продукты: Syntha, ChatX, Renova, MFW+BFS+Made in Moscow, Promomed.">
-<meta name="color-scheme" content="light dark">
-<meta property="og:title" content="Пётр Федин — фэшн-консалтинг и проекты">
-<meta property="og:description" content="Консультирую фэшн-бренды и разрабатываю собственные IT-продукты: Syntha, ChatX, Renova, MFW+BFS+Made in Moscow, Promomed.">
-<meta property="og:type" content="website">
-<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
-<link rel="icon" href="/favicon.ico" sizes="any">
-<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
-<link rel="canonical" href="https://syntha.pro/">
-<link rel="alternate" hreflang="ru" href="https://syntha.pro/">
-<link rel="alternate" hreflang="en" href="https://syntha.pro/en/">
-<link rel="alternate" hreflang="x-default" href="https://syntha.pro/">
-<meta property="og:url" content="https://syntha.pro/">
-<meta property="og:image" content="https://syntha.pro/assets/og.png">
-<meta name="twitter:image" content="https://syntha.pro/assets/og.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:locale" content="ru_RU">
-<link rel="alternate" type="application/rss+xml" title="Пётр Федин — лента" href="/feed.xml">
-<link rel="alternate" type="application/feed+json" title="Пётр Федин — лента" href="/feed.json">
-<script type="speculationrules">{"prefetch":[{"urls":["/syntha","/chatx","/renova","/mfw","/promomed"],"eagerness":"moderate"}]}</script>
-<meta property="og:site_name" content="Пётр Федин">
-<meta name="twitter:card" content="summary_large_image">
-<link rel="stylesheet" href="/assets/styles.css?v=202610041955">
-<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-<script src="/assets/track.js?v=202610041955" defer></script>
-<script src="/assets/guard.js?v=202610041955" defer></script>
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Person","@id":"https://syntha.pro/#person","name":"Пётр Федин","alternateName":"Petr Fedin","url":"https://syntha.pro/","jobTitle":"Консультант по фэшн-бизнесу, основатель IT-продуктов","image":"https://syntha.pro/assets/photo/petr-portrait.webp","sameAs":["https://t.me/sheqel","https://t.me/syntha_pro"],"knowsAbout":["Закупка и ассортимент","Продукт и производство в фэшн","Рынки и финансы фэшн-бизнеса","Фэшн-ритейл","IT-продукты для фэшн-индустрии"]},{"@type":"WebSite","@id":"https://syntha.pro/#site","url":"https://syntha.pro/","name":"Пётр Федин","inLanguage":["ru","en"],"publisher":{"@id":"https://syntha.pro/#person"}},{"@type":"ProfessionalService","name":"Пётр Федин — фэшн-консалтинг","url":"https://syntha.pro/","provider":{"@id":"https://syntha.pro/#person"},"serviceType":"Консалтинг для фэшн-бизнеса"}]}</script>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Marco Pescarolo — v30.7 Release Orchestrator</title>
+<style>
+:root{--bg:#f3f0e8;--paper:#fbfaf6;--ink:#181715;--muted:#716d65;--line:#d8d2c7;--accent:#6c5a42;--good:#244f3d;--warn:#8a6325;--bad:#8a3f34;--shadow:0 18px 50px rgba(25,22,17,.08)}
+*{box-sizing:border-box} body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink)}
+button,input,select,textarea{font:inherit}.hidden{display:none!important}.muted{color:var(--muted)}.small{font-size:12px}.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}.caps{text-transform:uppercase;letter-spacing:.12em;font-size:11px}
+.header{position:sticky;top:0;z-index:30;background:rgba(243,240,232,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.header-row{height:74px;display:flex;align-items:center;gap:22px;max-width:1440px;margin:auto;padding:0 28px}.brand{font-family:Georgia,serif;font-size:26px;letter-spacing:.03em;white-space:nowrap}.nav{display:flex;gap:16px;flex:1;overflow:auto}.nav button,.ghost{border:0;background:transparent;padding:8px 4px;color:var(--muted);cursor:pointer}.nav button.active{color:var(--ink);border-bottom:1px solid var(--ink)}
+.langs{display:flex;gap:6px}.lang{border:1px solid var(--line);background:transparent;border-radius:99px;padding:6px 9px;cursor:pointer}.lang.active{background:var(--ink);color:white;border-color:var(--ink)}
+.btn{border:1px solid var(--ink);background:var(--ink);color:white;border-radius:999px;padding:10px 16px;cursor:pointer}.btn.secondary{background:transparent;color:var(--ink)}.btn.soft{background:#e8e2d6;color:var(--ink);border-color:#e8e2d6}.btn.danger{background:var(--bad);border-color:var(--bad)}
+.layout{max-width:1440px;margin:auto;padding:26px 28px 60px}.hero{display:grid;grid-template-columns:1.3fr .7fr;gap:22px;margin-bottom:24px}.hero-main{min-height:420px;border-radius:26px;background:linear-gradient(140deg,#24211d,#625544 55%,#b9aa90);padding:46px;color:white;display:flex;flex-direction:column;justify-content:flex-end;box-shadow:var(--shadow)}.hero-main h1{font-family:Georgia,serif;font-weight:400;font-size:64px;line-height:.96;margin:10px 0 16px;max-width:760px}.hero-side{display:grid;gap:22px}.panel{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:22px;box-shadow:var(--shadow)}.panel h2,.panel h3{font-family:Georgia,serif;font-weight:400;margin-top:0}.status-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.stat{background:#f0ece4;border-radius:16px;padding:16px}.stat .n{font-size:26px;font-family:Georgia,serif}
+.notice{border-left:3px solid var(--warn);background:#f6edda;padding:14px 16px;border-radius:10px}.notice.good{border-color:var(--good);background:#e8f1ec}.notice.bad{border-color:var(--bad);background:#f5e8e5}
+.section{display:none}.section.active{display:block}.section-head{display:flex;align-items:end;justify-content:space-between;gap:16px;margin:26px 0 18px}.section-head h1{font-family:Georgia,serif;font-weight:400;font-size:42px;margin:0}.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px}.c12{grid-column:span 12}.c8{grid-column:span 8}.c7{grid-column:span 7}.c6{grid-column:span 6}.c5{grid-column:span 5}.c4{grid-column:span 4}.c3{grid-column:span 3}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.product{background:var(--paper);border:1px solid var(--line);border-radius:20px;overflow:hidden}.product-img{aspect-ratio:4/5;background:linear-gradient(145deg,#d7cbb9,#8d806e);display:flex;align-items:center;justify-content:center;color:white;font-family:Georgia,serif;font-size:32px;position:relative}.pill{position:absolute;top:14px;left:14px;background:rgba(255,255,255,.9);color:var(--ink);padding:7px 9px;border-radius:99px;font-size:11px}.product-body{padding:16px}.product-body h3{margin:0 0 8px;font-family:Georgia,serif;font-weight:400}.row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.spread{display:flex;align-items:center;justify-content:space-between;gap:12px}.stack{display:grid;gap:10px}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}.tab{border:1px solid var(--line);background:transparent;padding:9px 12px;border-radius:999px;cursor:pointer}.tab.active{background:var(--ink);color:white;border-color:var(--ink)}
+.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:16px}.table{width:100%;border-collapse:collapse;background:var(--paper);min-width:760px}.table th,.table td{padding:12px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}.table th{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.badge{display:inline-flex;align-items:center;gap:6px;border-radius:99px;padding:5px 8px;font-size:11px;background:#ece8df}.badge.good{background:#dfece5;color:var(--good)}.badge.warn{background:#f4e7c8;color:var(--warn)}.badge.bad{background:#f1deda;color:var(--bad)}
+.kpi{font-family:Georgia,serif;font-size:34px}.chart{height:170px;display:flex;align-items:end;gap:10px;padding:16px 8px 4px}.bar{flex:1;border-radius:9px 9px 0 0;background:#8d806e;min-width:20px}.input{width:100%;border:1px solid var(--line);background:white;border-radius:12px;padding:10px 12px}.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.timeline{display:grid;gap:14px}.event{display:grid;grid-template-columns:120px 1fr;gap:16px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.workspace-banner{display:flex;align-items:center;justify-content:space-between;gap:12px;background:#22201d;color:#fff;border-radius:18px;padding:14px 16px;margin-bottom:16px}.workspace-banner .badge{background:#4a4339;color:white}.qa-item{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);padding:12px 0}.qa-item:last-child{border-bottom:0}.demo-label{background:#f3cf7a;color:#4a3510;padding:5px 9px;border-radius:99px;font-size:11px;font-weight:600}
+.modal-backdrop{position:fixed;inset:0;background:rgba(20,18,15,.55);z-index:80;display:flex;align-items:center;justify-content:center;padding:20px}.modal{width:min(760px,100%);max-height:86vh;overflow:auto;background:var(--paper);border-radius:24px;padding:24px;box-shadow:0 30px 100px rgba(0,0,0,.3)}.role-card{border:1px solid var(--line);border-radius:16px;padding:16px;cursor:pointer}.role-card:hover{border-color:var(--ink)}
+@media(max-width:980px){.hero{grid-template-columns:1fr}.hero-main h1{font-size:48px}.cards{grid-template-columns:1fr 1fr}.c8,.c7,.c6,.c5,.c4,.c3{grid-column:span 12}.nav{display:none}}
+@media(max-width:620px){.header-row{padding:0 14px;height:auto;min-height:68px;flex-wrap:wrap;gap:10px;padding-top:10px;padding-bottom:10px}.layout{padding:18px 14px 50px}.hero-main{min-height:330px;padding:26px}.hero-main h1{font-size:40px}.cards{grid-template-columns:1fr}.section-head h1{font-size:34px}.form-grid{grid-template-columns:1fr}.langs{order:3}.event{grid-template-columns:1fr}.status-grid{grid-template-columns:1fr 1fr}}
+</style>
 </head>
 <body>
-<a class="skip-link" href="#top" id="skip-link">К содержанию</a>
-
-<div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
-
-<!--PR:START-->
-<header class="topbar">
-  <nav class="nav" id="nav">
-    <a href="#top" data-nav="home">Главная</a>
-    <a href="#experience" data-nav="experience">Опыт</a>
-    <a href="#consulting" data-nav="consulting">Консалтинг</a>
-    <a href="#projects" data-nav="projects">Проекты</a>
-    <a href="#investors" data-nav="investors">Партнёрство</a>
-    <a href="#news" data-nav="news">Лента</a>
-    <a href="#media" data-nav="media" hidden="">Публикации</a>
-    <a href="#contact" data-nav="contact">Связаться</a>
-  </nav>
-  <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="nav" aria-label="Menu" title="Меню">
-    <span></span><span></span>
-  </button>
-  <a class="top-news" id="top-news" href="#news" data-date="2026-10-02" title="Syntha ведёт сделки через разные юридические лица"><span class="top-news-date">Лента:</span><span class="top-news-title">Syntha ведёт сделки через разные юридические лица</span></a>
-  <div class="switches">
-    <span class="clock" id="clock" aria-hidden="true"></span>
-    <button class="lang" id="lang-toggle" type="button" aria-label="EN — switch to English" title="Language">EN</button>
-    <button class="theme" id="theme-toggle" type="button" aria-label="Theme" title="Theme">
-      <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M21 12.8A8.5 8.5 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" fill="currentColor"></path></svg>
-    </button>
-    <button class="theme text-size" id="text-size-toggle" type="button" aria-label="Уменьшить текст" title="Уменьшить текст">
-      <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M5 17L9.5 6h1L15 17M6.3 13h7.4" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></path><path d="M17 17v-6l-2 1.3" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-    </button>
-    <a class="theme home" href="/stats" aria-label="Личный кабинет" title="Личный кабинет">
-      <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M4 11.2 12 4l8 7.2V19a1 1 0 0 1-1 1h-4.5v-5h-5v5H5a1 1 0 0 1-1-1z" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linejoin="round"></path></svg>
-    </a>
+<header class="header">
+  <div class="header-row">
+    <div class="brand">Marco Pescarolo</div>
+    <nav class="nav" id="topNav"></nav>
+    <div class="langs" id="langs"></div>
+    <button class="btn secondary" id="authBtn">Вход</button>
   </div>
-</header><noscript><div class="noscript"><p><strong>Пётр Федин</strong></p><p>Консультирую фэшн-бренды и разрабатываю собственные IT-продукты: Syntha, ChatX, Renova, MFW+BFS+Made in Moscow, Promomed.</p><p>Для работы сайта нужен JavaScript. Контакты: Telegram <a href="https://t.me/sheqel">@sheqel</a>, WhatsApp +7 977 578 16 85. Проекты: <a href="/syntha">Syntha</a>, <a href="/chatx">ChatX</a>, <a href="/renova">Renova</a>, <a href="/mfw">MFW+BFS</a>, <a href="/promomed">Promomed</a>.</p></div></noscript><main id="top">
+</header>
+<main class="layout">
+  <div class="workspace-banner">
+    <div><span class="demo-label">v30.7 Release Orchestrator</span> <span id="workspaceLabel">Public Showroom</span></div>
+    <div class="row"><span class="badge" id="modeBadge">PREVIEW DATA</span><button class="ghost" style="color:white" id="switchWorkspace">Сменить кабинет</button></div>
+  </div>
 
-  <section class="hero" id="top">
-    <div class="hero-text">
-      <p class="eyebrow" id="hero-eyebrow">Фэшн-консалтинг и собственные IT-продукты</p>
-      <div class="hero-id">
-        <button class="avatar" id="avatar-btn" type="button" aria-label="Пётр Федин" title="Пётр Федин">
-          <img id="hero-avatar" src="/assets/photo/petr-portrait.webp" alt="Пётр Федин" width="200" height="200">
-        </button>
-        <h1 id="hero-name">Пётр Федин</h1>
-      </div>
-      <p class="lead" id="hero-lead">Консультирую фэшн-бизнес по стратегии, экономике и трансформации. Считаю последствия решения до того, как они станут лишним остатком и замороженными деньгами. Довожу работу до результата.</p>
-      <p class="bio" id="hero-bio">Управлял закупками и ассортиментом в мультибрендовой рознице: 500+ брендов, 30 000+ SKU. Работаю с себестоимостью, финансами и данными: всё это сходится в одну цифру, маржу. Параллельно строю собственные IT-продукты в fashion и других сферах.</p>
-      <div class="hero-cta">
-        <a class="btn" href="#experience" id="cta-experience">Опыт</a>
-        <a class="btn btn-primary" href="#consulting" id="cta-consulting">Консалтинг</a>
-        <a class="btn" href="#projects" id="cta-projects">Проекты</a>
-        <a class="btn" href="#investors" id="cta-investors">Партнёрство</a>
-        <a class="btn" href="#news" id="cta-feed">Лента</a>
-        <a class="btn" href="#contact" id="cta-contact">Связаться</a>
+  <section class="section active" data-section="home">
+    <div class="hero">
+      <div class="hero-main"><div class="caps">Made in Napoli · Digital Showroom</div><h1>Italian tailoring, now connected end‑to‑end.</h1><p>Public showroom, Private wardrobe, Wholesale size matrix and Admin fulfilment in one platform.</p><div class="row"><button class="btn soft" data-action="open-role">Открыть кабинет</button><button class="btn secondary" style="border-color:white;color:white" data-go="catalog">Коллекции</button></div></div>
+      <div class="hero-side">
+        <div class="panel"><div class="caps muted">Commercial readiness</div><h2>Preview, not production.</h2><div class="status-grid"><div class="stat"><div class="n">6</div><div class="small muted">published products</div></div><div class="stat"><div class="n">0</div><div class="small muted">approved retail prices</div></div><div class="stat"><div class="n">108</div><div class="small muted">active variants</div></div><div class="stat"><div class="n">0</div><div class="small muted">brand‑verified variants</div></div></div></div>
+        <div class="panel"><div class="caps muted">Why this build exists</div><p>This preview consolidates the last several days of product and UX work into one inspectable application. Real Auth and commercial publishing remain gated.</p><button class="btn secondary" data-go="readiness">Readiness / Evidence</button></div>
       </div>
     </div>
-    <figure class="portrait">
-      <button class="portrait-btn" id="portrait-btn" type="button" aria-label="Пётр Федин" title="Пётр Федин">
-      <img id="hero-photo" src="/assets/photo/petr-portrait.webp" alt="Пётр Федин" width="900" height="1200" fetchpriority="high">
-      </button>
-    </figure>
+    <div class="grid"><div class="panel c4"><div class="caps muted">Private</div><h3>Fit → Order → Wardrobe</h3><p class="muted">Recommendation, payment evidence, delivery, wardrobe, repeat purchase and claims.</p></div><div class="panel c4"><div class="caps muted">Wholesale</div><h3>Matrix → Sell‑through → Reorder</h3><p class="muted">Size run, revisions, partial shipment, WOS and store‑scoped reorder.</p></div><div class="panel c4"><div class="caps muted">Admin</div><h3>Readiness → Cash → Fulfilment</h3><p class="muted">Commercial controls, approvals, money evidence, profitability and POD.</p></div></div>
   </section>
 
-  <section class="section" id="experience">
-    <div class="section-head">
-      <h2 id="experience-title">Релевантный опыт</h2>
-    </div>
-    <ul class="facts-bar snap snap-fit" id="facts-bar">
-    <li class="fact-card">
-      <span class="svc-n">01</span>
-      <b><button class="fact-open" type="button" data-area="buying">Закупка и ассортимент</button></b>
-      <span class="fact-l">Мультибрендовая розница: бюджет закупки, матрица, прогноз спроса, распределение, уценка</span>
-      <div class="format-foot">
-        <span class="format-more">Подробнее →</span>
-        <button type="button" class="btn btn-sm" data-area-contact="buying">Связаться</button>
-      </div>
-    </li>
-    <li class="fact-card">
-      <span class="svc-n">02</span>
-      <b><button class="fact-open" type="button" data-area="product">Продукт и производство</button></b>
-      <span class="fact-l">Премиальный сегмент: себестоимость, спецификации, размещение заказа, сроки поставщиков</span>
-      <div class="format-foot">
-        <span class="format-more">Подробнее →</span>
-        <button type="button" class="btn btn-sm" data-area-contact="product">Связаться</button>
-      </div>
-    </li>
-    <li class="fact-card">
-      <span class="svc-n">03</span>
-      <b><button class="fact-open" type="button" data-area="capital">Рынки и финансы</button></b>
-      <span class="fact-l">Оценка рынка и конкурентов, финансовая модель, потребность в деньгах, материалы для инвестора</span>
-      <div class="format-foot">
-        <span class="format-more">Подробнее →</span>
-        <button type="button" class="btn btn-sm" data-area-contact="capital">Связаться</button>
-      </div>
-    </li>
-    <li class="fact-card">
-      <span class="svc-n">04</span>
-      <b><button class="fact-open" type="button" data-area="turnaround">Стабилизация</button></b>
-      <span class="fact-l">Ликвидность, приоритеты, процессы и роли, контроль плана и факта, возврат к росту</span>
-      <div class="format-foot">
-        <span class="format-more">Подробнее →</span>
-        <button type="button" class="btn btn-sm" data-area-contact="turnaround">Связаться</button>
-      </div>
-    </li></ul><div class="snap-dots" hidden=""></div>
-    <p class="cv-row deck-actions">
-      <button type="button" class="btn btn-primary" id="roles-open">Открыт к предложениям</button>
-      <button type="button" class="btn" id="cv-row-link">Запросить резюме</button>
-    </p>
+  <section class="section" data-section="catalog">
+    <div class="section-head"><div><div class="caps muted">Public showroom</div><h1>Collection</h1></div><div class="row"><input class="input" id="catalogSearch" placeholder="Поиск по стилю / названию" style="width:260px"><select class="input" id="catalogFilter" style="width:auto"><option value="all">Все категории</option><option value="Jacket">Jackets</option><option value="Trouser">Trousers</option><option value="Knitwear">Knitwear</option></select></div></div>
+    <div class="notice">Коммерческие медиа сейчас не подтверждены к публикации, поэтому в preview используются нейтральные визуальные плейсхолдеры. Это намеренно.</div>
+    <div class="cards" id="catalogCards" style="margin-top:18px"></div>
   </section>
 
-  <section class="section" id="consulting">
-    <div class="section-head">
-      <h2 id="consulting-title">Консалтинг</h2>
-      <p class="sub" id="consulting-sub">На выходе — решение и рабочий инструмент в вашей компании, а не отчёт на полке.</p>
-    </div>
-    <ol class="services snap snap-fit" id="services">
-    <li>
-      <button class="svc" type="button" data-svc="0">
-        <span class="svc-n">01</span>
-        <span class="svc-t">Стратегический выбор</span>
-        <span class="svc-b">Рынки России, СНГ и отдельных стран Азии: позиционирование, категории, адаптация продукта и бизнес-модели.</span>
-        <span class="svc-d"><b>Решение</b>Куда выходить, что масштабировать и какой капитал потребуется.</span>
-        <span class="svc-more">Подробнее →</span>
-      </button>
-    </li>
-    <li>
-      <button class="svc" type="button" data-svc="1">
-        <span class="svc-n">02</span>
-        <span class="svc-t">Коммерческая модель</span>
-        <span class="svc-b">Клиенты, цены, маркетинг, розница, интернет-магазин, опт и маркетплейсы.</span>
-        <span class="svc-d"><b>Решение</b>Где бренд зарабатывает на клиенте и канале.</span>
-        <span class="svc-more">Подробнее →</span>
-      </button>
-    </li>
-    <li>
-      <button class="svc" type="button" data-svc="2">
-        <span class="svc-n">03</span>
-        <span class="svc-t">Продукт и товарное планирование</span>
-        <span class="svc-b">Коллекция, SKU, прогноз спроса, закупка, распределение, пополнение и уценка.</span>
-        <span class="svc-d"><b>Решение</b>Что покупать, производить, переоценивать и развивать.</span>
-        <span class="svc-more">Подробнее →</span>
-      </button>
-    </li>
-    <li>
-      <button class="svc" type="button" data-svc="3">
-        <span class="svc-n">04</span>
-        <span class="svc-t">Данные, PLM и системы</span>
-        <span class="svc-b">Процессы, роли и показатели; PLM, ERP, CRM, WMS и BI; производство, склад и логистика.</span>
-        <span class="svc-d"><b>Решение</b>Как управлять быстрее и по одной версии данных.</span>
-        <span class="svc-more">Подробнее →</span>
-      </button>
-    </li>
-    <li>
-      <button class="svc" type="button" data-svc="4">
-        <span class="svc-n">05</span>
-        <span class="svc-t">Капитал и устойчивость</span>
-        <span class="svc-b">Денежный поток, оборотный капитал, оценка бизнеса, потребность в финансировании, сделки и стабилизация.</span>
-        <span class="svc-d"><b>Решение</b>Сколько капитала нужно и насколько бизнес готов к росту или сделке.</span>
-        <span class="svc-more">Подробнее →</span>
-      </button>
-    </li></ol><div class="snap-dots" hidden=""></div>
-
-    <div class="deck-actions">
-      <button class="btn btn-primary" id="deck-open" type="button">Открыть презентацию</button>
-      <a class="btn" id="deck-pdf" href="/assets/fashion-advisory.pdf" download="" target="_blank" rel="noopener">Скачать PDF</a>
-    </div>
-
-    <div class="formats" id="formats">
-    <div class="formats-head"><h3>Форматы работы</h3><p class="sub">Направление — о чём работа. Формат — как она устроена: срок, состав работ, результат.</p></div>
-    <div class="formats-grid snap snap-fit">
-      <article class="format" data-format="01">
-        <span class="svc-n">01</span>
-        <h4>Диагностика</h4>
-        <span class="format-term">проект, 4–6 недель</span>
-        <p>Показываю, где заморожен капитал, что тормозит рост и какие цифры не сходятся.</p>
-        <div class="format-foot">
-          <span class="format-more">Подробнее →</span>
-          <button type="button" class="btn btn-sm" data-format-card-contact="01">Связаться</button>
-        </div>
-      </article>
-      <article class="format" data-format="02">
-        <span class="svc-n">02</span>
-        <h4>Советник собственника</h4>
-        <span class="format-term">сопровождение, от 3 месяцев</span>
-        <p>Помогаю принимать решения по закупке, ассортименту, каналам и капиталу — до того, как они приняты, а не после.</p>
-        <div class="format-foot">
-          <span class="format-more">Подробнее →</span>
-          <button type="button" class="btn btn-sm" data-format-card-contact="02">Связаться</button>
-        </div>
-      </article>
-      <article class="format" data-format="03">
-        <span class="svc-n">03</span>
-        <h4>Руководство программой</h4>
-        <span class="format-term">проект, 4–6 месяцев</span>
-        <p>Беру на себя приоритеты, координацию функций и сложные переговоры, когда бизнес теряет управляемость.</p>
-        <div class="format-foot">
-          <span class="format-more">Подробнее →</span>
-          <button type="button" class="btn btn-sm" data-format-card-contact="03">Связаться</button>
-        </div>
-      </article>
-      <article class="format" data-format="04">
-        <span class="svc-n">04</span>
-        <h4>Данные, аналитика и PLM</h4>
-        <span class="format-term">проект, 3–6 месяцев</span>
-        <p>Проектирую путь данных: от источников до панели, по которой принимают решения.</p>
-        <div class="format-foot">
-          <span class="format-more">Подробнее →</span>
-          <button type="button" class="btn btn-sm" data-format-card-contact="04">Связаться</button>
-        </div>
-      </article></div><div class="snap-dots" hidden=""></div>
-    <p class="launch-diag-row"><button type="button" class="btn" id="diag-open">Подобрать формат работы</button></p></div>
+  <section class="section" data-section="private">
+    <div class="section-head"><div><div class="caps muted">Private Client</div><h1>Private Wardrobe</h1></div><span class="badge warn">DEMO WORKSPACE</span></div>
+    <div class="tabs" id="privateTabs"></div><div id="privateContent"></div>
   </section>
 
-  <section class="section" id="projects">
-    <div class="section-head">
-      <h2 id="projects-title">Мои проекты</h2>
-      <p class="sub" id="projects-sub">Собственные IT-продукты: проектирую, разрабатываю, довожу до пилота. В фэшн и за его пределами.</p>
-    </div>
-    <div class="cards snap snap-fit" id="cards">
-    <article class="card" data-project="syntha">
-      <span class="card-logo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 152 32" role="img" aria-label="Syntha"><path d="M16 12.6c0-2.1 3.1-2.1 3.1-4.2A3.1 3.1 0 0 0 16 5.3" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"></path><path d="M16 12.6 4.2 21.4h23.6L16 12.6Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"></path><text x="40" y="23" font-family="Iowan Old Style, Georgia, serif" font-size="21" letter-spacing="0.3" fill="currentColor">Syntha</text></svg></span>
-      <h3 class="card-tag">Операционная система фэшн-бренда</h3>
-      <p class="card-body">Бренд, магазин и байер в одной системе: от техпака и шоурума до заказа и маржи по SKU. Шоурум, заказ с двусторонним подтверждением, производство и расчёт маржи собраны. Сквозную проверку и приёмку доделываю, затем пилот с первым брендом.</p>
-      <span class="stage">Готовится к пилоту</span>
-      <div class="card-foot">
-        <button class="btn btn-sm btn-primary" type="button" data-open="syntha">Подробнее</button>
-        <button class="btn btn-sm" type="button" data-status="syntha">Стадия</button>
-        <button class="btn btn-sm" type="button" data-news="syntha">Новости</button>
-        <button class="btn btn-sm" type="button" data-compare="syntha">Сравнение</button>
-        <button class="btn btn-sm flow-toggle" type="button" data-flow-toggle="" aria-expanded="false">Консалтинг × Syntha</button>
-        <button class="btn btn-sm" type="button" data-leak-open="">Проверить сезон</button>
-        
-      </div>
-      <div class="flow-embed" id="flow-embed" hidden=""></div>
-    </article>
-    <article class="card" data-project="chatx">
-      <span class="card-logo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 152 32" role="img" aria-label="ChatX"><rect x="3.6" y="7" width="24.8" height="15" rx="4.2" fill="none" stroke="currentColor" stroke-width="1.7"></rect><path d="M10 22v4.8l5.6-4.8" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="round"></path><path d="M12.4 11.4l7.2 6.2M19.6 11.4l-7.2 6.2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"></path><text x="40" y="23" font-family="Iowan Old Style, Georgia, serif" font-size="21" letter-spacing="0.3" fill="currentColor">ChatX</text></svg></span>
-      <h3 class="card-tag">Корпоративный мессенджер: вся работа команды в одном пространстве — от разговора до результата</h3>
-      <p class="card-body">Мессенджер для компании: переписка, задачи, звонки с записью по согласию, календарь, вики, оргструктура и роли. Рабочий прототип, готовится пилот.</p>
-      <span class="stage">Рабочий прототип</span>
-      <div class="card-foot">
-        <button class="btn btn-sm btn-primary" type="button" data-open="chatx">Подробнее</button>
-        <button class="btn btn-sm" type="button" data-status="chatx">Стадия</button>
-        <button class="btn btn-sm" type="button" data-news="chatx">Новости</button>
-        <button class="btn btn-sm" type="button" data-compare="chatx">Сравнение</button>
-        
-        
-        <button class="btn btn-sm" type="button" data-need-open="chatx">Проверить потребность</button>
-      </div>
-      
-    </article>
-    <article class="card" data-project="renova">
-      <span class="card-logo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 152 32" role="img" aria-label="Renova"><g fill="currentColor"><rect x="18.4" y="5.0" width="10.6" height="6.4" rx="0.9"></rect><rect x="6.3" y="5.0" width="10.6" height="6.4" rx="0.9"></rect><rect x="12.35" y="12.9" width="10.6" height="6.4" rx="0.9"></rect><rect x="1.6" y="12.9" width="9.25" height="6.4" rx="0.9"></rect><rect x="18.4" y="20.8" width="10.6" height="6.4" rx="0.9"></rect><rect x="6.3" y="20.8" width="10.6" height="6.4" rx="0.9"></rect></g><text x="40" y="23" font-family="Iowan Old Style, Georgia, serif" font-size="21" letter-spacing="0.3" fill="currentColor">Renova</text></svg></span>
-      <h3 class="card-tag">Ремонт под контролем</h3>
-      <p class="card-body">Ремонт в одном приложении: смета по нормам, этапы с приёмкой, платежи по этапам, чаты, закупки и документы. Боевые платежи включу после закрытого теста. MVP собран, готовлю закрытый тест.</p>
-      <span class="stage">MVP, закрытый тест впереди</span>
-      <div class="card-foot">
-        <button class="btn btn-sm btn-primary" type="button" data-open="renova">Подробнее</button>
-        <button class="btn btn-sm" type="button" data-status="renova">Стадия</button>
-        <button class="btn btn-sm" type="button" data-news="renova">Новости</button>
-        <button class="btn btn-sm" type="button" data-compare="renova">Сравнение</button>
-        
-        
-        <button class="btn btn-sm" type="button" data-need-open="renova">Проверить потребность</button>
-      </div>
-      
-    </article></div><div class="snap-dots" hidden=""></div>
-    <button class="btn" id="projects-more" type="button" aria-expanded="false">Показать ещё</button>
-    <div class="formats project-launch" id="project-launch">
-    <div class="formats-head">
-      <h3>Запустить проект</h3><p class="sub">Запустим продукт в любом подходящем формате: от идеи до работающего решения.</p>
-    </div>
-    <div class="formats-grid snap snap-fit">
-      <article class="format" data-launch-open="idea" data-format-id="idea">
-        <span class="svc-n">01</span>
-        <h4>Новая идея</h4>
-        <span class="format-term">проект, 4–8 недель</span>
-        <p>Есть гипотеза, но нет ни продукта, ни команды. Собираю концепцию, проверяю цифрами, довожу до работающего MVP.</p>
-        <div class="format-foot">
-          <span class="format-more">Подробнее →</span>
-          <button type="button" class="btn btn-sm" data-launch-contact="idea">Связаться</button>
-        </div>
-      </article>
-      <article class="format" data-launch-open="audit" data-format-id="audit">
-        <span class="svc-n">02</span>
-        <h4>Анализ и внедрение</h4>
-        <span class="format-term">проект, 8–12 недель</span>
-        <p>Подбираю готовое решение и встраиваю в ваши процессы. Пишу с нуля только то, чего нет на рынке.</p>
-        <div class="format-foot">
-          <span class="format-more">Подробнее →</span>
-          <button type="button" class="btn btn-sm" data-launch-contact="audit">Связаться</button>
-        </div>
-      </article>
-      <article class="format" data-launch-open="transform" data-format-id="transform">
-        <span class="svc-n">03</span>
-        <h4>Трансформация существующего</h4>
-        <span class="format-term">проект, 12–16 недель</span>
-        <p>Продукт или процесс есть, но не успевает за бизнесом. Пересобираю архитектуру под фактическую работу компании.</p>
-        <div class="format-foot">
-          <span class="format-more">Подробнее →</span>
-          <button type="button" class="btn btn-sm" data-launch-contact="transform">Связаться</button>
-        </div>
-      </article>
-      <article class="format" data-launch-open="full" data-format-id="full">
-        <span class="svc-n">04</span>
-        <h4>Полный цикл: от разработки до запуска</h4>
-        <span class="format-term">проект, 36–48 недель</span>
-        <p>Беру продукт целиком: концепция, проектирование, разработка, тестирование, запуск, передача. Один ответственный от гипотезы до пользователей.</p>
-        <div class="format-foot">
-          <span class="format-more">Подробнее →</span>
-          <button type="button" class="btn btn-sm" data-launch-contact="full">Связаться</button>
-        </div>
-      </article></div><div class="snap-dots" hidden=""></div>
-    <p class="launch-diag-row"><button type="button" class="btn" data-launch-diag-open="">Подобрать формат запуска</button></p></div>
+  <section class="section" data-section="wholesale">
+    <div class="section-head"><div><div class="caps muted">Wholesale</div><h1>Buyer Workspace</h1></div><div class="row"><select class="input" id="storeScope" style="width:auto"><option>HQ</option><option>Paris</option><option>Dubai</option></select><span class="badge good">SERVER SCOPE MODEL</span></div></div>
+    <div class="tabs" id="wholesaleTabs"></div><div id="wholesaleContent"></div>
   </section>
 
-  <section class="section" id="investors">
-    <div class="section-head">
-      <h2 id="investors-title">Партнёрство и инвестиции</h2>
-      <p class="sub" id="investors-sub">Партнёрство и инвестиции в собственные IT-продукты и совместные проекты — в fashion и за его пределами.</p>
-    </div>
-    <p class="inv-lead" id="investors-lead">Часть продуктов уже работает как прототипы и MVP, часть ещё в разработке, и её предстоит довести до реализации. Круг не ограничен fashion: те же принципы я применяю и в других отраслях. Ищу партнёров и инвесторов, с которыми продукты и идеи можно превратить в совместные бизнес-проекты: доделать недостающее, проверить на практике, вывести на рынок. Условия обсуждаю лично, доходности не обещаю.</p>
-    <div class="inv-list snap snap-fit" id="investors-list">
-    <article class="inv-card mini" id="inv-equity" data-idx="0" role="button" aria-label="Инвестиции в продукт">
-      <span class="svc-n">01</span>
-      <h3>Инвестиции в продукт</h3>
-      <p class="inv-tag">Капитал на следующий этап развития</p>
-      <p class="inv-what">Вы входите долей в один из продуктов или в новую идею. Деньги идут на пилот, доработку и выход на рынок по плану, который мы согласуем.</p>
-      <div class="inv-foot">
-        <button class="inv-read" type="button" data-coop-open="0">Подробнее →</button>
-        <button class="btn btn-sm" type="button" data-inv-talk="equity">Связаться</button>
-      </div>
-    </article>
-    <article class="inv-card mini" id="inv-strategic" data-idx="1" role="button" aria-label="Стратегический партнёр">
-      <span class="svc-n">02</span>
-      <h3>Стратегический партнёр</h3>
-      <p class="inv-tag">Ваш бизнес как первая площадка</p>
-      <p class="inv-what">Бренд, ритейлер или компания становится пилотным заказчиком. Вы работаете в продукте на реальных задачах, а они определяют, что я делаю в первую очередь.</p>
-      <div class="inv-foot">
-        <button class="inv-read" type="button" data-coop-open="1">Подробнее →</button>
-        <button class="btn btn-sm" type="button" data-inv-talk="strategic">Связаться</button>
-      </div>
-    </article>
-    <article class="inv-card mini" id="inv-codev" data-idx="2" role="button" aria-label="Совместная разработка">
-      <span class="svc-n">03</span>
-      <h3>Совместная разработка</h3>
-      <p class="inv-tag">Не конкуренты, а части одного сценария</p>
-      <p class="inv-what">Соединяю мой продукт с вашим: общий обмен данными, единый сценарий для пользователя или модуль, закрывающий чужой пробел. Это отдельный проект с понятной границей.</p>
-      <div class="inv-foot">
-        <button class="inv-read" type="button" data-coop-open="2">Подробнее →</button>
-        <button class="btn btn-sm" type="button" data-inv-talk="codev">Связаться</button>
-      </div>
-    </article>
-    <article class="inv-card mini" id="inv-distribution" data-idx="3" role="button" aria-label="Продвижение и продажи">
-      <span class="svc-n">04</span>
-      <h3>Продвижение и продажи</h3>
-      <p class="inv-tag">Ваш канал, мой продукт</p>
-      <p class="inv-what">Вы выводите продукт к своей аудитории: через клиентскую базу, сообщество, медиа или команду внедрения. Я отвечаю за продукт и за его работу у ваших клиентов.</p>
-      <div class="inv-foot">
-        <button class="inv-read" type="button" data-coop-open="3">Подробнее →</button>
-        <button class="btn btn-sm" type="button" data-inv-talk="distribution">Связаться</button>
-      </div>
-    </article>
-    <article class="inv-card mini" id="inv-events" data-idx="4" role="button" aria-label="События и спонсорство">
-      <span class="svc-n">05</span>
-      <h3>События и спонсорство</h3>
-      <p class="inv-tag">Платформа для вашего мероприятия</p>
-      <p class="inv-what">Платформа для недель моды, форумов и конференций: программа, регистрация, встречи, кабинеты партнёров. На реальном событии её ещё не использовали, поэтому ищу первого организатора. Спонсор или организатор участвует в запуске.</p>
-      <div class="inv-foot">
-        <button class="inv-read" type="button" data-coop-open="4">Подробнее →</button>
-        <button class="btn btn-sm" type="button" data-inv-talk="events">Связаться</button>
-      </div>
-    </article>
-    <article class="inv-card mini" id="inv-acquisition" data-idx="5" role="button" aria-label="Покупка продукта или доли">
-      <span class="svc-n">06</span>
-      <h3>Покупка продукта или доли</h3>
-      <p class="inv-tag">Продукт под вашим управлением</p>
-      <p class="inv-what">Вы покупаете продукт целиком или долю в нём. Рассматриваю и частичную передачу, и полную, если вы готовы вести продукт дальше.</p>
-      <div class="inv-foot">
-        <button class="inv-read" type="button" data-coop-open="5">Подробнее →</button>
-        <button class="btn btn-sm" type="button" data-inv-talk="acquisition">Связаться</button>
-      </div>
-    </article></div><div class="snap-dots" hidden=""></div>
-    <div class="inv-testrow" id="investors-testrow"><button type="button" class="btn" id="coop-test-open">Подобрать формат сотрудничества</button></div>
-    <div class="inv-projects" id="investors-projects" hidden=""></div>
-    <p class="investor-note" id="investors-note" hidden=""></p>
+  <section class="section" data-section="admin">
+    <div class="section-head"><div><div class="caps muted">Administrator</div><h1>Commercial Control</h1></div><span class="badge bad">AAL2 REQUIRED IN REAL MODE</span></div>
+    <div class="tabs" id="adminTabs"></div><div id="adminContent"></div>
   </section>
 
-  <section class="section" id="news">
-    <div class="section-head">
-      <h2 id="news-title">Лента</h2>
-      <p class="sub" id="news-sub">Что строю, для кого и что меняется в проектах.</p>
-      <a class="channel-link" id="news-channel" href="https://t.me/syntha_pro" target="_blank" rel="noopener">Все посты в Telegram →</a>
-    </div>
-    <div class="news-filters" id="news-filters">
-    <button type="button" class="news-filter" data-filter="" aria-pressed="true">Всё</button>
-    <button type="button" class="news-filter" data-filter="analysis" aria-pressed="false">Разбор</button><button type="button" class="news-filter" data-filter="market" aria-pressed="false">Рынок</button><button type="button" class="news-filter" data-filter="product" aria-pressed="false">Продукт</button><button type="button" class="news-filter" data-filter="syntha" aria-pressed="false">Syntha</button><button type="button" class="news-filter" data-filter="chatx" aria-pressed="false">ChatX</button><button type="button" class="news-filter" data-filter="renova" aria-pressed="false">Renova</button><button type="button" class="news-filter" data-filter="press" aria-pressed="false">Пресса</button><button type="button" class="news-filter" data-filter="investors" aria-pressed="false">Инвесторам</button></div>
-    <ol class="feed snap snap-fit" id="feed">
-    <li class="post" id="post-2026-10-13" data-post="2026-10-13">
-      <div class="post-meta">
-        <time datetime="2026-10-13">13 октября 2026 г.</time>
-        <button type="button" class="post-tag" data-filter-tag="investors">Инвесторам</button>
-        <button class="post-share" type="button" data-share="2026-10-13" aria-label="Поделиться" title="Поделиться">
-          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 3v12M12 3L8 7m4-4l4 4M5 13v6a1 1 0 001 1h12a1 1 0 001-1v-6" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-        </button>
-      </div>
-      <h3>Как оценивать цифровую платформу до первой выручки</h3>
-      <p>Презентация продукта отвечает на вопрос, что он должен делать. Инвестиционное решение требует других ответов: кто будет платить, за какой результат, сколько стоит внедрение и что должно произойти до следующего транша.
-
-Для каждого пилота нужны заранее согласованные признаки результата: реальный рабочий сценарий, ответственный со стороны клиента, подтверждённая стоимость исполнения и понятное решение о продолжении.
-
-Консервативный, базовый и оптимистичный расчёты полезны только при раскрытых исходных данных. Прогноз не становится фактом от того, что он красиво выглядит на графике.
-
-Поэтому в описаниях проектов отдельно показываю текущую стадию, возможную модель выручки, риски и критерии перехода к коммерческому запуску. До появления подписанных договоров и оплаченных услуг реальные продажи не заявляются.</p>
-      <div class="post-chips"><span class="post-chip">инвесторам</span><span class="post-chip">пилот</span><span class="post-chip">экономика</span></div>
-      <span class="post-read">Подробнее →</span>
-    </li>
-    <li class="post" id="post-2026-10-02" data-post="2026-10-02">
-      <div class="post-meta">
-        <time datetime="2026-10-02">2 октября 2026 г.</time>
-        <button type="button" class="post-tag" data-filter-tag="syntha">Syntha</button>
-        
-        <button class="post-share" type="button" data-share="2026-10-02" aria-label="Поделиться" title="Поделиться">
-          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
-            <path d="M12 3v12M12 3L8 7m4-4l4 4M5 13v6a1 1 0 001 1h12a1 1 0 001-1v-6" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>
-          </svg>
-        </button>
-      </div>
-      <h3>Syntha ведёт сделки через разные юридические лица</h3>
-      
-      <p>Syntha теперь ведёт сделки через разные юридические лица. В фэшн-опте бренд, дистрибьютор и производственный партнёр почти никогда не работают через одно юридическое лицо, особенно если в цепочке есть зарубежные контрагенты.
-
-Что изменилось: В Syntha появился реестр юридических лиц. Можно завести российские и иностранные реквизиты и вести сделку от нужного юридического лица, а не от общего профиля компании.
-
-Что это даёт:
-• Бренд с несколькими юридическими лицами ведёт сделки от каждого из них.
-• Партнёр в другой юрисдикции работает в той же системе, что и остальные.
-• Реквизиты российских и иностранных юрлиц хранятся в одном реестре.</p>
-      <div class="post-chips"><span class="post-chip">Syntha</span><span class="post-chip">юрлица</span><span class="post-chip">продукт</span></div>
-      <span class="post-read">Подробнее →</span>
-    </li>
-    <li class="post" id="post-2026-10-01" data-post="2026-10-01">
-      <div class="post-meta">
-        <time datetime="2026-10-01">1 октября 2026 г.</time>
-        <button type="button" class="post-tag" data-filter-tag="renova">Renova</button>
-        
-        <button class="post-share" type="button" data-share="2026-10-01" aria-label="Поделиться" title="Поделиться">
-          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
-            <path d="M12 3v12M12 3L8 7m4-4l4 4M5 13v6a1 1 0 001 1h12a1 1 0 001-1v-6" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>
-          </svg>
-        </button>
-      </div>
-      <h3>В Renova заявка превращается в проект одной операцией</h3>
-      
-      <p>В Renova заявка превращается в проект одной операцией. Раньше лид на ремонт и рабочий проект были слабо связаны: чтобы превратить обращение в проект с мастером, заказчиком и графиком, нужно было вручную сверять, кто есть кто.
-
-Что изменилось: Управление участниками проекта и перевод лида в работу теперь выполняются одной операцией. Она проверена на одновременной работе: два сеанса сразу не расходятся в данных. Базовый механизм готов и проверен; завершение сценария независимого исполнителя — в работе.
-
-Что это даёт:
-• Обращение превращается в проект без ручной сверки.
-• Данные о том, кто ведёт объект, не теряются на стыке лида и проекта.
-• Два человека работают с одним проектом одновременно без расхождений.</p>
-      <div class="post-chips"><span class="post-chip">Renova</span><span class="post-chip">продукт</span><span class="post-chip">участники</span></div>
-      <span class="post-read">Подробнее →</span>
-    </li>
-    </ol><div class="snap-dots" hidden=""></div>
-    <button class="btn" id="news-more" type="button" data-expanded="false">Показать ещё</button>
-  </section>
-
-  <section class="section" id="contact">
-    <div class="section-head">
-      <h2 id="contact-title">Связаться</h2>
-      <p class="sub" id="contact-sub">Опишите задачу: консалтинг, запуск продукта, партнёрство или инвестиции. Отвечу в течение рабочего дня.</p>
-    </div>
-
-    <div class="persona-picker" id="persona-picker"><span class="persona-label">Пишу как</span>
-    <button type="button" class="persona-chip" data-persona-topic="investors">Инвестор</button><button type="button" class="persona-chip" data-persona-topic="partnership">Партнёр</button><button type="button" class="persona-chip" data-persona-topic="consulting">Клиент</button><button type="button" class="persona-chip" data-persona-topic="press">Пресса</button></div>
-
-    <div class="contact-grid">
-      <form class="form" id="form" novalidate="">
-        <div class="pair" data-n="2">
-          <label class="field" id="name-field">
-            <span data-f="name">Имя</span>
-            <input name="name" type="text" autocomplete="given-name" required="">
-          </label>
-          <label class="field" id="surname-field">
-            <span data-f="surname">Фамилия</span>
-            <input name="surname" id="surname" type="text" autocomplete="family-name">
-          </label>
-          <label class="field" id="patronymic-field" hidden="">
-            <span data-f="patronymic">Отчество</span>
-            <input name="patronymic" id="patronymic" type="text" autocomplete="additional-name">
-          </label>
-        </div>
-        <div class="opt-row" role="group">
-          <label class="opt"><input type="checkbox" id="opt-surname" checked=""><span data-f="surname">Фамилия</span></label>
-          <label class="opt"><input type="checkbox" id="opt-patronymic"><span data-f="patronymic">Отчество</span></label>
-        </div>
-        <label class="field">
-          <span data-f="email">Email</span>
-          <input name="email" id="email" type="email" autocomplete="email" inputmode="email">
-        </label>
-        <div class="pair" data-n="2">
-          <label class="field" id="telegram-field">
-            <span data-f="telegram">Telegram</span>
-            <input name="telegram" id="telegram" type="text" autocomplete="off" placeholder="@username">
-          </label>
-          <label class="field" id="phone-field">
-            <span data-f="phone">Телефон</span>
-            <input name="phone" id="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="+7 900 …">
-          </label>
-        </div>
-        <div class="opt-row" role="group">
-          <label class="opt"><input type="checkbox" id="opt-telegram" checked=""><span data-f="telegram">Telegram</span></label>
-          <label class="opt"><input type="checkbox" id="opt-phone" checked=""><span data-f="phone">Телефон</span></label>
-        </div>
-        <p class="form-hint" data-f="contactHint">Нужны имя и хотя бы один способ связи: email, Telegram или телефон.</p>
-        <label class="consent entity-toggle">
-          <input type="checkbox" id="entity-toggle" name="isEntity">
-          <span data-f="entityLabel">Пишу как юридическое лицо</span>
-        </label>
-        <div class="entity-box" id="entity-box" hidden="">
-          <div class="pair" data-n="2">
-            <label class="field"><span data-f="entityName">Название организации</span>
-              <input name="entityName" id="entity-name" type="text" autocomplete="organization"></label>
-            <label class="field"><span data-f="entityInn">ИНН</span>
-              <input name="entityInn" id="entity-inn" type="text" autocomplete="off" inputmode="numeric"></label>
-          </div>
-          <div class="pair" data-n="2">
-            <label class="field"><span data-f="entityAddress">Адрес</span>
-              <input name="entityAddress" id="entity-address" type="text" autocomplete="street-address"></label>
-            <label class="field"><span data-f="entitySite">Сайт</span>
-              <input name="entitySite" id="entity-site" type="text" autocomplete="url" inputmode="url" placeholder="example.com"></label>
-          </div>
-        </div>
-        <label class="field">
-          <span data-f="topic">Тема</span>
-          <select name="topic" id="topic"><option value="consulting">Консалтинг</option><option value="launch">Запуск продукта</option><option value="investors">Инвестиции</option><option value="partnership">Партнёрство</option><option value="syntha">Syntha</option><option value="renova">Renova</option><option value="chatx">ChatX</option><option value="mfw">MFW+BFS+Made in Moscow</option><option value="promomed">Promomed и «СОСТОЯНИЕ»</option><option value="press">Пресса и комментарий</option><option value="event">Выступление или участие в мероприятии</option><option value="other">Другое</option></select>
-        </label>
-        <label class="field" id="topic-other-field" hidden="">
-          <span data-f="topicOther">Напишите тему</span>
-          <input name="topicOther" id="topic-other" type="text" autocomplete="off">
-        </label>
-        <label class="field">
-          <span data-f="message">Сообщение</span>
-          <textarea name="message" rows="4" required=""></textarea>
-        </label>
-        <div class="field">
-          <span data-f="file">Файл</span>
-          <label class="file-drop" for="attach">
-            <input type="file" id="attach" name="file" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.csv,.txt,.png,.jpg,.jpeg,.zip">
-            <span class="file-btn" id="file-btn">Выбрать файл</span>
-            <span class="file-name" id="file-name"></span>
-            <button class="file-clear" id="file-clear" type="button" hidden="">Убрать</button>
-          </label>
-          <span class="file-hint" id="file-hint">Можно приложить бриф, презентацию или таблицу — до 20 МБ</span>
-        </div>
-        <input type="text" name="company" tabindex="-1" autocomplete="off" class="trap" aria-hidden="true">
-        <label class="consent">
-          <input type="checkbox" id="consent" name="consent">
-          <span><span id="consent-text">Согласен на обработку персональных данных</span> · <a href="/privacy" target="_blank" rel="noopener" id="consent-link">Политика конфиденциальности</a></span>
-        </label>
-        <div class="cf-turnstile" id="turnstile-widget" data-sitekey="0x4AAAAAAFLPJq7ON4sQDgaA" data-theme="auto" data-language="auto"><div><div></div><input type="hidden" name="cf-turnstile-response" id="cf-chl-widget-3yx1x_response" value=""></div><div><div></div><input type="hidden" name="cf-turnstile-response" id="cf-chl-widget-8rp3o_response" value=""></div><div><div></div><input type="hidden" name="cf-turnstile-response" id="cf-chl-widget-14ppv_response" value=""></div><div><div></div><input type="hidden" name="cf-turnstile-response" id="cf-chl-widget-jntmc_response" value=""></div><div><div></div><input type="hidden" name="cf-turnstile-response" id="cf-chl-widget-q16ew_response" value=""></div><div><div></div><input type="hidden" name="cf-turnstile-response" id="cf-chl-widget-fx69q_response"></div><div><div></div><input type="hidden" name="cf-turnstile-response" id="cf-chl-widget-y7tp3_response" value=""></div><div><div></div><input type="hidden" name="cf-turnstile-response" id="cf-chl-widget-del86_response" value=""></div><div><div></div><input type="hidden" name="cf-turnstile-response" id="cf-chl-widget-qo8kx_response" value=""></div><div><div></div><input type="hidden" name="cf-turnstile-response" id="cf-chl-widget-o59rc_response" value=""></div><div><div></div><input type="hidden" name="cf-turnstile-response" id="cf-chl-widget-jkfxg_response" value=""></div></div>
-        <p class="form-missing" id="form-missing" aria-live="polite"></p>
-        <button class="btn btn-primary" type="submit" id="submit" disabled="">Отправить</button>
-        <p class="form-note" id="form-note" role="status" aria-live="polite"></p>
-      </form>
-
-      <aside class="direct">
-        <h3 id="direct-title">Контакты</h3>
-        <ul id="contacts">
-    <li><span class="lbl">WhatsApp</span>
-      
-      <a href="https://wa.me/79775781685" target="_blank" rel="noopener">+7 977 578 16 85</a></li>
-    <li><span class="lbl">Telegram</span>
-      <button class="qr-trigger" type="button" data-qr="/assets/qr-sheqel.svg" aria-label="Показать QR-код" title="Показать QR-код">
-        <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true">
-          <rect x="3" y="3" width="7" height="7" fill="none" stroke="currentColor" stroke-width="1.6"></rect>
-          <rect x="14" y="3" width="7" height="7" fill="none" stroke="currentColor" stroke-width="1.6"></rect>
-          <rect x="3" y="14" width="7" height="7" fill="none" stroke="currentColor" stroke-width="1.6"></rect>
-          <rect x="14.5" y="14.5" width="2.3" height="2.3" fill="currentColor"></rect>
-          <rect x="18.7" y="14.5" width="2.3" height="2.3" fill="currentColor"></rect>
-          <rect x="14.5" y="18.7" width="2.3" height="2.3" fill="currentColor"></rect>
-          <rect x="18.7" y="18.7" width="2.3" height="2.3" fill="currentColor"></rect>
-        </svg>
-      </button>
-      <a href="https://t.me/sheqel" target="_blank" rel="noopener">@sheqel</a></li>
-    <li><span class="lbl">Канал проектов</span>
-      <button class="qr-trigger" type="button" data-qr="/assets/qr-syntha-pro.jpg" aria-label="Показать QR-код" title="Показать QR-код">
-        <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true">
-          <rect x="3" y="3" width="7" height="7" fill="none" stroke="currentColor" stroke-width="1.6"></rect>
-          <rect x="14" y="3" width="7" height="7" fill="none" stroke="currentColor" stroke-width="1.6"></rect>
-          <rect x="3" y="14" width="7" height="7" fill="none" stroke="currentColor" stroke-width="1.6"></rect>
-          <rect x="14.5" y="14.5" width="2.3" height="2.3" fill="currentColor"></rect>
-          <rect x="18.7" y="14.5" width="2.3" height="2.3" fill="currentColor"></rect>
-          <rect x="14.5" y="18.7" width="2.3" height="2.3" fill="currentColor"></rect>
-          <rect x="18.7" y="18.7" width="2.3" height="2.3" fill="currentColor"></rect>
-        </svg>
-      </button>
-      <a href="https://t.me/syntha_pro" target="_blank" rel="noopener">@syntha_pro</a></li></ul>
-        <div class="direct-actions">
-          <a class="btn btn-sm vcard" id="vcard" href="/assets/petr-fedin.vcf" download="">Сохранить контакт</a>
-          <button class="btn btn-sm" type="button" id="share-contact">Поделиться контактом</button>
-        </div>
-      </aside>
+  <section class="section" data-section="readiness">
+    <div class="section-head"><div><div class="caps muted">Evidence</div><h1>Readiness / Feature Parity</h1></div><span class="badge warn">119 CAPABILITIES TRACKED</span></div>
+    <div class="grid">
+      <div class="panel c3"><div class="kpi">66</div><div>Live DB present</div></div><div class="panel c3"><div class="kpi">14</div><div>Current contract</div></div><div class="panel c3"><div class="kpi">9</div><div>Historical RC only</div></div><div class="panel c3"><div class="kpi">30</div><div>Blocked</div></div>
+      <div class="panel c7"><h3>Known live facts</h3><div id="liveFacts"></div></div>
+      <div class="panel c5"><h3>Release gates</h3><div id="releaseGates"></div></div>
+      <div class="panel c12"><h3>Capability groups</h3><div class="table-wrap"><table class="table"><thead><tr><th>Group</th><th>Live / Contract</th><th>Still blocked</th><th>Production proof</th></tr></thead><tbody id="parityRows"></tbody></table></div></div>
     </div>
   </section>
-  <section class="section" id="media" hidden="">
-    <div class="section-head">
-      <h2 id="media-title">Публикации и выступления</h2>
-      <p class="sub" id="media-sub">Где меня цитируют и о чём спрашивают.</p>
-    </div>
-    <div class="media-list" id="media-list"></div>
+
+  <section class="section" data-section="qa">
+    <div class="section-head"><div><div class="caps muted">Quality assurance</div><h1>Golden Paths</h1></div><span class="badge">same-candidate proof required</span></div>
+    <div class="grid"><div class="panel c7"><h3>Clickable flows</h3><div id="qaFlows"></div></div><div class="panel c5"><h3>Viewport acceptance</h3><div class="qa-item"><span>Mobile 390px</span><button class="btn secondary" data-toast="Mobile acceptance checklist opened">Проверить</button></div><div class="qa-item"><span>Tablet 834px</span><button class="btn secondary" data-toast="Tablet acceptance checklist opened">Проверить</button></div><div class="qa-item"><span>Desktop 1440px</span><button class="btn secondary" data-toast="Desktop acceptance checklist opened">Проверить</button></div><div class="notice" style="margin-top:16px">Real browser E2E remains blocked until real Supabase Auth users and memberships exist.</div></div></div>
   </section>
+</main>
+<div id="modalRoot"></div>
+<script>
+const S={lang:'ru',workspace:'public',section:'home',privateTab:'overview',wholesaleTab:'matrix',adminTab:'readiness',store:'HQ'};
+const DEMO_KEY='mp-v30-demo';
+const DEMO_VERSION=307;
+const seedDemo=()=>({
+  version:DEMO_VERSION,
+  wishlist:[],
+  fit:{jacket:'50',trouser:'50',fit:'Relaxed tailored',height:'182 cm',confidence:.86},
+  privateOrder:{code:'PRI-2601',client:'Private Client',stage:'draft',total:'€ 1,280',rev:1,shipment:'Not allocated',payment:'not_requested',delivered:false},
+  wholesaleOrders:{
+    HQ:{code:'WH-2604',client:'Maison Europe HQ',stage:'draft',total:'€ 22,480',rev:2,shipment:'Not allocated'},
+    Paris:{code:'WH-2608',client:'Maison Paris',stage:'draft',total:'€ 18,640',rev:7,shipment:'Not allocated'},
+    Dubai:{code:'WH-2611',client:'Dubai Boutique',stage:'draft',total:'€ 12,920',rev:4,shipment:'Not allocated'}
+  },
+  sizeMatrix:{HQ:[1,2,4,4,2],Paris:[1,2,4,4,2],Dubai:[2,2,3,3,2]},
+  reorder:{status:'none',style:'MP-2401',suggestedQty:16,store:'Paris',newOrder:null},
+  completed:{privateDelivery:false,wholesaleParisDelivery:false,claimClosed:false,reorderConverted:false},
+  claim:{id:'CLM-104',state:'none',reason:'damage',quantity:4,executed:0,resolution:null,order:'PRI-2601'},
+  service:{status:'open',type:'Appointment'},
+  events:[{at:new Date().toISOString(),type:'demo_seeded',detail:'v30.7 release-orchestrator state initialized'}]
+});
+function demoStore(){
+  try{
+    const raw=JSON.parse(localStorage.getItem(DEMO_KEY)||'null');
+    if(!raw||raw.version!==DEMO_VERSION){const fresh=seedDemo();localStorage.setItem(DEMO_KEY,JSON.stringify(fresh));return fresh}
+    return raw;
+  }catch{const fresh=seedDemo();localStorage.setItem(DEMO_KEY,JSON.stringify(fresh));return fresh}
+}
+function demoReplace(next){localStorage.setItem(DEMO_KEY,JSON.stringify(next));return next}
+function demoSave(patch){return demoReplace({...demoStore(),...patch})}
+function mutateDemo(fn){const cur=demoStore();const next=fn(structuredClone(cur))||cur;next.version=DEMO_VERSION;return demoReplace(next)}
+function addDemoEvent(type,detail){mutateDemo(s=>{s.events=[{at:new Date().toISOString(),type,detail},...(s.events||[])].slice(0,80);return s})}
+function toggleDemoWishlist(id){mutateDemo(s=>{const w=new Set(s.wishlist||[]);w.has(id)?w.delete(id):w.add(id);s.wishlist=[...w];s.events=[{at:new Date().toISOString(),type:'wishlist',detail:(w.has(id)?'added ':'removed ')+id},...(s.events||[])].slice(0,80);return s});toast((demoStore().wishlist||[]).includes(id)?'Добавлено в demo wishlist':'Удалено из demo wishlist')}
+function badgeForStage(stage){const good=['delivered','resolved','closed','payment_verified','approved','converted'].includes(stage);const warn=['submitted','brand_revision','approval_pending','proforma_issued','payment_submitted','reserved','allocated','shipment_created','shipped','partial_shipment','execution_pending','offered','proposed','buyer_approved','brand_approved'].includes(stage);return good?'good':warn?'warn':''}
+function prettyStage(stage){return String(stage||'').replaceAll('_',' ')}
+function advancePrivate(action){
+  mutateDemo(s=>{const o=s.privateOrder;
+    const map={
+      create:['draft','draft'],submit:['draft','submitted'],accept_revision:['brand_revision','approval_pending'],submit_payment:['proforma_issued','payment_submitted']
+    };
+    if(action==='create'){s.privateOrder={code:'PRI-'+String(Date.now()).slice(-4),client:'Private Client',stage:'draft',total:'€ 1,280',rev:1,shipment:'Not allocated',payment:'not_requested',delivered:false}}
+    else if(map[action]&&o.stage===map[action][0]){o.stage=map[action][1];if(action==='accept_revision')o.rev+=1;if(action==='submit_payment')o.payment='submitted'}
+    s.events=[{at:new Date().toISOString(),type:'private_'+action,detail:s.privateOrder.code+' → '+s.privateOrder.stage},...(s.events||[])].slice(0,80);return s
+  });renderPrivate();renderAdmin();renderQA();toast('Private workflow: '+prettyStage(demoStore().privateOrder.stage))
+}
+function advanceWholesale(action){
+  mutateDemo(s=>{const o=s.wholesaleOrders[S.store];
+    if(action==='save_revision'){o.rev+=1;o.stage='draft'}
+    if(action==='submit'&&o.stage==='draft')o.stage='submitted';
+    if(action==='accept_revision'&&o.stage==='brand_revision')o.stage='approval_pending';
+    if(action==='submit_payment'&&o.stage==='proforma_issued')o.stage='payment_submitted';
+    if(action==='copy'){const src=o;s.wholesaleOrders.HQ={...src,code:'WH-'+String(Date.now()).slice(-4),client:'Maison Europe HQ',stage:'draft',shipment:'Not allocated',rev:1}}
+    s.events=[{at:new Date().toISOString(),type:'wholesale_'+action,detail:o.code+' · '+S.store+' → '+o.stage},...(s.events||[])].slice(0,80);return s
+  });renderWholesale();renderAdmin();renderQA();toast('Wholesale workflow updated')
+}
+function adminAction(action,target){
+  mutateDemo(s=>{
+    let o=target==='private'?s.privateOrder:s.wholesaleOrders[target||S.store];
+    if(action==='brand_revision'&&o.stage==='submitted'){o.stage='brand_revision';o.rev+=1}
+    if(action==='approve'&&o.stage==='approval_pending')o.stage='approved';
+    if(action==='issue_proforma'&&o.stage==='approved')o.stage='proforma_issued';
+    if(action==='verify_payment'&&o.stage==='payment_submitted'){o.stage='payment_verified';o.payment='verified'}
+    if(action==='allocate'&&o.stage==='payment_verified'){o.stage='allocated';o.shipment='Allocated'}
+    if(action==='create_shipment'&&o.stage==='allocated'){o.stage='shipment_created';o.shipment='Created'}
+    if(action==='dispatch_shipment'&&['shipment_created','partial_shipment'].includes(o.stage)){o.stage='shipped';o.shipment='In transit'}
+    if(action==='deliver'&&o.stage==='shipped'){o.stage='delivered';o.shipment='Delivered';o.delivered=true;if(target==='Paris')s.completed.wholesaleParisDelivery=true;if(target==='private')s.completed.privateDelivery=true}
+    if(action==='claim_offer'&&s.claim.state==='submitted'){s.claim.state='offered';s.claim.resolution='replacement'}
+    if(action==='claim_execute'&&s.claim.state==='execution_pending'){s.claim.executed=Math.min(s.claim.quantity,s.claim.executed+1);if(s.claim.executed===s.claim.quantity)s.claim.state='resolved'}
+    if(action==='claim_close'&&s.claim.state==='resolved'){s.claim.state='closed';s.completed.claimClosed=true}
+    if(action==='reorder_brand_approve'&&s.reorder.status==='buyer_approved')s.reorder.status='brand_approved';
+    if(action==='reorder_convert'&&s.reorder.status==='brand_approved'){const r=s.reorder;r.status='converted';r.newOrder={code:'WH-R'+String(Date.now()).slice(-4),client:s.wholesaleOrders[r.store].client,stage:'draft',total:'€ 6,480',rev:1,shipment:'Not allocated',store:r.store};s.completed.reorderConverted=true}
+    const claimActionName=action.startsWith('claim_');s.events=[{at:new Date().toISOString(),type:'admin_'+action,detail:(claimActionName?s.claim.id:action.startsWith('reorder_')?s.reorder.style:o?.code)+' → '+(claimActionName?s.claim.state:action.startsWith('reorder_')?s.reorder.status:o?.stage)},...(s.events||[])].slice(0,80);return s
+  });renderAdmin();renderPrivate();renderWholesale();renderQA();toast('Admin action executed')
+}
+function claimAction(action){
+  mutateDemo(s=>{const c=s.claim;
+    if(action==='submit'&&s.privateOrder.stage==='delivered'){c.state='submitted';c.executed=0;c.resolution=null}
+    if(action==='accept'&&c.state==='offered')c.state='execution_pending';
+    if(action==='review'&&c.state==='offered')c.state='submitted';
+    s.events=[{at:new Date().toISOString(),type:'claim_'+action,detail:c.id+' → '+c.state},...(s.events||[])].slice(0,80);return s
+  });renderPrivate();renderAdmin();renderQA();toast('Claim: '+prettyStage(demoStore().claim.state))
+}
+function reorderAction(action){
+  mutateDemo(s=>{const r=s.reorder;if(action==='system_propose'&&r.status==='none')r.status='proposed';if(action==='buyer_approve'&&r.status==='proposed')r.status='buyer_approved';s.events=[{at:new Date().toISOString(),type:'reorder_'+action,detail:r.style+' → '+r.status},...(s.events||[])].slice(0,80);return s});renderWholesale();renderAdmin();renderQA();toast('Reorder: '+demoStore().reorder.status)
+}
+function resetDemo(){demoReplace(seedDemo());renderCatalog();renderPrivate();renderWholesale();renderAdmin();renderReadiness();renderQA();toast('Demo state reset to v30.3 seed')}
 
-  <section class="section" id="press">
-    <div class="section-head">
-      <h2 id="press-title">Для прессы и организаторов</h2>
-      <p class="sub" id="press-sub">Всё, что нужно для программы мероприятия или комментария, — без переписки.</p>
-    </div>
-    <div class="press-grid" id="press-body">
-    <div class="press-bio">
-      <div class="press-item"><h3>Коротко</h3><p id="bio-short">Пётр Федин — эксперт по экономике и трансформации фэшн-бизнеса и основатель IT-продуктов Syntha, ChatX и Renova.</p>
-        <button class="btn btn-sm" type="button" data-copy="bio-short">Скопировать</button></div>
-      <div class="press-item"><h3>Развёрнуто</h3><p id="bio-long">Пётр Федин знает фэшн-бизнес изнутри: многолетний управленческий опыт в крупной мультибрендовой рознице — бюджет закупки, матрица, прогноз спроса, маржа, оборачиваемость. Ведёт диагностику, стратегию роста и стабилизацию; параллельно создаёт IT-продукты — Syntha, ChatX, Renova и другие.</p>
-        <button class="btn btn-sm" type="button" data-copy="bio-long">Скопировать</button></div>
-      <div class="press-item"><h3>Портрет для публикации</h3>
-        <a class="btn btn-sm" href="/assets/photo/petr-formal.jpg" download="">Скачать фото</a></div>
-    </div>
-    <div class="press-side">
-      <h3>Темы для выступления и комментария</h3>
-      <ul><li>Экономика закупки и возврат капитала</li><li>Бюджетирование и лимиты закупки</li><li>Построение аналитики: от данных к решениям</li><li>Показатели, на которых держится фэшн-розница</li><li>Товарное планирование и управление запасом</li><li>Розничный цикл и работа с покупателем</li><li>Маркетплейсы и мультиканальные продажи</li><li>Фэшн-рынок России: что в нём меняется</li><li>PLM и цифровой контур бренда</li><li>Управление в кризисе и восстановление роста</li><li>От консалтинга к продукту: как рождаются Syntha, ChatX и Renova</li></ul>
-    </div></div>
-  </section>
-</main><div class="cta-bar" id="cta-bar"><a class="cta-fab" href="#contact" aria-label="Написать" title="Написать"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"></path></svg></a></div><footer class="footer">
-  <p id="privacy">Конфиденциальность клиентских данных — базовый стандарт работы.</p>
-  <p><a id="footer-privacy" href="/privacy">Политика конфиденциальности</a></p>
-  <p class="year">© <span id="year">2026</span></p>
-</footer>
-<!--PR:END-->
+const I={ru:{home:'Главная',catalog:'Коллекции',private:'Private',wholesale:'Wholesale',admin:'Admin',readiness:'Готовность',qa:'QA',login:'Вход',logout:'Выход'},en:{home:'Home',catalog:'Collections',private:'Private',wholesale:'Wholesale',admin:'Admin',readiness:'Readiness',qa:'QA',login:'Login',logout:'Logout'},it:{home:'Home',catalog:'Collezioni',private:'Private',wholesale:'Wholesale',admin:'Admin',readiness:'Readiness',qa:'QA',login:'Accedi',logout:'Esci'}};
+const products=[
+{id:1,style:'MP-2401',name:'Soft Napoli Jacket',cat:'Jacket',season:'FW26',size:'50',price:null,delivery:'15 Oct – 15 Nov',verified:false,media:false},
+{id:2,style:'MP-2412',name:'Travel Wool Trouser',cat:'Trouser',season:'FW26',size:'50',price:null,delivery:'15 Oct – 15 Nov',verified:false,media:false},
+{id:3,style:'MP-2428',name:'Cashmere Polo',cat:'Knitwear',season:'FW26',size:'L',price:null,delivery:'20 Oct – 20 Nov',verified:false,media:false},
+{id:4,style:'MP-2503',name:'Double Pleat Trouser',cat:'Trouser',season:'SS27',size:'48',price:null,delivery:null,verified:false,media:false},
+{id:5,style:'MP-2510',name:'Deconstructed Blazer',cat:'Jacket',season:'SS27',size:'50',price:null,delivery:null,verified:false,media:false},
+{id:6,style:'MP-2522',name:'Merino Zip Knit',cat:'Knitwear',season:'SS27',size:'L',price:null,delivery:null,verified:false,media:false}
+];
+function toast(msg){let d=document.createElement('div');d.textContent=msg;Object.assign(d.style,{position:'fixed',right:'20px',bottom:'20px',background:'#181715',color:'#fff',padding:'12px 16px',borderRadius:'12px',zIndex:200,boxShadow:'0 15px 50px rgba(0,0,0,.2)'});document.body.appendChild(d);setTimeout(()=>d.remove(),2200)}
+function nav(){const labels=I[S.lang];const items=['home','catalog','private','wholesale','admin','readiness','qa'];topNav.innerHTML=items.map(x=>`<button data-go="${x}" class="${S.section===x?'active':''}">${labels[x]}</button>`).join('');langs.innerHTML=['ru','en','it'].map(x=>`<button class="lang ${S.lang===x?'active':''}" data-lang="${x}">${x.toUpperCase()}</button>`).join('');authBtn.textContent=S.workspace==='public'?labels.login:labels.logout;workspaceLabel.textContent={public:'Public Showroom',private:'Private Client',wholesale:'Wholesale / Store',admin:'Administrator'}[S.workspace];}
+function showSection(s){S.section=s;document.querySelectorAll('.section').forEach(x=>x.classList.toggle('active',x.dataset.section===s));nav();if(s==='catalog')renderCatalog();if(s==='private')renderPrivate();if(s==='wholesale')renderWholesale();if(s==='admin')renderAdmin();}
+function roleModal(){modalRoot.innerHTML=`<div class="modal-backdrop"><div class="modal"><div class="spread"><div><div class="caps muted">Workspace access</div><h2 style="font-family:Georgia,serif;font-weight:400;font-size:34px;margin:8px 0">Выберите кабинет</h2></div><button class="ghost" data-close>✕</button></div><div class="notice">Сейчас это Preview/Demo mode. Реальная Supabase Auth‑авторизация ещё не квалифицирована: в live базе 0 Auth users и 0 memberships.</div><div class="grid" style="margin-top:18px"><div class="role-card c4" data-role="private"><div class="caps muted">Private</div><h3>Частный клиент</h3><p class="muted">Размер, заказ, оплата, доставка, wardrobe, claims.</p></div><div class="role-card c4" data-role="wholesale"><div class="caps muted">Wholesale</div><h3>Оптовый клиент</h3><p class="muted">Size Matrix, revisions, sell‑through, reorder.</p></div><div class="role-card c4" data-role="admin"><div class="caps muted">Admin</div><h3>Администратор</h3><p class="muted">Readiness, clients, finance, fulfillment, analytics.</p></div></div></div></div>`}
+function renderCatalog(){const q=(catalogSearch?.value||'').toLowerCase(),f=catalogFilter?.value||'all',wl=new Set(demoStore().wishlist||[]);catalogCards.innerHTML=products.filter(p=>(!q||(p.name+p.style).toLowerCase().includes(q))&&(f==='all'||p.cat===f)).map(p=>`<article class="product"><div class="product-img"><span class="pill">REFERENCE VISUAL</span>${p.style}</div><div class="product-body"><div class="small muted">${p.season} · ${p.cat}</div><h3>${p.name}</h3><div class="spread"><span>${p.price||'Price on request'}</span><span class="badge ${p.verified?'good':'warn'}">${p.verified?'Commercial':'Preview only'}</span></div><div class="row" style="margin-top:12px"><button class="btn secondary" data-pdp="${p.id}">Открыть PDP</button><button class="ghost" data-wishlist="${p.id}">${wl.has(String(p.id))?'♥':'♡'} Wishlist</button></div></div></article>`).join('')}
+const pTabs={overview:'Обзор',fit:'Fit & Size',orders:'Заказы',wardrobe:'Wardrobe',wishlist:'Wishlist',service:'Private Service',claims:'Delivery Claims'};
+function renderPrivate(){
+  const ds=demoStore(),o=ds.privateOrder,c=ds.claim;
+  privateTabs.innerHTML=Object.entries(pTabs).map(([k,v])=>`<button class="tab ${S.privateTab===k?'active':''}" data-ptab="${k}">${v}</button>`).join('');
+  const wishlistProducts=products.filter(p=>(ds.wishlist||[]).includes(String(p.id)));
+  const orderActions=[];
+  if(o.stage==='draft')orderActions.push(`<button class="btn" data-demo-action="private-submit" data-capability="private.order.submit">Отправить заказ</button>`);
+  if(o.stage==='brand_revision')orderActions.push(`<button class="btn" data-demo-action="private-accept-revision" data-capability="private.revision.accept">Принять revision #${o.rev}</button>`);
+  if(o.stage==='proforma_issued')orderActions.push(`<button class="btn" data-demo-action="private-submit-payment" data-capability="private.payment.submit">Отправить payment evidence</button>`);
+  if(o.stage==='shipped')orderActions.push(`<span class="badge warn">Awaiting Admin POD · Private cannot self-confirm delivery</span>`);
+  const blocks={
+  overview:`<div class="grid"><div class="panel c7"><h3>Private Client</h3><div class="notice good">Fit profile active · preferred fit: ${ds.fit.fit} · usual jacket: ${ds.fit.jacket}</div><div class="status-grid" style="margin-top:16px"><div class="stat"><div class="n">${ds.fit.jacket}</div><div class="small muted">recommended jacket size</div></div><div class="stat"><div class="n">${ds.fit.confidence.toFixed(2)}</div><div class="small muted">confidence</div></div><div class="stat"><div class="n">${prettyStage(o.stage)}</div><div class="small muted">current order stage</div></div><div class="stat"><div class="n">${c.state==='none'?0:1}</div><div class="small muted">active claim</div></div></div></div><div class="panel c5"><h3>Next best action</h3><p>Current demo order <b>${o.code}</b> is <b>${prettyStage(o.stage)}</b>. Private and Admin now operate on the same persisted workflow.</p><button class="btn" data-demo-action="private-create">Создать новый demo-заказ</button></div></div>`,
+  fit:`<div class="grid"><div class="panel c6"><h3>Fit Profile</h3><div class="form-grid"><label>Jacket<input class="input" value="${ds.fit.jacket}" data-fit="jacket"></label><label>Trouser<input class="input" value="${ds.fit.trouser}" data-fit="trouser"></label><label>Fit<select class="input" data-fit="fit"><option>${ds.fit.fit}</option><option>Regular</option><option>Slim</option></select></label><label>Height<input class="input" value="${ds.fit.height}" data-fit="height"></label></div><div class="notice" style="margin-top:12px">Demo-only write: live Fit tables are RLS read-only for authenticated users until a qualified wrapper/grant is added.</div><button class="btn" style="margin-top:14px" data-demo-action="fit-save" data-capability="private.fit.version.write">Сохранить в Demo</button></div><div class="panel c6"><h3>Recommendation</h3><div class="kpi">${ds.fit.jacket}</div><p>Confidence ${Math.round(ds.fit.confidence*100)}%. Fit profile is now persisted and feeds the demo recommendation.</p><button class="btn secondary" data-demo-action="fit-recalc" data-capability="private.fit.recommendation.compute">Пересчитать в Demo</button></div></div>`,
+  orders:`<div class="panel"><div class="spread"><div><h3>Private Order ${o.code}</h3><span class="badge ${badgeForStage(o.stage)}">${prettyStage(o.stage)}</span></div><button class="btn secondary" data-demo-action="private-create">Новый заказ</button></div>${orderTable([o])}<div class="row" style="margin-top:16px">${orderActions.join('')||'<span class="muted">Следующее действие находится в Admin workspace.</span>'}</div><div class="timeline" style="margin-top:18px">${(ds.events||[]).filter(e=>e.type.startsWith('private_')||e.type.startsWith('admin_')).slice(0,8).map(e=>`<div class="event"><div class="small muted">${new Date(e.at).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}</div><div><b>${e.type}</b><div class="small muted">${e.detail}</div></div></div>`).join('')}</div></div>`,
+  wardrobe:`<div class="grid"><div class="panel c7"><h3>Wardrobe</h3><div class="notice">Wardrobe unlocks from delivered purchases. Demo order delivered: <b>${o.delivered?'yes':'no'}</b>.</div>${o.delivered?`<div class="cards" style="grid-template-columns:repeat(2,1fr);margin-top:14px"><div class="product"><div class="product-img">MP-2401</div><div class="product-body"><h3>Soft Napoli Jacket</h3><span class="badge good">Owned · Size ${ds.fit.jacket}</span></div></div></div>`:'<p class="muted">Complete the Private delivery flow to populate Wardrobe.</p>'}</div><div class="panel c5"><h3>Size History</h3><div class="qa-item"><span>Jacket</span><span>${o.delivered?ds.fit.jacket:'No delivered signal yet'}</span></div><button class="btn secondary" style="margin-top:16px" ${o.delivered?'':'disabled'} data-demo-action="repeat-purchase">Повторить покупку</button></div></div>`,
+  wishlist:`<div class="panel"><h3>Wishlist</h3><div class="notice">Demo persistence uses localStorage. ${wishlistProducts.length} saved item(s).</div><div class="cards" style="margin-top:14px">${wishlistProducts.length?wishlistProducts.map(p=>`<div class="product"><div class="product-img">${p.style}</div><div class="product-body"><h3>${p.name}</h3><button class="btn secondary" data-wishlist="${p.id}">Удалить</button></div></div>`).join(''):'<p class="muted">Wishlist пуст. Добавьте товары из Collection.</p>'}</div></div>`,
+  service:`<div class="grid"><div class="panel c6"><h3>Private Service</h3><div class="qa-item"><span>Current request</span><span class="badge ${ds.service.status==='closed'?'good':'warn'}">${ds.service.type} · ${ds.service.status}</span></div><div class="row" style="margin-top:14px"><button class="btn" data-demo-action="service-open" data-capability="private.service.write">Создать запрос</button><button class="btn secondary" data-demo-action="service-close">Закрыть</button></div></div><div class="panel c6"><h3>Service History</h3><p class="muted">Service actions now write to the shared audit trail.</p></div></div>`,
+  claims:`<div class="grid"><div class="panel c7"><h3>Delivery Claim ${c.id}</h3><div class="qa-item"><span>State</span><span class="badge ${badgeForStage(c.state)}">${prettyStage(c.state)}</span></div><div class="qa-item"><span>Claimed</span><b>${c.quantity} pcs</b></div><div class="qa-item"><span>Executed</span><b>${c.executed} pcs</b></div><div class="qa-item"><span>Remaining</span><b>${Math.max(0,c.quantity-c.executed)} pcs</b></div><div class="row" style="margin-top:14px">${c.state==='none'&&o.stage==='delivered'?'<button class="btn" data-demo-action="claim-submit" data-capability="private.claims.lifecycle">Создать claim</button>':''}${c.state==='offered'?'<button class="btn" data-demo-action="claim-accept">Принять replacement</button><button class="btn secondary" data-demo-action="claim-review">На повторную проверку</button>':''}</div></div><div class="panel c5"><h3>Integrity rule</h3><div class="notice">Claim cannot resolve until executed quantity equals claimed quantity. Admin records execution one unit at a time in this demo.</div></div></div>`};
+  privateContent.innerHTML=blocks[S.privateTab]
+}
 
-<dialog class="modal" id="modal">
-  <div class="modal-body">
-    <button class="modal-close" id="modal-close" type="button" aria-label="Close">
-      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>
-    </button>
-    <header class="modal-head">
-      <span class="modal-logo" id="modal-logo"></span>
-      <p class="modal-tagline" id="modal-tagline"></p>
-      <span class="stage" id="modal-stage"></span>
-      <ol class="roadmap" id="modal-roadmap"></ol>
-    </header>
+const wTabs={matrix:'Size Matrix',orders:'Orders',fulfillment:'Fulfilment',sellthrough:'Sell‑through & WOS',reorder:'Reorder',history:'Account History'};
+function renderWholesale(){
+  S.store=storeScope.value;const ds=demoStore(),o=ds.wholesaleOrders[S.store],r=ds.reorder;
+  wholesaleTabs.innerHTML=Object.entries(wTabs).map(([k,v])=>`<button class="tab ${S.wholesaleTab===k?'active':''}" data-wtab="${k}">${v}</button>`).join('');
+  const a=[];if(o.stage==='draft')a.push(`<button class="btn" data-demo-action="wh-submit" data-capability="wholesale.order.submit">Submit order</button>`);if(o.stage==='brand_revision')a.push(`<button class="btn" data-demo-action="wh-accept-revision" data-capability="wholesale.revision.accept">Accept revision</button>`);if(o.stage==='proforma_issued')a.push(`<button class="btn" data-demo-action="wh-submit-payment" data-capability="wholesale.payment.submit">Submit payment evidence</button>`);
+  const matrix=ds.sizeMatrix[S.store];
+  const blocks={
+  matrix:`<div class="grid"><div class="panel c8"><div class="spread"><div><h3>Size Matrix v2 · ${S.store}</h3><span class="badge ${badgeForStage(o.stage)}">${prettyStage(o.stage)} · rev #${o.rev}</span></div><span class="badge good">Store scoped</span></div><div class="table-wrap"><table class="table"><thead><tr><th>Style</th><th>Color</th><th>46</th><th>48</th><th>50</th><th>52</th><th>54</th><th>Total</th></tr></thead><tbody><tr><td>MP-2401</td><td>Navy</td>${matrix.map((n,i)=>`<td><input class="input" data-matrix-index="${i}" value="${n}" style="width:62px"></td>`).join('')}<td>${matrix.reduce((a,b)=>a+Number(b),0)}</td></tr></tbody></table></div><div class="row" style="margin-top:14px"><button class="btn" data-demo-action="wh-save-revision" data-capability="wholesale.revision.save">Сохранить revision</button>${a.join('')}<button class="btn secondary" data-toast="Complete Look matrix opened">Complete Look</button></div></div><div class="panel c4"><h3>Order constraints</h3><div class="qa-item"><span>MOQ</span><b>6</b></div><div class="qa-item"><span>Order multiple</span><b>2</b></div><div class="qa-item"><span>Scope</span><b>${S.store}</b></div><div class="notice">HQ / Paris / Dubai maintain independent order state in this demo.</div></div></div>`,
+  orders:`<div class="panel"><div class="spread"><div><h3>${S.store} Order ${o.code}</h3><span class="badge ${badgeForStage(o.stage)}">${prettyStage(o.stage)}</span></div><div class="row"><button class="btn secondary" data-demo-action="wh-copy" data-capability="wholesale.order.copy">Copy to HQ</button></div></div>${orderTable([o])}<div class="row" style="margin-top:14px">${a.join('')||'<span class="muted">Next action is in Admin workspace.</span>'}</div></div>`,
+  fulfillment:`<div class="grid"><div class="panel c7"><h3>Fulfilment · ${S.store}</h3><div class="qa-item"><span>Order</span><b>${o.code}</b></div><div class="qa-item"><span>Stage</span><span class="badge ${badgeForStage(o.stage)}">${prettyStage(o.stage)}</span></div><div class="qa-item"><span>Shipment</span><b>${o.shipment}</b></div><div class="notice">Allocation, shipment and POD are controlled from Admin and reflected here immediately.</div></div><div class="panel c5"><h3>Store isolation</h3><p>Switch Paris / Dubai / HQ above: each store has a separate persisted order state.</p></div></div>`,
+  sellthrough:`<div class="grid"><div class="panel c8"><h3>Sell-through intelligence · ${S.store}</h3><div class="chart">${[45,80,62,95,76,102,89].map(h=>`<div class="bar" style="height:${h}px"></div>`).join('')}</div><div class="table-wrap"><table class="table"><thead><tr><th>Style</th><th>Units sold</th><th>Ending stock</th><th>Weekly velocity</th><th>WOS</th><th>Sell-through</th></tr></thead><tbody><tr><td>MP-2401</td><td>18</td><td>12</td><td>4.5</td><td>2.7</td><td>60%</td></tr></tbody></table></div></div><div class="panel c4"><h3>Replenishment signal</h3><div class="kpi">2.7 WOS</div><p>Reorder status: <b>${r.status}</b></p><button class="btn" ${r.status!=='none'?'disabled':''} data-demo-action="reorder-system-propose" data-capability="wholesale.reorder.propose">Simulate server proposal</button><div class="small muted" style="margin-top:8px">Live proposal creation is server-only; buyer cannot create it directly.</div></div></div>`,
+  reorder:`<div class="panel"><h3>Reorder Matrix</h3><div class="qa-item"><span>Style</span><b>${r.style}</b></div><div class="qa-item"><span>Suggested qty</span><b>${r.suggestedQty}</b></div><div class="qa-item"><span>Status</span><span class="badge ${badgeForStage(r.status)}">${r.status}</span></div>${r.newOrder?`<div class="qa-item"><span>New draft</span><b>${r.newOrder.code} · ${r.newOrder.store}</b></div>`:''}<div class="row" style="margin-top:14px">${r.status==='proposed'?'<button class="btn" data-demo-action="reorder-buyer-approve" data-capability="wholesale.reorder.buyer_approve">Buyer approve</button>':''}${r.status==='buyer_approved'?'<span class="badge warn">Awaiting brand/server approval</span>':''}${r.status==='brand_approved'?'<span class="badge warn">Awaiting server conversion</span>':''}</div></div>`,
+  history:`<div class="grid"><div class="panel c7"><h3>Account history · ${S.store}</h3>${orderTable([o])}</div><div class="panel c5"><h3>Terms</h3><div class="qa-item"><span>Advance</span><b>30%</b></div><div class="qa-item"><span>Balance</span><b>Before dispatch</b></div><div class="qa-item"><span>Currency</span><b>EUR</b></div></div></div>`};
+  wholesaleContent.innerHTML=blocks[S.wholesaleTab]
+}
 
-    <div class="gallery" id="gallery" tabindex="0" aria-label="Screens"></div>
-    <div class="dots" id="dots"></div>
+const aTabs={readiness:'Product Readiness',orders:'Orders & Approvals',fulfillment:'Fulfillment',clients:'Clients & Pricing',money:'Money Control',profit:'Profitability',reorder:'Reorder Control',claims:'Claims',timeline:'Audit Timeline'};
+function renderAdmin(){
+  const ds=demoStore(),po=ds.privateOrder,wo=ds.wholesaleOrders[S.store],c=ds.claim;
+  adminTabs.innerHTML=Object.entries(aTabs).map(([k,v])=>`<button class="tab ${S.adminTab===k?'active':''}" data-atab="${k}">${v}</button>`).join('');
+  function adminButtons(o,target){const b=[];if(o.stage==='submitted')b.push(`<button class="btn" data-admin-action="brand_revision" data-capability="admin.order.revise" data-target="${target}">Create brand revision</button>`);if(o.stage==='approval_pending')b.push(`<button class="btn" data-admin-action="approve" data-capability="admin.approval.decide" data-target="${target}">Approve order</button>`);if(o.stage==='approved')b.push(`<button class="btn" data-admin-action="issue_proforma" data-capability="admin.proforma.issue" data-target="${target}">Issue proforma</button>`);if(o.stage==='payment_submitted')b.push(`<button class="btn" data-admin-action="verify_payment" data-capability="admin.payment.verify" data-target="${target}">Verify payment</button>`);if(o.stage==='payment_verified')b.push(`<button class="btn" data-admin-action="allocate" data-capability="admin.inventory.allocate" data-target="${target}">Allocate</button>`);if(o.stage==='allocated')b.push(`<button class="btn" data-admin-action="create_shipment" data-capability="admin.shipment.create" data-target="${target}">Create shipment</button>`);if(o.stage==='shipment_created')b.push(`<button class="btn" data-admin-action="dispatch_shipment" data-capability="admin.shipment.dispatch" data-target="${target}">Dispatch</button>`);if(o.stage==='shipped')b.push(`<button class="btn" data-admin-action="deliver" data-capability="admin.delivery.confirm" data-target="${target}">Record POD</button>`);return b.join('')||'<span class="muted">No Admin transition available.</span>'}
+  const blocks={
+  readiness:`<div class="panel"><div class="spread"><h3>Commercial Readiness Control</h3><span class="badge bad">0 / 6 ready for Private sales</span></div><div class="table-wrap"><table class="table"><thead><tr><th>Style</th><th>Retail</th><th>Delivery</th><th>Verified SKU</th><th>Media rights</th><th>Status</th></tr></thead><tbody>${products.map(p=>`<tr><td>${p.style}</td><td><span class="badge bad">Missing</span></td><td>${p.delivery?'<span class="badge good">Set</span>':'<span class="badge bad">Missing</span>'}</td><td><span class="badge bad">0</span></td><td><span class="badge bad">0</span></td><td><span class="badge bad">Blocked</span></td></tr>`).join('')}</tbody></table></div></div>`,
+  orders:`<div class="grid"><div class="panel c6"><h3>Private · ${po.code}</h3>${orderTable([po])}<div class="row" style="margin-top:14px">${adminButtons(po,'private')}</div></div><div class="panel c6"><h3>${S.store} · ${wo.code}</h3>${orderTable([wo])}<div class="row" style="margin-top:14px">${adminButtons(wo,S.store)}</div></div></div>`,
+  fulfillment:`<div class="grid"><div class="panel c6"><h3>Private fulfilment</h3><div class="qa-item"><span>Stage</span><span class="badge ${badgeForStage(po.stage)}">${prettyStage(po.stage)}</span></div><div class="qa-item"><span>Shipment</span><b>${po.shipment}</b></div><div class="row">${adminButtons(po,'private')}</div></div><div class="panel c6"><h3>${S.store} fulfilment</h3><div class="qa-item"><span>Stage</span><span class="badge ${badgeForStage(wo.stage)}">${prettyStage(wo.stage)}</span></div><div class="qa-item"><span>Shipment</span><b>${wo.shipment}</b></div><div class="row">${adminButtons(wo,S.store)}</div></div></div>`,
+  clients:`<div class="grid"><div class="panel c7"><h3>Clients & Stores</h3><div class="table-wrap"><table class="table"><thead><tr><th>Client</th><th>Type</th><th>Store</th><th>State</th></tr></thead><tbody><tr><td>Maison Europe</td><td>Wholesale</td><td>HQ / Paris / Dubai</td><td>3 isolated workflows</td></tr><tr><td>Private Client</td><td>Private</td><td>—</td><td>${prettyStage(po.stage)}</td></tr></tbody></table></div></div><div class="panel c5"><h3>Demo reset</h3><p class="muted">Reset all persisted workflows to the v30.7 seed.</p><button class="btn danger" data-demo-action="reset-demo">Reset Demo State</button></div></div>`,
+  money:`<div class="grid"><div class="panel c3"><div class="caps muted">Private stage</div><div class="kpi" style="font-size:23px">${prettyStage(po.stage)}</div></div><div class="panel c3"><div class="caps muted">${S.store} stage</div><div class="kpi" style="font-size:23px">${prettyStage(wo.stage)}</div></div><div class="panel c3"><div class="caps muted">Payment verified</div><div class="kpi">${[po,wo].filter(x=>['payment_verified','allocated','shipped','delivered'].includes(x.stage)).length}</div></div><div class="panel c3"><div class="caps muted">Delivered</div><div class="kpi">${[po,wo].filter(x=>x.stage==='delivered').length}</div></div></div>`,
+  profit:`<div class="grid"><div class="panel c4"><h3>Client profitability</h3><div class="qa-item"><span>Maison Europe</span><b>46%</b></div><div class="qa-item"><span>Private</span><b>55%</b></div></div><div class="panel c4"><h3>Store profitability</h3><div class="qa-item"><span>Paris</span><b>49%</b></div><div class="qa-item"><span>Dubai</span><b>44%</b></div></div><div class="panel c4"><h3>SKU profitability</h3><div class="qa-item"><span>MP-2401</span><b>52%</b></div></div></div>`,
+  reorder:`<div class="grid"><div class="panel c7"><div class="spread"><h3>Reorder authority</h3><span class="badge warn">SERVER-ONLY GAP</span></div><div class="qa-item"><span>Status</span><b>${ds.reorder.status}</b></div><div class="qa-item"><span>Buyer reorder approval</span><span class="badge bad">Blocked until exact-store wrapper admission</span></div><div class="qa-item"><span>Brand approval</span><span class="badge bad">No authenticated wrapper</span></div><div class="qa-item"><span>Convert to deal</span><span class="badge bad">No authenticated wrapper</span></div><div class="row" style="margin-top:14px">${ds.reorder.status==='buyer_approved'?'<button class="btn" data-admin-action="reorder_brand_approve" data-capability="admin.reorder.brand_approve">Simulate backend brand approval</button>':''}${ds.reorder.status==='brand_approved'?'<button class="btn" data-admin-action="reorder_convert" data-capability="admin.reorder.convert">Simulate backend conversion</button>':''}</div></div><div class="panel c5"><h3>Why blocked</h3><div class="notice">Live functions brand_approve_reorder and convert_reorder_to_deal have authenticated EXECUTE=false. v30.7 fails closed until exact-store buyer approval and Admin reorder wrappers pass isolated admission.</div></div></div>`,
+  claims:`<div class="grid"><div class="panel c7"><h3>Claims Review · ${c.id}</h3><div class="qa-item"><span>State</span><span class="badge ${badgeForStage(c.state)}">${prettyStage(c.state)}</span></div><div class="qa-item"><span>Execution</span><b>${c.executed} / ${c.quantity}</b></div><div class="row">${c.state==='submitted'?'<button class="btn" data-admin-action="claim_offer">Offer replacement</button>':''}${c.state==='execution_pending'?'<button class="btn" data-admin-action="claim_execute">Record 1 replacement</button>':''}${c.state==='resolved'?'<button class="btn" data-admin-action="claim_close">Close claim</button>':''}</div></div><div class="panel c5"><h3>Claim integrity</h3><div class="qa-item"><span>Remaining</span><b>${Math.max(0,c.quantity-c.executed)}</b></div><div class="notice">Resolution is impossible before executed quantity equals claimed quantity.</div></div></div>`,
+  timeline:`<div class="panel"><div class="spread"><h3>Event Timeline / Audit Trail</h3><span class="badge">${(ds.events||[]).length} events</span></div><div class="timeline">${(ds.events||[]).slice(0,30).map(e=>`<div class="event"><div class="small muted">${new Date(e.at).toLocaleString()}</div><div><b>${e.type}</b><div class="small muted">${e.detail}</div></div></div>`).join('')}</div></div>`};
+  adminContent.innerHTML=blocks[S.adminTab]
+}
 
-    <dl class="facts" id="facts"></dl>
-
-    <section class="status" id="status"></section>
-    <section class="collab" id="collab"></section>
-
-    <div class="modal-actions">
-      <button class="btn btn-primary" id="modal-cta" type="button"></button>
-      <a class="btn" id="modal-more" href="/syntha.html" hidden>Подробно о проекте</a>
-    </div>
-  </div>
-</dialog>
-
-
-<dialog class="modal modal-wide" id="deck-modal">
-  <div class="modal-body">
-    <div class="modal-icon-row">
-      <button class="modal-icon-btn" id="deck-cv" type="button" aria-label="Request CV" title="Request CV">
-        <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M7 3h7l4 4v14H7z M14 3v4h4 M9 12h6 M9 16h6" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </button>
-      <button class="modal-close" id="deck-close" type="button" aria-label="Close" title="Close">
-        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>
-      </button>
-    </div>
-    <header class="deck-head">
-      <p class="eyebrow" id="deck-kicker"></p>
-      <h2 id="deck-title"></h2>
-      <p class="sub" id="deck-lead"></p>
-      <p class="deck-tagline" id="deck-tagline"></p>
-    </header>
-
-    <section class="chain">
-      <h3 id="chain-title"></h3>
-      <p class="chain-hint" id="chain-hint"></p>
-      <ol class="chain-list" id="chain-list"></ol>
-    </section>
-
-    <div id="deck-blocks"></div>
-
-    <section class="glossary" id="deck-glossary"></section>
-    <p class="deck-foot" id="deck-footnote"></p>
-    <a class="btn btn-primary modal-cta" id="deck-pdf-2" href="/assets/fashion-advisory.pdf" download target="_blank" rel="noopener"></a>
-  </div>
-</dialog>
-
-
-<dialog class="photo-modal" id="photo-modal">
-  <button class="modal-close" id="photo-close" type="button" aria-label="Close">
-    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>
-  </button>
-  <img id="photo-big" src="/assets/photo/petr-portrait.webp" alt="Пётр Федин">
-  <video id="photo-video" playsinline controls hidden></video>
-  <button class="photo-nav prev" id="photo-prev" type="button" hidden>
-    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-  </button>
-  <button class="photo-nav next" id="photo-next" type="button" hidden>
-    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-  </button>
-  <div class="photo-bar" id="photo-bar" hidden>
-    <span class="photo-count" id="photo-count"></span>
-    <button class="btn btn-sm" id="photo-zoom" type="button"></button>
-  </div>
-</dialog>
-
-<dialog class="modal modal-qr" id="qr-modal">
-  <div class="modal-body">
-    <button class="modal-close" id="qr-close" type="button" aria-label="Close">
-      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>
-    </button>
-    <img id="qr-image" src="" alt="QR-код" width="200" height="200">
-    <p class="sub" id="qr-title"></p>
-  </div>
-</dialog>
-
-<dialog class="modal modal-wide" id="compare-modal">
-  <div class="modal-body">
-    <button class="modal-close" id="compare-close" type="button" aria-label="Close">
-      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>
-    </button>
-    <header class="deck-head">
-      <span class="modal-logo" id="compare-logo"></span>
-      <h2 id="compare-title"></h2>
-    </header>
-    <div id="compare-body"></div>
-    <p class="doc-note" id="compare-note"></p>
-  </div>
-</dialog>
-
-<dialog class="modal modal-wide" id="cv-modal">
-  <div class="modal-body">
-    <div class="modal-icon-row">
-      <button class="modal-icon-btn" id="cv-back" type="button" aria-label="Back" title="Back">
-        <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </button>
-      <button class="modal-close" id="cv-close" type="button" aria-label="Close" title="Close">
-        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>
-      </button>
-    </div>
-    <header class="deck-head">
-      <h2 id="cv-title"></h2>
-      <p class="sub" id="cv-note"></p>
-    </header>
-    <div id="cv-body"></div>
-  </div>
-</dialog>
-
-<dialog class="modal" id="diag-modal">
-  <div class="modal-body">
-    <button class="modal-close" id="diag-close" type="button" aria-label="Close">
-      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>
-    </button>
-    <header class="deck-head">
-      <p class="eyebrow" id="diag-eyebrow"></p>
-      <h2 id="diag-title"></h2>
-      <p class="sub" id="diag-subtitle"></p>
-    </header>
-    <div class="diag-body" id="diag-body"></div>
-  </div>
-</dialog>
-
-<dialog class="modal" id="launch-diag-modal">
-  <div class="modal-body">
-    <button class="modal-close" id="launch-diag-close" type="button" aria-label="Close">
-      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>
-    </button>
-    <header class="deck-head">
-      <p class="eyebrow" id="launch-diag-eyebrow"></p>
-      <h2 id="launch-diag-title"></h2>
-      <p class="sub" id="launch-diag-subtitle"></p>
-    </header>
-    <div class="diag-body" id="launch-diag-body"></div>
-  </div>
-</dialog>
-
-<dialog class="modal" id="leak-modal">
-  <div class="modal-body">
-    <button class="modal-close" id="leak-close" type="button" aria-label="Close">
-      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>
-    </button>
-    <header class="deck-head">
-      <h2 id="leak-title"></h2>
-      <p class="sub" id="leak-subtitle"></p>
-    </header>
-    <div class="diag-body" id="leak-body"></div>
-  </div>
-</dialog>
-
-<dialog class="modal" id="post-modal">
-  <div class="modal-body">
-    <div class="modal-icon-row">
-      <button class="modal-icon-btn" id="post-prev" type="button" hidden>
-        <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </button>
-      <button class="modal-icon-btn" id="post-next" type="button" hidden>
-        <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </button>
-      <button class="modal-close" id="post-close" type="button" aria-label="Close">
-        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>
-      </button>
-    </div>
-    <div class="post-modal-meta">
-      <time id="post-modal-date"></time>
-      <button type="button" class="post-tag" id="post-modal-tag"></button>
-      <span class="post-count" id="post-count"></span>
-    </div>
-    <h2 id="post-modal-title"></h2>
-    <p class="post-modal-outlet" id="post-modal-outlet" hidden></p>
-    <div class="post-modal-images" id="post-modal-images" hidden></div>
-    <div class="post-modal-subject" id="post-modal-subject" hidden></div>
-    <div class="post-modal-tags" id="post-modal-tags"></div>
-    <div class="post-modal-body" id="post-modal-body"></div>
-    <div class="post-modal-actions">
-      <button class="btn btn-primary" type="button" id="post-modal-project" hidden></button>
-      <a class="btn" id="post-modal-source" target="_blank" rel="noopener" hidden></a>
-    </div>
-  </div>
-</dialog>
-
-<dialog class="modal" id="project-news">
-  <div class="modal-body">
-    <button class="modal-close" id="pn-close" type="button" aria-label="Close">
-      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>
-    </button>
-    <header class="deck-head">
-      <span class="modal-logo" id="pn-logo"></span>
-      <h2 id="pn-title"></h2>
-    </header>
-    <ol class="feed" id="pn-feed"></ol>
-    <a class="btn modal-cta" id="pn-channel" href="https://t.me/syntha_pro" target="_blank" rel="noopener"></a>
-  </div>
-</dialog>
-
-<dialog class="modal" id="coop-modal">
-  <div class="modal-body">
-    <button class="modal-close" id="coop-close" type="button" aria-label="Close">
-      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>
-    </button>
-    <p class="coop-count" id="coop-count"></p>
-    <h2 id="coop-title"></h2>
-    <p class="inv-tag" id="coop-tag"></p>
-    <p class="inv-what" id="coop-what"></p>
-    <dl class="inv-gets" id="coop-gets"></dl>
-    <p class="inv-fit" id="coop-fit"></p>
-    <p class="inv-start" id="coop-start"></p>
-    <div class="coop-nav">
-      <button class="btn btn-sm" type="button" id="coop-prev"></button>
-      <button class="btn btn-sm" type="button" id="coop-next"></button>
-      <span class="grow"></span>
-      <button class="btn btn-primary" type="button" id="coop-talk"></button>
-    </div>
-  </div>
-</dialog>
-
-<dialog class="modal" id="need-modal">
-  <div class="modal-body">
-    <button class="modal-close" id="need-close" type="button" aria-label="Close">
-      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.6" fill="none"/></svg>
-    </button>
-    <header class="deck-head">
-      <span class="modal-logo" id="need-logo"></span>
-      <h2 id="need-title"></h2>
-      <p class="sub" id="need-subtitle"></p>
-    </header>
-    <div class="diag-body" id="need-body"></div>
-  </div>
-</dialog>
-
-<script type="module" src="/assets/app.js?v=20261013-editorial1"></script>
+function orderTable(rows){return `<div class="table-wrap"><table class="table"><thead><tr><th>Order</th><th>Client</th><th>Stage</th><th>Total</th><th>Revision</th><th>Shipment</th></tr></thead><tbody>${rows.map(o=>`<tr><td>${o.code}</td><td>${o.client}</td><td><span class="badge ${badgeForStage(o.stage)}">${prettyStage(o.stage)}</span></td><td>${o.total}</td><td>#${o.rev}</td><td>${o.shipment}</td></tr>`).join('')}</tbody></table></div>`}
+function renderReadiness(){const authorityBridge=['41 client-safe live capabilities','6 server-only capabilities','8 explicit authority gaps','Private delivery = Admin POD authority','Fit write = blocked by grants/RLS','Buyer reorder approval = gap until exact-store wrapper is admitted'];liveFacts.innerHTML=authorityBridge.map(x=>`<div class="qa-item"><span>${x}</span><span class="badge ${x.startsWith('41')?'good':'warn'}">v30.7 bridge</span></div>`).join('')+['6 published products / 0 approved retail prices','108 active variants / 0 brand_verified','13 media assets / 0 commercially cleared','0 Auth users / 0 portal memberships / 0 brand admin memberships','Only 3 of 6 products have a valid delivery window','Product localizations exist for 3 of 6 products in RU/EN/IT','Current Netlify production is an old manual static drop'].map(x=>`<div class="qa-item"><span>${x}</span><span class="badge warn">Verified audit</span></div>`).join('');releaseGates.innerHTML=['PostgreSQL full-clone admission','Five signed JWT roles','Paris/Dubai negative isolation','Sensitive-cost non-disclosure','Commercial readiness','Browser E2E Private/Wholesale/Admin','RU/EN/IT browser proof','Mobile/tablet/desktop','Backup/restore drill','Feature parity complete'].map(x=>`<div class="qa-item"><span>${x}</span><span class="badge ${x==='Feature parity complete'?'good':'warn'}">${x==='Feature parity complete'?'Mapped':'Pending proof'}</span></div>`).join('');parityRows.innerHTML=[['Public showroom','Catalogue backend','Real media, prices, i18n E2E','Pending'],['Private','Fit/order/payment/wardrobe authority','Real Auth, service workflow','Pending'],['Wholesale','Matrix/revisions/fulfillment/WOS/reorder','Real JWT browser proof','Pending'],['Admin','Readiness/money/fulfillment/profitability','Real AAL2 browser proof','Pending'],['Security','RLS/scope/cost isolation model','Five signed JWT negative tests','Pending'],['Claims','v30.6 staged server lifecycle','Admission + migration','Pending']].map(r=>`<tr>${r.map((x,i)=>`<td>${i===1?`<span class="badge good">${x}</span>`:i===2?`<span class="badge warn">${x}</span>`:x}</td>`).join('')}</tr>`).join('')}
+function renderQA(){const d=demoStore();const flows=[
+['Public','Home → Collection → PDP → Wishlist', (d.wishlist||[]).length>0],
+['Private','Draft → Submit → Revision → Approval → Proforma → Payment → Shipment → POD', d.completed.privateDelivery],
+['Wholesale','Matrix → Submit → Revision → Approval → Proforma → Payment → Shipment → POD', d.completed.wholesaleParisDelivery],
+['Claim','Delivery → Claim → Offer → Partial execution → Close', d.completed.claimClosed],
+['Reorder','WOS signal → Proposal → Approval → New order', d.completed.reorderConverted]];
+qaFlows.innerHTML=flows.map(([a,b,ok])=>`<div class="qa-item"><div><b>${a}</b><div class="small muted">${b}</div></div><span class="badge ${ok?'good':'warn'}">${ok?'PASS':'IN PROGRESS'}</span></div>`).join('')}
+function pdp(id){const p=products.find(x=>x.id==id);modalRoot.innerHTML=`<div class="modal-backdrop"><div class="modal"><div class="spread"><div><div class="caps muted">${p.style} · ${p.season}</div><h2 style="font-family:Georgia,serif;font-weight:400;font-size:38px;margin:8px 0">${p.name}</h2></div><button class="ghost" data-close>✕</button></div><div class="grid"><div class="c6"><div class="product-img" style="border-radius:18px">360° Preview</div></div><div class="c6"><h3>Product Detail</h3><p class="muted">Editorial PDP with Complete Look, fit guidance and exact-size selector.</p><label>Size<select class="input"><option>${p.size}</option><option>48</option><option>52</option></select></label><div class="qa-item"><span>Retail price</span><span class="badge bad">Not approved</span></div><div class="qa-item"><span>SKU authority</span><span class="badge bad">Not brand verified</span></div><div class="qa-item"><span>Media rights</span><span class="badge bad">Reference only</span></div><button class="btn" data-toast="Demo order flow opened">Test in demo mode</button></div></div></div></div>`}
+document.addEventListener('click',e=>{const t=e.target.closest('[data-go],[data-lang],[data-action],[data-role],[data-close],[data-ptab],[data-wtab],[data-atab],[data-toast],[data-pdp],[data-wishlist],[data-demo-action],[data-admin-action]');if(!t)return;
+if(t.dataset.go)showSection(t.dataset.go);if(t.dataset.lang){S.lang=t.dataset.lang;nav()}if(t.dataset.action==='open-role')roleModal();if(t.dataset.role){S.workspace=t.dataset.role;S.section=t.dataset.role;modalRoot.innerHTML='';showSection(S.section);addDemoEvent('workspace_open',t.dataset.role);toast('Открыт '+workspaceLabel.textContent+' · Preview mode')}if(t.dataset.close!==undefined)modalRoot.innerHTML='';if(t.dataset.ptab){S.privateTab=t.dataset.ptab;renderPrivate()}if(t.dataset.wtab){S.wholesaleTab=t.dataset.wtab;renderWholesale()}if(t.dataset.atab){S.adminTab=t.dataset.atab;renderAdmin()}if(t.dataset.toast){addDemoEvent('action',t.dataset.toast);toast(t.dataset.toast)}if(t.dataset.pdp)pdp(t.dataset.pdp);if(t.dataset.wishlist){toggleDemoWishlist(String(t.dataset.wishlist));renderCatalog();renderPrivate();renderQA()}
+const a=t.dataset.demoAction;if(a==='private-create')advancePrivate('create');if(a==='private-submit')advancePrivate('submit');if(a==='private-accept-revision')advancePrivate('accept_revision');if(a==='private-submit-payment')advancePrivate('submit_payment');
+if(a==='fit-save'){mutateDemo(s=>{document.querySelectorAll('[data-fit]').forEach(x=>s.fit[x.dataset.fit]=x.value);s.events=[{at:new Date().toISOString(),type:'fit_saved',detail:JSON.stringify(s.fit)},...(s.events||[])];return s});renderPrivate();toast('Fit profile persisted')}
+if(a==='fit-recalc'){mutateDemo(s=>{s.fit.confidence=Math.min(.97,Number((s.fit.confidence+.02).toFixed(2)));return s});renderPrivate();toast('Recommendation recalculated')}
+if(a==='service-open'){mutateDemo(s=>{s.service={status:'open',type:'Appointment'};return s});addDemoEvent('service_open','Private appointment');renderPrivate()}if(a==='service-close'){mutateDemo(s=>{s.service.status='closed';return s});addDemoEvent('service_close','Private appointment');renderPrivate()}
+if(a==='repeat-purchase'&&demoStore().privateOrder.delivered)advancePrivate('create');
+if(a==='claim-submit')claimAction('submit');if(a==='claim-accept')claimAction('accept');if(a==='claim-review')claimAction('review');
+if(a==='wh-save-revision'){mutateDemo(s=>{s.sizeMatrix[S.store]=[...document.querySelectorAll('[data-matrix-index]')].map(x=>Math.max(0,Number(x.value)||0));return s});advanceWholesale('save_revision')}if(a==='wh-submit')advanceWholesale('submit');if(a==='wh-accept-revision')advanceWholesale('accept_revision');if(a==='wh-submit-payment')advanceWholesale('submit_payment');if(a==='wh-copy')advanceWholesale('copy');
+if(a==='reorder-system-propose')reorderAction('system_propose');if(a==='reorder-buyer-approve')reorderAction('buyer_approve');if(a==='reset-demo')resetDemo();
+if(t.dataset.adminAction)adminAction(t.dataset.adminAction,t.dataset.target);
+});
+authBtn.onclick=()=>{if(S.workspace==='public')roleModal();else{S.workspace='public';showSection('home');toast('Сессия Preview завершена')}};switchWorkspace.onclick=roleModal;
+storeScope.onchange=()=>renderWholesale();
+catalogSearch?.addEventListener('input',renderCatalog);catalogFilter?.addEventListener('change',renderCatalog);
+nav();renderCatalog();renderPrivate();renderWholesale();renderAdmin();renderReadiness();renderQA();
+</script>
 </body>
 </html>
