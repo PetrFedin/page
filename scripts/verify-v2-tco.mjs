@@ -1,0 +1,40 @@
+#!/usr/bin/env node
+import assert from 'node:assert/strict';
+import {calculateSoftwareTCO} from '../assets/opportunity-economics.js';
+import {OPPORTUNITY_COPY} from '../assets/opportunity-copy.js';
+const x={
+  hours:1200,hoursPerWeek:160,reusePercent:30,horizonMonths:36,
+  customOneTime:4000,customMonthly:550,
+  reuseOneTime:6500,reuseMonthly:250,reuseLicenseMonthly:200,
+  saasOneTime:7000,saasMonthlyPlatform:120,saasUsers:20,
+  saasMonthlySeat:25,saasMonthlyOperations:250
+};
+const a=calculateSoftwareTCO(x);
+assert.equal(a.ok,true);
+assert.equal(a.custom.totalLow,30000+4000+550*36);
+assert.equal(a.custom.totalHigh,58800+4000+550*36);
+assert.equal(a.reuse.totalLow,21000+6500+(250+200)*36);
+assert.equal(a.reuse.totalHigh,41160+6500+(250+200)*36);
+assert.equal(a.saas.total,7000+(120+20*25+250)*36);
+assert.equal(a.assumption,'undiscounted_usd_cost_only_no_feature_parity');
+assert.equal(calculateSoftwareTCO({...x,horizonMonths:1}).ok,true);
+assert.equal(calculateSoftwareTCO({...x,horizonMonths:120}).ok,true);
+for(const update of [
+ {horizonMonths:0},{horizonMonths:121},{horizonMonths:12.5},
+ {saasUsers:-1},{saasUsers:1.5},{saasMonthlySeat:-0.1},
+ {customMonthly:'oops'},{reuseLicenseMonthly:Infinity},{customOneTime:''},
+ {saasOneTime:1e10},{hours:0},{reusePercent:100}
+]){
+ assert.equal(calculateSoftwareTCO({...x,...update}).ok,false,JSON.stringify(update));
+}
+assert.equal(calculateSoftwareTCO({hours:1200,hoursPerWeek:160,reusePercent:30}).ok,false,
+ 'Never turn missing fees into implicit zero');
+for(const lang of ['ru','en']){
+ const t=OPPORTUNITY_COPY[lang];
+ for(const key of ['tcoTitle','tcoLead','tcoHorizon','tcoCustomOnce','tcoCustomMonthly',
+ 'tcoReuseOnce','tcoReuseMonthly','tcoReuseLicense','tcoSaasOnce','tcoSaasPlatform',
+ 'tcoSaasUsers','tcoSaasSeat','tcoSaasOps','tcoCustom','tcoReuse','tcoSaas','tcoWarning']){
+   assert.ok(t[key]?.trim(),lang+' missing '+key);
+ }
+}
+console.log('PASS: three TCO routes, 36-month arithmetic, 1–120 month bounds, negative and missing-cost rejection, RU/EN.');
