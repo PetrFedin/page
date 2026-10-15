@@ -1,0 +1,100 @@
+name: V2 public visual preview (isolated temporary Worker)
+on:
+  push:
+    branches:
+      - ops/page-v2-reviewed-preview-20261015
+    paths:
+      - .github/workflows/v2-disposable-visual-preview.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  deploy-visual-preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 16
+    env:
+      GH_TOKEN: ${{ github.token }}
+      VERIFIED_SHA: 83cf9eadd0cb19b804a8d38a8a6d38a740e9eb7a
+      WRANGLER_SEND_METRICS: "false"
+      NO_COLOR: "1"
+    steps:
+      - name: Fetch exact tested V2 static artifact (never main or V1)
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh run download 38746886659 --repo PetrFedin/page \
+            --name "cloudflare-pages-static-${VERIFIED_SHA}" --dir dist-pages
+          test -f dist-pages/index.html
+          test -f dist-pages/en/index.html
+          test -f dist-pages/release-health.json
+          node -e 'const fs=require("fs");const x=JSON.parse(fs.readFileSync("dist-pages/release-health.json"));if(x.source_sha!==process.env.VERIFIED_SHA)process.exit(1);console.log("Exact V2 source validated: "+x.source_sha)'
+          python3 - <<'PY'
+          from pathlib import Path
+          files=[p for p in Path('dist-pages').rglob('*') if p.is_file()]
+          assert len(files)<1000, len(files)
+          assert all(p.stat().st_size<5*1024*1024 for p in files)
+          print('Static assets:',len(files))
+          PY
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Publish to disposable Cloudflare Workers static site (not syntha.pro)
+        shell: bash
+        run: |
+          set -euo pipefail
+          unset CLOUDFLARE_API_TOKEN CLOUDFLARE_ACCOUNT_ID CF_API_TOKEN
+          cat > wrangler.jsonc <<'JSON'
+          {
+            "name": "syntha-v2-reviewed-83cf9e",
+            "compatibility_date": "2026-10-15",
+            "assets": {
+              "directory": "./dist-pages"
+            }
+          }
+          JSON
+          # Claim URLs are bearer credentials: capture all CLI output privately.
+          npx --yes wrangler@latest deploy --temporary --config wrangler.jsonc > /tmp/wrangler-v2.log 2>&1 || {
+            echo "Temporary Cloudflare deploy failed; logs suppressed because they may contain claim tokens."
+            exit 1
+          }
+          python3 - <<'PY'
+          import re
+          from pathlib import Path
+          s=Path('/tmp/wrangler-v2.log').read_text()
+          urls=re.findall(r'https://[a-z0-9.-]+\.workers\.dev',s,re.I)
+          if not urls:
+            print('Cloudflare CLI returned no public workers.dev URL')
+            raise SystemExit(1)
+          url=urls[-1].rstrip('/').strip()
+          Path('/tmp/v2-visual-url').write_text(url)
+          print('PUBLIC_V2_VISUAL_URL='+url)
+          print('CLAIM_URL_PRESENT='+str(bool(re.search(r'claim-preview',s,re.I))))
+          with open(__import__('os').environ['GITHUB_STEP_SUMMARY'],'a') as f:
+            f.write('## V2 visual review only — validated SHA\\n\\n')
+            f.write('**Open:** '+url+'\\n\\n')
+            f.write('**SHA:** 83cf9eadd0cb19b804a8d38a8a6d38a740e9eb7a\\n\\n')
+            f.write('**Note:** Unclaimed temporary Cloudflare URL expires in 60 minutes. Static visual preview; contact and Telegram backend not enabled. V1 and the old Netlify V2 are unchanged.\\n')
+          PY
+
+      - name: Independently verify public URL, RU/EN and exact source SHA
+        shell: bash
+        run: |
+          set -euo pipefail
+          URL="$(cat /tmp/v2-visual-url)"
+          for i in $(seq 1 9); do
+            if curl --fail --silent --show-error --max-time 20 "${URL}/release-health.json" -o /tmp/live-v2-health.json; then break; fi
+            sleep 6
+          done
+          VERIFIED_SHA="${VERIFIED_SHA}" node -e 'const fs=require("fs"),x=JSON.parse(fs.readFileSync("/tmp/live-v2-health.json"));if(x.source_sha!==process.env.VERIFIED_SHA)throw Error("SHA mismatch");console.log("LIVE_SHA_OK",x.source_sha)'
+          curl --fail --silent --show-error --max-time 30 "${URL}/" -o /tmp/live-v2-ru.html
+          curl --fail --silent --show-error --max-time 30 "${URL}/en/" -o /tmp/live-v2-en.html
+          grep -q 'id="project-development"' /tmp/live-v2-ru.html
+          grep -q 'id="project-development"' /tmp/live-v2-en.html
+          grep -q 'id="investment-formats"' /tmp/live-v2-ru.html
+          grep -q 'id="investment-formats"' /tmp/live-v2-en.html
+          echo "V2_LIVE_RU_EN_VERIFIED"
