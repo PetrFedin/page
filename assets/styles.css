@@ -1995,3 +1995,14 @@ a.lang{display:inline-flex; align-items:center; justify-content:center; text-dec
   outline-offset:2px;
 }
 .inv-card.mini:focus-within{border-color:var(--accent)}
+
+/* Bilingual cumulative ownership-cost schedule: readable on narrow phones. */
+.op-timeline[hidden]{display:none}
+.op-timeline{margin:20px 0;max-width:100%;min-width:0}
+.op-timeline-scroll{overflow-x:auto;max-width:100%;border:1px solid var(--line);border-radius:12px}
+.op-timeline table{width:100%;min-width:590px;border-collapse:collapse;background:var(--panel)}
+.op-timeline th,.op-timeline td{text-align:right;padding:12px;border-bottom:1px solid var(--line);font-size:12px;line-height:1.5;font-variant-numeric:tabular-nums;white-space:nowrap}
+.op-timeline th:first-child{text-align:left}
+.op-timeline thead th{font-weight:500;color:var(--ink)}
+.op-timeline tbody th{font-weight:400;color:var(--muted)}
+.op-timeline tbody tr:last-child td,.op-timeline tbody tr:last-child th{border-bottom:0}
