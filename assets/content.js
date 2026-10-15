@@ -177,10 +177,24 @@ export const T = {
       ],
     },
     projects: {
-      title: 'Мои проекты',
-      more: 'Показать ещё',
-      collapse: 'Свернуть',
-      subtitle: 'Собственные IT-продукты: проектирую, разрабатываю, довожу до пилота. В фэшн и за его пределами.',
+      title: 'Что уже построено',
+      more: 'Показать другие проекты',
+      collapse: 'Скрыть другие проекты',
+      subtitle: 'Пять ключевых платформ: прототипы, MVP и рабочие сценарии. Реальная стадия и оставшиеся проверки указаны в каждом досье.',
+      development: {
+        eyebrow: 'От идеи до работающей системы',
+        title: 'Создание и развитие проектов',
+        description: 'Создаю цифровые продукты с нуля и развиваю существующие: исследование задачи, экономика, архитектура, MVP, интеграции, пилот и следующий цикл улучшений. Предмет и объём работ определяются диагностикой, а не обещанием универсального срока.',
+        steps: [
+          'Проверка задачи и экономики: кому нужен продукт, какие альтернативы существуют и что докажет его ценность.',
+          'Архитектура и разработка: роли, данные, ключевые сценарии, безопасность и проверяемые этапы.',
+          'Пилот и развитие: испытание с пользователями, измерение результата, исправления и план масштабирования.'
+        ],
+        buildCta: 'Выбрать формат разработки →',
+        investorCta: 'Выберите подходящий формат инвестиций →',
+        investorTitle: 'Выберите подходящий формат инвестиций и партнёрства',
+        investorDescription: 'Ниже — возможные модели участия. Право собственности, условия сделки и финансирование обсуждаются только после проверки проекта.'
+      },
       open: 'Подробнее',
       statusBtn: 'Стадия',
       newsBtn: 'Новости',
@@ -1497,10 +1511,24 @@ export const T = {
       ],
     },
     projects: {
-      title: 'My projects',
-      more: 'Show more',
-      collapse: 'Collapse',
-      subtitle: 'My own IT products: I design and build them, and take them as far as a pilot. In fashion and beyond.',
+      title: 'What has been built',
+      more: 'Explore other projects',
+      collapse: 'Hide other projects',
+      subtitle: 'Five flagship platforms: working prototypes, MVPs and tested workflows. Each dossier identifies its actual stage and remaining validation gates.',
+      development: {
+        eyebrow: 'From problem to working software',
+        title: 'Building and growing digital products',
+        description: 'I create software from scratch and improve existing products: problem discovery, commercial logic, architecture, MVP, integration, pilot and the next iteration. Scope and timeline follow diagnosis, not a one-size-fits-all promise.',
+        steps: [
+          'Problem and economics: who needs it, which alternatives exist and what evidence proves value.',
+          'Architecture and delivery: roles, data, primary workflows, security and milestone acceptance.',
+          'Pilot and growth: user testing, measured results, fixes and a controlled scale-up plan.'
+        ],
+        buildCta: 'Choose a delivery format →',
+        investorCta: 'Find an investment format →',
+        investorTitle: 'Choose an investment or partnership format',
+        investorDescription: 'Possible participation models are listed below. Ownership, funding and transaction terms require project-specific diligence and negotiation.'
+      },
       open: 'Details',
       statusBtn: 'Stage',
       newsBtn: 'News',
