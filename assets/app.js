@@ -1,4 +1,5 @@
 import { T, PROJECTS as CORE_PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610041955';
+import { polishPublicPage, polishProjectCards } from './clarity.js?v=20261015-cl1';
 import { EXTRA_PROJECTS, INVESTOR_BLUEPRINTS } from './portfolio-extensions.js?v=20261012-invdossiers';
 /* Five flagship products always precede the extended portfolio in both languages. */
 const FEATURED_PROJECT_IDS = Object.freeze(['syntha', 'chatx', 'renova', 'mfw', 'promomed']);
@@ -358,6 +359,7 @@ function renderCards() {
   pm.hidden = PROJECTS.length <= PROJECTS_FIRST;
   pm.textContent = projectsExpanded ? t.projects.collapse : t.projects.more;
   pm.setAttribute('aria-expanded', String(projectsExpanded));
+  polishProjectCards(lang);
 }
 
 function render() {
@@ -588,6 +590,7 @@ function render() {
   $('#year').textContent = new Date().getFullYear();
   renderNow();
   renderNews();
+  polishPublicPage(lang);
   addTopButtons(t.nav.toTop);
   syncSnaps();
   if (modal.open) openProject(modal.dataset.project);
