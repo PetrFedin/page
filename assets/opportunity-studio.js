@@ -181,7 +181,9 @@ export function mountOpportunityStudio(host, language, projects, startContact, b
       entries.map(([key,label,min,max])=>inputHtml(key,label,{min,max,step:key==='horizonMonths'||key==='saasUsers'?1:'any'})).join('') +
       '</div><dl class="op-metrics" data-op-tco-results hidden>' +
       metricHtml('tcoCustom',t.tcoCustom)+metricHtml('tcoReuse',t.tcoReuse)+
-      metricHtml('tcoSaas',t.tcoSaas)+'</dl><p class="op-caveat">'+escapeHtml(t.tcoWarning)+'</p></section>';
+      metricHtml('tcoSaas',t.tcoSaas)+'</dl>' +
+      '<p class="op-caveat" data-op-tco-crossings hidden role="status"></p>' +
+      '<p class="op-caveat">'+escapeHtml(t.tcoWarning)+'</p></section>';
   }
   function panelHtml(mode) {
     if (mode === 'build') {
@@ -296,6 +298,21 @@ export function mountOpportunityStudio(host, language, projects, startContact, b
     if(active==='build'){
       const tcoNode=panel.querySelector('[data-op-tco-results]');
       const tco=calculateSoftwareTCO(values);
+      const crossingNote=panel.querySelector('[data-op-tco-crossings]');
+      if(crossingNote)crossingNote.hidden=!tco.ok;
+      if(tco.ok && crossingNote){
+        const format=(x)=>{
+          if(x.status==='crossed')return String(x.month)+(lang==='ru'?' мес.':' months');
+          if(x.status==='same_cost')return lang==='ru'?'одинаковая стоимость':'same costs';
+          if(x.status==='equal_initial')return lang==='ru'?'равны в начале':'equal initially';
+          return lang==='ru'?'нет пересечения за период':'no crossing in selected horizon';
+        };
+        crossingNote.textContent=(lang==='ru'?'Первое пересечение накопленных затрат с SaaS (нижняя/верхняя граница): разработка — ':'First cumulative cost crossing vs SaaS (lower/upper estimate): custom — ')+
+          format(tco.crossings.customLow)+' / '+format(tco.crossings.customHigh)+
+          (lang==='ru'?'; адаптация — ':'; adaptation — ')+
+          format(tco.crossings.reuseLow)+' / '+format(tco.crossings.reuseHigh)+
+          (lang==='ru'?'. Пересечение может означать и потерю преимущества; сравнивайте итоговые суммы.':'. Crossing may also mean costs become higher; compare total amounts.');
+      }
       if(tcoNode){
         tcoNode.hidden=!tco.ok;
         if(tco.ok){
