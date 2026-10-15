@@ -39,6 +39,60 @@ export function calculateSoftwareScenario({ hours, hoursPerWeek, reusePercent })
   };
 }
 
+
+/**
+ * Like-for-like observation horizon for three *hypothetical* delivery routes:
+ * 1) bespoke development, 2) adaptation of reusable modules, 3) SaaS.
+ * No benefit parity, market discount, quoted SYNTHA price, tax treatment,
+ * time value of money or launch readiness is inferred from a lower TCO.
+ * Every cost must be explicitly entered (even if the assumption is zero).
+ */
+export function calculateSoftwareTCO({
+  hours, hoursPerWeek, reusePercent, horizonMonths,
+  customOneTime, customMonthly,
+  reuseOneTime, reuseMonthly, reuseLicenseMonthly,
+  saasOneTime, saasMonthlyPlatform, saasUsers, saasMonthlySeat, saasMonthlyOperations
+} = {}) {
+  const labour = calculateSoftwareScenario({hours, hoursPerWeek, reusePercent});
+  if (!labour.ok) return {ok:false,error:'invalid'};
+  if (!validNumber(horizonMonths, 1, 120, true) ||
+      !validNumber(saasUsers, 0, 100000, true)) return {ok:false,error:'invalid'};
+  const costFields=[
+    customOneTime, customMonthly, reuseOneTime, reuseMonthly,
+    reuseLicenseMonthly, saasOneTime, saasMonthlyPlatform,
+    saasMonthlySeat, saasMonthlyOperations
+  ];
+  if (costFields.some(x=>!validNumber(x,0,1e9))) return {ok:false,error:'invalid'};
+  const months=number(horizonMonths);
+  const bespokeUpfront=number(customOneTime);
+  const integrationUpfront=number(reuseOneTime);
+  const saasUpfront=number(saasOneTime);
+  const bespokeMonthly=number(customMonthly);
+  const integrationMonthly=number(reuseMonthly)+number(reuseLicenseMonthly);
+  const saasMonthly=number(saasMonthlyPlatform)+
+    number(saasUsers)*number(saasMonthlySeat)+number(saasMonthlyOperations);
+  const custom={
+    upfrontLow:labour.costLow+bespokeUpfront,
+    upfrontHigh:labour.costHigh+bespokeUpfront,
+    monthly:bespokeMonthly,
+    totalLow:labour.costLow+bespokeUpfront+bespokeMonthly*months,
+    totalHigh:labour.costHigh+bespokeUpfront+bespokeMonthly*months
+  };
+  const reuse={
+    upfrontLow:labour.adaptedLow+integrationUpfront,
+    upfrontHigh:labour.adaptedHigh+integrationUpfront,
+    monthly:integrationMonthly,
+    totalLow:labour.adaptedLow+integrationUpfront+integrationMonthly*months,
+    totalHigh:labour.adaptedHigh+integrationUpfront+integrationMonthly*months
+  };
+  const saas={
+    upfront:saasUpfront, monthly:saasMonthly,
+    total:saasUpfront+saasMonthly*months
+  };
+  return {ok:true,horizonMonths:months,custom,reuse,saas,
+    assumption:'undiscounted_usd_cost_only_no_feature_parity'};
+}
+
 export function calculateTransformationScenario({
   manualHours, hourlyCost, efficiencyPercent, otherAnnualSavings,
   implementationBudget, annualSupport
