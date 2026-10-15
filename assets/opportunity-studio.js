@@ -220,6 +220,8 @@ export function mountOpportunityStudio(host, language, projects, startContact, b
         '</option>' + EARLY_ACCESS_IDS.map((id,i)=>'<option value="'+id+'">'+
           escapeHtml(t.accessTiers[i][0])+'</option>').join('') +
         '</select></label></div>' +
+        '<p class="op-caveat">'+escapeHtml(lang==='ru'?'Расчёт возможной льготы показан только для Founding Customer; это не утверждённая цена и не предложение оплаты.':'A hypothetical discount is modelled only for Founding Customer; no price or payment offer is approved.')+'</p>' +
+        '<div data-op-access-estimator hidden>' +
         '<h4 class="op-subhead">'+escapeHtml(lang==='ru'?'Сравнить условную льготу':'Illustrative early-access benefit')+'</h4>'+
         '<div class="op-fields">' +
         inputHtml('futureMonthlyPrice',t.accessFuture,{min:0})+
@@ -227,7 +229,7 @@ export function mountOpportunityStudio(host, language, projects, startContact, b
         inputHtml('months',t.accessMonths,{min:1,max:120,step:1})+'</div>'+
         resultBlock([
           ['list',t.standardValue],['discounted',t.founderValue],['difference',t.conditionalDifference]
-        ])+foot()+'<p class="op-caveat">'+escapeHtml(t.accessCaveat)+'</p>';
+        ])+'</div>'+foot()+'<p class="op-caveat">'+escapeHtml(t.accessCaveat)+'</p>';
     }
     return '<h3>'+escapeHtml(t.capitalTitle)+'</h3><p class="sub">'+escapeHtml(t.capitalLead)+'</p>'+
       cardsHtml(t.dealPaths)+
@@ -262,6 +264,10 @@ export function mountOpportunityStudio(host, language, projects, startContact, b
     const values = currentValues();
     drafts.set(active,values);
     updateUnsavedFlag();
+    if(active==='access'){
+      const estimator=panel.querySelector('[data-op-access-estimator]');
+      if(estimator) estimator.hidden=values.accessTier!=='founding-customer';
+    }
     let res;
     if(active==='build') res=calculateSoftwareScenario(values);
     else if(active==='transform') res=calculateTransformationScenario(values);
@@ -322,7 +328,7 @@ export function mountOpportunityStudio(host, language, projects, startContact, b
       build:{type:'crm',hours:'1200',hoursPerWeek:'160',reusePercent:'30'},
       transform:{manualHours:'6000',hourlyCost:'15',efficiencyPercent:'15',
         otherAnnualSavings:'0',implementationBudget:'18000',annualSupport:'3000'},
-      access:{futureMonthlyPrice:'49',discountPercent:'25',months:'12'},
+      access:{accessTier:'founding-customer',futureMonthlyPrice:'49',discountPercent:'25',months:'12'},
       capital:{mode:'primary',assumedValuation:'500000',ticket:'100000',
         founderBefore:'60',founderMinimum:'40'}
     };
