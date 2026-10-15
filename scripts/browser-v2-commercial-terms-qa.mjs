@@ -25,12 +25,16 @@ try{
     assert.equal(response.status(),200);
     const studio=page.locator('#opportunities');
     await studio.locator('[data-op-mode="build"]').waitFor();
+    // No scope is silently preselected: an untouched enquiry remains generic.
+    assert.equal(await studio.locator('[data-op-input="type"]').inputValue(),'');
     const sections={
       transform:['transformStages'],access:['accessTiers'],
       capital:['dealPaths','capitalSteps','projectRoles']
     };
     for(const [mode,names] of Object.entries(sections)){
       await studio.locator('[data-op-mode="'+mode+'"]').click();
+      if(mode==='access')assert.equal(await studio.locator('[data-op-input="accessTier"]').inputValue(),'');
+      if(mode==='capital')assert.equal(await studio.locator('[data-op-input="mode"]').inputValue(),'');
       const text=await studio.innerText();
       assert.ok(!/\b(?:undefined|null)\b/.test(text),'No JS placeholder in '+mode);
       for(const name of names)for(const row of copy[name])for(const value of row)
@@ -51,7 +55,7 @@ try{
     const handwritten='This is an explicitly handwritten brief.';
     await page.locator('#form [name="message"]').fill(handwritten);
     await studio.locator('[data-op-mode="access"]').click();
-    assert.equal(await studio.locator('[data-op-input="accessTier"] option').count(),4);
+    assert.equal(await studio.locator('[data-op-input="accessTier"] option').count(),5); // placeholder + four real options
     await studio.locator('[data-op-input="accessTier"]').selectOption('founding-customer');
     await studio.locator('[data-op-action="contact"]').click();
     assert.equal(await page.locator('#lead-route-value').inputValue(),'pilot');
