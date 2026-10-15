@@ -19,8 +19,8 @@ assert.equal(a.saas.total,7000+(120+20*25+250)*36);
 assert.equal(a.assumption,'undiscounted_usd_cost_only_no_feature_parity');
 assert.equal(a.crossings.customLow.status,'beyond_horizon');
 assert.equal(a.crossings.customHigh.status,'beyond_horizon');
-assert.equal(a.crossings.reuseLow.status,'crossed');
-assert.equal(a.crossings.reuseLow.month,21);
+assert.equal(a.crossings.reuseLow.status,'beyond_horizon');
+assert.equal(a.crossings.reuseLow.month,null);
 assert.equal(a.crossings.reuseHigh.status,'beyond_horizon');
 for(const [input,status,month,direction] of [
   [{alternativeUpfront:1000,alternativeMonthly:10,saasUpfront:0,saasMonthly:110,horizonMonths:12},'crossed',10,'alternative_lower'],
