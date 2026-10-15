@@ -53,11 +53,36 @@ jobs:
           MODE="${MODE}" node <<'JS'
           const fs = require('fs');
           const obj = JSON.parse(fs.readFileSync('/tmp/netlify-v2-result.json','utf8'));
-          const url = obj.deploy_url || obj.deployUrl || obj.url || obj.site_url || obj.siteUrl;
-          if (!url || !/^https:\/\//.test(url)) {
-            console.error('Deploy CLI did not report a verified HTTPS URL');
+          /* Netlify CLI may return http:// or nested site/deploy JSON on anonymous
+             deploys. Never expose drop/claim tokens in CI logs or summaries. */
+          const candidates = [];
+          function scan(value, key='') {
+            if (value && typeof value === 'object') {
+              for (const [k,v] of Object.entries(value)) scan(v,k);
+            } else if (typeof value === 'string' &&
+                       /^(deploy.?url|site.?url|url|ssl.?url|preview.?url)$/i.test(key)) {
+              try {
+                const url = new URL(value);
+                if (url.hostname.endsWith('.netlify.app')) {
+                  url.protocol = 'https:';
+                  url.search = '';
+                  url.hash = '';
+                  candidates.push({ key, url:url.origin });
+                }
+              } catch {}
+            }
+          }
+          scan(obj);
+          console.log('NETLIFY_PUBLIC_RESPONSE_KEYS='+Object.keys(obj).join(','));
+          console.log('NETLIFY_PUBLIC_URL_FIELDS='+candidates.map(c=>c.key).join(','));
+          /* For temporary deploys prefer deploy-specific URL over site URL. */
+          const chosen = candidates.find(v=>/deploy/i.test(v.key)) || candidates[0];
+          if (!chosen) {
+            console.error('No usable Netlify public preview URL in CLI result. No claim or drop token is logged.');
             process.exit(1);
           }
+          const url = chosen.url;
+          fs.writeFileSync('/tmp/netlify-v2-url',url);
           const fsout = process.env.GITHUB_STEP_SUMMARY;
           fs.appendFileSync(fsout, '## SYNTHA V2 — exact-SHA test preview\n\n');
           fs.appendFileSync(fsout, '- **Preview:** ' + url + '\n');
@@ -73,7 +98,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          URL=$(node -e 'const j=require("/tmp/netlify-v2-result.json");process.stdout.write(j.deploy_url||j.deployUrl||j.url||j.site_url||j.siteUrl||"")')
+          URL=$(cat /tmp/netlify-v2-url)
           for i in 1 2 3 4 5 6; do
             curl --fail --silent --show-error --max-time 20 "${URL}/release-health.json" -o /tmp/public-v2-health.json && break || sleep 5
           done
