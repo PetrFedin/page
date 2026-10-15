@@ -1,6 +1,13 @@
 import { T, PROJECTS as CORE_PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610041955';
 import { EXTRA_PROJECTS, INVESTOR_BLUEPRINTS } from './portfolio-extensions.js?v=20261012-invdossiers';
-const PROJECTS = [...CORE_PROJECTS, ...EXTRA_PROJECTS];
+/* Five flagship products always precede the extended portfolio in both languages. */
+const FEATURED_PROJECT_IDS = Object.freeze(['syntha', 'chatx', 'renova', 'mfw', 'promomed']);
+const catalog = [...CORE_PROJECTS, ...EXTRA_PROJECTS];
+const rankProject = id => {
+  const rank = FEATURED_PROJECT_IDS.indexOf(id);
+  return rank === -1 ? FEATURED_PROJECT_IDS.length : rank;
+};
+const PROJECTS = catalog.sort((a, b) => rankProject(a.id) - rankProject(b.id));
 import { mountInvestorCalculator } from './investor-calculator.js?v=20261012-calc1';
 import { LEAD_COPY, safeLeadRoute, routeForTopic } from './lead-paths.js?v=20261013-leads1';
 import { DECK } from './deck.js?v=202610041955';
@@ -158,7 +165,7 @@ let lang = (urlLang === 'ru' || urlLang === 'en') ? urlLang : 'ru';
 if (!T[lang]) lang = 'ru';
 
 let projectsExpanded = false;
-const PROJECTS_FIRST = 3;
+const PROJECTS_FIRST = FEATURED_PROJECT_IDS.length;
 
 /* Раздел «Сотрудничество»: шесть мини-карточек форматов; полный текст формата — в окне с листанием. */
 const needModal = $('#need-modal');
@@ -494,6 +501,24 @@ function render() {
         <span class="svc-more">${t.projects.open} →</span>
       </button>
     </li>`).join('');
+
+  /* Visible bridge from advisory to product delivery and the investment formats. */
+  const development = t.projects.development;
+  $('#project-development').innerHTML = `
+    <div class="project-development-copy">
+      <p class="eyebrow">${development.eyebrow}</p>
+      <h3 id="project-development-title">${development.title}</h3>
+      <p>${development.description}</p>
+      <div class="project-development-actions">
+        <a class="btn btn-primary" href="#project-launch">${development.buildCta}</a>
+        <a class="btn" href="#investment-formats">${development.investorCta}</a>
+      </div>
+    </div>
+    <ol class="project-development-steps">
+      ${development.steps.map((step,i)=>`<li><span class="svc-n">0${i+1}</span><span>${step}</span></li>`).join('')}
+    </ol>`;
+  $('#investment-formats-title').textContent = development.investorTitle;
+  $('#investment-formats-description').textContent = development.investorDescription;
 
   $('#projects-title').textContent = t.projects.title;
   $('#projects-sub').textContent = t.projects.subtitle;
