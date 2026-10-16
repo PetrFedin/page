@@ -1,0 +1,754 @@
+{
+  "version": "31.4-target",
+  "generatedFrom": "v30.9 exact-migration-qualified authority target plus v31.4 internal-integrity hardening; NOT applied to production",
+  "modes": [
+    "public",
+    "private",
+    "wholesale",
+    "admin",
+    "server"
+  ],
+  "capabilities": [
+    {
+      "id": "public.catalogue.read",
+      "surface": "public",
+      "status": "client_safe",
+      "kind": "rpc",
+      "rpc": "showroom_public_catalogue",
+      "roles": [
+        "anon",
+        "authenticated"
+      ],
+      "args": []
+    },
+    {
+      "id": "access.membership.read",
+      "surface": "shared",
+      "status": "client_safe",
+      "kind": "rpc",
+      "rpc": "mp_my_access",
+      "roles": [
+        "authenticated"
+      ],
+      "args": []
+    },
+    {
+      "id": "private.snapshot.read",
+      "surface": "private",
+      "status": "client_safe",
+      "kind": "rpc",
+      "rpc": "mp_client_snapshot_v2",
+      "roles": [
+        "authenticated"
+      ],
+      "args": [
+        "p_access_role",
+        "p_store_id"
+      ],
+      "dataScope": "production",
+      "roleInput": "db_role"
+    },
+    {
+      "id": "private.delivery_ledger.read",
+      "surface": "private",
+      "status": "client_safe",
+      "kind": "rpc",
+      "rpc": "mp_client_delivery_ledger",
+      "roles": [
+        "authenticated"
+      ],
+      "args": [
+        "p_access_role",
+        "p_store_id"
+      ]
+    },
+    {
+      "id": "private.proformas.read",
+      "surface": "private",
+      "status": "client_safe",
+      "kind": "rpc",
+      "rpc": "mp_client_issued_proformas_v2",
+      "roles": [
+        "authenticated"
+      ],
+      "args": [
+        "p_access_role"
+      ],
+      "dataScope": "production",
+      "roleInput": "db_role"
+    },
+    {
+      "id": "private.order.create",
+      "surface": "private",
+      "status": "client_safe",
+      "kind": "rpc",
+      "rpc": "mp_private_create_order",
+      "roles": [
+        "authenticated"
+      ],
+      "args": [
+        "p_product_id",
+        "p_variant_id",
+        "p_client_request_id"
+      ]
+    },
+    {
+      "id": "private.order.submit",
+      "surface": "private",
+      "status": "client_safe",
+      "kind": "rpc",
+      "rpc": "mp_private_submit_order_v2",
+      "roles": [
+        "authenticated"
+      ],
+      "args": [
+        "p_deal_id",
+        "p_expected_revision"
+      ],
+      "dataScope": "production"
+    },
+    {
+      "id": "private.revision.accept",
+      "surface": "private",
+      "status": "client_safe",
+      "kind": "rpc",
+      "rpc": "mp_private_accept_revision_v2",
+      "roles": [
+        "authenticated"
+      ],
+      "args": [
+        "p_deal_id",
+        "p_expected_revision"
+      ],
+      "dataScope": "production"
+    },
+    {
+      "id": "private.payment.submit",
+      "surface": "private",
+      "status": "client_safe",
+      "kind": "rpc",
+      "rpc": "mp_private_submit_payment_evidence_v2",
+      "roles": [
+        "authenticated"
+      ],
+      "args": [
+        "p_deal_id",
+        "p_proforma_id",
+        "p_amount",
+        "p_provider",
+        "p_reference"
+      ],
+      "dataScope": "production"
+    },
+    {
+      "id": "private.delivery.confirm",
+      "surface": "private",
+      "status": "delegated_to_admin",
+      "kind": "none",
+      "reason": "POD remains Admin authority; Private observes delivery ledger."
+    },
+    {
+      "id": "private.fit.read",
+      "surface": "private",
+      "status": "client_safe",
+      "kind": "view",
+      "view": "private_fit_profiles",
+      "roles": [
+        "authenticated"
+      ],
+      "note": "SELECT-only RLS-scoped read."
+    },
+    {
+      "id": "private.fit.version.write",
+      "surface": "private",
+      "status": "client_safe",
+      "kind": "rpc",
+      "rpc": "mp_private_add_fit_profile_version"
+    },
+    {
+      "id": "private.fit.recommendation.compute",
+      "surface": "private",
+      "status": "client_safe",
+      "kind": "rpc",
+      "rpc": "mp_private_compute_fit_recommendation"
+    },
+    {
+      "id": "private.wardrobe.read",
+      "surface": "private",
+      "status": "client_safe",
+      "kind": "view",
+      "view": "v_private_wardrobe_authority",
+      "roles": [
+        "authenticated"
+      ],
+      "note": "security_invoker=true"
+    },
+    {
+      "id": "private.size_history.read",
+      "surface": "private",
+      "status": "client_safe",
+      "kind": "view",
+      "view": "v_private_size_history_authority",
+      "roles": [
+        "authenticated"
+      ],
+      "note": "security_invoker=true"
+    },
+    {
+      "id": "private.size_signal.read",
+      "surface": "private",
+      "status": "client_safe",
+      "kind": "view",
+      "view": "v_private_size_signal_authority",
+      "roles": [
+        "authenticated"
+      ],
+      "note": "security_invoker=true"
+    },
+    {
+      "id": "private.wishlist.write",
+      "surface": "private",
+      "status": "client_safe",
+      "kind": "rpc",
+      "rpc": "mp_private_set_wishlist"
+    },
+    {
+      "id": "private.service.write",
+      "surface": "private",
+      "status": "client_safe",
+      "kind": "rpc",
+      "rpc": "mp_private_request_service"
+    },
+    {
+      "id": "private.claims.lifecycle",
+      "surface": "private",
+      "status": "client_safe",
+      "kind": "rpc",
+      "rpc": "mp_client_create_delivery_claim",
+      "lifecycleRpcs": [
+        "mp_client_create_delivery_claim",
+        "mp_client_set_delivery_claim_line",
+        "mp_client_submit_delivery_claim",
+        "mp_client_decide_delivery_claim",
+        "mp_client_delivery_claims"
+      ]
+    },
+    {
+      "id": "wholesale.snapshot.read",
+      "surface": "wholesale",
+      "status": "client_safe",
+      "kind": "rpc",
+      "rpc": "mp_client_snapshot_v2",
+      "roles": [
+        "authenticated"
+      ],
+      "args": [
+        "p_access_role",
+        "p_store_id"
+      ],
+      "dataScope": "production",
+      "roleInput": "db_role"
+    },
+    {
+      "id": "wholesale.delivery_ledger.read",
+      "surface": "wholesale",
+      "status": "client_safe",
+      "kind": "rpc",
+      "rpc": "mp_client_delivery_ledger",
+      "roles": [
+        "authenticated"
+      ],
+      "args": [
+        "p_access_role",
+        "p_store_id"
+      ]
+    },
+    {
+      "id": "wholesale.order.create",
+      "surface": "wholesale",
+      "status": "client_safe",
+      "kind": "rpc",
+      "rpc": "mp_wholesale_create_order_v2",
+      "roles": [
+        "authenticated"
+      ],
+      "args": [
+        "p_store_id",
+        "p_title",
+        "p_buyer_reference",
+        "p_season",
+        "p_client_request_id"
+      ],
+      "dataScope": "production_explicit"
+    },
+    {
+      "id": "wholesale.line.set",
+      "surface": "wholesale",
+      "status": "client_safe",
+      "kind": "rpc",
+      "rpc": "mp_wholesale_set_deal_line_v2",
+      "roles": [
+        "authenticated"
+      ],
+      "args": [
+        "p_deal_id",
+        "p_product_id",
+        "p_product_variant_id",
+        "p_qty"
+      ],
+      "dataScope": "production"
+    },
+    {
+      "id": "wholesale.size_run.apply",
+      "surface": "wholesale",
+      "status": "client_safe",
+      "kind": "rpc",
+      "rpc": "mp_wholesale_apply_size_run_v2",
+      "roles": [
+        "authenticated"
+      ],
+      "args": [
+        "p_deal_id",
+        "p_product_id",
+        "p_color",
+        "p_quantities",
+        "p_reason"
+      ],
+      "dataScope": "production"
+    },
+    {
+      "id": "wholesale.revision.save",
+      "surface": "wholesale",
+      "status": "client_safe",
+      "kind": "rpc",
+      "rpc": "mp_wholesale_save_revision_v2",
+      "roles": [
+        "authenticated"
+      ],
+      "args": [
+        "p_deal_id",
+        "p_reason"
+      ],
+      "dataScope": "production"
+    },
+    {
+      "id": "wholesale.order.submit",
+      "surface": "wholesale",
+      "status": "client_safe",
+      "kind": "rpc",
+      "rpc": "mp_wholesale_submit_order_v2",
+      "roles": [
+        "authenticated"
+      ],
+      "args": [
+        "p_deal_id",
+        "p_expected_revision"
+      ],
+      "dataScope": "production"
+    },
+    {
+      "id": "wholesale.revision.accept",
+      "surface": "wholesale",
+      "status": "client_safe",
+      "kind": "rpc",
+      "rpc": "mp_wholesale_accept_revision_v2",
+      "roles": [
+        "authenticated"
+      ],
+      "args": [
+        "p_deal_id",
+        "p_expected_revision"
+      ],
+      "dataScope": "production"
+    },
+    {
+      "id": "wholesale.payment.submit",
+      "surface": "wholesale",
+      "status": "client_safe",
+      "kind": "rpc",
+      "rpc": "mp_wholesale_submit_payment_evidence_v2",
+      "roles": [
+        "authenticated"
+      ],
+      "args": [
+        "p_deal_id",
+        "p_proforma_id",
+        "p_amount",
+        "p_currency",
+        "p_provider",
+        "p_external_reference",
+        "p_evidence_hash",
+        "p_evidence_url"
+      ],
+      "dataScope": "production"
+    },
+    {
+      "id": "wholesale.order.copy",
+      "surface": "wholesale",
+      "status": "client_safe",
+      "kind": "rpc",
+      "rpc": "mp_wholesale_copy_order_v2",
+      "roles": [
+        "authenticated"
+      ],
+      "args": [
+        "p_source_deal_id",
+        "p_target_store_id",
+        "p_new_title",
+        "p_buyer_reference"
+      ],
+      "dataScope": "production_preserved"
+    },
+    {
+      "id": "wholesale.reorder.buyer_approve",
+      "surface": "wholesale",
+      "status": "client_safe",
+      "kind": "rpc",
+      "currentRpc": "portal_buyer_approve_reorder",
+      "rpc": "mp_wholesale_approve_reorder"
+    },
+    {
+      "id": "wholesale.reorder.propose",
+      "surface": "wholesale",
+      "status": "server_only",
+      "kind": "rpc",
+      "rpc": "create_reorder_proposal_from_batch_v2",
+      "roles": [],
+      "dataScope": "propagated_from_batch_metadata_else_demo"
+    },
+    {
+      "id": "wholesale.reorder.brand_approve",
+      "surface": "wholesale",
+      "status": "server_only",
+      "kind": "rpc",
+      "rpc": "brand_approve_reorder",
+      "roles": [],
+      "reason": "authenticated EXECUTE=false"
+    },
+    {
+      "id": "wholesale.reorder.convert",
+      "surface": "wholesale",
+      "status": "server_only",
+      "kind": "rpc",
+      "rpc": "convert_reorder_to_deal_v2",
+      "roles": [],
+      "dataScope": "propagated_from_proposal_metadata_else_demo"
+    },
+    {
+      "id": "wholesale.sellthrough.ingest",
+      "surface": "wholesale",
+      "status": "server_only",
+      "kind": "rpc",
+      "rpc": "ingest_sellthrough_batch",
+      "roles": [],
+      "reason": "authenticated EXECUTE=false"
+    },
+    {
+      "id": "wholesale.sellthrough.read",
+      "surface": "wholesale",
+      "status": "client_safe",
+      "kind": "view",
+      "view": "v_sellthrough_intelligence",
+      "roles": [
+        "authenticated"
+      ],
+      "note": "security_invoker=true"
+    },
+    {
+      "id": "admin.snapshot.read",
+      "surface": "admin",
+      "status": "client_safe",
+      "kind": "rpc",
+      "rpc": "mp_admin_snapshot",
+      "roles": [
+        "authenticated"
+      ],
+      "args": []
+    },
+    {
+      "id": "admin.readiness.read",
+      "surface": "admin",
+      "status": "client_safe",
+      "kind": "rpc",
+      "rpc": "mp_admin_product_readiness",
+      "roles": [
+        "authenticated"
+      ],
+      "args": []
+    },
+    {
+      "id": "admin.order.revise",
+      "surface": "admin",
+      "status": "client_safe",
+      "kind": "rpc",
+      "rpc": "mp_admin_revise_order",
+      "roles": [
+        "authenticated"
+      ],
+      "args": [
+        "p_deal_id",
+        "p_expected_revision",
+        "p_reason"
+      ]
+    },
+    {
+      "id": "admin.approvals.start",
+      "surface": "admin",
+      "status": "client_safe",
+      "kind": "rpc",
+      "rpc": "mp_admin_start_approvals",
+      "roles": [
+        "authenticated"
+      ],
+      "args": [
+        "p_deal_id",
+        "p_expected_revision"
+      ]
+    },
+    {
+      "id": "admin.approval.decide",
+      "surface": "admin",
+      "status": "client_safe",
+      "kind": "rpc",
+      "rpc": "mp_admin_decide_approval",
+      "roles": [
+        "authenticated"
+      ],
+      "args": [
+        "p_approval_id",
+        "p_decision",
+        "p_reason"
+      ]
+    },
+    {
+      "id": "admin.proforma.issue",
+      "surface": "admin",
+      "status": "client_safe",
+      "kind": "rpc",
+      "rpc": "mp_admin_issue_proforma",
+      "roles": [
+        "authenticated"
+      ],
+      "args": [
+        "p_deal_id",
+        "p_expected_revision",
+        "p_number",
+        "p_document_url",
+        "p_document_hash"
+      ]
+    },
+    {
+      "id": "admin.payment.verify",
+      "surface": "admin",
+      "status": "client_safe",
+      "kind": "rpc",
+      "rpc": "mp_admin_verify_payment",
+      "roles": [
+        "authenticated"
+      ],
+      "args": [
+        "p_payment_id",
+        "p_decision",
+        "p_reason"
+      ]
+    },
+    {
+      "id": "admin.inventory.allocate",
+      "surface": "admin",
+      "status": "client_safe",
+      "kind": "rpc",
+      "rpc": "mp_admin_allocate_order",
+      "roles": [
+        "authenticated"
+      ],
+      "args": [
+        "p_deal_id",
+        "p_expected_revision",
+        "p_location"
+      ]
+    },
+    {
+      "id": "admin.shipment.create",
+      "surface": "admin",
+      "status": "client_safe",
+      "kind": "rpc",
+      "rpc": "mp_admin_create_shipment",
+      "roles": [
+        "authenticated"
+      ],
+      "args": [
+        "p_deal_id",
+        "p_expected_revision",
+        "p_code",
+        "p_carrier"
+      ]
+    },
+    {
+      "id": "admin.shipment.partial_create",
+      "surface": "admin",
+      "status": "client_safe",
+      "kind": "rpc",
+      "rpc": "mp_admin_create_partial_shipment",
+      "roles": [
+        "authenticated"
+      ],
+      "args": [
+        "p_deal_id",
+        "p_expected_revision",
+        "p_code",
+        "p_carrier",
+        "p_lines"
+      ]
+    },
+    {
+      "id": "admin.shipment.dispatch",
+      "surface": "admin",
+      "status": "client_safe",
+      "kind": "rpc",
+      "rpc": "mp_admin_dispatch_shipment",
+      "roles": [
+        "authenticated"
+      ],
+      "args": [
+        "p_shipment_id",
+        "p_tracking"
+      ]
+    },
+    {
+      "id": "admin.delivery.confirm",
+      "surface": "admin",
+      "status": "client_safe",
+      "kind": "rpc",
+      "rpc": "mp_admin_confirm_delivery",
+      "roles": [
+        "authenticated"
+      ],
+      "args": [
+        "p_shipment_id",
+        "p_reference",
+        "p_received_by"
+      ]
+    },
+    {
+      "id": "admin.variant.verify",
+      "surface": "admin",
+      "status": "client_safe",
+      "kind": "rpc",
+      "rpc": "mp_admin_verify_variant",
+      "roles": [
+        "authenticated"
+      ],
+      "args": [
+        "p_variant_id",
+        "p_sha256",
+        "p_source_reference"
+      ]
+    },
+    {
+      "id": "admin.retail_price.set",
+      "surface": "admin",
+      "status": "client_safe",
+      "kind": "rpc",
+      "rpc": "mp_admin_set_retail_price",
+      "roles": [
+        "authenticated"
+      ],
+      "args": [
+        "p_product_id",
+        "p_retail_price",
+        "p_reason"
+      ]
+    },
+    {
+      "id": "admin.fulfillment_queue.read",
+      "surface": "admin",
+      "status": "client_safe",
+      "kind": "rpc",
+      "rpc": "mp_admin_fulfillment_queue",
+      "roles": [
+        "authenticated"
+      ],
+      "args": []
+    },
+    {
+      "id": "admin.money_evidence.read",
+      "surface": "admin",
+      "status": "client_safe",
+      "kind": "rpc",
+      "rpc": "mp_admin_money_evidence",
+      "roles": [
+        "authenticated"
+      ],
+      "args": []
+    },
+    {
+      "id": "admin.delivery_ledger.read",
+      "surface": "admin",
+      "status": "client_safe",
+      "kind": "rpc",
+      "rpc": "mp_admin_delivery_ledger",
+      "roles": [
+        "authenticated"
+      ],
+      "args": [
+        "p_deal_id"
+      ]
+    },
+    {
+      "id": "admin.reorder.brand_approve",
+      "surface": "admin",
+      "status": "client_safe",
+      "kind": "rpc",
+      "rpc": "mp_admin_approve_reorder",
+      "roles": []
+    },
+    {
+      "id": "admin.reorder.convert",
+      "surface": "admin",
+      "status": "client_safe",
+      "kind": "rpc",
+      "rpc": "mp_admin_convert_reorder",
+      "roles": []
+    },
+    {
+      "id": "admin.claims.lifecycle",
+      "surface": "admin",
+      "status": "client_safe",
+      "kind": "rpc",
+      "rpc": "mp_admin_delivery_claims",
+      "lifecycleRpcs": [
+        "mp_admin_delivery_claims",
+        "mp_admin_decide_delivery_claim",
+        "mp_admin_record_delivery_claim_execution",
+        "mp_admin_close_delivery_claim"
+      ]
+    }
+  ],
+  "admissionState": "CANDIDATE_NOT_APPLIED",
+  "dataClassPolicy": {
+    "browserCreatedDeals": "production_explicit",
+    "clientReads": "production_only",
+    "copy": "preserve_source_production_only",
+    "reorder": "propagate_source_metadata_else_demo",
+    "globalDefault": "demo_fail_safe"
+  },
+  "roleContract": {
+    "uiRoles": [
+      "private",
+      "wholesale",
+      "admin"
+    ],
+    "dbRoles": [
+      "private_client",
+      "buyer"
+    ],
+    "accessAuthority": "mp_my_access",
+    "browserRpcRoleSource": "memberships[].db_role"
+  },
+  "targetSummary": {
+    "total": 55,
+    "client_safe": 50,
+    "delegated_to_admin": 1,
+    "server_only": 4
+  }
+}
