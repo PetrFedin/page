@@ -15,5 +15,5 @@ export const LOGOS = {
   antiqua: `<span class="project-wordmark"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 3c-3 0-6 2-8 5L8 15l2 2 7-5c3-2 5-5 4-9Z"/><path d="m8 15-3 3-2 4c4 0 7-2 8-5"/><path d="m13 8 3 3"/></svg><span>ANTIQUA</span></span>`,
   igra: '<span class="project-wordmark">IGRA</span>',
   marco: '<span class="project-wordmark">MARCO PESCAROLO · PRIVATE SHOWROOM</span>',
-  fintech: '<span class="project-wordmark">DEBT STABILITY OS</span>'
+  fintech: '<span class="project-wordmark">SVEDO</span>'
 };
