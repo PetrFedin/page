@@ -1,0 +1,21 @@
+{
+  "version": "31.5",
+  "status": "PASSED",
+  "postgres": "17.11",
+  "runId": 38925912712,
+  "jobId": 117057267620,
+  "commit": "28a74f9f96d7db7d9a136a0a47b42be0bd57e25b",
+  "artifactId": 12056392727,
+  "artifactSha256": "d5292ce82cd0252c3b531042465b1d9c163b5d6b43c69b1e5f303eb6e26608b7",
+  "checks": {
+    "proformaStageGuard": "PASS",
+    "verifiedFundsGuard": "PASS",
+    "allocationGuard": "PASS",
+    "partialShipmentGuard": "PASS",
+    "partialDeliveryGuard": "PASS",
+    "fulfillmentCoverageProjection": "PASS",
+    "adminIntegritySnapshot": "PASS",
+    "rollbackNoResidue": "PASS"
+  },
+  "productionChanged": false
+}
