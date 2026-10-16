@@ -4,12 +4,12 @@
   "productionChanged": false,
   "database": "PostgreSQL 17",
   "github": {
-    "runId": 38899427374,
-    "jobId": 116967711683,
-    "commit": "dbedb594afb72c816eb48a6201f8af20a4e36003",
-    "artifactId": 12045117572,
+    "runId": 38899975486,
+    "jobId": 116969520713,
+    "commit": "3bd47a4f594d7b4c261fee1e03887ec355ac3dd6",
+    "artifactId": 12045138262,
     "artifactName": "marco-pescarolo-v31-4-internal-integrity",
-    "artifactSha256": "3d4be2dc22befa28f4380faae3f91d54b009acb647ff7e9274a4243ef4fe34a3"
+    "artifactSha256": "628b4de1f84872b161f24c35d1e0fa267176ca841c15d0f8fe3c1f5fa7dcffe7"
   },
   "checks": {
     "dbRoleMapping": "PASS",
@@ -20,7 +20,8 @@
     "copyPreservesProduction": "PASS",
     "reorderDataClassProvenance": "PASS",
     "rawBrowserSurfaceClosed": "PASS",
-    "rollbackNoResidue": "PASS"
+    "rollbackNoResidue": "PASS",
+    "defaultAclOwners": "postgres+supabase_admin"
   },
   "liveReadOnlyAudit": {
     "relationshipChecks": 31,
