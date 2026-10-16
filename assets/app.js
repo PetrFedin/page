@@ -1,5 +1,6 @@
 import { T, PROJECTS as CORE_PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610041955';
 import { polishPublicPage, polishProjectCards } from './clarity.js?v=20261015-cl1';
+import { getBusinessServices } from './business-services.js?v=20261016-five1';
 import { mountFashionAnalytics } from './fashion-analytics.js?v=20261015-fashion1';
 import { EXTRA_PROJECTS, INVESTOR_BLUEPRINTS } from './portfolio-extensions.js?v=20261012-invdossiers';
 /* Five flagship products always precede the extended portfolio in both languages. */
@@ -167,7 +168,7 @@ let lang = (urlLang === 'ru' || urlLang === 'en') ? urlLang : 'ru';
 if (!T[lang]) lang = 'ru';
 
 let projectsExpanded = false;
-const PROJECTS_FIRST = FEATURED_PROJECT_IDS.length;
+const PROJECTS_FIRST = 3;
 
 /* Раздел «Сотрудничество»: шесть мини-карточек форматов; полный текст формата — в окне с листанием. */
 const needModal = $('#need-modal');
@@ -494,10 +495,11 @@ function render() {
   $('#deck-pdf').href = t.consulting.deckFile;
   $('#deck-pdf-2').href = t.consulting.deckFile;
   $('#services').className = "services snap snap-fit";
-  $('#services').innerHTML = t.consulting.items.map((it, i) => `
-    <li>
-      <button class="svc" type="button" data-svc="${i}">
-        <span class="svc-n">0${i + 1}</span>
+  const services=getBusinessServices(lang);
+  $('#services').innerHTML = services.items.map((it, i) => `
+    <li class="${it.featured ? 'svc-featured-item' : ''}">
+      <button class="svc${it.featured?' svc-featured':''}" type="button" data-svc="${i}" data-service="${it.id}" aria-haspopup="dialog">
+        <span class="svc-n">${it.num} / ${it.tag}</span>
         <span class="svc-t">${it.title}</span>
         <span class="svc-b">${it.body}</span>
         <span class="svc-d"><b>${t.consulting.decisionLabel}</b>${it.decision}</span>
@@ -1734,6 +1736,38 @@ const infoModal = $('#cv-modal');
 const list = (title, arr) => !arr?.length ? '' :
   `<section class="info-list"><h3>${title}</h3><ul>${arr.map((x) => `<li>${x}</li>`).join('')}</ul></section>`;
 
+function renderBusinessService(id) {
+  const group=getBusinessServices(lang), labels=group.labels;
+  const items=group.items;
+  const idx=items.findIndex(it=>it.id===id);
+  if(idx<0)return false;
+  const s=items[idx];
+  infoModal.dataset.view='service-'+s.id;
+  $('#cv-title').textContent=s.title;
+  $('#cv-note').textContent=s.lead;
+  const sections=s.scope.map(part=>
+    '<article class="svc-modal-cluster"><h4>'+part.title+'</h4><ul>'+
+    part.points.map(point=>'<li>'+point+'</li>').join('')+'</ul></article>').join('');
+  const contactText=(lang==='en'?'I would like to discuss '+s.title+'. Initial question: ':'Хочу обсудить направление «'+s.title+'». Задача: ');
+  $('#cv-body').innerHTML=
+    '<p class="svc-modal-eyebrow">'+s.tag+'</p>'+
+    list(labels.forWhom,s.audience)+
+    list(labels.pains,s.pains)+
+    '<section class="info-list"><h3>'+labels.scope+'</h3><div class="svc-modal-scope">'+sections+'</div></section>'+
+    list(labels.work,s.work)+
+    list(labels.deliverables,s.deliverables)+
+    (s.engagement?list(lang==='en'?'Engagement levels':'Форматы сотрудничества',s.engagement):'')+
+    list(labels.stages,s.stages)+
+    list(labels.inputs,s.inputs)+
+    '<section class="info-list svc-modal-boundary"><h3>'+labels.boundaries+'</h3><p>'+s.boundaries+'</p></section>'+
+    (s.id==='analytics'?'<a class="btn" href="'+(lang==='en'?'/en/analytics.html':'/analytics.html')+'">'+labels.analyticsMore+' →</a>':'')+
+    '<div class="format-nav"><button type="button" class="btn btn-sm" data-service-nav="'+items[(idx-1+items.length)%items.length].id+'">← '+labels.previous+'</button>'+
+    '<button type="button" class="btn btn-sm" data-service-nav="'+items[(idx+1)%items.length].id+'">'+labels.next+' →</button></div>'+
+    '<button type="button" class="btn btn-primary format-contact" data-service-contact="'+s.id+'">'+labels.discuss+' →</button>';
+  infoModal.dataset.leadPrefix=contactText;
+  return true;
+}
+
 function renderArea(id) {
   const t = T[lang];
   const f = t.hero.facts.find((x) => x.id === id);
@@ -1859,6 +1893,7 @@ function renderRole(n) {
 
 function showInfo(hash) {
   const ok = hash === 'roles' ? renderRolesHub()
+           : hash.startsWith('service-') ? renderBusinessService(hash.slice(8))
            : hash.startsWith('area-') ? renderArea(hash.slice(5))
            : hash.startsWith('format-') ? renderFormat(hash.slice(7))
            : hash.startsWith('launch-') ? renderLaunch(hash.slice(7))
@@ -1955,6 +1990,15 @@ $('#cv-close').addEventListener('click', () => leaveAll());
 $('#cv-back').addEventListener('click', () => leave());
 infoModal.addEventListener('click', (e) => { if (e.target === infoModal) leaveAll(); });
 $('#cv-body').addEventListener('click', (e) => {
+  const serviceNav=e.target.closest('[data-service-nav]');
+  if(serviceNav)return go('service-'+serviceNav.dataset.serviceNav);
+  const serviceContact=e.target.closest('[data-service-contact]');
+  if(serviceContact){
+    const s=getBusinessServices(lang).items.find(x=>x.id===serviceContact.dataset.serviceContact);
+    if(!s)return;
+    return startContact({topic:'consulting',route:'client',goal:s.title,
+      message:lang==='en'?'Interested in '+s.title+'. Please discuss initial scope and NDA.':'Интересует направление «'+s.title+'». Хочу обсудить задачу, исходные данные и NDA.'});
+  }
   const roleOpen = e.target.closest('[data-role-open]');
   if (roleOpen) return go(`role-${roleOpen.dataset.roleOpen}`);
   const nav = e.target.closest('[data-format-nav]');
@@ -2122,7 +2166,7 @@ function applyHash() {
     if (openPostModal(date)) return;
     return closeModals();
   }
-  if (h === 'roles' || h.startsWith('area-') || h.startsWith('format-') || h.startsWith('launch-') || h.startsWith('role-')) { if (showInfo(h)) return; }
+  if (h === 'roles' || h.startsWith('service-') || h.startsWith('area-') || h.startsWith('format-') || h.startsWith('launch-') || h.startsWith('role-')) { if (showInfo(h)) return; }
   if (h.endsWith('-news')) {
     const nid = h.slice(0, -'-news'.length);
     if (PROJECTS.some((p) => p.id === nid)) return openProjectNews(nid);
@@ -2505,7 +2549,7 @@ $('#deck-cv').addEventListener('click', () => { leaveAll(); requestCv(); });
 deckModal.addEventListener('click', (e) => { if (e.target === deckModal) leaveAll(); });
 $('#services').addEventListener('click', (e) => {
   const btn = e.target.closest('[data-svc]');
-  if (btn) { go('deck'); openDeck(`deck-directions-${btn.dataset.svc}`); }
+  if (btn) go('service-'+btn.dataset.service);
 });
 
 /* Esc закрывает окно — адрес возвращаем тем же путём, что и кнопка. */
