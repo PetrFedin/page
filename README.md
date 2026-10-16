@@ -1,254 +1,30 @@
-# syntha.pro — лендинг
-
-Одностраничная визитка: фэшн-консалтинг + три проекта (Syntha, Renova, ChatX).
-Открывается по QR-коду с визитки, поэтому приоритет — мобильный экран и скорость.
-
-## Стек
-
-Статика без сборки и без зависимостей: `index.html` + CSS + ES-модули.
-Форма обратной связи — Cloudflare Pages Function, пересылает заявку в Telegram.
-
-## Локальный запуск
-
-```bash
-python3 -m http.server 4321
-```
-
-Форма локально вернёт ошибку — функции `/api/contact` нет без Cloudflare.
-Полный локальный прогон с функцией: `npx wrangler pages dev .`
-
-## Структура
-
-| Путь | Назначение |
-|------|-----------|
-| `assets/content.js` | Текст страницы RU/EN и данные проектов |
-| `assets/deck.js` | Полное содержание презентации RU/EN для окна «Смотреть презентацию» |
-| `assets/news.js` | Лента новостей RU/EN — новый пост добавляется первым в массив |
-| `assets/photo/` | Портреты: `petr-portrait.jpg` на странице, `petr-formal.jpg` в запасе |
-| `assets/app.js` | Рендер, переключение языка и темы, модалки, форма |
-| `assets/styles.css` | Стили, темы, CSS-рамки iPhone/iPad |
-| `assets/fashion-advisory.pdf` | Презентация RU |
-| `assets/fashion-advisory-en.pdf` | Презентация EN — подставляется при переключении языка |
-| `assets/logos.js` | Логотипы инлайном (`currentColor` — подхватывают тему) |
-| `assets/logos/` | Те же логотипы файлами, для печати и внешнего использования |
-| `assets/shots/` | Скриншоты для галереи (WebP) |
-| `assets/video/` | Проходы по разделам, WebM/VP8, первый кадр галереи |
-| `functions/api/contact.js` | Приём формы → Telegram |
-| `privacy.html` | Политика обработки персональных данных |
-| `assets/petr-fedin.vcf` | Визитка для кнопки «Сохранить контакт» |
-| `assets/og.png`, `assets/favicon.svg` | Карточка ссылки и иконка вкладки |
-
-Окна проектов и презентации имеют адреса: `#syntha`, `#syntha-status`, `#deck` — ссылку можно отправить, «назад» закрывает окно.
-
-## Деплой
-
-Cloudflare Pages, корень проекта — эта папка, build command отсутствует.
-
-### Telegram: получение заявок
-
-Заявка содержит имя и контакт отправителя, поэтому идёт **в личный чат**, а не в канал
-`@syntha_pro` — канал публичный, и всё опубликованное там видно любому.
-
-1. В Telegram открыть **@BotFather** → `/newbot` → задать имя и username → получить **токен**.
-2. Написать своему новому боту любое сообщение — иначе он не сможет вам ответить.
-3. Узнать свой chat id: открыть **@userinfobot** → `/start` → он пришлёт число.
-4. В Cloudflare Pages → Settings → Environment variables добавить:
-   - `TELEGRAM_BOT_TOKEN` — токен из шага 1
-   - `TELEGRAM_CHAT_ID` — число из шага 3
-5. Передеплоить проект. Заявка приходит за секунду; её копия сохраняется в закрытой базе статистики (D1), см. раздел «Статистика».
-
-Проверка локально: `npx wrangler pages dev . --binding TELEGRAM_BOT_TOKEN=... TELEGRAM_CHAT_ID=...`
-
-### Ведение канала @syntha_pro
-
-Публикация идёт скриптом `scripts/tg-post.mjs`, который берёт посты из `assets/news.js`.
-**Токен в репозиторий не попадает** — он лежит в `~/.config/syntha-pro/telegram.env`
-(права 600, каталог 700, `*.env` в `.gitignore`).
-
-Настройка один раз:
-
-1. **@BotFather** → `/newbot` → имя и username → получить токен.
-2. Открыть канал `@syntha_pro` → Управление → Администраторы → добавить бота
-   с правом **«Публикация сообщений»**.
-3. Скопировать шаблон и вписать токен:
-   ```bash
-   cp ~/.config/syntha-pro/telegram.env.example ~/.config/syntha-pro/telegram.env
-   # открыть файл и подставить токен
-   ```
-4. Проверить связку:
-   ```bash
-   node scripts/tg-post.mjs --check
-   ```
-
-Публикация:
-
-```bash
-node scripts/tg-post.mjs --list              # список постов с номерами
-node scripts/tg-post.mjs --post 1            # показать текст, НИЧЕГО не отправляя
-node scripts/tg-post.mjs --post 1 --send     # опубликовать
-node scripts/tg-post.mjs --post 1 --lang en --send
-```
-
-Без `--send` скрипт только показывает текст — защита от случайной публикации.
-
-## Пересъёмка экранов и видео
-
-Скрипты съёмки лежат в сессионном каталоге и в репозиторий не входят — они одноразовые.
-Что нужно поднять перед съёмкой:
-
-| Проект | Что запустить | Как попасть внутрь |
-|---|---|---|
-| ChatX | конфиг `chat-shots`, порт 3101, база `chat_shots` | кнопка «Открыть готовое демо» |
-| Syntha | конфиг `syntha-shots`, порт 4100, база `syntha_v2_demo` | `owner@syntha.local`, пароль из `scripts/seed-demo.mjs` |
-| Renova | Expo на 8081 + API на 8100 (база `renova` на 5434) | `POST /api/v1/auth/demo` → токены в `localStorage` под ключами `renova_access_token`, `renova_refresh_token`, `renova_user_id`, `renova_user_role`, `renova_project_id` |
-
-Видео пишется Playwright'ом, обрезается ffmpeg из его же кэша (только VP8 — отсюда WebM).
-
-Курсор в видео рисуется скриптом (Playwright свой не пишет). Два правила, добытые опытом:
-
-* стили курсора задаются свойствами элемента, а не тегом `<style>` — у Syntha включён CSP,
-  который блокирует инлайновые стили, и блок со стилями просто не применялся;
-* курсор восстанавливается перед каждым кликом — и Expo, и SPA-навигация уносят его с собой
-  при перерисовке страницы.
-
-Телефоны снимаются на ширине 500: при 390–430 скругление угла кадра съедало хвост
-последней подписи в нижней панели.
-
-## Разовая синхронизированная публикация на сайте и в Telegram
-
-После добавления материала в `assets/news.js`, успешных тестов, слияния с `main` и **фактического обновления** публичного RSS по адресу `https://syntha.pro/feed.xml`, пост можно отправить в канал:
-
-```bash
-node scripts/tg-publish-date.mjs --date 2026-10-13          # просмотреть текст, без секретов и отправки
-node scripts/tg-publish-date.mjs --date 2026-10-13 --check  # проверить бота и право на публикацию
-node scripts/tg-publish-date.mjs --date 2026-10-13 --send   # отправить один раз
-```
-
-Скрипт намеренно **не** отправит пост, если сайт ещё отдаёт старую ленту, бот не администратор @syntha_pro или дата уже помечена опубликованной. Секреты читаются только из локального `~/.config/syntha-pro/telegram.env`; статусы и подтверждённая ссылка Telegram сохраняются в `~/.config/syntha-pro/published.json`. При неясном результате сети перед повтором необходимо проверить канал вручную, поскольку Telegram не поддерживает идемпотентный ключ `sendMessage`.
-
-Не включать 13 октября в старую очередь `channel-queue.json` задним числом: это отдельная публикация, а устаревший список и таймер требуют самостоятельной сверки с историей канала.
-
-## Публикация по таймеру
-
-Очередь публикаций — `channel-queue.json` (порядок постов и окно 9:00–21:00).
-Что уже вышло, записано в `~/.config/syntha-pro/published.json`, вне репозитория.
-
-```bash
-node scripts/tg-queue.mjs --status    # очередь: что вышло, что ждёт
-node scripts/tg-queue.mjs --dry-run   # текст следующего поста, без отправки
-node scripts/tg-queue.mjs             # опубликовать следующий
-```
-
-Таймер: LaunchAgent `~/Library/LaunchAgents/pro.syntha.channel.plist`,
-срабатывает раз в 2,5 часа; вне окна публикации скрипт сам ничего не отправляет.
-Лог — `~/.config/syntha-pro/channel.log`.
-
-```bash
-launchctl unload ~/Library/LaunchAgents/pro.syntha.channel.plist   # остановить
-launchctl load   ~/Library/LaunchAgents/pro.syntha.channel.plist   # запустить
-```
-
-Таймер публикует только тексты, уже лежащие в `assets/news.js` и перечисленные
-в очереди. Он ничего не сочиняет: чтобы добавить пост, его нужно сначала написать
-и внести в `order`.
-
-## Новости
-
-Посты лежат в `assets/news.js`, новый добавляется первым в массив. Правило содержания:
-пишем **зачем** и **для кого**, никогда — **как устроено внутри**.
-
-## Не сделано и почему
-
-- **Автоответ отправителю.** Нужен почтовый провайдер с API (Resend, Mailgun, Postmark).
-  Выберите — добавлю отправку письма из той же функции по ключу в переменных окружения.
-- **Отдельные адреса для английской версии и `hreflang`.** Делается после решения по домену:
-  нужен путь `/en/` с предустановленным языком, каноническими ссылками и `sitemap.xml`.
-- **Аналитика.** Собственная статистика уже работает: `assets/track.js` → `/api/t` → D1, страница `/stats` под логином и паролем (секреты `STATS_USER`, `STATS_PASSWORD`, привязка базы `DB`). Схема — `scripts/stats-schema.sql`.
-- **Одностраничники по проектам для инвесторов** — обсуждаем отдельно.
-
-## Незакрытые пункты
-
-- [ ] Заменить логотипы на фирменные, если есть (текущие в `assets/logos.js`, копии файлами в `assets/logos/`)
-- [ ] Видео: пересобрать в H.264, если нужна поддержка старых Safari (у ffmpeg от Playwright только VP8)
-- [ ] Статусы Syntha и Renova — подтвердить содержание блока «Текущая стадия»
-- [ ] Email для блока контактов
-- [ ] Решить, называть ли работодателя (сейчас «крупнейший luxury-ритейлер России» без имени)
-- [ ] Решить, дублировать ли посты в канале на английском
-- [ ] Канал: переименовать под поиск, переписать описание, закрепить навигационный пост, включить комментарии
-- [ ] Делегировать домен `syntha.pro`, вернуть `SITE_URL` в telegram.env и сгенерировать QR
-- [ ] Кнопка «Сохранить контакт» (.vcf) для сценария с визиткой
-- [ ] Решение по домену: визитка на корне `syntha.pro` или на поддомене
-- [ ] Генерация QR-кода под финальный URL
-
-
-## Деплой на Cloudflare Pages
-
-Сборки нет — публикуется содержимое папки как есть.
-
-1. Pages → Create project → подключить репозиторий.
-2. Build command оставить пустым, output directory — корень (`/`).
-3. Переменные окружения: `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID` — их читает
-   `functions/api/contact.js`.
-4. Custom domains: `syntha.pro` и `www.syntha.pro`.
-5. Статистика: база D1 `syntha-stats` с привязкой `DB`, секреты `STATS_USER` и `STATS_PASSWORD`; свои визиты отключаются кнопкой на `/stats` или `?notrack`.
-
-`_headers` задаёт кэш и заголовки безопасности, `_routes.json` пускает через
-Functions только `/api/*` — остальное отдаётся статикой.
-
-## Разборы проектов
-
-`syntha.html` и `chatx.html` — отдельные страницы с текстами прямо в разметке.
-Обе работают на `assets/project-page.js`; какой это проект, страница сообщает
-атрибутом `data-project` на своём теге `script`. Стадия подтягивается
-из `content.js`, чтобы не расходиться с карточкой на главной.
-
-## Английская версия
-
-`en/index.html` собирается из `index.html` скриптом `scripts/build-en.mjs`.
-Руками не править: разметка разъезжалась, и скрипт падал на элементе,
-которого нет в английской копии.
-
-## Видео
-
-`assets/video/*.webm` снимаются Playwright, рядом лежат `*.mp4` — их делает
-`scripts/make-mp4.sh` (ffmpeg от Playwright распаковывает кадры, свой
-инструмент на AVFoundation собирает H.264). В плеере MP4 идёт первым: iOS
-декодирует его аппаратно, WebM — программно.
-
-## Planned integration roadmap
-
-Canonical implementation plan:
-
-- [docs/PAGE_INTEGRATION_MASTER_PLAN_2026-10-01.md](./docs/PAGE_INTEGRATION_MASTER_PLAN_2026-10-01.md)
-
-This file is a planned implementation source, not evidence that every listed capability is already live. Future full-roadmap work should cite this filename and follow its sequence, authority boundaries, dependencies and acceptance gates.
-
-
-## Сборка и поиск (3 октября 2026)
-
-```bash
-npm run build      # en/index.html из index.html → разметка проектов → предотрисовка → sitemap
-npm run og         # карточки превью ссылок assets/og/*.jpg из данных проектов
-npm run indexnow   # сообщить Bing/Яндексу об обновлении страниц (после выкладки)
-```
-
-* Главные страницы предотрисовываются в Chrome (`scripts/prerender.mjs`): между метками
-  `<!--PR:START-->` и `<!--PR:END-->` лежит готовая разметка, скрипты потом её перерисовывают.
-  Руками внутри меток ничего не править — менять `content.js` и `index.html` вне меток.
-* Страницы проектов существуют в двух языках: `syntha.html` и `en/syntha.html` (и так далее).
-  Поисковая разметка и ссылки hreflang пишутся скриптом `scripts/seo-pages.mjs`.
-* `llms.txt`, `robots.txt` (ИИ-роботам разрешено читать), ключ IndexNow `<ключ>.txt` — в корне.
-* Кабинет `/stats` (логин и пароль — секреты `STATS_USER`, `STATS_PASSWORD`): статистика, заявки,
-  календарь публикаций (сайт и Telegram-канал), проверка индексируемости и список действий.
-  Таблицы базы создаются сами при первом обращении.
-* Публикации по расписанию: таймер `workers/cron` (Cloudflare Worker, раз в 5 минут) вызывает
-  `/api/cron?key=…`; секрет `CRON_KEY` задан и у воркера, и у проекта Pages.
-  Для канала нужны секреты `CHANNEL_BOT_TOKEN` и `TELEGRAM_CHANNEL`.
-
-## Portfolio Platform Fabric
-
-Cross-product platformization plan:
-
-- [docs/PORTFOLIO_PLATFORM_FABRIC_2026-10-06.md](./docs/PORTFOLIO_PLATFORM_FABRIC_2026-10-06.md)
-
-It defines the common API/SDK, partner, sandbox, certification, metering and solution-marketplace layer across the portfolio without merging product data authorities.
+# Marco Pescarolo v31.5 — Lifecycle Consistency Candidate
+
+v31.5 continues v31.4 Internal Integrity and makes the order lifecycle itself fail closed.
+
+## What changed
+
+- UI/demo state names now match the real PostgreSQL lifecycle.
+- `brand_revision`, `payment_verified` and `shipment_created` remain events/labels, not order stages.
+- Added quantity-level fulfilment coverage across deal lines → shipment lines → shipments → carrier POD.
+- Added a production stage invariant guard for proforma, verified funds, reservation, shipped and delivered transitions.
+- Added an Admin **Integrity Control** target and read-only `mp_admin_integrity_snapshot()` contract.
+- Prevents service-side legacy fulfilment primitives from prematurely marking partial orders shipped/delivered once the staged migration is admitted.
+
+## Evidence
+
+- PostgreSQL 17 lifecycle run `38925912712`: **SUCCESS**.
+- Partial shipment denial: **PASS**.
+- Partial POD delivery denial: **PASS**.
+- Full shipment/POD path: **PASS**.
+- Rollback / zero residue: **PASS**.
+- Full accumulated v30.x–v31.5 regression: **PASS**.
+- Production Supabase: **NOT MODIFIED**.
+
+See:
+
+- `docs/V31_5_LIFECYCLE_CONSISTENCY.md`
+- `contracts/lifecycle-consistency-v31.5.json`
+- `contracts/pg17-lifecycle-consistency-evidence-v31.5.json`
+- `contracts/authority-capability-map-v31.5-target.json`
+- `sql/17_lifecycle_consistency_STAGED.sql`
