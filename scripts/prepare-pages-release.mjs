@@ -24,7 +24,7 @@ const staticFiles=[
 const staticDirs=['assets','en'];
 const mustHave=[
  'index.html','en/index.html','assets/app.js','assets/styles.css',
- 'assets/lead-paths.js','assets/portfolio-extensions.js',
+ 'assets/lead-paths.js','assets/portfolio-extensions.js','assets/business-services.js',
  'assets/investor-calculator.js','assets/opportunity-copy.js',
  'assets/opportunity-economics.js','assets/opportunity-studio.js','assets/economics-page.js',
  'analytics.html','economics.html','en/analytics.html','en/economics.html',
