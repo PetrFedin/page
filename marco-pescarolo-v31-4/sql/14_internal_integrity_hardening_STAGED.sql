@@ -8,11 +8,23 @@ BEGIN;
 -- Keep service_role unchanged; browser access must always be explicit.
 -- ---------------------------------------------------------------------------
 ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public
-  REVOKE SELECT, INSERT, UPDATE, DELETE ON TABLES FROM anon, authenticated;
+  REVOKE ALL ON TABLES FROM anon, authenticated;
 ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public
-  REVOKE USAGE, SELECT ON SEQUENCES FROM anon, authenticated;
+  REVOKE ALL ON SEQUENCES FROM anon, authenticated;
 ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public
   REVOKE EXECUTE ON FUNCTIONS FROM PUBLIC, anon, authenticated;
+
+-- Supabase also carries public-schema default ACLs owned by supabase_admin.
+-- Keep the candidate portable: vanilla PG17 CI may not have that role.
+DO $$
+BEGIN
+  IF EXISTS (SELECT 1 FROM pg_roles WHERE rolname='supabase_admin') THEN
+    EXECUTE 'ALTER DEFAULT PRIVILEGES FOR ROLE supabase_admin IN SCHEMA public REVOKE ALL ON TABLES FROM anon, authenticated';
+    EXECUTE 'ALTER DEFAULT PRIVILEGES FOR ROLE supabase_admin IN SCHEMA public REVOKE ALL ON SEQUENCES FROM anon, authenticated';
+    EXECUTE 'ALTER DEFAULT PRIVILEGES FOR ROLE supabase_admin IN SCHEMA public REVOKE EXECUTE ON FUNCTIONS FROM PUBLIC, anon, authenticated';
+  END IF;
+END
+$$;
 
 -- ---------------------------------------------------------------------------
 -- 1) Canonical production-deal guard shared by browser facades.
