@@ -1,4 +1,4 @@
-/* Evidence-first portfolio additions. Planning scope, not a claim that modules are deployed. */
+/* Evidence-scoped portfolio dossiers: repo sources verified in October 2026; status remains a gate, not a sales claim. */
 export const EXTRA_PROJECTS = [
   {
     "id": "fashion-os",
@@ -7,11 +7,11 @@ export const EXTRA_PROJECTS = [
     "shots": [],
     "ru": {
       "tagline": "Операционная платформа для участников fashion-рынка",
-      "stage": "Проектирование и интеграционная подготовка",
-      "card": "Единый рабочий контур для бренда, производителя, закупщика и ритейлера: товар, коллекции, закупка, остатки, заказы, себестоимость и аналитика. Показываем архитектуру и карту функций без непроверенных скриншотов.",
-      "what": "Платформа управления товаром и коммерческим жизненным циклом: единый Product Master, сезонные планы, закупочная матрица, supply, маржа и ответственность по ролям.",
+      "stage": "Разрабатываемая fashion B2B/PLM-платформа · подтверждение live-функций поэтапно",
+      "card": "Fashion Management OS объединяет Product Master, коллекции, PLM, закупочный каталог, заказы B2B, подтверждения, поставки, фактическую себестоимость и маржу в одну управляемую цепочку. Бренд и байер видят не только товар, но и статус каждого коммерческого решения.",
+      "what": "Операционная система моды от идеи модели и спецификации до опубликованной коллекции, предложения байеру, заказной матрицы, поставки и закрытия себестоимости. Роли бренда, фабрики, закупщика и оптового партнёра связаны одной версионируемой товарной сущностью.",
       "who": "Бренды, мультибрендовые магазины, байеры, производственные команды, аналитики и финансовые руководители.",
-      "why": "Сократить разрывы между Excel, PLM, ERP и решениями по сезону; видеть эффект заказа до заморозки капитала.",
+      "why": "Устраняет потери контекста между PLM, Excel, каталогами и B2B-заказом; помогает видеть готовность товара, лимиты, прибыльность заказа, историю подтверждений и фактические затраты.",
       "how": "Ролевые рабочие пространства, справочники, события жизненного цикла, versioned snapshots, согласования и интеграционный слой; внедрение по проверяемым вертикальным сценариям.",
       "roadmap": [
         {
@@ -33,24 +33,30 @@ export const EXTRA_PROJECTS = [
       ],
       "capabilities": [
         {
-          "area": "Product Master / SKU",
-          "feature": "Карточка товара, варианты, коллекции, сезоны"
+          "area": "Product engineering / PLM",
+          "feature": "Style → SKU → BOM → tech pack → readiness, спецификации, поставщики и производственные этапы"
         },
         {
-          "area": "Buying & allocation",
-          "feature": "План закупки, матрица размеров, доступность, распределение"
+          "area": "Collection / Digital Showroom",
+          "feature": "Коллекции, версия публикации, каталог покупателя, персональный прайс"
         },
         {
-          "area": "Supply & costing",
-          "feature": "Поставки, затраты, себестоимость, валовая маржа"
+          "area": "Wholesale order",
+          "feature": "Размерные матрицы, резерв, MOQ/ATS, заказ, двухстороннее подтверждение, DealSpace"
         },
         {
-          "area": "Decision analytics",
-          "feature": "Sell-through, GMROI, WOS, сценарии заказов"
+          "area": "Supply / margin",
+          "feature": "Поставка и приёмка, landed cost, аллокация затрат, closing snapshot и проверка маржи"
+        },
+        {
+          "area": "Roles / evidence",
+          "feature": "PostgreSQL, роли организаций, подтверждения, immutable snapshots и проверяемые acceptance gates"
         }
       ],
       "status": {
-        "done": [],
+        "done": [
+          "Репозиторий содержит исполняемый B2B-контур каталога, заказа и подтверждений, модели PLM и регламентированные методики KPI; готовность конкретных частей подтверждается отдельными gate-тестами."
+        ],
         "now": [
           "Функциональная архитектура и проверка требований"
         ],
@@ -79,8 +85,8 @@ export const EXTRA_PROJECTS = [
     },
     "en": {
       "tagline": "An operating platform for fashion professionals",
-      "stage": "Design and integration preparation",
-      "card": "A shared operating workspace for brands, makers, buyers and retailers: products, collections, buying, inventory, orders, costs and analytics. Functional map only; no unverified screenshots.",
+      "stage": "Fashion B2B/PLM in development · gated live acceptance",
+      "card": "Fashion Management OS connects the product master, collections, PLM, buyer catalogues, B2B orders, confirmations, fulfilment, actual cost and margins into a governed commercial workflow.",
       "what": "Product and commercial life-cycle management: Product Master, seasonal plans, buy matrices, supply, margins and role-based responsibility.",
       "who": "Brands, multi-brand retailers, buyers, production teams, analysts and finance leaders.",
       "why": "Close the gaps between spreadsheets, PLM, ERP and seasonal decisions; see the impact of a buy before capital is committed.",
@@ -105,24 +111,30 @@ export const EXTRA_PROJECTS = [
       ],
       "capabilities": [
         {
-          "area": "Product Master / SKU",
-          "feature": "Product master, variants, collections and seasons"
+          "area": "Product engineering / PLM",
+          "feature": "Style → SKU → BOM → tech pack → readiness, спецификации, поставщики и производственные этапы"
         },
         {
-          "area": "Buying & allocation",
-          "feature": "Buy planning, size grids, availability and allocation"
+          "area": "Collection / Digital Showroom",
+          "feature": "Коллекции, версия публикации, каталог покупателя, персональный прайс"
         },
         {
-          "area": "Supply & costing",
-          "feature": "Supply, landed cost and gross margin"
+          "area": "Wholesale order",
+          "feature": "Размерные матрицы, резерв, MOQ/ATS, заказ, двухстороннее подтверждение, DealSpace"
         },
         {
-          "area": "Decision analytics",
-          "feature": "Sell-through, GMROI, weeks of supply and buy scenarios"
+          "area": "Supply / margin",
+          "feature": "Поставка и приёмка, landed cost, аллокация затрат, closing snapshot и проверка маржи"
+        },
+        {
+          "area": "Roles / evidence",
+          "feature": "PostgreSQL, роли организаций, подтверждения, immutable snapshots и проверяемые acceptance gates"
         }
       ],
       "status": {
-        "done": [],
+        "done": [
+          "Repository contains executable B2B catalog, ordering and confirmation flows, PLM models and KPI contracts. Each live capability is subject to its own admission checks."
+        ],
         "now": [
           "Functional architecture and requirement review"
         ],
@@ -152,14 +164,14 @@ export const EXTRA_PROJECTS = [
   },
   {
     "id": "fur",
-    "name": "FUR PRODUCTION",
+    "name": "THE FUR",
     "device": "ipad",
     "shots": [],
     "ru": {
       "tagline": "Производство меховых изделий: от сырья до готовой партии",
-      "stage": "Проектная модель и производственные регламенты",
-      "card": "Система прозрачного учета шкур, выделки, раскроя, норм расхода, резервов, пошива, брака и себестоимости. От закупки сырья до подтвержденной готовой партии — с историей движения каждой позиции.",
-      "what": "Производственная ОС с учётом мехового сырья, многоэтапной обработки, раскроя, расходных норм и калькуляции по изделию.",
+      "stage": "Мультитенантное приложение и проверка производственных данных · production admission отдельно",
+      "card": "THE FUR — система управления меховым сырьём и производством: аукционные закупки, партии и лоты, выделка, материалы, техзадания, пошив, отгрузки, оплаты, себестоимость и документальная сверка. Отдельные роли для владельца, закупки, склада, технолога и финансов.",
+      "what": "Единый операционный контур мехового производства: от закупки и происхождения сырья через движение партий и производственные заказы до готового изделия, калькуляции и расчётов.",
       "who": "Фабрики, ателье, владельцы брендов, закупщики меха, подрядчики выделки и логистики.",
       "why": "Зафиксировать происхождение, потери, остатки и экономику заказа; отделить фактические затраты от комиссий посредников.",
       "how": "Lot-level ledger, нормативы после подтверждённого образца, операции передачи между подрядчиками, QC и правила расчёта полной себестоимости.",
@@ -183,29 +195,35 @@ export const EXTRA_PROJECTS = [
       ],
       "capabilities": [
         {
-          "area": "Сырьё и партии",
-          "feature": "Аукцион, артикул, цвет, сортность, размер, резерв"
+          "area": "Аукционы и закупки",
+          "feature": "Сырьё, сорт, цвет, спецификация, аукцион, документы и счета"
         },
         {
-          "area": "Нормы / раскрой",
-          "feature": "Техкарта изделия, расход и потери после образца"
+          "area": "Остатки и партии",
+          "feature": "Материальные лоты, движения, резервы, нормы и баланс сырья"
         },
         {
-          "area": "Подрядчики и качество",
-          "feature": "Выделка, пошив, возвраты, брак, контроль сроков"
+          "area": "Производство",
+          "feature": "ТЗ, модели, раскрой, пошив, производственные партии и контроль этапов"
         },
         {
-          "area": "Экономика партии",
-          "feature": "Материалы + услуги + логистика + комиссия = себестоимость"
+          "area": "Экономика",
+          "feature": "Себестоимость сырья и услуг, комиссии, НДС, оплаты, задолженности и отгрузки"
+        },
+        {
+          "area": "Проверяемость",
+          "feature": "Раздельные компании и роли, история операций, сверка первичных документов, очередь неподтверждённых решений"
         }
       ],
       "status": {
-        "done": [],
+        "done": [
+          "Существуют интерфейсы сырья, закупок, лотов, ТЗ, производства, оплат и сверки, роли и журнал изменений."
+        ],
         "now": [
           "Функциональная архитектура и проверка требований"
         ],
         "next": [
-          "Согласовать нормативы и провести тест на одной партии"
+          "Сверить первичные документы, исправить расхождения и доказать PostgreSQL production readiness без переноса чувствительных данных на публичную витрину."
         ],
         "seeking": "Ищу пилотных пользователей и профильного технологического партнёра; коммерческие метрики пока не подтверждены."
       },
@@ -229,8 +247,8 @@ export const EXTRA_PROJECTS = [
     },
     "en": {
       "tagline": "Fur manufacturing: from raw material to finished batches",
-      "stage": "Workflow design and manufacturing rules",
-      "card": "Traceable procurement, tanning, cutting, material norms, allocation, sewing, defects and cost. Follow each material lot through to a verified finished batch.",
+      "stage": "Multitenant application with data reconciliation · production admission pending",
+      "card": "THE FUR manages auction purchases, raw-material lots, dressing and fabrics, production specifications, sewing batches, shipments, payments, costing and documented reconciliation with company-level access controls.",
       "what": "Manufacturing operations system for raw hides, processing stages, cutting norms and garment-level costing.",
       "who": "Factories, ateliers, brand owners, raw-material buyers, tanning and logistics partners.",
       "why": "Document origin, yield, waste, stock and order economics while separating direct cost from intermediary fees.",
@@ -255,29 +273,35 @@ export const EXTRA_PROJECTS = [
       ],
       "capabilities": [
         {
-          "area": "Сырьё и партии",
-          "feature": "Lot provenance, shade, grade, size and reservation"
+          "area": "Аукционы и закупки",
+          "feature": "Сырьё, сорт, цвет, спецификация, аукцион, документы и счета"
         },
         {
-          "area": "Нормы / раскрой",
-          "feature": "Patterns, material consumption and sample-based allowances"
+          "area": "Остатки и партии",
+          "feature": "Материальные лоты, движения, резервы, нормы и баланс сырья"
         },
         {
-          "area": "Подрядчики и качество",
-          "feature": "Tanning, sewing, returns, rejects and lead times"
+          "area": "Производство",
+          "feature": "ТЗ, модели, раскрой, пошив, производственные партии и контроль этапов"
         },
         {
-          "area": "Экономика партии",
-          "feature": "Materials + services + freight + fees = landed unit cost"
+          "area": "Экономика",
+          "feature": "Себестоимость сырья и услуг, комиссии, НДС, оплаты, задолженности и отгрузки"
+        },
+        {
+          "area": "Проверяемость",
+          "feature": "Раздельные компании и роли, история операций, сверка первичных документов, очередь неподтверждённых решений"
         }
       ],
       "status": {
-        "done": [],
+        "done": [
+          "Implemented interfaces for purchasing, materials, production orders, payments, reconciliation and audit history."
+        ],
         "now": [
           "Functional architecture and requirement review"
         ],
         "next": [
-          "Approve material norms and test one batch"
+          "Resolve document conflicts and complete PostgreSQL production admission, keeping customer data private."
         ],
         "seeking": "Seeking pilot users and a technical partner; commercial metrics remain unvalidated."
       },
@@ -308,8 +332,8 @@ export const EXTRA_PROJECTS = [
     "ru": {
       "tagline": "Исследовательская цифровая галерея искусства",
       "stage": "Развитие каталога и проверка инфраструктуры",
-      "card": "Галерея живописи, графики и гравюр с полноценным контекстом работы: автор, эпоха, атрибуция, происхождение, связи с другими произведениями. Продажа — возможность, исследование — основа.",
-      "what": "Цифровая галерея и база знаний об объектах искусства с персональным открытием коллекции.",
+      "card": "ANTIQUA — не просто галерея, а исследовательская и коллекционная инфраструктура живописи, графики и гравюр: паспорт произведения, атрибуция, provenance, состояние, экспертиза, научные источники и история владения. Публичная витрина отделена от защищённого досье.",
+      "what": "Цифровой каталог и исследовательский паспорт каждого произведения, связывающий владельцев, галереи, исследователей и участников рынка без подмены документального доказательства маркетингом.",
       "who": "Коллекционеры, галереи, искусствоведы, исследователи, музеи и новые покупатели искусства.",
       "why": "Сделать изучение работы прозрачным и удобным, не подменяя происхождение маркетинговой легендой.",
       "how": "Artwork → Artist → Related Works → Save → Collections → Research; IIIF-изображения и данные об источниках по мере допуска.",
@@ -333,20 +357,24 @@ export const EXTRA_PROJECTS = [
       ],
       "capabilities": [
         {
-          "area": "Галерея / Artwork",
-          "feature": "Произведение, материал, размеры, описание, документы"
+          "area": "Artwork Passport",
+          "feature": "Авторство/атрибуция, дата, техника, размеры, подписи, состояние, медиа"
         },
         {
-          "area": "Research / provenance",
-          "feature": "Атрибуция, литература, выставки, источники, сомнения"
+          "area": "Provenance & evidence",
+          "feature": "Хронология владения, источники, неопределённости, конфликты, библиография"
         },
         {
-          "area": "Discovery",
-          "feature": "Художники, связанные работы, подборки, сохранения"
+          "area": "Research & contributors",
+          "feature": "Экспертные заключения, публикации, выставки, история изменений и рецензирование"
         },
         {
-          "area": "Коммерция",
-          "feature": "Запрос цены, консультация, аукцион — после проверки"
+          "area": "Collections / gallery",
+          "feature": "Частные и публичные коллекции, исследовательское представление, доступ по ролям"
+        },
+        {
+          "area": "Commercial journeys",
+          "feature": "Запрос по произведению, подготовка частной продажи и статусы без заявления о готовых платежах"
         }
       ],
       "status": {
@@ -380,7 +408,7 @@ export const EXTRA_PROJECTS = [
     "en": {
       "tagline": "A research-first digital art gallery",
       "stage": "Catalogue development and infrastructure verification",
-      "card": "A gallery for paintings, prints and drawings with artist, period, attribution, provenance and related works. Research-first, commerce optional.",
+      "card": "ANTIQUA goes beyond an art gallery: artwork passports, attribution, provenance, condition, scholarly evidence, collection records and controlled specialist review for paintings, prints and works on paper.",
       "what": "A digital gallery and research archive with personalised discovery.",
       "who": "Collectors, galleries, historians, researchers, museums and first-time art buyers.",
       "why": "Support verifiable artwork research rather than replacing provenance with sales narratives.",
@@ -405,20 +433,24 @@ export const EXTRA_PROJECTS = [
       ],
       "capabilities": [
         {
-          "area": "Галерея / Artwork",
-          "feature": "Artwork, medium, dimensions, description, documents"
+          "area": "Artwork Passport",
+          "feature": "Авторство/атрибуция, дата, техника, размеры, подписи, состояние, медиа"
         },
         {
-          "area": "Research / provenance",
-          "feature": "Attribution, bibliography, exhibitions, sources and uncertainties"
+          "area": "Provenance & evidence",
+          "feature": "Хронология владения, источники, неопределённости, конфликты, библиография"
         },
         {
-          "area": "Discovery",
-          "feature": "Artists, related works, collections and saves"
+          "area": "Research & contributors",
+          "feature": "Экспертные заключения, публикации, выставки, история изменений и рецензирование"
         },
         {
-          "area": "Коммерция",
-          "feature": "Price inquiries, consultations and optional auction"
+          "area": "Collections / gallery",
+          "feature": "Частные и публичные коллекции, исследовательское представление, доступ по ролям"
+        },
+        {
+          "area": "Commercial journeys",
+          "feature": "Запрос по произведению, подготовка частной продажи и статусы без заявления о готовых платежах"
         }
       ],
       "status": {
@@ -457,9 +489,9 @@ export const EXTRA_PROJECTS = [
     "shots": [],
     "ru": {
       "tagline": "Конструктор новых моделей из деталей своих наборов",
-      "stage": "Игровой прототип; проверка восстановления прогресса",
-      "card": "Каталог наборов и деталей, 3D-сборка по шагам, Rescue Station, новые инструкции из собственных деталей и публичная библиотека авторских моделей. Вознаграждение авторам внутренней валютой — запланированная механика, не объявленная выплатами.",
-      "what": "Игровая платформа для LEGO-совместимых деталей: инвентарь → совместимые инструкции → сборка → публикация авторской модели.",
+      "stage": "AR-прототип на SwiftUI/ARKit · проверка на реальном устройстве и продуктовая приёмка необходимы",
+      "card": "IGRA — интерактивный цифровой конструктор для iPhone/iPad: 3D-детали на столе в AR, пошаговые инструкции, сборка рукой, подсказки, коллекции, песочница, игровые задания и соревнование рядом. Большие наборы, редактор моделей, образование и авторское сообщество — направления развития.",
+      "what": "Физически понятная виртуальная сборка: распаковать коробку, рассмотреть детали, собрать модель по инструкции, сохранить прогресс и играть с готовыми моделями.",
       "who": "Игроки, семьи, коллекционеры конструкторов, преподаватели и независимые авторы инструкций.",
       "why": "Дать деталям вторую жизнь; объяснить, какие модели действительно можно собрать без покупки новых наборов.",
       "how": "Нормализованный реестр деталей, проверка комплектности, состояние шагов, восстановление сессии, модерация и подтверждаемая статистика использования.",
@@ -483,20 +515,24 @@ export const EXTRA_PROJECTS = [
       ],
       "capabilities": [
         {
-          "area": "Инвентарь деталей",
-          "feature": "Наборы → part ID / цвет / количество → доступный остаток"
+          "area": "Стол и сборка AR",
+          "feature": "Распознавание плоскости, коробка с деталями, рука, захват, поворот, snap и подсказки"
         },
         {
-          "area": "Инструкции и сборка",
-          "feature": "Проверка 100% комплектности, шаги, сохранение, возобновление"
+          "area": "Инструкции",
+          "feature": "Книга шагов, режим самостоятельной сборки, просмотр детали и восстановление прогресса"
         },
         {
-          "area": "Библиотека сообщества",
-          "feature": "Авторские MOC, поиск, лицензирование, модерация"
+          "area": "Игровой цикл",
+          "feature": "Звёзды, рекорды, монеты, опыт, навыки, режим на время, локальное соревнование"
         },
         {
-          "area": "Внутренняя экономика",
-          "feature": "Учёт подтверждённых использований и игровых начислений"
+          "area": "Коллекция и творчество",
+          "feature": "Полка моделей, магазин наборов, песочница, мастерская, сохранение"
+        },
+        {
+          "area": "Перспектива",
+          "feature": "Большие пакетные наборы, каталоги авторских моделей, образовательный класс, модерация и сервер — roadmap, не готовая услуга"
         }
       ],
       "status": {
@@ -505,7 +541,7 @@ export const EXTRA_PROJECTS = [
           "Функциональная архитектура и проверка требований"
         ],
         "next": [
-          "Подтвердить E2E-сборку и восстановление, затем пилот библиотеки"
+          "Испытания на настоящих iPad/iPhone, качество физики и инструкций, безопасность детей, расширение оригинального каталога, облачные профили и проверка спроса."
         ],
         "seeking": "Ищу пилотных пользователей и профильного технологического партнёра; коммерческие метрики пока не подтверждены."
       },
@@ -529,8 +565,8 @@ export const EXTRA_PROJECTS = [
     },
     "en": {
       "tagline": "Build new models from the parts you own",
-      "stage": "Game prototype; progress recovery under test",
-      "card": "Set and parts catalogues, step-by-step 3D builds, rescue mode, user-created instructions and a shared model library. In-app creator rewards are a proposed mechanic, not cash payouts.",
+      "stage": "SwiftUI/ARKit prototype · device and product acceptance outstanding",
+      "card": "IGRA is a hands-on AR brick-building prototype for iPhone/iPad: tabletop pieces, guided manual, hands-on assembly, hints, collection shelf, sandbox and local play. Larger sets, creative publishing, education and community are roadmap goals.",
       "what": "A build-play platform: owned parts → feasible instructions → guided build → published community creations.",
       "who": "Builders, families, brick collectors, educators and independent instruction creators.",
       "why": "Give existing bricks new uses and distinguish feasible builds from instructions requiring missing parts.",
@@ -555,20 +591,24 @@ export const EXTRA_PROJECTS = [
       ],
       "capabilities": [
         {
-          "area": "Инвентарь деталей",
-          "feature": "Sets → part ID, colour, count and available quantity"
+          "area": "Стол и сборка AR",
+          "feature": "Распознавание плоскости, коробка с деталями, рука, захват, поворот, snap и подсказки"
         },
         {
-          "area": "Инструкции и сборка",
-          "feature": "100% feasibility, steps, save and resume"
+          "area": "Инструкции",
+          "feature": "Книга шагов, режим самостоятельной сборки, просмотр детали и восстановление прогресса"
         },
         {
-          "area": "Библиотека сообщества",
-          "feature": "Community MOCs, search, licensing and moderation"
+          "area": "Игровой цикл",
+          "feature": "Звёзды, рекорды, монеты, опыт, навыки, режим на время, локальное соревнование"
         },
         {
-          "area": "Внутренняя экономика",
-          "feature": "Verified uses and in-app virtual reward ledger"
+          "area": "Коллекция и творчество",
+          "feature": "Полка моделей, магазин наборов, песочница, мастерская, сохранение"
+        },
+        {
+          "area": "Перспектива",
+          "feature": "Большие пакетные наборы, каталоги авторских моделей, образовательный класс, модерация и сервер — roadmap, не готовая услуга"
         }
       ],
       "status": {
@@ -577,7 +617,7 @@ export const EXTRA_PROJECTS = [
           "Functional architecture and requirement review"
         ],
         "next": [
-          "Prove E2E builds and recovery before the library pilot"
+          "Real iPad/iPhone acceptance, physical realism, children's privacy/safety, original catalogue scaling, cloud profiles and demand validation."
         ],
         "seeking": "Seeking pilot users and a technical partner; commercial metrics remain unvalidated."
       },
@@ -602,14 +642,14 @@ export const EXTRA_PROJECTS = [
   },
   {
     "id": "marco",
-    "name": "Marco Pescarolo Commercial OS",
+    "name": "Marco Pescarolo — Private Commercial Showroom",
     "device": "ipad",
     "shots": [],
     "ru": {
       "tagline": "Мультиконтурный luxury showroom и B2B-ordering",
-      "stage": "Локальная разработка; production admission закрыт",
-      "card": "Единая система коллекций, персональных цен, размеров и доступности. Сценарии Buyer Paris, Dubai, HQ, Private и Brand Admin: от lookbook и матрицы заказа до подтверждения, поставки, аналитики sell-through и повторной закупки.",
-      "what": "Цифровой showroom и коммерческая операционная система бренда с раздельными B2B/B2C ролями.",
+      "stage": "Брендовая демонстрационная разработка; полноценный production lifecycle и независимая проверка доступов не подтверждены",
+      "card": "Эксклюзивная цифровая коммерческая платформа для итальянского бренда Marco Pescarolo: брендовый showroom, коллекции, приватные цены и рекомендации размера, B2C-заказ, оптовая размерная матрица, согласование, поставки, sell-through и повторная закупка.",
+      "what": "Не универсальный шаблон торговой площадки: отдельная брендовая система с ролями Private Client, Wholesale Buyer и Admin, с собственными коммерческими сценариями и визуальным языком.",
       "who": "Люксовые бренды, байеры магазинов, торговые представители, частные клиенты и администрация бренда.",
       "why": "Превратить презентацию коллекции в контролируемый заказ и повторную продажу, не раскрывая чужие цены или себестоимость.",
       "how": "Каталог → прайс по аккаунту → заказная матрица → подтверждение → allocation → ETA → отчетность; контроль RLS и серверной проверки цены.",
@@ -679,8 +719,8 @@ export const EXTRA_PROJECTS = [
     },
     "en": {
       "tagline": "Multi-channel luxury showroom and B2B ordering",
-      "stage": "Local build; production admission pending",
-      "card": "One catalogue for collections, negotiated pricing, sizes and live availability. Buyer Paris, Dubai, HQ, Private and Admin journeys from lookbook and order matrix to delivery, sell-through and replenishment.",
+      "stage": "Brand-specific showcase; full production lifecycle and independent access admission not yet verified",
+      "card": "A brand-exclusive digital commercial showroom designed for Italian label Marco Pescarolo: collections, private prices and sizing, B2C order path, wholesale matrices, brand approvals, delivery, sell-through and reorder.",
       "what": "A digital showroom and commercial OS with separate wholesale and private-client permissions.",
       "who": "Luxury brands, wholesale buyers, sales reps, private clients and brand administration.",
       "why": "Turn presentations into governed ordering and repeat sales without leaking restricted pricing or cost.",
@@ -758,7 +798,7 @@ export const EXTRA_PROJECTS = [
     "ru": {
       "tagline": "Персональная финансовая устойчивость и управление обязательствами",
       "stage": "Спецификация и инфраструктурная подготовка; финансовые функции не заявлены запущенными",
-      "card": "Финтех-помощник для управления кредитами, картами, рассрочками и регулярными платежами. Предупреждает кассовые разрывы, строит проверяемые планы погашения и помогает сравнивать реструктуризацию и рефинансирование без навязывания новых займов.",
+      "card": "Сервис личной финансовой устойчивости: кредиты, карты, рассрочки, график обязательств, семейный бюджет, риски кассовых разрывов и проверяемые сценарии погашения, реструктуризации и рефинансирования.",
       "what": "Операционная система долговой нагрузки человека: все обязательства, календарь платежей, доходы, резерв и сценарии решений в одном пространстве.",
       "who": "Люди с несколькими кредитами, кредитными картами, нерегулярным доходом, семьи, финансовые консультанты и банки-партнёры в разрешённых сценариях.",
       "why": "Предотвращать просрочки и непредвиденный дефицит денег, показывая стоимость каждого решения и его влияние на будущие платежи.",
@@ -838,7 +878,7 @@ export const EXTRA_PROJECTS = [
     "en": {
       "tagline": "Personal debt stability and obligation management",
       "stage": "Specification and infrastructure preparation; financial features not claimed live",
-      "card": "A household-debt copilot for loans, cards, instalments and scheduled bills: cash-gap warnings, auditable repayment plans, restructuring and refinancing comparisons without pushing new borrowing.",
+      "card": "Personal debt and cash-flow resilience: loans, cards, payment calendars, family budgets, shortfall risks, repayment planning, restructuring and refinance scenarios. Financial features require validation.",
       "what": "An individual's debt operations workspace combining liabilities, payment calendar, income, liquidity reserve and decision scenarios.",
       "who": "People with multiple debts or variable income, households, financial coaches and authorised bank partners.",
       "why": "Prevent arrears and cash shortfalls by showing each decision's cost and effect on future obligations.",
