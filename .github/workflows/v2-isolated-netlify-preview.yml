@@ -51,29 +51,11 @@ jobs:
             console.log("Established isolated preview deployed.");
           '
           printf '### Stable Netlify V2 preview\nhttps://syntha-v2-preview-petr.netlify.app/\n' >> "$GITHUB_STEP_SUMMARY"
-      - name: Fallback -- publish anonymous static preview without an auth token
+      - name: Explain missing Netlify publication authorization
         if: env.NETLIFY_AUTH_TOKEN == ''
         run: |
-          set -euo pipefail
-          echo "::notice::No NETLIFY_AUTH_TOKEN. Publishing to a separate, temporary Netlify site (not syntha.pro and not the established preview)."
-          npx --yes netlify-cli@23.11.0 deploy --allow-anonymous --no-build --dir=dist-pages --json > /tmp/syntha-anonymous-preview.json
-          node --input-type=module -e '
-            import fs from "node:fs";
-            const x=JSON.parse(fs.readFileSync("/tmp/syntha-anonymous-preview.json","utf8"));
-            const candidates=[x.url,x.deploy_url,x.deployUrl,x.site_url,x.siteUrl].filter(v=>typeof v==="string" && v.startsWith("https://"));
-            const candidate=candidates.find(v=>{
-              try {return new URL(v).hostname.endsWith(".netlify.app");} catch {return false;}
-            });
-            if(!candidate) throw Error("No publicly accessible Netlify URL returned");
-            const u=new URL(candidate);
-            if(u.protocol!=="https:" || u.pathname!=="/") throw Error("Unexpected preview URL format");
-            fs.appendFileSync(process.env.GITHUB_ENV,"PREVIEW_URL="+u.origin+"/\n");
-            fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY,
-              "### Temporary V2 preview (claimable for 1 hour)\n"+
-              u.origin+"/\n\nExact SHA: "+process.env.EXPECTED_SHA+"\n"+
-              "This is a disposable static test deployment; original site is unchanged.\n");
-            console.log("Anonymous preview URL: "+u.origin+"/");
-          '
+          echo "::error::NETLIFY_AUTH_TOKEN is required for the existing isolated Netlify site; the pinned CLI has no anonymous deploy option."
+          exit 1
       - name: Admit public exact-SHA preview
         run: node scripts/verify-public-preview.mjs
       - name: Browser interactions on published preview
