@@ -13,7 +13,7 @@ VALUES('92000000-0000-4000-8000-000000000001','00000000-0000-4000-8000-000000000
 DO $$ BEGIN
   BEGIN
     INSERT INTO public.deal_events(tenant_id,deal_id,event_type,to_stage,payload)
-    VALUES('00000000-0000-4000-8000-000000000001','82000000-0000-4000-8000-000000000012','bad_scope','draft','{}');
+    VALUES('00000000-0000-4000-8000-000000000001','ffffffff-ffff-4fff-8fff-ffffffffffff','bad_scope','draft','{}');
     RAISE EXCEPTION 'v31_7_deal_event_scope_guard_failed';
   EXCEPTION WHEN check_violation THEN NULL; END;
 END $$;
