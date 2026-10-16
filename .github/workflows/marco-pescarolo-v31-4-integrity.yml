@@ -1,0 +1,84 @@
+name: Marco Pescarolo v31.4 Internal Integrity PG17
+
+on:
+  push:
+    branches:
+      - marco-pescarolo-v31-4-internal-integrity-ci
+    paths:
+      - "marco-pescarolo-v31-4/**"
+      - ".github/workflows/marco-pescarolo-v31-4-integrity.yml"
+  workflow_dispatch:
+
+jobs:
+  integrity:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: mp_integrity
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d mp_integrity"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 20
+    env:
+      PGHOST: localhost
+      PGPORT: 5432
+      PGUSER: postgres
+      PGPASSWORD: postgres
+      PGDATABASE: mp_integrity
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify PostgreSQL 17
+        run: |
+          psql -XAtqc "show server_version;"
+          test "$(psql -XAtqc "show server_version_num;" | cut -c1-2)" = "17"
+
+      - name: Apply reusable full-contract baseline
+        run: psql -v ON_ERROR_STOP=1 -f marco-pescarolo-v31-2/sql/00_full_contract_baseline.sql
+
+      - name: Apply v31.4 live-shape fixture
+        run: psql -v ON_ERROR_STOP=1 -f marco-pescarolo-v31-4/sql/00_v31_4_ci_live_shape_patch.sql
+
+      - name: Build rollback-safe hardening body
+        run: |
+          sed '1,/^BEGIN;$/d' marco-pescarolo-v31-4/sql/14_internal_integrity_hardening_STAGED.sql | sed '/^ROLLBACK;$/d' > /tmp/v31_4_hardening_body.sql
+          test -s /tmp/v31_4_hardening_body.sql
+
+      - name: Execute v31.4 internal integrity transaction
+        run: psql -v ON_ERROR_STOP=1 -f marco-pescarolo-v31-4/sql/16_v31_4_integrity_driver.sql
+
+      - name: Verify rollback no residue
+        run: |
+          test "$(psql -XAtqc "select to_regprocedure('public.mp_client_snapshot_v2(text,uuid)') is null;")" = "t"
+          test "$(psql -XAtqc "select to_regprocedure('public.mp_wholesale_create_order_v2(uuid,text,text,text,uuid)') is null;")" = "t"
+          test "$(psql -XAtqc "select count(*) from public.deals where code like 'CI-WEB-%' or code like 'CI-COPY-%' or code='REORDER-PROD';")" = "0"
+
+      - name: Evidence
+        run: |
+          mkdir -p artifacts
+          {
+            echo "V31_4_INTERNAL_INTEGRITY_PG17=PASS"
+            echo "server_version=$(psql -XAtqc "show server_version;")"
+            echo "db_role_mapping=PASS"
+            echo "production_only_snapshot=PASS"
+            echo "demo_mutation_denial=PASS"
+            echo "wholesale_create_production=PASS"
+            echo "idempotent_nonproduction_promotion_denial=PASS"
+            echo "copy_data_class=PASS"
+            echo "reorder_data_class_provenance=PASS"
+            echo "raw_browser_surface_closed=PASS"
+            echo "rollback_no_residue=PASS"
+            echo "commit=$GITHUB_SHA"
+          } | tee artifacts/v31-4-internal-integrity.txt
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: marco-pescarolo-v31-4-internal-integrity
+          path: artifacts/v31-4-internal-integrity.txt
