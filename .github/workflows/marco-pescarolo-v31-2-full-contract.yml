@@ -1,0 +1,69 @@
+name: Marco Pescarolo v31.2 Full Contract PG17
+
+on:
+  push:
+    branches:
+      - marco-pescarolo-v31-2-full-migration-ci
+    paths:
+      - "marco-pescarolo-v31-2/**"
+      - ".github/workflows/marco-pescarolo-v31-2-full-contract.yml"
+  workflow_dispatch:
+
+jobs:
+  full-contract:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: mp_admission
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d mp_admission"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 20
+    env:
+      PGHOST: localhost
+      PGPORT: 5432
+      PGUSER: postgres
+      PGPASSWORD: postgres
+      PGDATABASE: mp_admission
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify PostgreSQL 17
+        run: |
+          psql -XAtqc "show server_version;"
+          test "$(psql -XAtqc "show server_version_num;" | cut -c1-2)" = "17"
+      - name: Apply expanded full-contract baseline
+        run: psql -v ON_ERROR_STOP=1 -f marco-pescarolo-v31-2/sql/00_full_contract_baseline.sql
+      - name: Verify full-contract topology
+        run: |
+          test "$(psql -XAtqc "select count(*) from information_schema.tables where table_schema='public' and table_name in ('tenants','users','clients','client_stores','portal_memberships','mp_brand_admin_memberships','products','client_interests','private_fit_profiles','private_fit_profile_versions','fit_recommendation_runs','deals','deal_lines','shipments','shipment_lines','delivery_receipts','reorder_proposals','reorder_lines','reorder_events','audit_log');")" = "20"
+          test "$(psql -XAtqc "select count(*) from pg_class c join pg_namespace n on n.oid=c.relnamespace where n.nspname='public' and c.relname in ('v_deal_cash_authority','v_sellthrough_intelligence','v_private_wardrobe_authority','v_private_size_history_authority','v_private_size_signal_authority') and c.reloptions @> array['security_invoker=true'];")" = "5"
+      - name: Execute five-role admission on expanded baseline
+        run: psql -v ON_ERROR_STOP=1 -f marco-pescarolo-v31-1/sql/01_five_role_smoke.sql
+      - name: Verify transaction rollback
+        run: |
+          test "$(psql -XAtqc "select count(*) from public.portal_memberships;")" = "0"
+          test "$(psql -XAtqc "select count(*) from public.reorder_proposals;")" = "0"
+          test "$(psql -XAtqc "select count(*) from public.private_fit_profile_versions;")" = "0"
+      - name: Evidence
+        run: |
+          mkdir -p artifacts
+          {
+            echo "V31_2_FULL_CONTRACT_PG17=PASS"
+            echo "server_version=$(psql -XAtqc "show server_version;")"
+            echo "relations=20"
+            echo "security_invoker_views=5"
+            echo "five_role_smoke=PASS"
+            echo "rollback_verified=true"
+            echo "commit=$GITHUB_SHA"
+          } | tee artifacts/v31-2-full-contract.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: marco-pescarolo-v31-2-full-contract
+          path: artifacts/v31-2-full-contract.txt
