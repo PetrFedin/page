@@ -98,7 +98,7 @@ END
 $$;
 
 CREATE OR REPLACE FUNCTION private.mp_brand_admin_actor()
-RETURNS public.mp_brand_admin_memberships
+RETURNS mp_brand_admin_memberships
 LANGUAGE plpgsql
 STABLE SECURITY DEFINER
 SET search_path TO ''
