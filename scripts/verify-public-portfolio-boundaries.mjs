@@ -40,7 +40,7 @@ assert.match(healthcare.en.stage,/Independent concept/, 'Independent concept mus
 assert.doesNotMatch(healthcare.ru.who,/«Промомед» получает/, 'Do not assert measured Promomed client benefit');
 assert.doesNotMatch(healthcare.en.who,/Promomed gains/, 'Do not assert corporate approval or observed outcome');
 const fur=all.find(p=>p.id==='fur');
-assert.equal(fur.name,'FUR PRODUCTION','FUR must remain a neutral platform dossier');
+assert.equal(fur.name,'THE FUR','FUR must remain a neutral platform dossier');
 const client=all.find(p=>p.id==='marco');
 assert.ok(client?.ru?.stage && !/production готов|production ready/i.test(client.ru.stage),
   'Showroom must not silently assert PostgreSQL production admission');
