@@ -61,7 +61,7 @@ INSERT INTO public.payment_events(tenant_id,payment_id,deal_id,proforma_id,event
 VALUES('00000000-0000-4000-8000-000000000001','95000000-0000-4000-8000-000000000001','91000000-0000-4000-8000-000000000001','94000000-0000-4000-8000-000000000001','submitted',NULL,'submitted','buyer','{}');
 SET CONSTRAINTS trg_mp_payment_receipt IMMEDIATE;
 SET CONSTRAINTS trg_mp_payment_receipt DEFERRED;
-UPDATE public.payments SET status='verified' WHERE id='95000000-0000-4000-8000-000000000001';
+UPDATE public.payments SET status='verified',verified_at=now(),verified_by='20000000-0000-4000-8000-000000000003' WHERE id='95000000-0000-4000-8000-000000000001';
 INSERT INTO public.payment_events(tenant_id,payment_id,deal_id,proforma_id,event_type,from_status,to_status,actor_kind,payload)
 VALUES('00000000-0000-4000-8000-000000000001','95000000-0000-4000-8000-000000000001','91000000-0000-4000-8000-000000000001','94000000-0000-4000-8000-000000000001','verified','submitted','verified','finance','{}');
 SET CONSTRAINTS trg_mp_payment_receipt IMMEDIATE;
