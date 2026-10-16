@@ -359,7 +359,7 @@ function renderCards() {
   if (flowOpen) renderSeasonFlow();
   const pm = $('#projects-more');
   pm.hidden = PROJECTS.length <= PROJECTS_FIRST;
-  pm.textContent = projectsExpanded ? t.projects.collapse : t.projects.more;
+  pm.textContent = projectsExpanded ? (lang==='en'?'Hide other projects':'Скрыть другие проекты') : (lang==='en'?'Show other projects':'Показать другие проекты');
   pm.setAttribute('aria-expanded', String(projectsExpanded));
   polishProjectCards(lang);
 }
