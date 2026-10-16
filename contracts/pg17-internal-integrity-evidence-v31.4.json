@@ -1,0 +1,32 @@
+{
+  "version": "31.4",
+  "status": "PASSED",
+  "productionChanged": false,
+  "database": "PostgreSQL 17",
+  "github": {
+    "runId": 38899427374,
+    "jobId": 116967711683,
+    "commit": "dbedb594afb72c816eb48a6201f8af20a4e36003",
+    "artifactId": 12045117572,
+    "artifactName": "marco-pescarolo-v31-4-internal-integrity",
+    "artifactSha256": "3d4be2dc22befa28f4380faae3f91d54b009acb647ff7e9274a4243ef4fe34a3"
+  },
+  "checks": {
+    "dbRoleMapping": "PASS",
+    "productionOnlySnapshot": "PASS",
+    "demoMutationDenial": "PASS",
+    "wholesaleCreateProduction": "PASS",
+    "idempotentNonproductionPromotionDenial": "PASS",
+    "copyPreservesProduction": "PASS",
+    "reorderDataClassProvenance": "PASS",
+    "rawBrowserSurfaceClosed": "PASS",
+    "rollbackNoResidue": "PASS"
+  },
+  "liveReadOnlyAudit": {
+    "relationshipChecks": 31,
+    "observedCrossScopeMismatches": 0,
+    "nonProductionLifecycleBypasses": 1,
+    "classification": "synthetic fixture; excluded from production authority"
+  },
+  "releaseState": "PG17_QUALIFIED_PRODUCTION_NOT_MIGRATED"
+}
