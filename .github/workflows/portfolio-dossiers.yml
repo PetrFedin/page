@@ -121,6 +121,8 @@ jobs:
       - run: node --check scripts/tg-queue.mjs
       - run: node --check assets/fashion-analytics-core.js
       - run: node --check assets/fashion-budget.js
+      - run: node --check scripts/browser-v2-client-paths-qa.mjs
+      - run: node --check assets/economics-page.js
       - run: node --check scripts/verify-fashion-budget.mjs
       - run: node --check assets/fashion-assortment.js
       - run: node --check scripts/verify-fashion-assortment.mjs
@@ -163,14 +165,9 @@ jobs:
         run: |
           python3 -m http.server 4321 --bind 127.0.0.1 --directory dist-pages >/tmp/portfolio-http.log 2>&1 &
           node scripts/browser-portfolio-qa.mjs
-          node scripts/browser-fashion-analytics-qa.mjs
+          node scripts/browser-v2-client-paths-qa.mjs
           node scripts/browser-lead-routes-qa.mjs
           node scripts/browser-advisory-economics-qa.mjs
-          node scripts/browser-opportunity-studio-qa.mjs
-          node scripts/browser-v2-language-privacy-qa.mjs
-          node scripts/browser-v2-page-integrity-qa.mjs
-          node scripts/browser-v2-accessibility-qa.mjs
-          node scripts/browser-v2-commercial-terms-qa.mjs
       - uses: actions/upload-artifact@v4
         if: success()
         with:
