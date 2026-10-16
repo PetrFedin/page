@@ -1,0 +1,20 @@
+{
+  "name": "Marco Pescarolo Lifecycle Consistency Candidate",
+  "version": "31.5",
+  "productionModified": false,
+  "trust": {
+    "v31_4InternalIntegrityPg17": "PASSED",
+    "v31_5LifecycleConsistencyPg17": "PASSED",
+    "lifecycleStateModelAlignment": "PASSED",
+    "authoritativeFullCloneAdmission": "PENDING",
+    "realAuthBrowserE2E": "PENDING",
+    "productionMigration": "HOLD"
+  },
+  "githubActions": {
+    "lifecycleRunId": 38925912712,
+    "lifecycleJobId": 117057267620,
+    "lifecycleCommit": "28a74f9f96d7db7d9a136a0a47b42be0bd57e25b",
+    "lifecycleArtifactId": 12056392727,
+    "lifecycleArtifactSha256": "d5292ce82cd0252c3b531042465b1d9c163b5d6b43c69b1e5f303eb6e26608b7"
+  }
+}
