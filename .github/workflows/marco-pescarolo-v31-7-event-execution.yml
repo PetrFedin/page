@@ -1,0 +1,99 @@
+name: Marco Pescarolo v31.7 Event Execution PG17
+
+on:
+  push:
+    branches:
+      - marco-pescarolo-v31-7-event-execution-ci
+    paths:
+      - "marco-pescarolo-v31-7/**"
+      - ".github/workflows/marco-pescarolo-v31-7-event-execution.yml"
+  workflow_dispatch:
+
+jobs:
+  event-execution:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: mp_event_execution
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d mp_event_execution"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 20
+    env:
+      PGHOST: localhost
+      PGPORT: 5432
+      PGUSER: postgres
+      PGPASSWORD: postgres
+      PGDATABASE: mp_event_execution
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify PostgreSQL 17
+        run: |
+          psql -XAtqc "show server_version;"
+          test "$(psql -XAtqc "show server_version_num;" | cut -c1-2)" = "17"
+
+      - name: Apply reusable full-contract baseline
+        run: psql -v ON_ERROR_STOP=1 -f marco-pescarolo-v31-2/sql/00_full_contract_baseline.sql
+
+      - name: Apply v31.4 live-shape fixture
+        run: psql -v ON_ERROR_STOP=1 -f marco-pescarolo-v31-4/sql/00_v31_4_ci_live_shape_patch.sql
+
+      - name: Apply v31.5 lifecycle live-shape fixture
+        run: psql -v ON_ERROR_STOP=1 -f marco-pescarolo-v31-5/sql/00_v31_5_ci_live_shape_patch.sql
+
+      - name: Apply v31.7 event live-shape fixture
+        run: psql -v ON_ERROR_STOP=1 -f marco-pescarolo-v31-7/sql/00_v31_7_ci_live_shape_patch.sql
+
+      - name: Build cumulative rollback-safe bodies
+        run: |
+          sed '1,/^BEGIN;$/d' marco-pescarolo-v31-4/sql/14_internal_integrity_hardening_STAGED.sql | sed '/^ROLLBACK;$/d' > /tmp/v31_4_hardening_body.sql
+          sed '1,/^BEGIN;$/d' marco-pescarolo-v31-5/sql/17_lifecycle_consistency_STAGED.sql | sed '/^ROLLBACK;$/d' > /tmp/v31_5_lifecycle_body.sql
+          sed '1,/^BEGIN;$/d' marco-pescarolo-v31-7/sql/21_relation_concurrency_hardening_STAGED.sql | sed '/^ROLLBACK;$/d' > /tmp/v31_6_relation_body.sql
+          sed '1,/^BEGIN;$/d' marco-pescarolo-v31-7/sql/25_event_execution_integrity_STAGED.sql | sed '/^ROLLBACK;$/d' > /tmp/v31_7_event_body.sql
+          test -s /tmp/v31_4_hardening_body.sql
+          test -s /tmp/v31_5_lifecycle_body.sql
+          test -s /tmp/v31_6_relation_body.sql
+          test -s /tmp/v31_7_event_body.sql
+
+      - name: Execute cumulative v31.7 event integrity transaction
+        run: psql -v ON_ERROR_STOP=1 -f marco-pescarolo-v31-7/sql/27_v31_7_event_execution_driver.sql
+
+      - name: Verify rollback and zero event residue
+        run: |
+          test "$(psql -XAtqc "select to_regprocedure('public.mp_admin_execution_integrity_snapshot()') is null;")" = "t"
+          test "$(psql -XAtqc "select to_regprocedure('private.mp_require_deal_stage_receipt()') is null;")" = "t"
+          test "$(psql -XAtqc "select count(*) from pg_trigger where tgname like 'trg_mp_%receipt%' and not tgisinternal;")" = "0"
+          test "$(psql -XAtqc "select count(*) from public.outbox_events;")" = "0"
+          test "$(psql -XAtqc "select count(*) from public.deals where code='CI-EVT-1';")" = "0"
+
+      - name: Evidence
+        run: |
+          mkdir -p artifacts
+          {
+            echo "V31_7_EVENT_EXECUTION_PG17=PASS"
+            echo "server_version=$(psql -XAtqc "show server_version;")"
+            echo "event_relation_guards=PASS"
+            echo "append_only_events=PASS"
+            echo "deferred_execution_receipts=PASS"
+            echo "revision_event_bridge=PASS"
+            echo "shipment_deal_bridge=PASS"
+            echo "transactional_outbox=PASS"
+            echo "legacy_reorder_ordered_state=BLOCKED"
+            echo "outbox_consumer=NOT_QUALIFIED"
+            echo "rollback_no_residue=PASS"
+            echo "commit=$GITHUB_SHA"
+          } | tee artifacts/v31-7-event-execution.txt
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: marco-pescarolo-v31-7-event-execution
+          path: artifacts/v31-7-event-execution.txt
