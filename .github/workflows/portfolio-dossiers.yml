@@ -8,6 +8,7 @@ on:
       - 'assets/styles.css'
       - 'assets/portfolio-extensions.js'
       - 'scripts/verify-public-portfolio-boundaries.mjs'
+      - 'scripts/verify-public-preview.mjs'
       - 'docs/PAGE_V2_PORTFOLIO_PROOF_FRESHNESS_2026-10-15.md'
       - 'assets/investor-calculator.js'
       - 'assets/advisory-economics.js'
@@ -132,6 +133,7 @@ jobs:
       - run: node --check assets/content.js
       - run: node --check assets/portfolio-extensions.js
       - run: node --check scripts/verify-public-portfolio-boundaries.mjs
+      - run: node --check scripts/verify-public-preview.mjs
       - run: node --check assets/logos.js
       - run: node scripts/verify-public-portfolio-boundaries.mjs
       - run: node scripts/verify-investor-dossiers.mjs
