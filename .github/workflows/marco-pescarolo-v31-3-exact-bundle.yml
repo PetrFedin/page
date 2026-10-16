@@ -1,0 +1,98 @@
+name: Marco Pescarolo v31.3 Exact Bundle PG17
+
+on:
+  push:
+    branches:
+      - marco-pescarolo-v31-3-exact-bundle-ci
+    paths:
+      - "marco-pescarolo-v31-3/**"
+      - ".github/workflows/marco-pescarolo-v31-3-exact-bundle.yml"
+  workflow_dispatch:
+
+jobs:
+  exact-bundle:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: mp_admission
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d mp_admission"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 20
+
+    env:
+      PGHOST: localhost
+      PGPORT: 5432
+      PGUSER: postgres
+      PGPASSWORD: postgres
+      PGDATABASE: mp_admission
+      EXPECTED_BUNDLE_SIZE: "90459"
+      EXPECTED_BUNDLE_SHA256: "caab3337e8626e44669ed7237cda069be8bdfe21f647825d224b82def54dc108"
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify PostgreSQL 17
+        run: |
+          psql -XAtqc "show server_version;"
+          test "$(psql -XAtqc "show server_version_num;" | cut -c1-2)" = "17"
+
+      - name: Apply expanded full-contract baseline
+        run: psql -v ON_ERROR_STOP=1 -f marco-pescarolo-v31-2/sql/00_full_contract_baseline.sql
+
+      - name: Apply hash-faithful dependency patch
+        run: psql -v ON_ERROR_STOP=1 -f marco-pescarolo-v31-3/sql/00_hash_faithful_patch.sql
+
+      - name: Verify six dependency hashes
+        run: |
+          test "$(psql -XAtqc "select md5(pg_get_functiondef('private.mp_brand_admin_actor()'::regprocedure));")" = "43258548d12f02374e711a19ad4d9e68"
+          test "$(psql -XAtqc "select md5(pg_get_functiondef('private.portal_buyer_approve_reorder_internal(uuid)'::regprocedure));")" = "18b18e976f27e93643a37666255cfe73"
+          test "$(psql -XAtqc "select md5(pg_get_functiondef('public.add_fit_profile_version(uuid,text,numeric,numeric,numeric,numeric,numeric,numeric,numeric,uuid,text)'::regprocedure));")" = "e4f14c5e3e8ddcf3333502cbcf126ba3"
+          test "$(psql -XAtqc "select md5(pg_get_functiondef('public.compute_fit_recommendation(uuid,uuid,boolean)'::regprocedure));")" = "20aaab1487c7ae339622fff5a6579536"
+          test "$(psql -XAtqc "select md5(pg_get_functiondef('public.brand_approve_reorder(uuid,uuid,text)'::regprocedure));")" = "0dc49456056d4da2a49569b88dd4652e"
+          test "$(psql -XAtqc "select md5(pg_get_functiondef('public.convert_reorder_to_deal(uuid,uuid,text,text)'::regprocedure));")" = "c838f34a4948c7baff64f35280f93008"
+
+      - name: Verify exact bundle bytes
+        run: |
+          BUNDLE=marco-pescarolo-v31-3/build/v30.9-migration-qualification.sql
+          test "$(wc -c < "$BUNDLE" | tr -d ' ')" = "$EXPECTED_BUNDLE_SIZE"
+          test "$(sha256sum "$BUNDLE" | awk '{print $1}')" = "$EXPECTED_BUNDLE_SHA256"
+
+      - name: Execute exact v30.9 qualification bundle
+        run: psql -v ON_ERROR_STOP=1 -f marco-pescarolo-v31-3/build/v30.9-migration-qualification.sql
+
+      - name: Verify rollback and no candidate residue
+        run: |
+          test "$(psql -XAtqc "select to_regclass('public.delivery_claims') is null;")" = "t"
+          test "$(psql -XAtqc "select to_regprocedure('public.mp_private_set_wishlist(uuid,boolean,text,jsonb)') is null;")" = "t"
+          test "$(psql -XAtqc "select to_regprocedure('public.mp_wholesale_approve_reorder(uuid)') is null;")" = "t"
+          test "$(psql -XAtqc "select count(*) from public.portal_memberships;")" = "0"
+          test "$(psql -XAtqc "select count(*) from public.reorder_proposals;")" = "0"
+          test "$(psql -XAtqc "select count(*) from public.private_fit_profile_versions;")" = "0"
+
+      - name: Evidence
+        run: |
+          mkdir -p artifacts
+          {
+            echo "V31_3_EXACT_BUNDLE_PG17=PASS"
+            echo "server_version=$(psql -XAtqc "show server_version;")"
+            echo "bundle_size=$EXPECTED_BUNDLE_SIZE"
+            echo "bundle_sha256=$EXPECTED_BUNDLE_SHA256"
+            echo "dependency_hashes=6/6"
+            echo "exact_bundle_executed=true"
+            echo "five_role_harness=PASS"
+            echo "rollback_verified=true"
+            echo "commit=$GITHUB_SHA"
+          } | tee artifacts/v31-3-exact-bundle.txt
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: marco-pescarolo-v31-3-exact-bundle
+          path: artifacts/v31-3-exact-bundle.txt
