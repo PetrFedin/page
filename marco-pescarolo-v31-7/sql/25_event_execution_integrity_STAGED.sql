@@ -183,8 +183,8 @@ BEGIN
   v_type:=CASE NEW.event_type WHEN 'packing_started' THEN 'shipment_packing_started' WHEN 'shipped' THEN 'shipment_dispatched' ELSE 'delivery_completed' END;
   IF NOT EXISTS(
     SELECT 1 FROM public.deal_events e
-    WHERE e.deal_id=NEW.deal_id AND e.tenant_id=NEW.tenant_id AND e.to_stage=d.stage
-      AND e.xmin::text=pg_current_xact_id()::text
+    WHERE e.deal_id=NEW.deal_id AND e.tenant_id=NEW.tenant_id
+      AND e.payload->>'shipment_event_id'=NEW.id::text
   ) THEN
     INSERT INTO public.deal_events(tenant_id,deal_id,event_type,from_stage,to_stage,payload)
     VALUES(NEW.tenant_id,NEW.deal_id,v_type,NULL,d.stage,
