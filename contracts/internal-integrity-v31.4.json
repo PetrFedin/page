@@ -1,0 +1,44 @@
+{
+  "version": "31.4",
+  "status": "CANDIDATE_NOT_APPLIED",
+  "focus": "internal relational integrity, data-class provenance and browser mutation surface",
+  "live_audit": {
+    "data_checks": 31,
+    "observed_cross_scope_violations": 0,
+    "observed_nonproduction_lifecycle_bypasses": 1,
+    "classification": "synthetic fixture TEST-P9-ALLOCATION; must remain excluded from production authority"
+  },
+  "p0_findings": [
+    "Wholesale portal order creation inherits deals.data_class default=demo because data_class is not explicit.",
+    "copy_deal does not preserve data_class and therefore creates copied orders as demo.",
+    "convert_reorder_to_deal does not propagate source/proposal data_class and therefore creates converted reorders as demo.",
+    "mp_client_snapshot does not restrict orders to data_class=production.",
+    "mp_client_issued_proformas does not restrict proformas to production deals.",
+    "copy_deal and capture_deal_revision are raw public primitives executable by anon/authenticated and should not be browser APIs.",
+    "Frontend live bootstrap used UI roles private/wholesale where live DB RPCs require private_client/buyer.",
+    "Public-schema default ACLs for both postgres and supabase_admin automatically grant future objects to anon/authenticated; target revokes these defaults for both creator roles."
+  ],
+  "already_green": [
+    "Tenant/client/store/product/shipment/fit relational audit has zero observed scope mismatches.",
+    "uq_deals_client_request provides database-level request idempotency.",
+    "payments_external_ref_uq prevents duplicate payment references per tenant.",
+    "mp_admin_money_evidence is production-only.",
+    "mp_client_delivery_ledger is production-only."
+  ],
+  "target_invariants": [
+    "Browser-created wholesale orders are explicitly production.",
+    "Deal copy preserves source data_class; buyer copy is allowed only for production source deals.",
+    "Sell-through data_class provenance is propagated batch -> reorder proposal -> converted deal with safe demo fallback.",
+    "All client snapshots/proformas hide demo and synthetic deals.",
+    "All browser mutation wrappers reject non-production deals.",
+    "Raw copy_deal and capture_deal_revision are not executable by anon/authenticated.",
+    "Future public objects do not gain browser grants by default.",
+    "Browser RPC authorization arguments come from mp_my_access memberships[].db_role, never UI role labels.",
+    "Default privileges for postgres and supabase_admin do not automatically expose future public tables, sequences or functions to browser roles."
+  ],
+  "productionChanged": false,
+  "live_default_acl_owners": [
+    "postgres",
+    "supabase_admin"
+  ]
+}
