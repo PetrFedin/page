@@ -1,30 +1,27 @@
-# Marco Pescarolo v31.5 — Lifecycle Consistency Candidate
+# Marco Pescarolo v31.7 — Event & Execution Integrity Candidate
 
-v31.5 continues v31.4 Internal Integrity and makes the order lifecycle itself fail closed.
+v31.7 continues the qualified v31.4 → v31.5 → v31.6 chain and makes critical execution evidence fail closed.
 
 ## What changed
 
-- UI/demo state names now match the real PostgreSQL lifecycle.
-- `brand_revision`, `payment_verified` and `shipment_created` remain events/labels, not order stages.
-- Added quantity-level fulfilment coverage across deal lines → shipment lines → shipments → carrier POD.
-- Added a production stage invariant guard for proforma, verified funds, reservation, shipped and delivered transitions.
-- Added an Admin **Integrity Control** target and read-only `mp_admin_integrity_snapshot()` contract.
-- Prevents service-side legacy fulfilment primitives from prematurely marking partial orders shipped/delivered once the staged migration is admitted.
+- Live read-only event audit: 13 checks, 0 current violations.
+- Event tables become append-only in the staged target.
+- Cross-scope event guards prevent event rows from being attached to the wrong tenant/deal/entity.
+- Deferred same-transaction receipts require critical Deal, Payment, Shipment, Reservation, Approval and Reorder state changes to have matching domain evidence before commit.
+- Deal Revision and Shipment events bridge into the Deal event trail.
+- High-value domain events produce a transactional outbox row atomically.
+- The outbox **producer is qualified; the consumer/dispatcher is deliberately NOT qualified yet**.
+- Legacy Reorder `ordered` status is blocked until it receives an explicit event contract.
+- New Admin target RPC: `mp_admin_execution_integrity_snapshot()`.
 
-## Evidence
+## PostgreSQL 17 evidence
 
-- PostgreSQL 17 lifecycle run `38925912712`: **SUCCESS**.
-- Partial shipment denial: **PASS**.
-- Partial POD delivery denial: **PASS**.
-- Full shipment/POD path: **PASS**.
-- Rollback / zero residue: **PASS**.
-- Full accumulated v30.x–v31.5 regression: **PASS**.
-- Production Supabase: **NOT MODIFIED**.
+- Run `38937274785`: **SUCCESS**
+- Job `117095821679`
+- Commit `0d00e3ec79045c9058015a9bab29a6ec6278baa2`
+- Artifact `12061572183`
+- Artifact SHA-256 `e3e68ef70dadf1169302a128546f58d1e5b9fd06d815b645e0354b42d18ae1e3`
+- Rollback / zero residue: **PASS**
+- Production Supabase: **NOT MODIFIED**
 
-See:
-
-- `docs/V31_5_LIFECYCLE_CONSISTENCY.md`
-- `contracts/lifecycle-consistency-v31.5.json`
-- `contracts/pg17-lifecycle-consistency-evidence-v31.5.json`
-- `contracts/authority-capability-map-v31.5-target.json`
-- `sql/17_lifecycle_consistency_STAGED.sql`
+See `docs/V31_7_EVENT_EXECUTION_INTEGRITY.md`, `contracts/event-execution-integrity-v31.7.json`, and `sql/25_event_execution_integrity_STAGED.sql`.
