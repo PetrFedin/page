@@ -40,20 +40,20 @@ A production read-only audit checked 31 relationship/lifecycle invariants across
 - Copy preserves production provenance.
 - Sell-through/reorder provenance propagates `metadata.data_class`; unknown source class safely falls back to `demo`, never `production`.
 - Browser execution on old mutation primitives is revoked; v2 facades are the intended browser surface.
-- Default privileges are staged to fail closed for future browser grants, subject to authoritative owner-role validation on a Supabase branch.
+- Live ownership validation confirmed current application objects are owned by `postgres`, while public-schema default ACLs exist for both `postgres` and `supabase_admin`. The candidate therefore revokes automatic browser grants for both creator roles (conditionally for `supabase_admin`).
 - Frontend live bootstrap now takes the DB authorization role from `mp_my_access.memberships[].db_role`, keeping UI role labels separate from database enums.
 
 ## PostgreSQL 17 admission evidence
 
-GitHub Actions run: `38899427374`
+GitHub Actions run: `38899975486`
 
-Commit: `dbedb594afb72c816eb48a6201f8af20a4e36003`
+Commit: `3bd47a4f594d7b4c261fee1e03887ec355ac3dd6`
 
 PostgreSQL: 17
 
 Artifact: `marco-pescarolo-v31-4-internal-integrity`
 
-Artifact digest: `sha256:3d4be2dc22befa28f4380faae3f91d54b009acb647ff7e9274a4243ef4fe34a3`
+Artifact digest: `sha256:628b4de1f84872b161f24c35d1e0fa267176ca841c15d0f8fe3c1f5fa7dcffe7`
 
 Passed transaction checks:
 
