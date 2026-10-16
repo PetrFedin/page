@@ -70,9 +70,9 @@ const COPY = {
       mfw: ['Платформа для событий и брендов', 'Регистрация, программа, B2B-встречи и связь с аудиторией после мероприятия.'],
       promomed: ['Конференция и сообщество круглый год', 'Маршрут участника, материалы и работа партнёров. Независимый концепт, не официальный продукт заказчика.'],
       'fashion-os': ['Операционный контур fashion-бизнеса', 'Товар, коллекции, закупки и аналитика в единой модели данных.'],
-      fur: ['Учёт мехового производства', 'Сырьё, выделка, пошив, партии и себестоимость с историей операций.'],
-      antiqua: ['Цифровая галерея живописи', 'Живопись, графика, гравюры: атрибуция, происхождение и исследовательское досье.'],
-      igra: ['Новые модели из имеющихся деталей', 'Подбор деталей, инструкции, сборка и библиотека пользовательских моделей.'],
+      fur: ['THE FUR — производство под контролем', 'Сырьё, выделка, пошив, партии и себестоимость с историей операций.'],
+      antiqua: ['Паспорт и исследование произведения', 'Живопись, графика, гравюры: атрибуция, происхождение и исследовательское досье.'],
+      igra: ['Живой цифровой конструктор в AR', 'Подбор деталей, инструкции, сборка и библиотека пользовательских моделей.'],
       marco: ['Цифровой коммерческий шоурум', 'Коллекции, размеры, заказы и взаимодействие частных и оптовых клиентов.'],
       fintech: ['Сценарии финансовых обязательств', 'Платежи, условия и варианты решений с прозрачными исходными допущениями.']
     }
@@ -143,9 +143,9 @@ const COPY = {
       mfw: ['An operating platform for events', 'Registration, agenda, B2B meetings and continued brand-audience relationships.'],
       promomed: ['A conference and year-round community', 'Personal agenda, content and partner workflows. Independent concept, not an official client product.'],
       'fashion-os': ['Operating layer for fashion teams', 'Product, collections, purchasing and analytics on one data model.'],
-      fur: ['Fur production operations', 'Materials, dressing, sewing, lots and traceable production cost.'],
-      antiqua: ['A digital gallery for fine art', 'Painting, works on paper and prints with provenance and research dossiers.'],
-      igra: ['Build with the bricks you own', 'Part inventory, compatible instructions, construction and creator library.'],
+      fur: ['THE FUR — production operations', 'Materials, dressing, sewing, lots and traceable production cost.'],
+      antiqua: ['Artwork research and provenance', 'Painting, works on paper and prints with provenance and research dossiers.'],
+      igra: ['AR brick building and play', 'Part inventory, compatible instructions, construction and creator library.'],
       marco: ['A commercial digital showroom', 'Collections, size matrices, orders and private/wholesale customer journeys.'],
       fintech: ['Financial obligation scenarios', 'Payments, contract conditions and transparent decision assumptions.']
     }
