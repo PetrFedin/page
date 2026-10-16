@@ -15,7 +15,7 @@ import assert from 'node:assert/strict';
 const root=resolve(dirname(fileURLToPath(import.meta.url)),'..');
 const dist=join(root,'dist-pages');
 const staticFiles=[
- 'index.html','privacy.html','syntha.html','renova.html','chatx.html',
+ 'index.html','privacy.html','analytics.html','economics.html','syntha.html','renova.html','chatx.html',
  'promomed.html','mfw.html','marco-pescarolo.html','favicon.ico',
  'robots.txt','sitemap.xml','feed.xml','feed.json','llms.txt',
  '_headers','_routes.json',
@@ -26,7 +26,8 @@ const mustHave=[
  'index.html','en/index.html','assets/app.js','assets/styles.css',
  'assets/lead-paths.js','assets/portfolio-extensions.js',
  'assets/investor-calculator.js','assets/opportunity-copy.js',
- 'assets/opportunity-economics.js','assets/opportunity-studio.js',
+ 'assets/opportunity-economics.js','assets/opportunity-studio.js','assets/economics-page.js',
+ 'analytics.html','economics.html','en/analytics.html','en/economics.html',
  'en/feed.xml','_headers','_routes.json'
 ];
 for(const file of [...staticFiles,...staticDirs,...mustHave]){
