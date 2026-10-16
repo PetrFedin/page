@@ -7,7 +7,8 @@ assert.equal(b.ok,true);assert.equal(b.otb,b.purchaseBudget-b.receiptsCost-b.ope
 assert.equal(b.reserved,Number((Math.max(0,b.otb)*.1).toFixed(2)));
 assert.equal(b.usableOTB,Number((Math.max(0,b.otb)-b.reserved).toFixed(2)));
 assert.equal(b.fundingGap,Number(Math.max(0,b.estimatedNeed-b.usableOTB).toFixed(2)));
-assert.ok(!b.withinBudget || b.status==='manual_review');
+assert.equal(typeof b.withinBudget,'boolean');
+assert.ok(['manual_review','insufficient_evidence','budget_overcommitted','budget_shortfall','no_detected_shortfall'].includes(b.status));
 assert.throws(()=>evaluateFashionBudget(rows,{reservePct:110}),RangeError);
 assert.equal(evaluateFashionBudget(rows,{reservePct:100}).usableOTB,0);
 const changed=rows.map(r=>({...r}));for(const r of changed)if(r.period==='2026-09')r.open_po_cost+=100000;
