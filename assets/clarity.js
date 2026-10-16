@@ -74,7 +74,7 @@ const COPY = {
       antiqua: ['Паспорт и исследование произведения', 'Живопись, графика, гравюры: атрибуция, происхождение и исследовательское досье.'],
       igra: ['Живой цифровой конструктор в AR', 'Подбор деталей, инструкции, сборка и библиотека пользовательских моделей.'],
       marco: ['Цифровой коммерческий шоурум', 'Коллекции, размеры, заказы и взаимодействие частных и оптовых клиентов.'],
-      fintech: ['Сценарии финансовых обязательств', 'Платежи, условия и варианты решений с прозрачными исходными допущениями.']
+      fintech: ['SVEDO — финансовая устойчивость', 'Обязательства, денежный поток и сценарии платежей. Локальный прототип, не банковский сервис.']
     }
   },
   en: {
@@ -147,7 +147,7 @@ const COPY = {
       antiqua: ['Artwork research and provenance', 'Painting, works on paper and prints with provenance and research dossiers.'],
       igra: ['AR brick building and play', 'Part inventory, compatible instructions, construction and creator library.'],
       marco: ['A commercial digital showroom', 'Collections, size matrices, orders and private/wholesale customer journeys.'],
-      fintech: ['Financial obligation scenarios', 'Payments, contract conditions and transparent decision assumptions.']
+      fintech: ['SVEDO — financial resilience', 'Obligations, cash-flow plans and repayment scenarios. A local candidate, not a live banking service.']
     }
   }
 };
