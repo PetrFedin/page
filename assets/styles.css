@@ -2200,3 +2200,25 @@ a.lang{display:inline-flex; align-items:center; justify-content:center; text-dec
 #investors .inv-lead{margin:0 0 18px;font-size:14px;line-height:1.6;color:var(--muted)}
 @media(min-width:850px){.analytics-offer,.op-gateway{grid-template-columns:minmax(0,1.35fr) minmax(260px,.8fr);gap:36px}}
 @media(max-width:580px){.analytics-benefits{grid-template-columns:1fr}.analytics-offer-actions .btn,.op-gateway-actions .btn{width:100%;white-space:normal}}
+
+/* Dedicated analytical and economics dossiers */
+.v2-detail .detail-nav{max-width:1100px;margin:auto;display:flex;justify-content:space-between;gap:14px;align-items:center;padding:21px clamp(20px,4vw,44px);border-bottom:1px solid var(--line);font-size:13px}
+.detail-nav a{color:var(--ink);text-underline-offset:4px}.detail-nav span{color:var(--muted);letter-spacing:.09em}
+.detail-main{max-width:1100px;margin:auto;padding:clamp(44px,7vw,92px) clamp(20px,4vw,44px)}
+.detail-main h1{font:500 clamp(37px,5.2vw,66px)/1.09 var(--serif);letter-spacing:-.03em;max-width:18ch;margin:12px 0 24px}
+.detail-main h2{font:500 clamp(25px,3vw,36px)/1.22 var(--serif);margin:0 0 20px}
+.detail-main h3{font:500 22px/1.25 var(--serif);margin:28px 0 10px}
+.detail-lead{font-size:clamp(17px,2vw,22px);line-height:1.63;max-width:71ch;color:var(--muted);margin-bottom:55px}
+.detail-intro{display:grid;gap:26px;margin:36px 0 72px}.detail-intro p,.detail-process p,.detail-next p{line-height:1.7;color:var(--muted)}
+.detail-intro ul{display:grid;gap:12px;padding-left:20px}
+.detail-intro aside{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:26px;align-self:start}
+.detail-intro aside .btn{white-space:normal;margin-top:16px}
+.detail-process{padding:34px 0;border-top:1px solid var(--line)}
+.detail-process ol{list-style:none;padding:0;display:grid;gap:0}
+.detail-process li{display:grid;grid-template-columns:minmax(0,185px) 1fr;gap:18px;padding:17px 0;border-bottom:1px solid var(--line)}
+.detail-process li p{margin:0}.step-id{font-size:13px;color:var(--accent)}
+.detail-categories{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.detail-categories span{border:1px solid var(--line);padding:18px;border-radius:9px;font-size:14px;line-height:1.5}
+.detail-next{padding:30px 0;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:25px}.detail-next p{max-width:70ch}
+.v2-detail #opportunities{min-width:0}.v2-detail .op-heading{display:block}
+@media(min-width:760px){.detail-intro{grid-template-columns:1.15fr .8fr}}
+@media(max-width:610px){.detail-categories{grid-template-columns:1fr}.detail-process li{grid-template-columns:1fr;gap:5px}.detail-next{display:block}.detail-next .btn{width:100%;white-space:normal}.detail-nav span{font-size:10px}}
