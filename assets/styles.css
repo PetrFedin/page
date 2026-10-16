@@ -2222,3 +2222,36 @@ a.lang{display:inline-flex; align-items:center; justify-content:center; text-dec
 .v2-detail #opportunities{min-width:0}.v2-detail .op-heading{display:block}
 @media(min-width:760px){.detail-intro{grid-template-columns:1.15fr .8fr}}
 @media(max-width:610px){.detail-categories{grid-template-columns:1fr}.detail-process li{grid-template-columns:1fr;gap:5px}.detail-next{display:block}.detail-next .btn{width:100%;white-space:normal}.detail-nav span{font-size:10px}}
+
+/* Advisory: four distinct disciplines across desktop, featured fifth as a broad entry. */
+@media(min-width:1100px){
+ #consulting #services.services{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;border:0;background:none;overflow:visible}
+ #consulting #services.services li{grid-column:auto!important;min-width:0;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+ #consulting #services.services li.svc-featured-item{grid-column:1/-1!important}
+ #consulting #services.services .svc{padding:22px 19px;min-width:0}
+}
+#consulting #services .svc{align-content:start;grid-template-rows:auto auto 1fr auto auto;min-height:100%}
+#consulting #services .svc-featured-item{border:1px solid var(--line)}
+#consulting #services .svc-featured{background:linear-gradient(115deg,var(--panel) 0%,color-mix(in srgb,var(--accent-soft) 38%,var(--panel)) 100%);padding:29px}
+#consulting #services .svc-featured .svc-t{font:500 clamp(25px,2.7vw,36px)/1.2 var(--serif);max-width:37ch}
+#consulting #services .svc-featured .svc-b{max-width:78ch}
+#consulting #services .svc-featured .svc-more{color:var(--accent)}
+.svc-modal-eyebrow{font-size:11px;letter-spacing:.11em;color:var(--accent);margin:4px 0 23px}
+.svc-modal-scope{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.svc-modal-cluster{padding:16px;border:1px solid var(--line);border-radius:10px}
+.svc-modal-cluster h4{font:500 18px/1.3 var(--serif);margin:0 0 12px}
+.svc-modal-cluster ul{padding-left:19px;margin:0;color:var(--muted);font-size:14px;line-height:1.6}
+.svc-modal-cluster li{margin:0 0 7px}
+.svc-modal-boundary p{font-size:14px;line-height:1.7;color:var(--muted)}
+@media(max-width:680px){.svc-modal-scope{grid-template-columns:1fr}}
+/* MFW wordmark must remain legible without clipping on every screen. */
+#cards .card-logo{min-width:0;max-width:100%;overflow:visible}
+#cards .card[data-project="mfw"] .card-logo svg{display:block;width:100%;max-width:325px;height:auto;max-height:43px}
+#modal-logo svg{max-width:100%;height:auto}
+
+/* Final four-plus-one layout: flex isolates advisory cards from old grid spanning rules. */
+@media(min-width:1100px){
+ #consulting #services.services.snap{display:flex!important;flex-flow:row wrap!important;gap:12px!important;align-items:stretch!important}
+ #consulting #services.services.snap > li:not(.svc-featured-item){flex:0 0 calc((100% - 36px)/4)!important;width:calc((100% - 36px)/4)!important;max-width:calc((100% - 36px)/4)!important;grid-column:auto!important;grid-row:auto!important}
+ #consulting #services.services.snap > li.svc-featured-item{flex:0 0 100%!important;width:100%!important;max-width:100%!important;grid-row:auto!important}
+}

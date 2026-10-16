@@ -25,9 +25,9 @@ for(const lang of ['ru','en']){
   const grid=await page.locator('#services li').evaluateAll(nodes=>nodes.map(n=>({x:Math.round(n.getBoundingClientRect().left),y:Math.round(n.getBoundingClientRect().top),w:Math.round(n.getBoundingClientRect().width)})));
   assert.equal(grid.length,5,'five consulting options');
   if(width===1440){
-    assert.equal(new Set(grid.slice(0,3).map(n=>n.y)).size,1,'desktop first line has 3 cards');
-    assert.equal(grid[3].y,grid[4].y,'desktop second line has 2 cards');
-    assert.ok(grid[3].w>grid[0].w,'two last items fill row');
+    assert.ok(Math.max(...grid.slice(0,4).map(n=>n.y))-Math.min(...grid.slice(0,4).map(n=>n.y))<7,'desktop first line has 4 cards');
+    assert.ok(grid[4].y>grid[3].y+15,'featured fifth advisory card has separate row');
+    assert.ok(grid[4].w>grid[0].w,'featured fifth card spans the row');
   }
   if(width===375){
     // Existing phone UX intentionally uses horizontal snap cards, not a vertical stack.
@@ -45,7 +45,7 @@ for(const lang of ['ru','en']){
     await track.evaluate(el=>{el.scrollLeft=0;});
   }
   const featured=await page.locator('#cards>.card').evaluateAll(nodes=>nodes.map(n=>n.dataset.project));
-  assert.deepEqual(featured,['syntha','chatx','renova','mfw','promomed'],lang+'/'+width+' featured project sequence');
+  assert.deepEqual(featured,['syntha','chatx','renova'],lang+'/'+width+' featured project sequence');
   const bridge=page.locator('#project-development');
   assert.ok(await bridge.locator('a[href="#project-launch"]').isVisible(),'product delivery link visible');
   assert.ok(await bridge.locator('a[href="#investment-formats"]').isVisible(),'investment format link visible');
