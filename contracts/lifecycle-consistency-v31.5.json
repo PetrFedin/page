@@ -1,0 +1,53 @@
+{
+  "version": "31.5",
+  "status": "CANDIDATE_NOT_APPLIED",
+  "productionChanged": false,
+  "purpose": "Make PostgreSQL lifecycle state, fulfilment evidence and preview semantics agree end-to-end.",
+  "stageModel": {
+    "canonical": [
+      "draft",
+      "selection",
+      "negotiation",
+      "submitted",
+      "approval_pending",
+      "approved",
+      "proforma_issued",
+      "advance_pending",
+      "advance_confirmed",
+      "allocated",
+      "fulfillment",
+      "shipped",
+      "delivered",
+      "closed",
+      "cancelled"
+    ],
+    "legacy": [
+      "confirmed",
+      "reorder_candidate"
+    ],
+    "eventsAreNotStages": true,
+    "eventExamples": [
+      "brand_revision",
+      "payment_verified",
+      "shipment_created"
+    ]
+  },
+  "invariants": {
+    "proforma_issued": "matching_issued_proforma",
+    "advance_confirmed": "verified_funds_meet_required_threshold",
+    "allocated": "all_order_lines_exactly_reserved",
+    "shipped": "full_order_quantity_coverage",
+    "delivered": "full_carrier_pod_backed_quantity_coverage"
+  },
+  "liveFindings": [
+    "legacy ship_shipment can infer shipped from existing shipment lines rather than all ordered quantities",
+    "legacy confirm_shipment_delivery can infer delivered from existing shipments rather than full ordered quantity coverage",
+    "preview historically treated brand_revision/payment_verified/shipment_created as order stages"
+  ],
+  "controls": [
+    "private.mp_deal_fulfillment_coverage",
+    "private.mp_deal_stage_invariant_guard",
+    "trg_mp_deal_stage_invariant_guard",
+    "public.mp_admin_integrity_snapshot"
+  ]
+}
