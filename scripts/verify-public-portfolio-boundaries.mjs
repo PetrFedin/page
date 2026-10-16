@@ -41,10 +41,15 @@ assert.doesNotMatch(healthcare.ru.who,/«Промомед» получает/, '
 assert.doesNotMatch(healthcare.en.who,/Promomed gains/, 'Do not assert corporate approval or observed outcome');
 const fur=all.find(p=>p.id==='fur');
 assert.equal(fur.name,'THE FUR','FUR must remain a neutral platform dossier');
+const svedo=all.find(p=>p.id==='fintech');
+assert.equal(svedo.name,'SVEDO');
+assert.match(svedo.ru.stage,/production|прототип/i);
+assert.match(svedo.en.status.next.join(' '),/PostgreSQL/);
+assert.doesNotMatch(svedo.ru.card,/запущенный банковский сервис/i);
 const client=all.find(p=>p.id==='marco');
 assert.ok(client?.ru?.stage && !/production готов|production ready/i.test(client.ru.stage),
   'Showroom must not silently assert PostgreSQL production admission');
 const html=read('index.html')+read('en/index.html');
 assert.ok(!html.includes('id="order-now"')&&!html.includes('data-buy-equity'),
   'Capital scenario does not authorize a public checkout or securities transaction');
-console.log('PASS: 11 honest dossier scopes, no customer brands, six screenless functional cards and unverified-maturity guards');
+console.log('PASS: 11 honest dossier scopes with SVEDO v54, no customer brands, six screenless functional cards and unverified-maturity guards');

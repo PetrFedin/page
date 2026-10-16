@@ -792,167 +792,183 @@ export const EXTRA_PROJECTS = [
   },
   {
     "id": "fintech",
-    "name": "Debt Stability OS",
+    "name": "SVEDO",
     "device": "ipad",
     "shots": [],
     "ru": {
-      "tagline": "Персональная финансовая устойчивость и управление обязательствами",
-      "stage": "Спецификация и инфраструктурная подготовка; финансовые функции не заявлены запущенными",
-      "card": "Сервис личной финансовой устойчивости: кредиты, карты, рассрочки, график обязательств, семейный бюджет, риски кассовых разрывов и проверяемые сценарии погашения, реструктуризации и рефинансирования.",
-      "what": "Операционная система долговой нагрузки человека: все обязательства, календарь платежей, доходы, резерв и сценарии решений в одном пространстве.",
-      "who": "Люди с несколькими кредитами, кредитными картами, нерегулярным доходом, семьи, финансовые консультанты и банки-партнёры в разрешённых сценариях.",
-      "why": "Предотвращать просрочки и непредвиденный дефицит денег, показывая стоимость каждого решения и его влияние на будущие платежи.",
-      "how": "Today → Debt → Calendar → Budget → Plan → Compare → Help. Event-ledger, версионированные расчёты, сверка с выписками, согласие на интеграции, серверная синхронизация, шифрование и офлайн-очередь.",
+      "tagline": "Финансовая устойчивость · обязательства · прогноз",
+      "stage": "SVEDO v54 — изолированный прототип. Локальные тесты пройдены; production и банковские интеграции не подтверждены.",
+      "card": "SVEDO помогает собрать кредиты, карты, рассрочки, регулярные платежи и доходы в одну картину. Показывает календарь обязательств, прогноз денег, риск кассовых разрывов и сценарии погашения. Текущая версия — проверяемый локальный кандидат, не банковский сервис.",
+      "what": "Персональная финансовая система поддержки решений: Today → обязательства → календарь → бюджет → денежный поток → сравнение вариантов → план действий. Цель — заранее увидеть нехватку денег и последствия каждого финансового выбора.",
+      "who": "Человек с несколькими кредитами или картами; семья с переменным доходом; консультант, которому нужна прозрачная модель обязательств. Финансовые партнёрства рассматриваются только после технического и правового допуска.",
+      "why": "Снизить неопределённость перед платежом: какие обязательства ближайшие, сколько денег остаётся после обязательных расходов, какие сценарии приводят к дефициту и как меняется будущая нагрузка.",
+      "how": "Локальный движок расчёта графиков и cash flow, интерфейсы сценариев, событийные и версионированные состояния. В кандидате v54 отлажены клиентские границы шифрованного checkpoint, защита от устаревших ревизий и соответствие 22 API-маршрутам; живые Auth/PostgreSQL/банковские подключения не допущены.",
       "roadmap": [
         {
-          "label": "Концепция",
+          "label": "Модель и локальный прототип",
           "state": "done"
         },
         {
-          "label": "Интеграционная проверка",
+          "label": "Контрактные тесты v54",
+          "state": "done"
+        },
+        {
+          "label": "Реальные Auth/PG/HTTPS проверки",
           "state": "current"
         },
         {
-          "label": "Пилот",
-          "state": "next"
-        },
-        {
-          "label": "Продажи",
+          "label": "Ограниченный пользовательский пилот",
           "state": "next"
         }
       ],
       "capabilities": [
         {
-          "area": "Today: приоритет дня",
-          "feature": "Ближайший платёж, доступные деньги, риск просрочки, следующее действие"
+          "area": "Обязательства и календарь",
+          "feature": "Кредиты, карты, рассрочки, регулярные платежи; даты, графики, частичные и досрочные погашения"
         },
         {
-          "area": "Debt & Calendar",
-          "feature": "Кредит, карта, грейс, рассрочка, частичный платёж, календарь обязательств"
+          "area": "Денежный поток и бюджет",
+          "feature": "Доходы, обязательные расходы, доступный остаток, резервы, прогноз дефицита по датам"
         },
         {
-          "area": "Budget & Plan",
-          "feature": "Переменный доход, резерв, график погашения, стресс-сценарии"
+          "area": "Сценарии решений",
+          "feature": "Сравнение вариантов погашения, реструктуризации и рефинансирования с явными допущениями"
         },
         {
-          "area": "Compare & Help",
-          "feature": "Полная стоимость кредита, рефинансирование, реструктуризация, документированные рекомендации"
+          "area": "Автоплан и действия",
+          "feature": "План ближайших платежей, договорённости, напоминания и контроль повторных операций — локальные/контрактные сценарии"
         },
         {
-          "area": "Data integrity",
-          "feature": "Журнал событий, версии расчётов, сверка, права доступа и offline outbox"
+          "area": "Конфиденциальность",
+          "feature": "Local-first подход, шифрованный checkpoint и проверка смены сессии; облачная синхронизация ещё не включена"
         },
         {
-          "area": "Безопасность и согласия",
-          "feature": "MFA / passkeys, шифрование, минимизация данных, отмена согласия"
+          "area": "Надёжность и защита от конфликтов",
+          "feature": "Монотонные ревизии, tombstone при удалении, запрет перезаписи устаревшей копией"
+        },
+        {
+          "area": "Проверка готовности",
+          "feature": "11 экранов в изолированном Chromium, 22 API-маршрута в source-контракте; нет подтверждённых живых банковских данных"
         }
       ],
       "status": {
-        "done": [],
+        "done": [
+          "Изолированный кандидат v54: локальная регрессия и синтетические сценарии интерфейса, финансовых контрактов и криптографического транспорта.",
+          "В v54 исправлены конфликты delete/recreate, проверки сессии при восстановлении и исходная карта 22 API-маршрутов. Это не live cloud proof."
+        ],
         "now": [
-          "Функциональная архитектура и проверка требований"
+          "Необходим отдельный доступный репозиторий SVEDO с exact-SHA CI; его GitHub URL в подключённом аккаунте пока не подтверждён."
         ],
         "next": [
-          "Доказать точность расчётов, хранение и безопасность до ограниченного пилота"
+          "Независимые проверки PostgreSQL 17, Supabase Auth/AAL2, RLS/GRANT, реальной конкурентности и HTTPS.",
+          "Банковские эталонные графики, правовая оценка обработки данных и пользовательский пилот только после допусков."
         ],
-        "seeking": "Ищу пилотных пользователей и профильного технологического партнёра; коммерческие метрики пока не подтверждены."
+        "seeking": "Профильная экспертиза, независимая проверка расчётов и безопасности. Не собираем банковские данные через публичный лендинг; пилот допускается отдельно."
       },
       "collab": [
         {
-          "k": "Пилот",
-          "v": "Проверка реального пользовательского сценария с измеримыми результатами и согласиями."
-        },
-        {
           "k": "Экспертиза",
-          "v": "Предметные требования, безопасные данные, юридическая и коммерческая экспертиза."
+          "v": "Тестовые финансовые сценарии и документированные требования без персональных или банковских данных."
         },
         {
-          "k": "Коммерция",
-          "v": "Канал первых платящих заказчиков только после допуска продукта."
+          "k": "Инфраструктура",
+          "v": "Отдельные Auth/PostgreSQL, аудит доступа, качество расчётов и подтверждение отказоустойчивости."
+        },
+        {
+          "k": "Пилот после допусков",
+          "v": "Ограниченные согласованные сценарии после независимой технической и правовой проверки."
         }
       ],
       "investor": {
-        "note": "Финансовая модель ниже — сценарная структура, не подтверждённые продажи или инвестиционные обязательства."
+        "note": "SVEDO v54 — исходный локально протестированный прототип, не опубликованный финансовый сервис. Коммерческие показатели, реальные банковские интеграции и production готовность не подтверждены; экономическая модель носит гипотетический характер."
       }
     },
     "en": {
-      "tagline": "Personal debt stability and obligation management",
-      "stage": "Specification and infrastructure preparation; financial features not claimed live",
-      "card": "Personal debt and cash-flow resilience: loans, cards, payment calendars, family budgets, shortfall risks, repayment planning, restructuring and refinance scenarios. Financial features require validation.",
-      "what": "An individual's debt operations workspace combining liabilities, payment calendar, income, liquidity reserve and decision scenarios.",
-      "who": "People with multiple debts or variable income, households, financial coaches and authorised bank partners.",
-      "why": "Prevent arrears and cash shortfalls by showing each decision's cost and effect on future obligations.",
-      "how": "Today → Debt → Calendar → Budget → Plan → Compare → Help. Event ledger, versioned calculations, statement reconciliation, consent-based integrations, server sync, encryption and offline queue.",
+      "tagline": "Financial resilience · obligations · cash-flow planning",
+      "stage": "SVEDO v54 isolated candidate. Source/local tests only; banking and production not qualified.",
+      "card": "SVEDO brings loans, credit cards, instalments, recurring commitments and income into one financial picture. It models payment calendars, liquidity gaps and repayment choices. Current status: a locally tested candidate, not a live banking service.",
+      "what": "Personal financial decision workspace: today’s priorities → liabilities → payments → budget → cash-flow projections → alternative scenarios → plan.",
+      "who": "Individuals and households managing several loans, cards or variable income; expert partners after legal and security review.",
+      "why": "Make upcoming cash needs and the long-term implications of payment choices understandable rather than relying on fragmented bank statements.",
+      "how": "Local calculation and scenario engines, versioned states and source-tested encrypted checkpoint interfaces. V54 repairs stale revision conflicts and checks 22 API routes; production Auth, PostgreSQL and bank connections remain unverified.",
       "roadmap": [
         {
-          "label": "Concept",
+          "label": "Model and local prototype",
           "state": "done"
         },
         {
-          "label": "Integration validation",
+          "label": "V54 source verification",
+          "state": "done"
+        },
+        {
+          "label": "Live auth/database/HTTPS proof",
           "state": "current"
         },
         {
-          "label": "Pilot",
-          "state": "next"
-        },
-        {
-          "label": "Sales",
+          "label": "Controlled user pilot",
           "state": "next"
         }
       ],
       "capabilities": [
         {
-          "area": "Today: приоритет дня",
-          "feature": "Next payment, cash available, arrears risk and next action"
+          "area": "Obligations and calendar",
+          "feature": "Loans, cards, instalments, recurring payments and early or partial repayment schedules"
         },
         {
-          "area": "Debt & Calendar",
-          "feature": "Loans, cards, grace periods, instalments, partial payments and obligation calendar"
+          "area": "Cash-flow planning",
+          "feature": "Income, essential expenses, available cash, buffer and date-based shortfall projections"
         },
         {
-          "area": "Budget & Plan",
-          "feature": "Irregular income, cash buffer, repayment schedule and stress scenarios"
+          "area": "Decision scenarios",
+          "feature": "Repayment, restructure and refinance alternatives with explicit assumptions"
         },
         {
-          "area": "Compare & Help",
-          "feature": "Total borrowing cost, refinancing, restructuring and explainable guidance"
+          "area": "Action planning",
+          "feature": "Upcoming payments, creditor arrangements and reminders; source-tested workflows only"
         },
         {
-          "area": "Data integrity",
-          "feature": "Event ledger, calculation snapshots, reconciliation, permissions and offline outbox"
+          "area": "Privacy design",
+          "feature": "Local-first calculations, encrypted checkpoint candidate, account-switch protection; cloud sync not live"
         },
         {
-          "area": "Безопасность и согласия",
-          "feature": "MFA, passkeys, encryption, data minimisation and consent revocation"
+          "area": "Conflict safety",
+          "feature": "Monotonic revisions and tombstones to prevent stale device overwrite"
+        },
+        {
+          "area": "Evidence boundary",
+          "feature": "11 locally tested UI screens, 22 source-linked API routes; no verified live bank data"
         }
       ],
       "status": {
-        "done": [],
+        "done": [
+          "V54 isolated source/local test candidate with synthetic UI, financial and crypto transport checks.",
+          "V54 fixes delete/recreate conflicts, session-change checks and API route parity; not a live cloud attestation."
+        ],
         "now": [
-          "Functional architecture and requirement review"
+          "Dedicated SVEDO GitHub repository and exact-head CI have not yet been verified in the connected account."
         ],
         "next": [
-          "Prove financial calculations, persistence and security before limited pilot"
+          "Independent PostgreSQL 17, Auth/AAL2, RLS, concurrency and HTTPS checks.",
+          "Bank reference-vector verification, privacy/legal controls and a qualified user pilot."
         ],
-        "seeking": "Seeking pilot users and a technical partner; commercial metrics remain unvalidated."
+        "seeking": "Looking for independent calculation/security validation and regulated-domain expertise; no public intake of banking data."
       },
       "collab": [
         {
-          "k": "Pilot",
-          "v": "A real user workflow with measurable outcomes and consent."
+          "k": "Domain validation",
+          "v": "Synthetic financial examples, requirements and independent calculation reviews."
         },
         {
-          "k": "Domain partner",
-          "v": "Subject-matter requirements, safe test data and legal review."
+          "k": "Security admission",
+          "v": "Isolated auth/database testing and explicit acceptance evidence."
         },
         {
-          "k": "Distribution",
-          "v": "Route to paying customers only after product admission."
+          "k": "Controlled pilot",
+          "v": "Only after production safety and applicable legal reviews."
         }
       ],
       "investor": {
-        "note": "The investor model below is a planning framework, not proven revenue or an investment offer."
+        "note": "SVEDO v54 is a local candidate, not a launched financial product. Revenue, bank integrations and production readiness are not validated; economic cases are hypothetical."
       }
     }
   }
