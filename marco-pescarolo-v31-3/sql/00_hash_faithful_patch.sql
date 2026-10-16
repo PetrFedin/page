@@ -98,10 +98,10 @@ END
 $$;
 
 CREATE OR REPLACE FUNCTION private.mp_brand_admin_actor()
-RETURNS mp_brand_admin_memberships
-LANGUAGE plpgsql
-STABLE SECURITY DEFINER
-SET search_path TO ''
+ RETURNS mp_brand_admin_memberships
+ LANGUAGE plpgsql
+ STABLE SECURITY DEFINER
+ SET search_path TO ''
 AS $function$
 DECLARE m public.mp_brand_admin_memberships%ROWTYPE;
 BEGIN
@@ -114,8 +114,8 @@ BEGIN
   WHERE x.auth_user_id=auth.uid() AND x.status='active' LIMIT 1;
   IF NOT FOUND THEN RAISE EXCEPTION 'brand_admin_membership_required' USING ERRCODE='42501'; END IF;
   RETURN m;
-END
-$function$;
+END $function$
+;
 
 CREATE OR REPLACE FUNCTION private.portal_buyer_approve_reorder_internal(p_proposal_id uuid)
 RETURNS text
