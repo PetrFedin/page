@@ -528,11 +528,7 @@ function render() {
   renderCards();
   renderInvestors();
   $('#nav-opportunities').textContent = lang === 'en' ? 'Opportunities' : 'Возможности';
-  mountOpportunityStudio(
-    $('#opportunities'), lang, PROJECTS,
-    (selection) => startContact(selection), INVESTOR_BLUEPRINTS,
-    (projectId) => openProject(projectId, 'investor')
-  );
+  // Detailed financial models live on their own page. The public home is a gateway.
 
   /* Продуктовые проекты выше — доказательство, а не витрина: тем, кто
      досмотрел до конца раздела, предлагаем тот же путь для своей задачи. */
@@ -592,7 +588,7 @@ function render() {
   renderNow();
   renderNews();
   polishPublicPage(lang);
-  mountFashionAnalytics($('#fashion-analytics'),lang);
+  // Data-entry demo is available only inside the dedicated Analytics workspace.
   addTopButtons(t.nav.toTop);
   syncSnaps();
   if (modal.open) openProject(modal.dataset.project);
