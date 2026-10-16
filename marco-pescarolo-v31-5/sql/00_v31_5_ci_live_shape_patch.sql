@@ -6,6 +6,22 @@ ALTER TABLE public.payments ADD COLUMN IF NOT EXISTS verified_at timestamptz;
 ALTER TABLE public.payments ADD COLUMN IF NOT EXISTS verified_by uuid;
 ALTER TABLE public.proformas ADD COLUMN IF NOT EXISTS balance_amount numeric NOT NULL DEFAULT 0;
 
+CREATE TABLE IF NOT EXISTS public.product_variants(
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  tenant_id uuid NOT NULL REFERENCES public.tenants(id),
+  product_id uuid NOT NULL REFERENCES public.products(id),
+  sku text NOT NULL,
+  color text,
+  size text,
+  barcode text,
+  status text NOT NULL DEFAULT 'active',
+  created_at timestamptz NOT NULL DEFAULT now(),
+  variant_authority text NOT NULL DEFAULT 'presentation_only',
+  sort_order integer NOT NULL DEFAULT 0,
+  metadata jsonb NOT NULL DEFAULT '{}'::jsonb,
+  UNIQUE(tenant_id,sku)
+);
+
 CREATE TABLE IF NOT EXISTS public.inventory_positions(
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   tenant_id uuid NOT NULL REFERENCES public.tenants(id),
