@@ -120,6 +120,8 @@ jobs:
       - run: node --check functions/api/posts.js
       - run: node --check scripts/tg-queue.mjs
       - run: node --check assets/fashion-analytics-core.js
+      - run: node --check assets/fashion-budget.js
+      - run: node --check scripts/verify-fashion-budget.mjs
       - run: node --check assets/fashion-assortment.js
       - run: node --check scripts/verify-fashion-assortment.mjs
       - run: node --check assets/fashion-analytics.js
@@ -139,6 +141,7 @@ jobs:
       - run: node scripts/verify-v2-tco.mjs
       - run: node scripts/verify-fashion-analytics.mjs
       - run: node scripts/verify-fashion-assortment.mjs
+      - run: node scripts/verify-fashion-budget.mjs
       - run: node scripts/verify-v2-commercial-contract.mjs
       - run: node scripts/verify-editorial-queue.mjs
       - run: node scripts/verify-v2-editorial-preservation.mjs
