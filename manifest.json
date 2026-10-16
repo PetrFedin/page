@@ -1,20 +1,74 @@
 {
-  "name": "Marco Pescarolo Lifecycle Consistency Candidate",
-  "version": "31.5",
+  "version": "31.7",
+  "name": "Marco Pescarolo Event & Execution Integrity Candidate",
   "productionModified": false,
   "trust": {
+    "compactPg17Smoke": "PASSED",
+    "liveSupabaseReadOnlyPreflight": "PASSED",
+    "expandedPg17FullContract": "PASSED",
+    "fullV30_9MigrationBundleExecution": "PASSED",
+    "internalIntegrityLiveAudit": "PASSED_WITH_SYNTHETIC_FIXTURE_CLASSIFIED",
     "v31_4InternalIntegrityPg17": "PASSED",
-    "v31_5LifecycleConsistencyPg17": "PASSED",
-    "lifecycleStateModelAlignment": "PASSED",
     "authoritativeFullCloneAdmission": "PENDING",
     "realAuthBrowserE2E": "PENDING",
-    "productionMigration": "HOLD"
+    "productionMigration": "HOLD",
+    "v31_5LifecycleConsistencyPg17": "PASSED",
+    "lifecycleStateModelAlignment": "PASSED",
+    "v31_6RelationConcurrencyLocalContract": "PASSED",
+    "v31_6CumulativePg17": "PASSED_WITH_V31_7_CUMULATIVE_RUN",
+    "v31_7EventExecutionPg17": "PASSED",
+    "eventExecutionStateModelAlignment": "PASSED",
+    "transactionalOutboxProducer": "PASSED",
+    "outboxConsumer": "NOT_QUALIFIED"
+  },
+  "liveSupabase": {
+    "projectRef": "lnsrmbbtxzwclfvngvfl",
+    "postgresVersion": "17.11",
+    "dependencyHashesMatched": 6,
+    "requiredRelationsMissing": 0,
+    "targetCollisions": 0
   },
   "githubActions": {
+    "expandedRunId": 38891654866,
+    "expandedJobId": 116942333726,
+    "commit": "5c8589f1dc83ba7b8f64da63d23284ba48cc0309",
+    "artifactId": 12041573236,
+    "artifactSha256": "54c5cef3b3b000c2aee8d8a159a023776871f41790c8b5755b8d33eeddd36903",
+    "integrityRunId": 38899975486,
+    "integrityJobId": 116969520713,
+    "integrityCommit": "3bd47a4f594d7b4c261fee1e03887ec355ac3dd6",
+    "integrityArtifactId": 12045138262,
+    "integrityArtifactSha256": "628b4de1f84872b161f24c35d1e0fa267176ca841c15d0f8fe3c1f5fa7dcffe7",
     "lifecycleRunId": 38925912712,
     "lifecycleJobId": 117057267620,
     "lifecycleCommit": "28a74f9f96d7db7d9a136a0a47b42be0bd57e25b",
     "lifecycleArtifactId": 12056392727,
-    "lifecycleArtifactSha256": "d5292ce82cd0252c3b531042465b1d9c163b5d6b43c69b1e5f303eb6e26608b7"
+    "lifecycleArtifactSha256": "d5292ce82cd0252c3b531042465b1d9c163b5d6b43c69b1e5f303eb6e26608b7",
+    "eventExecutionRunId": 38937274785,
+    "eventExecutionJobId": 117095821679,
+    "eventExecutionCommit": "0d00e3ec79045c9058015a9bab29a6ec6278baa2",
+    "eventExecutionArtifactId": 12061572183,
+    "eventExecutionArtifactSha256": "e3e68ef70dadf1169302a128546f58d1e5b9fd06d815b645e0354b42d18ae1e3"
+  },
+  "v31_6": {
+    "raceBarriers": 6,
+    "relationGuards": 10,
+    "speculativeNonUniqueIndexesAdded": 0,
+    "liveSupabaseReaudit": "NOT_RUN_CONNECTOR_TIMEOUT"
+  },
+  "localEvidence": {
+    "contractTests": 41,
+    "workflowStateMachine": "PASSED",
+    "v31_6LocalGate": "PASSED",
+    "v31_7LocalGate": "PASSED"
+  },
+  "v31_7": {
+    "liveEventChecks": 13,
+    "liveEventViolations": 0,
+    "eventRelationGuards": 6,
+    "deferredReceiptDomains": 6,
+    "outboxProducer": "QUALIFIED",
+    "outboxConsumer": "NOT_QUALIFIED",
+    "legacyReorderOrderedState": "UNADMITTED"
   }
 }
