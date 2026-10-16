@@ -46,6 +46,6 @@ assert.notEqual(periodLatest,demo.reduce((a,b)=>a+b.closing_stock_cost,0),
 const html=readFileSync(new URL('../index.html',import.meta.url),'utf8');
 const en=readFileSync(new URL('../en/index.html',import.meta.url),'utf8');
 const app=readFileSync(new URL('../assets/app.js',import.meta.url),'utf8');
-for(const page of [html,en])assert.ok(page.includes('id="fashion-analytics"'));
-assert.ok(app.includes("mountFashionAnalytics($('#fashion-analytics'),lang)"));
+for(const page of [html,en])assert.ok(page.includes('id="fashion-analytics"'));\nfor(const page of [html,en])assert.ok(page.includes('analytics.html'));
+assert.ok(!app.includes("mountFashionAnalytics($('#fashion-analytics'),lang)"),'Landing must not mount synthetic demo figures');
 console.log('PASS: Fashion Analytics roles, period snapshot, budgets, flow reconciliation, GMROI, WOS, forecasting, CSV parsing and demo boundaries.');
