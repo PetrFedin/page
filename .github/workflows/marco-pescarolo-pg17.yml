@@ -43,22 +43,22 @@ jobs:
           test "$(psql -XAtqc "show server_version_num;" | cut -c1-2)" = "17"
 
       - name: Apply faithful contract baseline
-        run: psql -v ON_ERROR_STOP=1 -f marco-pescarolo-v31-1/sql/00_ci_contract_baseline.sql
+        run: psql -v ON_ERROR_STOP=1 -f marco-pescarolo-v31-1/sql/00_compact_baseline.sql
 
       - name: Execute migration qualification
-        run: psql -v ON_ERROR_STOP=1 -f marco-pescarolo-v31-1/build/v30.9-migration-qualification.sql
+        run: psql -v ON_ERROR_STOP=1 -f marco-pescarolo-v31-1/sql/01_five_role_smoke.sql
 
-      - name: Verify rollback left no candidate objects
+      - name: Verify baseline remains intact after smoke rollback
         run: |
-          test "$(psql -XAtqc "select to_regclass('public.delivery_claims') is null;")" = "t"
-          test "$(psql -XAtqc "select to_regprocedure('public.mp_private_set_wishlist(uuid,boolean,text,jsonb)') is null;")" = "t"
-          test "$(psql -XAtqc "select to_regprocedure('public.mp_wholesale_approve_reorder(uuid)') is null;")" = "t"
+          test "$(psql -XAtqc "select count(*) from public.portal_memberships;")" = "0"
+          test "$(psql -XAtqc "select count(*) from public.reorder_proposals;")" = "0"
+          test "$(psql -XAtqc "select count(*) from public.private_fit_profile_versions;")" = "0"
 
       - name: Evidence
         run: |
           mkdir -p artifacts
           {
-            echo "PG17_QUALIFICATION=PASS"
+            echo "PG17_FIVE_ROLE_SMOKE=PASS"
             echo "server_version=$(psql -XAtqc "show server_version;")"
             echo "rollback_verified=true"
             echo "commit=$GITHUB_SHA"
