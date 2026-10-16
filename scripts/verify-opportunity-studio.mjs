@@ -121,17 +121,20 @@ const read = name => readFileSync(new URL('../'+name,import.meta.url),'utf8');
 const app=read('assets/app.js');
 const browser=read('assets/opportunity-studio.js');
 const css=read('assets/styles.css');
-assert.ok(app.includes("mountOpportunityStudio(") && app.includes("$('#opportunities'), lang, PROJECTS"),
-  'Must mount studio in V2 render');
-assert.ok(app.includes("startContact(selection)"),'Must use existing contact route');
-assert.ok(app.includes("openProject(projectId, 'investor')"),'Selected project must open its existing detailed investor model');
+const economics=read('assets/economics-page.js');
+assert.ok(economics.includes("mountOpportunityStudio(") && economics.includes("document.getElementById('opportunities')"),
+  'Detailed economics page must mount the studio');
+assert.ok(!app.includes("$('#opportunities'), lang, PROJECTS"), 'Home must not mount financial models');
+assert.ok(economics.includes('selection.topic'), 'Must route selected qualitative topic to home contact');
+assert.ok(economics.includes('INVESTOR_BLUEPRINTS'), 'Economic page must retain project-specific investment evidence');
 assert.doesNotMatch(browser, /\b(?:fetch|sendBeacon|localStorage|sessionStorage|XMLHttpRequest|indexedDB)\s*(?:\(|\.|\[)/,
   'Commercial financial inputs must not be transmitted or persisted by calculator');
 assert.ok(!browser.includes('JSON.stringify(currentValues())'),'Must not serialize all financial inputs to lead');
 assert.ok(css.includes('.op-metrics[hidden]'),'Empty calculations should not display metrics');
 for(const path of ['index.html','en/index.html']){
   const html=read(path);
-  assert.ok(html.includes('id="opportunities"'),path+' missing section');
+  assert.ok(html.includes('id="opportunities"'),path+' missing gateway');
+  assert.ok(html.includes('economics.html'),path+' missing detailed economics route');
   assert.ok(html.includes('id="nav-opportunities"'),path+' missing navigation');
   assert.ok(html.includes('/assets/app.js?v=20261014-opportunities1'),path+' wrong app revision');
   assert.ok(!html.includes('Вы покупаете продукт целиком или долю в нём'),path+' public ownership claim unsafe');
