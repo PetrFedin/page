@@ -1,0 +1,70 @@
+name: Marco Pescarolo PG17 Qualification
+
+on:
+  push:
+    branches:
+      - marco-pescarolo-v31-1-pg17-ci
+    paths:
+      - "marco-pescarolo-v31-1/**"
+      - ".github/workflows/marco-pescarolo-pg17.yml"
+  workflow_dispatch:
+
+jobs:
+  qualification:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: mp_admission
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d mp_admission"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 20
+
+    env:
+      PGHOST: localhost
+      PGPORT: 5432
+      PGUSER: postgres
+      PGPASSWORD: postgres
+      PGDATABASE: mp_admission
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify PostgreSQL 17
+        run: |
+          psql -XAtqc "show server_version;"
+          test "$(psql -XAtqc "show server_version_num;" | cut -c1-2)" = "17"
+
+      - name: Apply faithful contract baseline
+        run: psql -v ON_ERROR_STOP=1 -f marco-pescarolo-v31-1/sql/00_ci_contract_baseline.sql
+
+      - name: Execute migration qualification
+        run: psql -v ON_ERROR_STOP=1 -f marco-pescarolo-v31-1/build/v30.9-migration-qualification.sql
+
+      - name: Verify rollback left no candidate objects
+        run: |
+          test "$(psql -XAtqc "select to_regclass('public.delivery_claims') is null;")" = "t"
+          test "$(psql -XAtqc "select to_regprocedure('public.mp_private_set_wishlist(uuid,boolean,text,jsonb)') is null;")" = "t"
+          test "$(psql -XAtqc "select to_regprocedure('public.mp_wholesale_approve_reorder(uuid)') is null;")" = "t"
+
+      - name: Evidence
+        run: |
+          mkdir -p artifacts
+          {
+            echo "PG17_QUALIFICATION=PASS"
+            echo "server_version=$(psql -XAtqc "show server_version;")"
+            echo "rollback_verified=true"
+            echo "commit=$GITHUB_SHA"
+          } | tee artifacts/pg17-qualification.txt
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: marco-pescarolo-pg17-qualification
+          path: artifacts/pg17-qualification.txt
