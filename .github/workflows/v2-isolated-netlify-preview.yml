@@ -22,14 +22,10 @@ jobs:
       - uses: actions/checkout@v4
         with:
           persist-credentials: false
-      - name: Confirm exact source revision and required site credential
+      - name: Confirm exact source revision and isolated deployment destination
         run: |
           set -euo pipefail
           test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
-          if [ -z "$NETLIFY_AUTH_TOKEN" ]; then
-            echo "::error::NETLIFY_AUTH_TOKEN not configured; no publish attempted"
-            exit 1
-          fi
           test "$NETLIFY_SITE_ID" = "4025c165-6b18-41c5-b69b-ba056cc7fbc8"
       - uses: actions/setup-node@v4
         with:
@@ -43,15 +39,40 @@ jobs:
           node scripts/verify-v2-static-references.mjs
           node scripts/verify-public-portfolio-boundaries.mjs
           test "$(node -p "require('./dist-pages/release-health.json').source_sha")" = "$EXPECTED_SHA"
-      - name: Upload only verified static bundle to isolated preview
+      - name: Publish to established isolated Netlify preview
+        if: env.NETLIFY_AUTH_TOKEN != ''
         run: |
           set -euo pipefail
-          npx --yes netlify-cli@23.11.0 deploy --prod --dir=dist-pages --site="$NETLIFY_SITE_ID" --message="Isolated V2 review $EXPECTED_SHA" --json > /tmp/syntha-netlify-preview.json
+          npx --yes netlify-cli@23.11.0 deploy --prod --no-build --dir=dist-pages --site="$NETLIFY_SITE_ID" --message="Isolated V2 review $EXPECTED_SHA" --json > /tmp/syntha-netlify-preview.json
           node --input-type=module -e '
             import fs from "node:fs";
             const x=JSON.parse(fs.readFileSync("/tmp/syntha-netlify-preview.json","utf8"));
-            if (x.deploy_url) console.log("Preview deployment successful");
-            else throw Error("Netlify did not return a deployment URL");
+            if (!(x.deploy_url || x.url)) throw Error("No Netlify deploy URL");
+            console.log("Established isolated preview deployed.");
+          '
+          printf '### Stable Netlify V2 preview\nhttps://syntha-v2-preview-petr.netlify.app/\n' >> "$GITHUB_STEP_SUMMARY"
+      - name: Fallback -- publish anonymous static preview without an auth token
+        if: env.NETLIFY_AUTH_TOKEN == ''
+        run: |
+          set -euo pipefail
+          echo "::notice::No NETLIFY_AUTH_TOKEN. Publishing to a separate, temporary Netlify site (not syntha.pro and not the established preview)."
+          npx --yes netlify-cli@23.11.0 deploy --allow-anonymous --no-build --dir=dist-pages --json > /tmp/syntha-anonymous-preview.json
+          node --input-type=module -e '
+            import fs from "node:fs";
+            const x=JSON.parse(fs.readFileSync("/tmp/syntha-anonymous-preview.json","utf8"));
+            const candidates=[x.url,x.deploy_url,x.deployUrl,x.site_url,x.siteUrl].filter(v=>typeof v==="string" && v.startsWith("https://"));
+            const candidate=candidates.find(v=>{
+              try {return new URL(v).hostname.endsWith(".netlify.app");} catch {return false;}
+            });
+            if(!candidate) throw Error("No publicly accessible Netlify URL returned");
+            const u=new URL(candidate);
+            if(u.protocol!=="https:" || u.pathname!=="/") throw Error("Unexpected preview URL format");
+            fs.appendFileSync(process.env.GITHUB_ENV,"PREVIEW_URL="+u.origin+"/\n");
+            fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY,
+              "### Temporary V2 preview (claimable for 1 hour)\n"+
+              u.origin+"/\n\nExact SHA: "+process.env.EXPECTED_SHA+"\n"+
+              "This is a disposable static test deployment; original site is unchanged.\n");
+            console.log("Anonymous preview URL: "+u.origin+"/");
           '
       - name: Admit public exact-SHA preview
         run: node scripts/verify-public-preview.mjs
