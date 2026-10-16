@@ -1,0 +1,15 @@
+import assert from 'node:assert/strict';
+import {demoFashionRows} from '../assets/fashion-analytics-core.js';
+import {evaluateFashionBudget} from '../assets/fashion-budget.js';
+const rows=demoFashionRows();
+const b=evaluateFashionBudget(rows,{dimension:'category',reservePct:10});
+assert.equal(b.ok,true);assert.equal(b.otb,b.purchaseBudget-b.receiptsCost-b.openPOCost);
+assert.equal(b.reserved,Number((Math.max(0,b.otb)*.1).toFixed(2)));
+assert.equal(b.usableOTB,Number((Math.max(0,b.otb)-b.reserved).toFixed(2)));
+assert.equal(b.fundingGap,Number(Math.max(0,b.estimatedNeed-b.usableOTB).toFixed(2)));
+assert.ok(!b.withinBudget || b.status==='manual_review');
+assert.throws(()=>evaluateFashionBudget(rows,{reservePct:110}),RangeError);
+assert.equal(evaluateFashionBudget(rows,{reservePct:100}).usableOTB,0);
+const changed=rows.map(r=>({...r}));for(const r of changed)if(r.period==='2026-09')r.open_po_cost+=100000;
+const negative=evaluateFashionBudget(changed);assert.ok(negative.otb<0);assert.equal(negative.usableOTB,0);
+console.log('PASS Fashion budget reconciliation, reserve, shortfall, overcommitment');
