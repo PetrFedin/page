@@ -42,13 +42,11 @@ END $$;
 
 -- 4) Browser create explicitly becomes production and is visible in v2 snapshot.
 DO $$
-DECLARE d uuid; s jsonb; cls text;
+DECLARE d uuid; s jsonb;
 BEGIN
   d:=public.mp_wholesale_create_order_v2(
     '40000000-0000-4000-8000-000000000001','Real CI order','REF-1','FW26',
     '60000000-0000-4000-8000-000000000001');
-  SELECT data_class INTO cls FROM public.deals WHERE id=d;
-  IF cls<>'production' THEN RAISE EXCEPTION 'v31_4_wholesale_create_not_production'; END IF;
   s:=public.mp_client_snapshot_v2('buyer',NULL);
   IF NOT EXISTS(SELECT 1 FROM jsonb_array_elements(s->'orders') x WHERE x->>'id'=d::text AND x->>'data_class'='production') THEN
     RAISE EXCEPTION 'v31_4_production_order_missing_from_snapshot';
@@ -56,10 +54,13 @@ BEGIN
 END $$;
 
 -- 5) Same request id bound to non-production is fail-closed; it is not promoted.
+-- Fixture creation is test-harness/admin work, never browser work.
+RESET ROLE;
 INSERT INTO public.deals(id,tenant_id,code,client_id,stage,currency,client_store_id,title,data_class,current_revision,client_request_id)
 VALUES('50000000-0000-4000-8000-000000000002','00000000-0000-4000-8000-000000000001','CI-OLD-DEMO',
  '30000000-0000-4000-8000-000000000001','draft','EUR','40000000-0000-4000-8000-000000000001','Old demo','demo',0,
  '60000000-0000-4000-8000-000000000002');
+SET LOCAL ROLE authenticated;
 DO $$ BEGIN
   BEGIN
     PERFORM public.mp_wholesale_create_order_v2(
@@ -68,18 +69,25 @@ DO $$ BEGIN
     RAISE EXCEPTION 'v31_4_nonproduction_retry_promoted';
   EXCEPTION WHEN serialization_failure THEN NULL;
   END;
+END $$;
+RESET ROLE;
+DO $$ BEGIN
   IF (SELECT data_class FROM public.deals WHERE id='50000000-0000-4000-8000-000000000002')<>'demo' THEN
     RAISE EXCEPTION 'v31_4_nonproduction_retry_changed_class';
   END IF;
 END $$;
+SET LOCAL ROLE authenticated;
 
 -- 6) Copy facade preserves production and old raw copy is no longer executable.
 DO $$
-DECLARE src uuid; cp uuid;
+DECLARE src uuid; cp uuid; s jsonb;
 BEGIN
- SELECT id INTO src FROM public.deals WHERE client_request_id='60000000-0000-4000-8000-000000000001';
+ s:=public.mp_client_snapshot_v2('buyer',NULL);
+ SELECT (x->>'id')::uuid INTO src FROM jsonb_array_elements(s->'orders') x WHERE x->>'code'<>'CI-DEMO' ORDER BY x->>'created_at' DESC LIMIT 1;
+ IF src IS NULL THEN RAISE EXCEPTION 'v31_4_copy_source_missing_from_snapshot'; END IF;
  cp:=public.mp_wholesale_copy_order_v2(src,'40000000-0000-4000-8000-000000000002','Dubai copy','REF-COPY');
- IF (SELECT data_class FROM public.deals WHERE id=cp)<>'production' THEN RAISE EXCEPTION 'v31_4_copy_lost_production_class'; END IF;
+ s:=public.mp_client_snapshot_v2('buyer',NULL);
+ IF NOT EXISTS(SELECT 1 FROM jsonb_array_elements(s->'orders') x WHERE x->>'id'=cp::text AND x->>'data_class'='production') THEN RAISE EXCEPTION 'v31_4_copy_lost_production_class'; END IF;
  IF has_function_privilege('authenticated','public.copy_deal(uuid,uuid,text,text,text,uuid)','EXECUTE') THEN RAISE EXCEPTION 'v31_4_raw_copy_still_executable'; END IF;
  IF has_function_privilege('authenticated','public.capture_deal_revision(uuid,text,uuid,text,uuid,integer)','EXECUTE') THEN RAISE EXCEPTION 'v31_4_raw_revision_still_executable'; END IF;
 END $$;
