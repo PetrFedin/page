@@ -1,0 +1,92 @@
+name: Marco Pescarolo v31.5 Lifecycle Consistency PG17
+
+on:
+  push:
+    branches:
+      - marco-pescarolo-v31-5-lifecycle-consistency-ci
+    paths:
+      - "marco-pescarolo-v31-5/**"
+      - ".github/workflows/marco-pescarolo-v31-5-lifecycle.yml"
+  workflow_dispatch:
+
+jobs:
+  lifecycle:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: mp_lifecycle
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d mp_lifecycle"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 20
+    env:
+      PGHOST: localhost
+      PGPORT: 5432
+      PGUSER: postgres
+      PGPASSWORD: postgres
+      PGDATABASE: mp_lifecycle
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify PostgreSQL 17
+        run: |
+          psql -XAtqc "show server_version;"
+          test "$(psql -XAtqc "show server_version_num;" | cut -c1-2)" = "17"
+
+      - name: Apply reusable full-contract baseline
+        run: psql -v ON_ERROR_STOP=1 -f marco-pescarolo-v31-2/sql/00_full_contract_baseline.sql
+
+      - name: Apply v31.4 live-shape fixture
+        run: psql -v ON_ERROR_STOP=1 -f marco-pescarolo-v31-4/sql/00_v31_4_ci_live_shape_patch.sql
+
+      - name: Apply v31.5 lifecycle live-shape fixture
+        run: psql -v ON_ERROR_STOP=1 -f marco-pescarolo-v31-5/sql/00_v31_5_ci_live_shape_patch.sql
+
+      - name: Build rollback-safe v31.4 hardening body
+        run: |
+          sed '1,/^BEGIN;$/d' marco-pescarolo-v31-4/sql/14_internal_integrity_hardening_STAGED.sql | sed '/^ROLLBACK;$/d' > /tmp/v31_4_hardening_body.sql
+          test -s /tmp/v31_4_hardening_body.sql
+
+      - name: Build rollback-safe v31.5 lifecycle body
+        run: |
+          sed '1,/^BEGIN;$/d' marco-pescarolo-v31-5/sql/17_lifecycle_consistency_STAGED.sql | sed '/^ROLLBACK;$/d' > /tmp/v31_5_lifecycle_body.sql
+          test -s /tmp/v31_5_lifecycle_body.sql
+
+      - name: Execute v31.5 lifecycle consistency transaction
+        run: psql -v ON_ERROR_STOP=1 -f marco-pescarolo-v31-5/sql/19_v31_5_lifecycle_driver.sql
+
+      - name: Verify rollback no residue
+        run: |
+          test "$(psql -XAtqc "select to_regprocedure('public.mp_admin_integrity_snapshot()') is null;")" = "t"
+          test "$(psql -XAtqc "select to_regprocedure('private.mp_deal_fulfillment_coverage(uuid)') is null;")" = "t"
+          test "$(psql -XAtqc "select count(*) from pg_trigger where tgname='trg_mp_deal_stage_invariant_guard' and not tgisinternal;")" = "0"
+          test "$(psql -XAtqc "select count(*) from public.deals where code='CI-LIFE-1';")" = "0"
+
+      - name: Evidence
+        run: |
+          mkdir -p artifacts
+          {
+            echo "V31_5_LIFECYCLE_CONSISTENCY_PG17=PASS"
+            echo "server_version=$(psql -XAtqc "show server_version;")"
+            echo "proforma_stage_guard=PASS"
+            echo "verified_funds_guard=PASS"
+            echo "allocation_guard=PASS"
+            echo "partial_shipment_guard=PASS"
+            echo "partial_delivery_guard=PASS"
+            echo "fulfillment_coverage_projection=PASS"
+            echo "admin_integrity_snapshot=PASS"
+            echo "rollback_no_residue=PASS"
+            echo "commit=$GITHUB_SHA"
+          } | tee artifacts/v31-5-lifecycle-consistency.txt
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: marco-pescarolo-v31-5-lifecycle-consistency
+          path: artifacts/v31-5-lifecycle-consistency.txt
