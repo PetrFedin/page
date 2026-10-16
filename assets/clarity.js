@@ -38,8 +38,8 @@ const COPY = {
     launchSummary: 'Нужен свой продукт? Варианты запуска и развития',
     launchHint: 'Покажу, с чего начать: с диагностики, MVP, интеграции или доработки работающей системы.',
     investorsTitle: 'Партнёрам и инвесторам',
-    investorsSub: 'Пилоты, внедрение, развитие и коммерциализация продуктов — с проверкой стадии и условий.',
-    investorsLead: 'Обсуждаем конкретный продукт и конкретный следующий этап. Права на продукт, затраты, риски и условия участия проверяем до договорённостей.',
+    investorsSub: 'Выберите продукт и подходящий способ участия — от пилота до инвестиций.',
+    investorsLead: 'Начнём с задачи и продукта. Условия и риски проверим перед соглашением.',
     investorsFormatsTitle: 'Форматы участия',
     investorsFormatsSub: 'Выберите подходящий вариант: от пилота или совместной разработки до инвестирования или приобретения.',
     investorNotes: [
@@ -111,8 +111,8 @@ const COPY = {
     launchSummary: 'Need your own product? Delivery and growth options',
     launchHint: 'Start with discovery, MVP, integration or improvement of an existing system.',
     investorsTitle: 'For partners and investors',
-    investorsSub: 'Pilots, deployment, development and go-to-market, with transparent milestones and diligence.',
-    investorsLead: 'We discuss a specific product and a specific next stage. Ownership, cost, risk and participation terms are assessed before agreements.',
+    investorsSub: 'Choose a product and a way to collaborate, from a pilot to investment.',
+    investorsLead: 'Start with a product and a goal. We review terms and risks before agreements.',
     investorsFormatsTitle: 'Ways to participate',
     investorsFormatsSub: 'Choose from pilots and co-development through investment or acquisition.',
     investorNotes: [

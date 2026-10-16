@@ -1,0 +1,42 @@
+name: V2 dual editorial delivery (approved posts only)
+on:
+  schedule:
+    # 12:00 and 20:00 Moscow time (UTC+3, fixed year-round)
+    - cron: '0 9 * * *'
+    - cron: '0 17 * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: v2-editorial-two-slots
+  cancel-in-progress: false
+jobs:
+  deliver:
+    if: github.repository == 'PetrFedin/page'
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    env:
+      EDITORIAL_V2_API_BASE: ${{ vars.EDITORIAL_V2_API_BASE }}
+      EDITORIAL_V2_CRON_KEY: ${{ secrets.EDITORIAL_V2_CRON_KEY }}
+      EDITORIAL_V2_LIVE_APPROVED: ${{ vars.EDITORIAL_V2_LIVE_APPROVED }}
+    steps:
+      - name: Fail closed unless V2 API is explicitly approved and configured
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ "${EDITORIAL_V2_LIVE_APPROVED}" != "true" ]]; then
+            echo "BLOCKED: explicit V2 editorial deployment approval is absent"
+            exit 1
+          fi
+          if [[ -z "${EDITORIAL_V2_API_BASE}" || -z "${EDITORIAL_V2_CRON_KEY}" ]]; then
+            echo "BLOCKED: dedicated V2 API URL or secret missing"
+            exit 1
+          fi
+          case "${EDITORIAL_V2_API_BASE}" in
+            https://syntha.pro*|https://www.syntha.pro*)
+              echo "BLOCKED: never post through V1 production domain"; exit 1 ;;
+            https://*.netlify.app|https://*.pages.dev|https://*.workers.dev) ;;
+            *) echo "BLOCKED: unsupported V2 preview API origin"; exit 1 ;;
+          esac
+          response="$(curl -sS --fail-with-body --retry 2 --max-time 25 -H "x-cron-key: ${EDITORIAL_V2_CRON_KEY}" "${EDITORIAL_V2_API_BASE%/}/api/cron")"
+          echo "${response}" | node -e 'let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{const j=JSON.parse(s);if(typeof j.published!=="number")process.exit(1);console.log("Published approved due posts:",j.published)})'

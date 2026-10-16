@@ -13,11 +13,6 @@ const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const ЗАМЕНЫ = [
   ['<html lang="ru">', '<html lang="en">'],
   ['>Возможности</a>', '>Opportunities</a>'],
-  ['Коммерческие сценарии · предварительная оценка', 'Commercial scenarios · preliminary assessment'],
-  ['От конкретной задачи — к проверяемой экономике', 'From a concrete challenge to testable economics'],
-  ['Сравнение вариантов разработки, оптимизации бизнеса, раннего доступа и участия в проектах. Не является публичной офертой.', 'Compare software delivery, business transformation, early access and project participation. Not a binding public offer.'],
-  ['Для интерактивного расчёта требуется JavaScript.', 'Interactive estimates require JavaScript.'],
-  ['>Запросить предметную оценку</a>', '>Request a tailored assessment</a>'],
   ['/assets/photo/petr-portrait.webp', '/assets/photo/petr-ny.webp'],
   ['<title>Пётр Федин — фэшн-консалтинг и проекты</title>',
    '<title>Petr Fedin — fashion advisory and projects</title>'],
@@ -72,5 +67,19 @@ const LD = {
   ]
 };
 html = html.replace(/<script type="application\/ld\+json">[\s\S]*?<\/script>/, () => `<script type="application/ld+json">${JSON.stringify(LD)}</script>`);
+/* These two service gateways have authored English marketing copy.
+ * Preserve them while the older bilingual generator handles shared chrome. */
+const enAuthored=readFileSync(join(root,'en','index.html'),'utf8');
+function preserveAuthoredSection(id) {
+  const startToken='<section class="section '+(id==='fashion-analytics'?'analytics-offer':'op-gateway')+'" id="'+id+'"';
+  const currentStart=html.indexOf(startToken),authoredStart=enAuthored.indexOf(startToken);
+  if(currentStart<0||authoredStart<0)throw Error('Missing bilingual gateway '+id);
+  const until=id==='fashion-analytics'?'  <section class="section" id="projects"':'  <!--OPPORTUNITY_STUDIO_END-->';
+  const currentEnd=html.indexOf(until,currentStart),authoredEnd=enAuthored.indexOf(until,authoredStart);
+  if(currentEnd<0||authoredEnd<0)throw Error('Gateway boundary mismatch '+id);
+  html=html.slice(0,currentStart)+enAuthored.slice(authoredStart,authoredEnd)+html.slice(currentEnd);
+}
+preserveAuthoredSection('fashion-analytics');
+preserveAuthoredSection('opportunities');
 writeFileSync(join(root, 'en', 'index.html'), html);
 console.log('en/index.html пересобран');
