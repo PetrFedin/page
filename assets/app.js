@@ -2604,7 +2604,17 @@ function consumeContactParams() {
   $('#topic').value = topic;
   syncTopicOther();
   const msgEl = $('#form [name="message"]');
-  if (msgEl && message && !msgEl.value.trim()) msgEl.value = message;
+  const focus = q.get('focus');
+  const focusCopy = {
+    ru: {buying:'Закупки и ассортимент',economics:'Коммерческая экономика',production:'Продукт и производство',systems:'Данные и цифровые системы'},
+    en: {buying:'Buying and assortment',economics:'Commercial economics',production:'Product and production',systems:'Data and digital systems'}
+  };
+  const selected = Object.hasOwn(focusCopy[lang], focus) ? focusCopy[lang][focus] : null;
+  if (msgEl && !msgEl.value.trim()) {
+    if (selected && topic === 'consulting') {
+      msgEl.value = (lang === 'en' ? 'I would like to discuss: ' : 'Хочу обсудить задачу: ') + selected + '. ';
+    } else if (message) msgEl.value = message;
+  }
   syncSubmit?.();
 }
 consumeContactParams();
