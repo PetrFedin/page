@@ -3,6 +3,11 @@ on:
   pull_request:
     paths:
       - 'assets/app.js'
+      - 'profile.html'
+      - 'en/profile.html'
+      - 'assets/profile.js'
+      - 'assets/profile.css'
+      - 'scripts/verify-professional-profile.mjs'
       - 'assets/content.js'
       - 'assets/logos.js'
       - 'assets/styles.css'
@@ -130,6 +135,9 @@ jobs:
       - run: node --check assets/fashion-analytics.js
       - run: node --check scripts/verify-fashion-analytics.mjs
       - run: node --check assets/app.js
+      - run: node --check assets/profile.js
+      - run: node --check scripts/verify-professional-profile.mjs
+      - run: node scripts/verify-professional-profile.mjs
       - run: node --check assets/content.js
       - run: node --check assets/portfolio-extensions.js
       - run: node --check scripts/verify-public-portfolio-boundaries.mjs
