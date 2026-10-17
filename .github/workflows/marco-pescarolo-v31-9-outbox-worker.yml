@@ -1,0 +1,77 @@
+name: Marco Pescarolo v31.9 Outbox PostgreSQL 17
+on:
+  push:
+    branches:
+      - marco-pescarolo-v31-9-outbox-worker-ci
+    paths:
+      - "marco-pescarolo-v31-9/**"
+      - ".github/workflows/marco-pescarolo-v31-9-outbox-worker.yml"
+  workflow_dispatch:
+jobs:
+  outbox:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: mp_outbox
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d mp_outbox"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 20
+    env:
+      PGHOST: localhost
+      PGPORT: 5432
+      PGUSER: postgres
+      PGPASSWORD: postgres
+      PGDATABASE: mp_outbox
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify PG17 and fixture
+        run: |
+          test "$(psql -XAtqc "show server_version_num;" | cut -c1-2)" = "17"
+          psql -v ON_ERROR_STOP=1 -f marco-pescarolo-v31-2/sql/00_full_contract_baseline.sql
+          psql -v ON_ERROR_STOP=1 -f marco-pescarolo-v31-4/sql/00_v31_4_ci_live_shape_patch.sql
+          psql -v ON_ERROR_STOP=1 -f marco-pescarolo-v31-5/sql/00_v31_5_ci_live_shape_patch.sql
+          psql -v ON_ERROR_STOP=1 -f marco-pescarolo-v31-7/sql/00_v31_7_ci_live_shape_patch.sql
+          psql -v ON_ERROR_STOP=1 <<'SQL'
+          DO $guard$
+          BEGIN
+            IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname='service_role') THEN
+              CREATE ROLE service_role NOLOGIN BYPASSRLS;
+            END IF;
+          END $guard$;
+          GRANT USAGE ON SCHEMA public TO service_role;
+          GRANT SELECT,UPDATE ON public.outbox_events TO service_role;
+          SQL
+      - name: Stage cumulative migrations without residue
+        run: |
+          sed '1,/^BEGIN;$/d' marco-pescarolo-v31-4/sql/14_internal_integrity_hardening_STAGED.sql | sed '/^ROLLBACK;$/d' > /tmp/v31_4_hardening_body.sql
+          sed '1,/^BEGIN;$/d' marco-pescarolo-v31-5/sql/17_lifecycle_consistency_STAGED.sql | sed '/^ROLLBACK;$/d' > /tmp/v31_5_lifecycle_body.sql
+          sed '1,/^BEGIN;$/d' marco-pescarolo-v31-7/sql/21_relation_concurrency_hardening_STAGED.sql | sed '/^ROLLBACK;$/d' > /tmp/v31_6_relation_body.sql
+          sed '1,/^BEGIN;$/d' marco-pescarolo-v31-7/sql/25_event_execution_integrity_STAGED.sql | sed '/^ROLLBACK;$/d' > /tmp/v31_7_event_body.sql
+          sed '1,/^BEGIN;$/d' marco-pescarolo-v31-9/sql/30_outbox_worker_STAGED.sql | sed '/^ROLLBACK;$/d' > /tmp/v31_9_outbox_body.sql
+          psql -v ON_ERROR_STOP=1 -f marco-pescarolo-v31-9/sql/32_outbox_worker_driver.sql
+      - name: Verify rollback
+        run: |
+          test "$(psql -XAtqc "select to_regprocedure('public.mp_worker_outbox_claim(text,integer,integer)') is null;")" = "t"
+          test "$(psql -XAtqc "select count(*) from information_schema.columns where table_schema='public' and table_name='outbox_events' and column_name='lease_token';")" = "0"
+          test "$(psql -XAtqc "select count(*) from public.outbox_events;")" = "0"
+      - name: Evidence
+        run: |
+          mkdir -p artifacts
+          {
+            echo "V31_9_OUTBOX_WORKER_PG17=PASS"
+            echo "commit=$GITHUB_SHA"
+            echo "external_consumer=NOT_IMPLEMENTED"
+            echo "production_admission=HOLD"
+          } | tee artifacts/v31-9-outbox.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: marco-v31-9-outbox
+          path: artifacts/v31-9-outbox.txt
