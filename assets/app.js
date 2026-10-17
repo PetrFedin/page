@@ -11,6 +11,19 @@ const rankProject = id => {
   return rank === -1 ? FEATURED_PROJECT_IDS.length : rank;
 };
 const PROJECTS = catalog.sort((a, b) => rankProject(a.id) - rankProject(b.id));
+/* Professional profile is an independent bilingual editorial surface.
+   Link only inside the existing experience header, without altering global nav. */
+const experienceHeading = document.querySelector('#experience .section-head');
+if (experienceHeading && !document.getElementById('professional-profile-link')) {
+  const link = document.createElement('a');
+  link.id = 'professional-profile-link';
+  link.className = 'btn btn-sm';
+  link.href = location.pathname.startsWith('/en/') ? '/en/profile.html' : '/profile.html';
+  link.textContent = location.pathname.startsWith('/en/') ? 'Professional profile →' : 'Профессиональный профиль →';
+  link.style.marginTop = '14px';
+  experienceHeading.append(link);
+}
+
 import { mountInvestorCalculator } from './investor-calculator.js?v=20261012-calc1';
 import { LEAD_COPY, safeLeadRoute, routeForTopic } from './lead-paths.js?v=20261013-leads1';
 import { DECK } from './deck.js?v=202610041955';
