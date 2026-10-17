@@ -1,0 +1,81 @@
+name: Marco Pescarolo real live media
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - marco-pescarolo-v31-10-live-media-ci
+    paths:
+      - scripts/marco-media-capture.mjs
+      - .github/workflows/marco-pescarolo-media.yml
+      - docs/MARCO_LIVE_MEDIA_POLICY.md
+  schedule:
+    - cron: '0 9 * * 1'
+permissions:
+  contents: write
+concurrency:
+  group: marco-pescarolo-live-media
+  cancel-in-progress: false
+jobs:
+  live-public-capture:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install pinned browser
+        run: |
+          npm install --no-save --no-package-lock playwright@1.56.1
+          npx playwright install --with-deps chromium
+          ffmpeg -version | head -n 1
+      - name: Capture real public Netlify site
+        env:
+          MARCO_CAPTURE_URL: https://marco-pescarolo-showroom.netlify.app/
+          MARCO_CAPTURE_OUT: artifacts/marco-live
+        run: node scripts/marco-media-capture.mjs
+      - name: Verify provenance and video
+        run: |
+          node --input-type=module <<'JS'
+          import fs from 'node:fs';
+          const dir='artifacts/marco-live/';
+          const m=JSON.parse(fs.readFileSync(dir+'manifest.json','utf8'));
+          if (m.status!=='PASS' || !m.production_build_fingerprint?.sha256) throw Error('capture_not_qualified');
+          if (!m.provenance.includes('real Chromium')) throw Error('wrong_provenance');
+          if (m.target_url!=='https://marco-pescarolo-showroom.netlify.app/') throw Error('wrong_target');
+          if (m.site.screenshots.length<4) throw Error('insufficient_screenshots');
+          if (m.site.video.duration_seconds<20 || m.site.video.duration_seconds>230) throw Error('bad_video_duration');
+          if (m.site.steps.find(s=>s.key==='public-collection-navigation')?.worked!==true) throw Error('collection_not_verified');
+          if (fs.statSync(dir+m.site.video.file).size<100000) throw Error('small_video');
+          console.log('MEDIA_QA=PASS',m.production_build_fingerprint.sha256);
+          JS
+      - name: Save downloadable visual proof
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: marco-pescarolo-live-evidence
+          path: artifacts/marco-live/
+          if-no-files-found: warn
+          retention-days: 30
+      - name: Archive only on changed live build
+        if: success()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          KEY="$(node -p "JSON.parse(require('fs').readFileSync('artifacts/marco-live/manifest.json','utf8')).production_build_fingerprint.sha256.slice(0,16)")"
+          TAG="mp-showroom-live-$KEY"
+          if gh release view "$TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            echo "UNCHANGED_LIVE_BUILD=$TAG" >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          gh release create "$TAG" \
+            artifacts/marco-live/*.png \
+            artifacts/marco-live/*.mp4 \
+            artifacts/marco-live/manifest.json \
+            --repo "$GITHUB_REPOSITORY" \
+            --target "$GITHUB_SHA" \
+            --title "Marco Pescarolo | Verified live public capture | $KEY" \
+            --notes-file artifacts/marco-live/README.md \
+            --latest=false
+          echo "REAL_LIVE_RELEASE=https://github.com/$GITHUB_REPOSITORY/releases/tag/$TAG" >> "$GITHUB_STEP_SUMMARY"
