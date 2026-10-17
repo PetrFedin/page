@@ -16,14 +16,15 @@ const root=resolve(dirname(fileURLToPath(import.meta.url)),'..');
 const dist=join(root,'dist-pages');
 const staticFiles=[
  'index.html','privacy.html','analytics.html','economics.html','syntha.html','renova.html','chatx.html',
- 'promomed.html','mfw.html','marco-pescarolo.html','favicon.ico',
+ 'promomed.html','mfw.html','marco-pescarolo.html','profile.html','favicon.ico',
  'robots.txt','sitemap.xml','feed.xml','feed.json','llms.txt',
  '_headers','_routes.json',
  'effa60696db2628d61a43e4d89f0186c.txt'
 ];
 const staticDirs=['assets','en'];
 const mustHave=[
- 'index.html','en/index.html','assets/app.js','assets/styles.css',
+ 'index.html','en/index.html','profile.html','en/profile.html',
+ 'assets/profile.js','assets/profile.css','assets/app.js','assets/styles.css',
  'assets/lead-paths.js','assets/portfolio-extensions.js','assets/business-services.js',
  'assets/investor-calculator.js','assets/opportunity-copy.js',
  'assets/opportunity-economics.js','assets/opportunity-studio.js','assets/economics-page.js',

@@ -11,6 +11,19 @@ const rankProject = id => {
   return rank === -1 ? FEATURED_PROJECT_IDS.length : rank;
 };
 const PROJECTS = catalog.sort((a, b) => rankProject(a.id) - rankProject(b.id));
+/* Professional profile is an independent bilingual editorial surface.
+   Link only inside the existing experience header, without altering global nav. */
+const experienceHeading = document.querySelector('#experience .section-head');
+if (experienceHeading && !document.getElementById('professional-profile-link')) {
+  const link = document.createElement('a');
+  link.id = 'professional-profile-link';
+  link.className = 'btn btn-sm';
+  link.href = location.pathname.startsWith('/en/') ? '/en/profile.html' : '/profile.html';
+  link.textContent = location.pathname.startsWith('/en/') ? 'Professional profile →' : 'Профессиональный профиль →';
+  link.style.marginTop = '14px';
+  experienceHeading.append(link);
+}
+
 import { mountInvestorCalculator } from './investor-calculator.js?v=20261012-calc1';
 import { LEAD_COPY, safeLeadRoute, routeForTopic } from './lead-paths.js?v=20261013-leads1';
 import { DECK } from './deck.js?v=202610041955';
@@ -2591,7 +2604,17 @@ function consumeContactParams() {
   $('#topic').value = topic;
   syncTopicOther();
   const msgEl = $('#form [name="message"]');
-  if (msgEl && message && !msgEl.value.trim()) msgEl.value = message;
+  const focus = q.get('focus');
+  const focusCopy = {
+    ru: {buying:'Закупки и ассортимент',economics:'Коммерческая экономика',production:'Продукт и производство',systems:'Данные и цифровые системы'},
+    en: {buying:'Buying and assortment',economics:'Commercial economics',production:'Product and production',systems:'Data and digital systems'}
+  };
+  const selected = Object.hasOwn(focusCopy[lang], focus) ? focusCopy[lang][focus] : null;
+  if (msgEl && !msgEl.value.trim()) {
+    if (selected && topic === 'consulting') {
+      msgEl.value = (lang === 'en' ? 'I would like to discuss: ' : 'Хочу обсудить задачу: ') + selected + '. ';
+    } else if (message) msgEl.value = message;
+  }
   syncSubmit?.();
 }
 consumeContactParams();
