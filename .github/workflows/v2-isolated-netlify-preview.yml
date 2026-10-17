@@ -1,0 +1,72 @@
+name: V2 isolated Netlify preview
+on:
+  push:
+    branches:
+      - feat/page-v2-preview-sha-gate-20261016
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: page-v2-isolated-netlify-preview
+  cancel-in-progress: true
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      NETLIFY_SITE_ID: 4025c165-6b18-41c5-b69b-ba056cc7fbc8
+      PREVIEW_URL: https://syntha-v2-preview-petr.netlify.app/
+      EXPECTED_SHA: ${{ github.sha }}
+      NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Confirm exact source revision and isolated deployment destination
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+          test "$NETLIFY_SITE_ID" = "4025c165-6b18-41c5-b69b-ba056cc7fbc8"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Build exact source
+        run: |
+          set -euo pipefail
+          npm run build
+          npm run package:pages
+          node scripts/verify-pages-release.mjs
+          node scripts/verify-v2-static-references.mjs
+          node scripts/verify-public-portfolio-boundaries.mjs
+          test "$(node -p "require('./dist-pages/release-health.json').source_sha")" = "$EXPECTED_SHA"
+      - name: Publish to established isolated Netlify preview
+        if: env.NETLIFY_AUTH_TOKEN != ''
+        run: |
+          set -euo pipefail
+          npx --yes netlify-cli@23.11.0 deploy --prod --no-build --dir=dist-pages --site="$NETLIFY_SITE_ID" --message="Isolated V2 review $EXPECTED_SHA" --json > /tmp/syntha-netlify-preview.json
+          node --input-type=module -e '
+            import fs from "node:fs";
+            const x=JSON.parse(fs.readFileSync("/tmp/syntha-netlify-preview.json","utf8"));
+            if (!(x.deploy_url || x.url)) throw Error("No Netlify deploy URL");
+            console.log("Established isolated preview deployed.");
+          '
+          printf '### Stable Netlify V2 preview\nhttps://syntha-v2-preview-petr.netlify.app/\n' >> "$GITHUB_STEP_SUMMARY"
+      - name: Explain missing Netlify publication authorization
+        if: env.NETLIFY_AUTH_TOKEN == ''
+        run: |
+          echo "::error::NETLIFY_AUTH_TOKEN is required for the existing isolated Netlify site; the pinned CLI has no anonymous deploy option."
+          exit 1
+      - name: Admit public exact-SHA preview
+        run: node scripts/verify-public-preview.mjs
+      - name: Browser interactions on published preview
+        run: |
+          set -euo pipefail
+          npm install --no-save playwright@1.58.2
+          npx playwright install --with-deps chromium
+          node scripts/browser-public-preview-qa.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: public-preview-browser-evidence
+          path: qa-artifacts/
+          if-no-files-found: ignore

@@ -13,3 +13,6 @@ published.json
 # Output-only public deployment bundle and CI evidence.
 dist-pages/
 qa-artifacts/
+
+# Local deployment state must never enter version control.
+.netlify/
