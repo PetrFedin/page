@@ -109,11 +109,12 @@ try {
 
   const product = await clickOne(
     ['.product button[onclick*="openProduct"]','.product [onclick*="openProduct"]',
-      'article.product .product-img','[data-testid="product-card"]','a[href*="/product/"]'],
+      'article.product .product-img','[data-testid="product-card"]','a[href*="/product/"]',
+      'button:has-text("Open product")','button:has-text("Открыть товар")','button:has-text("Apri prodotto")'],
     'public-product-details');
   await page.waitForTimeout(5900);
   if (product) await snap('04-product-desktop.png');
-  else facts.warnings.push('No public product detail entry matched known selectors; not photographed as verified.');
+  else fail('Public catalogue has no clickable product-detail entry; cannot qualify product journey.');
 
   await clickOne(['.modal .x','.overlay .x','button[aria-label="Close"]','button:has-text("Close")'], 'close-public-detail');
   const ru = await clickOne(['button[data-lang="ru"]','button:has-text("RU")'], 'language-ru');
@@ -135,17 +136,22 @@ try {
 
   const entry = await clickOne(
     ['#roleChip','.role-chip','button[onclick*="openRole"]','button:has-text("Sign in")',
-      'button:has-text("Вход")','a[href*="login"]'], 'public-role-entry');
+      'button:has-text("Вход")','a[href*="login"]','button:has-text("Maison Vela")'],
+    'public-demo-account-switcher');
   await page.waitForTimeout(5500);
   if (entry) await snap('07-role-entry-desktop.png');
-  else facts.warnings.push('No verified public role selector/login entry in live build.');
+  else facts.warnings.push('No verified demo-account switcher or real sign-in entry in live build.');
 
   // Record a final return to home without accessing internal demo/privileged dashboards.
   await clickOne(['.modal .x','button[aria-label="Close"]'], 'close-entry');
-  await clickOne(['#nav button[data-page="home"]','a.brand','a[href="/"]','button:has-text("Home")'],
+  await clickOne(['#nav button[data-page="home"]','a.brand','a[href="/"]',
+    'button:has-text("Overview")','button:has-text("Обзор")', 'button:has-text("Panoramica")',
+    'button:has-text("Home")'],
     'return-to-public-home');
   await page.waitForTimeout(5500);
   await snap('08-end-public-desktop.png');
+  const homeControl = facts.steps.find(x => x.key === 'return-to-public-home');
+  if (!homeControl?.worked) fail('Cannot return from catalogue to public home via navigation');
   facts.warnings.push(...consoleIssues.slice(0, 20));
 
   const video = page.video();
