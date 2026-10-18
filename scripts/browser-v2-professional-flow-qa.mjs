@@ -22,6 +22,9 @@ try{
    assert.equal(await page.locator('[data-profile-focus="systems"]').getAttribute('aria-pressed'),'true');
    assert.equal(await page.locator('[data-profile-focus="buying"]').getAttribute('aria-pressed'),'false');
    await page.locator('#profile-focus-contact').click();
+   // The document shell arrives before the deferred module consumes URL parameters.
+   // Wait for explicit route consumption rather than reading pre-rendered empty fields.
+   await page.waitForFunction(()=>location.search === '',undefined,{timeout:15000});
    await page.locator('#form [name="message"]').waitFor();
    assert.equal(await page.locator('#topic').inputValue(),'consulting');
    const message=await page.locator('#form [name="message"]').inputValue();
