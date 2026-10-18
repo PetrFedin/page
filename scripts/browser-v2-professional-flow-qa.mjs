@@ -18,9 +18,9 @@ try{
    assert.equal(await controls.count(),4);
    assert.equal(await page.locator('#profile-focus-contact').getAttribute('href'),
      prefix+'?topic=consulting&focus=buying#contact');
-   await controls.locator('[data-profile-focus="systems"]').click();
-   assert.equal(await controls.locator('[data-profile-focus="systems"]').getAttribute('aria-pressed'),'true');
-   assert.equal(await controls.locator('[data-profile-focus="buying"]').getAttribute('aria-pressed'),'false');
+   await page.locator('[data-profile-focus="systems"]').click();
+   assert.equal(await page.locator('[data-profile-focus="systems"]').getAttribute('aria-pressed'),'true');
+   assert.equal(await page.locator('[data-profile-focus="buying"]').getAttribute('aria-pressed'),'false');
    await page.locator('#profile-focus-contact').click();
    await page.locator('#form [name="message"]').waitFor();
    assert.equal(await page.locator('#topic').inputValue(),'consulting');
