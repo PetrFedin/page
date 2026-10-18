@@ -31,7 +31,7 @@ export function showPortfolioMediaEvidence({id,lang,host}){
  const evidence=PORTFOLIO_MEDIA_EVIDENCE[id];
  let area=host.querySelector('#portfolio-media-evidence');
  if(!evidence){if(area)area.remove();return}
- if(!area){area=document.createElement('aside');area.id='portfolio-media-evidence';area.className='portfolio-media-evidence';host.append(area)}
+ if(!area){area=document.createElement('aside');area.id='portfolio-media-evidence';area.className='portfolio-media-evidence';(host.querySelector('#dots')?.insertAdjacentElement('afterend',area) || host.append(area))}
  area.replaceChildren();
  const title=document.createElement('h3');
  title.textContent=lang==='en'?'Media evidence — review status':'Медиа проекта — статус проверки';
