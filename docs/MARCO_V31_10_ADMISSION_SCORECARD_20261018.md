@@ -13,8 +13,9 @@ Date: 2026-10-18. Source: live Supabase project (PostgreSQL 17.11) read-only SQL
 | Brand admin memberships | 0 | BLOCKED |
 | Published products | 6 | Exists |
 | Published products with null/nonpositive retail price | 6 | BLOCKED |
-| Media assets commercially authorized by rights_status | 0 / 13 | BLOCKED |
+| Media assets authorized by rights_status | 0 / 13 | No publication rights established; internal references may remain archived |
 | Product media links with verified mapping_status | 0 / 24 | BLOCKED |
+| Published products with no approved, verified, active HTTPS media | 6 / 6 | BLOCKED |
 | Deals | 4 | Exists |
 | Outbox records | 0 | Producer/consumer not live admitted |
 | v31.9 mp_worker_outbox_claim in production | No | BLOCKED |
@@ -36,7 +37,7 @@ Supabase Advisors: 1 anonymous SECURITY DEFINER warning (public showroom catalog
 ## Release discipline
 
 1. Qualify real five-role Supabase JWT authentication and negative store-scope access.
-2. Approve retail pricing and media rights/product mapping (do not invent numbers or rights).
+2. Approve retail pricing and at least one verified, rights-cleared public image for each published product; reference-only assets do not need to be republished or misrepresented as authorized.
 3. Qualify v30.9→v31.9 migrations on exact full PostgreSQL 17 clone with advisors before/after and rollback proof.
 4. Add external outbox consumer with idempotent receipts; server-only secret handling; no client service role.
 5. Validate cross-device persistence Private → Buyer Paris/Dubai → HQ Admin → execution.
