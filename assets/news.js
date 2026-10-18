@@ -5,6 +5,23 @@
 
 export const NEWS = [
   {
+    date: '2026-10-20', tag: 'antiqua', site: false,
+    source: { outlet: 'Исходный код и README Antiqua', author: null, original: 'https://github.com/PetrFedin/antiqua' },
+    ru: { tags: ['Antiqua','искусство','исследование'], title: 'Antiqua: почему паспорт произведения важнее красивой карточки',
+      body: 'У произведения искусства есть несколько разных историй: авторство, атрибуция, перемещения, реставрации и смена владельцев. Неопределённость в любой из них нельзя закрыть эффектной визуализацией.\n\nДля Antiqua развивается модель исследовательского досье: сведения об объекте, происхождении и документах должны быть связаны с источниками и уровнем уверенности. Живопись, графика и гравюры — приоритетное направление публичной концепции.\n\nЭто описание направления разработки, не доказательство завершённой экспертизы конкретных произведений. В проверенном репозитории коммерческий контур ещё не подтверждён реальными платежами, KYC/KYB и производственной базой. Следующий рубеж — согласование продуктового канона с исходными данными и независимая проверка происхождения документов.' },
+    en: { tags: ['Antiqua','art','research'], title: 'Antiqua: why an artwork dossier matters more than a beautiful card',
+      body: 'An artwork can have several overlapping histories: attribution, ownership, movement and conservation. A visually polished card should never conceal uncertainty in any of them.\n\nAntiqua is evolving towards evidence-linked research dossiers. Paintings, works on paper and prints form the preferred public-facing direction, with claims separated from sources and levels of confidence.\n\nThis is an intended product direction, not proof of independent authentication of any object. Verified source material does not yet establish live payments, identity checks, settlement or a durable production database. The next step is to reconcile the public scope and technical source of truth, then independently review provenance evidence.' }
+  },
+  {
+    date: '2026-10-22', tag: 'fashion-os', site: false,
+    source: { outlet: 'Fashion Management OS — техническая документация', author: null, original: 'https://github.com/PetrFedin/yanina-management' },
+    ru: { tags: ['Fashion Management OS','себестоимость','операции'], title: 'Fashion Management OS: почему версия себестоимости важнее отчётной цифры',
+      body: 'Производственная себестоимость меняется по мере утверждения спецификаций, ставок и фактического выполнения операций. Если пересчитывать историю по сегодняшним ценам, план и факт перестают быть сравнимыми.\n\nВ исходной модели проекта предусмотрены снимки тарифов операций и цены материалов на момент проводки, журнал изменений, закрытие заказа и отдельные план/факт/CTC-контуры. Это создаёт основу для разбирательства, почему изменилась экономика конкретной модели.\n\nНаличие кода и локального CI-материала не означает, что решение уже допущено к широкому внешнему внедрению. Следующий критерий для публичного кейса — безопасная демонстрация на обезличенных данных, непротиворечивая приёмка и подтверждённая история исходных значений.' },
+    en: { tags: ['Fashion Management OS','costing','operations'], title: 'Fashion Management OS: cost versions are more useful than a single total',
+      body: 'Production costing changes as materials, operation rates and execution records are agreed and revised. Recalculating historical orders at today’s rates makes plan-versus-actual meaningless.\n\nThe source project models rate and material price snapshots, change history, order close-out, plan/actual costing and cost-to-complete. These controls can explain why the economics of a style changed.\n\nA repository and local demonstration are not proof of production admission for external customers. Before describing this as a delivered customer case, the next gate is an anonymized end-to-end demonstration with verifiable inputs, cost revisions and independent acceptance.' }
+  },
+
+  {
     "date": "2026-10-15",
     "tag": "igra",
     "site": false,
