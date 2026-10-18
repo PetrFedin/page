@@ -15,6 +15,8 @@ on:
       - 'scripts/verify-portfolio-media-evidence.mjs'
       - 'docs/V2_BRAND_PORTFOLIO_MEDIA_EDITORIAL_2026-10-18.md'
       - 'scripts/verify-professional-profile.mjs'
+      - 'scripts/make-sitemap.mjs'
+      - 'scripts/verify-v2-sitemap.mjs'
       - 'assets/content.js'
       - 'assets/logos.js'
       - 'assets/styles.css'
@@ -182,6 +184,7 @@ jobs:
       - run: node scripts/verify-opportunity-studio.mjs
       - run: npm run package:pages
       - run: node scripts/verify-pages-release.mjs
+      - run: node scripts/verify-v2-sitemap.mjs
       - run: node scripts/verify-v2-static-references.mjs
       - run: node scripts/verify-investor-dossiers.mjs
       - run: npm install --no-save playwright@1.58.2 @axe-core/playwright@4.13.0
