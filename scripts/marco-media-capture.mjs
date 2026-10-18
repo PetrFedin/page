@@ -116,35 +116,57 @@ try {
   if (product) await snap('04-product-desktop.png');
   else fail('Public catalogue has no clickable product-detail entry; cannot qualify product journey.');
 
-  // The deployed product dossier uses a visible icon-only "×" control.
-  // An unrelated hidden cart close button has aria-label="Close" and must NOT be selected.
+  // The product close icon is visible above an underlying CART close icon.
+  // A .first() locator points at the covered cart and times out. Hit-test buttons
+  // against document.elementFromPoint to select only the clickable foreground icon.
   async function dismissDossier(key, required) {
-    const candidates = [
-      '[role="dialog"] button:has-text("×")',
-      '[aria-modal="true"] button:has-text("×")',
+    const selectorGroups = [
       'button:has-text("×")',
-      '.modal button:has-text("✕")',
+      'button:has-text("✕")',
+      '[role="dialog"] button[aria-label*="Close"]',
       'button[aria-label="Close product"]',
       'button[aria-label="Close dossier"]'
     ];
-    const button = await selectVisible(candidates);
-    if (!button) {
-      record(key, false, 'No visible product dossier dismiss control');
-      if (required) fail('Product detail dossier has no reachable close action');
+    let target = null;
+    let chosenSelector = '';
+    for (const selector of selectorGroups) {
+      const group = page.locator(selector);
+      const count = Math.min(60, await group.count());
+      for (let i = count - 1; i >= 0; i--) {
+        const candidate = group.nth(i);
+        if (!(await candidate.isVisible().catch(() => false))) continue;
+        const foreground = await candidate.evaluate(el => {
+          const box = el.getBoundingClientRect();
+          if (box.width <= 1 || box.height <= 1) return false;
+          const cx = Math.min(innerWidth-1, Math.max(0,box.left+box.width/2));
+          const cy = Math.min(innerHeight-1, Math.max(0,box.top+box.height/2));
+          const top = document.elementFromPoint(cx,cy);
+          return top === el || el.contains(top);
+        }).catch(() => false);
+        if (foreground) {
+          target = candidate; chosenSelector=selector;
+          break;
+        }
+      }
+      if (target) break;
+    }
+    if (!target) {
+      record(key, false, 'No clickable foreground dossier close icon');
+      if (required) fail('No foreground close control on product dossier');
       return false;
     }
     try {
-      await button.click({timeout: 7000});
+      await target.click({timeout: 4000});
       await page.waitForTimeout(900);
-      const overlayCloseStillVisible = await page.getByRole('button', { name: '×', exact: true })
-        .first().isVisible().catch(() => false);
-      record(key, !overlayCloseStillVisible,
-        overlayCloseStillVisible ? 'Close icon remained visible' : 'Dossier dismissed using visible control');
-      if (overlayCloseStillVisible && required) fail('Product dossier close left the overlay open');
-      return !overlayCloseStillVisible;
+      const dossierStillVisible = await page.getByText(/product dossier/i).first()
+        .isVisible().catch(() => false);
+      record(key, !dossierStillVisible,
+        dossierStillVisible ? 'Product dossier still visible' : 'Closed using ' + chosenSelector);
+      if (dossierStillVisible && required) fail('Product dossier remains open after close click');
+      return !dossierStillVisible;
     } catch (error) {
       record(key, false, String(error.message).slice(0, 170));
-      if (required) fail('Product detail could not be closed');
+      if (required) fail('Product dossier foreground close click failed');
       return false;
     }
   }
