@@ -21,9 +21,11 @@
     "2026-10-01",
     "2026-10-02",
     "2026-10-15",
-    "2026-10-17"
+    "2026-10-17",
+    "2026-10-20",
+    "2026-10-22"
   ],
-  "editorialStatus": "New investor article prepared for site release; Telegram paused pending explicit approval, queue review and credentials verification.",
+  "editorialStatus": "V2 editorial preparation runs twice weekly; Oct 15/17/20/22 remain bilingual drafts on human-review hold. V1 and Telegram publishing are not enabled. Verified Telegram deliveries are tracked separately.",
   "unresolvedLegacyDates": [
     {
       "date": "2026-10-03",
