@@ -14,6 +14,14 @@ WITH inventory AS (
  (SELECT count(*)::int FROM public.media_assets WHERE rights_status IN ('brand_owned','brand_authorized')) AS media_rights_qualified,
  (SELECT count(*)::int FROM public.product_media) AS product_media,
  (SELECT count(*)::int FROM public.product_media WHERE mapping_status='verified') AS verified_product_media,
+ (SELECT count(*)::int FROM public.products p WHERE p.publication_status='published' AND NOT EXISTS (
+    SELECT 1 FROM public.product_media pm
+      JOIN public.media_assets ma ON ma.id=pm.media_asset_id AND ma.tenant_id=pm.tenant_id
+    WHERE pm.product_id=p.id AND pm.tenant_id=p.tenant_id
+      AND pm.mapping_status='verified' AND ma.status='active'
+      AND ma.rights_status IN ('brand_owned','brand_authorized')
+      AND ma.source_url LIKE 'https://%'
+  )) AS published_without_approved_media,
  (SELECT count(*)::int FROM public.deals) AS deals,
  (SELECT count(*)::int FROM public.outbox_events) AS outbox_events,
  (SELECT count(*)::int FROM public.schema_migrations) AS migrations,
@@ -53,7 +61,7 @@ SELECT jsonb_pretty(jsonb_build_object(
  'commercial_blocked',
    inventory.auth_users=0 OR inventory.portal_memberships=0 OR inventory.admin_memberships=0
    OR inventory.missing_retail_price>0
-   OR inventory.media_rights_qualified<inventory.media_assets
+   OR inventory.published_without_approved_media>0
    OR inventory.verified_product_media<inventory.product_media
    OR NOT inventory.outbox_worker_applied
 )) AS marco_release_gate
