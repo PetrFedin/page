@@ -29,7 +29,7 @@ assert.equal(article?.tag,'investors');
 assert.equal(article.site,true,'Oct 13 article is approved and present in main');
 assert.ok(!queue.paused.includes('2026-10-13'),'approved Oct 13 article is not an unpublished draft');
 assert.ok(!queue.order.includes('2026-10-13'),'publication is one-off and must never enter unattended queue');
-for(const date of ['2026-10-15','2026-10-17']){
+for(const date of ['2026-10-15','2026-10-17','2026-10-20','2026-10-22']){
   const draft=byDate.get(date);
   assert.ok(draft && draft.ru?.title && draft.ru?.body && draft.en?.title && draft.en?.body,'bilingual draft missing: '+date);
   assert.equal(draft.site,false,'future editorial is intentionally not public: '+date);

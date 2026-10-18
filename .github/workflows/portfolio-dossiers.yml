@@ -7,7 +7,17 @@ on:
       - 'en/profile.html'
       - 'assets/profile.js'
       - 'assets/profile.css'
+      - 'assets/brand-platform.js'
+      - 'assets/brand-platform.css'
+      - 'assets/portfolio-media-evidence.js'
+      - 'scripts/browser-v2-brand-platform-qa.mjs'
+      - 'scripts/browser-v2-professional-flow-qa.mjs'
+      - 'scripts/editorial-review-report.mjs'
+      - 'scripts/verify-portfolio-media-evidence.mjs'
+      - 'docs/V2_BRAND_PORTFOLIO_MEDIA_EDITORIAL_2026-10-18.md'
       - 'scripts/verify-professional-profile.mjs'
+      - 'scripts/make-sitemap.mjs'
+      - 'scripts/verify-v2-sitemap.mjs'
       - 'assets/content.js'
       - 'assets/logos.js'
       - 'assets/styles.css'
@@ -30,6 +40,7 @@ on:
       - 'docs/PAGE_ADVISORY_ECONOMICS_2026-10-13.md'
       - 'assets/lead-paths.js'
       - 'assets/news.js'
+      - 'channel-queue.json'
       - 'feed.xml'
       - 'feed.json'
       - 'en/feed.xml'
@@ -136,6 +147,14 @@ jobs:
       - run: node --check scripts/verify-fashion-analytics.mjs
       - run: node --check assets/app.js
       - run: node --check assets/profile.js
+      - run: node --check assets/brand-platform.js
+      - run: node --check assets/portfolio-media-evidence.js
+      - run: node --check scripts/editorial-review-report.mjs
+      - run: node --check scripts/verify-portfolio-media-evidence.mjs
+      - run: node --check scripts/browser-v2-brand-platform-qa.mjs
+      - run: node --check scripts/browser-v2-professional-flow-qa.mjs
+      - run: node scripts/verify-portfolio-media-evidence.mjs
+      - run: node scripts/editorial-review-report.mjs
       - run: node --check scripts/verify-professional-profile.mjs
       - run: node scripts/verify-professional-profile.mjs
       - run: node --check assets/content.js
@@ -167,6 +186,7 @@ jobs:
       - run: node scripts/verify-opportunity-studio.mjs
       - run: npm run package:pages
       - run: node scripts/verify-pages-release.mjs
+      - run: node scripts/verify-v2-sitemap.mjs
       - run: node scripts/verify-v2-static-references.mjs
       - run: node scripts/verify-investor-dossiers.mjs
       - run: npm install --no-save playwright@1.58.2 @axe-core/playwright@4.13.0
@@ -175,6 +195,8 @@ jobs:
         run: |
           python3 -m http.server 4321 --bind 127.0.0.1 --directory dist-pages >/tmp/portfolio-http.log 2>&1 &
           node scripts/browser-portfolio-qa.mjs
+          node scripts/browser-v2-brand-platform-qa.mjs
+          node scripts/browser-v2-professional-flow-qa.mjs
           node scripts/browser-v2-client-paths-qa.mjs
           node scripts/browser-lead-routes-qa.mjs
           node scripts/browser-advisory-economics-qa.mjs

@@ -1,9 +1,11 @@
 import { T, PROJECTS as CORE_PROJECTS, CONTACTS, COMPARE } from './content.js?v=202610041955';
 import { polishPublicPage, polishProjectCards } from './clarity.js?v=20261015-cl1';
+import { enhanceBrandPlatform } from './brand-platform.js?v=20261018-b1';
+import { showPortfolioMediaEvidence } from './portfolio-media-evidence.js?v=20261018-media1';
 import { getBusinessServices } from './business-services.js?v=20261016-five1';
 import { mountFashionAnalytics } from './fashion-analytics.js?v=20261015-fashion1';
 import { EXTRA_PROJECTS, INVESTOR_BLUEPRINTS } from './portfolio-extensions.js?v=20261012-invdossiers';
-/* Five flagship products always precede the extended portfolio in both languages. */
+/* Three featured projects remain first; the rest appear after user expansion. */
 const FEATURED_PROJECT_IDS = Object.freeze(['syntha', 'chatx', 'renova', 'mfw', 'promomed']);
 const catalog = [...CORE_PROJECTS, ...EXTRA_PROJECTS];
 const rankProject = id => {
@@ -603,6 +605,7 @@ function render() {
   renderNow();
   renderNews();
   polishPublicPage(lang);
+  enhanceBrandPlatform(lang);
   // Data-entry demo is available only inside the dedicated Analytics workspace.
   addTopButtons(t.nav.toTop);
   syncSnaps();
@@ -743,6 +746,8 @@ function openProject(id, anchor) {
   }
   $('#dots').innerHTML = frames.map((_, i) =>
     `<button class="dot" type="button" data-i="${i}" aria-current="${i === 0}" aria-label="${i + 1}"></button>`).join('');
+
+  showPortfolioMediaEvidence({id:p.id,lang,host:modal.querySelector('.modal-body')});
 
   $('#facts').innerHTML = ['what', 'who', 'why', 'how']
     .map((k) => `<div><dt>${t.projects.labels[k]}</dt><dd>${c[k]}</dd></div>`).join('');

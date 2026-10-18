@@ -10,6 +10,10 @@ const SITE = 'https://syntha.pro';
 const pages = [
   { url: '/', file: 'index.html', pair: true },
   { url: '/en/', file: 'en/index.html', pair: true },
+  ...['profile.html', 'analytics.html', 'economics.html', 'privacy.html'].flatMap((file) => [
+    { url: '/'+file, file, ru: '/'+file, en: '/en/'+file },
+    { url: '/en/'+file, file: 'en/'+file, ru: '/'+file, en: '/en/'+file }
+  ]),
   ...['syntha', 'chatx', 'renova', 'mfw', 'promomed'].flatMap((id) => [
     { url: `/${id}`, file: `${id}.html`, ru: `/${id}`, en: `/en/${id}` },
     { url: `/en/${id}`, file: `en/${id}.html`, ru: `/${id}`, en: `/en/${id}` }
