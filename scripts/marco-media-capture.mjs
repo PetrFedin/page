@@ -116,7 +116,39 @@ try {
   if (product) await snap('04-product-desktop.png');
   else fail('Public catalogue has no clickable product-detail entry; cannot qualify product journey.');
 
-  await clickOne(['.modal .x','.overlay .x','button[aria-label="Close"]','button:has-text("Close")'], 'close-public-detail');
+  // The deployed product dossier uses a visible icon-only "×" control.
+  // An unrelated hidden cart close button has aria-label="Close" and must NOT be selected.
+  async function dismissDossier(key, required) {
+    const candidates = [
+      '[role="dialog"] button:has-text("×")',
+      '[aria-modal="true"] button:has-text("×")',
+      'button:has-text("×")',
+      '.modal button:has-text("✕")',
+      'button[aria-label="Close product"]',
+      'button[aria-label="Close dossier"]'
+    ];
+    const button = await selectVisible(candidates);
+    if (!button) {
+      record(key, false, 'No visible product dossier dismiss control');
+      if (required) fail('Product detail dossier has no reachable close action');
+      return false;
+    }
+    try {
+      await button.click({timeout: 7000});
+      await page.waitForTimeout(900);
+      const overlayCloseStillVisible = await page.getByRole('button', { name: '×', exact: true })
+        .first().isVisible().catch(() => false);
+      record(key, !overlayCloseStillVisible,
+        overlayCloseStillVisible ? 'Close icon remained visible' : 'Dossier dismissed using visible control');
+      if (overlayCloseStillVisible && required) fail('Product dossier close left the overlay open');
+      return !overlayCloseStillVisible;
+    } catch (error) {
+      record(key, false, String(error.message).slice(0, 170));
+      if (required) fail('Product detail could not be closed');
+      return false;
+    }
+  }
+  if (product) await dismissDossier('close-public-detail', true);
   const ru = await clickOne(['button[data-lang="ru"]','button:has-text("RU")'], 'language-ru');
   await page.waitForTimeout(4500);
   if (ru) {
@@ -143,7 +175,7 @@ try {
   else facts.warnings.push('No verified demo-account switcher or real sign-in entry in live build.');
 
   // Record a final return to home without accessing internal demo/privileged dashboards.
-  await clickOne(['.modal .x','button[aria-label="Close"]'], 'close-entry');
+  if (entry) await dismissDossier('close-entry', false);
   await clickOne(['#nav button[data-page="home"]','a.brand','a[href="/"]',
     'button:has-text("Overview")','button:has-text("Обзор")', 'button:has-text("Panoramica")',
     'button:has-text("Home")'],
