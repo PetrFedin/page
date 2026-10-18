@@ -45,6 +45,7 @@ jobs:
           const dir='artifacts/marco-live/';
           const m=JSON.parse(fs.readFileSync(dir+'manifest.json','utf8'));
           if (m.status!=='PASS' || !m.production_build_fingerprint?.sha256) throw Error('capture_not_qualified');
+          if (!/^[0-9a-f]{64}$/.test(m.capture_recipe_sha256 || '')) throw Error('recipe_provenance_missing');
           if (!m.provenance.includes('real Chromium')) throw Error('wrong_provenance');
           if (m.target_url!=='https://marco-pescarolo-showroom.netlify.app/') throw Error('wrong_target');
           if (m.site.screenshots.length<4) throw Error('insufficient_screenshots');
@@ -68,7 +69,8 @@ jobs:
         run: |
           set -euo pipefail
           KEY="$(node -p "JSON.parse(require('fs').readFileSync('artifacts/marco-live/manifest.json','utf8')).production_build_fingerprint.sha256.slice(0,16)")"
-          TAG="mp-showroom-live-$KEY"
+          RECIPE="$(node -p "JSON.parse(require('fs').readFileSync('artifacts/marco-live/manifest.json','utf8')).capture_recipe_sha256.slice(0,10)")"
+          TAG="mp-showroom-live-$KEY-recipe-$RECIPE"
           if gh release view "$TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
             echo "UNCHANGED_LIVE_BUILD=$TAG" >> "$GITHUB_STEP_SUMMARY"
             exit 0
@@ -79,7 +81,7 @@ jobs:
             artifacts/marco-live/manifest.json \
             --repo "$GITHUB_REPOSITORY" \
             --target "$GITHUB_SHA" \
-            --title "Marco Pescarolo | Verified live public capture | $KEY" \
+            --title "Marco Pescarolo | Live build $KEY | Capture $RECIPE" \
             --notes-file artifacts/marco-live/README.md \
             --latest=false
           echo "REAL_LIVE_RELEASE=https://github.com/$GITHUB_REPOSITORY/releases/tag/$TAG" >> "$GITHUB_STEP_SUMMARY"

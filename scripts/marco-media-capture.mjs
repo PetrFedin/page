@@ -18,6 +18,7 @@ await mkdir(OUT, { recursive: true });
 const sha = (v) => createHash('sha256').update(v).digest('hex');
 const facts = { title: '', html_language: '', steps: [], screenshots: [], errors: [], warnings: [] };
 const capturedAt = new Date().toISOString();
+const captureRecipeSha256 = sha(await readFile(new URL(import.meta.url)));
 const fail = (m) => { facts.errors.push(m); console.error('[CAPTURE FAIL]', m); };
 const record = (key, worked, detail) => facts.steps.push({ key, worked: !!worked, detail: String(detail || '').slice(0, 200) });
 
@@ -259,6 +260,7 @@ const manifest = {
   schema: 'marco-live-capture-v1', project: 'Marco Pescarolo Showroom',
   provenance: 'real Chromium recording of public deployed URL; no simulated or authenticated back-office session',
   target_url: TARGET, captured_at: capturedAt, capture_git_sha: process.env.GITHUB_SHA || null,
+  capture_recipe_sha256: captureRecipeSha256,
   production_build_fingerprint: fingerprint, site: facts,
   video_sha256: videoFile ? sha(videoFile) : null,
   status: facts.errors.length ? 'FAILED' : 'PASS',
@@ -269,6 +271,7 @@ await writeFile(path.join(OUT,'manifest.json'),JSON.stringify(manifest,null,2)+'
 await writeFile(path.join(OUT,'README.md'),
   '# Marco Pescarolo real public capture\n\nCaptured: '+capturedAt+
   '\nSource fingerprint: '+fingerprint.sha256+
+  '\nCapture recipe SHA-256: '+captureRecipeSha256+
   '\nPublic URL: '+TARGET+
   '\nVideo: '+(facts.video?.duration_seconds || 'not recorded')+' seconds (silent)\n' +
   '\nResult: '+manifest.status+
