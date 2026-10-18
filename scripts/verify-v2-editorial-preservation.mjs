@@ -19,7 +19,7 @@ for(const lang of ['ru','en']){
 }
 assert.ok(!queue.order.includes(date),'Oct 13 must not enter unattended Telegram queue');
 assert.ok(!queue.paused.includes(date),'Oct 13 is already approved for website, not an editorial draft');
-for(const future of ['2026-10-15','2026-10-17']){
+for(const future of ['2026-10-15','2026-10-17','2026-10-20','2026-10-22']){
   const draft=NEWS.find(p=>p.date===future);
   assert.equal(draft?.site,false,'Future editorial still needs review: '+future);
   assert.ok(queue.paused.includes(future),'Future Telegram post must remain paused');
