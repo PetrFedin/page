@@ -36,7 +36,7 @@ export function enhanceBrandPlatform(lang){
  if(hero){
   const consult=document.getElementById('cta-consulting');
   const projects=document.getElementById('cta-projects');
-  if(consult)consult.textContent=t.talk;
+  if(consult){consult.textContent=t.talk;consult.href='#contact';}
   if(projects)projects.textContent=t.see;
   let extra=document.getElementById('hero-secondary-links');
   if(!extra){
