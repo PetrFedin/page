@@ -64,16 +64,16 @@ const COPY = {
       igra: 'Игры / 3D', marco: 'Fashion / коммерция', fintech: 'Финансы'
     },
     cards: {
-      syntha: ['Продукт и коммерция в одной системе', 'Коллекция, шоурум, заказ и маржа по SKU для бренда, магазина и байера.'],
-      chatx: ['Работа команды — от сообщения до результата', 'Переписка, встречи, решения и задачи в едином пространстве с управлением правами.'],
-      renova: ['Ремонт с проверяемыми этапами', 'Смета, изменения, документы и приёмка работ с понятной историей решений.'],
-      mfw: ['Платформа для событий и брендов', 'Регистрация, программа, B2B-встречи и связь с аудиторией после мероприятия.'],
-      promomed: ['Конференция и сообщество круглый год', 'Маршрут участника, материалы и работа партнёров. Независимый концепт, не официальный продукт заказчика.'],
-      'fashion-os': ['Операционный контур fashion-бизнеса', 'Товар, коллекции, закупки и аналитика в единой модели данных.'],
-      fur: ['THE FUR — производство под контролем', 'Сырьё, выделка, пошив, партии и себестоимость с историей операций.'],
-      antiqua: ['Паспорт и исследование произведения', 'Живопись, графика, гравюры: атрибуция, происхождение и исследовательское досье.'],
-      igra: ['Живой цифровой конструктор в AR', 'Подбор деталей, инструкции, сборка и библиотека пользовательских моделей.'],
-      marco: ['Цифровой коммерческий шоурум', 'Коллекции, размеры, заказы и взаимодействие частных и оптовых клиентов.'],
+      syntha: ['Продукт и коммерция в одной системе', 'PLM, шоурум, заказ и экономика SKU. Продуктовая цепочка проверяется в PostgreSQL; внешний пилот — отдельный этап.'],
+      chatx: ['Работа команды — от сообщения до результата', 'Сообщения, задачи, встречи, календарь и корпоративные знания. Работающий демоконтур снят в Chromium; production-провайдеры проверяются отдельно.'],
+      renova: ['Ремонт с проверяемыми этапами', 'Смета, изменения, документы и приёмка с историей действий. Общий production-запуск пока заблокирован внешними приёмочными условиями.'],
+      mfw: ['Платформа для событий и брендов', 'Мероприятия, программы, сделки брендов и аудитория. Постоянное хранение и промышленная идентификация требуют отдельной приёмки.'],
+      promomed: ['Конференция и сообщество круглый год', 'Рабочий публичный предпросмотр Today, Media, Events, Community; независимая концепция, не официальный продукт сторонней компании.'],
+      'fashion-os': ['Операционный контур fashion-бизнеса', 'Заказы, операции, материалы, версия себестоимости, план/факт и 13-недельная ликвидность. Демоданные, не результат клиента.'],
+      fur: ['THE FUR — производство под контролем', 'Сырьё, операции, партии и калькуляции. Проверка интеграций и CI продолжается — промышленная готовность не заявлена.'],
+      antiqua: ['Паспорт и исследование произведения', 'Живопись и графика: исследование, атрибуция, происхождение. Доказательства и коммерческий контур ещё проходят отдельную проверку.'],
+      igra: ['AR-конструктор и библиотека моделей', 'Детали, сценарии сборки и взаимодействие с моделью. Web/iOS-проверки ещё не проходят все инженерные критерии.'],
+      marco: ['Цифровой коммерческий шоурум', 'Коллекции, размерная сетка, B2B/Private и жизненный цикл заказа. Реальный production и доступы требуют независимой приёмки.'],
       fintech: ['SVEDO — финансовая устойчивость', 'Обязательства, денежный поток и сценарии платежей. Локальный прототип, не банковский сервис.']
     }
   },
@@ -137,16 +137,16 @@ const COPY = {
       igra: 'Play / 3D', marco: 'Fashion / commerce', fintech: 'Finance'
     },
     cards: {
-      syntha: ['Product and commerce on one platform', 'Collections, showroom, orders and SKU-level margin for brands and buyers.'],
-      chatx: ['Work from conversation to outcome', 'Messages, meetings, decisions and tasks in one permission-governed workspace.'],
-      renova: ['Renovations with verifiable stages', 'Estimates, change history, documents and acceptance of completed work.'],
-      mfw: ['An operating platform for events', 'Registration, agenda, B2B meetings and continued brand-audience relationships.'],
-      promomed: ['A conference and year-round community', 'Personal agenda, content and partner workflows. Independent concept, not an official client product.'],
-      'fashion-os': ['Operating layer for fashion teams', 'Product, collections, purchasing and analytics on one data model.'],
-      fur: ['THE FUR — production operations', 'Materials, dressing, sewing, lots and traceable production cost.'],
-      antiqua: ['Artwork research and provenance', 'Painting, works on paper and prints with provenance and research dossiers.'],
-      igra: ['AR brick building and play', 'Part inventory, compatible instructions, construction and creator library.'],
-      marco: ['A commercial digital showroom', 'Collections, size matrices, orders and private/wholesale customer journeys.'],
+      syntha: ['Product and commerce on one platform', 'PLM, showrooms, orders and SKU economics. PostgreSQL-backed flows are being tested; external adoption remains a separate milestone.'],
+      chatx: ['Work from conversation to outcome', 'Messaging, tasks, meetings, calendar and company knowledge. An isolated demo was captured in Chromium; production provider integrations remain separate.'],
+      renova: ['Renovations with verifiable stages', 'Estimates, change history, documents and acceptance. Broad production remains gated by external release requirements.'],
+      mfw: ['An operating platform for events', 'Events, agendas, brand deals and ongoing communities. Persistent authority and production identity are still under acceptance.'],
+      promomed: ['A conference and year-round community', 'Public preview of Today, Media, Events and Community. Independent concept; not an official product or endorsement by a third party.'],
+      'fashion-os': ['Operating layer for fashion teams', 'Orders, operations, material costs, versioned costing, plan/actual and 13-week liquidity. Demo data, not observed customer results.'],
+      fur: ['THE FUR — production operations', 'Materials, operations, lots and costing. CI and end-to-end integrations need repair before production maturity can be claimed.'],
+      antiqua: ['Artwork research and provenance', 'Painting and works on paper with attribution and provenance research. Authentication and commercial operation need independent proof.'],
+      igra: ['AR building and model library', 'Parts, assembly workflows and digital models. Web/iOS quality gates still have unresolved failures.'],
+      marco: ['A commercial digital showroom', 'Collections, size matrices, B2B/Private ordering and lifecycle design. Live production and identity remain unverified.'],
       fintech: ['SVEDO — financial resilience', 'Obligations, cash-flow plans and repayment scenarios. A local candidate, not a live banking service.']
     }
   }
