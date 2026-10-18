@@ -7,7 +7,7 @@ export const EXTRA_PROJECTS = [
     "shots": [],
     "ru": {
       "tagline": "Операционная платформа для участников fashion-рынка",
-      "stage": "Разрабатываемая fashion B2B/PLM-платформа · подтверждение live-функций поэтапно",
+      "stage": "Fashion Management OS — операции, себестоимость, план/факт; промышленный допуск не подтверждён",
       "card": "Fashion Management OS объединяет Product Master, коллекции, PLM, закупочный каталог, заказы B2B, подтверждения, поставки, фактическую себестоимость и маржу в одну управляемую цепочку. Бренд и байер видят не только товар, но и статус каждого коммерческого решения.",
       "what": "Операционная система моды от идеи модели и спецификации до опубликованной коллекции, предложения байеру, заказной матрицы, поставки и закрытия себестоимости. Роли бренда, фабрики, закупщика и оптового партнёра связаны одной версионируемой товарной сущностью.",
       "who": "Бренды, мультибрендовые магазины, байеры, производственные команды, аналитики и финансовые руководители.",
@@ -55,13 +55,13 @@ export const EXTRA_PROJECTS = [
       ],
       "status": {
         "done": [
-          "Репозиторий содержит исполняемый B2B-контур каталога, заказа и подтверждений, модели PLM и регламентированные методики KPI; готовность конкретных частей подтверждается отдельными gate-тестами."
+          "Исходный код содержит карточки заказов, операции и материалы со снимками ставок/цен, план/факт/CTC, историю изменений и расчёт 13-недельной ликвидности. Снимки экрана получены из изолированной демосреды, без внешней производственной приёмки."
         ],
         "now": [
-          "Функциональная архитектура и проверка требований"
+          "Проверка полной цепочки реального заказа на обезличенных данных и пересъёмка актуального рабочего интерфейса"
         ],
         "next": [
-          "Проверить сквозной сценарий с данными одного бренда"
+          "Подтвердить сквозной costing, статус производственного заказа и права доступа в непубличной приёмочной среде."
         ],
         "seeking": "Ищу пилотных пользователей и профильного технологического партнёра; коммерческие метрики пока не подтверждены."
       },
@@ -85,7 +85,7 @@ export const EXTRA_PROJECTS = [
     },
     "en": {
       "tagline": "An operating platform for fashion professionals",
-      "stage": "Fashion B2B/PLM in development · gated live acceptance",
+      "stage": "Fashion Management OS — operations, versioned costing and plan/actual; production not admitted",
       "card": "Fashion Management OS connects the product master, collections, PLM, buyer catalogues, B2B orders, confirmations, fulfilment, actual cost and margins into a governed commercial workflow.",
       "what": "Product and commercial life-cycle management: Product Master, seasonal plans, buy matrices, supply, margins and role-based responsibility.",
       "who": "Brands, multi-brand retailers, buyers, production teams, analysts and finance leaders.",
@@ -133,13 +133,13 @@ export const EXTRA_PROJECTS = [
       ],
       "status": {
         "done": [
-          "Repository contains executable B2B catalog, ordering and confirmation flows, PLM models and KPI contracts. Each live capability is subject to its own admission checks."
+          "Repository implements orders, operations, versioned rate/material snapshots, plan/actual/CTC, audit history and a 13-week liquidity model. Browser capture is from an isolated demo, not a verified external deployment."
         ],
         "now": [
-          "Functional architecture and requirement review"
+          "Verify complete anonymized production-order lifecycle and recapture a current source-matched UI"
         ],
         "next": [
-          "Integrate and validate one brand's complete workflow"
+          "Prove end-to-end costing, order lifecycle and permissions in a non-public acceptance environment."
         ],
         "seeking": "Seeking pilot users and a technical partner; commercial metrics remain unvalidated."
       },
@@ -220,10 +220,10 @@ export const EXTRA_PROJECTS = [
           "Существуют интерфейсы сырья, закупок, лотов, ТЗ, производства, оплат и сверки, роли и журнал изменений."
         ],
         "now": [
-          "Функциональная архитектура и проверка требований"
+          "Разбор повторяющихся красных CI на последних исходных коммитах; сверка закупки, лотов, операций и экономического учёта"
         ],
         "next": [
-          "Сверить первичные документы, исправить расхождения и доказать PostgreSQL production readiness без переноса чувствительных данных на публичную витрину."
+          "Устранить причины неуспешной сборки, выполнить browser/DB приёмку и снять демонстрационные кадры без клиентских идентификаторов."
         ],
         "seeking": "Ищу пилотных пользователей и профильного технологического партнёра; коммерческие метрики пока не подтверждены."
       },
@@ -298,10 +298,10 @@ export const EXTRA_PROJECTS = [
           "Implemented interfaces for purchasing, materials, production orders, payments, reconciliation and audit history."
         ],
         "now": [
-          "Functional architecture and requirement review"
+          "Repair recurring CI failures and reconcile materials, lots, production operations and cost accounting"
         ],
         "next": [
-          "Resolve document conflicts and complete PostgreSQL production admission, keeping customer data private."
+          "Make CI green, run independent browser/database acceptance and capture anonymized media without exposing any client identifiers."
         ],
         "seeking": "Seeking pilot users and a technical partner; commercial metrics remain unvalidated."
       },
@@ -380,10 +380,10 @@ export const EXTRA_PROJECTS = [
       "status": {
         "done": [],
         "now": [
-          "Функциональная архитектура и проверка требований"
+          "Сверка канонического описания живописи и графики с исходным README и проверка подтверждений атрибуции/происхождения"
         ],
         "next": [
-          "Проверить публикацию галереи и сохранение в БД"
+          "Проверить сохранение, право на публикацию медиа, идентификацию и независимую проверку досье до любых коммерческих заявлений."
         ],
         "seeking": "Ищу пилотных пользователей и профильного технологического партнёра; коммерческие метрики пока не подтверждены."
       },
@@ -456,10 +456,10 @@ export const EXTRA_PROJECTS = [
       "status": {
         "done": [],
         "now": [
-          "Functional architecture and requirement review"
+          "Reconcile the painting/works-on-paper scope against repository documentation and provenance evidence"
         ],
         "next": [
-          "Verify gallery publication and persistent storage"
+          "Prove persistence, media licensing, identity and independent dossier review before making any commerce claims."
         ],
         "seeking": "Seeking pilot users and a technical partner; commercial metrics remain unvalidated."
       },
@@ -538,7 +538,7 @@ export const EXTRA_PROJECTS = [
       "status": {
         "done": [],
         "now": [
-          "Функциональная архитектура и проверка требований"
+          "После проверок 18 октября остаются красные iOS/Web/DB quality gates; стабильность и безопасность детского опыта требуют повторной приёмки"
         ],
         "next": [
           "Испытания на настоящих iPad/iPhone, качество физики и инструкций, безопасность детей, расширение оригинального каталога, облачные профили и проверка спроса."
@@ -614,7 +614,7 @@ export const EXTRA_PROJECTS = [
       "status": {
         "done": [],
         "now": [
-          "Functional architecture and requirement review"
+          "18 October iOS, web and database quality gates have unresolved failures; usability and child-safety acceptance remain open"
         ],
         "next": [
           "Real iPad/iPhone acceptance, physical realism, children's privacy/safety, original catalogue scaling, cloud profiles and demand validation."
@@ -692,7 +692,7 @@ export const EXTRA_PROJECTS = [
       "status": {
         "done": [],
         "now": [
-          "Функциональная архитектура и проверка требований"
+          "Сверка канонического репозитория и версии; последняя попытка живой медиасъёмки не прошла"
         ],
         "next": [
           "Проверить изоляцию цен в PostgreSQL и реальный сценарий закупки"
@@ -764,7 +764,7 @@ export const EXTRA_PROJECTS = [
       "status": {
         "done": [],
         "now": [
-          "Functional architecture and requirement review"
+          "Establish canonical source repository and version; latest live-media capture did not pass"
         ],
         "next": [
           "Prove PostgreSQL price isolation and complete buyer checkout"
