@@ -135,6 +135,31 @@ export const T = {
             'Задан критерий выхода из стабилизации'
           ]
         }
+        {
+          id: 'systems-integration', n: 'Интеграция управленческих решений',
+          l: 'Аналитические приложения, системы управления производством, прогнозирование, бюджетирование и сквозной контроль процессов',
+          lead: 'От управленческой задачи к работающему цифровому контуру с понятными правилами.',
+          does: [
+            'Карта бизнес-процессов, участников и управленческих решений до начала разработки',
+            'Связанные реестры, справочники и показатели из доступных ERP, 1С, CRM, PLM и учётных систем',
+            'Прототипы аналитических и операционных приложений под конкретный рабочий сценарий',
+            'Планирование и бюджетирование, сценарный прогноз и контроль отклонений',
+            'Учёт заказа, материалов, производственных операций, сроков и себестоимости',
+            'Модели доступа по ролям, история изменений, проверка качества данных и интеграционных связей',
+            'Приёмка пилота на реальных процессах с согласованными владельцами и критериями'
+          ],
+          gives: [
+            'Схема интеграции данных и процессов с границами ответственности',
+            'Рабочий сценарий приложения, проверяемые расчёты и протокол тестирования',
+            'План внедрения и измерения результата, а не обещание готовой системы без обследования'
+          ],
+          results: [
+            'Единые определения управленческих показателей и журнал их изменений',
+            'Связанные маршруты данных, согласований и исполнения решений',
+            'Проверяемый цикл план → прогноз → факт → действие',
+            'Функциональный прототип и критерии приёмки для будущего внедрения'
+          ]
+        },
       ],
       photoAlt: 'Пётр Федин',
       cvLabel: 'Запросить резюме',
@@ -1469,6 +1494,29 @@ export const T = {
           does: ['Cash calendar and liquidity management', 'Priorities: what to stop, fund or accelerate', 'Processes, roles and decision rights', 'A short plan → actual → action cycle', 'Cross-functional coordination and difficult negotiations', 'Execution control until the business is stable', 'Weekly reporting to the owner throughout'],
           gives: ['Who decides what, written down', 'Decisions made on time rather than after the fact', 'A clear criterion for when stabilisation is over'],
           results: ['Payments organised into a cash calendar weeks ahead', 'An agreed and executed list of what gets stopped', 'Decision rights documented, ending disputes over authority', 'The plan → actual → action cycle shortened to a week', 'Decisions made in the meeting, not in chat threads', 'A defined criterion for leaving stabilisation mode'] }
+        { id: 'systems-integration', n: 'Business systems integration',
+          l: 'Analytics apps, production management, forecasting, budgeting and cross-functional process control',
+          lead: 'Turn a management decision into an integrated, testable digital workflow.',
+          does: [
+            'Map business processes, stakeholders and management decisions before writing software',
+            'Unify reference data and metrics from available ERP, 1C, CRM, PLM and accounting systems',
+            'Prototype analytical and operational applications around concrete working scenarios',
+            'Planning, budgeting, scenario forecasts and variance controls',
+            'Link orders, materials, production operations, lead times and costs',
+            'Role-based access, change history, data-quality and integration checks',
+            'Pilot acceptance against real workflows, named owners and agreed criteria'
+          ],
+          gives: [
+            'Integration and workflow blueprint with clear ownership boundaries',
+            'A working application scenario, reproducible calculations and test evidence',
+            'Delivery and measurement plan instead of an unqualified production promise'
+          ],
+          results: [
+            'Common definitions for management metrics and an auditable change log',
+            'Connected sources, approvals and execution workflows',
+            'A verifiable plan → forecast → actual → action cycle',
+            'Functional prototype and acceptance criteria for the next implementation stage'
+          ] },
       ],
       photoAlt: 'Petr Fedin',
       cvLabel: 'Request CV',
