@@ -1,0 +1,32 @@
+/* Correct legacy mixed flex/grid advisory layout: five equal cards, no blank columns. */
+@media (min-width: 1200px) {
+ #consulting #services.services.snap.snap-fit {display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:12px!important;overflow:visible!important;align-items:stretch!important}
+ #consulting #services.services.snap.snap-fit > li,
+ #consulting #services.services.snap.snap-fit > li.svc-featured-item,
+ #consulting #services.services.snap.snap-fit > li:not(.svc-featured-item) {display:block!important;grid-column:auto!important;grid-row:auto!important;flex:none!important;width:auto!important;max-width:none!important;min-width:0!important}
+ #consulting #services .svc-featured {background:var(--panel)!important;padding:22px 19px!important}
+ #consulting #services .svc-featured .svc-t {font:inherit!important;max-width:none!important}
+}
+@media (min-width: 740px) and (max-width: 1199px) {
+ #consulting #services.services.snap.snap-fit {display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:12px!important;overflow:visible!important}
+ #consulting #services.services.snap.snap-fit > li,
+ #consulting #services.services.snap.snap-fit > li.svc-featured-item,
+ #consulting #services.services.snap.snap-fit > li:not(.svc-featured-item) {grid-column:auto!important;grid-row:auto!important;flex:none!important;width:auto!important;max-width:none!important;min-width:0!important}
+}
+@media (max-width: 739px) {
+ #consulting #services.services.snap.snap-fit {display:grid!important;grid-template-columns:1fr!important;gap:12px!important;overflow:visible!important}
+ #consulting #services.services.snap.snap-fit > li,
+ #consulting #services.services.snap.snap-fit > li.svc-featured-item,
+ #consulting #services.services.snap.snap-fit > li:not(.svc-featured-item) {grid-column:auto!important;grid-row:auto!important;flex:none!important;width:auto!important;max-width:none!important;min-width:0!important}
+}
+#consulting #services.services.snap.snap-fit > li {border:1px solid var(--line);border-radius:13px;min-width:0;overflow:hidden}
+#consulting #services.services.snap.snap-fit .svc {display:flex!important;flex-direction:column!important;align-items:stretch!important;min-width:0!important;min-height:100%!important;padding:22px 18px!important;text-align:left!important}
+#consulting #services .svc .svc-t {font:500 clamp(18px,1.5vw,23px)/1.25 var(--serif)!important;margin:14px 0 0!important;overflow-wrap:anywhere}
+#consulting #services .svc .svc-b {font-size:13px!important;line-height:1.55!important;margin:13px 0 20px!important}
+#consulting #services .svc .svc-d {font-size:13px!important;line-height:1.5!important;margin-top:auto!important;min-height:100px!important;overflow-wrap:anywhere}
+#consulting #services .svc .svc-more {margin-top:18px!important;align-self:flex-start!important}
+#experience #facts-bar {display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;gap:12px!important;overflow:visible!important}
+#experience #facts-bar > li {min-width:0!important;width:auto!important;max-width:none!important;flex:none!important}
+#experience #facts-bar .fact-l {overflow-wrap:anywhere}
+@media (min-width: 740px) and (max-width: 1199px) {#experience #facts-bar{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
+@media (max-width:739px) {#experience #facts-bar{grid-template-columns:1fr!important}}
