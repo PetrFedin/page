@@ -25,24 +25,20 @@ for(const lang of ['ru','en']){
   const grid=await page.locator('#services li').evaluateAll(nodes=>nodes.map(n=>({x:Math.round(n.getBoundingClientRect().left),y:Math.round(n.getBoundingClientRect().top),w:Math.round(n.getBoundingClientRect().width)})));
   assert.equal(grid.length,5,'five consulting options');
   if(width===1440){
-    assert.ok(Math.max(...grid.slice(0,4).map(n=>n.y))-Math.min(...grid.slice(0,4).map(n=>n.y))<7,'desktop first line has 4 cards');
-    assert.ok(grid[4].y>grid[3].y+15,'featured fifth advisory card has separate row');
-    assert.ok(grid[4].w>grid[0].w,'featured fifth card spans the row');
+    assert.ok(grid.every(n=>Math.abs(n.y-grid[0].y)<7),'all five consulting cards belong to one row');
+    assert.ok(Math.max(...grid.map(n=>n.w))-Math.min(...grid.map(n=>n.w))<5,
+      'all five consulting cards should have equal widths');
   }
   if(width===375){
-    // Existing phone UX intentionally uses horizontal snap cards, not a vertical stack.
-    const track=page.locator('#services');
-    const dimensions=await track.evaluate(el=>({scrollWidth:el.scrollWidth,clientWidth:el.clientWidth}));
-    assert.ok(dimensions.scrollWidth>dimensions.clientWidth+4,'mobile consulting carousel scrollable');
-    const dots=page.locator('#services + .snap-dots button');
-    await dots.first().waitFor();
-    assert.equal(await dots.count(),5,'five consultation slides have navigation dots');
-    assert.equal(new Set(grid.map(n=>n.y)).size,1,'cards share one horizontal rail');
-    await track.evaluate(el=>{el.scrollLeft=el.scrollWidth;});
-    await page.waitForFunction(()=>{const el=document.querySelector('#services');return el.scrollLeft>el.clientWidth;});
-    const activeAfterScroll=await page.locator('#services + .snap-dots [aria-current="true"]').count();
-    assert.equal(activeAfterScroll,1,'one active consultation slide after swipe');
-    await track.evaluate(el=>{el.scrollLeft=0;});
+    // Mobile now deliberately stacks cards, rather than using the retired
+    // horizontally scrolling carousel. This is the requested UX change.
+    assert.equal(new Set(grid.map(n=>n.y)).size,5,
+      'five consulting cards occupy separate mobile rows');
+    const dimensions=await page.locator('#services').evaluate(el=>({
+      scrollWidth:el.scrollWidth,clientWidth:el.clientWidth
+    }));
+    assert.ok(dimensions.scrollWidth<=dimensions.clientWidth+3,
+      'mobile advisory must not produce a horizontal overflow');
   }
   const featured=await page.locator('#cards>.card').evaluateAll(nodes=>nodes.map(n=>n.dataset.project));
   assert.deepEqual(featured,['syntha','chatx','renova'],lang+'/'+width+' featured project sequence');
