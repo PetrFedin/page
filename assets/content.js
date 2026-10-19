@@ -134,7 +134,7 @@ export const T = {
             'Решения принимаются на встречах, а не в чате',
             'Задан критерий выхода из стабилизации'
           ]
-        }
+        },
         {
           id: 'systems-integration', n: 'Интеграция управленческих решений',
           l: 'Аналитические приложения, системы управления производством, прогнозирование, бюджетирование и сквозной контроль процессов',
@@ -1493,7 +1493,7 @@ export const T = {
           lead: 'Restoring control when decisions are late and cash is running out.',
           does: ['Cash calendar and liquidity management', 'Priorities: what to stop, fund or accelerate', 'Processes, roles and decision rights', 'A short plan → actual → action cycle', 'Cross-functional coordination and difficult negotiations', 'Execution control until the business is stable', 'Weekly reporting to the owner throughout'],
           gives: ['Who decides what, written down', 'Decisions made on time rather than after the fact', 'A clear criterion for when stabilisation is over'],
-          results: ['Payments organised into a cash calendar weeks ahead', 'An agreed and executed list of what gets stopped', 'Decision rights documented, ending disputes over authority', 'The plan → actual → action cycle shortened to a week', 'Decisions made in the meeting, not in chat threads', 'A defined criterion for leaving stabilisation mode'] }
+          results: ['Payments organised into a cash calendar weeks ahead', 'An agreed and executed list of what gets stopped', 'Decision rights documented, ending disputes over authority', 'The plan → actual → action cycle shortened to a week', 'Decisions made in the meeting, not in chat threads', 'A defined criterion for leaving stabilisation mode'] },
         { id: 'systems-integration', n: 'Business systems integration',
           l: 'Analytics apps, production management, forecasting, budgeting and cross-functional process control',
           lead: 'Turn a management decision into an integrated, testable digital workflow.',
