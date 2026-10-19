@@ -30,3 +30,31 @@
 #experience #facts-bar .fact-l {overflow-wrap:anywhere}
 @media (min-width: 740px) and (max-width: 1199px) {#experience #facts-bar{grid-template-columns:repeat(3,minmax(0,1fr))!important}}
 @media (max-width:739px) {#experience #facts-bar{grid-template-columns:1fr!important}}
+
+
+/* Legacy 'four subgrid rows' must not survive the new 5-card experience layout:
+   it can extend click targets over the evidence disclosure that follows. */
+#experience #facts-bar.facts-bar.snap.snap-fit {
+  grid-template-rows:none!important;
+  grid-auto-rows:auto!important;
+  align-items:stretch!important;
+  height:auto!important;
+  min-height:0!important;
+}
+#experience #facts-bar.facts-bar.snap.snap-fit > li.fact-card {
+  grid-row:auto!important;
+  grid-template-rows:none!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-content:normal!important;
+  gap:12px!important;
+  height:auto!important;
+  min-height:0!important;
+}
+#experience #facts-bar .format-foot {margin-top:auto!important}
+#experience #brand-evidence-standard {
+  position:relative;
+  z-index:2;
+  clear:both;
+  isolation:isolate;
+}
