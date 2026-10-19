@@ -12,6 +12,7 @@ try{
    assert.equal(response.status(),200);
    await page.locator('#services .svc').first().waitFor();
    assert.equal(await page.locator('#services .svc').count(),5);
+   assert.doesNotMatch(await page.locator('#services').innerText(), /\bundefined\b|\bnull\b/i, 'service card metadata must be defined');
    assert.equal(await page.locator('#facts-bar .fact-card').count(),5);
    assert.equal(await page.locator('#formats .format').count(),4);
    assert.equal(await page.locator('#lead-routes-grid .lead-route-card').count(),3);
