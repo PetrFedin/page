@@ -1,0 +1,61 @@
+name: V2 exact-head ephemeral public preview
+on:
+  push:
+    branches:
+      - fix/page-v2-consulting-experience-media-20261019
+permissions:
+  contents: read
+concurrency:
+  group: v2-public-preview-hotfix
+  cancel-in-progress: true
+jobs:
+  static-preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      EXPECTED_SHA: ${{ github.sha }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Build public static assets only
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+          npm run build
+          npm run package:pages
+          node scripts/verify-pages-release.mjs
+          node scripts/verify-v2-static-references.mjs
+          test "$(node -p "JSON.parse(require('fs').readFileSync('./dist-pages/release-health.json','utf8')).source_sha")" = "$EXPECTED_SHA"
+      - name: Deploy a standalone anonymous test site (never syntha.pro)
+        run: |
+          set -euo pipefail
+          npx --yes netlify-cli@27.12.1 deploy --allow-anonymous --no-build --dir=dist-pages --json > /tmp/v2-preview.json
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          const raw=fs.readFileSync('/tmp/v2-preview.json','utf8');
+          let p;try{p=JSON.parse(raw)}catch{throw Error('CLI returned non-JSON; no verified URL')}
+          const choices=[p.deploy_url,p.deployUrl,p.url,p.site_url,p.siteUrl].filter(Boolean);
+          const choice=choices.find(s=>{try{const u=new URL(s);return u.protocol==='https:'&&u.hostname.endsWith('.netlify.app')}catch{return false}});
+          if(!choice)throw Error('No verified Netlify HTTPS preview address in CLI output');
+          const preview=new URL(choice).origin+'/';
+          fs.appendFileSync(process.env.GITHUB_ENV,'PREVIEW_URL='+preview+'\n');
+          fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY,'### Live V2 build\n'+preview+'\n\nHEAD SHA: '+process.env.EXPECTED_SHA+'\n');
+          console.log('Preview candidate:',preview);
+          NODE
+      - name: Check publicly served exact source SHA and assets
+        run: node scripts/verify-public-preview.mjs
+      - name: Interact with published interface in Chromium
+        run: |
+          npm install --no-save playwright@1.58.2
+          npx playwright install --with-deps chromium
+          node scripts/browser-public-preview-qa.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: latest-v2-public-evidence
+          path: qa-artifacts/
+          if-no-files-found: ignore
