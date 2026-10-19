@@ -1493,7 +1493,7 @@ export const T = {
           does: ['Cash calendar and liquidity management', 'Priorities: what to stop, fund or accelerate', 'Processes, roles and decision rights', 'A short plan → actual → action cycle', 'Cross-functional coordination and difficult negotiations', 'Execution control until the business is stable', 'Weekly reporting to the owner throughout'],
           gives: ['Who decides what, written down', 'Decisions made on time rather than after the fact', 'A clear criterion for when stabilisation is over'],
           results: ['Payments organised into a cash calendar weeks ahead', 'An agreed and executed list of what gets stopped', 'Decision rights documented, ending disputes over authority', 'The plan → actual → action cycle shortened to a week', 'Decisions made in the meeting, not in chat threads', 'A defined criterion for leaving stabilisation mode'] }
-        ,{ id: 'systems-integration', n: 'Business systems integration',
+        { id: 'systems-integration', n: 'Business systems integration',
           l: 'Management and analytics applications: data, roles, workflows, forecasting and budgeting',
           lead: 'Not another report, but a working decision tool integrated into company operations.',
           does: ['Audit workflows and ERP, PLM, CRM, factory, warehouse and finance systems', 'Unify reference data, metric definitions and access rights', 'Design operating modules for buying, production, orders and costs', 'Interactive budgeting, forecasting, scenarios and variance monitoring', 'Integrations and reconciliations across business functions', 'Role-based workspaces, approvals and decision history', 'Pilot tests, staff handover, training and acceptance criteria'],
