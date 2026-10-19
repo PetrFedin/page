@@ -2249,9 +2249,4 @@ a.lang{display:inline-flex; align-items:center; justify-content:center; text-dec
 #cards .card[data-project="mfw"] .card-logo svg{display:block;width:100%;max-width:325px;height:auto;max-height:43px}
 #modal-logo svg{max-width:100%;height:auto}
 
-/* Final four-plus-one layout: flex isolates advisory cards from old grid spanning rules. */
-@media(min-width:1100px){
- #consulting #services.services.snap{display:flex!important;flex-flow:row wrap!important;gap:12px!important;align-items:stretch!important}
- #consulting #services.services.snap > li:not(.svc-featured-item){flex:0 0 calc((100% - 36px)/4)!important;width:calc((100% - 36px)/4)!important;max-width:calc((100% - 36px)/4)!important;grid-column:auto!important;grid-row:auto!important}
- #consulting #services.services.snap > li.svc-featured-item{flex:0 0 100%!important;width:100%!important;max-width:100%!important;grid-row:auto!important}
-}
+/* Previous 4+1 flex geometry removed: section-grids.css owns all consulting breakpoints. */

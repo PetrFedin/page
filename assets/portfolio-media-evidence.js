@@ -5,9 +5,9 @@
 export const PORTFOLIO_MEDIA_EVIDENCE=Object.freeze({
  chatx:{
   kind:'isolated-demonstration',asOf:'2026-10-18',
-  repo:'PetrFedin/chat',sourceSha:'1ca91bae9efcdf22e3b28c09525a2a0d99c2d5d0',
-  runUrl:'https://github.com/PetrFedin/chat/actions/runs/39129731771',
-  artifact:'chatx-portfolio-1ca91bae9efcdf22e3b28c09525a2a0d99c2d5d0-39129731771',
+  repo:'PetrFedin/chat',sourceSha:'080cb53e1ff93f85bc44ceef1b20f699340b56a9',
+  runUrl:'https://github.com/PetrFedin/chat/actions/runs/39160687694',
+  artifact:'chatx-portfolio-080cb53e1ff93f85bc44ceef1b20f699340b56a9-39160687694',
   screenshots:10,videoSeconds:27,approvedForEmbedding:false
  },
  'fashion-os':{
@@ -20,9 +20,9 @@ export const PORTFOLIO_MEDIA_EVIDENCE=Object.freeze({
  },
  promomed:{
   kind:'public-preview',asOf:'2026-10-18',
-  repo:'PetrFedin/promomed',sourceSha:'638ea8be7a1e2e78c82cd79f883c10d2f582e914',
-  runUrl:'https://github.com/PetrFedin/promomed/actions/runs/39131050268',
-  artifact:'sostoyanie-portfolio-live-638ea8be7a1e2e78c82cd79f883c10d2f582e914',
+  repo:'PetrFedin/promomed',sourceSha:'42ad14b9e356a10a39dea4c983783affc7d7a05c',
+  runUrl:'https://github.com/PetrFedin/promomed/actions/runs/39161180777',
+  artifact:'sostoyanie-portfolio-live-42ad14b9e356a10a39dea4c983783affc7d7a05c',
   screenshots:13,videoSeconds:25,approvedForEmbedding:false,
   notice:'Independent concept. Public-preview capture does not imply an endorsement by any third-party company.'
  }
