@@ -46,10 +46,16 @@ assert.equal(svedo.name,'SVEDO');
 assert.match(svedo.ru.stage,/production|прототип/i);
 assert.match(svedo.en.status.next.join(' '),/PostgreSQL/);
 assert.doesNotMatch(svedo.ru.card,/запущенный банковский сервис/i);
+assert.match(svedo.ru.stage,/v64.*HOLD/i,'SVEDO dossier must name the verified local-candidate version and hold');
+assert.match(svedo.en.stage,/v64.*HOLD/i,'EN must have matching local-candidate maturity');
+assert.ok(svedo.ru.status.done.join(' ').includes('188/188'), 'No fabricated or stale UX evidence');
+assert.ok(svedo.en.status.done.join(' ').includes('84/84'), 'Bilingual financial-test evidence must match v64 report');
+assert.match(svedo.ru.investor.note,/не опубликованный/, 'No launch claim');
+assert.match(svedo.en.investor.note,/not a launched/, 'No launch claim in EN');
 const client=all.find(p=>p.id==='marco');
 assert.ok(client?.ru?.stage && !/production готов|production ready/i.test(client.ru.stage),
   'Showroom must not silently assert PostgreSQL production admission');
 const html=read('index.html')+read('en/index.html');
 assert.ok(!html.includes('id="order-now"')&&!html.includes('data-buy-equity'),
   'Capital scenario does not authorize a public checkout or securities transaction');
-console.log('PASS: 11 honest dossier scopes with SVEDO v54, no customer brands, six screenless functional cards and unverified-maturity guards');
+console.log('PASS: 11 honest dossier scopes with SVEDO v64, no customer brands, six screenless functional cards and unverified-maturity guards');
