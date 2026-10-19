@@ -623,7 +623,7 @@ export const T = {
     roles: {
       introLabel: 'Открыт к предложениям',
       hubTitle: 'Роли, которые я готов рассмотреть',
-      hubNote: 'Три направления — откройте каждое, чтобы увидеть компетенции и зону ответственности.',
+      hubNote: 'Четыре направления — откройте каждое, чтобы увидеть компетенции и зону ответственности.',
       competenciesLabel: 'Компетенции',
       whyFitLabel: 'Почему подхожу',
       contactCta: 'Связаться',
@@ -677,6 +677,19 @@ export const T = {
             'Связь продуктовых, коммерческих и складских данных в одной модели'
           ],
           whyFit: 'Построил BI-контур с нуля, перевёл закупку на регулярный пересчёт по факту продаж, обучил и вырастил аналитическую команду до уровня Senior.'
+        }
+              ,{ n: '04', title: 'Директор по цифровой трансформации и бизнес-системам', abbr: 'CDTO', term: 'Системная интеграция, продуктовые решения, данные и контроль процессов',
+          body: 'Связываю управленческие задачи с архитектурой аналитических и операционных систем: от карты процессов и модели данных до пилота и критериев эксплуатации.',
+          competencies: [
+            'Интеграция ERP, 1С, PLM, CRM, производства, складского и финансового контуров',
+            'Модель данных, единые управленческие показатели, права доступа и ответственность',
+            'Аналитические приложения и контуры принятия решений по плану, прогнозу и факту',
+            'Производственные решения, калькуляции, контроль заказа и операционных статусов',
+            'Бюджетирование, сценарное планирование и контроль исполнения',
+            'Техническое задание, поэтапная приёмка, качество данных и интеграционное тестирование',
+            'Пилот на проверяемом рабочем процессе без обещаний неподтверждённого эффекта'
+          ],
+          whyFit: 'Работа на стыке управленческой аналитики и разработки цифровых платформ позволяет ставить экономику и требования к системе в один процесс. Примеры продуктов — технические демонстрации, а не доказательство внедрения у сторонних компаний.'
         }
       ]
     },
@@ -1935,7 +1948,7 @@ export const T = {
     roles: {
       introLabel: 'Open to offers',
       hubTitle: 'Roles I would consider',
-      hubNote: 'Three directions. Open each for the competencies and scope of responsibility.',
+      hubNote: 'Four directions. Open each for competencies and scope of responsibility.',
       competenciesLabel: 'Key competencies',
       whyFitLabel: 'Why I fit',
       contactCta: 'Get in touch',
@@ -1989,6 +2002,19 @@ export const T = {
             'Linking product, commercial and stock data in one model'
           ],
           whyFit: 'I built a BI system from scratch, moved buying onto regular recalculation from actual sales, and trained and grew an analytics team to Senior level.'
+        }
+              ,{ n: '04', title: 'Digital Transformation & Business Systems Director', abbr: 'CDTO', term: 'Systems integration, digital products, data and process control',
+          body: 'Link business decisions to analytics and operations systems: process mapping, data architecture, pilot execution and operational acceptance.',
+          competencies: [
+            'Connect ERP, 1C, PLM, CRM, production, warehouse and financial workflows',
+            'Govern data, management KPI definitions, access rights and accountable ownership',
+            'Build analytics applications supporting plan, forecast, actual and decisions',
+            'Design costing, production workflows, order execution and status control',
+            'Budgeting, scenario planning and progress governance',
+            'Define acceptance criteria, integration QA and phased delivery',
+            'Prove workflows in a controlled pilot rather than claiming unsupported results'
+          ],
+          whyFit: 'Combines management analytics experience with original digital platform engineering. Product examples are technical demonstrations rather than evidence of third-party customer deployment.'
         }
       ]
     },
