@@ -134,7 +134,31 @@ export const T = {
             'Решения принимаются на встречах, а не в чате',
             'Задан критерий выхода из стабилизации'
           ]
-        }
+        },
+        {
+          id: 'systems-integration', n: 'Интеграция бизнес-решений',
+          l: 'Внедрение аналитических и управленческих приложений: от данных и ролей до рабочих процессов, прогнозов и бюджетов',
+          lead: 'Не просто отчётность, а цифровой инструмент, встроенный в повседневные решения компании.',
+          does: [
+            'Диагностика процессов и существующих систем — ERP, PLM, CRM, производство, склад, финансовый учёт',
+            'Единые справочники, метрики, модель данных и права доступа',
+            'Проектирование прикладных модулей для закупок, производства, заказов и управления затратами',
+            'Интерактивные бюджеты, сценарии, прогнозы и контроль отклонений',
+            'Интеграции и автоматическая сверка данных между функциями',
+            'Ролевые кабинеты, маршруты согласования и история решений',
+            'Пилот, тестирование реальных сценариев, обучение и критерии приёмки'
+          ],
+          gives: [
+            'Связанный контур от данных до управленческого действия',
+            'Прозрачный план внедрения с проверяемыми этапами',
+            'Рабочее приложение и правила поддержки вместо разрозненных файлов'
+          ],
+          results: [
+            'Варианты цифровых продуктов демонстрируются как собственные разработки, а не как подтверждённые внедрения у клиента',
+            'Эффект автоматизации измеряется по согласованным метрикам после пилота',
+            'Полнота интеграций, качество данных и права доступа проверяются до эксплуатации'
+          ]
+        },
       ],
       photoAlt: 'Пётр Федин',
       cvLabel: 'Запросить резюме',
@@ -1469,6 +1493,13 @@ export const T = {
           does: ['Cash calendar and liquidity management', 'Priorities: what to stop, fund or accelerate', 'Processes, roles and decision rights', 'A short plan → actual → action cycle', 'Cross-functional coordination and difficult negotiations', 'Execution control until the business is stable', 'Weekly reporting to the owner throughout'],
           gives: ['Who decides what, written down', 'Decisions made on time rather than after the fact', 'A clear criterion for when stabilisation is over'],
           results: ['Payments organised into a cash calendar weeks ahead', 'An agreed and executed list of what gets stopped', 'Decision rights documented, ending disputes over authority', 'The plan → actual → action cycle shortened to a week', 'Decisions made in the meeting, not in chat threads', 'A defined criterion for leaving stabilisation mode'] }
+        { id: 'systems-integration', n: 'Business systems integration',
+          l: 'Management and analytics applications: data, roles, workflows, forecasting and budgeting',
+          lead: 'Not another report, but a working decision tool integrated into company operations.',
+          does: ['Audit workflows and ERP, PLM, CRM, factory, warehouse and finance systems', 'Unify reference data, metric definitions and access rights', 'Design operating modules for buying, production, orders and costs', 'Interactive budgeting, forecasting, scenarios and variance monitoring', 'Integrations and reconciliations across business functions', 'Role-based workspaces, approvals and decision history', 'Pilot tests, staff handover, training and acceptance criteria'],
+          gives: ['One connected flow from trusted data to management action', 'A phased rollout with observable acceptance checks', 'A usable application and support rules instead of scattered workbooks'],
+          results: ['Product demos are original work, not evidence of third-party production adoption', 'Automation gains are measured only after an agreed pilot', 'Data quality, integration completeness and permissions must pass acceptance before operation']
+        },
       ],
       photoAlt: 'Petr Fedin',
       cvLabel: 'Request CV',
