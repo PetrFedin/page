@@ -9,6 +9,8 @@ try{
   const errors=[];page.on('pageerror',e=>errors.push(String(e)));
   await page.route('https://challenges.cloudflare.com/**',r=>r.fulfill({status:200,contentType:'text/javascript',body:''}));
   await page.goto('http://127.0.0.1:4321/'+(lang==='en'?'en/':''),{waitUntil:'domcontentloaded'});
+  assert.equal(T[lang].roles.items.length,4,'four career/engagement roles');
+  assert.equal(T[lang].formats.items.length,4,'four advisory formats');
   assert.equal(T[lang].hero.facts.length,5,'five experience profiles');
   assert.equal(await page.locator('#facts-bar .fact-card').count(),5);
   assert.equal(await page.locator('#services>li').count(),5);
