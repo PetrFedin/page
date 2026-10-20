@@ -643,13 +643,13 @@ export const EXTRA_PROJECTS = [
   },
   {
     "id": "marco",
-    "name": "Marco Pescarolo — Private Commercial Showroom",
+    "name": "PRIVATE COMMERCIAL OS",
     "device": "ipad",
     "shots": [],
     "ru": {
       "tagline": "Мультиконтурный luxury showroom и B2B-ordering",
       "stage": "Брендовая демонстрационная разработка; полноценный production lifecycle и независимая проверка доступов не подтверждены",
-      "card": "Эксклюзивная цифровая коммерческая платформа для итальянского бренда Marco Pescarolo: брендовый showroom, коллекции, приватные цены и рекомендации размера, B2C-заказ, оптовая размерная матрица, согласование, поставки, sell-through и повторная закупка.",
+      "card": "Коммерческая платформа для fashion-бренда: брендовый showroom, коллекции, приватные цены и рекомендации размера, B2C-заказ, оптовая размерная матрица, согласование, поставки, sell-through и повторная закупка.",
       "what": "Не универсальный шаблон торговой площадки: отдельная брендовая система с ролями Private Client, Wholesale Buyer и Admin, с собственными коммерческими сценариями и визуальным языком.",
       "who": "Люксовые бренды, байеры магазинов, торговые представители, частные клиенты и администрация бренда.",
       "why": "Превратить презентацию коллекции в контролируемый заказ и повторную продажу, не раскрывая чужие цены или себестоимость.",
@@ -721,7 +721,7 @@ export const EXTRA_PROJECTS = [
     "en": {
       "tagline": "Multi-channel luxury showroom and B2B ordering",
       "stage": "Brand-specific showcase; full production lifecycle and independent access admission not yet verified",
-      "card": "A brand-exclusive digital commercial showroom designed for Italian label Marco Pescarolo: collections, private prices and sizing, B2C order path, wholesale matrices, brand approvals, delivery, sell-through and reorder.",
+      "card": "A modular digital showroom and commercial operating system for fashion brands: collections, private prices and sizing, B2C order path, wholesale matrices, brand approvals, delivery, sell-through and reorder.",
       "what": "A digital showroom and commercial OS with separate wholesale and private-client permissions.",
       "who": "Luxury brands, wholesale buyers, sales reps, private clients and brand administration.",
       "why": "Turn presentations into governed ordering and repeat sales without leaking restricted pricing or cost.",
