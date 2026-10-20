@@ -27,7 +27,7 @@ for(const p of EXTRA_PROJECTS){
     assert.ok(catalog.verified.some(x=>x.id==='antiqua'&&x.production_admitted===false),
       'Antiqua screenshots require verified demo evidence');
     assert.equal(p.shots.length,4,'Four actual museum screenshots');
-    assert.match(p.video,/visitor-gallery-28s\\.mp4$/,'Verified visitor preview tour');
+    assert.match(p.video,/visitor-gallery-28s\.mp4$/,'Verified visitor preview tour');
   } else {
     assert.equal(p.shots.length,0,'no placeholder screenshots '+p.id);
     assert.ok(!p.video,'no placeholder video '+p.id);
