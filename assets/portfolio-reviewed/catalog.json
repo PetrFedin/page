@@ -1,0 +1,172 @@
+{
+  "status": "preview-reviewed",
+  "no_external_client_adoption_claim": true,
+  "disclaimer": "Demo/browser captures of isolated systems, not evidence of outside customer deployments.",
+  "verified": [
+    {
+      "id": "syntha",
+      "source_repository": "PetrFedin/synth-v2",
+      "source_sha": "9a90247da7c50f144e63834ba1a7e9d8c3c9b12e",
+      "source_run_url": "https://github.com/PetrFedin/synth-v2/actions/runs/39132723945",
+      "provenance": "isolated-demonstration",
+      "date": "20261018",
+      "production_admitted": false,
+      "files": [
+        {
+          "name": "01-app-overview-ru.png",
+          "sha256": "87f2d1f68482bfdc44daed5ab5db0eb40d0d13b0793548172efecc3e31d0e4ed",
+          "bytes": 160997
+        },
+        {
+          "name": "03-app-collections-ru.png",
+          "sha256": "42d34a4306421eb538f07701eebf542ee46836976fa7e68f14233f2f1c7463a4",
+          "bytes": 165933
+        },
+        {
+          "name": "04-app-bom-ru.png",
+          "sha256": "544d8a12e52361fef3b3a5f9c254a79b347ed4e88c44b3b06757cc75517a1fc2",
+          "bytes": 127251
+        },
+        {
+          "name": "06-app-tech-packs-ru.png",
+          "sha256": "64f84c469491e12b1103a229d6b29070ace5a3eb22e034c1140dea82446e896d",
+          "bytes": 95556
+        },
+        {
+          "name": "syntha-plm-live-26sec.mp4",
+          "sha256": "4fc583ee3ec0f54bd8481cce305177d47a4f0fcc2d7dd7f1d8cd264c8d58f210",
+          "bytes": 792330
+        }
+      ]
+    },
+    {
+      "id": "chatx",
+      "source_repository": "PetrFedin/chat",
+      "source_sha": "080cb53e1ff93f85bc44ceef1b20f699340b56a9",
+      "source_run_url": "https://github.com/PetrFedin/chat/actions/runs/39160687694",
+      "provenance": "isolated-demonstration",
+      "date": "2026-10-18",
+      "production_admitted": false,
+      "files": [
+        {
+          "name": "01-home-desktop.png",
+          "sha256": "48fde9bbcd39ada80246d84089cb780b882135f4982d26851fe9927685cc8006",
+          "bytes": 399492
+        },
+        {
+          "name": "02-chats-desktop.png",
+          "sha256": "937182f2f871269fc6191ea0636bef213a1a89ae3121754f407a3aeeeb493114",
+          "bytes": 443754
+        },
+        {
+          "name": "03-tasks-desktop.png",
+          "sha256": "22989351fc7da332364273d7fa93687b96d80d01e04b95e548d3a6e7e0b71e82",
+          "bytes": 331170
+        },
+        {
+          "name": "05-project-gantt-desktop.png",
+          "sha256": "599cd5f0b750d9222c531bb6d35f9dd6883bd3a2929053543ab809ea8f4cd02b",
+          "bytes": 339444
+        },
+        {
+          "name": "chatx-product-tour-27s.mp4",
+          "sha256": "6d9afb56f0a10eccdfacbce74618fa4d0a9861da0d7fc2b500c983d630b5cc04",
+          "bytes": 731729
+        }
+      ]
+    },
+    {
+      "id": "renova",
+      "source_repository": "PetrFedin/renova",
+      "source_sha": "a968fe71c6f287b072a275b2e72087a2a844e79c",
+      "source_run_url": "https://github.com/PetrFedin/renova/actions/runs/39337917645",
+      "provenance": "isolated-demonstration",
+      "date": "20261019",
+      "production_admitted": false,
+      "files": [
+        {
+          "name": "customer-estimate.png",
+          "sha256": "43750d8bc95d46433f3d8edce4b7d3b1fa268915e1a2c10e4b633c85e3450790",
+          "bytes": 72778
+        },
+        {
+          "name": "customer-budget.png",
+          "sha256": "2580bcc2ae4a11d44cee5c395a06d6904b54f90c5360d296ff08362cd6779a68",
+          "bytes": 64635
+        },
+        {
+          "name": "customer-execution.png",
+          "sha256": "aba44c0433740a42d5ad59c121535f50ad05d33075922c94acb4b17f9b7cb9d5",
+          "bytes": 45779
+        },
+        {
+          "name": "customer-product-tour-25s.mp4",
+          "sha256": "10432433f59e25e39f740776a4e44caa6cc81d8f327b1e47d8f935b31a19740a",
+          "bytes": 322071
+        }
+      ]
+    },
+    {
+      "id": "antiqua",
+      "source_repository": "PetrFedin/antiqua",
+      "source_sha": "1439f3b510a068772cddfd189333412f028f4683",
+      "source_run_url": "https://github.com/PetrFedin/antiqua/actions/runs/39314773212",
+      "provenance": "isolated-demonstration",
+      "date": "20261019",
+      "production_admitted": false,
+      "files": [
+        {
+          "name": "gallery-desktop.png",
+          "sha256": "db1bbef2416eb2fd772eb99e0bde7aff7973c9d766b306f43c738750f0b6bbf5",
+          "bytes": 715133
+        },
+        {
+          "name": "museum-paintings.png",
+          "sha256": "d09705ec792ae52da6b34efe622afbd648f0af91a9d2f54f6f8e85e138199d1b",
+          "bytes": 776214
+        },
+        {
+          "name": "artwork-details.png",
+          "sha256": "f3968eb897594b2a3bbcc56c73076161f1506174ce21e80c8bac290c3f27aeac",
+          "bytes": 926213
+        },
+        {
+          "name": "owner-collection.png",
+          "sha256": "8ea6b0e8b74a48410d14a62ac5bb3869f291f2397de00e84e68dad20b16c9978",
+          "bytes": 87047
+        },
+        {
+          "name": "visitor-gallery-28s.mp4",
+          "sha256": "f15b966f6883ea33ac8a8bb0b4088cab1eb604c3875604e53669c2345aee17f0",
+          "bytes": 1256618
+        }
+      ]
+    },
+    {
+      "id": "sostoyanie",
+      "source_repository": "PetrFedin/promomed",
+      "source_sha": "42ad14b9e356a10a39dea4c983783affc7d7a05c",
+      "source_run_url": "https://github.com/PetrFedin/promomed/actions/runs/39161180777",
+      "provenance": "independent-public-preview",
+      "date": "2026-10-18",
+      "production_admitted": false,
+      "files": [
+        {
+          "name": "iphone-15-today.png",
+          "sha256": "f9bd28b2c1f3df670c8c441ee5ee22131d8f930d2268fa94295522e48092d56c",
+          "bytes": 277449
+        },
+        {
+          "name": "iphone-15-events.png",
+          "sha256": "1baf7d75cdc15b281ab5055c5c09f4cb948b781408c2f716fa9a8e8fd142f235",
+          "bytes": 174549
+        },
+        {
+          "name": "iphone-journey-25s.mp4",
+          "sha256": "d94944ba53023d58857e2e647ae36e603582ccb32629c3f226e8c30635dcbdfe",
+          "bytes": 626028
+        }
+      ]
+    }
+  ]
+}

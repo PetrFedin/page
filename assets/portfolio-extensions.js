@@ -328,7 +328,8 @@ export const EXTRA_PROJECTS = [
     "id": "antiqua",
     "name": "Antiqua",
     "device": "ipad",
-    "shots": [],
+    "shots": ["/assets/portfolio-reviewed/antiqua/gallery-desktop.png","/assets/portfolio-reviewed/antiqua/museum-paintings.png","/assets/portfolio-reviewed/antiqua/artwork-details.png","/assets/portfolio-reviewed/antiqua/owner-collection.png"],
+    "video": "/assets/portfolio-reviewed/antiqua/visitor-gallery-28s.mp4",
     "ru": {
       "tagline": "Исследовательская цифровая галерея искусства",
       "stage": "Развитие каталога и проверка инфраструктуры",

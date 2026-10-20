@@ -2765,8 +2765,8 @@ export const PROJECTS = [
     id: 'syntha',
     name: 'Syntha',
     device: 'ipad',
-    video: '/assets/video/syntha.webm',
-    shots: ['/assets/shots/syntha-1.webp', '/assets/shots/syntha-2.webp', '/assets/shots/syntha-3.webp'],
+    video: '/assets/portfolio-reviewed/syntha/syntha-plm-live-26sec.mp4',
+    shots: ['/assets/portfolio-reviewed/syntha/01-app-overview-ru.png','/assets/portfolio-reviewed/syntha/03-app-collections-ru.png','/assets/portfolio-reviewed/syntha/04-app-bom-ru.png','/assets/portfolio-reviewed/syntha/06-app-tech-packs-ru.png'],
     ru: {
       collab: [{ k: 'Пилот', v: 'Бренд или магазин проводит в системе реальный сезон; его опыт определяет мои приоритеты в разработке.' }, { k: 'Выход на рынок', v: 'Партнёр с доступом к каналу, который берёт на себя продажи и внедрение.' }, { k: 'Интеграция', v: 'Подключение к учётной системе бренда выполняется отдельным проектом.' }, { k: 'По запросу', v: 'Демонстрация на ваших данных; сравнение функций с международными платформами.' }],
       status: {
@@ -2808,8 +2808,8 @@ export const PROJECTS = [
     id: 'chatx',
     name: 'ChatX',
     device: 'iphone',
-    video: '/assets/video/chatx.webm',
-    shots: ['/assets/shots/chatx-1.webp', '/assets/shots/chatx-2.webp', '/assets/shots/chatx-3.webp'],
+    video: '/assets/portfolio-reviewed/chatx/chatx-product-tour-27s.mp4',
+    shots: ['/assets/portfolio-reviewed/chatx/01-home-desktop.png','/assets/portfolio-reviewed/chatx/02-chats-desktop.png','/assets/portfolio-reviewed/chatx/03-tasks-desktop.png','/assets/portfolio-reviewed/chatx/05-project-gantt-desktop.png'],
     ru: {
       collab: [{ k: 'Ранний доступ', v: 'Компания переносит в ChatX часть рабочих процессов и задаёт приоритеты функций.' }, { k: 'Внедрение', v: 'Партнёр, который внедряет продукт в компаниях и сопровождает переход.' }, { k: 'По запросу', v: 'Демонстрация и разбор архитектуры под NDA.' }],
       status: {
@@ -2851,8 +2851,8 @@ export const PROJECTS = [
     id: 'renova',
     name: 'Renova',
     device: 'iphone',
-    video: '/assets/video/renova.webm',
-    shots: ['/assets/shots/renova-1.webp', '/assets/shots/renova-2.webp', '/assets/shots/renova-3.webp'],
+    video: '/assets/portfolio-reviewed/renova/customer-product-tour-25s.mp4',
+    shots: ['/assets/portfolio-reviewed/renova/customer-estimate.png','/assets/portfolio-reviewed/renova/customer-budget.png','/assets/portfolio-reviewed/renova/customer-execution.png'],
     ru: {
       collab: [{ k: 'Заказчик', v: 'Ведёте собственный ремонт в приложении и сообщаете, каких функций не хватает.' }, { k: 'Мастер или бригада', v: 'Ведёте реальный объект: сметы, сроки, приёмка работ.' }, { k: 'Ремонтная компания', v: 'Проверяете подход на потоке объектов, а не на одном.' }, { k: 'По запросу', v: 'Демонстрация и выводы, полученные в ходе работы над проектом.' }],
       status: {
@@ -2922,7 +2922,8 @@ export const PROJECTS = [
     id: 'promomed',
     name: 'СОСТОЯНИЕ — концепт для Promomed',
     device: 'iphone',
-    shots: ['/assets/shots/promomed-home.jpg', '/assets/shots/promomed-events.jpg'],
+    video: '/assets/portfolio-reviewed/sostoyanie/iphone-journey-25s.mp4',
+    shots: ['/assets/portfolio-reviewed/sostoyanie/iphone-15-today.png','/assets/portfolio-reviewed/sostoyanie/iphone-15-events.png'],
     ru: {
       tagline: '«СОСТОЯНИЕ» — комьюнити и ежегодная конференция о здоровье и красоте: один маршрут на весь год',
       roadmap: [{ label: 'Рабочий прототип', state: 'done' }, { label: 'Демонстрация Promomed', state: 'current' }, { label: 'Разработка и запуск', state: 'next' }],
