@@ -1,72 +1,125 @@
-name: V2 isolated Netlify preview
+name: V2 permanent Netlify preview - exact SHA
 on:
   push:
     branches:
-      - feat/page-v2-preview-sha-gate-20261016
+      - fix/page-v2-consulting-experience-media-20261019
   workflow_dispatch:
 permissions:
   contents: read
 concurrency:
-  group: page-v2-isolated-netlify-preview
+  group: v2-permanent-netlify-review
   cancel-in-progress: true
 jobs:
   preview:
+    name: Build, browser acceptance, Netlify deployment and public SHA gate
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     env:
       NETLIFY_SITE_ID: 4025c165-6b18-41c5-b69b-ba056cc7fbc8
       PREVIEW_URL: https://syntha-v2-preview-petr.netlify.app/
       EXPECTED_SHA: ${{ github.sha }}
-      NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
     steps:
       - uses: actions/checkout@v4
         with:
+          ref: ${{ github.sha }}
           persist-credentials: false
-      - name: Confirm exact source revision and isolated deployment destination
+      - name: Verify exact branch, source SHA, and isolated destination
         run: |
           set -euo pipefail
+          test "$GITHUB_REF_NAME" = "fix/page-v2-consulting-experience-media-20261019"
           test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
           test "$NETLIFY_SITE_ID" = "4025c165-6b18-41c5-b69b-ba056cc7fbc8"
+          test "$PREVIEW_URL" = "https://syntha-v2-preview-petr.netlify.app/"
+          test "$PREVIEW_URL" != "https://syntha.pro/"
       - uses: actions/setup-node@v4
         with:
-          node-version: "22"
-      - name: Build exact source
+          node-version: '22'
+      - name: Build and audit all public static RU/EN assets
         run: |
           set -euo pipefail
+          node --check scripts/prepare-netlify-review.mjs
+          node --check assets/netlify-review-guard.js
+          node --check scripts/browser-public-preview-qa.mjs
+          node scripts/verify-professional-profile.mjs
           npm run build
+          node scripts/verify-v2-editorial-preservation.mjs --rendered
           npm run package:pages
           node scripts/verify-pages-release.mjs
+          node scripts/verify-v2-sitemap.mjs
           node scripts/verify-v2-static-references.mjs
           node scripts/verify-public-portfolio-boundaries.mjs
-          test "$(node -p "require('./dist-pages/release-health.json').source_sha")" = "$EXPECTED_SHA"
-      - name: Publish to established isolated Netlify preview
-        if: env.NETLIFY_AUTH_TOKEN != ''
+          test "$(node -p "JSON.parse(require('fs').readFileSync('./dist-pages/release-health.json','utf8')).source_sha")" = "$EXPECTED_SHA"
+          test ! -d dist-pages/functions
+          test ! -d dist-pages/scripts
+          test ! -d dist-pages/private
+      - name: Test responsive RU/EN UX before publishing
         run: |
           set -euo pipefail
-          npx --yes netlify-cli@23.11.0 deploy --prod --no-build --dir=dist-pages --site="$NETLIFY_SITE_ID" --message="Isolated V2 review $EXPECTED_SHA" --json > /tmp/syntha-netlify-preview.json
-          node --input-type=module -e '
-            import fs from "node:fs";
-            const x=JSON.parse(fs.readFileSync("/tmp/syntha-netlify-preview.json","utf8"));
-            if (!(x.deploy_url || x.url)) throw Error("No Netlify deploy URL");
-            console.log("Established isolated preview deployed.");
-          '
-          printf '### Stable Netlify V2 preview\nhttps://syntha-v2-preview-petr.netlify.app/\n' >> "$GITHUB_STEP_SUMMARY"
-      - name: Explain missing Netlify publication authorization
-        if: env.NETLIFY_AUTH_TOKEN == ''
-        run: |
-          echo "::error::NETLIFY_AUTH_TOKEN is required for the existing isolated Netlify site; the pinned CLI has no anonymous deploy option."
-          exit 1
-      - name: Admit public exact-SHA preview
-        run: node scripts/verify-public-preview.mjs
-      - name: Browser interactions on published preview
-        run: |
-          set -euo pipefail
-          npm install --no-save playwright@1.58.2
+          npm install --no-save playwright@1.58.2 @axe-core/playwright@4.13.0
           npx playwright install --with-deps chromium
-          node scripts/browser-public-preview-qa.mjs
+          python3 -m http.server 4321 --bind 127.0.0.1 --directory dist-pages >/tmp/v2-static-http.log 2>&1 &
+          node scripts/browser-portfolio-qa.mjs
+          node scripts/browser-v2-brand-platform-qa.mjs
+          node scripts/browser-consulting-five-grid-qa.mjs
+          node scripts/browser-v2-professional-flow-qa.mjs
+          node scripts/browser-v2-client-paths-qa.mjs
+          node scripts/browser-lead-routes-qa.mjs
+          node scripts/browser-advisory-economics-qa.mjs
+      - name: Mark the Netlify review as nonindexable and disable static-only contact
+        run: |
+          set -euo pipefail
+          node scripts/prepare-netlify-review.mjs
+          grep -q 'X-Robots-Tag: noindex' dist-pages/_headers
+          grep -q 'netlify-review-guard.js' dist-pages/index.html
+          grep -q 'netlify-review-guard.js' dist-pages/en/index.html
+      - name: Publish ONLY the fixed existing Netlify review site
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [ -z "$NETLIFY_AUTH_TOKEN" ]; then
+            echo "::error::Add NETLIFY_AUTH_TOKEN under GitHub Settings > Secrets and variables > Actions; then Re-run all jobs."
+            exit 1
+          fi
+          npx --yes netlify-cli@27.12.1 deploy --prod --dir=dist-pages --site="$NETLIFY_SITE_ID" --message="Isolated V2 review $EXPECTED_SHA" --json >/tmp/netlify-v2-deploy.json
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          const o=JSON.parse(fs.readFileSync('/tmp/netlify-v2-deploy.json','utf8'));
+          const sid=o.site_id||o.siteId||o.site?.id;
+          if(sid && sid!==process.env.NETLIFY_SITE_ID)throw Error('Wrong Netlify site ID');
+          const urls=[o.url,o.ssl_url,o.site_url,o.deploy_url,o.deploy_ssl_url].filter(s=>typeof s==='string');
+          const host='syntha-v2-preview-petr.netlify.app';
+          if(urls.length && !urls.some(s=>{
+            try{const h=new URL(s).hostname;return h===host||h.endsWith('--'+host)}catch{return false}
+          }))throw Error('Netlify returned only unrelated URLs');
+          console.log('Netlify accepted the isolated upload. Verifying the served SHA next.');
+          NODE
+      - name: Verify exact SHA on the public Netlify CDN
+        run: |
+          set -euo pipefail
+          success=0
+          for attempt in 1 2 3 4 5 6; do
+            if node scripts/verify-public-preview.mjs; then success=1; break; fi
+            echo "CDN marker not available on attempt $attempt"
+            sleep 6
+          done
+          test "$success" -eq 1
+      - name: Browser-test live RU/EN, 11 projects, SVEDO and calculators
+        run: node scripts/browser-public-preview-qa.mjs
+      - name: Provide the permanently served V2 URL and SHA
+        run: |
+          {
+            echo "### Public V2 admitted at exact SHA"
+            echo ""
+            echo "- URL: $PREVIEW_URL"
+            echo "- Source SHA: $EXPECTED_SHA"
+            echo "- Static only. Contact and Telegram submission are not hosted by Netlify."
+            echo "- syntha.pro V1 is unchanged."
+          } >> "$GITHUB_STEP_SUMMARY"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: public-preview-browser-evidence
+          name: netlify-v2-review-QA-${{ github.sha }}
           path: qa-artifacts/
           if-no-files-found: ignore
+          retention-days: 14
