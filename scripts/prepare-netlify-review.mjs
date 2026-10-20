@@ -28,7 +28,7 @@ const headers=readFileSync(headersFile,'utf8').trimEnd();
 const lastRule=headers.lastIndexOf('\n/*\n');
 assert.ok(lastRule>=0,'Netlify _headers must have a catch-all rule');
 const finalSection=headers.slice(lastRule);
-assert.ok(!finalSection.includes('\n/'),'Expected catch-all rule to be last');
+assert.ok(!finalSection.slice(4).includes('\n/'),'Expected catch-all rule to be last');
 assert.ok(!finalSection.includes('X-Robots-Tag:'),'No duplicate robots header');
 writeFileSync(headersFile,headers+'\n  X-Robots-Tag: noindex, nofollow, noarchive\n');
 const health=JSON.parse(readFileSync(new URL('release-health.json',directory),'utf8'));
