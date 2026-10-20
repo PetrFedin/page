@@ -43,4 +43,14 @@ jobs:
             exit 0
           fi
           git commit -m "media(V2): publish source-verified five product demos with exact SHA-256"
-          git push origin HEAD:fix/page-v2-consulting-experience-media-20261019
+          for attempt in 1 2 3; do
+            git fetch origin fix/page-v2-consulting-experience-media-20261019
+            git rebase origin/fix/page-v2-consulting-experience-media-20261019
+            if git push origin HEAD:fix/page-v2-consulting-experience-media-20261019; then
+              echo "Media committed to current V2 feature branch with fast-forward proof"
+              exit 0
+            fi
+            sleep 3
+          done
+          echo "::error::Another change prevented safely fast-forwarding V2 media" 
+          exit 1
