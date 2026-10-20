@@ -797,19 +797,19 @@ export const EXTRA_PROJECTS = [
     "shots": [],
     "ru": {
       "tagline": "Финансовая устойчивость · обязательства · прогноз",
-      "stage": "SVEDO v54 — изолированный прототип. Локальные тесты пройдены; production и банковские интеграции не подтверждены.",
+      "stage": "SVEDO v64 (18.10.2026) — локальный инженерный кандидат. Production HOLD / WA01 PAUSE; реальные банковские подключения не подтверждены.",
       "card": "SVEDO помогает собрать кредиты, карты, рассрочки, регулярные платежи и доходы в одну картину. Показывает календарь обязательств, прогноз денег, риск кассовых разрывов и сценарии погашения. Текущая версия — проверяемый локальный кандидат, не банковский сервис.",
       "what": "Персональная финансовая система поддержки решений: Today → обязательства → календарь → бюджет → денежный поток → сравнение вариантов → план действий. Цель — заранее увидеть нехватку денег и последствия каждого финансового выбора.",
       "who": "Человек с несколькими кредитами или картами; семья с переменным доходом; консультант, которому нужна прозрачная модель обязательств. Финансовые партнёрства рассматриваются только после технического и правового допуска.",
       "why": "Снизить неопределённость перед платежом: какие обязательства ближайшие, сколько денег остаётся после обязательных расходов, какие сценарии приводят к дефициту и как меняется будущая нагрузка.",
-      "how": "Локальный движок расчёта графиков и cash flow, интерфейсы сценариев, событийные и версионированные состояния. В кандидате v54 отлажены клиентские границы шифрованного checkpoint, защита от устаревших ревизий и соответствие 22 API-маршрутам; живые Auth/PostgreSQL/банковские подключения не допущены.",
+      "how": "Локальный движок расчёта графиков и cash flow, интерфейсы сценариев, событийные и версионированные состояния. Кандидат v64 построен от проверенной v61: финансовые сценарии без изменения исходных обязательств, адаптивная навигация и управление модальными окнами. Проверки локальные; Auth/PostgreSQL/банковская среда не квалифицированы.",
       "roadmap": [
         {
           "label": "Модель и локальный прототип",
           "state": "done"
         },
         {
-          "label": "Контрактные тесты v54",
+          "label": "Локальная проверка v64",
           "state": "done"
         },
         {
@@ -848,16 +848,16 @@ export const EXTRA_PROJECTS = [
         },
         {
           "area": "Проверка готовности",
-          "feature": "11 экранов в изолированном Chromium, 22 API-маршрута в source-контракте; нет подтверждённых живых банковских данных"
+          "feature": "По отчёту v64: 188/188 локальных UX-сценариев Chromium и 84/84 финансовых теста; это не подтверждение реальной банковской среды"
         }
       ],
       "status": {
         "done": [
-          "Изолированный кандидат v54: локальная регрессия и синтетические сценарии интерфейса, финансовых контрактов и криптографического транспорта.",
-          "В v54 исправлены конфликты delete/recreate, проверки сессии при восстановлении и исходная карта 22 API-маршрутов. Это не live cloud proof."
+          "По отчёту v64: основной инженерный набор завершился EXIT 0; отдельно 188/188 UX, 84/84 расчёта и 89/89 изолированных HTTP/API-проверок.",
+          "v64 собрана от подтверждённой v61; включает 12 скриншотов и два 25-секундных ролика из последовательностей кадров. Нет независимой live HTTPS / Auth / PostgreSQL аттестации."
         ],
         "now": [
-          "Необходим отдельный доступный репозиторий SVEDO с exact-SHA CI; его GitHub URL в подключённом аккаунте пока не подтверждён."
+          "Отдельный доступный репозиторий SVEDO и hosted exact-SHA CI пока не подтверждены; публикация и банковские операции заблокированы."
         ],
         "next": [
           "Независимые проверки PostgreSQL 17, Supabase Auth/AAL2, RLS/GRANT, реальной конкурентности и HTTPS.",
@@ -880,24 +880,24 @@ export const EXTRA_PROJECTS = [
         }
       ],
       "investor": {
-        "note": "SVEDO v54 — исходный локально протестированный прототип, не опубликованный финансовый сервис. Коммерческие показатели, реальные банковские интеграции и production готовность не подтверждены; экономическая модель носит гипотетический характер."
+        "note": "SVEDO v64 — документированный локальный кандидат от 18.10.2026, не опубликованный финансовый сервис. Коммерческие показатели, реальные банковские интеграции и production готовность не подтверждены; экономическая модель носит гипотетический характер."
       }
     },
     "en": {
       "tagline": "Financial resilience · obligations · cash-flow planning",
-      "stage": "SVEDO v54 isolated candidate. Source/local tests only; banking and production not qualified.",
+      "stage": "SVEDO v64 (18 Oct 2026) local engineering candidate. Production HOLD / WA01 PAUSE; live banking not qualified.",
       "card": "SVEDO brings loans, credit cards, instalments, recurring commitments and income into one financial picture. It models payment calendars, liquidity gaps and repayment choices. Current status: a locally tested candidate, not a live banking service.",
       "what": "Personal financial decision workspace: today’s priorities → liabilities → payments → budget → cash-flow projections → alternative scenarios → plan.",
       "who": "Individuals and households managing several loans, cards or variable income; expert partners after legal and security review.",
       "why": "Make upcoming cash needs and the long-term implications of payment choices understandable rather than relying on fragmented bank statements.",
-      "how": "Local calculation and scenario engines, versioned states and source-tested encrypted checkpoint interfaces. V54 repairs stale revision conflicts and checks 22 API routes; production Auth, PostgreSQL and bank connections remain unverified.",
+      "how": "Local calculation and scenario engines, versioned states and source-tested encrypted checkpoint interfaces. V64 is based on the verified v61 candidate: non-mutating cash-flow scenarios, responsive navigation and modal lifecycle. Production Auth, PostgreSQL and bank connections remain unverified.",
       "roadmap": [
         {
           "label": "Model and local prototype",
           "state": "done"
         },
         {
-          "label": "V54 source verification",
+          "label": "V64 local QA evidence",
           "state": "done"
         },
         {
@@ -936,16 +936,16 @@ export const EXTRA_PROJECTS = [
         },
         {
           "area": "Evidence boundary",
-          "feature": "11 locally tested UI screens, 22 source-linked API routes; no verified live bank data"
+          "feature": "V64 report: 188/188 local Chromium UX cases and 84/84 financial scenarios; no verified live bank data"
         }
       ],
       "status": {
         "done": [
-          "V54 isolated source/local test candidate with synthetic UI, financial and crypto transport checks.",
-          "V54 fixes delete/recreate conflicts, session-change checks and API route parity; not a live cloud attestation."
+          "V64 report: main engineering suite EXIT 0, plus 188/188 UX, 84/84 finance and 89/89 isolated HTTP/API checks.",
+          "V64 derives from an authenticated v61 baseline; its 12 screenshots and two 25-second videos are assembled UI frames, not continuous recordings or live cloud proof."
         ],
         "now": [
-          "Dedicated SVEDO GitHub repository and exact-head CI have not yet been verified in the connected account."
+          "A dedicated SVEDO GitHub repository and hosted exact-SHA CI remain unverified; no production or banking operation is authorized."
         ],
         "next": [
           "Independent PostgreSQL 17, Auth/AAL2, RLS, concurrency and HTTPS checks.",
@@ -968,7 +968,7 @@ export const EXTRA_PROJECTS = [
         }
       ],
       "investor": {
-        "note": "SVEDO v54 is a local candidate, not a launched financial product. Revenue, bank integrations and production readiness are not validated; economic cases are hypothetical."
+        "note": "SVEDO v64 (18 Oct 2026) is a reported local candidate, not a launched financial product. Revenue, bank integrations and production readiness are not validated; economic cases are hypothetical."
       }
     }
   }
