@@ -15,7 +15,7 @@ const S=[
  {id:'chatx',repo:'chat',sha:'080cb53e1ff93f85bc44ceef1b20f699340b56a9',
   files:['01-home-desktop.png','02-chats-desktop.png','03-tasks-desktop.png','05-project-gantt-desktop.png','chatx-product-tour-27s.mp4']},
  {id:'sostoyanie',repo:'promomed',sha:'42ad14b9e356a10a39dea4c983783affc7d7a05c',
-  files:['iphone-15-today.png','iphone-15-media.png','iphone-15-events.png','iphone-journey-25s.mp4']}
+  files:['iphone-15-today.png','iphone-15-events.png','iphone-journey-25s.mp4']}
 ];
 const root='assets/portfolio-reviewed';
 const retrieved=[];
@@ -61,7 +61,7 @@ let text=readFileSync(src,'utf8');
 const targets=[
  ["video: '/assets/video/chatx.webm',","video: '/assets/portfolio-reviewed/chatx/chatx-product-tour-27s.mp4',"],
  ["shots: ['/assets/shots/chatx-1.webp', '/assets/shots/chatx-2.webp', '/assets/shots/chatx-3.webp'],","shots: ['/assets/portfolio-reviewed/chatx/01-home-desktop.png', '/assets/portfolio-reviewed/chatx/02-chats-desktop.png', '/assets/portfolio-reviewed/chatx/03-tasks-desktop.png', '/assets/portfolio-reviewed/chatx/05-project-gantt-desktop.png'],"],
- ["shots: ['/assets/shots/promomed-home.jpg', '/assets/shots/promomed-events.jpg'],","video: '/assets/portfolio-reviewed/sostoyanie/iphone-journey-25s.mp4',\n    shots: ['/assets/portfolio-reviewed/sostoyanie/iphone-15-today.png', '/assets/portfolio-reviewed/sostoyanie/iphone-15-media.png', '/assets/portfolio-reviewed/sostoyanie/iphone-15-events.png'],"]
+ ["shots: ['/assets/shots/promomed-home.jpg', '/assets/shots/promomed-events.jpg'],","video: '/assets/portfolio-reviewed/sostoyanie/iphone-journey-25s.mp4',\n    shots: ['/assets/portfolio-reviewed/sostoyanie/iphone-15-today.png', '/assets/portfolio-reviewed/sostoyanie/iphone-15-events.png'],"]
 ];
 for(const [before,after] of targets){
  const n=text.split(before).length-1;
