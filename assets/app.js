@@ -906,9 +906,13 @@ gallery.addEventListener('click', (e) => {
   if (!v.currentSrc && !v.children.length) {
     /* Первым идёт MP4: iOS декодирует его аппаратно, WebM — программно.
        Браузер сам возьмёт из списка первый формат, который умеет. */
-    const webm = v.dataset.src;
-    const mp4 = webm.replace(/\.webm$/, '.mp4');
-    for (const [src, type] of [[mp4, 'video/mp4'], [webm, 'video/webm']]) {
+    const requested = v.dataset.src;
+    const sources = /\.webm$/i.test(requested)
+      ? [[requested.replace(/\.webm$/i, '.mp4'), 'video/mp4'], [requested, 'video/webm']]
+      : /\.mp4$/i.test(requested)
+        ? [[requested, 'video/mp4']]
+        : [];
+    for (const [src, type] of sources) {
       const source = document.createElement('source');
       source.src = src;
       source.type = type;
