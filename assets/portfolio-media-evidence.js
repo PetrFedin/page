@@ -43,9 +43,13 @@ export function showPortfolioMediaEvidence({id,lang,host}){
   : (isDemo?'Снимки работающей изолированной демоверсии':'Снимки публичного предпросмотра')
     +' · '+evidence.asOf+' · '+evidence.screenshots+' кадров · '+(evidence.videoSeconds?'видео '+evidence.videoSeconds+' с':'проверенного видео нет');
  const qualification=document.createElement('p');
- qualification.textContent=lang==='en'
- ? 'Recorded files have not yet passed final editorial clearance or been installed as durable media assets. This record does not prove a commercial rollout.'
- : 'Материалы ещё не прошли финальное редакционное согласование и не размещены как постоянные медиафайлы. Съёмка не подтверждает коммерческий запуск.';
+ qualification.textContent=evidence.approvedForEmbedding
+ ? (lang==='en'
+    ? 'Source-verified screenshot/video of a '+(isDemo?'running isolated demo':'public independent preview')+'. This is not evidence of adoption, endorsement or production use by an external customer.'
+    : 'Подтверждённые снимки и видео '+(isDemo?'работающей изолированной демоверсии':'публичного независимого предпросмотра')+'. Они не подтверждают внедрение у стороннего заказчика, поддержку брендом или промышленную эксплуатацию.')
+ : (lang==='en'
+    ? 'The capture is still on editorial review hold and has not been installed as a durable site asset.'
+    : 'Медиа пока проходят редакционную проверку и ещё не размещены в составе сайта.');
  const link=document.createElement('a');link.className='portfolio-media-source';link.href=evidence.runUrl;
  link.rel='noopener noreferrer';link.target='_blank';
  link.textContent=lang==='en'?'View recording run and artifact →':'Протокол съёмки и артефакт GitHub →';
