@@ -1,13 +1,17 @@
 #!/usr/bin/env node
 import assert from 'node:assert/strict';
 import { chromium } from 'playwright';
-import { mkdirSync } from 'node:fs';
+import { mkdirSync, existsSync } from 'node:fs';
 const base = 'http://127.0.0.1:4321';
 const out = 'qa-artifacts';
 mkdirSync(out, {recursive:true});
 const browser = await chromium.launch({headless:true,args:['--no-sandbox']});
 const projects=['syntha','chatx','renova','mfw','promomed','fashion-os','fur','antiqua','igra','marco','fintech'];
-const screenless=new Set(['fashion-os','fur','antiqua','igra','marco','fintech']);
+const admittedAntiqua=existsSync(new URL('../assets/portfolio-reviewed/catalog.json',import.meta.url));
+const screenless=new Set([
+ 'fashion-os','fur','igra','marco','fintech',
+ ...(admittedAntiqua?[]:['antiqua'])
+]);
 const errors=[];
 try {
 for(const lang of ['ru','en']){
@@ -59,6 +63,10 @@ for(const lang of ['ru','en']){
     if(screenless.has(id)){
       assert.equal(await page.locator('#gallery:visible').count(),0,id+' has no placeholder images');
       assert.equal(await page.locator('#project-capabilities:not([hidden]) .project-table tbody tr').count()>=4,true,id+' functional matrix');
+    }
+    if(admittedAntiqua && id==='antiqua'){
+      assert.equal(await page.locator('#gallery img').count(),4,'Antiqua museum evidence has four genuine screenshots');
+      assert.equal(await page.locator('#gallery video').count(),1,'Antiqua original captured visitor tour');
     }
     const modal=page.locator('#modal');
     await modal.locator('[data-key="leads"]').fill('100');
