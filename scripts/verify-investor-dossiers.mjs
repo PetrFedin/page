@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import assert from 'node:assert/strict';
-import {readFileSync} from 'node:fs';
+import {readFileSync,existsSync} from 'node:fs';
 import {EXTRA_PROJECTS, INVESTOR_BLUEPRINTS} from '../assets/portfolio-extensions.js';
 import {PROJECTS as CORE_PROJECTS} from '../assets/content.js';
 import {LOGOS} from '../assets/logos.js';
@@ -20,9 +20,18 @@ for(const p of [...CORE_PROJECTS, ...EXTRA_PROJECTS]){
     assert.equal(d.tranches.length, 3, 'three gated tranches '+p.id+':'+lang);
   }
 }
+const verifiedMediaExists=existsSync(new URL('../assets/portfolio-reviewed/catalog.json',import.meta.url));
+const catalog=verifiedMediaExists ? JSON.parse(read('assets/portfolio-reviewed/catalog.json')) : null;
 for(const p of EXTRA_PROJECTS){
-  assert.equal(p.shots.length,0,'no placeholder screenshots '+p.id);
-  assert.ok(!p.video,'no placeholder video '+p.id);
+  if(p.id==='antiqua'&&verifiedMediaExists){
+    assert.ok(catalog.verified.some(x=>x.id==='antiqua'&&x.production_admitted===false),
+      'Antiqua screenshots require verified demo evidence');
+    assert.equal(p.shots.length,4,'Four actual museum screenshots');
+    assert.match(p.video,/visitor-gallery-28s\\.mp4$/,'Verified visitor preview tour');
+  } else {
+    assert.equal(p.shots.length,0,'no placeholder screenshots '+p.id);
+    assert.ok(!p.video,'no placeholder video '+p.id);
+  }
   for(const lang of ['ru','en']) assert.ok(p[lang].capabilities.length>=4,'no functional map '+p.id+':'+lang);
 }
 for(const p of ['index.html','en/index.html']){
