@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { readFileSync, existsSync } from 'node:fs';
 import { PROJECTS as CORE } from '../assets/content.js';
 import { EXTRA_PROJECTS as EXTRA } from '../assets/portfolio-extensions.js';
 
@@ -17,7 +17,9 @@ for(const path of paths){
 const all=[...CORE,...EXTRA];
 assert.equal(all.length,11,'Full bilingual V2 must present exactly 11 curated products');
 assert.equal(new Set(all.map(p=>p.id)).size,11,'No duplicated project IDs');
-const noUnverifiedMedia=['fashion-os','fur','antiqua','igra','marco','fintech'];
+const hasReviewedAntiqua = existsSync(new URL('../assets/portfolio-reviewed/catalog.json',import.meta.url));
+const noUnverifiedMedia=['fashion-os','fur','igra','marco','fintech',
+  ...(hasReviewedAntiqua ? [] : ['antiqua'])];
 for(const id of noUnverifiedMedia){
  const p=all.find(x=>x.id===id);
  assert.ok(p,'Missing product '+id);
@@ -31,6 +33,15 @@ for(const id of noUnverifiedMedia){
 }
 const art=all.find(p=>p.id==='antiqua');
 assert.ok(art?.ru?.card.includes('живописи'),'Antiqua must describe paintings and works on paper');
+if(hasReviewedAntiqua){
+ const evidence=JSON.parse(read('assets/portfolio-reviewed/catalog.json'));
+ assert.ok(evidence.verified.some(x=>x.id==='antiqua'&&x.production_admitted===false),
+   'Antiqua only displays real source-attested museum demonstration');
+ assert.equal(art.shots.length,4,'Exactly four source-verified Antiqua screenshots');
+ assert.match(art.video,/visitor-gallery-28s\.mp4$/,
+   'Antiqua demonstration video must match its source receipt');
+}
+
 assert.doesNotMatch(JSON.stringify(art.ru)+JSON.stringify(art.en),/антиквариат|антикварных|antiques\b/i,
   'Antiqua public scope must not revert to antiques/collectibles');
 const healthcare=all.find(p=>p.id==='promomed');
@@ -58,4 +69,4 @@ assert.ok(client?.ru?.stage && !/production готов|production ready/i.test(c
 const html=read('index.html')+read('en/index.html');
 assert.ok(!html.includes('id="order-now"')&&!html.includes('data-buy-equity'),
   'Capital scenario does not authorize a public checkout or securities transaction');
-console.log('PASS: 11 honest dossier scopes with SVEDO v64, no customer brands, six screenless functional cards and unverified-maturity guards');
+console.log('PASS: 11 honest dossier scopes with SVEDO v64, no customer brands and source-verified browser proof or screenless cards and unverified-maturity guards');
