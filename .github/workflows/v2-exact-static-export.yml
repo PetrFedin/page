@@ -1,0 +1,54 @@
+name: V2 exact-SHA Netlify export
+on:
+  push:
+    branches:
+      - fix/page-v2-consulting-experience-media-20261019
+    paths:
+      - docs/requests/v2-static-export.trigger
+permissions:
+  contents: read
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Build and validate final RU/EN V2
+        env:
+          EXPECTED_SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+          node --check netlify/functions/contact.mjs
+          node scripts/verify-netlify-contact.mjs
+          node scripts/verify-investor-dossiers.mjs
+          node scripts/verify-portfolio-media-evidence.mjs
+          npm run build
+          npm run package:pages
+          node scripts/verify-pages-release.mjs
+          node scripts/verify-v2-sitemap.mjs
+          node scripts/verify-v2-static-references.mjs
+          node scripts/verify-public-portfolio-boundaries.mjs
+          node scripts/prepare-netlify-review.mjs
+          test "$(node -p "JSON.parse(require('fs').readFileSync('./dist-pages/release-health.json','utf8')).source_sha")" = "$EXPECTED_SHA"
+          grep -q 'netlify-review-guard.js' dist-pages/index.html
+          grep -q 'netlify-review-guard.js' dist-pages/en/index.html
+          ! grep -RiE 'yanina|mvst' dist-pages/assets/news.js dist-pages/assets/portfolio-media-evidence.js
+      - name: Upload actual V2 files, not a legacy link
+        uses: actions/upload-artifact@v4
+        with:
+          name: netlify-v2-ready-static-${{ github.sha }}
+          path: dist-pages/
+          if-no-files-found: error
+          retention-days: 14
+      - name: Print artifact identity
+        env:
+          EXPECTED_SHA: ${{ github.sha }}
+        run: |
+          printf 'Netlify static V2 package: %s\nSource SHA: %s\nContact backend code: netlify/functions/contact.mjs (not in static package)\n' "$GITHUB_RUN_ID" "$EXPECTED_SHA" >>"$GITHUB_STEP_SUMMARY"
