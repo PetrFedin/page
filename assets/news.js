@@ -14,7 +14,7 @@ export const NEWS = [
   },
   {
     date: '2026-10-22', tag: 'fashion-os', site: false,
-    source: { outlet: 'Fashion Management OS — техническая документация', author: null, original: null },
+    source: { outlet: 'Fashion Management OS — публичное описание системы', author: null, original: 'https://github.com/PetrFedin/page/blob/fix/page-v2-consulting-experience-media-20261019/assets/portfolio-extensions.js' },
     ru: { tags: ['Fashion Management OS','себестоимость','операции'], title: 'Fashion Management OS: почему версия себестоимости важнее отчётной цифры',
       body: 'Производственная себестоимость меняется по мере утверждения спецификаций, ставок и фактического выполнения операций. Если пересчитывать историю по сегодняшним ценам, план и факт перестают быть сравнимыми.\n\nВ исходной модели проекта предусмотрены снимки тарифов операций и цены материалов на момент проводки, журнал изменений, закрытие заказа и отдельные план/факт/CTC-контуры. Это создаёт основу для разбирательства, почему изменилась экономика конкретной модели.\n\nНаличие кода и локального CI-материала не означает, что решение уже допущено к широкому внешнему внедрению. Следующий критерий для публичного кейса — безопасная демонстрация на обезличенных данных, непротиворечивая приёмка и подтверждённая история исходных значений.' },
     en: { tags: ['Fashion Management OS','costing','operations'], title: 'Fashion Management OS: cost versions are more useful than a single total',
