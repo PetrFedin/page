@@ -40,6 +40,8 @@ jobs:
           node --check scripts/prepare-netlify-review.mjs
           node --check assets/netlify-review-guard.js
           node --check scripts/browser-public-preview-qa.mjs
+          node --check netlify/functions/contact.mjs
+          node scripts/verify-netlify-contact.mjs
           node scripts/verify-professional-profile.mjs
           npm run build
           node scripts/verify-v2-editorial-preservation.mjs --rendered
@@ -65,13 +67,20 @@ jobs:
           node scripts/browser-v2-client-paths-qa.mjs
           node scripts/browser-lead-routes-qa.mjs
           node scripts/browser-advisory-economics-qa.mjs
-      - name: Mark the Netlify review as nonindexable and disable static-only contact
+      - name: Protect the Netlify review, making contact conditional on the private backend
         run: |
           set -euo pipefail
           node scripts/prepare-netlify-review.mjs
           grep -q 'X-Robots-Tag: noindex' dist-pages/_headers
           grep -q 'netlify-review-guard.js' dist-pages/index.html
           grep -q 'netlify-review-guard.js' dist-pages/en/index.html
+      - name: Preserve the reviewed, independently downloadable static V2
+        uses: actions/upload-artifact@v4
+        with:
+          name: netlify-v2-full-static-${{ github.sha }}
+          path: dist-pages/
+          if-no-files-found: error
+          retention-days: 14
       - name: Publish ONLY the fixed existing Netlify review site
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
@@ -81,7 +90,7 @@ jobs:
             echo "::error::Add NETLIFY_AUTH_TOKEN under GitHub Settings > Secrets and variables > Actions; then Re-run all jobs."
             exit 1
           fi
-          npx --yes netlify-cli@27.12.1 deploy --prod --dir=dist-pages --site="$NETLIFY_SITE_ID" --message="Isolated V2 review $EXPECTED_SHA" --json >/tmp/netlify-v2-deploy.json
+          npx --yes netlify-cli@27.12.1 deploy --prod --dir=dist-pages --functions=netlify/functions --site="$NETLIFY_SITE_ID" --message="Isolated V2 review $EXPECTED_SHA" --json >/tmp/netlify-v2-deploy.json
           node --input-type=module <<'NODE'
           import fs from 'node:fs';
           const o=JSON.parse(fs.readFileSync('/tmp/netlify-v2-deploy.json','utf8'));
@@ -113,7 +122,7 @@ jobs:
             echo ""
             echo "- URL: $PREVIEW_URL"
             echo "- Source SHA: $EXPECTED_SHA"
-            echo "- Static only. Contact and Telegram submission are not hosted by Netlify."
+            echo "- Netlify contact function is bundled separately. Delivery remains CLOSED unless Turnstile and private Telegram secrets are configured and tested."
             echo "- syntha.pro V1 is unchanged."
           } >> "$GITHUB_STEP_SUMMARY"
       - uses: actions/upload-artifact@v4
