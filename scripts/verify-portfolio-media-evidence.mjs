@@ -15,12 +15,20 @@ assert.deepEqual(Object.keys(records).sort(),ready
 for(const [id,row] of Object.entries(records)){
  assert.match(row.sourceSha,/^[0-9a-f]{40}$/);
  assert.match(row.asOf,/^\d{4}-\d\d-\d\d$/);
- assert.ok(row.runUrl.startsWith('https://github.com/PetrFedin/'));
- assert.match(row.runUrl,/\/actions\/runs\/[0-9]+$/);
+ if(row.approvedForEmbedding){
+  assert.ok(row.runUrl.startsWith('https://github.com/PetrFedin/'));
+  assert.match(row.runUrl,/\/actions\/runs\/[0-9]+$/);
+ }else{
+  assert.equal(row.runUrl,null,'Unapproved media must not link to customer sources');
+  assert.equal(row.repo,null,'Unapproved media must not expose brand repositories');
+ }
  assert.ok(row.screenshots>0);
  assert.ok(row.videoSeconds===0||(row.videoSeconds>=20&&row.videoSeconds<=30));
 }
 assert.equal(records['fashion-os'].approvedForEmbedding,false,'Older Fashion OS capture stays unapproved');
+for(const file of ['assets/portfolio-media-evidence.js','assets/news.js']){
+ assert.doesNotMatch(readFileSync(file,'utf8'),/yanina|mvst/i,'Confidential brand name in '+file);
+}
 if(ready){
  const catalog=JSON.parse(readFileSync('assets/portfolio-reviewed/catalog.json','utf8'));
  assert.equal(catalog.status,'preview-reviewed');
