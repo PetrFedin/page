@@ -43,9 +43,18 @@ jobs:
           node --input-type=module <<'NODE'
           import {readFileSync,writeFileSync} from 'node:fs';
           const data=JSON.parse(readFileSync('/tmp/v2-anonymous-deploy.json','utf8'));
-          const candidate=[data.deploy_url,data.deploy_ssl_url,data.url,data.ssl_url,data.site_url,data.siteUrl].find(v=>typeof v==='string'&&v.startsWith('https://'));
-          if(!candidate)throw new Error('Anonymous Netlify deployment did not provide a HTTPS URL');
-          const url=new URL(candidate);
+          const observed=[];
+          function collect(value,depth=0){
+            if(depth>6)return;
+            if(typeof value==='string' && /^https?:\/\//.test(value)){
+              try { const u=new URL(value); if(u.hostname.endsWith('.netlify.app'))observed.push(u.origin); } catch{}
+            }else if(Array.isArray(value)) value.forEach(v=>collect(v,depth+1));
+            else if(value && typeof value==='object') Object.values(value).forEach(v=>collect(v,depth+1));
+          }
+          collect(data);
+          const candidate=observed[0];
+          if(!candidate)throw new Error('Anonymous Netlify output has no deploy URL; top-level keys: '+Object.keys(data).join(','));
+          const url=new URL(candidate.replace(/^http:/,'https:'));
           if(!url.hostname.endsWith('.netlify.app'))throw new Error('Not a Netlify preview');
           const res=await fetch(url.origin+'/release-health.json');
           if(!res.ok)throw new Error('New Netlify URL has no health marker: '+res.status);
