@@ -1,0 +1,31 @@
+name: Marco P0 v10 isolated PG17 source fixture archive
+on:
+  push:
+    branches: [marco-pescarolo-p0-v10-native-pg17]
+    paths: [.github/workflows/marco-p0-v10-fixtures.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  fixtures:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+      - name: Package reproducible SQL fixtures from existing checked-in sources
+        shell: bash
+        run: |
+          set -euo pipefail
+          for f in marco-pescarolo-v31-2/sql/00_full_contract_baseline.sql marco-pescarolo-v31-2/sql/01_full_contract_five_role_smoke.sql marco-pescarolo-v31-3/sql/00_hash_faithful_patch.sql; do
+            test -s "$f"
+          done
+          mkdir -p artifacts
+          tar -czf artifacts/marco-reconstructed-pg17-fixtures.tgz marco-pescarolo-v31-2/sql marco-pescarolo-v31-3/sql
+          cd artifacts
+          sha256sum *.tgz > SHA256SUMS.txt
+          printf 'SOURCE_SHA=%s\nFULL_PRODUCTION_SCHEMA_CLONE=NO\n' "$GITHUB_SHA" > README.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: marco-p0-v10-reconstructed-sql-fixtures
+          path: artifacts/
+          retention-days: 7
