@@ -1,0 +1,101 @@
+name: Marco P0 v10 isolated PG17 qualification
+on:
+  push:
+    branches:
+      - marco-pescarolo-p0-v10-native-pg17
+    paths:
+      - .github/workflows/marco-p0-v10-pg17.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  native-pg17:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    services:
+      postgres:
+        image: postgres:17.11
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: mp_admission
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d mp_admission"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 20
+    env:
+      PGHOST: localhost
+      PGPORT: "5432"
+      PGUSER: postgres
+      PGPASSWORD: postgres
+      PGDATABASE: mp_admission
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify isolated PostgreSQL 17 and source
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(psql -XAtqc 'show server_version_num' | cut -c1-2)" = 17
+          test "$PGDATABASE" = mp_admission
+          test -f marco-pescarolo-v31-2/sql/00_full_contract_baseline.sql
+          test -f marco-pescarolo-v31-2/sql/01_full_contract_five_role_smoke.sql
+          mkdir -p artifacts
+          printf 'pg=%s\nsource_sha=%s\n' "$(psql -XAtqc 'show server_version')" "$GITHUB_SHA" > artifacts/pg17.txt
+      - name: Apply existing exact v31.2 reconstructed test schema
+        shell: bash
+        run: |
+          set -euo pipefail
+          psql -X -v ON_ERROR_STOP=1 -f marco-pescarolo-v31-2/sql/00_full_contract_baseline.sql
+      - name: Exercise all five database role simulations and roll back
+        shell: bash
+        run: |
+          set -euo pipefail
+          psql -X -v ON_ERROR_STOP=1 -f marco-pescarolo-v31-2/sql/01_full_contract_five_role_smoke.sql | tee artifacts/role-smoke.log
+          grep -q 'V31_2_FULL_CONTRACT_ADMISSION=PASS' artifacts/role-smoke.log
+      - name: Independently verify rollback and no test-row residue
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(psql -XAtqc 'select count(*) from public.portal_memberships')" = 0
+          test "$(psql -XAtqc 'select count(*) from public.reorder_proposals')" = 0
+          test "$(psql -XAtqc 'select count(*) from public.private_fit_profile_versions')" = 0
+          {
+            echo 'PG17_RUNTIME=PASS'
+            echo 'V31_2_SYNTHETIC_FIVE_ROLE_SQL=PASS'
+            echo 'TRANSACTION_ROLLBACK=PASS'
+            echo 'V9_EIGHT_MIGRATIONS=NOT_TESTED'
+            echo 'REAL_SIGNED_JWT=NOT_TESTED'
+            echo 'PRODUCTION_CHANGED=NO'
+          } | tee -a artifacts/pg17.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: marco-p0-v10-native-pg17-evidence
+          path: artifacts/
+          retention-days: 7
+  portable-server:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Obtain Debian 13 PostgreSQL 17 packages without credentials
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p packages artifacts
+          docker run --rm -v "$PWD/packages:/out" debian:trixie-slim sh -ec '
+            apt-get update -qq
+            cd /out
+            apt-get download postgresql-17 postgresql-client-17
+            sha256sum ./*.deb > SHA256SUMS.txt
+          '
+          tar -czf artifacts/postgresql17-debian13-amd64-debs.tar.gz -C packages .
+          sha256sum artifacts/*.tar.gz > artifacts/ARCHIVE_SHA256SUMS.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: marco-p0-v10-portable-pg17
+          path: artifacts/
+          retention-days: 2
