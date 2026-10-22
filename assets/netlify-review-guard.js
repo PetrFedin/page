@@ -1,8 +1,7 @@
 /* Isolated Netlify V2 verification. Never changes the primary syntha.pro site. */
 (()=> {
   const hostname=location.hostname.toLowerCase();
-  const isReview=hostname==='syntha-v2-preview-petr.netlify.app' ||
-    hostname.endsWith('--syntha-v2-preview-petr.netlify.app');
+  const isReview=hostname.endsWith('.netlify.app');
   if(!isReview)return;
   window.__contactBackendReady=false;
   document.addEventListener('DOMContentLoaded',async()=>{
