@@ -2225,7 +2225,8 @@ addEventListener('popstate', applyHash);
 
 
 /* ---------- вложение ---------- */
-const MAX_FILE = 20 * 1024 * 1024;   // Telegram принимает до 50 МБ, берём запас
+const MAX_FILE = 20 * 1024 * 1024;   // Host-specific Netlify preview limits are checked below.
+const IS_V2_NETLIFY = location.hostname === 'syntha-v2-preview-petr.netlify.app' || location.hostname.endsWith('--syntha-v2-preview-petr.netlify.app');
 
 function showFile() {
   const f = $('#attach').files?.[0];
@@ -2236,10 +2237,10 @@ function showFile() {
 $('#attach').addEventListener('change', () => {
   const f = $('#attach').files?.[0];
   const note = $('#form-note');
-  if (f && f.size > MAX_FILE) {
+  if (f && f.size > (IS_V2_NETLIFY ? 3 * 1024 * 1024 : MAX_FILE)) {
     $('#attach').value = '';
     note.className = 'form-note';
-    note.textContent = T[lang].contact.fileTooBig;
+    note.textContent = IS_V2_NETLIFY ? (lang === 'en' ? 'File exceeds 3 MB. Send a link instead.' : 'Файл больше 3 МБ. Пришлите ссылку вместо вложения.') : T[lang].contact.fileTooBig;
   }
   showFile();
 });
@@ -2279,7 +2280,7 @@ function syncSubmit() {
   const f = new FormData(form);
   const filled = String(f.get('name') ?? '').trim() && String(f.get('message') ?? '').trim();
   const reach = ['email', 'telegram', 'phone'].some((k) => String(f.get(k) ?? '').trim());
-  $('#submit').disabled = !(filled && reach && $('#consent').checked);
+  $('#submit').disabled = !(filled && reach && $('#consent').checked && (!IS_V2_NETLIFY || window.__contactBackendReady === true));
   /* Пока человек уже начал заполнять, подсказываем, чего не хватает для отправки. */
   const hint = $('#form-missing');
   if (hint) {
