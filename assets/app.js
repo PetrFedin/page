@@ -2226,7 +2226,7 @@ addEventListener('popstate', applyHash);
 
 /* ---------- вложение ---------- */
 const MAX_FILE = 20 * 1024 * 1024;   // Host-specific Netlify preview limits are checked below.
-const IS_V2_NETLIFY = location.hostname === 'syntha-v2-preview-petr.netlify.app' || location.hostname.endsWith('--syntha-v2-preview-petr.netlify.app');
+const IS_V2_NETLIFY = location.hostname.toLowerCase().endsWith('.netlify.app');
 
 function showFile() {
   const f = $('#attach').files?.[0];
