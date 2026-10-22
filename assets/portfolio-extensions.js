@@ -112,23 +112,23 @@ export const EXTRA_PROJECTS = [
       "capabilities": [
         {
           "area": "Product engineering / PLM",
-          "feature": "Style → SKU → BOM → tech pack → readiness, спецификации, поставщики и производственные этапы"
+          "feature": "Style → SKU → BOM → tech pack → readiness, technical specifications, suppliers and production milestones"
         },
         {
-          "area": "Collection / Digital Showroom",
-          "feature": "Коллекции, версия публикации, каталог покупателя, персональный прайс"
+          "area": "Collection / Digital showroom",
+          "feature": "Collections, publication revisions, buyer-facing catalogues and account-specific pricing"
         },
         {
-          "area": "Wholesale order",
-          "feature": "Размерные матрицы, резерв, MOQ/ATS, заказ, двухстороннее подтверждение, DealSpace"
+          "area": "Wholesale ordering",
+          "feature": "Size matrices, reservation rules, MOQ/ATS, orders, bilateral confirmations and deal workspace"
         },
         {
-          "area": "Supply / margin",
-          "feature": "Поставка и приёмка, landed cost, аллокация затрат, closing snapshot и проверка маржи"
+          "area": "Supply chain / margin",
+          "feature": "Shipment and receiving, landed costs, cost allocation, period-close snapshots and margin reconciliation"
         },
         {
           "area": "Roles / evidence",
-          "feature": "PostgreSQL, роли организаций, подтверждения, immutable snapshots и проверяемые acceptance gates"
+          "feature": "Organizational permissions, PostgreSQL controls, approval history, immutable snapshots and acceptance checks"
         }
       ],
       "status": {
@@ -273,24 +273,24 @@ export const EXTRA_PROJECTS = [
       ],
       "capabilities": [
         {
-          "area": "Аукционы и закупки",
-          "feature": "Сырьё, сорт, цвет, спецификация, аукцион, документы и счета"
+          "area": "Auctions and sourcing",
+          "feature": "Raw materials, grades, colour, specifications, auction provenance, invoices and documents"
         },
         {
-          "area": "Остатки и партии",
-          "feature": "Материальные лоты, движения, резервы, нормы и баланс сырья"
+          "area": "Inventory and lots",
+          "feature": "Lot-level stock, transactions, reservations, standards and material balance"
         },
         {
-          "area": "Производство",
-          "feature": "ТЗ, модели, раскрой, пошив, производственные партии и контроль этапов"
+          "area": "Production",
+          "feature": "Technical briefs, styles, cutting, sewing, production batches and stage control"
         },
         {
-          "area": "Экономика",
-          "feature": "Себестоимость сырья и услуг, комиссии, НДС, оплаты, задолженности и отгрузки"
+          "area": "Economics",
+          "feature": "Material and service costing, commissions, VAT, payments, receivables and shipments"
         },
         {
-          "area": "Проверяемость",
-          "feature": "Раздельные компании и роли, история операций, сверка первичных документов, очередь неподтверждённых решений"
+          "area": "Auditability",
+          "feature": "Tenant isolation, permissions, operations log, source-document reconciliation and unresolved approvals"
         }
       ],
       "status": {
@@ -328,7 +328,12 @@ export const EXTRA_PROJECTS = [
     "id": "antiqua",
     "name": "Antiqua",
     "device": "ipad",
-    "shots": ["/assets/portfolio-reviewed/antiqua/gallery-desktop.png","/assets/portfolio-reviewed/antiqua/museum-paintings.png","/assets/portfolio-reviewed/antiqua/artwork-details.png","/assets/portfolio-reviewed/antiqua/owner-collection.png"],
+    "shots": [
+      "/assets/portfolio-reviewed/antiqua/gallery-desktop.png",
+      "/assets/portfolio-reviewed/antiqua/museum-paintings.png",
+      "/assets/portfolio-reviewed/antiqua/artwork-details.png",
+      "/assets/portfolio-reviewed/antiqua/owner-collection.png"
+    ],
     "video": "/assets/portfolio-reviewed/antiqua/visitor-gallery-28s.mp4",
     "ru": {
       "tagline": "Исследовательская цифровая галерея искусства",
@@ -434,24 +439,24 @@ export const EXTRA_PROJECTS = [
       ],
       "capabilities": [
         {
-          "area": "Artwork Passport",
-          "feature": "Авторство/атрибуция, дата, техника, размеры, подписи, состояние, медиа"
+          "area": "Artwork passport",
+          "feature": "Attribution, period, medium, dimensions, signatures, condition reports and media"
         },
         {
-          "area": "Provenance & evidence",
-          "feature": "Хронология владения, источники, неопределённости, конфликты, библиография"
+          "area": "Provenance and evidence",
+          "feature": "Ownership chronology, sources, uncertainty levels, conflicts and bibliography"
         },
         {
-          "area": "Research & contributors",
-          "feature": "Экспертные заключения, публикации, выставки, история изменений и рецензирование"
+          "area": "Research and contributors",
+          "feature": "Expert findings, publications, exhibitions, revisions and peer review"
         },
         {
-          "area": "Collections / gallery",
-          "feature": "Частные и публичные коллекции, исследовательское представление, доступ по ролям"
+          "area": "Collections and galleries",
+          "feature": "Private and public collections, research presentation and role-based visibility"
         },
         {
-          "area": "Commercial journeys",
-          "feature": "Запрос по произведению, подготовка частной продажи и статусы без заявления о готовых платежах"
+          "area": "Commercial workflows",
+          "feature": "Enquiries, private-sale preparation and traceable states; live payments are not asserted"
         }
       ],
       "status": {
@@ -592,24 +597,24 @@ export const EXTRA_PROJECTS = [
       ],
       "capabilities": [
         {
-          "area": "Стол и сборка AR",
-          "feature": "Распознавание плоскости, коробка с деталями, рука, захват, поворот, snap и подсказки"
+          "area": "AR tabletop building",
+          "feature": "Plane detection, boxes and pieces, hand interaction, grab, rotate, snap and guidance"
         },
         {
-          "area": "Инструкции",
-          "feature": "Книга шагов, режим самостоятельной сборки, просмотр детали и восстановление прогресса"
+          "area": "Instructions",
+          "feature": "Step-by-step guide, free-build mode, piece inspection and progress recovery"
         },
         {
-          "area": "Игровой цикл",
-          "feature": "Звёзды, рекорды, монеты, опыт, навыки, режим на время, локальное соревнование"
+          "area": "Play loop",
+          "feature": "Stars, records, virtual coins, experience, skills, timed mode and local challenges"
         },
         {
-          "area": "Коллекция и творчество",
-          "feature": "Полка моделей, магазин наборов, песочница, мастерская, сохранение"
+          "area": "Collection and creativity",
+          "feature": "Model shelf, set store, sandbox, creator workshop and saved progress"
         },
         {
-          "area": "Перспектива",
-          "feature": "Большие пакетные наборы, каталоги авторских моделей, образовательный класс, модерация и сервер — roadmap, не готовая услуга"
+          "area": "Development roadmap",
+          "feature": "Large modular sets, creator catalogue, classroom workflows, moderation and server features are planned, not launched"
         }
       ],
       "status": {
