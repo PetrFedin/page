@@ -36,8 +36,8 @@ export const PORTFOLIO_MEDIA_EVIDENCE=Object.freeze({
  },
  'fashion-os':{
   kind:'isolated-demonstration',asOf:'2026-10-10',
-  repo:'PetrFedin/yanina-management',sourceSha:'32808de3bf215ec1f3b3bbc0abc4f30d286632ca',
-  runUrl:'https://github.com/PetrFedin/yanina-management/actions/runs/38096596430',
+  repo:null,sourceSha:'32808de3bf215ec1f3b3bbc0abc4f30d286632ca',
+  runUrl:null,
   artifact:'fashion-management-real-tablet-32808de3bf215ec1f3b3bbc0abc4f30d286632ca',
   screenshots:2,videoSeconds:0,approvedForEmbedding:false,
   notice:'Older capture: recheck against current main before promotion.'
@@ -77,5 +77,6 @@ export function showPortfolioMediaEvidence({id,lang,host}){
  const link=document.createElement('a');link.className='portfolio-media-source';link.href=evidence.runUrl;
  link.rel='noopener noreferrer';link.target='_blank';
  link.textContent=lang==='en'?'View recording run and artifact →':'Протокол съёмки и артефакт GitHub →';
- area.append(title,subtitle,qualification,link);
+ area.append(title,subtitle,qualification);
+ if(evidence.approvedForEmbedding && evidence.runUrl)area.append(link);
 }
