@@ -39,7 +39,7 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p /tmp/v2-no-netlify-functions
-          npx --yes netlify-cli@27.12.1 deploy --allow-anonymous --no-build --dir=dist-pages --functions=/tmp/v2-no-netlify-functions --json >/tmp/v2-anonymous-deploy.json
+          npx --yes netlify-cli@27.12.1 deploy --prod --allow-anonymous --no-build --dir=dist-pages --functions=/tmp/v2-no-netlify-functions --json >/tmp/v2-anonymous-deploy.json
           node --input-type=module <<'NODE'
           import {readFileSync,writeFileSync} from 'node:fs';
           const data=JSON.parse(readFileSync('/tmp/v2-anonymous-deploy.json','utf8'));
@@ -52,14 +52,22 @@ jobs:
             else if(value && typeof value==='object') Object.values(value).forEach(v=>collect(v,depth+1));
           }
           collect(data);
-          const candidate=observed[0];
-          if(!candidate)throw new Error('Anonymous Netlify output has no deploy URL; top-level keys: '+Object.keys(data).join(','));
-          const url=new URL(candidate.replace(/^http:/,'https:'));
-          if(!url.hostname.endsWith('.netlify.app'))throw new Error('Not a Netlify preview');
-          const res=await fetch(url.origin+'/release-health.json');
-          if(!res.ok)throw new Error('New Netlify URL has no health marker: '+res.status);
-          const marker=await res.json();
-          if(marker.source_sha!==process.env.EXPECTED_SHA)throw new Error('Stale or unrelated public version');
+          if(!observed.length)throw new Error('Anonymous Netlify output has no deploy URL; top-level keys: '+Object.keys(data).join(','));
+          const result=[];
+          let selected=null;
+          for(const candidate of [...new Set(observed)]){
+            const url=new URL(candidate.replace(/^http:/,'https:'));
+            try{
+              const res=await fetch(url.origin+'/release-health.json',{redirect:'follow'});
+              if(res.ok){
+                const marker=await res.json();
+                if(marker.source_sha===process.env.EXPECTED_SHA){selected={url,marker};break;}
+                result.push(url.hostname+' wrong-sha');
+              } else result.push(url.hostname+' HTTP-'+res.status);
+            }catch(err){result.push(url.hostname+' fetch-failed');}
+          }
+          if(!selected)throw new Error('No publicly verifiable Netlify URL; results: '+result.join('; '));
+          const {url,marker}=selected;
           const out={url:url.origin,source_sha:marker.source_sha,kind:'anonymous-claimable-temporary',expires_if_unclaimed:'about_one_hour',contact:'disabled_on_static_view',claim_url:data.claim_url||data.claimUrl||null};
           writeFileSync('v2-temporary-view.json',JSON.stringify(out,null,2));
           console.log('Verified temporary Netlify V2:',out.url,'SHA',out.source_sha);
