@@ -75,6 +75,8 @@ jobs:
           grep -q 'X-Robots-Tag: noindex' dist-pages/_headers
           grep -q 'netlify-review-guard.js' dist-pages/index.html
           grep -q 'netlify-review-guard.js' dist-pages/en/index.html
+      - name: Independent 63-case responsive and accessibility audit
+        run: node scripts/browser-v2-extended-qa.mjs
       - name: Preserve the reviewed, independently downloadable static V2
         uses: actions/upload-artifact@v4
         with:
