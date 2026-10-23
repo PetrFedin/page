@@ -24,3 +24,8 @@ test('mismatched auth identity is blocked and session cleared',async()=>{const {
 test('no credentials or tokens ever saved to browser storage',()=>{const moduleCode='this.session';const g=new CommercialGateway(cfg,()=>{});assert.equal(Object.keys(g).includes('localStorage'),false);assert.ok(moduleCode)});
 test('sign out revokes best-effort and always clears in memory',async()=>{const {fetch}=transport({...sessions,'/rest/v1/rpc/mp_my_access':authority,'/auth/v1/logout':{}});const gate=new CommercialGateway(cfg,fetch);await gate.signIn('a@example.com','password');await gate.signOut();assert.equal(gate.signedIn,false);assert.equal(gate.session,null)});
 test('admin response derived only from server finance authority',async()=>{const adm={mode:'SERVER',tenant_id:B,orders:[],products:[]},money={authority:'postgresql',by_currency:[{currency:'EUR',booked_gmv:'100.00'}]},queue={mode:'SERVER',payments:[],shipments:[]};const {fetch}=transport({...sessions,'/rest/v1/rpc/mp_my_access':{...authority,admin:true},'/rest/v1/rpc/mp_admin_snapshot':adm,'/rest/v1/rpc/mp_admin_money_evidence':money,'/rest/v1/rpc/mp_admin_fulfillment_queue':queue});const gate=new CommercialGateway(cfg,fetch);await gate.signIn('a@example.com','password');assert.equal((await gate.load('admin')).analysis.currencies.get('EUR').booked_gmv,10000n)});
+
+test('Fetch transport uses global receiver', async()=>{
+ let thisValue; const f=function(){thisValue=this;return Promise.resolve({ok:true,text:async()=> '{}' })};
+ const g=new CommercialGateway(cfg,f); await g.request('/test'); assert.equal(thisValue,globalThis);
+});
