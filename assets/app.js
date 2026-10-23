@@ -2449,7 +2449,8 @@ $('#form').addEventListener('submit', async (e) => {
 $('#share-contact').addEventListener('click', async () => {
   const t = T[lang].contact;
   const btn = $('#share-contact');
-  const lines = [t.shareText, 'https://syntha.pro/', ...CONTACTS.map((c) => `${c.label[lang]}: ${c.value}`)];
+  const shareSiteUrl = IS_V2_NETLIFY ? location.origin + '/' : 'https://syntha.pro/';
+  const lines = [t.shareText, shareSiteUrl, ...CONTACTS.map((c) => `${c.label[lang]}: ${c.value}`)];
   const text = lines.join('\n');
   try {
     let files;
@@ -2459,7 +2460,7 @@ $('#share-contact').addEventListener('click', async () => {
       if (navigator.canShare?.({ files: [file] })) files = [file];
     } catch { /* без файла тоже годится */ }
     if (navigator.share) {
-      await navigator.share({ title: 'Пётр Федин', text, ...(files ? { files } : { url: 'https://syntha.pro/' }) });
+      await navigator.share({ title: 'Пётр Федин', text, ...(files ? { files } : { url: shareSiteUrl }) });
       return;
     }
     await navigator.clipboard.writeText(text);
