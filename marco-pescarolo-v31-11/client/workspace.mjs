@@ -144,7 +144,7 @@ function showDelivery(v) {
   if (!v.analysis.delivery.length) return nullMessage();
   return `<div class="ledger-grid">${v.analysis.delivery.map(o => `<article class="ledger-item">
     <div class="ledger-top"><strong>${safeVal(o.code)}</strong>${badge(o.stage)}</div>
-    <div class="ledger-progress"><div style="width:${Math.min(100,100*(Number(o.delivered_units||0)/Math.max(1,Number(o.ordered_units||0))))}%"></div></div>
+    <progress class="ledger-progress" max="100" value="${Math.max(0,Math.min(100,100*(Number(o.delivered_units||0)/Math.max(1,Number(o.ordered_units||0)))))}" aria-label="${esc(t('delivery'))}"></progress>
     <div class="ledger-stats">${block('delivered',`${count(o.delivered_units||0)} / ${count(o.ordered_units||0)}`)}
     ${block('awaiting',count(o.undelivered_units||0))}${block('missingProof',count(o.undocumented_units||0))}</div>
     <div class="ledger-foot">${esc(t('proof'))}: ${array(o.shipments).filter(s=>s.receipt).length} / ${array(o.shipments).length}</div>
