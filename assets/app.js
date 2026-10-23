@@ -514,7 +514,7 @@ function render() {
   $('#services').innerHTML = services.items.map((it, i) => `
     <li class="${it.featured ? 'svc-featured-item' : ''}">
       <button class="svc${it.featured?' svc-featured':''}" type="button" data-svc="${i}" data-service="${it.id}" aria-haspopup="dialog">
-        <span class="svc-n">${it.num} / ${it.tag}</span>
+        <span class="svc-n">${String(i + 1).padStart(2, '0')} / ${it.tag}</span>
         <span class="svc-t">${it.title}</span>
         <span class="svc-b">${it.body}</span>
         <span class="svc-d"><b>${t.consulting.decisionLabel}</b>${it.decision}</span>
