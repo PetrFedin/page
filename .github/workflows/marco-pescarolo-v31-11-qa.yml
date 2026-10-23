@@ -1,0 +1,88 @@
+name: Marco Pescarolo v31.11 Commercial OS QA
+on:
+  push:
+    branches: [marco-pescarolo-v31-11-commercial-os]
+    paths:
+      - 'marco-pescarolo-v31-11/**'
+      - '.github/workflows/marco-pescarolo-v31-11-qa.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  commerce-unit:
+    name: Exact money math and authorization contracts
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run isolated executable contracts
+        run: |
+          set -euo pipefail
+          cd marco-pescarolo-v31-11
+          node --check core/commerce-engine.mjs
+          node --check client/data-api.mjs
+          node --check client/workspace.mjs
+          node --test tests/*.test.mjs
+      - name: Check demo separation and forbidden client storage
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --input-type=module <<'JS'
+          import fs from 'node:fs';
+          const home=fs.readFileSync('marco-pescarolo-v31-11/index.html','utf8');
+          const gateway=fs.readFileSync('marco-pescarolo-v31-11/client/data-api.mjs','utf8');
+          const runtime=fs.readFileSync('marco-pescarolo-v31-11/client/runtime-config.js','utf8');
+          const forbidden=['resetDemo(', 'DEMO BUYER SIGN-IN', 'setRole(', 'localStorage.', 'sessionStorage.'];
+          for (const needle of forbidden) if (home.includes(needle) || gateway.includes(needle)) throw Error('Forbidden demo/browser-storage operation: '+needle);
+          if(!home.includes('Content-Security-Policy') || !home.includes('commercial-os.html')) {
+            // Standalone generated entrypoint uses relative scripts, not demo redirects.
+            if(!home.includes('./client/workspace.mjs')) throw Error('Secure workspace module missing');
+          }
+          if(!runtime.includes('MP_COMMERCE_CONFIG = null;')) throw Error('Default login must fail closed');
+          if(!gateway.includes('new Set([') || gateway.includes("this.rpc('mp_admin_verify_payment'")) throw Error('RPC allowlist missing or mutation enabled');
+          console.log('CLIENT_PRODUCTION_SAFETY=PASS');
+          JS
+      - name: Package static preview without credentials
+        run: |
+          mkdir -p artifacts
+          tar -czf artifacts/marco-v31.11-standalone-preview.tgz -C marco-pescarolo-v31-11 index.html commercial-os.html core client
+          sha256sum artifacts/*.tgz | tee artifacts/SHA256SUMS.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: marco-v31-11-static-preview
+          path: artifacts/
+          retention-days: 14
+  commerce-browser:
+    name: Three responsive sizes and client scenarios
+    needs: commerce-unit
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pinned browser test dependencies
+        run: |
+          python -m pip install 'playwright==1.56.0'
+          python -m playwright install --with-deps chromium
+      - name: Run isolated Chromium integration QA with synthetic RPC fixtures
+        env:
+          MP_V11_QA_OUT: ${{ github.workspace }}/artifacts/ui-fixtures
+        run: |
+          set -euo pipefail
+          python marco-pescarolo-v31-11/qa/browser_qa.py | tee qa.log
+          grep -q 'BROWSER_QA_PASS' qa.log
+          test "$(find "$MP_V11_QA_OUT" -name '*.png' | wc -l)" -ge 7
+          echo 'NOTE: All authenticated screenshots contain synthetic fixtures, NOT live client data.' > artifacts/README.txt
+          cp qa.log artifacts/browser-qa.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: marco-v31-11-chromium-375-768-1440
+          path: artifacts/
+          if-no-files-found: warn
+          retention-days: 14
