@@ -71,6 +71,7 @@ jobs:
         run: |
           set -euo pipefail
           node scripts/prepare-netlify-review.mjs
+          node scripts/verify-v2-netlify-stage.mjs
           grep -q 'X-Robots-Tag: noindex' dist-pages/_headers
           grep -q 'netlify-review-guard.js' dist-pages/index.html
           grep -q 'netlify-review-guard.js' dist-pages/en/index.html
