@@ -36,6 +36,7 @@ jobs:
           node scripts/verify-v2-static-references.mjs
           node scripts/verify-public-portfolio-boundaries.mjs
           node scripts/prepare-netlify-review.mjs
+          node scripts/verify-v2-netlify-stage.mjs
           test "$(node -p "JSON.parse(require('fs').readFileSync('./dist-pages/release-health.json','utf8')).source_sha")" = "$EXPECTED_SHA"
           grep -q 'netlify-review-guard.js' dist-pages/index.html
           grep -q 'netlify-review-guard.js' dist-pages/en/index.html
