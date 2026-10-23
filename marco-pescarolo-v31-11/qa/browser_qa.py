@@ -59,7 +59,20 @@ try:
     assert page.locator('#login-submit').is_enabled()
     page.locator('#email').fill('qa@example.com');page.locator('#password').fill('synthetic-password')
     page.locator('#login-submit').click()
-    page.locator('#content').wait_for(state='visible',timeout=10000)
+    try:
+      page.locator('#content').wait_for(state='visible',timeout=10000)
+    except Exception:
+      note=page.locator('#notice')
+      print('BROWSER_LOGIN_DEBUG',json.dumps({
+        'role':role,
+        'notice':note.inner_text() if note.count() else None,
+        'config':page.locator('#config-status').inner_text(),
+        'page_errors':errors,
+        'is_signed_out':page.locator('#gate').is_visible(),
+        'role_buttons':page.locator('#role-options button').count()
+      }),flush=True)
+      page.screenshot(path=str(OUT/f'debug_login_{role}_{w}.png'),full_page=True)
+      raise
     page.locator(f'button[data-role="{role}"]').click()
     page.locator('#results .workspace-head h2').wait_for(timeout=10000)
     assert page.locator('#results .workspace-head h2').inner_text().strip()=='Overview'
