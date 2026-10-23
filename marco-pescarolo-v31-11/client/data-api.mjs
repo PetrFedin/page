@@ -28,7 +28,7 @@ export class CommercialGateway {
   constructor(config, transport = globalThis.fetch) {
     this.config = validateConfig(config);
     if (typeof transport !== 'function') throw new CommerceError('FETCH_UNAVAILABLE');
-    this.fetch = transport;
+    this.fetch = (...args) => transport.apply(globalThis, args); // Keep the native browser receiver for fetch.
     this.session = null;
     this.identity = null;
     this.refreshPromise = null;
@@ -39,7 +39,9 @@ export class CommercialGateway {
     const headers = { apikey: this.config.publishableKey, 'Content-Type': 'application/json', 'Cache-Control': 'no-store' };
     if (accessToken) headers.Authorization = `Bearer ${accessToken}`;
     const url = this.config.url + path;
-    const response = await this.fetch(url, { method, headers, body: body === undefined ? undefined : JSON.stringify(body), cache: 'no-store', credentials: 'omit' });
+    let response;
+    try { response = await this.fetch(url, { method, headers, body: body === undefined ? undefined : JSON.stringify(body), cache: 'no-store', credentials: 'omit' }); }
+    catch { throw new CommerceError('NETWORK_UNAVAILABLE', 'Secure server connection unavailable'); }
     const raw = await response.text();
     let value = null;
     try { value = raw ? JSON.parse(raw) : null; } catch { throw new CommerceError('NON_JSON_SERVER_RESPONSE'); }
