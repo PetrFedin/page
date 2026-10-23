@@ -2437,8 +2437,9 @@ $('#form').addEventListener('submit', async (e) => {
     const blocked = String(err?.message) === '400';
     note.innerHTML = `${blocked ? t.contact.failCaptcha : t.contact.fail} <a href="https://t.me/sheqel" target="_blank" rel="noopener">Telegram</a> · <a href="https://wa.me/79775781685" target="_blank" rel="noopener">WhatsApp</a>`;
   } finally {
-    btn.disabled = false;
     btn.textContent = t.contact.send;
+    // The server may be unavailable: never override the fail-closed submit gate.
+    syncSubmit();
   }
 });
 
