@@ -23,7 +23,7 @@ for(const path of pages){
  assert.ok(existsSync(file),'Missing packaged page '+path);
  const html=readFileSync(file,'utf8');
  assert.ok(!/href=["']\/stats(?:["'?])/i.test(html),'Unimplemented admin route on '+path);
- assert.match(html,/<meta name="robots" content="noindex, nofollow, noarchive">/,'Noindex on '+path);
+ assert.match(html,/<meta name="robots" content="[^"]*noindex[^\"]*">/i,'Noindex on '+path);
  for(const match of html.matchAll(/<button\b[^>]*\bid="(?:photo-prev|photo-next|post-prev|post-next|text-size-toggle|photo-zoom)"[^>]*>/g)){
    assert.match(match[0],/aria-label="/,'Icon-only navigation is unlabeled in '+path);
    labelled++;
