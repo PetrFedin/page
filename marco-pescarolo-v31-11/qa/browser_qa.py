@@ -1,4 +1,4 @@
-import contextlib, json, os, subprocess, time
+import contextlib, json, os, subprocess, time, shutil
 from pathlib import Path
 from playwright.sync_api import sync_playwright
 ROOT=Path(__file__).resolve().parents[1]
@@ -31,8 +31,8 @@ def dispatch(route):
  else: raise Exception('Unknown mock endpoint:'+req.url)
  route.fulfill(status=200, content_type='application/json', headers={'Access-Control-Allow-Origin':'*','Access-Control-Allow-Headers':'apikey,authorization,content-type,cache-control','Access-Control-Allow-Methods':'POST,OPTIONS'},body=json.dumps(val))
 
-def label_fixture(page):
- page.evaluate("""() => {const tag=document.createElement('div');tag.textContent='UI QA / SYNTHETIC FIXTURES — NOT LIVE BUSINESS DATA';Object.assign(tag.style,{position:'fixed',zIndex:'99999',bottom:'0',left:'0',right:'0',textAlign:'center',font:'bold 11px Arial',letterSpacing:'2px',background:'#763a3d',color:'white',padding:'12px'});document.body.appendChild(tag)}""")
+def label_fixture(page, floating=False):
+ page.evaluate("""isVideo => {const tag=document.createElement('div');tag.textContent='UI QA / SYNTHETIC FIXTURES — NOT LIVE BUSINESS DATA';Object.assign(tag.style,{position:isVideo?'fixed':'relative',zIndex:'99999',left:'0',right:'0',top:isVideo?'0':'auto',display:'block',textAlign:'center',font:'bold 11px Arial',letterSpacing:'2px',background:'#763a3d',color:'white',padding:'12px',marginTop:isVideo?'0':'20px',pointerEvents:'none'});document.body.appendChild(tag)}""",floating)
 
 http=subprocess.Popen(['python3','-m','http.server','8866','--bind','127.0.0.1'],cwd=str(ROOT),stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
 try:
@@ -94,6 +94,46 @@ try:
       page.screenshot(path=str(OUT/'preview_wholesale_reorder_768.png'),full_page=True)
     assert not errors, f'{role} JS errors {errors}'
     page.close()
-   print('BROWSER_QA_PASS: 3 locked sizes + Admin/Wholesale/Private synthetic authority + reorder',flush=True)
+   # Real Chromium screen recording of the STAGED application, using mock RPC evidence only.
+   # Never label this as a production walkthrough or a live-authorized user session.
+   video_ctx=browser.new_context(viewport={'width':1440,'height':900},device_scale_factor=1,
+                                 record_video_dir=str(OUT/'recordings'),record_video_size={'width':1440,'height':900})
+   movie=video_ctx.new_page()
+   movie.route('**/client/runtime-config.js',lambda route: route.fulfill(status=200,content_type='application/javascript',body="window.MP_COMMERCE_CONFIG={url:'https://marcoqa.supabase.co',publishableKey:'sb_publishable_qa_only'};"))
+   movie.route('**/marcoqa.supabase.co/**',dispatch)
+   movie.goto('http://127.0.0.1:8866/commercial-os.html',wait_until='networkidle')
+   label_fixture(movie,True)
+   movie.wait_for_timeout(1800)
+   movie.locator('#email').fill('qa@example.com')
+   movie.locator('#password').fill('synthetic-password')
+   movie.locator('#login-submit').click()
+   movie.locator('#content').wait_for(state='visible',timeout=10000)
+   movie.wait_for_timeout(3600)
+   movie.locator('button[data-panel="finance"]').click();movie.wait_for_timeout(3000)
+   movie.locator('button[data-role="wholesale"]').click();movie.wait_for_function("document.querySelector('#scope')?.textContent?.includes('Atelier Paris / Paris')",timeout=10000);movie.wait_for_timeout(3400)
+   movie.locator('button[data-panel="planning"]').click()
+   movie.locator('#scenario button[type="submit"]').click()
+   assert '12' in movie.locator('#scenario-output').inner_text()
+   movie.wait_for_timeout(4100)
+   movie.locator('button[data-role="private"]').click();movie.wait_for_function("document.querySelector('#scope')?.textContent?.includes('Private Maison')",timeout=10000);movie.wait_for_timeout(3200)
+   movie.locator('button[data-panel="fulfillment"]').click();movie.wait_for_timeout(3200)
+   movie.locator('button[data-role="admin"]').click();movie.wait_for_function("document.querySelector('#scope')?.textContent?.includes('Brand administration')",timeout=10000);movie.wait_for_timeout(2000)
+   recording=movie.video
+   movie.close();video_ctx.close()
+   source_movie=Path(recording.path())
+   assert source_movie.is_file() and source_movie.stat().st_size>30000, 'Missing Chromium recording'
+   webm=OUT/'marco-v31-11-SYNTHETIC-qa-tour.webm'
+   shutil.copyfile(source_movie,webm)
+   if shutil.which('ffmpeg'):
+    mp4=OUT/'marco-v31-11-SYNTHETIC-qa-tour-25s.mp4'
+    subprocess.run(['ffmpeg','-y','-loglevel','error','-i',str(webm),'-t','28','-an','-c:v','libx264','-preset','fast','-pix_fmt','yuv420p','-movflags','+faststart',str(mp4)],check=True)
+    assert mp4.stat().st_size>50000, 'MP4 below quality threshold'
+    if shutil.which('ffprobe'):
+     sec=float(subprocess.check_output(['ffprobe','-v','error','-show_entries','format=duration','-of','default=noprint_wrappers=1:nokey=1',str(mp4)],text=True).strip())
+     assert 20<=sec<=30, f'Video duration must be 20-30 seconds: {sec}'
+     print(f'SYNTHETIC_BROWSER_VIDEO_PASS: mp4_duration={sec:.2f}s',flush=True)
+   else:
+    print('SYNTHETIC_BROWSER_VIDEO_WEBM_ONLY: ffmpeg unavailable',flush=True)
+   print('BROWSER_QA_PASS: 3 locked sizes + Admin/Wholesale/Private synthetic authority + reorder + synthetic walkthrough',flush=True)
   finally:browser.close()
 finally: http.terminate();http.wait()
