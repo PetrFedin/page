@@ -53,6 +53,11 @@ try:
    for role,w,h in [('admin',1440,900),('wholesale',768,1024),('private',375,812)]:
     page=browser.new_page(viewport={'width':w,'height':h},device_scale_factor=1)
     errors=[];page.on('pageerror',lambda x: errors.append(str(x)))
+    qa_console=[];qa_requests=[];qa_failures=[]
+    page.add_init_script("window.MP_COMMERCE_QA = true;")
+    page.on('console',lambda x: qa_console.append(x.text[:260]) if x.type in ('error','warning') or x.text.startswith('QA_') else None)
+    page.on('request',lambda x: qa_requests.append(x.method+' '+x.url.split('/rest/v1/rpc/')[-1].split('/auth/v1/')[0][:90]) if 'marcoqa.supabase.co' in x.url else None)
+    page.on('requestfailed',lambda x: qa_failures.append(x.url[:115]+' '+str(x.failure)))
     page.route('**/client/runtime-config.js',lambda route: route.fulfill(status=200,content_type='application/javascript',body="window.MP_COMMERCE_CONFIG={url:'https://marcoqa.supabase.co',publishableKey:'sb_publishable_qa_only'};"))
     page.route('**/marcoqa.supabase.co/**',dispatch)
     page.goto('http://127.0.0.1:8866/commercial-os.html',wait_until='networkidle')
@@ -69,7 +74,10 @@ try:
         'config':page.locator('#config-status').inner_text(),
         'page_errors':errors,
         'is_signed_out':page.locator('#gate').is_visible(),
-        'role_buttons':page.locator('#role-options button').count()
+        'role_buttons':page.locator('#role-options button').count(),
+        'qa_console':qa_console[-12:],
+        'qa_requests':qa_requests[-15:],
+        'qa_failures':qa_failures[-10:]
       }),flush=True)
       page.screenshot(path=str(OUT/f'debug_login_{role}_{w}.png'),full_page=True)
       raise
