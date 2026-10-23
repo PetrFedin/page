@@ -2,7 +2,7 @@ import contextlib, json, os, subprocess, time
 from pathlib import Path
 from playwright.sync_api import sync_playwright
 ROOT=Path(__file__).resolve().parents[1]
-OUT=Path('/mnt/data/mp_v11_browser_qa'); OUT.mkdir(exist_ok=True)
+OUT=Path(os.environ.get('MP_V11_QA_OUT',str(ROOT/'qa'/'screenshots'))); OUT.mkdir(parents=True,exist_ok=True)
 P='11111111-1111-4111-8111-111111111111'; T='22222222-2222-4222-8222-222222222222'; C='33333333-3333-4333-8333-333333333333'; S='44444444-4444-4444-8444-444444444444'; D='55555555-5555-4555-8555-555555555555'
 
 member_buyer={'db_role':'buyer','status':'active','tenant_id':T,'client_id':C,'client_store_id':S,'store_name':'Paris','client_name':'Atelier Paris'}
@@ -61,7 +61,8 @@ try:
     page.locator('#login-submit').click()
     page.locator('#content').wait_for(state='visible',timeout=10000)
     page.locator(f'button[data-role="{role}"]').click()
-    page.locator('#results .workspace-head h2').get_by_text('Overview',exact=True).wait_for(timeout=10000)
+    page.locator('#results .workspace-head h2').wait_for(timeout=10000)
+    assert page.locator('#results .workspace-head h2').inner_text().strip()=='Overview'
     assert 'PostgreSQL authority' in page.locator('#results').inner_text()
     label_fixture(page)
     page.screenshot(path=str(OUT/f'preview_{role}_{w}.png'),full_page=True)
