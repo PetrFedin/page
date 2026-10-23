@@ -4,7 +4,7 @@ import {T} from '../assets/content.js';
 import {chromium} from 'playwright';
 const b=await chromium.launch({headless:true,args:['--no-sandbox']});
 try{
- for(const lang of ['ru','en'])for(const width of [390,1024,1440]){
+ for(const lang of ['ru','en'])for(const width of [375,390,768,1024,1440]){
   const page=await b.newPage({viewport:{width,height:900},reducedMotion:'reduce'});
   const errors=[];page.on('pageerror',e=>errors.push(String(e)));
   await page.route('https://challenges.cloudflare.com/**',r=>r.fulfill({status:200,contentType:'text/javascript',body:''}));
@@ -14,6 +14,19 @@ try{
   assert.equal(T[lang].hero.facts.length,5,'five experience profiles');
   assert.equal(await page.locator('#facts-bar .fact-card').count(),5);
   assert.equal(await page.locator('#services>li').count(),5);
+  const indexes=await page.locator('#services .svc-n').allTextContents();
+  assert.deepEqual(indexes.map(x=>x.trim().split(' / ')[0]),['01','02','03','04','05'],'all service indices must be defined');
+  assert.ok(indexes.every(x=>!x.includes('undefined')),'no undefined text in visible service cards');
+  if(width<=390){
+   for(const selector of ['#services>li','#facts-bar>.fact-card']){
+    const boxes=await page.locator(selector).evaluateAll(ns=>ns.map(n=>n.getBoundingClientRect().toJSON()));
+    assert.equal(boxes.length,5,'five independently laid out cards '+selector);
+    for(let i=1;i<boxes.length;i++)assert.ok(boxes[i].top>=boxes[i-1].bottom+5,
+     'mobile card overlap in '+selector+' at '+width+': '+JSON.stringify(boxes));
+   }
+   assert.equal(await page.locator('#services + .snap-dots').count(),0,'no obsolete carousel dots after vertical service grid');
+   assert.equal(await page.locator('#facts-bar + .snap-dots').count(),0,'no obsolete carousel dots after vertical experience grid');
+  }
   if(width===1440){
    const rects=await page.locator('#services>li').evaluateAll(e=>e.map(x=>x.getBoundingClientRect().toJSON()));
    assert.ok(rects.every(x=>Math.abs(x.y-rects[0].y)<3),'all five consulting cards in one row');
