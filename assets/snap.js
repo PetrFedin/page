@@ -24,6 +24,7 @@ function fitHeight(track) {
 }
 
 function buildDots(track) {
+  if (['services','facts-bar'].includes(track.id)) return;
   let dots = track.nextElementSibling;
   if (!dots?.classList.contains('snap-dots')) {
     dots = document.createElement('div');

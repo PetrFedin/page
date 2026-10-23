@@ -9,6 +9,8 @@ on:
       - 'assets/profile.css'
       - 'assets/brand-platform.js'
       - 'assets/brand-platform.css'
+      - 'assets/layout-hotfix.css'
+      - 'scripts/browser-consulting-five-grid-qa.mjs'
       - 'assets/portfolio-media-evidence.js'
       - 'scripts/browser-v2-brand-platform-qa.mjs'
       - 'scripts/browser-v2-professional-flow-qa.mjs'
@@ -196,6 +198,7 @@ jobs:
           python3 -m http.server 4321 --bind 127.0.0.1 --directory dist-pages >/tmp/portfolio-http.log 2>&1 &
           node scripts/browser-portfolio-qa.mjs
           node scripts/browser-v2-brand-platform-qa.mjs
+          node scripts/browser-consulting-five-grid-qa.mjs
           node scripts/browser-v2-professional-flow-qa.mjs
           node scripts/browser-v2-client-paths-qa.mjs
           node scripts/browser-lead-routes-qa.mjs

@@ -15,7 +15,7 @@ const COPY = {
       ['Инвесторам', 'Конкретный продукт, его стадия, риски, права и условия следующего этапа.']
     ],
     experienceTitle: 'Опыт, на который можно опереться',
-    consultingTitle: 'Чем могу помочь бизнесу',
+    consultingTitle: 'Консалтинг и аналитика',
     consultingSub: 'Пять направлений. В каждом — конкретное решение и следующий шаг; состав работ обсуждаем под вашу задачу.',
     services: [
       'Выбор рынка, категории и модели роста с расчётом рисков.',
@@ -88,7 +88,7 @@ const COPY = {
       ['Investors', 'A specific product, its stage, risks, ownership and the next milestone.']
     ],
     experienceTitle: 'Relevant experience',
-    consultingTitle: 'How I help businesses',
+    consultingTitle: 'Consulting & analytics',
     consultingSub: 'Five areas of work. Each leads to a decision and a next step; the scope depends on your situation.',
     services: [
       'Market, category and growth-model choices with explicit risks.',

@@ -1,0 +1,56 @@
+name: V2 source-verified portfolio media integration
+on:
+  push:
+    branches:
+      - fix/page-v2-consulting-experience-media-20261019
+    paths:
+      - scripts/sync-portfolio-review-media.mjs
+      - .github/workflows/v2-portfolio-media-sync.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: isolated-v2-product-media
+  cancel-in-progress: true
+jobs:
+  integrate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify origin SHA-256 and integrate only reviewed captures
+        run: |
+          set -euo pipefail
+          node scripts/sync-portfolio-review-media.mjs
+          node --check assets/content.js
+          node --check assets/portfolio-media-evidence.js
+          node --check assets/portfolio-extensions.js
+          node scripts/verify-portfolio-media-evidence.mjs
+          node scripts/verify-public-portfolio-boundaries.mjs
+      - name: Commit reviewed capture assets only to the V2 branch
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/portfolio-reviewed assets/content.js assets/portfolio-media-evidence.js assets/portfolio-extensions.js
+          if git diff --cached --quiet; then
+            echo "All reviewed media already present."
+            exit 0
+          fi
+          git commit -m "media(V2): publish source-verified five product demos with exact SHA-256"
+          for attempt in 1 2 3; do
+            git fetch origin fix/page-v2-consulting-experience-media-20261019
+            git rebase origin/fix/page-v2-consulting-experience-media-20261019
+            if git push origin HEAD:fix/page-v2-consulting-experience-media-20261019; then
+              echo "Media committed to current V2 feature branch with fast-forward proof"
+              exit 0
+            fi
+            sleep 3
+          done
+          echo "::error::Another change prevented safely fast-forwarding V2 media" 
+          exit 1

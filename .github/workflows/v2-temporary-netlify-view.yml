@@ -1,0 +1,82 @@
+name: V2 temporary Netlify interactive proof
+on:
+  push:
+    branches:
+      - fix/page-v2-consulting-experience-media-20261019
+    paths:
+      - docs/requests/netlify-temporary-publish.trigger
+permissions:
+  contents: read
+jobs:
+  temporary-view:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Build the exact reviewed V2 branch
+        env:
+          EXPECTED_SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_SHA"
+          node scripts/verify-investor-dossiers.mjs
+          node scripts/verify-netlify-contact.mjs
+          npm run build
+          npm run package:pages
+          node scripts/verify-pages-release.mjs
+          node scripts/verify-public-portfolio-boundaries.mjs
+          node scripts/prepare-netlify-review.mjs
+          test "$(node -p "JSON.parse(require('fs').readFileSync('./dist-pages/release-health.json','utf8')).source_sha")" = "$EXPECTED_SHA"
+      - name: Publish a short-lived static-only view without modifying existing sites
+        env:
+          EXPECTED_SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/v2-no-netlify-functions
+          npx --yes netlify-cli@27.12.1 deploy --prod --allow-anonymous --no-build --dir=dist-pages --functions=/tmp/v2-no-netlify-functions --json >/tmp/v2-anonymous-deploy.json
+          node --input-type=module <<'NODE'
+          import {readFileSync,writeFileSync} from 'node:fs';
+          const data=JSON.parse(readFileSync('/tmp/v2-anonymous-deploy.json','utf8'));
+          const observed=[];
+          function collect(value,depth=0){
+            if(depth>6)return;
+            if(typeof value==='string' && /^https?:\/\//.test(value)){
+              try { const u=new URL(value); if(u.hostname.endsWith('.netlify.app'))observed.push(u.origin); } catch{}
+            }else if(Array.isArray(value)) value.forEach(v=>collect(v,depth+1));
+            else if(value && typeof value==='object') Object.values(value).forEach(v=>collect(v,depth+1));
+          }
+          collect(data);
+          if(!observed.length)throw new Error('Anonymous Netlify output has no deploy URL; top-level keys: '+Object.keys(data).join(','));
+          const result=[];
+          let selected=null;
+          for(const candidate of [...new Set(observed)]){
+            const url=new URL(candidate.replace(/^http:/,'https:'));
+            try{
+              const res=await fetch(url.origin+'/release-health.json',{redirect:'follow'});
+              if(res.ok){
+                const marker=await res.json();
+                if(marker.source_sha===process.env.EXPECTED_SHA){selected={url,marker};break;}
+                result.push(url.hostname+' wrong-sha');
+              } else result.push(url.hostname+' HTTP-'+res.status);
+            }catch(err){result.push(url.hostname+' fetch-failed');}
+          }
+          if(!selected)throw new Error('No publicly verifiable Netlify URL; results: '+result.join('; '));
+          const {url,marker}=selected;
+          const out={url:url.origin,source_sha:marker.source_sha,kind:'anonymous-claimable-temporary',expires_if_unclaimed:'about_one_hour',contact:'disabled_on_static_view',claim_url:data.claim_url||data.claimUrl||null};
+          writeFileSync('v2-temporary-view.json',JSON.stringify(out,null,2));
+          console.log('Verified temporary Netlify V2:',out.url,'SHA',out.source_sha);
+          const summary='### Temporary Netlify V2 — verified\n\n- Preview: '+out.url+'\n- Source SHA: '+out.source_sha+'\n- Claimable within one hour; unclaimed sites expire.\n- Static only; contacts via direct Telegram/WhatsApp.\n- Existing Netlify staging and syntha.pro are untouched.\n';
+          writeFileSync(process.env.GITHUB_STEP_SUMMARY,summary,{flag:'a'});
+          NODE
+      - uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: v2-temporary-netlify-public-link-${{ github.sha }}
+          path: v2-temporary-view.json
+          retention-days: 2

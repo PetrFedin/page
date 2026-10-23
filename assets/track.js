@@ -12,7 +12,7 @@
   const qs = new URLSearchParams(location.search);
   if (qs.has('notrack')) store.set('notrack', '1');
   if (qs.has('track')) store.del('notrack');
-  const off = store.get('notrack') === '1' || /^(localhost|127\.|\[::1\])/.test(location.hostname) || navigator.webdriver;
+  const off = store.get('notrack') === '1' || /^(localhost|127\.|\[::1\])/.test(location.hostname) || /\.netlify\.app$/i.test(location.hostname) || navigator.webdriver;
   const noop = () => {};
   if (off) { window.track = noop; window.__vid = ''; return; }
 

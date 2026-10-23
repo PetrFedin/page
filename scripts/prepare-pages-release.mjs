@@ -25,6 +25,7 @@ const staticDirs=['assets','en'];
 const mustHave=[
  'index.html','en/index.html','profile.html','en/profile.html',
  'assets/profile.js','assets/profile.css','assets/brand-platform.js','assets/brand-platform.css',
+ 'assets/layout-hotfix.css',
  'assets/portfolio-media-evidence.js','assets/app.js','assets/styles.css',
  'assets/lead-paths.js','assets/portfolio-extensions.js','assets/business-services.js',
  'assets/investor-calculator.js','assets/opportunity-copy.js',

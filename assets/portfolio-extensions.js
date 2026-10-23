@@ -112,23 +112,23 @@ export const EXTRA_PROJECTS = [
       "capabilities": [
         {
           "area": "Product engineering / PLM",
-          "feature": "Style → SKU → BOM → tech pack → readiness, спецификации, поставщики и производственные этапы"
+          "feature": "Style → SKU → BOM → tech pack → readiness, technical specifications, suppliers and production milestones"
         },
         {
-          "area": "Collection / Digital Showroom",
-          "feature": "Коллекции, версия публикации, каталог покупателя, персональный прайс"
+          "area": "Collection / Digital showroom",
+          "feature": "Collections, publication revisions, buyer-facing catalogues and account-specific pricing"
         },
         {
-          "area": "Wholesale order",
-          "feature": "Размерные матрицы, резерв, MOQ/ATS, заказ, двухстороннее подтверждение, DealSpace"
+          "area": "Wholesale ordering",
+          "feature": "Size matrices, reservation rules, MOQ/ATS, orders, bilateral confirmations and deal workspace"
         },
         {
-          "area": "Supply / margin",
-          "feature": "Поставка и приёмка, landed cost, аллокация затрат, closing snapshot и проверка маржи"
+          "area": "Supply chain / margin",
+          "feature": "Shipment and receiving, landed costs, cost allocation, period-close snapshots and margin reconciliation"
         },
         {
           "area": "Roles / evidence",
-          "feature": "PostgreSQL, роли организаций, подтверждения, immutable snapshots и проверяемые acceptance gates"
+          "feature": "Organizational permissions, PostgreSQL controls, approval history, immutable snapshots and acceptance checks"
         }
       ],
       "status": {
@@ -273,24 +273,24 @@ export const EXTRA_PROJECTS = [
       ],
       "capabilities": [
         {
-          "area": "Аукционы и закупки",
-          "feature": "Сырьё, сорт, цвет, спецификация, аукцион, документы и счета"
+          "area": "Auctions and sourcing",
+          "feature": "Raw materials, grades, colour, specifications, auction provenance, invoices and documents"
         },
         {
-          "area": "Остатки и партии",
-          "feature": "Материальные лоты, движения, резервы, нормы и баланс сырья"
+          "area": "Inventory and lots",
+          "feature": "Lot-level stock, transactions, reservations, standards and material balance"
         },
         {
-          "area": "Производство",
-          "feature": "ТЗ, модели, раскрой, пошив, производственные партии и контроль этапов"
+          "area": "Production",
+          "feature": "Technical briefs, styles, cutting, sewing, production batches and stage control"
         },
         {
-          "area": "Экономика",
-          "feature": "Себестоимость сырья и услуг, комиссии, НДС, оплаты, задолженности и отгрузки"
+          "area": "Economics",
+          "feature": "Material and service costing, commissions, VAT, payments, receivables and shipments"
         },
         {
-          "area": "Проверяемость",
-          "feature": "Раздельные компании и роли, история операций, сверка первичных документов, очередь неподтверждённых решений"
+          "area": "Auditability",
+          "feature": "Tenant isolation, permissions, operations log, source-document reconciliation and unresolved approvals"
         }
       ],
       "status": {
@@ -328,7 +328,13 @@ export const EXTRA_PROJECTS = [
     "id": "antiqua",
     "name": "Antiqua",
     "device": "ipad",
-    "shots": [],
+    "shots": [
+      "/assets/portfolio-reviewed/antiqua/gallery-desktop.png",
+      "/assets/portfolio-reviewed/antiqua/museum-paintings.png",
+      "/assets/portfolio-reviewed/antiqua/artwork-details.png",
+      "/assets/portfolio-reviewed/antiqua/owner-collection.png"
+    ],
+    "video": "/assets/portfolio-reviewed/antiqua/visitor-gallery-28s.mp4",
     "ru": {
       "tagline": "Исследовательская цифровая галерея искусства",
       "stage": "Развитие каталога и проверка инфраструктуры",
@@ -433,24 +439,24 @@ export const EXTRA_PROJECTS = [
       ],
       "capabilities": [
         {
-          "area": "Artwork Passport",
-          "feature": "Авторство/атрибуция, дата, техника, размеры, подписи, состояние, медиа"
+          "area": "Artwork passport",
+          "feature": "Attribution, period, medium, dimensions, signatures, condition reports and media"
         },
         {
-          "area": "Provenance & evidence",
-          "feature": "Хронология владения, источники, неопределённости, конфликты, библиография"
+          "area": "Provenance and evidence",
+          "feature": "Ownership chronology, sources, uncertainty levels, conflicts and bibliography"
         },
         {
-          "area": "Research & contributors",
-          "feature": "Экспертные заключения, публикации, выставки, история изменений и рецензирование"
+          "area": "Research and contributors",
+          "feature": "Expert findings, publications, exhibitions, revisions and peer review"
         },
         {
-          "area": "Collections / gallery",
-          "feature": "Частные и публичные коллекции, исследовательское представление, доступ по ролям"
+          "area": "Collections and galleries",
+          "feature": "Private and public collections, research presentation and role-based visibility"
         },
         {
-          "area": "Commercial journeys",
-          "feature": "Запрос по произведению, подготовка частной продажи и статусы без заявления о готовых платежах"
+          "area": "Commercial workflows",
+          "feature": "Enquiries, private-sale preparation and traceable states; live payments are not asserted"
         }
       ],
       "status": {
@@ -591,24 +597,24 @@ export const EXTRA_PROJECTS = [
       ],
       "capabilities": [
         {
-          "area": "Стол и сборка AR",
-          "feature": "Распознавание плоскости, коробка с деталями, рука, захват, поворот, snap и подсказки"
+          "area": "AR tabletop building",
+          "feature": "Plane detection, boxes and pieces, hand interaction, grab, rotate, snap and guidance"
         },
         {
-          "area": "Инструкции",
-          "feature": "Книга шагов, режим самостоятельной сборки, просмотр детали и восстановление прогресса"
+          "area": "Instructions",
+          "feature": "Step-by-step guide, free-build mode, piece inspection and progress recovery"
         },
         {
-          "area": "Игровой цикл",
-          "feature": "Звёзды, рекорды, монеты, опыт, навыки, режим на время, локальное соревнование"
+          "area": "Play loop",
+          "feature": "Stars, records, virtual coins, experience, skills, timed mode and local challenges"
         },
         {
-          "area": "Коллекция и творчество",
-          "feature": "Полка моделей, магазин наборов, песочница, мастерская, сохранение"
+          "area": "Collection and creativity",
+          "feature": "Model shelf, set store, sandbox, creator workshop and saved progress"
         },
         {
-          "area": "Перспектива",
-          "feature": "Большие пакетные наборы, каталоги авторских моделей, образовательный класс, модерация и сервер — roadmap, не готовая услуга"
+          "area": "Development roadmap",
+          "feature": "Large modular sets, creator catalogue, classroom workflows, moderation and server features are planned, not launched"
         }
       ],
       "status": {
@@ -642,13 +648,13 @@ export const EXTRA_PROJECTS = [
   },
   {
     "id": "marco",
-    "name": "Marco Pescarolo — Private Commercial Showroom",
+    "name": "PRIVATE COMMERCIAL OS",
     "device": "ipad",
     "shots": [],
     "ru": {
       "tagline": "Мультиконтурный luxury showroom и B2B-ordering",
       "stage": "Брендовая демонстрационная разработка; полноценный production lifecycle и независимая проверка доступов не подтверждены",
-      "card": "Эксклюзивная цифровая коммерческая платформа для итальянского бренда Marco Pescarolo: брендовый showroom, коллекции, приватные цены и рекомендации размера, B2C-заказ, оптовая размерная матрица, согласование, поставки, sell-through и повторная закупка.",
+      "card": "Коммерческая платформа для fashion-бренда: брендовый showroom, коллекции, приватные цены и рекомендации размера, B2C-заказ, оптовая размерная матрица, согласование, поставки, sell-through и повторная закупка.",
       "what": "Не универсальный шаблон торговой площадки: отдельная брендовая система с ролями Private Client, Wholesale Buyer и Admin, с собственными коммерческими сценариями и визуальным языком.",
       "who": "Люксовые бренды, байеры магазинов, торговые представители, частные клиенты и администрация бренда.",
       "why": "Превратить презентацию коллекции в контролируемый заказ и повторную продажу, не раскрывая чужие цены или себестоимость.",
@@ -720,7 +726,7 @@ export const EXTRA_PROJECTS = [
     "en": {
       "tagline": "Multi-channel luxury showroom and B2B ordering",
       "stage": "Brand-specific showcase; full production lifecycle and independent access admission not yet verified",
-      "card": "A brand-exclusive digital commercial showroom designed for Italian label Marco Pescarolo: collections, private prices and sizing, B2C order path, wholesale matrices, brand approvals, delivery, sell-through and reorder.",
+      "card": "A modular digital showroom and commercial operating system for fashion brands: collections, private prices and sizing, B2C order path, wholesale matrices, brand approvals, delivery, sell-through and reorder.",
       "what": "A digital showroom and commercial OS with separate wholesale and private-client permissions.",
       "who": "Luxury brands, wholesale buyers, sales reps, private clients and brand administration.",
       "why": "Turn presentations into governed ordering and repeat sales without leaking restricted pricing or cost.",
@@ -797,19 +803,19 @@ export const EXTRA_PROJECTS = [
     "shots": [],
     "ru": {
       "tagline": "Финансовая устойчивость · обязательства · прогноз",
-      "stage": "SVEDO v54 — изолированный прототип. Локальные тесты пройдены; production и банковские интеграции не подтверждены.",
+      "stage": "SVEDO v64 (18.10.2026) — локальный инженерный кандидат. Production HOLD / WA01 PAUSE; реальные банковские подключения не подтверждены.",
       "card": "SVEDO помогает собрать кредиты, карты, рассрочки, регулярные платежи и доходы в одну картину. Показывает календарь обязательств, прогноз денег, риск кассовых разрывов и сценарии погашения. Текущая версия — проверяемый локальный кандидат, не банковский сервис.",
       "what": "Персональная финансовая система поддержки решений: Today → обязательства → календарь → бюджет → денежный поток → сравнение вариантов → план действий. Цель — заранее увидеть нехватку денег и последствия каждого финансового выбора.",
       "who": "Человек с несколькими кредитами или картами; семья с переменным доходом; консультант, которому нужна прозрачная модель обязательств. Финансовые партнёрства рассматриваются только после технического и правового допуска.",
       "why": "Снизить неопределённость перед платежом: какие обязательства ближайшие, сколько денег остаётся после обязательных расходов, какие сценарии приводят к дефициту и как меняется будущая нагрузка.",
-      "how": "Локальный движок расчёта графиков и cash flow, интерфейсы сценариев, событийные и версионированные состояния. В кандидате v54 отлажены клиентские границы шифрованного checkpoint, защита от устаревших ревизий и соответствие 22 API-маршрутам; живые Auth/PostgreSQL/банковские подключения не допущены.",
+      "how": "Локальный движок расчёта графиков и cash flow, интерфейсы сценариев, событийные и версионированные состояния. Кандидат v64 построен от проверенной v61: финансовые сценарии без изменения исходных обязательств, адаптивная навигация и управление модальными окнами. Проверки локальные; Auth/PostgreSQL/банковская среда не квалифицированы.",
       "roadmap": [
         {
           "label": "Модель и локальный прототип",
           "state": "done"
         },
         {
-          "label": "Контрактные тесты v54",
+          "label": "Локальная проверка v64",
           "state": "done"
         },
         {
@@ -848,16 +854,16 @@ export const EXTRA_PROJECTS = [
         },
         {
           "area": "Проверка готовности",
-          "feature": "11 экранов в изолированном Chromium, 22 API-маршрута в source-контракте; нет подтверждённых живых банковских данных"
+          "feature": "По отчёту v64: 188/188 локальных UX-сценариев Chromium и 84/84 финансовых теста; это не подтверждение реальной банковской среды"
         }
       ],
       "status": {
         "done": [
-          "Изолированный кандидат v54: локальная регрессия и синтетические сценарии интерфейса, финансовых контрактов и криптографического транспорта.",
-          "В v54 исправлены конфликты delete/recreate, проверки сессии при восстановлении и исходная карта 22 API-маршрутов. Это не live cloud proof."
+          "По отчёту v64: основной инженерный набор завершился EXIT 0; отдельно 188/188 UX, 84/84 расчёта и 89/89 изолированных HTTP/API-проверок.",
+          "v64 собрана от подтверждённой v61; включает 12 скриншотов и два 25-секундных ролика из последовательностей кадров. Нет независимой live HTTPS / Auth / PostgreSQL аттестации."
         ],
         "now": [
-          "Необходим отдельный доступный репозиторий SVEDO с exact-SHA CI; его GitHub URL в подключённом аккаунте пока не подтверждён."
+          "Отдельный доступный репозиторий SVEDO и hosted exact-SHA CI пока не подтверждены; публикация и банковские операции заблокированы."
         ],
         "next": [
           "Независимые проверки PostgreSQL 17, Supabase Auth/AAL2, RLS/GRANT, реальной конкурентности и HTTPS.",
@@ -880,24 +886,24 @@ export const EXTRA_PROJECTS = [
         }
       ],
       "investor": {
-        "note": "SVEDO v54 — исходный локально протестированный прототип, не опубликованный финансовый сервис. Коммерческие показатели, реальные банковские интеграции и production готовность не подтверждены; экономическая модель носит гипотетический характер."
+        "note": "SVEDO v64 — документированный локальный кандидат от 18.10.2026, не опубликованный финансовый сервис. Коммерческие показатели, реальные банковские интеграции и production готовность не подтверждены; экономическая модель носит гипотетический характер."
       }
     },
     "en": {
       "tagline": "Financial resilience · obligations · cash-flow planning",
-      "stage": "SVEDO v54 isolated candidate. Source/local tests only; banking and production not qualified.",
+      "stage": "SVEDO v64 (18 Oct 2026) local engineering candidate. Production HOLD / WA01 PAUSE; live banking not qualified.",
       "card": "SVEDO brings loans, credit cards, instalments, recurring commitments and income into one financial picture. It models payment calendars, liquidity gaps and repayment choices. Current status: a locally tested candidate, not a live banking service.",
       "what": "Personal financial decision workspace: today’s priorities → liabilities → payments → budget → cash-flow projections → alternative scenarios → plan.",
       "who": "Individuals and households managing several loans, cards or variable income; expert partners after legal and security review.",
       "why": "Make upcoming cash needs and the long-term implications of payment choices understandable rather than relying on fragmented bank statements.",
-      "how": "Local calculation and scenario engines, versioned states and source-tested encrypted checkpoint interfaces. V54 repairs stale revision conflicts and checks 22 API routes; production Auth, PostgreSQL and bank connections remain unverified.",
+      "how": "Local calculation and scenario engines, versioned states and source-tested encrypted checkpoint interfaces. V64 is based on the verified v61 candidate: non-mutating cash-flow scenarios, responsive navigation and modal lifecycle. Production Auth, PostgreSQL and bank connections remain unverified.",
       "roadmap": [
         {
           "label": "Model and local prototype",
           "state": "done"
         },
         {
-          "label": "V54 source verification",
+          "label": "V64 local QA evidence",
           "state": "done"
         },
         {
@@ -936,16 +942,16 @@ export const EXTRA_PROJECTS = [
         },
         {
           "area": "Evidence boundary",
-          "feature": "11 locally tested UI screens, 22 source-linked API routes; no verified live bank data"
+          "feature": "V64 report: 188/188 local Chromium UX cases and 84/84 financial scenarios; no verified live bank data"
         }
       ],
       "status": {
         "done": [
-          "V54 isolated source/local test candidate with synthetic UI, financial and crypto transport checks.",
-          "V54 fixes delete/recreate conflicts, session-change checks and API route parity; not a live cloud attestation."
+          "V64 report: main engineering suite EXIT 0, plus 188/188 UX, 84/84 finance and 89/89 isolated HTTP/API checks.",
+          "V64 derives from an authenticated v61 baseline; its 12 screenshots and two 25-second videos are assembled UI frames, not continuous recordings or live cloud proof."
         ],
         "now": [
-          "Dedicated SVEDO GitHub repository and exact-head CI have not yet been verified in the connected account."
+          "A dedicated SVEDO GitHub repository and hosted exact-SHA CI remain unverified; no production or banking operation is authorized."
         ],
         "next": [
           "Independent PostgreSQL 17, Auth/AAL2, RLS, concurrency and HTTPS checks.",
@@ -968,7 +974,7 @@ export const EXTRA_PROJECTS = [
         }
       ],
       "investor": {
-        "note": "SVEDO v54 is a local candidate, not a launched financial product. Revenue, bank integrations and production readiness are not validated; economic cases are hypothetical."
+        "note": "SVEDO v64 (18 Oct 2026) is a reported local candidate, not a launched financial product. Revenue, bank integrations and production readiness are not validated; economic cases are hypothetical."
       }
     }
   }

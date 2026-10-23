@@ -514,7 +514,7 @@ function render() {
   $('#services').innerHTML = services.items.map((it, i) => `
     <li class="${it.featured ? 'svc-featured-item' : ''}">
       <button class="svc${it.featured?' svc-featured':''}" type="button" data-svc="${i}" data-service="${it.id}" aria-haspopup="dialog">
-        <span class="svc-n">${it.num} / ${it.tag}</span>
+        <span class="svc-n">${String(i + 1).padStart(2, '0')} / ${it.tag}</span>
         <span class="svc-t">${it.title}</span>
         <span class="svc-b">${it.body}</span>
         <span class="svc-d"><b>${t.consulting.decisionLabel}</b>${it.decision}</span>
@@ -906,9 +906,13 @@ gallery.addEventListener('click', (e) => {
   if (!v.currentSrc && !v.children.length) {
     /* Первым идёт MP4: iOS декодирует его аппаратно, WebM — программно.
        Браузер сам возьмёт из списка первый формат, который умеет. */
-    const webm = v.dataset.src;
-    const mp4 = webm.replace(/\.webm$/, '.mp4');
-    for (const [src, type] of [[mp4, 'video/mp4'], [webm, 'video/webm']]) {
+    const requested = v.dataset.src;
+    const sources = /\.webm$/i.test(requested)
+      ? [[requested.replace(/\.webm$/i, '.mp4'), 'video/mp4'], [requested, 'video/webm']]
+      : /\.mp4$/i.test(requested)
+        ? [[requested, 'video/mp4']]
+        : [];
+    for (const [src, type] of sources) {
       const source = document.createElement('source');
       source.src = src;
       source.type = type;
@@ -2221,7 +2225,8 @@ addEventListener('popstate', applyHash);
 
 
 /* ---------- вложение ---------- */
-const MAX_FILE = 20 * 1024 * 1024;   // Telegram принимает до 50 МБ, берём запас
+const MAX_FILE = 20 * 1024 * 1024;   // Host-specific Netlify preview limits are checked below.
+const IS_V2_NETLIFY = location.hostname.toLowerCase().endsWith('.netlify.app');
 
 function showFile() {
   const f = $('#attach').files?.[0];
@@ -2232,10 +2237,10 @@ function showFile() {
 $('#attach').addEventListener('change', () => {
   const f = $('#attach').files?.[0];
   const note = $('#form-note');
-  if (f && f.size > MAX_FILE) {
+  if (f && f.size > (IS_V2_NETLIFY ? 3 * 1024 * 1024 : MAX_FILE)) {
     $('#attach').value = '';
     note.className = 'form-note';
-    note.textContent = T[lang].contact.fileTooBig;
+    note.textContent = IS_V2_NETLIFY ? (lang === 'en' ? 'File exceeds 3 MB. Send a link instead.' : 'Файл больше 3 МБ. Пришлите ссылку вместо вложения.') : T[lang].contact.fileTooBig;
   }
   showFile();
 });
@@ -2275,7 +2280,7 @@ function syncSubmit() {
   const f = new FormData(form);
   const filled = String(f.get('name') ?? '').trim() && String(f.get('message') ?? '').trim();
   const reach = ['email', 'telegram', 'phone'].some((k) => String(f.get(k) ?? '').trim());
-  $('#submit').disabled = !(filled && reach && $('#consent').checked);
+  $('#submit').disabled = !(filled && reach && $('#consent').checked && (!IS_V2_NETLIFY || window.__contactBackendReady === true));
   /* Пока человек уже начал заполнять, подсказываем, чего не хватает для отправки. */
   const hint = $('#form-missing');
   if (hint) {
@@ -2432,8 +2437,9 @@ $('#form').addEventListener('submit', async (e) => {
     const blocked = String(err?.message) === '400';
     note.innerHTML = `${blocked ? t.contact.failCaptcha : t.contact.fail} <a href="https://t.me/sheqel" target="_blank" rel="noopener">Telegram</a> · <a href="https://wa.me/79775781685" target="_blank" rel="noopener">WhatsApp</a>`;
   } finally {
-    btn.disabled = false;
     btn.textContent = t.contact.send;
+    // The server may be unavailable: never override the fail-closed submit gate.
+    syncSubmit();
   }
 });
 
@@ -2443,7 +2449,8 @@ $('#form').addEventListener('submit', async (e) => {
 $('#share-contact').addEventListener('click', async () => {
   const t = T[lang].contact;
   const btn = $('#share-contact');
-  const lines = [t.shareText, 'https://syntha.pro/', ...CONTACTS.map((c) => `${c.label[lang]}: ${c.value}`)];
+  const shareSiteUrl = IS_V2_NETLIFY ? location.origin + '/' : 'https://syntha.pro/';
+  const lines = [t.shareText, shareSiteUrl, ...CONTACTS.map((c) => `${c.label[lang]}: ${c.value}`)];
   const text = lines.join('\n');
   try {
     let files;
@@ -2453,7 +2460,7 @@ $('#share-contact').addEventListener('click', async () => {
       if (navigator.canShare?.({ files: [file] })) files = [file];
     } catch { /* без файла тоже годится */ }
     if (navigator.share) {
-      await navigator.share({ title: 'Пётр Федин', text, ...(files ? { files } : { url: 'https://syntha.pro/' }) });
+      await navigator.share({ title: 'Пётр Федин', text, ...(files ? { files } : { url: shareSiteUrl }) });
       return;
     }
     await navigator.clipboard.writeText(text);

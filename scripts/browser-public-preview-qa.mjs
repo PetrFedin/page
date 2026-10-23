@@ -50,6 +50,18 @@ try {
       assert.deepEqual(featured, ['syntha','chatx','renova'],
         'Only three flagship projects visible until expansion');
       assert.equal(await page.locator('#services li').count(), 5, 'Five advisory services');
+      assert.equal(await page.locator('#facts-bar>.fact-card').count(), 5,
+        'Five expertise cards, including business systems integration');
+      assert.equal(await page.locator('#facts-bar [data-area="systems-integration"]').count(), 1,
+        'Distinct systems integration expertise is present');
+      if (width === 1440) {
+        const cells = await page.locator('#services>li').evaluateAll(nodes =>
+          nodes.map(x=>({x:x.getBoundingClientRect().x,y:x.getBoundingClientRect().y,w:x.getBoundingClientRect().width})));
+        assert.ok(cells.every(x=>Math.abs(x.y-cells[0].y)<5),
+          'Five advisory cards must share one desktop row');
+        assert.ok(Math.max(...cells.map(x=>x.w))-Math.min(...cells.map(x=>x.w))<5,
+          'Advisory cards must have equal widths');
+      }
       await page.locator('#projects-more').click();
       assert.equal(await page.locator('#cards>.card').count(), 11,
         'Eleven projects available after expansion');
