@@ -8,6 +8,9 @@ on:
   workflow_dispatch:
 permissions:
   contents: read
+concurrency:
+  group: marco-v31-11-qa-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   commerce-unit:
     name: Exact money math and authorization contracts
@@ -68,7 +71,7 @@ jobs:
       - name: Install pinned browser test dependencies
         run: |
           python -m pip install 'playwright==1.56.0'
-          python -m playwright install --with-deps chromium
+          python -m playwright install chromium
       - name: Run isolated Chromium integration QA with synthetic RPC fixtures
         env:
           MP_V11_QA_OUT: ${{ github.workspace }}/artifacts/ui-fixtures
