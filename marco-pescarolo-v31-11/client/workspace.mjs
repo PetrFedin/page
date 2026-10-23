@@ -249,7 +249,11 @@ function boot() {
     e.preventDefault(); if(!gateway)return;const button=el('login-submit');button.disabled=true;alert('');
     const email=el('email').value,pass=el('password').value;el('password').value='';
     try {const access=await gateway.signIn(email,pass);const roles=gateway.getContexts();if(!roles.length)throw new CommerceError('NO_GRANTED_ROLE');await load(roles[0].role);}
-    catch(err){await gateway.signOut();setSignedOut(`${t('loadError')} ${err instanceof CommerceError?err.code:''}`);}
+    catch(err){
+      if (globalThis.MP_COMMERCE_QA === true) console.error('QA_LOGIN_FAILURE',err?.name || 'Unknown',err?.code || '-',String(err?.message || '').slice(0,160));
+      await gateway.signOut();
+      setSignedOut(`${t('loadError')} ${err instanceof CommerceError?err.code:'CONNECTION_OR_RUNTIME_ERROR'}`);
+    }
     finally {button.disabled=false;}
   });
   document.addEventListener('click',async e=>{
